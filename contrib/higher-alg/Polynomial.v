@@ -69,6 +69,27 @@ Section Polynomial.
   Definition PolyRel : Type :=
     forall (f : Ops P), InFrame f -> Type.
   
+  (** Coroll a? I think these are corollaries? **)
+  Corollary OpIsTree {i : I} (f : Op P i) : Tree i.
+  Proof.
+    refine (nd (f; fun j p => lf j)).
+  Defined.
+  
+(*   (** Corolla-frm **)
+  Corollary Corolla_Frm {i : I} (f : Op P i) (j : I) 
+    : Leaf (OpIsTree f) j <~> Param P f j.
+  Proof.
+    srapply (BuildEquiv).
+    
+    
+    srapply (BuildIsEquiv).
+    srefine (BuildEquiv _ _ _ _ ).
+    + 
+  
+   *)
+   
+  
+  
 End Polynomial.
   
 Section PolyMagma.
@@ -98,13 +119,15 @@ End PolyMagma.
 
 Notation "P // R" := (@PolySlice _ P R) : polyscope.
 
+(*
+
 Section PolyMonad.
   
   Context {I : Type} {P : Poly I} (R : PolyRel P).
   
   Global Open Scope polyscope.
   
-  (* (** Flatten a sliced tree **)
+   (** Flatten a sliced tree **)
   Definition Flatten {i : I} {f : Op P i} (w : Tree (P // R) (i; f)) : Tree P i :=
     match w with
       | (lf (i; f)) => corolla P f
