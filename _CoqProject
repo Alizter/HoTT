@@ -419,3 +419,4 @@ contrib/higher-alg/Polynomial.v
 contrib/higher-alg/Util.v
 contrib/higher-alg/Substitution.v
 contrib/higher-alg/Polynomial2.v
+contrib/higher-alg/Polynomial3.v

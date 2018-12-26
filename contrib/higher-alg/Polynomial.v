@@ -1,5 +1,6 @@
 Require Import HoTT.Basics.
 Require Import HoTT.Types.
+Require Import Basics.Equivalences.
 
 Set Universe Polymorphism.
 Set Implicit Arguments.
@@ -30,7 +31,7 @@ Section Polynomial.
     := exists (f : Op P i), forall j, Param P f j -> X j.
   
   (** We add a polynomial P to the environment **)
-  Context (P : Poly I).
+   Context {P : Poly I}.
   
   (** The type of Trees (given a polynomial P) **)
   Inductive Tree : I -> Type :=
@@ -38,25 +39,28 @@ Section Polynomial.
     | nd {i : I} : (br P) Tree i -> Tree i.
   
   (** The type of leaves of a tree **)
-  Fixpoint Leaf {i : I} (w : Tree i) (j : I) : Type :=
-    match w with
-      | lf _ => i = j
-      | nd _ (f; phi) => 
-          exists (k:I) (p : Param P f k), Leaf (phi k p) j
-    end.
+  Fixpoint Leaf {i : I} (w : Tree i) : I -> Type.
+  Proof.
+    induction w.
+    + intro j; refine (i = j).
+    + destruct b as [f phi]; intro j.
+      refine (exists (k : I) (p : Param P f k), Leaf _ (phi k p) j).
+  Defined.
   
   (** The type of nodes of a tree **)
-  Fixpoint Node {i : I} (w : Tree i) (p : Ops P) : Type :=
-    match w with
-      | lf _ => Lift Empty
-      | nd j (f; phi) => 
-          ((j; f) = p) + 
-          exists (k : I) (q : Param P f k), Node (phi k q) p
-    end.
+  Fixpoint Node {i : I} (w : Tree i) : Ops P -> Type.
+  Proof.
+    induction w.
+    + intro p; refine (Lift Empty).
+    + intro jg. destruct jg as [j g]. destruct b as [f phi].
+      refine (
+        ((i;f) = (j;g)) + 
+        exists (k : I) (p : Param P f k), Node _(phi k p) (j;g)).
+  Defined.
   
   (** The frame of a tree (draw a box around a tree to
       package it into an operator). **)
-  Definition Frame {i : I} (w : Tree i) (f : Op P i) : Type :=
+  Definition Frame  {i : I} (w : Tree i) (f : Op P i) : Type :=
     forall (j : I), Leaf w j <~> Param P f j.
   
   Definition InFrame (m : Ops P) : Type :=
@@ -66,29 +70,25 @@ Section Polynomial.
     exists (f : Op P i), Frame w f.
   
   (** Polynomial relation **)
-  Definition PolyRel : Type :=
-    forall (f : Ops P), InFrame f -> Type.
+  Definition PolyRel := forall (f : Ops P), InFrame f -> Type.
   
   (** Coroll a? I think these are corollaries? **)
-  Corollary OpIsTree {i : I} (f : Op P i) : Tree i.
+  Corollary Corolla {i : I} (f : Op P i) : Tree i.
   Proof.
     refine (nd (f; fun j p => lf j)).
   Defined.
   
-(*   (** Corolla-frm **)
-  Corollary Corolla_Frm {i : I} (f : Op P i) (j : I) 
-    : Leaf (OpIsTree f) j <~> Param P f j.
+   (** Corolla-frm **)
+  Corollary Corolla_Frm  {i : I} (f : Op P i) (j : I) 
+    : Leaf (Corolla f) j <~> Param _ f j.
   Proof.
-    srapply (BuildEquiv).
-    
-    
-    srapply (BuildIsEquiv).
-    srefine (BuildEquiv _ _ _ _ ).
-    + 
-  
-   *)
-   
-  
+    serapply (equiv_adjointify).
+    + intro; destruct X as [a b]; destruct b as [b c]; destruct c; refine b.
+    + refine (fun p => (j ; p ; idpath)).
+    + refine (fun p => idpath).
+    + refine (fun x => match x with (a ; p ; c) => _ end);
+        destruct c; refine idpath.
+  Defined.
   
 End Polynomial.
   
@@ -97,18 +97,18 @@ Section PolyMagma.
   (** Type of polynomial magmas **)
   Record PolyMagma {I : Type} (P : Poly I) : Type := 
     mgm {
-      mu {i : I} (w : Tree P i) : Op P i ;
-      mu_frm {i : I} (w : Tree P i) : Frame w (mu w) ;
+      mu {i : I} (w : @Tree _ P i) : Op P i ;
+      mu_frm {i : I} (w : @Tree _ P i) : Frame w (mu w) ;
   }.
   
   (** Slice of polynomial by a relation **)
-  Definition PolySlice {I : Type} (P : Poly I) (R : PolyRel P)
+  Definition PolySlice {I : Type} (P : Poly I) (R : PolyRel)
     : Poly (Ops P) := Build_Poly
       (fun f => exists (e : InFrame f), R f e) 
       (fun f t => match t with ((w ; _) ; _) => Node w end).
   
   (** The relation induced by a magma **)
-  Definition MagmaRel {I : Type} {P : Poly I} (M : PolyMagma P) : PolyRel P.
+  Definition MagmaRel {I : Type} {P : Poly I} (M : PolyMagma P) : @PolyRel _ P.
   Proof.
     intro i_f; destruct i_f as [i f];
     intro w_a; destruct w_a as [w a];
@@ -119,17 +119,20 @@ End PolyMagma.
 
 Notation "P // R" := (@PolySlice _ P R) : polyscope.
 
-(*
 
 Section PolyMonad.
   
-  Context {I : Type} {P : Poly I} (R : PolyRel P).
+  Context {I : Type} {P : Poly I} {R : @PolyRel _ P}.
   
   Global Open Scope polyscope.
   
    (** Flatten a sliced tree **)
-  Definition Flatten {i : I} {f : Op P i} (w : Tree (P // R) (i; f)) : Tree P i :=
-    match w with
+  Definition Flatten {i : I} {f : Op P i} (w : @Tree _ (P // R) (i; f)) : @Tree _ P i.
+  Proof.
+    induction w.
+    + refine (@Corolla _ P _ f).
+    + 
+      match w with
       | (lf (i; f)) => corolla P f
       | (nd (((w; a); _); k)) =>
 
