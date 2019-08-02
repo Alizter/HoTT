@@ -118,7 +118,6 @@ theories/HIT/FreeIntQuotient.v
 theories/HIT/Flattening.v
 theories/HIT/Interval.v
 theories/HIT/IntervalImpliesFunext.v
-theories/HIT/Suspension.v
 theories/HIT/Spheres.v
 theories/HIT/TwoSphere.v
 theories/HIT/epi.v
@@ -139,6 +138,7 @@ theories/HIT/Colimits/Pushout.v
 theories/HIT/Colimits/MappingTelescope.v
 theories/HIT/Colimits/Flattening.v
 theories/HIT/Colimits.v
+theories/HIT/Suspension.v
 
 #
 #   Other
@@ -156,7 +156,6 @@ theories/Extensions.v
 theories/HSet.v
 theories/UnivalenceImpliesFunext.v
 theories/TruncType.v
-theories/Pointed.v
 theories/DProp.v
 theories/Functorish.v
 theories/FunextAxiom.v
@@ -190,11 +189,27 @@ theories/Homotopy/HomotopyGroup.v
 theories/Homotopy/TorusEquivCircles.v
 
 #
+#   Pointed
+#
+
+theories/Pointed.v
+
+theories/Pointed/Core.v
+theories/Pointed/Loops.v
+theories/Pointed/pMap.v
+theories/Pointed/pFiber.v
+theories/Pointed/pEquiv.v
+theories/Pointed/pTrunc.v
+theories/Pointed/pHomotopy.v
+theories/Pointed/pSusp.v
+
+
+#
 #   Spectra
 #
 
 theories/Spectra/Spectrum.v
-theories/Spectra/Coinductive.v
+theories/Spectra/Coinductive.v  
 
 #
 #   Algebra
