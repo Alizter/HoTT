@@ -187,6 +187,8 @@ contrib/Freudenthal.v
 
 theories/Homotopy/HomotopyGroup.v
 theories/Homotopy/TorusEquivCircles.v
+theories/Homotopy/Smash.v
+theories/Homotopy/Wedge.v
 
 #
 #   Pointed
@@ -202,7 +204,6 @@ theories/Pointed/pEquiv.v
 theories/Pointed/pTrunc.v
 theories/Pointed/pHomotopy.v
 theories/Pointed/pSusp.v
-theories/Pointed/PointedFamily.v # Temp needs to be split up
 
 #
 #   Spectra
