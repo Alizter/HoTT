@@ -39,7 +39,7 @@ Proof.
 Qed.
 
 Definition pmap_precompose_idmap {A B : pType} (f : A ->* B)
-: f o* pmap_idmap A ==* f.
+: f o* pmap_idmap ==* f.
 Proof.
   pointed_reduce.
   simple refine (Build_pHomotopy _ _); cbn.
@@ -48,10 +48,20 @@ Proof.
 Qed.
 
 Definition pmap_postcompose_idmap {A B : pType} (f : A ->* B)
-: pmap_idmap B o* f ==* f.
+: pmap_idmap o* f ==* f.
 Proof.
   pointed_reduce.
   simple refine (Build_pHomotopy _ _); cbn.
   - intros ?; reflexivity.
   - reflexivity.
 Qed.
+
+(* A kind of ap for pHomotopies *)
+Definition phomotopy_ap `{Funext} {A B C D : pType} {f g : A ->* B}
+  (h : (A ->* B) -> C ->* D) : f ==* g -> h f ==* h g.
+Proof.
+  intro p.
+  destruct (path_pmap p).
+  reflexivity.
+Defined.
+

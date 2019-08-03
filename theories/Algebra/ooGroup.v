@@ -138,11 +138,11 @@ Proof.
 Qed.
 
 Definition grouphom_idmap (G : ooGroup) : ooGroupHom G G
-  := pmap_idmap (B G).
+  := pmap_idmap.
 
 Definition group_loops_functor_idmap {X : pType}
 : grouphom_idmap (group_loops X)
-  == group_loops_functor (pmap_idmap X).
+  == group_loops_functor pmap_idmap.
 Proof.
   intros g.
   unfold grouphom_fun, grouphom_idmap.

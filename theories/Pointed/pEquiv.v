@@ -5,7 +5,7 @@ Require Import Pointed.Core.
 Local Open Scope pointed_scope.
 
 Definition pequiv_pmap_idmap {A} : A <~>* A
-  := Build_pEquiv _ _ (pmap_idmap _) _.
+  := Build_pEquiv _ _ pmap_idmap _.
 
 Global Instance pequiv_reflexive : Reflexive pEquiv.
 Proof.
@@ -67,7 +67,7 @@ Definition path_ptype `{Univalence} {A B : pType} : (A <~>* B) -> A = B
   := equiv_path_ptype A B.
 
 Definition pSect {A B : pType} (s : A ->* B) (r : B ->* A)
-  := r o* s ==* pmap_idmap _.
+  := r o* s ==* pmap_idmap.
 
 Arguments pSect _ _ / _ _.
 
@@ -91,8 +91,25 @@ Proof.
   apply eisadj.
 Qed.
 
+(* Sometimes we wish to construct a pEquiv from an equiv and a proof
+  that it is pointed *)
+Definition Build_pEquiv' {A B : pType} (f : A <~> B) (p : f (point A) = point B)
+  : A <~>* B := Build_pEquiv _ _ (Build_pMap _ _ f p) _.
+
+(* Sometimes it is easier to keep everything pointed *)
 Definition pequiv_adjointify {A B : pType} (f : A ->* B) (f' : B ->* A)
   (r : pSect f' f) (s : pSect f f') : A <~>* B.
+Proof.
+  serapply Build_pEquiv.
+  1: assumption.
+  serapply (isequiv_adjointify f f').
+  1: apply r.
+  apply s.
+Defined.
+
+(* Othertimes it is easier to keep everything kind of pointed *)
+Definition pequiv_adjointify' {A B : pType} (f : A ->* B) (f' : B ->* A)
+  (r : Sect f' f) (s : Sect f f') : A <~>* B.
 Proof.
   serapply Build_pEquiv.
   1: assumption.

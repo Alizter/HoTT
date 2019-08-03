@@ -3,19 +3,11 @@
 
 Require Import Basics.
 Require Import Types.
+
 Local Open Scope path_scope.
 
+Declare Scope pointed_scope.
 Generalizable Variables A B f.
-
-(** ** Constructions of pointed types *)
-
-(** Any contractible type is pointed. *)
-Global Instance ispointed_contr `{Contr A} : IsPointed A := center A.
-
-(** A pi type with a pointed target is pointed. *)
-Global Instance ispointed_forall `{H : forall a : A, IsPointed (B a)}
-: IsPointed (forall a, B a)
-  := fun a => point (B a).
 
 (** A sigma type of pointed components is pointed. *)
 Global Instance ispointed_sigma `{IsPointed A} `{IsPointed (B (point A))}
@@ -26,6 +18,9 @@ Global Instance ispointed_sigma `{IsPointed A} `{IsPointed (B (point A))}
 Global Instance ispointed_prod `{IsPointed A, IsPointed B} : IsPointed (A * B)
   := (point A, point B).
 
+(* Product of pTypes is a pType *)
+Notation "X * Y" := (Build_pType (X * Y) ispointed_prod) : pointed_scope.
+
 (** ** Pointed functions *)
 
 Record pMap (A B : pType) :=
@@ -35,13 +30,11 @@ Record pMap (A B : pType) :=
 Arguments point_eq {A B} f : rename.
 Coercion pointed_fun : pMap >-> Funclass.
 
-Declare Scope pointed_scope.
-
 Infix "->*" := pMap : pointed_scope.
 
 Local Open Scope pointed_scope.
 
-Definition pmap_idmap (A : pType): A ->* A
+Definition pmap_idmap {A : pType} : A ->* A
   := Build_pMap A A idmap 1.
 
 Definition pmap_compose {A B C : pType}
@@ -83,6 +76,12 @@ Record pEquiv (A B : pType) :=
 
 Infix "<~>*" := pEquiv : pointed_scope.
 
+Coercion equiv_pequiv A B : A <~>* B -> A <~> B.
+Proof.
+  intros [f p].
+  exact (BuildEquiv _ _ f p).
+Defined.
+
 Coercion pointed_equiv_fun : pEquiv >-> pMap.
 Global Existing Instance pointed_isequiv.
 
@@ -119,5 +118,24 @@ Proof.
   issig (@Build_pMap A B) (@pointed_fun A B) (@point_eq A B).
 Defined.
 
+(* Pointed type family *)
+Definition pFam (A : pType) := {P : A -> Type & P (point A)}.
 
-Notation "X * Y" := (Build_pType (X * Y) ispointed_prod) : pointed_scope.
+(* IsTrunc for a pointed type family *)
+Definition IsTrunc_pFam n {A} (X : pFam A) := forall x, IsTrunc n (X.1 x).
+
+(* Pointed sigma *)
+Definition psigma : {A : pType & pFam A} -> pType.
+Proof.
+  intros [[A a] [P p]].
+  exists {x : A & P x}.
+  exact (a; p).
+Defined.
+
+(* Pointed pi types, note that the domain is not pointed *)
+Definition pforall : {A : Type & A -> pType} -> pType.
+Proof.
+  intros [A F].
+  exact (Build_pType (forall (a : A), pointed_type (F a)) (ispointed_type o F)).
+Defined.
+

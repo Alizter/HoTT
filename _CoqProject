@@ -202,7 +202,7 @@ theories/Pointed/pEquiv.v
 theories/Pointed/pTrunc.v
 theories/Pointed/pHomotopy.v
 theories/Pointed/pSusp.v
-
+theories/Pointed/PointedFamily.v # Temp needs to be split up
 
 #
 #   Spectra

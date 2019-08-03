@@ -191,7 +191,7 @@ Qed.
 
 Definition loop_susp_triangle1 (X : pType)
 : loops_functor (loop_susp_counit X) o* loop_susp_unit (loops X)
-  ==* pmap_idmap (loops X).
+  ==* pmap_idmap.
 Proof.
   simple refine (Build_pHomotopy _ _).
   - intros p; cbn.
@@ -214,7 +214,7 @@ Qed.
 
 Definition loop_susp_triangle2 (X : pType)
 : loop_susp_counit (psusp X) o* psusp_functor (loop_susp_unit X)
-  ==* pmap_idmap (psusp X).
+  ==* pmap_idmap.
 Proof.
   simple refine (Build_pHomotopy _ _);
   [ simple refine (Susp_ind _ _ _ _) | ]; try reflexivity; cbn.
