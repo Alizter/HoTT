@@ -211,7 +211,6 @@ theories/Algebra/ooAction.v
 #   Categories
 #
 
-theories/Homotopy/Pi1S1.v
 theories/Categories.v
 
 theories/Categories/Category.v
