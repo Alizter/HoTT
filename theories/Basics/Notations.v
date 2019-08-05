@@ -7,8 +7,8 @@ Reserved Infix "@*" (at level 30).
 Reserved Infix "-|" (at level 60, right associativity).
 Reserved Infix "<~=~>" (at level 70, no associativity).
 Reserved Infix "==*" (at level 70, no associativity).
-Reserved Infix "<~>*" (at level 85).
-Reserved Infix "->*" (at level 99).
+Reserved Infix "<~>*" (at level 85, no associativity).
+Reserved Infix "->*" (at level 99, right associativity).
 Reserved Infix "=n" (at level 70, no associativity).
 Reserved Infix "o*" (at level 40).
 Reserved Infix "oL" (at level 40, left associativity).

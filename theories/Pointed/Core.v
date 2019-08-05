@@ -23,6 +23,9 @@ Global Instance ispointed_prod `{IsPointed A, IsPointed B} : IsPointed (A * B)
 (* Product of pTypes is a pType *)
 Notation "X * Y" := (Build_pType (X * Y) ispointed_prod) : pointed_scope.
 
+(* Pointed version of unit type *)
+Notation punit := (Build_pType Unit tt).
+
 (** ** Pointed functions *)
 
 (* A pointed map is a map with a proof that it preserves the point *)

@@ -3,6 +3,7 @@ Require Import Pointed.Core.
 Require Import Pointed.pHomotopy.
 
 Local Open Scope pointed_scope.
+Local Open Scope path_scope.
 
 (* By function extensionality pointed homotopies are equivalent to paths *)
 Definition equiv_path_pmap `{Funext} {A B : pType} (f g : A ->* B)
@@ -20,6 +21,8 @@ Proof.
   refine (equiv_path_inverse _ _ oE _).
   apply equiv_concat_r. symmetry; apply concat_1p.
 Defined.
+
+
 
 Definition path_pmap `{Funext} {A B : pType} {f g : A ->* B}
   : (f ==* g) -> (f = g) := equiv_path_pmap f g.
@@ -45,22 +48,16 @@ Proof.
   simple refine (Build_pHomotopy _ _); cbn.
   - intros ?; reflexivity.
   - reflexivity.
-Qed.
+Defined.
 
 Definition pmap_precompose_idmap {A B : pType} (f : A ->* B)
 : f o* pmap_idmap ==* f.
 Proof.
-  pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros ?; reflexivity.
-  - reflexivity.
-Qed.
+  by pointed_reduce.
+Defined.
 
 Definition pmap_postcompose_idmap {A B : pType} (f : A ->* B)
 : pmap_idmap o* f ==* f.
 Proof.
-  pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros ?; reflexivity.
-  - reflexivity.
-Qed.
+  by pointed_reduce.
+Defined.
