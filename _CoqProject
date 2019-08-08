@@ -67,7 +67,8 @@ theories/Spaces/No/Negation.v
 theories/Spaces/No/Addition.v
 theories/Spaces/Universe.v
 theories/Spaces/Card.v
-theories/Spaces/Torus.v
+theories/Spaces/Torus/Torus.v
+theories/Spaces/Torus/TorusEquivCircles.v
 
 #
 #   Tactics
