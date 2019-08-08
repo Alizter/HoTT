@@ -185,6 +185,7 @@ theories/Tests.v
 
 theories/Homotopy/HomotopyGroup.v
 theories/Homotopy/Pi1S1.v
+theories/Homotopy/Freudenthal.v
 
 #
 #   Spectra
