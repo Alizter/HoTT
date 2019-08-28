@@ -4,6 +4,7 @@ Require Import HIT.Truncations.
 Require Import Pointed.
 Require Import abstract_algebra.
 Require Import Spaces.Nat.
+Require Import Spheres.
 
 Import TrM.
 
@@ -123,5 +124,35 @@ Proof.
   apply Trunc_functor_equiv.
   by refine (pequiv_compose _ (iterated_loops_prod _ _)).
 Qed.
+
+Definition foo `{Univalence} {X} {n} : Pi n X <~> Tr 0 (pMap (psphere n) X).
+Proof.
+  apply Trunc_functor_equiv.
+  revert X.
+  induction n; intro X.
+  { serapply equiv_adjointify.
+    { intro x.
+      serapply Build_pMap.
+      { serapply Suspension.Susp_rec.
+        1: erapply point.
+        1: exact x.
+        contradiction. }
+      reflexivity. }
+    { intro f.
+      exact (f Suspension.South). }
+    { intro f.
+      apply path_pmap.
+      serapply Build_pHomotopy.
+      { serapply Suspension.Susp_ind.
+        { cbn; symmetry; apply (point_eq f). }
+        { reflexivity. }
+        contradiction. }
+      apply concat_Vp. }
+    intro; reflexivity. }
+  change (psphere n.+1) with (psusp (psphere n)).
+  refine ((loop_susp_adjoint _ _)^-1 oE _).
+  rewrite unfold_iterated_loops.
+  apply IHn.
+Defined.
 
 
