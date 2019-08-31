@@ -11,8 +11,6 @@ Import TrM.
 Local Open Scope pointed_scope.
 Local Open Scope trunc_scope.
 
-(* TODO: Generalise this to H-spaces?
-  This however might require H-spaces to be more general than groups in the library. *)
 (* Definition of Classifying Spaces of a Group *)
 Module Export ClassifyingSpace.
 
@@ -271,7 +269,7 @@ Proof.
     apply path_ishprop.
 Defined.
 
-Definition bg_mul `{Funext} `{AbGroup G} : B G -> B G -> B G.
+Global Instance bg_mul `{Funext} `{AbGroup G} : SgOp (B G).
 Proof.
   serapply ClassifyingSpace_rec.
   1: exact idmap.
@@ -304,12 +302,11 @@ Proof.
   by rewrite eisretr.
 Defined.
 
-Definition bg_mul_symm `{Funext} `{AbGroup G} x y
-  : bg_mul x y = bg_mul y x.
+Global Instance bg_mul_comm `{Funext} `{AbGroup G}
+  : Commutative bg_mul.
 Proof.
-  revert x y.
-  serapply ClassifyingSpace_ind_hset.
-  { serapply ClassifyingSpace_ind_hset.
+  srefine (ClassifyingSpace_ind_hset G _ _ _).
+  { serapply (ClassifyingSpace_ind_hset G _ _ _).
     1: reflexivity.
     intro x.
     cbn.
@@ -324,7 +321,7 @@ Proof.
   intro y.
   apply dp_paths_FlFr.
   revert y.
-  serapply ClassifyingSpace_ind_hset.
+  serapply (ClassifyingSpace_ind_hset G).
   { cbn.
     rewrite concat_p1.
     rewrite ap_idmap.
@@ -337,10 +334,11 @@ Proof.
   apply path_ishprop.
 Defined.
 
-Definition bg_mul_left_id `{Funext} `{AbGroup G}
-  : forall a : B G, bg_mul (point (B G)) a = a.
+Local Notation pt := (point _).
+
+Global Instance bg_mul_left_id `{Funext} `{AbGroup G} : LeftIdentity bg_mul pt.
 Proof.
-  serapply ClassifyingSpace_ind_hset.
+  serapply (ClassifyingSpace_ind_hset G).
   1: reflexivity.
   intro. cbn. apply dp_paths_lr.
   refine (concat_pp_p _ _ _ @ _).
@@ -348,26 +346,15 @@ Proof.
   refine (concat_1p _ @ 1 @ (concat_p1 _)^).
 Defined.
 
-Definition bg_mul_right_id `{Funext} `{AbGroup G}
-  : forall a : B G, bg_mul a (point (B G)) = a.
+Global Instance bg_mul_right_id `{Funext} `{AbGroup G} : RightIdentity bg_mul pt.
 Proof.
   intro.
-  rewrite bg_mul_symm.
+  rewrite bg_mul_comm.
   apply bg_mul_left_id.
 Defined.
 
 Global Instance hspace_BG `{Funext} `{AbGroup G}
-  : HSpace (B G).
-Proof.
-  serapply Build_HSpace.
-  1: apply bg_mul.
-  1: apply bg_mul_left_id.
-  apply bg_mul_right_id.
-Defined.
+  : HSpace (B G) := Build_HSpace _ _ _ _.
 
 Global Instance coh_hspace_BG `{Funext} `{AbGroup G}
-  : Coherent_HSpace (B G).
-Proof.
-  serapply Build_Coherent_HSpace.
-  reflexivity.
-Defined.
+  : Coherent_HSpace (B G) := Build_Coherent_HSpace _ _ _ 1.

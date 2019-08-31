@@ -15,7 +15,7 @@ Require Import Homotopy.HSpace.
 Require Import TruncType.
 Import TrM.
 
-Generalizable Variables X A B f g n.
+Generalizable All Variables.
 
 Local Open Scope path_scope.
 Local Open Scope pointed_scope.
@@ -331,6 +331,9 @@ Section LicataFinsterLemma.
 
   (** This encode-decode style proof is detailed in Eilenberg-MacLane Spaces in Homotopy Type Theory by Dan Licata and Eric Finster *)
 
+  Import canonical_names.
+  Local Notation pt := (point _).
+
   Local Definition P : Susp X -> Type
     := fun x => Tr 1 (North = x).
 
@@ -345,7 +348,7 @@ Section LicataFinsterLemma.
   Defined.
 
   Local Definition transport_codes_merid x y
-    : transport codes (merid x) y = mu x y.
+    : transport codes (merid x) y = x & y.
   Proof.
     unfold codes.
     rewrite transport_idmap_ap.
@@ -356,7 +359,7 @@ Section LicataFinsterLemma.
   Defined.
 
   Local Definition transport_codes_merid_V x
-    : transport codes (merid id)^ x = x.
+    : transport codes (merid pt)^ x = x.
   Proof.
     unfold codes.
     rewrite transport_idmap_ap.
@@ -367,7 +370,7 @@ Section LicataFinsterLemma.
     rewrite transport_path_universe_V_uncurried.
     apply moveR_equiv_V.
     symmetry.
-    apply left_id.
+    apply hs_left_id.
   Defined.
 
   Local Definition encode : forall x, P x -> codes x.
@@ -375,24 +378,24 @@ Section LicataFinsterLemma.
     intro x.
     serapply Trunc_rec.
     intro p.
-    exact (transport codes p id).
+    exact (transport codes p pt).
   Defined.
 
   Local Definition decode' : X -> Tr 1 (@North X = North).
   Proof.
     intro x.
-    exact (tr (merid x @ (merid id)^)).
+    exact (tr (merid x @ (merid pt)^)).
   Defined.
 
   Local Definition transport_decode' x y
     : transport P (merid x) (decode' y)
-    = tr (merid y @ (merid id)^ @ merid x).
+    = tr (merid y @ (merid pt)^ @ merid x).
   Proof.
     unfold P.
     unfold decode'.
     rewrite transport_compose.
     generalize (merid x).
-    generalize (merid y @ (merid id)^).
+    generalize (merid y @ (merid pt)^).
     intros p [].
     cbn; apply ap.
     symmetry.
@@ -412,15 +415,15 @@ Section LicataFinsterLemma.
     rewrite ap_trunctype.
     rewrite transport_path_universe_uncurried.
     apply moveR_equiv_V.
-    refine (right_id _ @ (left_id _)^).
+    refine (hs_right_id _ @ (hs_left_id _)^).
   Defined.
 
   Local Definition merid_mu (x y : X)
-    : tr (n:=1) (merid (mu x y)) = tr (merid y @ (merid id)^ @ merid x).
+    : tr (n:=1) (merid (x & y)) = tr (merid y @ (merid pt)^ @ merid x).
   Proof.
-    set (Q := fun a b => tr (n:=1) (merid (mu a b))
-      = tr (merid b @ (merid id)^ @ merid a)).
-    serapply (@wedge_incl_elim_uncurried _ -1 -1 _ id _ _ id _ Q _ _ x y).
+    set (Q := fun a b => tr (n:=1) (merid (a & b))
+      = tr (merid b @ (merid pt)^ @ merid a)).
+    serapply (@wedge_incl_elim_uncurried _ -1 -1 _ pt _ _ pt _ Q _ _ x y).
     { intros a b.
       cbn; unfold Q.
       apply istrunc_paths.
@@ -434,19 +437,19 @@ Section LicataFinsterLemma.
       refine (ap _ (concat_Vp _) @ _).
       refine (concat_p1 _ @ _).
       apply ap.
-      exact (left_id b)^. }
+      exact (hs_left_id b)^. }
     { intro a.
       apply ap.
       symmetry.
       refine (ap (fun x => concat x (merid a)) (concat_pV _) @ _).
       refine (concat_1p _ @ _).
       apply ap.
-      exact (right_id a)^. }
+      exact (hs_right_id a)^. }
     simpl.
     apply ap, ap.
     destruct hspace_coh.
-    destruct (left_id id).
-    set (p := merid (mu (point X) id)).
+    destruct (hs_left_id pt).
+    set (p := merid (pt & pt)).
     hott_simpl.
     by destruct p.
   Defined.

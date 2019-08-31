@@ -12,7 +12,7 @@ Local Open Scope pointed_scope.
 Local Open Scope trunc_scope.
 Local Open Scope path_scope.
 
-Generalizable Variables X A B f g n.
+Generalizable All Variables.
 
 (** ** Definition, by iterated suspension. *)
 

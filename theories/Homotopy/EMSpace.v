@@ -84,3 +84,6 @@ Section EilenbergMacLane.
   Defined.
 
 End EilenbergMacLane.
+
+Notation "'K(' G , n )" := (EilenbergMacLane G n).
+

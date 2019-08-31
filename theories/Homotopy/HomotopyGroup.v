@@ -1,5 +1,6 @@
 Require Import Basics.
 Require Import Types.
+Require Import HIT.Suspension.
 Require Import HIT.Truncations.
 Require Import Pointed.
 Require Import abstract_algebra.
@@ -116,16 +117,17 @@ End PiFunctor.
 Local Open Scope pointed_scope.
 
 (* Homotopy groups of product space *)
-Lemma Pi_prod `{Univalence} (X Y : pType) {n}
+Lemma pi_prod `{Univalence} (X Y : pType) {n}
   : Pi n (X * Y) <~> Pi n X * Pi n Y.
 Proof.
   unfold Pi.
   apply (equiv_compose' (equiv_O_prod_cmp _ _ _)).
   apply Trunc_functor_equiv.
   by refine (pequiv_compose _ (iterated_loops_prod _ _)).
-Qed.
+Defined.
 
-Definition foo `{Univalence} {X} {n} : Pi n X <~> Tr 0 (pMap (psphere n) X).
+Definition equiv_pi_pmap `{Univalence} {X} {n}
+  : Pi n X <~> Tr 0 (pMap (psphere n) X).
 Proof.
   apply Trunc_functor_equiv.
   revert X.
@@ -133,19 +135,15 @@ Proof.
   { serapply equiv_adjointify.
     { intro x.
       serapply Build_pMap.
-      { serapply Suspension.Susp_rec.
-        1: erapply point.
-        1: exact x.
-        contradiction. }
+      1: apply (Susp_rec (point _) x Empty_rec).
       reflexivity. }
-    { intro f.
-      exact (f Suspension.South). }
+    1: intro f; exact (f South).
     { intro f.
       apply path_pmap.
       serapply Build_pHomotopy.
-      { serapply Suspension.Susp_ind.
-        { cbn; symmetry; apply (point_eq f). }
-        { reflexivity. }
+      { serapply Susp_ind.
+        1: cbn; symmetry; apply (point_eq f).
+        1: reflexivity.
         contradiction. }
       apply concat_Vp. }
     intro; reflexivity. }
