@@ -198,6 +198,7 @@ contrib/Freudenthal.v
 
 theories/Homotopy/HomotopyGroup.v
 theories/Homotopy/Pi1S1.v
+theories/Homotopy/Pi2S2.v
 theories/Homotopy/Smash.v
 theories/Homotopy/Wedge.v
 theories/Homotopy/BlakersMassey.v

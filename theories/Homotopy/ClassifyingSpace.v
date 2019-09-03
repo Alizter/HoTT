@@ -215,7 +215,7 @@ Section EncodeDecode.
 
   Local Definition decode `{Group G} : forall (z : B G), codes z -> bbase G = z.
   Proof.
-    serapply ClassifyingSpace_ind_hset.
+    serapply (ClassifyingSpace_ind_hset G).
     + exact bloop.
     + intro x.
       apply dp_arrow.
@@ -275,7 +275,7 @@ Proof.
   1: exact idmap.
   { intro x.
     apply path_forall.
-    serapply ClassifyingSpace_ind_hset.
+    serapply (ClassifyingSpace_ind_hset G).
     1: exact (bloop x).
     cbn; intro y.
     apply dp_paths_lr.
@@ -287,7 +287,7 @@ Proof.
   rewrite <- path_forall_pp.
   simpl.
   apply ap, path_forall.
-  serapply ClassifyingSpace_ind_hset.
+  serapply (ClassifyingSpace_ind_hset G).
   1: apply bloop_pp.
   intro z.
   serapply dp_paths_FlFr_D.
@@ -357,4 +357,11 @@ Global Instance hspace_BG `{Funext} `{AbGroup G}
   : HSpace (B G) := Build_HSpace _ _ _ _.
 
 Global Instance coh_hspace_BG `{Funext} `{AbGroup G}
-  : Coherent_HSpace (B G) := Build_Coherent_HSpace _ _ _ 1.
+  : Coherent_HSpace (B G).
+Proof.
+  serapply Build_Coherent_HSpace.
+  1: apply hspace_BG.
+  serapply Build_Coherent.
+  reflexivity.
+Defined.
+

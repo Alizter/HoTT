@@ -155,7 +155,7 @@ Section HTrunc.
   Defined.
 
 End HTrunc.
-
+(*
 Require Import Pointed.Core.
 Require Import Pointed.pMap.
 Require Import Pointed.pHomotopy.
@@ -263,5 +263,5 @@ Section HMappingSpace.
       hott_simpl.
       admit. }
   Admitted.
-
+*)
 
