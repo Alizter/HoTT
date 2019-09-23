@@ -29,17 +29,23 @@ Definition equiv_glue (E : Prespectrum) `{IsSpectrum E}
 : forall n, E n <~>* loops (E n.+1)
   := fun n => Build_pEquiv _ _ (glue E n) _.
 
-Record Spectrum :=
-  { to_prespectrum :> Prespectrum
-    ; to_is_spectrum : IsSpectrum to_prespectrum }.
+Record Spectrum := Build_Spectrum' {
+  to_prespectrum :> Prespectrum;
+  to_is_spectrum : IsSpectrum to_prespectrum
+}.
 
 Existing Instance to_is_spectrum.
+
+Definition Build_Spectrum := fun x y z =>
+  Build_Spectrum' (Build_Prespectrum x y) z.
 
 (** ** Truncations of spectra *)
 
 Definition strunc `{Univalence} (k : trunc_index) (E : Spectrum) : Spectrum.
 Proof.
-  simple refine (Build_Spectrum (Build_Prespectrum (fun n => pTr (trunc_index_inc n k) (E n)) _) _).
+  serapply Build_Spectrum.
+  - intros n.
+    exact (pTr (trunc_index_inc n k) (E n)).
   - intros n.
     exact ((ptr_loops _ (E n.+1)) o*E (ptr_pequiv _ (equiv_glue E n))).
   - intros n. unfold glue.
