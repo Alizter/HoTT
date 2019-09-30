@@ -3,6 +3,15 @@
 COQC = hoqc
 
 #
+#   Local
+#
+
+theories/Local/Small.v
+#theories/Local/Seperated.v
+#theories/Local/Loc.v
+
+
+#
 #   Basics
 #
 
