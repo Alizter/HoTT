@@ -92,15 +92,15 @@ Section PiFunctor.
     {X Y : pType}
     (f : X ->* Y).
 
-  Definition functor_pi : Pi n.+1 X -> Pi n.+1 Y.
+  Definition pi_functor : Pi n.+1 X -> Pi n.+1 Y.
   Proof.
     serapply Trunc_functor.
     serapply iterated_loops_functor.
     exact f.
   Defined.
 
-  Global Instance functor_pi_homomorphism `{Univalence}
-    : MonoidPreserving functor_pi.
+  Global Instance pi_functor_homomorphism `{Univalence}
+    : MonoidPreserving pi_functor.
   Proof.
     apply Build_MonoidPreserving.
     + intros x y.
@@ -124,4 +124,10 @@ Proof.
   by refine (pequiv_compose _ (iterated_loops_prod _ _)).
 Qed.
 
-
+Lemma Pi_loops {n} (X : pType) : Pi n (loops X) <~> Pi n.+1 X.
+Proof.
+  unfold Pi.
+  apply Trunc_functor_equiv.
+  symmetry.
+  rapply unfold_iterated_loops'.
+Defined.
