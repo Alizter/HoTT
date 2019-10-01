@@ -6,7 +6,55 @@ Require Import Extensions.
 Require Import Small.
 Require Import HIT.Truncations.
 
+
+(* First we wrap up the data of f : X -> X -> Type into a module *)
+Module Type TwoParameterMap.
+  Parameter X@{i} : Type@{i}.
+  Parameter f@{i} : X@{i} -> X@{i} -> Type@{i}.
+End TwoParameterMap.
+
+Module Type FactorData (F : TwoParameterMap).
+  Import F.
+  Parameter T@{i} : Type@{i}.
+  Parameter e@{i} : X@{i} -> X@{i} -> T@{i}.
+  Parameter m@{i} : T@{i} -> Type@{i}.
+  Parameter ee@{i a} : IsSurjection@{a i i i i} (uncurry@{i i i} e@{i}).
+  Parameter mm@{i a} : IsEmbedding@{i a a} m@{i}.
+  Parameter comm@{i a} : forall x y, paths@{a} (f x y) (m@{i} (e@{i} x y)).
+End FactorData.
+
+Module FactorAxiom (f : TwoParameterMap) <: FactorData f.
+  Import f.
+  Definition T@{i} : Type@{i}.
+  Proof. Admitted.
+
+  Definition e@{i} : X@{i} -> X@{i} -> T@{i}.
+  Proof. Admitted.
+
+  Definition m@{i} : T@{i} -> Type@{i}.
+  Proof. Admitted.
+
+  Definition ee@{i a} : IsSurjection@{a i i i i} (uncurry@{i i i} e@{i}).
+  Proof. Admitted.
+
+  Definition mm@{i a} : IsEmbedding@{i a a} m@{i}.
+  Proof. Admitted.
+
+  Definition comm@{i a} : forall x y, paths@{a} (f x y) (m@{i} (e@{i} x y)).
+  Proof. Admitted.
+End FactorAxiom.
+
+Section Factorising.
+
+Module 
+
+End Factorising.
+
+
+
 (* We will assume the following axiom. It lets us factor a map f : X -> Y between a small X and locally small Y into an epi and a mono. Notably the middle type in X -> T -> Y is also small. The way to prove this is using the join construction which we currently don't have. *)
+
+(*
 Record factorData@{i j} {X : Type@{i}} {Y : Type@{j}}
   `{LocallySmall@{i j} Y} (f : X -> Y) := {
   T : Type@{i};
@@ -15,12 +63,26 @@ Record factorData@{i j} {X : Type@{i}} {Y : Type@{j}}
 (*   ee : IsSurjection@{i j j j j} e; *)
   mm : IsEmbedding@{j j j} m;
   comm : f == m o e;
+}. *)
+(* 
+
+Record factorData2@{i j} {X : Type@{i}} (f : X -> X -> Type@{i}) := {
+  T : Type@{i};
+  e : X -> X -> T;
+  m : T -> Type@{i};
+  (* ee : IsSurjection e; *)
+(*   mm : IsEmbedding@{i i i} m; *)
+  comm : forall x y, paths@{j} (f x y) (m (e x y));
 }.
+ *)
+(* 
+Definition factorAxiom@{i} 
+  : {T : Type@{i} & 
 
 Definition factorAxiom@{i j} {X : Type@{i}} {Y : Type@{j}}
   `{LocallySmall@{i j} Y} (f : X -> Y) : factorData f.
 Proof.
-Admitted.
+Admitted. *)
 
 Module Seperated_ReflectiveSubuniverses (Ls : ReflectiveSubuniverses)
   <: ReflectiveSubuniverses.
@@ -41,6 +103,7 @@ Module Seperated_ReflectiveSubuniverses (Ls : ReflectiveSubuniverses)
     : ReflectiveSubuniverse@{u a} -> Type@{i} -> Type@{i}.
   Proof.
     intros [u L] X.
+    
     srefine (T _ (factorAxiom@{i u} _)).
     1: exact (X * X).
     intro xy.
