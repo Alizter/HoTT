@@ -23,7 +23,7 @@ Proof.
 Defined.
 
 (* This bit lets us assume RSUs later *)
-Module AssumeRSU (Ls : ReflectiveSubuniverses).
+Module Lem_2_9 (Ls : ReflectiveSubuniverses).
 Import Ls.
 Module Import Ls_Theory := ReflectiveSubuniverses_Theory Ls.
 (* It can safely be completely ignored. *)
@@ -44,23 +44,18 @@ Section Lem_2_9.
     (* ==> *)
     { intro lequiv_g.
       intros Z islocal_Z.
-      unfold O_functor in lequiv_g.
-      set (natsq := to_O_natural L g).
-      set (expsq := comm_square_precompose natsq Z).
-      set (F := (fun j : L X -> Z => j o to L X)) in *.
-      set (G := (fun j : Y -> Z => j o g)) in *.
-      set (I := (fun j : L Y -> Z => j o to L Y)) in *.
-      set (J := (fun j : L Y -> Z => j o O_functor L g)) in *.
-      
-      
-      serapply isequiv_compose'. 
-    
-    
-    admit. }
+      refine (isequiv_commsq _ _ _ _
+        (comm_square_precompose (to_O_natural L g) Z)). }
     (* <== *)
-    { admit. }
-
+    intro gstar.
+    set (nat := to_O_natural L g).
+    set (exnat1 := comm_square_precompose nat (L X)).
+    set (exnat2 := comm_square_precompose nat (L Y)).
+    refine (isequiv_isequiv_precompose _ _ _).
+    1: refine (isequiv_commsq' _ _ _ _ (symmetry _ _ exnat1)).
+    refine (isequiv_commsq' _ _ _ _ (symmetry _ _ exnat2)).
+  Defined.
 
 End Lem_2_9.
 
-End AssumeRSU.
+End Lem_2_9.

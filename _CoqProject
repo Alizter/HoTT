@@ -9,7 +9,7 @@ COQC = hoqc
 theories/Local/Small.v
 #theories/Local/Seperated.v
 #theories/Local/Loc.v
-
+theories/Local/Lemma_2_9.v
 
 #
 #   Basics
