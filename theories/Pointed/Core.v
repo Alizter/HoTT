@@ -37,18 +37,24 @@ Arguments point_eq {A B} f : rename.
 Arguments pointed_fun {A B} f : rename.
 Coercion pointed_fun : pMap >-> Funclass.
 
-Infix "->*" := pMap : pointed_scope.
+(* Infix "->*" := pMap : pointed_scope. *)
 
-Definition pmap_idmap {A : pType} : A ->* A
+(* Pointed identity map *)
+Definition pmap_idmap {A : pType} : pMap A A
   := Build_pMap A A idmap 1.
 
+(* The canonical constant/zero map *)
+Definition pmap_const {A B : pType} : pMap A B
+  := Build_pMap _ _ (const (point B)) 1.
+
 Definition pmap_compose {A B C : pType}
-           (g : B ->* C) (f : A ->* B)
-: A ->* C
-  := Build_pMap A C (g o f)
-                (ap g (point_eq f) @ point_eq g).
+  (g : pMap B C) (f : pMap A B) : pMap A C
+  := Build_pMap A C (g o f) (ap g (point_eq f) @ point_eq g).
 
 Infix "o*" := pmap_compose : pointed_scope.
+
+(* The type pMap is pointed by the constant map *)
+Global Instance ispointed_pmap {A B} : IsPointed (pMap A B) := pmap_const.
 
 (** ** Pointed homotopies *)
 
@@ -71,7 +77,7 @@ Infix "==*" := pHomotopy : pointed_scope.
 (* A pointed equivalence is a pointed map and a proof that it is
   an equivalence *)
 Record pEquiv (A B : pType) :=
-  { pointed_equiv_fun : A ->* B ;
+  { pointed_equiv_fun : pMap A B ;
     pointed_isequiv : IsEquiv pointed_equiv_fun
   }.
 
@@ -112,13 +118,18 @@ Definition pforall {A : Type} (F : A -> pType) : pType
 
 (** The following tactic often allows us to "pretend" that pointed maps and homotopies preserve basepoints strictly.  We have carefully defined [pMap] and [pHomotopy] so that when destructed, their second components are paths with right endpoints free, to which we can apply Paulin-Morhing path-induction. *)
 Ltac pointed_reduce :=
-  unfold pointed_fun, pointed_htpy; cbn;
-  repeat match goal with
-           | [ X : pType |- _ ] => destruct X as [X ?]
-           | [ phi : pMap ?X ?Y |- _ ] => destruct phi as [phi ?]
-           | [ alpha : pHomotopy ?f ?g |- _ ] => destruct alpha as [alpha ?]
-           | [ equiv : pEquiv ?X ?Y |- _ ] => destruct equiv as [equiv ?]
-         end;
+  unfold pointed_fun, pointed_htpy; cbn in *;
+  repeat
+    match goal with
+     (* Any pType's we want to destruct *)
+     | [ X : pType |- _ ] => destruct X as [X ?]
+     (* Left over pMap's should be destructed too. *)
+     | [ phi : pMap ?X ?Y |- _ ] => destruct phi as [phi ?]
+     (* pHomotopies need to be destructed. *)
+     | [ alpha : pHomotopy ?f ?g |- _ ] => destruct alpha as [alpha ?]
+     (* And finally pointed equivalences *)
+     | [ equiv : pEquiv ?X ?Y |- _ ] => destruct equiv as [equiv ?]
+    end;
   cbn in *; unfold point in *;
   path_induction; cbn;
   (** TODO: [pointed_reduce] uses [rewrite], and thus according to our current general rules, it should only be used in opaque proofs.  We don't yet need any of the proofs that use it to be transparent, but there's a good chance we will eventually.  At that point we can consider whether to allow it in transparent proofs, modify it to not use [rewrite], or exclude it from proofs that need to be transparent. *)
@@ -132,7 +143,12 @@ Proof.
 Defined.
 
 Definition issig_pmap (A B : pType)
-: { f : A -> B & f (point A) = point B } <~> (A ->* B).
+: { f : A -> B & f (point A) = point B } <~> pMap A B.
 Proof.
   issig.
 Defined.
+
+(* We redefine the notation for pMap to mean the pointed version. This is included last because we do not want to corrupt our definitions. *)
+Notation "A '->*' B" := (Build_pType (pMap A B) _) : pointed_scope. 
+
+

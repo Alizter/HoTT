@@ -1,7 +1,4 @@
-Require Import Basics.
-Require Import Types.
-Require Import FunextAxiom.
-Require Import Pointed.
+Require Import Basics Types Pointed Cubical.
 Require Import Smash.
 Require Import Coherence.
 
@@ -16,49 +13,38 @@ Proof.
   serapply Build_IsBifunctor.
   { intros A B A' B' f g.
     serapply Build_pMap.
-    { serapply (smash_rec (fun a a' => sm (f a) (g a')) auxl auxr); intro;
-     (apply (transport (fun x => _ _ x = _) (point_eq _)^), gluel ||
-      apply (transport (fun x => _ x _ = _) (point_eq _)^), gluer). }
+    { serapply (Smash_rec (fun a a' => sm (f a) (g a')) auxl auxr); intro.
+      + apply (transport (fun x => _ _ x = _) (point_eq _)^), gluel.
+      + apply (transport (fun x => _ x _ = _) (point_eq _)^), gluer. }
     pointed_reduce; reflexivity. }
   { intros; cbn.
     serapply Build_pHomotopy.
-    { serapply (smash_ind (fun _ _ => 1) 1 1);
-      intros; cbn; rewrite transport_paths_FFlr, ap_idmap;
-      (rewrite smash_rec_beta_gluel || rewrite smash_rec_beta_gluer);
-      rewrite concat_p1; apply concat_Vp. }
+    { serapply (Smash_ind (fun _ _ => 1) 1 1).
+      1,2: intros; cbn.
+      1,2: apply dp_paths_FFlr; rewrite ap_idmap.
+      1: rewrite Smash_rec_beta_gluel.
+      2: rewrite Smash_rec_beta_gluer.
+      1,2: hott_simpl. }
     reflexivity. }
   intros; cbn.
   serapply Build_pHomotopy.
-  { (* We write this all as one tactic so we don't have to
-       write it twice. If you wish to inspect whats going on
-       you will have to break it apart. *)
-    serapply (smash_ind (fun _ _ => 1) 1 1);
-    intros; cbn;
-    rewrite transport_paths_FlFr;
-    (rewrite smash_rec_beta_gluel || rewrite smash_rec_beta_gluer);
-    rewrite transport_paths_FlFr;
-    rewrite (ap_compose (smash_rec _ _ _ _ _));
-    (rewrite smash_rec_beta_gluel || rewrite smash_rec_beta_gluer);
-    rewrite transport_paths_FlFr;
-    rewrite concat_p1;
-    rewrite ap_V, inv_V;
-    rewrite ap_const, concat_p1;
-    apply moveR_Vp;
-    refine (_ @ (concat_p1 _)^);
-    rewrite ap_V, inv_V;
-    rewrite ap_const, concat_p1;
-    rewrite (ap_pp (smash_rec _ _ _ _ _));
-    (rewrite smash_rec_beta_gluel || rewrite smash_rec_beta_gluer);
-    rewrite transport_paths_FlFr;
-    rewrite ap_V, inv_V;
-    rewrite ap_const, concat_p1;
-    rewrite ap_pp;
-    rewrite concat_p_pp;
-    apply whiskerR, whiskerR;
-    rewrite <- ap_compose;
-    (rewrite <- (ap_compose (sm _)) ||
-    rewrite <- (ap_compose (fun x : B => sm x _)));
-    reflexivity. }
+  { serapply (Smash_ind (fun _ _ => 1) 1 1).
+    1,2: intros; cbn.
+    1,2: apply dp_paths_FlFr.
+    1: rewrite Smash_rec_beta_gluel.
+    2: rewrite Smash_rec_beta_gluer.
+    1,2: rewrite (ap_compose (Smash_rec _ _ _ _ _)).
+    1: rewrite Smash_rec_beta_gluel.
+    2: rewrite Smash_rec_beta_gluer.
+    1: rewrite (transport_paths_FlFr (point_eq f')^).
+    2: rewrite (transport_paths_FlFr (point_eq f)^).
+    1,2: hott_simpl.
+    1: rewrite (ap_pp _ _ (gluel _)).
+    2: rewrite (ap_pp _ _ (gluer _)).
+    1: rewrite Smash_rec_beta_gluel.
+    2: rewrite Smash_rec_beta_gluer.
+    1,2: pointed_reduce.
+    1,2: apply concat_Vp. }
   (* This works but takes a long time *)
   pointed_reduce.
   hott_simpl.
@@ -75,23 +61,23 @@ Lemma bifunctor_smash_interchange {A1 A2 A3 B1 B2 B3 : pType}
   : (f2 o* f1) [∧] (g2 o* g1) ==* (f2 [∧] g2) o* (f1 [∧] g1).
 Proof.
   serapply Build_pHomotopy.
-  + serapply (smash_ind (fun _ _ => 1) 1 1).
+  + serapply (Smash_ind (fun _ _ => 1) 1 1).
     1,2: intro; cbn.
-    1,2: refine (transport_paths_FlFr _ _ @ _).
-    1,2: refine (transport (fun x => x @ _ = _) (concat_p1 _)^ _).
+    1,2: apply dp_paths_FlFr.
+    1,2: rewrite concat_p1.
     1,2: apply moveR_Vp.
     1,2: refine (_ @ (concat_p1 _)^).
-    1: refine (_ @ (smash_rec_beta_gluel _ _ _)^).
-    2: refine (_ @ (smash_rec_beta_gluer _ _ _)^).
-    1: refine (ap_compose (smash_rec (fun a a' => sm (f1 a) (g1 a'))
+    1: refine (_ @ (Smash_rec_beta_gluel _ _ _)^).
+    2: refine (_ @ (Smash_rec_beta_gluer _ _ _)^).
+    1: refine (ap_compose (Smash_rec (fun a a' => sm (f1 a) (g1 a'))
       auxl auxr _ _) _ (gluel a) @ _).
-    2: refine (ap_compose (smash_rec (fun a a' => sm (f1 a) (g1 a'))
+    2: refine (ap_compose (Smash_rec (fun a a' => sm (f1 a) (g1 a'))
       auxl auxr _ _) _ (gluer b) @ _).
-    1: refine (ap (ap _) (smash_rec_beta_gluel _ _ _) @ _).
-    2: refine (ap (ap _) (smash_rec_beta_gluer _ _ _) @ _).
+    1: refine (ap (ap _) (Smash_rec_beta_gluel _ _ _) @ _).
+    2: refine (ap (ap _) (Smash_rec_beta_gluer _ _ _) @ _).
     1,2: pointed_reduce.
-    1: erapply smash_rec_beta_gluel.
-    erapply smash_rec_beta_gluer.
+    1: erapply Smash_rec_beta_gluel.
+    erapply Smash_rec_beta_gluer.
   + pointed_reduce.
     hott_simpl.
 Defined.
