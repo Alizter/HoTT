@@ -3,14 +3,19 @@ Require Import Types.
 Require Import Pointed.
 Require Import Smash.
 Require Import Bifunctor.
+Require Import Cubical.
 
 Local Open Scope pointed_scope.
 
-Definition smash_swap {X Y : pType} : X ∧ Y ->* Y ∧ X.
+Require Import pYoneda.
+Require Import SmashAdj.
+
+
+Definition pmap_smash_swap {X Y : pType} : X ∧ Y ->* Y ∧ X.
 Proof.
   serapply Build_pMap.
   2: shelve.
-  serapply smash_rec'.
+  serapply Smash_rec'.
   + intros a b.
     exact (sm b a).
   + intro a.
@@ -32,17 +37,23 @@ Proof.
   hott_simpl.
 Defined.
 
+Global Instance smash_symm : Symmetric Smash.
+Proof.
+  intros X Y.
+  apply pmap_smash_swap.
+Defined.
+
 Lemma equiv_smash_symm (X Y : pType) : X ∧ Y <~> Y ∧ X.
 Proof.
-  refine (pequiv_adjointify' smash_swap smash_swap _ _).
-  { serapply (smash_ind _ (gluel _) (gluer _)).
+  refine (pequiv_adjointify' pmap_smash_swap pmap_smash_swap _ _).
+  { serapply (Smash_ind _ (gluel _) (gluer _)).
     1: reflexivity.
     { intro a.
-      rewrite transport_paths_FFlr.
+      apply dp_paths_FFlr.
       rewrite concat_p1.
-      rewrite smash_rec_beta_gluel.
+      rewrite Smash_rec_beta_gluel.
       rewrite ap_V.
-      rewrite smash_rec_beta_glue.
+      rewrite Smash_rec_beta_glue.
       unfold glue.
       unfold gluel'.
       hott_simpl.
@@ -50,22 +61,22 @@ Proof.
       rewrite inv_V.
       by apply moveR_pM. }
     intro b.
-    rewrite transport_paths_FFlr.
+    apply dp_paths_FFlr.
     rewrite concat_p1.
-    rewrite smash_rec_beta_gluer.
-    rewrite smash_rec_beta_glue.
+    rewrite Smash_rec_beta_gluer.
+    rewrite Smash_rec_beta_glue.
     unfold glue.
     unfold gluel'.
     unfold gluer'.
     hott_simpl. }
-  serapply (smash_ind _ (gluel _) (gluer _)).
+  serapply (Smash_ind _ (gluel _) (gluer _)).
   1: reflexivity.
   { intro a.
-    rewrite transport_paths_FFlr.
+    apply dp_paths_FFlr.
     rewrite concat_p1.
-    rewrite smash_rec_beta_gluel.
+    rewrite Smash_rec_beta_gluel.
     rewrite ap_V.
-    rewrite smash_rec_beta_glue.
+    rewrite Smash_rec_beta_glue.
     unfold glue.
     unfold gluel'.
     hott_simpl.
@@ -73,10 +84,10 @@ Proof.
     rewrite inv_V.
     by apply moveR_pM. }
   intro b.
-  rewrite transport_paths_FFlr.
+  apply dp_paths_FFlr.
   rewrite concat_p1.
-  rewrite smash_rec_beta_gluer.
-  rewrite smash_rec_beta_glue.
+  rewrite Smash_rec_beta_gluer.
+  rewrite Smash_rec_beta_glue.
   unfold glue.
   unfold gluel'.
   unfold gluer'.
@@ -96,7 +107,7 @@ Definition smash_symm_nat (A A' B B' : pType) (f : A ->* A')
   (g : B ->* B') : g [∧] f o* σ A B ==* σ A' B' o* f [∧] g.
 Proof.
   serapply Build_pHomotopy.
-  { serapply smash_ind.
+  { serapply Smash_ind.
     { intros a b.
       reflexivity. }
     1,2: pointed_reduce; reflexivity.
@@ -104,16 +115,16 @@ Proof.
   by cbv; pointed_reduce.
   Unshelve.
   { intro a; cbn.
-    rewrite transport_paths_FlFr.
+    apply dp_paths_FlFr.
     rewrite ap_compose.
-    rewrite smash_rec_beta_gluel.
+    rewrite Smash_rec_beta_gluel.
     rewrite ap_V.
-    rewrite smash_rec_beta_glue.
+    rewrite Smash_rec_beta_glue.
     rewrite ap_compose.
-    rewrite smash_rec_beta_gluel.
+    rewrite Smash_rec_beta_gluel.
     rewrite !transport_paths_Fl.
     rewrite ap_pp.
-    rewrite smash_rec_beta_gluel.
+    rewrite Smash_rec_beta_gluel.
     pointed_reduce.
     unfold glue, gluel', gluer'.
     hott_simpl.
@@ -121,15 +132,15 @@ Proof.
     refine (concat_p1 _ @ _ @ (concat_1p _)^).
     reflexivity. }
   { intro a; cbn.
-    rewrite transport_paths_FlFr.
+    apply dp_paths_FlFr.
     rewrite ap_compose.
-    rewrite smash_rec_beta_gluer.
-    rewrite smash_rec_beta_glue.
+    rewrite Smash_rec_beta_gluer.
+    rewrite Smash_rec_beta_glue.
     rewrite ap_compose.
-    rewrite smash_rec_beta_gluer.
+    rewrite Smash_rec_beta_gluer.
     rewrite !transport_paths_Fl.
     rewrite ap_pp.
-    rewrite smash_rec_beta_gluer.
+    rewrite Smash_rec_beta_gluer.
     pointed_reduce.
     unfold glue, gluel', gluer'.
     hott_simpl.

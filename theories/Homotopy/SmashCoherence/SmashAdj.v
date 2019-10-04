@@ -1,6 +1,7 @@
 Require Import Basics.
 Require Import Types.
 Require Import Pointed.
+Require Import Cubical.
 Require Import Smash.
 Require Import Coherence.
 Require Import Bifunctor.
@@ -10,13 +11,40 @@ Local Open Scope path_scope.
 
 (* TODO: This should be in smash *)
 Notation "X ∧ Y" := (Smash X Y) (at level 20).
-Local Notation "A '->*' B" := (Build_pType (A ->* B) _).
+(* Local Notation "A '->*' B" := (Build_pType (A ->* B) _). *)
 
 Section SmashAdj.
 
+Global Instance isfunctor_smash_right (B : pType)
+  : IsFunctor (fun x => x ∧ B) := _.
+
+Definition functor_smash_right (B : pType) {A C : pType}
+  := @F_functor (fun x => x ∧ B) _ A C.
+
+Global Instance isfunctor_pmap (B : pType)
+  : IsFunctor (fun y => B ->* y).
+Proof.
+  serapply Build_IsFunctor.
+  { intros X Y f.
+    serapply Build_pMap.
+    1: exact (fun g => f o* g).
+    by pointed_reduce. }
+  { intro A.
+    serapply Build_pHomotopy.
+    1: cbn; intro; by pointed_reduce.
+    1: apply concat_p1. }
+  intros X Y Z f' f.
+  serapply Build_pHomotopy.
+  1: cbn; intro; by pointed_reduce.
+  by pointed_reduce.
+Defined.
+
+Definition functor_pmap (B : pType) {A C : pType}
+  := @F_functor (fun y => B ->* y) _ A C.
+
 Context `{Funext}.
 
-Definition smash_pmap_unit {A B : pType} : A ->* (B ->* (A ∧ B)).
+Definition pmap_smash_unit {B : pType} (X : pType) : X ->* (B ->* (X ∧ B)).
 Proof.
   serapply Build_pMap.
   { intro a.
@@ -30,142 +58,109 @@ Proof.
   refine (concat_p1 _ @ (glue_pt_left _ )^ @ glue_pt_right _).
 Defined.
 
-Global Instance isfunctor_smash_right (B : pType)
-  : IsFunctor (fun x => x ∧ B) := _.
-
-Global Instance isfunctor_pmap_right (B : pType)
-  : IsFunctor (fun y => B ->* y).
+Definition pmap_smash_unit_natural {B X Y : pType} (f : X ->* Y)
+  : pmap_smash_unit Y o* f
+    ==* functor_pmap B (functor_smash_right B f)
+    o* pmap_smash_unit X.
 Proof.
-  serapply Build_IsFunctor.
-  { intros X Y f.
-    serapply Build_pMap.
-    { intro g.
-      exact (f o* g). }
-    serapply path_pmap.
-    exact (pmap_postcompose_const f). }
-  { intro A.
-    serapply Build_pHomotopy.
-    { cbn; intro.
-      apply path_pmap, pmap_postcompose_idmap. }
-    { refine (concat_p1 _). } }
-  intros X Y Z f' f.
   serapply Build_pHomotopy.
-  { cbn; intro.
-    apply path_pmap, pmap_compose_assoc. }
+  { intro x.  
+    apply path_pmap.
+    serapply Build_pHomotopy.
+    1: reflexivity.
+    cbn; rewrite Smash_rec_beta_gluel'.
+    do 2 pointed_reduce.
+    hott_simpl. }
   simpl.
-  rewrite path_pmap_ap.
-  rewrite path_pmap_pp.
-  rewrite path_pmap_pp.
-  apply ap.
-  pointed_reduce.
-  cbv.
+  
 Admitted.
 
+Definition pmap_smash_counit {B : pType} (X : pType)
+  : ((B ->* X) ∧ B) ->* X.
+Proof.
+  serapply Build_pMap.
+  { serapply Smash_rec.
+    1: exact idmap.
+    3: intro; apply point_eq.
+    2: intro; exact idpath. }
+  reflexivity.
+Defined.
 
-(* How can we get coq to coerce into pTypes?
-   (A ->* B) is a pType so can't coq guess this? *)
-(* This should be natural in A B and C *)
+Definition pmap_smash_counit_natural {B X Y : pType} (f : X ->* Y)
+  : f o* pmap_smash_counit X ==* pmap_smash_counit Y
+    o* functor_smash_right B (functor_pmap B f).
+Proof.
+  serapply Build_pHomotopy.
+  { serapply Smash_ind.
+    1: reflexivity.
+    1,2: exact (point_eq _).
+    { intro g.
+      serapply dp_paths_FlFr.
+      cbn.
+      rewrite ap_compose.
+      rewrite (Smash_rec_beta_gluel _ _ g).
+      apply moveR_Mp.
+      rewrite ap_compose.
+      rewrite (Smash_rec_beta_gluel _ _ g).
+      rewrite Smash_rec_beta_gluel.
+      by do 2 pointed_reduce. }
+    intro b.
+    serapply dp_paths_FlFr.
+    rewrite concat_p1.
+    apply moveR_Vp.
+    simpl.
+    rewrite ap_compose.
+    rewrite (Smash_rec_beta_gluer
+      (fun a : B ->* X => gluel ((f o* a) : B ->* Y)) _ b).
+    rewrite (ap_compose _ f).
+    rewrite (Smash_rec_beta_gluer (fun a : B ->* X => point_eq a) _ b).
+    rewrite transport_paths_Fl.
+    rewrite ap_pp.
+    rewrite Smash_rec_beta_gluer.
+    rewrite ap_V.
+
+Admitted.
+
+Definition pmap_smash_triangle1 {B : pType} (X : pType)
+  : functor_pmap B (pmap_smash_counit X) o* pmap_smash_unit (B ->* X)
+    ==* pmap_idmap.
+Proof.
+Admitted.
+
+Definition pmap_smash_triangle2 {B : pType} (X : pType)
+  : pmap_smash_counit (X ∧ B) o* functor_smash_right B (pmap_smash_unit X)
+    ==* pmap_idmap.
+Proof.
+Admitted.
+
 Theorem smash_adjunction {A B C : pType}
+  : (A ∧ B ->* C) <~> (A ->* B ->* C).
+Proof.
+  serapply (equiv_adjointify
+    (fun f => functor_pmap B f o* pmap_smash_unit A)
+    (fun g => pmap_smash_counit C o* functor_smash_right B g)).
+  { intro g. apply path_pmap.
+    refine (pmap_prewhisker _ F_compose @* _).
+    refine (pmap_compose_assoc _ _ _ @* _).
+    refine (pmap_postwhisker _ (pmap_smash_unit_natural g)^* @* _).
+    refine ((pmap_compose_assoc _ _ _)^* @* _).
+    refine (pmap_prewhisker g (pmap_smash_triangle1 C) @* _).
+    apply pmap_postcompose_idmap. }
+  { intros f. apply path_pmap.
+    refine (pmap_postwhisker _
+      (F_compose (IsFunctor:=isfunctor_smash_right B)) @* _).
+    refine ((pmap_compose_assoc _ _ _)^* @* _).
+    refine (pmap_prewhisker _ (pmap_smash_counit_natural f)^* @* _).
+    refine (pmap_compose_assoc _ _ _ @* _).
+    refine (pmap_postwhisker f (pmap_smash_triangle2 A) @* _).
+    apply pmap_precompose_idmap. }
+Defined.
+
+Theorem pequiv_smash_adj {A B C : pType}
   : (A ∧ B ->* C) <~>* (A ->* B ->* C).
 Proof.
-  
-
-
-(*   serapply Build_pEquiv'.
-  { serapply equiv_adjointify.
-    { intro f.
-      serapply Build_pMap.
-      { serapply smash_rec'.
-        1: apply f.
-        { intro a; cbn.
-          refine (point_eq (f a) @ _).
-          symmetry.
-          apply point_eq. }
-        { intro b; cbn.
-          destruct ((equiv_path_pmap _ _)^-1%equiv (point_eq f))
-            as [g _].
-          refine (g b @ _).
-          symmetry.
-          apply (point_eq (f (point A))). }
-        1: apply concat_pV.
-        cbn.
-        apply moveR_pV.
-        refine (_ @ (concat_1p _)^).
-        destruct f as [f p].
-        cbn in *.
-        set (g := f (point A)).
-        change (g = ispointed_pmap) in p.
-        clearbody g; clear f.
-        destruct g as [g q].
-        cbn in *.
-        pointed_reduce.
-        cbv.
-        rewrite <- (eisretr (equiv_path_pmap _ _) p).
-        set (p' := ((equiv_path_pmap _ ispointed_pmap)^-1)%function p).
-        clearbody p'; clear p.
-        destruct p' as [p' j].
-        cbn in *.
-        destruct j.
-        hott_simpl.
-        set (g ispointed_type0).
-        admit. }
-      cbv; apply point_eq. }(* 
-    { serapply path_pmap.
-      { pointed_reduce.
-        serapply Build_pHomotopy.
-        { serapply (smash_ind (fun _ _ => 1) 1 1);
-          intros; cbn in *;
-          refine (transport_paths_Fl _ _ @ _);
-          apply moveR_Vp;
-          refine (_ @ (concat_p1 _)^);
-          (refine (_ @ (smash_rec_beta_gluel _ _ _)^) ||
-           refine (_ @ (smash_rec_beta_gluer _ _ _)^) );
-          reflexivity. }
-        reflexivity. } } *)
-    { intro f.
-      serapply Build_pMap.
-      { intro a.
-        refine (Build_pMap _ _ (fun b => f (sm a b)) _).
-        refine (ap f (gluel a) @ _ @ point_eq f).
-        apply ap; symmetry; apply gluel. }
-      apply path_pmap.
-      serapply Build_pHomotopy.
-      { intro b.
-        refine (ap f (gluer b) @ _ @ point_eq f).
-        apply ap; symmetry; apply gluer. }
-      cbn.
-      serapply (transport (fun x => ((_ @ x) @ _) @ _ = _)).
-      2: symmetry; apply ap_V.
-      serapply (transport (fun x => _ = (_ @ x) @ _)).
-      2: symmetry; apply ap_V.
-      refine (concat_p1 _ @ _).
-      serapply (transport (fun x => x @ _ = _)).
-      2: symmetry; apply concat_pV.
-      serapply (transport (fun x => _ = x @ _)).
-      2: symmetry; apply concat_pV.
-      reflexivity. }
-    { intro f.
-      serapply path_pmap.
-      serapply Build_pHomotopy.
-      { serapply (smash_ind (fun _ _ => 1)).
-        { pointed_reduce.
-          cbv.
-          apply ap.
-          exact (@gluel
-            {| pointed_type := A; ispointed_type := ispointed_type1 |}
-            {| pointed_type := B; ispointed_type := ispointed_type0 |}
-            (point _)). }
-        { pointed_reduce.
-          cbv.
-          apply ap.
-          exact (@gluer
-            {| pointed_type := A; ispointed_type := ispointed_type1 |}
-            {| pointed_type := B; ispointed_type := ispointed_type0 |}
-            (point _)). }
-        { intro a.
-          optimize_heap.
-          rewrite transport_paths_FlFr.
-          rewrite transport_paths_FlFr. *)
+  serapply Build_pEquiv'.
+  1: apply smash_adjunction.
 Admitted.
 
 End SmashAdj.
