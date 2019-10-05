@@ -1,23 +1,12 @@
 Require Import Basics.
 Require Import Types.
-Require Import Pointed.Core.
-Require Import Pointed.pHomotopy.
-Require Import Pointed.pMap.
-Require Import Pointed.pEquiv.
+Require Import Pointed.
+Require Import Coherence.
 
 (* The yoneda lemma for pointed types. *)
 
 Local Open Scope pointed_scope.
 
-(* TODO: move *)
-Definition functor_pmap {A B C D : pType} (f : B ->* A) (g : C ->* D)
-  : (A ->* C) ->* B ->* D.
-Proof.
-  serapply Build_pMap.
-  { intros i.
-    refine (g o* i o* f). }
-  by pointed_reduce.
-Defined.
 
 (* TODO: Clean up *)
 Definition pequiv_functor_pmap `{Funext} {A B C D : pType}
@@ -56,9 +45,11 @@ Local Notation id := pmap_idmap.
 Local Notation "f '=>*' g" := (functor_pmap f g) (at level 70).
 
 Lemma pYoneda (A B : pType) (phi : forall (X : pType), (B ->* X) <~>* (A ->* X))
-  : (forall X X' (f : X ->* X'), (id =>* f) o* phi X ==* phi X' o* (id =>* f))
-  -> A <~>* B.
+(*   `{IsNatural (fun Z => (phi Z :  _ ->* _))}  *)
+  : A <~>* B.
 Proof.
+  assert (IsNatural (fun Z => (phi Z :  _ ->* _))).
+
   intro p.
   set (to := phi B id).
   set (fr := (phi A)^-1 id).
