@@ -64,15 +64,13 @@ Definition pmap_smash_unit_natural {B X Y : pType} (f : X ->* Y)
     o* pmap_smash_unit X.
 Proof.
   serapply Build_pHomotopy.
-  { intro x.  
+  { intro x.
     apply path_pmap.
     serapply Build_pHomotopy.
     1: reflexivity.
     cbn; rewrite Smash_rec_beta_gluel'.
     do 2 pointed_reduce.
     hott_simpl. }
-  simpl.
-  
 Admitted.
 
 Definition pmap_smash_counit {B : pType} (X : pType)
@@ -118,8 +116,10 @@ Proof.
     rewrite ap_pp.
     rewrite Smash_rec_beta_gluer.
     rewrite ap_V.
-
-Admitted.
+    by pointed_reduce. }
+  simpl.
+  by pointed_reduce.
+Defined.
 
 Definition pmap_smash_triangle1 {B : pType} (X : pType)
   : functor_pmap B (pmap_smash_counit X) o* pmap_smash_unit (B ->* X)
@@ -131,6 +131,45 @@ Definition pmap_smash_triangle2 {B : pType} (X : pType)
   : pmap_smash_counit (X ∧ B) o* functor_smash_right B (pmap_smash_unit X)
     ==* pmap_idmap.
 Proof.
+  serapply Build_pHomotopy.
+  { serapply Smash_ind.
+    1: reflexivity.
+    1: serapply gluel.
+    1: serapply gluer.
+    { intro a; hnf.
+      apply dp_paths_FlFr.
+      rewrite ap_idmap.
+      rewrite concat_p1.
+      rewrite (ap_compose (functor_smash_right _ _)).
+      rewrite Smash_rec_beta_gluel.
+      rewrite transport_paths_Fl.
+      rewrite ap_pp.
+      rewrite !ap_V.
+      rewrite inv_V.
+      rewrite <- ap_compose.
+      rewrite Smash_rec_beta_gluel.
+      simpl.
+      rewrite concat_1p.
+      apply moveR_Vp.
+      unfold gluel'.
+      rewrite concat_pp_p.
+      rewrite concat_Vp.
+      symmetry.
+      apply concat_p1. }
+    intro b; hnf.
+    apply dp_paths_FlFr.
+    rewrite ap_idmap.
+    rewrite concat_p1.
+    rewrite (ap_compose (functor_smash_right _ _)).
+    rewrite Smash_rec_beta_gluer.
+    rewrite transport_paths_Fl.
+    rewrite ap_pp.
+    rewrite !ap_V.
+    rewrite inv_V.
+    rewrite Smash_rec_beta_gluer.
+    rewrite concat_p1.
+    rewrite <- (ap_compose (fun x => sm x (pmap_idmap b)) _).
+    simpl.
 Admitted.
 
 Theorem smash_adjunction {A B C : pType}

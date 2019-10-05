@@ -10,7 +10,6 @@ Local Open Scope pointed_scope.
 Require Import pYoneda.
 Require Import SmashAdj.
 
-
 Definition pmap_smash_swap {X Y : pType} : X ∧ Y ->* Y ∧ X.
 Proof.
   serapply Build_pMap.

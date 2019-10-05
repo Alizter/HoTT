@@ -203,13 +203,13 @@ theories/Homotopy/Freudenthal.v
 theories/Homotopy/SmashCoherence/Coherence.v
 
 theories/Homotopy/SmashCoherence/pMapFunctor.v
-#theories/Homotopy/SmashCoherence/pYoneda.v
+theories/Homotopy/SmashCoherence/pYoneda.v
 theories/Homotopy/SmashCoherence/SmashAdj.v
 #theories/Homotopy/SmashCoherence/SmashCoh.v
 
 #theories/Homotopy/SmashCoherence/Associator.v
 theories/Homotopy/SmashCoherence/Bifunctor.v
-theories/Homotopy/SmashCoherence/Symmetry.v
+#theories/Homotopy/SmashCoherence/Symmetry.v
 #theories/Homotopy/SmashCoherence/Pentagon.v
 #theories/Homotopy/SmashCoherence/Hexagon.v
 #theories/Homotopy/SmashCoherence/Unitor.v
