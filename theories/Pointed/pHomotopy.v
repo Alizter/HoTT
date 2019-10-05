@@ -13,6 +13,12 @@ Proof.
   + apply concat_1p.
 Defined.
 
+Definition phomotopy_paths {A B} {f g : A ->* B}
+  : f = g -> f ==* g.
+Proof.
+  by intros [].
+Defined.
+
 (** ** Whiskering of pointed homotopies by pointed functions *)
 
 Definition pmap_postwhisker {A B C : pType} {f g : A ->* B}
