@@ -146,6 +146,7 @@ theories/HIT/V.v
 
 theories/Colimits/Pushout.v
 theories/Colimits/SpanPushout.v
+theories/Colimits/Quotient.v
 
 theories/Colimits/Colimit.v
 theories/Colimits/Colimit_Sigma.v
