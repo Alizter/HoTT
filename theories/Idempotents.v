@@ -90,7 +90,7 @@ Definition issig_retractof (X : Type)
   <~> RetractOf X.
 Proof.
   refine (equiv_compose' (B := {A:Type & {r:X->A & {s:A->X & r o s == idmap}}}) _ _).
-  - issig (Build_RetractOf X) (@retract_type X) (@retract_retr X) (@retract_sect X) (@retract_issect X).
+  - issig.
   - refine (equiv_functor_sigma' 1 _); intros A.
     symmetry.
     exact (equiv_sigma_prod (fun (rs:(X->A)*(A->X)) => fst rs o snd rs == idmap)).
