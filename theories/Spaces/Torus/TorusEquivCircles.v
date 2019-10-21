@@ -138,16 +138,6 @@ Section TorusEquivCircle.
 
   *)
 
-  Local Notation apcs := (ap_compose_sq _ _ _).
-
-  Definition sq_ap2_compose {A B C D : Type} (f : A -> B -> C) (g : C -> D)
-    {a a' : A} (p : a = a') {b b' : B} (q : b = b')
-    : Cube (sq_ap2 (fun x y => g (f x y)) p q) (sq_ap g (sq_ap2 f p q))
-        apcs apcs apcs apcs.
-  Proof.
-    by destruct p, q.
-  Defined.
-
   (* We now prove t2c is a retraction of c2t *)
   Definition c2t2c : Sect c2t t2c.
   Proof.
@@ -161,7 +151,7 @@ Section TorusEquivCircle.
     intro x; apply sq_dp^-1; revert x.
     srefine (S1_ind_dp _ _ _).
     1: apply sq_tr^-1; shelve.
-    apply cu_dp.
+    apply cu_dp^-1.
     refine (cu_ccGGcc _ _ _).
     1,2: refine (ap sq_dp (S1_ind_dp_beta_loop _ _ _)
       @ eisretr _ _)^.

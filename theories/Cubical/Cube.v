@@ -198,7 +198,8 @@ Section CubeRewriting.
 
 End CubeRewriting.
 
-(* Rotating top and bottom to front and back *)
+(* TODO: Change the name of this since it currently doesn't really make much sense. *)
+(* Rotating a cube through the diagonal from x000 to x111. This rotation has order 3, upto rewrite of faces. *)
 Definition cu_rot_tb_fb {A} {x000 x010 x100 x110 x001 x011 x101 x111 : A}
   {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
   {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
@@ -213,13 +214,10 @@ Proof.
   intro cube.
   refine (cu_GGGGcc _ _ _ _ _).
   1,2,3,4: exact (eissect tr _).
-  revert cube.
   set (a := tr s0ii).
   set (b := tr s1ii).
   set (c := tr sii0).
   set (d := tr sii1).
-  clearbody a b c d; clear s0ii s1ii sii0 sii1.
-  intro cube.
   by destruct cube.
 Defined.
 
@@ -251,11 +249,56 @@ Proof.
     (eisretr tr _) (eisretr tr _) (eisretr tr _)) X).
   set (e := cu_ccGGGG (eisretr tr _) (eisretr tr _)
     (eisretr tr _) (eisretr tr _) X).
-  clearbody e; clear X.
   by destruct e.
 Defined.
 
 Arguments cu_rot_tb_fb {_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _}.
+
+(* TODO: give this a proper name *)
+Definition cu_rot2 {A} {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+  {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
+  {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+  {pi01 : x001 = x101} {pi11 : x011 = x111} {p00i : x000 = x001}
+  {p01i : x010 = x011} {p10i : x100 = x101} {p11i : x110 = x111}
+  (s0ii : Square p0i0 p0i1 p00i p01i) (s1ii : Square p1i0 p1i1 p10i p11i)
+  (sii0 : Square p0i0 p1i0 pi00 pi10) (sii1 : Square p0i1 p1i1 pi01 pi11)
+  (si0i : Square p00i p10i pi00 pi01) (si1i : Square p01i p11i pi10 pi11)
+  : Cube (sq_tr s0ii) (sq_tr s1ii) si0i si1i sii0 sii1
+   -> Cube s0ii s1ii sii0 sii1 si0i si1i.
+Proof.
+  intro cube.
+  refine (cu_GGcccc _ _ _).
+  1,2: exact (eissect tr _).
+  set (a := tr s0ii).
+  set (b := tr s1ii).
+  by destruct cube.
+Defined.
+
+Global Instance isequiv_cu_rot2
+  {A} {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+  {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
+  {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+  {pi01 : x001 = x101} {pi11 : x011 = x111} {p00i : x000 = x001}
+  {p01i : x010 = x011} {p10i : x100 = x101} {p11i : x110 = x111}
+  {s0ii : Square p0i0 p0i1 p00i p01i} {s1ii : Square p1i0 p1i1 p10i p11i}
+  {sii0 : Square p0i0 p1i0 pi00 pi10} {sii1 : Square p0i1 p1i1 pi01 pi11}
+  {si0i : Square p00i p10i pi00 pi01} {si1i : Square p01i p11i pi10 pi11}
+  : IsEquiv (cu_rot2 s0ii s1ii sii0 sii1 si0i si1i).
+Proof.
+  serapply isequiv_adjointify.
+  1,2 : by intros [].
+  unfold Sect.
+  rewrite <- (eissect tr s0ii).
+  rewrite <- (eissect tr s1ii).
+  set (a := tr s0ii).
+  set (b := tr s1ii).
+  intro X.
+  rewrite <- (eissect (cu_GGcccc (eisretr tr _) (eisretr tr _)) X).
+  set (e := cu_GGcccc (eisretr tr _) (eisretr tr _) X).
+  by destruct e.
+Defined.
+
+Arguments cu_rot2 {_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _}.
 
 Section CubesFromPaths.
 
@@ -453,14 +496,13 @@ Section CubeDPath.
     {px0 : a00 == a10} {px1 : a01 == a11} {p0x : a00 == a01} {p1x : a10 == a11}
     {f1 : Square (px0 x1) (px1 x1) (p0x x1) (p1x x1)}
     {f2 : Square (px0 x2) (px1 x2) (p0x x2) (p1x x2)}.
-
   (* Cubes can be given by DPaths over Squares *)
   Definition cu_dp {p : x1 = x2} 
-    : Cube f1 f2 (sq_dp (dp_apD px0 p)) (sq_dp (dp_apD px1 p))
-       (sq_dp (dp_apD p0x p)) (sq_dp (dp_apD p1x p))
-    -> DPath (fun x => Square (px0 x) (px1 x) (p0x x) (p1x x)) p f1 f2.
+    : DPath (fun x => Square (px0 x) (px1 x) (p0x x) (p1x x)) p f1 f2
+    -> Cube f1 f2 (sq_dp (dp_apD px0 p)) (sq_dp (dp_apD px1 p))
+       (sq_dp (dp_apD p0x p)) (sq_dp (dp_apD p1x p)).
   Proof.
-    destruct p; apply cu_G11^-1.
+    destruct p; apply cu_G11.
   Defined.
 
   Global Instance isequiv_cu_dp {p : x1 = x2} : IsEquiv (cu_dp (p:=p)).
@@ -702,6 +744,14 @@ Definition sq_ap_uncurry {A B C} (f : A -> B -> C)
   {a a' : A} (p : a = a') {b b' : B} (q : b = b')
   : Cube (sq_ap (uncurry f) (sq_prod hr vr)) (sq_ap2 f p q)
   (ap_uncurry _ _ _) (ap_uncurry _ _ _) (ap_uncurry _ _ _) (ap_uncurry _ _ _).
+Proof.
+  by destruct p, q.
+Defined.
+
+Definition sq_ap2_compose {A B C D : Type} (f : A -> B -> C) (g : C -> D)
+  {a a' : A} (p : a = a') {b b' : B} (q : b = b')
+  : Cube (sq_ap2 (fun x y => g (f x y)) p q) (sq_ap g (sq_ap2 f p q))
+      apc apc apc apc.
 Proof.
   by destruct p, q.
 Defined.
