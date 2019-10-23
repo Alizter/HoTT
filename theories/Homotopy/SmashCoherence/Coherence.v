@@ -4,7 +4,7 @@ Require Import Pointed.
 
 Local Open Scope pointed_scope.
 
-(* By functor we really mean 1-coherent functor *)
+(* (* By functor we really mean 1-coherent functor *)
 Class IsFunctor (F : pType -> pType) := {
   F_functor {A B : pType} (f : A ->* B) : F A ->* F B;
   F_idmap {A : pType} : F_functor (@pmap_idmap A) ==* pmap_idmap;
@@ -15,8 +15,8 @@ Class IsFunctor (F : pType -> pType) := {
 (* TODO: Change name. *)
 (* A "2Functor" is a functor which preserves pHomotopies *)
 Class Is2Functor (F : pType -> pType) `{IsFunctor F} := {
-  F_2functor : forall (A B : pType) (f g : A ->* B),
-    f ==* g -> F_functor f ==* F_functor g
+  F_2functor {A B : pType} {f g : A ->* B}
+    : f ==* g -> F_functor f ==* F_functor g
 }.
 
 (* Given funext any functor is a "2functor". *)
@@ -43,7 +43,19 @@ Proof.
   apply peissect.
 Defined.
 
-Class IsPointedFunctor (F : pType -> pType) := {
+Global Instance isfunctor_compose (F G : pType -> pType)
+  `{Is2Functor F} `{IsFunctor G} : IsFunctor (F o G).
+Proof.
+  serapply Build_IsFunctor.
+  { intros A B f; cbn.
+    apply F_functor, F_functor, f. }
+  { intros A; cbn.
+    refine (F_2functor F_idmap @* F_idmap). }
+  intros A B C f' f; cbn.
+  refine (F_2functor F_compose @* F_compose).
+Defined.
+ *)
+(* Class IsPointedFunctor (F : pType -> pType) := {
   F_zero : F punit = punit
 }.
 
@@ -55,7 +67,7 @@ Proof.
   rewrite (path_pmap F_compose).
   rewrite (path_pmap (punit_ind_const' (F_functor pmap_const ) F_zero)).
   apply (path_pmap (pmap_precompose_const (F_functor pmap_const))).
-Defined.
+Defined. *)
 
 Section NaturalTransformation.
 
@@ -90,6 +102,31 @@ Section NaturalTransformation.
   }.
 
 End NaturalTransformation.
+
+Section NaturalTransformationProperties.
+
+  Context
+    {F G H : pType -> pType}
+   `{IsFunctor F} `{IsFunctor G} `{IsFunctor H}.
+
+  Global Instance isnatural_compose
+    (P : forall (X : pType), F X ->* G X) {nP : IsNatural P}
+    (Q : forall (X : pType), G X ->* H X) {nQ : IsNatural Q}
+    : IsNatural (fun X => Q X o* P X).
+  Proof.
+    serapply Build_IsNatural.
+    intros A B f.
+    destruct nP as [nP'], nQ as [nQ'].
+    assert (nP := nP' A B f); clear nP'.
+    assert (nQ := nQ' A B f); clear nQ'.
+    refine (pmap_compose_assoc _ _ _ @* _).
+    refine (pmap_postwhisker _ nP @* _).
+    refine ((pmap_compose_assoc _ _ _)^* @* _).
+    refine (pmap_prewhisker _ nQ @* _).
+    apply pmap_compose_assoc.
+  Defined.
+
+End NaturalTransformationProperties.
 
 Class IsBifunctor (F : pType -> pType -> pType) := {
   F_bifunctor {A B A' B' : pType} (f : A ->* B) (f : A' ->* B')

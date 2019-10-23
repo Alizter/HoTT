@@ -24,20 +24,23 @@ Defined.
 Definition pmap_postwhisker {A B C : pType} {f g : A ->* B}
   (h : B ->* C) (p : f ==* g) : h o* f ==* h o* g.
 Proof.
-  pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros a; apply ap, p.
-  - reflexivity.
+  serapply Build_pHomotopy.
+  1: intro; cbn; apply ap, p.
+  refine (concat_p_pp _ _ _ @ _).
+  apply whiskerR; cbn.
+  refine ((ap_pp _ _ _)^ @ _).
+  apply ap.
+  by destruct p.
 Defined.
 
 Definition pmap_prewhisker {A B C : pType} (f : A ->* B)
   {g h : B ->* C} (p : g ==* h) : g o* f ==* h o* f.
 Proof.
-  pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros a; apply p.
-  - refine (concat_p1 _ @ (concat_1p _)^).
+  serapply Build_pHomotopy.
+  1: intro; cbn; apply p.
+  by pointed_reduce.
 Defined.
+
 
 (** ** Composition of pointed homotopies *)
 
@@ -77,4 +80,19 @@ Definition issig_phomotopy {A B : pType} (f g : A ->* B)
 Proof.
   issig.
 Defined.
+
+Lemma pmap_const_factor {A B : pType} {f : punit ->* B} {g : A ->* punit}
+  : f o* g ==* pmap_const.
+Proof.
+  serapply Build_pHomotopy.
+  { pointed_reduce.
+    intro x.
+    cbv.
+    apply ap.
+    apply path_unit. }
+  pointed_reduce.
+  by match goal with |- ap f (path_unit ?p _) = _
+    => destruct p end.
+Defined.
+
 

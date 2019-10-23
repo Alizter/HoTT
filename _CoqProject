@@ -251,12 +251,14 @@ theories/Homotopy/Join.v
 theories/Homotopy/BlakersMassey.v
 theories/Homotopy/Freudenthal.v
 
+#theories/Homotopy/SmashCoherence/PointedCategory/Functor.v
+#theories/Homotopy/SmashCoherence/PointedCategory/Natural.v
 
-theories/Homotopy/SmashCoherence/Coherence.v
+#theories/Homotopy/SmashCoherence/Coherence.v
 
-theories/Homotopy/SmashCoherence/pMapFunctor.v
-theories/Homotopy/SmashCoherence/pYoneda.v
-theories/Homotopy/SmashCoherence/SmashAdj.v
+#theories/Homotopy/SmashCoherence/pMapFunctor.v
+#theories/Homotopy/SmashCoherence/pYoneda.v
+#theories/Homotopy/SmashCoherence/SmashAdj.v
 #theories/Homotopy/SmashCoherence/SmashCoh.v
 
 #theories/Homotopy/SmashCoherence/Associator.v
@@ -283,6 +285,18 @@ theories/Pointed/pTrunc.v
 theories/Pointed/pHomotopy.v
 theories/Pointed/pSusp.v
 
+#
+#   PointedCategory
+#
+
+theories/PointedCategory/Functor.v
+theories/PointedCategory/Natural.v
+theories/PointedCategory/pFunctor.v
+theories/PointedCategory/Bifunctor.v
+theories/PointedCategory/Profunctor.v
+theories/PointedCategory/SymmetricMonoidal.v
+theories/PointedCategory/pMapFunctor.v
+theories/PointedCategory/Adjunction.v
 
 #
 #   Spectra

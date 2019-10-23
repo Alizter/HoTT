@@ -54,6 +54,13 @@ Proof.
   all: reflexivity.
 Defined.
 
+Definition path_pmap_precompose_idmap {A B : pType} (f : A ->* B)
+: f o* pmap_idmap = f.
+Proof.
+  pointed_reduce.
+  reflexivity.
+Defined.
+
 Definition pmap_postcompose_idmap {A B : pType} (f : A ->* B)
 : pmap_idmap o* f ==* f.
 Proof.
@@ -64,10 +71,8 @@ Proof.
   apply ap_idmap.
 Defined.
 
-
-
-(* postcomposing the zero map is the zero map *)
-Lemma pmap_postcompose_const {A B C : pType} (f : B ->* C)
+(* precomposing the zero map is the zero map *)
+Lemma pmap_precompose_const {A B C : pType} (f : B ->* C)
   : f o* @pmap_const A B ==* pmap_const.
 Proof.
   serapply Build_pHomotopy.
@@ -75,8 +80,8 @@ Proof.
   exact (concat_p1 _ @ (concat_1p _)^).
 Defined.
 
-(* precomposing the zero map is the zero map *)
-Lemma pmap_precompose_const {A B C : pType} (f : A ->* B)
+(* postcomposing the zero map is the zero map *)
+Lemma pmap_postcompose_const {A B C : pType} (f : A ->* B)
   : pmap_const o* f ==* @pmap_const A C.
 Proof.
   serapply Build_pHomotopy.
@@ -84,10 +89,18 @@ Proof.
   refine (ap (fun x => concat x 1) (ap_const _ _)^).
 Defined.
 
-Definition path_pmap_refl `{Funext} {A B} {x : A ->* B}
-  : path_pmap (phomotopy_reflexive x) = 1%path.
+Definition foo `{Funext} {A B} {f : A ->* B}
+ : (equiv_path_pmap f f)^-1 1 = {| pointed_htpy := apD10 1; point_htpy := concat_1p (point_eq f) |}.
 Proof.
-  unfold phomotopy_reflexive.
+  apply moveR_equiv_V.
+  cbn.
+  pointed_reduce.
+  simpl.
+Admitted.
+
+Definition path_pmap_refl `{Funext} {A B} {x : A ->* B}
+  : path_pmap {| pointed_htpy := apD10 1; point_htpy := concat_1p (point_eq x) |} = 1%path.
+Proof.
   apply moveR_equiv_M.
   cbn.
   apply ap.
@@ -100,10 +113,12 @@ Proof.
   rewrite eisadj.
   rewrite transport_paths_FlFr.
   rewrite ap_idmap.
+(*   rewrite . *)
 Admitted.
 
-(*
-Definition path_pmap_ap `{Funext} {A B C D : pType} {f g : A ->* B} (p : f ==* g)
+(* 
+Definition path_pmap_ap `{Funext} {A B C D : pType}
+  {f g : A ->* B} (p : f ==* g)
   (h : (A ->* B) -> (C ->* D))
   : ap h (path_pmap p) = path_pmap (phomotopy_ap h p).
 Proof.
@@ -114,30 +129,15 @@ Proof.
   apply path_pmap_refl.
 Defined. *)
 
-Definition path_pmap_pp `{Funext} {A B : pType} {f g h : A ->* B}
-  (p : f ==* g) (q : g ==* h) : path_pmap p @ path_pmap q = path_pmap (p @* q).
+Definition path_pmap_pp `{Funext}
+  {A B : pType} {f g h : A ->* B}
+  (p : f ==* g) (q : g ==* h)
+  : path_pmap p @ path_pmap q = path_pmap (p @* q).
 Proof.
+  rewrite <- (eissect path_pmap p).
+  rewrite <- (eissect path_pmap q).
+  rewrite 2 eisretr.
+  generalize (path_pmap p), (path_pmap q).
+  intros p' q'.
+  destruct p', q'.
 Admitted.
-
-
-
-(* Any map from the unit type must be a constant map *)
-Lemma punit_ind_const {X : pType} (f : punit ->* X)
-  : f ==* pmap_const.
-Proof.
-  serapply Build_pHomotopy.
-  + rapply Unit_ind.
-    erapply point_eq.
-  + apply concat_p1.
-Defined.
-
-(* TODO: Do we really need this, should this generally apply to any contr? *)
-(* Here is a variant that allows for types to simply be equal to unit *)
-Lemma punit_ind_const' {X Y : pType} (f : Y ->* X) (p : Y = punit)
-  : f ==* pmap_const.
-Proof.
-  destruct p^.
-  apply punit_ind_const.
-Defined.
-
-

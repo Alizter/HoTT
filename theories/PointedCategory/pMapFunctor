@@ -1,11 +1,11 @@
 Require Import Basics.
 Require Import Types.
 Require Import Pointed.
-Require Import Coherence.
-
-(* In this file we describe the postcomposition functor. *)
 
 Local Open Scope pointed_scope.
+
+
+(* In this file we describe the postcomposition functor. *)
 
 Global Instance isprofunctor_pmap : IsProfunctor (fun x y => x ->* y).
 Proof.

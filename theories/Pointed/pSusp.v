@@ -285,46 +285,54 @@ Qed.
 
 (** Now we can finally construct the adjunction equivalence. *)
 
-Definition loop_susp_adjoint `{Funext} (A B : pType)
-  : (psusp A ->* B) <~> (A ->* loops B).
+(* TODO: move *)
+(* Require Import PointedCategory.Adjunction. *)
+Require Import PointedCategory.Adjunction.
+Require Import PointedCategory.Functor.
+
+(* TODO: Move *)
+Definition functor_loops : Functor.
 Proof.
-  refine (equiv_adjointify
-            (fun f => loops_functor f o* loop_susp_unit A)
-            (fun g => loop_susp_counit B o* psusp_functor g) _ _).
-  - intros g. apply path_pmap.
-    refine (pmap_prewhisker _ (loops_functor_compose _ _) @* _).
-    refine (pmap_compose_assoc _ _ _ @* _).
-    refine (pmap_postwhisker _ (loop_susp_unit_natural g)^* @* _).
-    refine ((pmap_compose_assoc _ _ _)^* @* _).
-    refine (pmap_prewhisker g (loop_susp_triangle1 B) @* _).
-    apply pmap_postcompose_idmap.
-  - intros f. apply path_pmap.
-    refine (pmap_postwhisker _ (psusp_functor_compose _ _) @* _).
-    refine ((pmap_compose_assoc _ _ _)^* @* _).
-    refine (pmap_prewhisker _ (loop_susp_counit_natural f)^* @* _).
-    refine (pmap_compose_assoc _ _ _ @* _).
-    refine (pmap_postwhisker f (loop_susp_triangle2 A) @* _).
-    apply pmap_precompose_idmap.
+  serapply (Build_Functor loops).
+  serapply Build_IsFunctor.
+  1: intros ??; apply loops_functor.
+  1: apply loops_functor_idmap.
+  intros; apply loops_functor_compose.
 Defined.
 
-(** And its naturality is easy. *)
+(* TODO: move *)
+Definition functor_psusp : Functor.
+Proof.
+  serapply (Build_Functor psusp).
+  serapply Build_IsFunctor.
+  1: intros ??; apply psusp_functor.
+  1: intro; apply psusp_functor_idmap.
+  intros; apply psusp_functor_compose.
+Defined.
+
+Global Instance adjunction_psusp_loops
+  : Adjunction functor_psusp functor_loops.
+Proof.
+  serapply Build_Adjunction.
+  1: apply loop_susp_unit.
+  1: apply loop_susp_counit.
+  1: intros; apply loop_susp_unit_natural.
+  1: intros; apply loop_susp_counit_natural.
+  1: apply loop_susp_triangle1.
+  apply loop_susp_triangle2.
+Defined.
+
+(* TODO: move *)
+Definition loop_susp_adjoint `{Funext} (A B : pType)
+  : (psusp A ->* B) <~> (A ->* loops B)
+  := @equiv_adjunction _ _ _ adjunction_psusp_loops _ _.
 
 Definition loop_susp_adjoint_nat_r `{Funext} (A B B' : pType)
   (f : psusp A ->* B) (g : B ->* B') : loop_susp_adjoint A B' (g o* f)
-  ==* loops_functor g o* loop_susp_adjoint A B f.
-Proof.
-  cbn.
-  refine (_ @* pmap_compose_assoc _ _ _).
-  apply pmap_prewhisker.
-  refine (loops_functor_compose g f).
-Defined.
+  ==* loops_functor g o* loop_susp_adjoint A B f
+  := @equiv_adjunction_nat_r _ _ _ _ _ _ adjunction_psusp_loops _ _.
 
 Definition loop_susp_adjoint_nat_l `{Funext} (A A' B : pType)
   (f : A ->* loops B) (g : A' ->* A) : (loop_susp_adjoint A' B)^-1 (f o* g)
-  ==* (loop_susp_adjoint A B)^-1 f o* psusp_functor g.
-Proof.
-  cbn.
-  refine (_ @* (pmap_compose_assoc _ _ _)^*).
-  apply pmap_postwhisker.
-  refine (psusp_functor_compose f g).
-Defined.
+  ==* (loop_susp_adjoint A B)^-1 f o* psusp_functor g
+  := @equiv_adjunction_nat_l _ _ _ _ _ _ adjunction_psusp_loops _ _.

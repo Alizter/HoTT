@@ -3,112 +3,112 @@
 
 (** First we give modules to all of the kinds of category theory constructions (corresponding to directories), so that we can refer to them as [Category.foo] or [Functor.foo] after [Require Import Categories.] *)
 (** ** Categories *)
-Require Category.
+Require Categories.Category.
 (** ** Functors *)
-Require Functor.
+Require Categories.Functor.
 (** ** Natural Transformations *)
-Require NaturalTransformation.
+Require Categories.NaturalTransformation.
 (** ** Functor Categories *)
-Require FunctorCategory.
+Require Categories.FunctorCategory.
 (** ** Groupoids *)
-Require GroupoidCategory.
+Require Categories.GroupoidCategory.
 (** ** Precategory of Groupoids *)
-Require CategoryOfGroupoids.
+Require Categories.CategoryOfGroupoids.
 (** ** Discrete Categories *)
-Require DiscreteCategory.
+Require Categories.DiscreteCategory.
 (** ** Indiscrete Categories *)
-Require IndiscreteCategory.
+Require Categories.IndiscreteCategory.
 (** ** Finite Discrete Categories (natural numbers as categories) *)
-Require NatCategory.
+Require Categories.NatCategory.
 (** ** Chain Categories [[n]] *)
-Require ChainCategory.
+Require Categories.ChainCategory.
 (** ** Initial and Terminal Categories *)
-Require InitialTerminalCategory.
+Require Categories.InitialTerminalCategory.
 (** ** The Category of Sets *)
-Require SetCategory.
+Require Categories.SetCategory.
 (** ** The Category of Simplicial Sets *)
-Require SimplicialSets.
+Require Categories.SimplicialSets.
 (** ** The Category of Semi-Simplicial Sets *)
-Require SemiSimplicialSets.
+Require Categories.SemiSimplicialSets.
 (** ** The Hom Functor *)
-Require HomFunctor.
+Require Categories.HomFunctor.
 (** ** Profunctors *)
-Require Profunctor.
+Require Categories.Profunctor.
 (** ** The Category of Categories *)
-Require Cat.
+Require Categories.Cat.
 (** ** Laws about Functor Categories *)
-Require ExponentialLaws.
+Require Categories.ExponentialLaws.
 (** ** Laws about Product Categories *)
-Require ProductLaws.
+Require Categories.ProductLaws.
 (** ** Comma Categories *)
-Require Comma.
+Require Categories.Comma.
 (** ** Universal Properties and Universal Morphisms *)
-Require UniversalProperties.
+Require Categories.UniversalProperties.
 (** ** Kan Extensions *)
-Require KanExtensions.
+Require Categories.KanExtensions.
 (** ** Adjunctions *)
-Require Adjoint.
+Require Categories.Adjoint.
 (** ** Limits *)
-Require Limits.
+Require Categories.Limits.
 (** ** Pseudofunctors *)
-Require Pseudofunctor.
+Require Categories.Pseudofunctor.
 (** ** Pseudonatural Transformations *)
-Require PseudonaturalTransformation.
+Require Categories.PseudonaturalTransformation.
 (** ** Lax Comma Categories *)
-Require LaxComma.
+Require Categories.LaxComma.
 (** ** Duality as a Functor *)
-Require DualFunctor.
+Require Categories.DualFunctor.
 (** ** The Grothendieck Construction *)
-Require Grothendieck.
+Require Categories.Grothendieck.
 (** ** The Category of Sections of a Functor *)
-Require CategoryOfSections.
+Require Categories.CategoryOfSections.
 (** ** The Dependent Product *)
-Require DependentProduct.
+Require Categories.DependentProduct.
 (** ** The Yoneda Lemma *)
-Require Yoneda.
+Require Categories.Yoneda.
 (** ** The Structure Identity Principle *)
-Require Structure.
+Require Categories.Structure.
 (** ** Fundamental Pregroupoids *)
-Require FundamentalPreGroupoidCategory.
+Require Categories.FundamentalPreGroupoidCategory.
 (** ** Homotopy PreCategory *)
-Require HomotopyPreCategory.
+Require Categories.HomotopyPreCategory.
 
 (* We bind the record structures for [PreCategory], [IsCategory], [IsStrictCategory], [Functor], and eventually [NaturalTransformation] at top level. *)
 Local Set Warnings Append "-notation-overridden".
-Include Category.Core.
-Include Category.Strict.
-Include Category.Univalent.
-Include Functor.Core.
-Include NaturalTransformation.Core.
-Include FunctorCategory.Core.
-Include GroupoidCategory.Core.
-Include CategoryOfGroupoids.
-Include DiscreteCategory.Core.
-Include IndiscreteCategory.Core.
-Include NatCategory.Core.
-Include ChainCategory.Core.
-Include InitialTerminalCategory.Core.
-Include SetCategory.Core.
-Include SimplicialSets.Core.
-Include SemiSimplicialSets.Core.
-Include HomFunctor.
-Include Profunctor.Core.
-Include Cat.Core.
-Include Comma.Core.
-Include UniversalProperties.
-Include KanExtensions.Core.
-Include Adjoint.Core.
-Include Limits.Core.
-Include Pseudofunctor.Core.
-Include PseudonaturalTransformation.Core.
-Include LaxComma.Core.
-Include DualFunctor.
-Include CategoryOfSections.Core.
-Include DependentProduct.
-Include Yoneda.
-Include Structure.Core.
-Include FundamentalPreGroupoidCategory.
-Include HomotopyPreCategory.
+Include Categories.Category.Core.
+Include Categories.Category.Strict.
+Include Categories.Category.Univalent.
+Include Categories.Functor.Core.
+Include Categories.NaturalTransformation.Core.
+Include Categories.FunctorCategory.Core.
+Include Categories.GroupoidCategory.Core.
+Include Categories.CategoryOfGroupoids.
+Include Categories.DiscreteCategory.Core.
+Include Categories.IndiscreteCategory.Core.
+Include Categories.NatCategory.Core.
+Include Categories.ChainCategory.Core.
+Include Categories.InitialTerminalCategory.Core.
+Include Categories.SetCategory.Core.
+Include Categories.SimplicialSets.Core.
+Include Categories.SemiSimplicialSets.Core.
+Include Categories.HomFunctor.
+Include Categories.Profunctor.Core.
+Include Categories.Cat.Core.
+Include Categories.Comma.Core.
+Include Categories.UniversalProperties.
+Include Categories.KanExtensions.Core.
+Include Categories.Adjoint.Core.
+Include Categories.Limits.Core.
+Include Categories.Pseudofunctor.Core.
+Include Categories.PseudonaturalTransformation.Core.
+Include Categories.LaxComma.Core.
+Include Categories.DualFunctor.
+Include Categories.CategoryOfSections.Core.
+Include Categories.DependentProduct.
+Include Categories.Yoneda.
+Include Categories.Structure.Core.
+Include Categories.FundamentalPreGroupoidCategory.
+Include Categories.HomotopyPreCategory.
 
 Require Export Categories.Notations.
 
