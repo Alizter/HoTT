@@ -19,7 +19,7 @@ Proof.
   { serapply (Smash_rec (fun a a' => sm (f a) (g a')) auxl auxr); intro.
     + refine (ap _ (point_eq g) @ gluel (f a)).
     + refine (ap (fun x => sm x (g b)) (point_eq f) @ gluer (g b)). }
-  cbv; apply ap, ap, path_prod; apply point_eq.
+  apply (ap2 sm (point_eq f) (point_eq g)).
 Defined.
 
 Notation "f [∧] g" := (smash_bifunctor f g) (at level 20).

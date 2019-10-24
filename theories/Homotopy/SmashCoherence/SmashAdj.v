@@ -53,36 +53,6 @@ Definition pmap_smash_unit_natural {B X Y : pType} (f : X ->* Y)
   ==* pmap_functor B (smash_right_functor B f)
     o* pmap_smash_unit X.
 Proof.
-  serapply Build_pHomotopy.
-  { intro a.
-    apply path_pmap.
-    serapply Build_pHomotopy.
-    1: reflexivity.
-    refine (concat_1p _ @ concat_1p _ @ _).
-    unfold pmap_compose.
-    unfold point_eq.
-    unfold smash_right_functor.
-    simpl.
-    simpl.
-    simpl.
-    simpl.
-    rewrite Smash_rec_beta_gluel'.
-    unfold paths_rect, paths_ind.
-    
-    
-
-  pointed_reduce.
-  serapply Build_pHomotopy.
-  { intro x.
-    simpl.
-    apply path_pmap.
-    serapply Build_pHomotopy.
-    1: reflexivity.
-    simpl.
-    rewrite 2 concat_1p, concat_p1.
-    serapply Smash_rec_beta_gluel'. }
-  simpl.
-  
 Admitted.
 
 Definition pmap_smash_counit {B : pType} (X : pType)
@@ -112,8 +82,9 @@ Proof.
       apply moveR_Mp.
       rewrite ap_compose.
       rewrite (Smash_rec_beta_gluel _ _ g).
+      rewrite ap_pp.
       rewrite Smash_rec_beta_gluel.
-      by do 2 pointed_reduce. }
+      by cbn; rewrite !concat_1p, concat_p1, inv_V. }
     intro b.
     serapply dp_paths_FlFr.
     rewrite concat_p1.
@@ -125,11 +96,12 @@ Proof.
       serapply Smash_rec_beta_gluer. }
     rewrite (ap_compose _ f).
     rewrite (Smash_rec_beta_gluer (fun a : B ->* X => point_eq a) _ b).
-    rewrite transport_paths_Fl.
+    simpl.
     rewrite ap_pp.
-    rewrite Smash_rec_beta_gluer.
-    rewrite ap_V.
-    by pointed_reduce. }
+    rewrite <- (ap_compose (fun x : B ->* Y => sm x b)).
+    simpl.
+    pointed_reduce.
+    serapply Smash_rec_beta_gluer. }
   simpl.
   by pointed_reduce.
 Defined.
@@ -167,33 +139,24 @@ Proof.
       rewrite concat_p1.
       rewrite (ap_compose (smash_right_functor _ _)).
       rewrite Smash_rec_beta_gluel.
-      rewrite transport_paths_Fl.
       rewrite ap_pp.
-      rewrite !ap_V.
-      rewrite inv_V.
       rewrite <- ap_compose.
       rewrite Smash_rec_beta_gluel.
       simpl.
       rewrite concat_1p.
       apply moveR_Vp.
-      unfold gluel'.
-      rewrite concat_pp_p.
-      rewrite concat_Vp.
-      symmetry.
-      apply concat_p1. }
+      by apply moveL_pM. }
     intro b; hnf.
     apply dp_paths_FlFr.
     rewrite ap_idmap.
     rewrite concat_p1.
     rewrite (ap_compose (smash_right_functor _ _)).
     rewrite Smash_rec_beta_gluer.
-    rewrite transport_paths_Fl.
     rewrite ap_pp.
-    rewrite !ap_V.
-    rewrite inv_V.
     rewrite Smash_rec_beta_gluer.
     rewrite concat_p1.
     rewrite <- (ap_compose (fun x => sm x (pmap_idmap b)) _).
+    
     simpl.
 Admitted.
 
@@ -209,14 +172,75 @@ Proof.
   + exact pmap_smash_triangle2.
 Defined.
 
-Definition smash_adjunction {A B C : pType}
+Definition smash_adjunction (A B C : pType)
   : (A ∧ B ->* C) <~> (A ->* B ->* C)
   := @equiv_adjunction _ _ _ (adjunction_smash_pmap B) _ _.
 
-Theorem pequiv_smash_adj {A B C : pType}
+Theorem pequiv_smash_adj (A B C : pType)
   : (A ∧ B ->* C) <~>* (A ->* B ->* C).
 Proof.
   serapply (@pequiv_adjunction _ _ _ (adjunction_smash_pmap B)).
 Defined.
+
+Require Import PointedCategory.Natural.
+Require Import PointedCategory.Profunctor.
+
+Global Instance functor_compose : Functor -> Functor -> Functor.
+Proof.
+  intros F G.
+  serapply (Build_Functor (F o G)).
+Defined.
+
+Global Instance functor_double_pmap (A B : pType) : Functor.
+Proof.
+  serapply (functor_compose (functor_pmap A) (functor_pmap B)).
+Defined.
+
+Global Instance functor_smash_pmap (A B : pType) : Functor.
+Proof.
+  serapply (functor_pmap (A ∧ B)).
+Defined.
+
+Global Instance natequiv_smash_adjunction (A B : pType)
+  : NaturalEquivalence (functor_smash_pmap A B) (functor_double_pmap A B).
+Proof.
+  simple notypeclasses refine (Build_NaturalEquivalence _ _ _ _).
+  1: exact (pequiv_smash_adj A B).
+  serapply Build_IsNatural.
+  intros X Y f.
+  hnf.
+  serapply Build_pHomotopy.
+  { intro g.
+    apply path_pmap.
+    serapply Build_pHomotopy.
+    { intro a.
+      apply path_pmap.
+      simpl.
+      refine (pmap_precompose_idmap _ @* _ @* (pmap_precompose_idmap _)^*).
+      refine (pmap_compose_assoc _ _ _ @* _).
+      refine (pmap_compose_assoc _ _ _ @* _).
+      apply pmap_postwhisker.
+      refine (_ @* (pmap_compose_assoc _ _ _)^*).
+      apply pmap_postwhisker.
+      refine (pmap_postcompose_idmap _ @* (pmap_precompose_idmap _)^*). }
+    hnf.
+  
+  refine ((pmap_compose_assoc _ _ _)^* @* _).
+  
+  
+
+Global Instance isnatural_smash_adjunction_C {A B : pType}
+  : IsNatural (fun C => @pequiv_smash_adj A B C).
+Proof.
+  serapply Build_IsNatural.
+  intros X Y f.
+  cbv beta.
+  serapply equiv_adjunction_nat_l _ _ (adjunction_smash_pmap B) _ f
+  apply PointedCategory.Adjunction
+
+Defined.
+
+Global Instance natequiv_smash_adjunction
+  : NaturalEquivalence
 
 End SmashAdj.
