@@ -854,7 +854,18 @@ Local Ltac ntc_rapply p :=
   ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _) ||
   ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _) ||
   ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
-  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _).
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ||
+  ntc_refine (p _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _).
 
 (** Ssreflect tactics, adapted by Robbert Krebbers *)
 Ltac done :=

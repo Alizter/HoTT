@@ -27,6 +27,43 @@ The labels look like this:
 
 We can shove all this data into the following record. *)
 
+Definition dp_apD011 {A : Type} {P : A -> Type} (Q : forall a, P a -> Type)
+  {x y} (p : x = y) {a : P x} {b : P y} (q : DPath P p a b)
+  : Q x a = Q y b.
+Proof.
+  destruct p.
+  by apply ap.
+Defined.
+
+Definition dp_sigma {A : Type} {P : A -> Type} {Q : forall a, P a -> Type}
+  {x y : A} (p : x = y) (uz : sig (fun u => Q x u)) (vw : sig (fun v => Q y v))
+  (r : DPath P p uz.1 vw.1) (s : DPath idmap (dp_apD011 Q p r) uz.2 vw.2) 
+  : DPath (fun t => sig (fun u => Q t u)) p uz vw.
+Proof.
+  
+
+  destruct p.
+  apply (path_sigma_dp r).
+  by apply dp_compose in s.
+Defined.
+
+Definition dp_sigma' {A : Type} {P : A -> Type} {Q : sig P -> Type}
+  {x y : A} (p : x = y) (uz : sig (fun u => Q (x; u)))
+  (vw : sig (fun v => Q (y; v)))
+  (r : DPath P p uz.1 vw.1)
+  : Type.
+  
+  (s : DPath (fun u => Q (x; u) -> Q (y;u)))
+   (path_sigma_uncurried _ _ _ (p; _) uz.2 vw.2) 
+  : DPath (fun t => sig (fun u => Q t u)) p uz vw.
+Proof.
+  
+
+  destruct p.
+  apply (path_sigma_dp r).
+  by apply dp_compose in s.
+Defined.
+
 Record Diagram3x3 : Type := {
   A00 : Type; A02 : Type; A04 : Type;
   A20 : Type; A22 : Type; A24 : Type;
@@ -40,8 +77,32 @@ Record Diagram3x3 : Type := {
   H31 : f41 o f32 == f30 o f21; H33 : f43 o f32 == f34 o f23;
 }.
 
+(* Definition issig_Diagram3x3 : _ <~> Diagram3x3 := ltac:(issig). *)
+(* Takes a few minutes *)
+
 (* Notation for identity map transport. *)
 Notation coe p x := (transport idmap p x).
+
+(* Definition foo (u v : Diagram3x3)
+  (p00 : A00 u = A00 v)
+  (p02 : A02 u = A02 v)
+  : u = v.
+Proof.
+  srefine ((equiv_ap' _ _ _)^-1 _).
+  2: symmetry; apply issig_Diagram3x3.
+  simpl.
+  serapply path_sigma_dp.
+  1: assumption.
+  simpl.
+  serapply dp_sigma.
+  1: apply dp_const; assumption.
+  simpl.
+  
+    symmetry.
+    issig.
+
+  apply issig. *)
+
 (* 
 Record path_Diagram3x3 (u v : Diagram3x3) := {
   p00 : u.(A00) = v.(A00); p02 : u.(A02) = v.(A02); p04 : u.(A04) = v.(A04);
@@ -101,9 +162,41 @@ Record path_dep3x3 (u v : Dep3x3) := {
 Definition issig_path_dep3x3 {u v : Dep3x3}
   : _ <~> path_dep3x3 u v := ltac:(issig).
 
+Section EncodeDecode.
+
+  Global Instance reflexivity_path_dep3x3 : Reflexive path_dep3x3.
+  Proof.
+    by intro; serapply Build_path_dep3x3.
+  Defined.
+
+  Definition encode (u v : Dep3x3) : u = v -> path_dep3x3 u v.
+  Proof.
+    intro p.
+    refine (transport (path_dep3x3 u) p (reflexivity u)).
+  Defined.
+
+  Definition decode (u v : Dep3x3) : path_dep3x3 u v.
+  Proof.
+    
+
+
 Definition equiv_path_dep3x3 `{Funext} {u v : Dep3x3}
   : path_dep3x3 u v <~> u = v.
 Proof.
+(*   symmetry.
+  serapply BuildEquiv.
+  { intros [].
+    by serapply Build_path_dep3x3. }
+  revert v.
+  apply licata_shulman.
+  serapply BuildContr.
+  { exists u.
+    by serapply Build_path_dep3x3. }
+  intros [x p].
+  serapply path_sigma'.
+  { destruct p.
+ *)
+
   symmetry.
   etransitivity.
   2: apply issig_path_dep3x3.
@@ -125,96 +218,6 @@ Proof.
           || (destruct H; clear H; cbn [transport] in * )
       end ].
   all: cbv [reflexivity reflexive_equiv equiv_idmap equiv_fun] in *.
-  repeat first [ solve [ reflexivity ]
-                 | match goal with
-                   | [ H : _ = _ |- _ ] => clear H || (destruct H; clear H; cbn [transport] in * )
-                   end ].
-  simpl in *.
-  
-  symmetry.
-  refine (issig_path_dep3x3 oE _).
-  symmetry.
-  
-
-  serapply equiv_adjointify.
-  1: shelve.
-  { intros [].
-    repeat (srefine (_;_); [reflexivity|]).
-    cbn; reflexivity. }
-  { intros []. cbv.
-  
-    repeat (refine (_;_); [reflexivity|]).
-  
-    repeat (serapply path_sigma'; [reflexivity| ]).
-   destruct p.
-  
-  { rewrite <- (eisretr issig_Dep3x3 u).
-    rewrite <- (eisretr issig_Dep3x3 v).
-    intros [p00 [p04 [p40 [p44 [p02 [p42 [p20 [p24 p22]]]]]]]].
-    apply ap.
-    simpl in *.
-    serapply (path_sigma' _ _).
-    1: assumption.
-    
-    serapply path_sigma'.
-    1: destruct p00.
-    
-    match goal with
-     | [ |- transport _ ?p _ = _ ] => destruct p
-    end.
-    
-    
-    repeat (
-    serapply (path_sigma' _ _); try assumption; cbn;
-    match goal with
-     | [ |- transport _ ?p _ = _ ] => destruct p
-    end; cbn ).
-    
-    repeat (serapply path_sigma';
-    [ funext x y; revert x y; assumption
-    | match goal with
-        | [ |- transport _ ?p _ = _ ] => destruct p
-      end; cbn ]).
-    
-
-    rewrite transport_sigma.
-    serapply path_sigma'.
-    1: by refine (transport_const _ _ @ _).
-    cbn.
-    serapply transport_const.
-    
-    rewrite transportD_is_transport.
-    rewrite transportD_is_transport.
-    
-    
-    
-    serapply path_sigma'.
-    
-    (rewrite transport_sigma;
-    serapply path_sigma';
-    [ by refine (transport_const _ _ @ _)
-    | ]).
-    
-    simpl in *.
-    rewrite transportD_is_transport.
-    destruct p00.
-    path_sigma'
-(*     equiv_path_equiv
-    
-      
-    1: funext ? ?; assumption.
-    
-    1: reflexivity.
-    
-    
-    
-    destruct (path_forall2 _ _ p02).
-    destruct (path_forall2 _ _ p42).
-    destruct (path_forall2 _ _ p20).
-    destruct (path_forall2 _ _ p24).
-    apply ap.
-    funext ? ? ? ? ? ?.
-    funext ? ?. *)
     Admitted.
 
 (* Total space of two parameter type families. *)
@@ -236,7 +239,7 @@ Definition sig42 {A B C D : Type}
 Arguments sig42 {_ _ _ _ _ _ _ _} E /.
 
 (* Here is how to convert between a dependent 3x3 diagram and a regular 3x3 diagram. Note that stepping through this proof is very slow and it may be better to check the whole thing at once. *)
-Definition Dep3x3_to_Pushout3x3 : Dep3x3 -> Diagram3x3.
+Definition Dep3x3_to_Diagram3x3 : Dep3x3 -> Diagram3x3.
 Proof.
   intros [B00 B04 B40 B44 B02 B42 B20 B24 B22].
   (* We need to manually supply 25 bits of data. We start with the types and which we define as total spaces of the families. *)
@@ -304,13 +307,37 @@ Proof.
     - refine (Square (H33 x) (p43 @ p34^) (ap _ p32) (ap _ p23)).
 Defined.
 
-Lemma foo {A B : Type} {C : A -> B -> Type} (x : A) (y : B)
+Lemma bar  {A B : Type} {C : A -> B -> Type} (x : A) (y : B)
+  : {abc : {a : A & {b : B & C a b}} & (abc.1 = x) * (abc.2.1 = y)} <~> C x y.
+Proof.
+  serapply equiv_adjointify.
+  { intros [[a [b c]] [[] []]].
+    apply c. }
+  { intro c.
+    exists (x; y; c).
+    by split. }
+  1: cbn; reflexivity.
+  by intros [[a [b c]] [[] []]].
+Defined.
+
+Lemma foo `{Univalence} {A B : Type} {C : A -> B -> Type} (x : A) (y : B)
   : {abc : {a : A & {b : B & C a b}} & (abc.1 = x) * (abc.2.1 = y)} = C x y.
 Proof.
-Admitted.
+  apply path_universe_uncurried.
+  apply bar.
+Defined.
 
-Definition dep_dia_dep `{Funext}
-  : Sect Dep3x3_to_Pushout3x3 Diagram3x3_to_Dep3x3.
+Definition foo_beta `{Univalence}
+  {A B : Type} {C : A -> B -> Type} (x : A) (y : B)
+  (z : {abc : {a : A & {b : B & C a b}} & (abc.1 = x) * (abc.2.1 = y)})
+  : coe (foo x y) z = bar x y z.
+Proof.
+  serapply transport_path_universe_uncurried.
+Defined.
+
+
+Definition dep_dia_dep `{Univalence}
+  : Sect Dep3x3_to_Diagram3x3 Diagram3x3_to_Dep3x3.
 Proof.
   intros [B00 B04 B40 B44 B02 B42 B20 B24 B22].
   simpl.
@@ -321,9 +348,13 @@ Proof.
   all: simpl.
   1,2,3,4: apply foo.
   simpl.
+  intros.
+  rewrite 4 foo_beta.
+  apply path_universe_uncurried.
+  serapply equiv_adjointify.
 Admitted.
 
-Definition dia_dep_dia : Sect Diagram3x3_to_Dep3x3 Dep3x3_to_Pushout3x3.
+Definition dia_dep_dia : Sect Diagram3x3_to_Dep3x3 Dep3x3_to_Diagram3x3.
 Proof.
   intros [A00 A02 A04 A20 A22 A24 A40 A42 A44
     f01 f03 f10 f12 f14 f21 f23 f30 f32 f34 f41 f43 H11 H13 H31 H33].
