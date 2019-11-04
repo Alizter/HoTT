@@ -225,6 +225,7 @@ theories/Constant.v
 theories/ExcludedMiddle.v
 theories/Misc.v
 theories/PathAny.v
+theories/Yoneda.v
 theories/Utf8.v
 theories/HoTT.v
 theories/Tests.v
