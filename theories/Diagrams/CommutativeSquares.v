@@ -26,6 +26,25 @@ Proof.
   apply ap, comm.
 Defined.
 
+(** Commutative squares compose.
+
+      A --g--> B --g'-> E
+      |    //  |    //  |
+      f  comm  f' comm' f''
+      |  //    |  //    |
+      V //     V //     V
+      C --h--> D --h'-> F
+*)
+Lemma comm_square_comp' {A B C D E F}
+  {f : A -> C} {f': B -> D} {g : A -> B} {h : C -> D} (comm : h o f == f' o g)
+  {f'': E -> F} {h' : D -> F} {g' : B -> E} (comm' : h' o f' == f'' o g')
+  : (h' o h) o f == f'' o (g' o g).
+Proof.
+  intros x.
+  path_via (h' (f' (g x))).
+  apply ap, comm.
+Defined.
+
 (** Given any commutative square from [f] to [f'] whose verticals
 [wA, wB] are equivalences, the equiv_inv square from [f'] to [f] with verticals [wA ^-1, wB ^-1] also commutes. *)
 Lemma comm_square_inverse

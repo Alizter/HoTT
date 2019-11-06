@@ -159,3 +159,21 @@ Section Functor_Pullback.
   Defined.
 
 End Functor_Pullback.
+
+Section EquivPullback.
+  Context {A B C f g A' B' C' f' g'}
+          (eA : A <~> A') (eB : B <~> B') (eC : C <~> C')
+          (p : f' o eB == eA o f) (q :  g' o eC == eA o g).
+
+  Lemma equiv_pullback
+    : Pullback f g <~> Pullback f' g'.
+  Proof.
+    unfold Pullback.
+    apply (equiv_functor_sigma' eB); intro b.
+    apply (equiv_functor_sigma' eC); intro c.
+    refine (equiv_concat_l (p _) _ oE _).
+    refine (equiv_concat_r (q _)^ _ oE _).
+    refine (equiv_ap' eA _ _).
+  Defined.
+
+End EquivPullback.

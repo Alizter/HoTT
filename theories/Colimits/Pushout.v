@@ -3,6 +3,9 @@ Require Import HoTT.Basics.
 Require Import HoTT.Types.
 Require Import HSet TruncType.
 Require Export HIT.Coeq.
+Require Import Limits.Pullback.
+Require Import Diagrams.CommutativeSquares.
+Require Import Cubical.
 Local Open Scope path_scope.
 
 (** * Homotopy Pushouts *)
@@ -66,6 +69,31 @@ Arguments pglue : simpl never.
 Arguments Pushout_ind : simpl never.
 Arguments Pushout_ind_beta_pglue : simpl never.
 
+Section PushoutIndDP.
+
+  Context {A B C : Type} {f : A -> B} {g : A -> C}
+    (P : Pushout f g -> Type)
+    (pushb : forall b : B, P (pushl b))
+    (pushc : forall c : C, P (pushr c))
+    (pusha : forall a : A, DPath P (pglue a) (pushb (f a)) (pushc (g a))).
+
+  Definition Pushout_ind_dp : forall (w : Pushout f g), P w.
+  Proof.
+    serapply Pushout_ind.
+    1,2: assumption.
+    intro a.
+    by apply dp_path_transport^-1.
+  Defined.
+
+  Definition Pushout_ind_dp_beta_pglue (a : A)
+    : dp_apD Pushout_ind_dp (pglue a) = pusha a.
+  Proof.
+    apply dp_apD_path_transport.
+    serapply Pushout_ind_beta_pglue.
+  Defined.
+
+End PushoutIndDP.
+
 Definition Pushout_rec {A B C} {f : A -> B} {g : A -> C} (P : Type)
   (pushb : B -> P)
   (pushc : C -> P)
@@ -98,7 +126,7 @@ Proof.
   exact (ap h (pglue a)).
 Defined.
 
-Definition isequiv_Pushout_rec `{Funext} {A B C} (f : A -> B) (g : A -> C) P
+Definition isequiv_pushout_rec `{Funext} {A B C} (f : A -> B) (g : A -> C) P
   : IsEquiv (fun p : {psh : (B -> P) * (C -> P) &
                             forall a, fst psh (f a) = snd psh (g a) }
              => Pushout_rec P (fst p.1) (snd p.1) p.2).
@@ -120,17 +148,29 @@ Proof.
                 reflexivity).
 Defined.
 
-Definition equiv_Pushout_rec `{Funext} {A B C} (f : A -> B) (g : A -> C) P
+Definition equiv_pushout_rec `{Funext} {A B C} (f : A -> B) (g : A -> C) P
   : {psh : (B -> P) * (C -> P) &
            forall a, fst psh (f a) = snd psh (g a) }
       <~> (Pushout f g -> P)
-  := Build_Equiv _ _ _ (isequiv_Pushout_rec f g P).
+  := Build_Equiv _ _ _ (isequiv_pushout_rec f g P).
 
 Definition equiv_pushout_unrec `{Funext} {A B C} (f : A -> B) (g : A -> C) P
   : (Pushout f g -> P)
       <~> {psh : (B -> P) * (C -> P) &
                  forall a, fst psh (f a) = snd psh (g a) }
-  := equiv_inverse (equiv_Pushout_rec f g P).
+  := equiv_inverse (equiv_pushout_rec f g P).
+
+Definition equiv_pullback_pushout `{Funext} {A B C P}
+  {f : A -> B} {g : A -> C}
+  : (Pushout f g -> P)
+    <~> Pullback (fun h : B -> P => h o f) (fun h : C -> P => h o g).
+Proof.
+  refine (_ oE equiv_pushout_unrec _ _ _).
+  refine (_ oE (equiv_sigma_prod _)^-1).
+  apply equiv_functor_sigma_id; intro a.
+  apply equiv_functor_sigma_id; intro b.
+  apply equiv_path_forall.
+Defined.
 
 (** ** Symmetry *)
 
@@ -150,6 +190,60 @@ Defined.
 Definition pushout_sym {A B C} {f : A -> B} {g : A -> C}
   : Pushout f g <~> Pushout g f :=
 equiv_adjointify pushout_sym_map pushout_sym_map sect_pushout_sym_map sect_pushout_sym_map.
+
+Section PushoutFunctor.
+
+  Definition functor_pushout {A B C f g A' B' C' f' g'}
+    (u : A -> A') (v : B -> B') (w : C -> C')
+    (p : v o f == f' o u) (q : w o g == g' o u)
+    : Pushout f g -> Pushout f' g'.
+  Proof.
+    serapply (Pushout_rec _ (pushl o v) (pushr o w)).
+    intro a.
+    exact (ap _ (p a) @ pglue _ @ ap _ (q a)^).
+  Defined.
+
+  Definition functor_pushout_idmap {A B C f g}
+    : @functor_pushout A B C f g A B C f g
+      idmap idmap idmap (fun _ => 1) (fun _ => 1) == idmap.
+  Proof.
+    serapply Pushout_ind_dp.
+    1,2: cbn; reflexivity.
+    intro a; cbn.
+    apply sq_dp^-1, sq_1G.
+    rewrite Pushout_rec_beta_pglue.
+    hott_simpl.
+  Defined.
+
+  Definition functor_pushout_compose
+    {A B C f g A' B' C' f' g' A'' B'' C'' f'' g''}
+    (u : A -> A') (v : B -> B') (w : C -> C')
+    (u' : A' -> A'') (v' : B' -> B'') (w' : C' -> C'')
+    (p : v o f == f' o u) (q : w o g == g' o u)
+    (p' : v' o f' == f'' o u') (q' : w' o g' == g'' o u')
+    : functor_pushout (u' o u) (v' o v) (w' o w)
+        (comm_square_comp' p p') (comm_square_comp' q q')
+      == (functor_pushout u' v' w' p' q') o (functor_pushout u v w p q).
+  Proof.
+    serapply Pushout_ind_dp.
+    1,2: reflexivity.
+    intro a; cbn.
+    apply sq_dp^-1, sq_1G.
+    symmetry.
+    refine (ap_compose (functor_pushout u v w p q) _ (pglue a) @ _).
+    rewrite Pushout_rec_beta_pglue.
+    rewrite 2 ap_pp.
+    unfold comm_square_comp'.
+    rewrite <- 2 ap_compose.
+    rewrite 2 Pushout_rec_beta_pglue.
+    rewrite ?ap_V.
+    rewrite ?ap_pp.
+    rewrite <- ?ap_compose.
+    unfold functor_pushout.
+    by rewrite ?concat_pp_p, inv_pp.
+  Defined.
+
+End PushoutFunctor.
 
 (** ** Equivalences *)
 
