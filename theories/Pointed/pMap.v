@@ -25,12 +25,19 @@ Defined.
 Definition path_pmap `{Funext} {A B : pType} {f g : A ->* B}
   : (f ==* g) -> (f = g) := equiv_path_pmap f g.
 
+Global Instance isequiv_path_pmap `{Funext} {A B : pType} {f g : A ->* B}
+  : IsEquiv (@path_pmap _ A B f g).
+Proof.
+  unfold path_pmap.
+  apply equiv_isequiv.
+Defined.
+
 (* We note that the inverse of [path_pmap] computes definitionally on reflexivity, and hence [path_pmap] itself computes typally so.  *)
 Definition equiv_inverse_path_pmap_1 `{Funext} {A B} {f : A ->* B}
   : (equiv_path_pmap f f)^-1 1%path = reflexivity f
   := 1.
 
-Definition equiv_path_pmap_1 `{Funext} {A B} {f : A ->* B}
+Definition path_pmap_1 `{Funext} {A B} {f : A ->* B}
   : path_pmap (reflexivity f) = 1%path.
 Proof.
   apply moveR_equiv_M.
@@ -48,27 +55,32 @@ Proof.
 Defined.
 
 Definition pmap_precompose_idmap {A B : pType} (f : A ->* B)
-: f o* pmap_idmap ==* f.
+  : f o* pmap_idmap ==* f.
 Proof.
   serapply Build_pHomotopy.
   all: reflexivity.
 Defined.
 
 Definition path_pmap_precompose_idmap {A B : pType} (f : A ->* B)
-: f o* pmap_idmap = f.
+  : f o* pmap_idmap = f.
 Proof.
-  pointed_reduce.
-  reflexivity.
+  by pointed_reduce.
 Defined.
 
 Definition pmap_postcompose_idmap {A B : pType} (f : A ->* B)
-: pmap_idmap o* f ==* f.
+  : pmap_idmap o* f ==* f.
 Proof.
   serapply Build_pHomotopy.
   1: reflexivity.
   refine (concat_1p _ @ _ @ (concat_p1 _)^).
   symmetry.
   apply ap_idmap.
+Defined.
+
+Definition path_pmap_postcompose_idmap {A B : pType} (f : A ->* B)
+  : pmap_idmap o* f = f.
+Proof.
+  by pointed_reduce.
 Defined.
 
 (* precomposing the zero map is the zero map *)
@@ -89,55 +101,59 @@ Proof.
   refine (ap (fun x => concat x 1) (ap_const _ _)^).
 Defined.
 
-Definition foo `{Funext} {A B} {f : A ->* B}
- : (equiv_path_pmap f f)^-1 1 = {| pointed_htpy := apD10 1; point_htpy := concat_1p (point_eq f) |}.
+Lemma pmap_punit_const {A : pType} {f : A ->* punit} : f ==* pmap_const.
 Proof.
-  apply moveR_equiv_V.
-  cbn.
-  pointed_reduce.
-  simpl.
-Admitted.
+  serapply Build_pHomotopy.
+  1: intro; apply path_unit.
+  refine (concat_p1 _ @ _).
+  apply eta_path_unit.
+Defined.
 
-Definition path_pmap_refl `{Funext} {A B} {x : A ->* B}
-  : path_pmap {| pointed_htpy := apD10 1; point_htpy := concat_1p (point_eq x) |} = 1%path.
+Lemma pmap_const_factor {A B : pType} {f : punit ->* B} {g : A ->* punit}
+  : f o* g ==* pmap_const.
 Proof.
-  apply moveR_equiv_M.
-  cbn.
-  apply ap.
-  pointed_reduce.
-  rewrite transport_paths_FlFr.
-  rewrite ap_idmap.
-  hott_simpl.
-  unfold ap10_path_forall.
-  unfold apD10_path_forall.
-  rewrite eisadj.
-  rewrite transport_paths_FlFr.
-  rewrite ap_idmap.
-(*   rewrite . *)
-Admitted.
+  refine (_ @* pmap_precompose_const f).
+  apply pmap_postwhisker.
+  apply pmap_punit_const.
+Defined.
 
-(* 
+Definition hap `{Funext} {A B C D : pType}
+  {f g : A ->* B} (h : (A ->* B) -> (C ->* D))
+  : f ==* g -> h f ==* h g.
+Proof.
+  intro p.
+  serapply Build_pHomotopy.
+  1: by apply ap10, ap, ap, path_pmap.
+  destruct (path_pmap p).
+  apply concat_1p.
+Defined.
+
 Definition path_pmap_ap `{Funext} {A B C D : pType}
   {f g : A ->* B} (p : f ==* g)
   (h : (A ->* B) -> (C ->* D))
-  : ap h (path_pmap p) = path_pmap (phomotopy_ap h p).
+  : ap h (path_pmap p) = path_pmap (hap h p).
 Proof.
-  unfold phomotopy_ap.
+  unfold hap.
   destruct (path_pmap p).
-  simpl.
   symmetry.
-  apply path_pmap_refl.
-Defined. *)
+  apply path_pmap_1.
+Defined.
 
 Definition path_pmap_pp `{Funext}
   {A B : pType} {f g h : A ->* B}
   (p : f ==* g) (q : g ==* h)
   : path_pmap p @ path_pmap q = path_pmap (p @* q).
 Proof.
+  set (p' := path_pmap p).
+  set (q' := path_pmap q).
   rewrite <- (eissect path_pmap p).
   rewrite <- (eissect path_pmap q).
-  rewrite 2 eisretr.
-  generalize (path_pmap p), (path_pmap q).
-  intros p' q'.
+  change (path_pmap p) with p'.
+  change (path_pmap q) with q'.
+  clearbody p' q'; clear p q.
   destruct p', q'.
-Admitted.
+  apply moveL_equiv_M.
+  rewrite !equiv_inverse_path_pmap_1.
+  by pointed_reduce.
+Defined.
+

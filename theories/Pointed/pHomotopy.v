@@ -47,10 +47,11 @@ Defined.
 Definition phomotopy_compose {A B : pType} {f g h : A ->* B}
   (p : f ==* g) (q : g ==* h) : f ==* h.
 Proof.
-  pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros x; exact (p x @ q x).
-  - apply concat_p1.
+  destruct p as [p ph], q as [q qh].
+  serapply Build_pHomotopy.
+  { intro x.
+    exact (p x @ q x). }
+  exact (concat_pp_p _ _ _ @ whiskerL _ qh @ ph).
 Defined.
 
 Infix "@*" := phomotopy_compose : pointed_scope.
@@ -62,16 +63,16 @@ Global Instance phomotopy_transitive {A B} : Transitive (@pHomotopy A B)
 Definition phomotopy_inverse {A B : pType} {f g : A ->* B}
 : (f ==* g) -> (g ==* f).
 Proof.
-  intros p; pointed_reduce.
-  simple refine (Build_pHomotopy _ _); cbn.
-  - intros x; exact ((p x)^).
-  - apply concat_Vp.
+  intros [p ph].
+  serapply Build_pHomotopy.
+  1: by symmetry.
+  cbn; symmetry.
+  by apply moveL_Vp.
 Defined.
 
 (* pointed homotopy is a symmetric relation *)
 Global Instance phomotopy_symmetric {A B} : Symmetric (@pHomotopy A B)
   := @phomotopy_inverse A B.
-
 
 Notation "p ^*" := (phomotopy_inverse p) : pointed_scope.
 
@@ -80,19 +81,4 @@ Definition issig_phomotopy {A B : pType} (f g : A ->* B)
 Proof.
   issig.
 Defined.
-
-Lemma pmap_const_factor {A B : pType} {f : punit ->* B} {g : A ->* punit}
-  : f o* g ==* pmap_const.
-Proof.
-  serapply Build_pHomotopy.
-  { pointed_reduce.
-    intro x.
-    cbv.
-    apply ap.
-    apply path_unit. }
-  pointed_reduce.
-  by match goal with |- ap f (path_unit ?p _) = _
-    => destruct p end.
-Defined.
-
 

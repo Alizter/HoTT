@@ -67,7 +67,6 @@ Record pHomotopy {A B : pType} (f g : pMap A B) :=
 Arguments Build_pHomotopy {A B f g} p q : rename.
 Arguments point_htpy {A B f g} p : rename.
 Arguments pointed_htpy {A B f g} p x.
-
 Coercion pointed_htpy : pHomotopy >-> pointwise_paths.
 
 Infix "==*" := pHomotopy : pointed_scope.

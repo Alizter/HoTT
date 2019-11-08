@@ -53,6 +53,33 @@ Definition pmap_smash_unit_natural {B X Y : pType} (f : X ->* Y)
   ==* pmap_functor B (smash_right_functor B f)
     o* pmap_smash_unit X.
 Proof.
+  pointed_reduce.
+  serapply Build_pHomotopy.
+  { intro x.
+    apply path_pmap.
+    shelve. }
+  simpl.
+  rewrite path_pmap_ap.
+  rewrite concat_1p, concat_p1.
+  rewrite path_pmap_pp.
+  apply ap.
+  shelve.
+  Unshelve.
+  { serapply Build_pHomotopy.
+    1: reflexivity.
+    simpl.
+    do 2 refine (concat_1p _ @ _).
+    refine (concat_p1 _ @ _).
+    refine (Smash_rec_beta_gluel' _ _ _ _ @ _).
+    refine (ap2 (fun x y => x @ y^) (concat_1p _) (concat_1p _)). }
+  simpl.
+  refine ((ap (issig_phomotopy _ _)^-1)^-1 _).
+  serapply path_sigma'.
+  { apply path_forall.
+    simpl.
+    intro.
+    rewrite concat_1p.
+    unfold hap.
 Admitted.
 
 Definition pmap_smash_counit {B : pType} (X : pType)
@@ -122,6 +149,16 @@ Proof.
     refine (Smash_rec_beta_gluel'  _ _ f (point (pMap B X)) @ _).
     apply concat_p1. }
   simpl.
+  rewrite !concat_p1.
+  rewrite path_pmap_ap.
+  apply ap.
+  refine ((ap (issig_phomotopy _ _)^-1)^-1 _).
+  serapply path_sigma'.
+  { funext b.
+    unfold hap.
+    cbn.
+    rewrite concat_1p.
+    
 Admitted.
 
 Definition pmap_smash_triangle2 {B : pType} (X : pType)

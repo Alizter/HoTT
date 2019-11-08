@@ -7,37 +7,55 @@ Require Import PointedCategory.pMapFunctor.
 
 Local Open Scope pointed_scope.
 
-Class IsNatural {F G : pType -> pType}
-   `{IsFunctor F} `{IsFunctor G}
-  (P : forall (X : pType), F X ->* G X) := {
-  natsquare {A B : pType} (f : A ->* B)
-    : P B o* F_functor _ f ==* F_functor _ f o* P A;
-}.
+Definition IsNatural {F G : pType -> pType}
+  `{IsFunctor F} `{IsFunctor G}
+  (P : forall (X : pType), F X ->* G X)
+  := forall A B (f : A ->* B),
+    P B o* F_functor _ f ==* F_functor _ f o* P A.
 
-Section NaturalTransformationProperties.
+Existing Class IsNatural.
 
-  Context
-    {F G H : pType -> pType}
-   `{IsFunctor F} `{IsFunctor G} `{IsFunctor H}.
+Definition isnatural_compose
+  {F G H : pType -> pType}
+ `{IsFunctor F} `{IsFunctor G} `{IsFunctor H}
+  (P : forall (X : pType), F X ->* G X) {nP : IsNatural P}
+  (Q : forall (X : pType), G X ->* H X) {nQ : IsNatural Q}
+  : IsNatural (fun X => Q X o* P X).
+Proof.
+  intros A B f.
+  assert (nP' := nP A B f).
+  assert (nQ' := nQ A B f).
+  refine (pmap_compose_assoc _ _ _ @* _).
+  refine (pmap_postwhisker _ nP' @* _).
+  refine ((pmap_compose_assoc _ _ _)^* @* _).
+  refine (pmap_prewhisker _ nQ' @* _).
+  apply pmap_compose_assoc.
+Defined.
 
-  Global Instance isnatural_compose
-    (P : forall (X : pType), F X ->* G X) {nP : IsNatural P}
-    (Q : forall (X : pType), G X ->* H X) {nQ : IsNatural Q}
-    : IsNatural (fun X => Q X o* P X).
-  Proof.
-    serapply Build_IsNatural.
-    intros A B f.
-    destruct nP as [nP'], nQ as [nQ'].
-    assert (nP := nP' A B f); clear nP'.
-    assert (nQ := nQ' A B f); clear nQ'.
-    refine (pmap_compose_assoc _ _ _ @* _).
-    refine (pmap_postwhisker _ nP @* _).
-    refine ((pmap_compose_assoc _ _ _)^* @* _).
-    refine (pmap_prewhisker _ nQ @* _).
-    apply pmap_compose_assoc.
-  Defined.
-
-End NaturalTransformationProperties.
+Definition isnatural_inverse
+  {F G : pType -> pType}
+ `{IsFunctor F} `{IsFunctor G}
+  (e : forall (X : pType), F X <~>* G X) {n : IsNatural e}
+  : IsNatural (fun X => (e X)^-1*).
+Proof.
+  intros X Y f.
+  cbv beta.
+  transitivity ((e Y)^-1* o* F_functor G f o* ((e X) o* (e X)^-1*)).
+  { symmetry.
+    refine (_ @* pmap_precompose_idmap _).
+    apply pmap_postwhisker, peisretr. }
+  transitivity (((e Y)^-1* o* (e Y)) o* F_functor F f o* (e X)^-1*).
+  { refine ((pmap_compose_assoc _ _ _)^* @* _).
+    apply pmap_prewhisker.
+    refine (pmap_compose_assoc _ _ _ @* _ @* (pmap_compose_assoc _ _ _)^*).
+    apply pmap_postwhisker.
+    symmetry.
+    apply n. }
+  apply pmap_prewhisker.
+  refine (_ @* pmap_postcompose_idmap _).
+  apply pmap_prewhisker.
+  apply peissect.
+Defined.
 
 Class NaturalTransformation (F G : Functor) := {
   nt_component : forall (X : pType), F X ->* G X;
@@ -46,7 +64,7 @@ Class NaturalTransformation (F G : Functor) := {
 
 Coercion nt_component : NaturalTransformation >-> Funclass.
 
-Global Instance nt_compose {F G H : Functor}
+Definition nt_compose {F G H : Functor}
   (P : NaturalTransformation F G)
   (Q : NaturalTransformation G H)
   : NaturalTransformation F H
@@ -59,85 +77,32 @@ Class NaturalEquivalence (F G : Functor) := {
 
 Coercion ne_component : NaturalEquivalence >-> Funclass.
 
-
-(** * Yoneda lemma *)
-(** The Yoneda lemma comes in 3 parts. Firstly we show that natural equivalences between the hom functor hom(a,-) and a given functor F is equivalent to the functor F evaluated at a.
-
-The second and third parts are showing that this equivalence is natural in a and F. *)
-
-(* TODO: rename *)
-Lemma yoneda (F : Functor) (a : pType)
-  : NaturalTransformation (functor_pmap a) F <~> F a.
+Definition natequiv_inv {F G : Functor}
+  : NaturalEquivalence F G -> NaturalEquivalence G F.
 Proof.
-Admitted.
-(* 
-Lemma yoneda_nat_a (F : Functor) {a b : pType} (f : a ->* b) : Type. 
+  intros [e n].
+  serapply Build_NaturalEquivalence.
+  1: intro; apply pequiv_inverse, e.
+  by apply isnatural_inverse.
+Defined.
+
+Lemma pYoneda (A B : pType) `{Funext}
+  (p : NaturalEquivalence (functor_pmap A) (functor_pmap B))
+  : A <~>* B.
 Proof.
-  serapply @natsquare.
-
-F_functor (F:=functor_pmap a) f (functor_pmap a)
-
-(* This equivalence is natural in F *)
-Lemma yoneda_nat_F {F G : Functor} (phi_F : NaturalTransformation F G)
-  (a : pType) : 
- *)
-Theorem pYoneda {A B : pType}
-  : NaturalEquivalence (functor_pmap B) (functor_pmap A) <~> (A <~>* B).
-Proof. Admitted. (*
-  Arguments F_functor _ {_ _ _}.
-(*   Arguments functor _ _ : clear implicits. *)
-  serapply equiv_adjointify.
-  { intros [h [h_nat]].
-    set (yB := functor_pmap B) in *.
-    set (yA := functor_pmap A) in *.
-    set (to := h B pmap_idmap).
-    set (fr := (h A)^-1* pmap_idmap).
-    Arguments pointed_fun {_ _}.
-    Arguments pointed_equiv_fun {_ _}.
-    
-    serapply pequiv_adjointify'.
-    1: exact to.
-    1: exact fr.
-    { intro x.
-      set (p := h_nat A B to).
-      set (q := h_nat B A fr).
-      admit. }
-    { intro x.
-      set (p := h_nat A B to).
-      set (q := h_nat B A fr).
-      set (_yA_ := F_functor (A:=B) (B:=A) yA) in *.
-      
-(*       destruct p as [p p_point]. *)
-      destruct (h_nat B B pmap_idmap) as [p' pp]. _
-      p' pmap_idmap
-      unfold yA in h_nat.
-      unfold functor_pmap in h_nat.
-      simpl in h_nat.
-      
-      cbv.
-      
-      apply eissect.
-    
-    
-     simpl.
-      set (p := h_nat A B to).
-      set (q := h_nat B A fr).
-      unfold fr.
-      unfold to in p, q.
-      cbv.
-      pointed_reduce.
-      admit. }
-    { simpl.
-      set (h_nat B A fr).
-      
-    
-    2: refine ((h A)^-1* _). pmap_idmap).
-
-
-
-*)
-
-
-
-
+  destruct p as [e n].
+  serapply pequiv_adjointify'.
+  1: exact ((e B)^-1 pmap_idmap).
+  1: exact (e A pmap_idmap).
+  1,2: intro x.
+  1: refine (_ @ pointed_htpy (path_pmap^-1 (eisretr (e B) pmap_idmap)) x).
+  1: pose proof (pointed_htpy (n A B ((e B)^-1 pmap_idmap)) pmap_idmap) as p.
+  2: refine (_ @ pointed_htpy (path_pmap^-1 (eissect (e A) pmap_idmap)) x).
+  2: pose proof (pointed_htpy (isnatural_inverse e B A (e A pmap_idmap)) pmap_idmap) as p.
+  1,2: cbn in p; symmetry in p.
+  1,2: rewrite 3 path_pmap_precompose_idmap in p.
+  1,2: apply path_pmap^-1 in p.
+  1,2: apply pointed_htpy in p.
+  1,2: apply (p x).
+Defined.
 
