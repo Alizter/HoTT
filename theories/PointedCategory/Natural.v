@@ -124,7 +124,11 @@ Proof.
   apply (natequiv_compose p q).
 Defined.
 
-Lemma pYoneda {A B : pType} `{Funext}
+Infix "~" := NaturalEquivalence (at level 20).
+Infix "oN" := natequiv_compose (at level 15).
+Notation "e '^N'" := (natequiv_inv e) (at level 0).
+
+Lemma pYoneda `{Funext} {A B : pType}
   (p : NaturalEquivalence (functor_pmap B) (functor_pmap A))
   : A <~>* B.
 Proof.
@@ -168,9 +172,31 @@ Proof.
     apply whiskerL, ap.
     refine (concat_p1 _ @ _).
     apply ap_idmap. }
-  simpl.
 Admitted.
 
+Definition foo1 `{Funext} {A B : pType}
+  : Sect natequiv_precompose (@pYoneda _ A B) .
+Proof.
+Admitted.
+
+Definition pYoneda_compose `{Funext} {A B C : pType}
+  (p : functor_pmap B ~ functor_pmap A)
+  (q : functor_pmap C ~ functor_pmap B)
+  : pYoneda q o* pYoneda p ==* pYoneda (q oN p).
+Proof.
+  serapply Build_pHomotopy.
+  { intro a.
+    destruct p as [p pn], q as [q qn].
+    simpl.
+    unfold IsNatural in pn, qn.
+Admitted.
+
+Definition pYoneda_2functor `{Funext} {A B : pType}
+  {p q : functor_pmap B ~ functor_pmap A}
+  : p = q -> pYoneda p ==* pYoneda q.
+Proof.
+  by intros [].
+Defined.
 
 (** TODO: 
 
@@ -195,7 +221,7 @@ Proof.
     @* (pmap_precompose_idmap _)^*).
 Defined.
 
-Definition natequiv_prewhisker `{U : Funext} {F G} H
+Definition functor_prewhisker `{U : Funext} {F G} H
   : NaturalEquivalence F G -> NaturalEquivalence (F oF H) (G oF H).
 Proof.
   intro p.
@@ -207,7 +233,7 @@ Proof.
   apply ne_isnatural.
 Defined.
 
-Definition natequiv_postwhisker `{U : Funext} {F G} H
+Definition functor_postwhisker `{U : Funext} {F G} H
   : NaturalEquivalence F G -> NaturalEquivalence (H oF F) (H oF G).
 Proof.
   intro p.
@@ -221,5 +247,36 @@ Proof.
   apply ne_isnatural.
 Defined.
 
+Definition natequiv_p_pp `{U : Funext} {F G H K}
+  (p : F ~ G) (q : G ~ H) (r : H ~ K)
+  : p oN (q oN r) = (p oN q) oN r.
+Proof.
+Admitted.
 
+Notation "1" := (reflexivity _).
 
+Definition natequiv_Vp `{U : Funext} {F G} (p : F ~ G)
+  : p^N oN p = 1.
+Proof.
+Admitted.
+
+Definition natequiv_1p `{U : Funext} {F G} (p : F ~ G)
+  : 1 oN p = p.
+Proof.
+Admitted.
+
+Definition natequiv_whiskerL `{U : Funext} {F G H}
+  {p q : F ~ G} (h : H ~ F)
+  : p = q -> h oN p = h oN q. 
+Proof.
+  intro l.
+  by apply ap.
+Defined.
+
+Definition natequiv_whiskerR `{U : Funext} {F G H}
+  {p q : F ~ G} (h : G ~ H)
+  : p = q -> p oN h = q oN h.
+Proof.
+  intro l.
+  by apply (ap (fun x => x oN h)).
+Defined.
