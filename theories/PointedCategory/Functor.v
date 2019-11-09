@@ -80,5 +80,19 @@ Proof.
   by serapply Build_IsFunctor.
 Defined.
 
+Definition functor_id : Functor.
+Proof.
+  serapply (Build_Functor idmap).
+Defined.
+
 Arguments F_functor _ {_ _ _}.
+
+Definition functor_compose (F G : Functor)
+  {e : Is2Functor F} : Functor.
+Proof.
+  serapply (Build_Functor (F o G)).
+Defined.
+
+Infix "oF" := functor_compose (at level 10).
+
 

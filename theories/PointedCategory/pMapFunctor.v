@@ -1,6 +1,9 @@
 Require Import Basics.
 Require Import Types.
-Require Import Pointed.
+Require Import Pointed.Core.
+Require Import Pointed.pMap.
+Require Import Pointed.pHomotopy.
+Require Import Pointed.pEquiv.
 Require Import PointedCategory.Profunctor.
 Require Import PointedCategory.Functor.
 Require Import PointedCategory.pFunctor.

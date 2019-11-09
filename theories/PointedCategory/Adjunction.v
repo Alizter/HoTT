@@ -6,6 +6,8 @@ Require Import Pointed.pHomotopy.
 Require Import Pointed.pEquiv.
 Require Import PointedCategory.Functor.
 Require Import PointedCategory.pFunctor.
+Require Import PointedCategory.Natural.
+Require Import PointedCategory.pMapFunctor.
 
 Local Open Scope pointed_scope.
 Declare Scope pointed_cat_scope.
@@ -60,8 +62,8 @@ Section Adjunction.
       apply pmap_precompose_idmap. }
     Defined.
 
-  Theorem pequiv_adjunction (adj : Adjunction) {X Y : pType}
-    {h : IsPointedFunctor G}
+  Theorem pequiv_adjunction (adj : Adjunction)
+    {X Y : pType} `{!IsPointedFunctor G}
     : (F X ->* Y) <~>* (X ->* G Y).
   Proof.
     serapply Build_pEquiv'.
@@ -80,14 +82,57 @@ Section Adjunction.
     apply pmap_prewhisker, F_compose.
   Defined.
 
-Definition equiv_adjunction_nat_l {A A' B : pType}
-  (adj : Adjunction) (f : A ->* G B) (g : A' ->* A)
-  : (equiv_adjunction _)^-1 (f o* g)
-  ==* (equiv_adjunction _)^-1 f o* F_functor F g.
-Proof.
-  refine (_ @* (pmap_compose_assoc _ _ _)^*).
-  apply pmap_postwhisker, F_compose.
-Defined.
+  Definition equiv_adjunction_nat_l {A A' B : pType}
+    (adj : Adjunction) (f : A ->* G B) (g : A' ->* A)
+    : (equiv_adjunction _)^-1 (f o* g)
+    ==* (equiv_adjunction _)^-1 f o* F_functor F g.
+  Proof.
+    refine (_ @* (pmap_compose_assoc _ _ _)^*).
+    apply pmap_postwhisker, F_compose.
+  Defined.
+
+  Definition nt_adj_unit `{Is2Functor F} (adj : Adjunction)
+    : NaturalTransformation functor_id (functor_compose G F).
+  Proof.
+    serapply Build_NaturalTransformation.
+    1: serapply adj_unit.
+    intros X Y.
+    exact adj_unit_nat.
+  Defined.
+
+  Definition nt_adj_counit `{Is2Functor G} (adj : Adjunction)
+    : NaturalTransformation (functor_compose F G) functor_id.
+  Proof.
+    serapply Build_NaturalTransformation.
+    1: serapply adj_counit.
+    intros X Y f.
+    symmetry.
+    apply adj_counit_nat.
+  Defined.
 
 End Adjunction.
+
+Definition natequiv_adj `{Funext} {F G : Functor}
+  (adj : Adjunction F G) (A : pType)
+  `{!IsPointedFunctor G}
+  : NaturalEquivalence (functor_pmap (F A))
+    (functor_compose (functor_pmap A) G).
+Proof.
+  serapply Build_NaturalEquivalence.
+  1: intro Y; serapply pequiv_adjunction.
+  intros X Y f.
+  serapply Build_pHomotopy.
+  { intro g.
+    simpl.
+    apply path_pmap.
+    refine (pmap_prewhisker _ _ @* _).
+    1: apply F_compose.
+    refine (pmap_prewhisker _ _ @* _).
+    1: refine (pmap_postwhisker _ F_idmap @* pmap_precompose_idmap _).
+    refine (_ @* (pmap_precompose_idmap _)^*).
+    refine (_ @* pmap_compose_assoc _ _ _).
+    apply pmap_prewhisker.
+    apply F_compose. }
+Admitted.
+
 
