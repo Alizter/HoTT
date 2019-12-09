@@ -9,6 +9,7 @@ Require Import PointedCategory.Adjunction.
 Require Import PointedCategory.pMapFunctor.
 Require Import Homotopy.Smash.
 Require Import Homotopy.SmashCoherence.Bifunctor.
+Require Import DanRewrite.
 
 Local Open Scope pointed_scope.
 Local Open Scope path_scope.
@@ -79,6 +80,8 @@ Section SmashAdj.
       simpl.
       intro.
       rewrite concat_1p.
+      rewrite path_pmap_ap.
+      
       unfold hap.
   Admitted.
 
@@ -104,31 +107,29 @@ Section SmashAdj.
       { intro g.
         serapply dp_paths_FlFr.
         cbn.
-        rewrite ap_compose.
-        rewrite (Smash_rec_beta_gluel _ _ g).
+        rewritel ap_compose.
+        rewritel (Smash_rec_beta_gluel _ _ g).
         apply moveR_Mp.
-        rewrite ap_compose.
-        rewrite (Smash_rec_beta_gluel _ _ g).
-        rewrite ap_pp.
-        rewrite Smash_rec_beta_gluel.
-        by cbn; rewrite !concat_1p, concat_p1, inv_V. }
+        rewritel ap_compose.
+        rewritel (Smash_rec_beta_gluel _ _ g).
+        rewritel ap_pp.
+        rewritel Smash_rec_beta_gluel.
+        cbn.
+        do 2 rewritel concat_1p.
+        rewriter concat_p1.
+        rewriter inv_V. }
       intro b.
       serapply dp_paths_FlFr.
-      rewrite concat_p1.
+      rewritel concat_p1.
       apply moveR_Vp.
-      simpl.
-      rewrite ap_compose.
-      refine (_ @ _).
-      { apply ap.
-        serapply Smash_rec_beta_gluer. }
-      rewrite (ap_compose _ f).
-      rewrite (Smash_rec_beta_gluer (fun a : B ->* X => point_eq a) _ b).
-      simpl.
-      rewrite ap_pp.
-      rewrite <- (ap_compose (fun x : B ->* Y => sm x b)).
-      simpl.
-      pointed_reduce.
-      serapply Smash_rec_beta_gluer. }
+      rewritel (ap_compose _ (pmap_smash_counit Y)).
+      rewritel Smash_rec_beta_gluer.
+      rewriter (ap_compose _ f).
+      rewriter Smash_rec_beta_gluer.
+      rewritel ap_pp.
+      rewritelV (ap_compose (fun x : B ->* Y => sm x b)).
+      rewritel Smash_rec_beta_gluer.
+      by pointed_reduce. }
     simpl.
     by pointed_reduce.
   Defined.

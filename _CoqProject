@@ -322,6 +322,7 @@ theories/Tactics/RewriteModuloAssociativity.v
 theories/Tactics/EquivalenceInduction.v
 theories/Tactics/EvalIn.v
 theories/Tactics/BinderApply.v
+theories/Tactics/DanRewrite.v
 
 #
 #   PropResizing
