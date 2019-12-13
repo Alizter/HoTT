@@ -37,7 +37,7 @@ Arguments point_eq {A B} f : rename.
 Arguments pointed_fun {A B} f : rename.
 Coercion pointed_fun : pMap >-> Funclass.
 
-(* Infix "->*" := pMap : pointed_scope. *)
+Infix "->*" := pMap : pointed_scope.
 
 (* Pointed identity map *)
 Definition pmap_idmap {A : pType} : pMap A A
@@ -147,7 +147,6 @@ Proof.
   issig.
 Defined.
 
-(* We redefine the notation for pMap to mean the pointed version. This is included last because we do not want to corrupt our definitions. *)
-Notation "A '->*' B" := (Build_pType (pMap A B) _) : pointed_scope. 
+Infix "->**" := (fun A B => Build_pType (pMap A B) _) : pointed_scope. 
 
 

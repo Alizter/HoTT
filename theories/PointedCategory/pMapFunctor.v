@@ -13,7 +13,7 @@ Local Open Scope pointed_scope.
 
 (* In this file we describe the postcomposition functor. *)
 
-Global Instance isprofunctor_pmap : IsProfunctor (fun x y => x ->* y).
+Global Instance isprofunctor_pmap : IsProfunctor (fun x y => x ->** y).
 Proof.
   serapply Build_IsProfunctor.
   { intros A B C D f g.

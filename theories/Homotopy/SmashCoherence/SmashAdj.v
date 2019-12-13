@@ -35,7 +35,7 @@ Section SmashAdj.
 
   Context `{Funext}.
 
-  Definition pmap_smash_unit {B : pType} (X : pType) : X ->* (B ->* (X ∧ B)).
+  Definition pmap_smash_unit {B : pType} (X : pType) : X ->* (B ->** (X ∧ B)).
   Proof.
     serapply Build_pMap.
     { intro x.
@@ -83,7 +83,7 @@ Section SmashAdj.
   Admitted.
 
   Definition pmap_smash_counit {B : pType} (X : pType)
-    : ((B ->* X) ∧ B) ->* X.
+    : ((B ->** X) ∧ B) ->* X.
   Proof.
     serapply Build_pMap.
     { serapply Smash_rec.
@@ -122,10 +122,10 @@ Section SmashAdj.
       { apply ap.
         serapply Smash_rec_beta_gluer. }
       rewrite (ap_compose _ f).
-      rewrite (Smash_rec_beta_gluer (fun a : B ->* X => point_eq a) _ b).
+      rewrite (Smash_rec_beta_gluer (fun a : B ->** X => point_eq a) _ b).
       simpl.
       rewrite ap_pp.
-      rewrite <- (ap_compose (fun x : B ->* Y => sm x b)).
+      rewrite <- (ap_compose (fun x : B ->** Y => sm x b)).
       simpl.
       pointed_reduce.
       serapply Smash_rec_beta_gluer. }
@@ -134,7 +134,7 @@ Section SmashAdj.
   Defined.
 
   Definition pmap_smash_triangle1 {B : pType} (X : pType)
-    : pmap_functor B (pmap_smash_counit X) o* pmap_smash_unit (B ->* X)
+    : pmap_functor B (pmap_smash_counit X) o* pmap_smash_unit (B ->** X)
       ==* pmap_idmap.
   Proof.
     serapply Build_pHomotopy.
@@ -149,16 +149,6 @@ Section SmashAdj.
       refine (Smash_rec_beta_gluel'  _ _ f (point (pMap B X)) @ _).
       apply concat_p1. }
     simpl.
-    rewrite !concat_p1.
-    rewrite path_pmap_ap.
-    apply ap.
-    refine ((ap (issig_phomotopy _ _)^-1)^-1 _).
-    serapply path_sigma'.
-    { funext b.
-      unfold hap.
-      cbn.
-      rewrite concat_1p.
-      
   Admitted.
 
   Definition pmap_smash_triangle2 {B : pType} (X : pType)
@@ -193,8 +183,9 @@ Section SmashAdj.
       rewrite Smash_rec_beta_gluer.
       rewrite concat_p1.
       rewrite <- (ap_compose (fun x => sm x (pmap_idmap b)) _).
-      
-      simpl.
+      apply moveR_Vp, moveL_pM.
+      symmetry.
+
   Admitted.
 
   Global Instance adjunction_smash_pmap (B : pType)
@@ -210,11 +201,11 @@ Section SmashAdj.
   Defined.
 
   Definition smash_adjunction (A B C : pType)
-    : (A ∧ B ->* C) <~> (A ->* B ->* C)
+    : (A ∧ B ->* C) <~> (A ->* B ->** C)
     := @equiv_adjunction _ _ _ (adjunction_smash_pmap B) _ _.
 
   Theorem pequiv_smash_adj (A B C : pType)
-    : (A ∧ B ->* C) <~>* (A ->* B ->* C).
+    : (A ∧ B ->** C) <~>* (A ->** B ->** C).
   Proof.
     serapply (@pequiv_adjunction _ _ _ (adjunction_smash_pmap B)).
   Defined.

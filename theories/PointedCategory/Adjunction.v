@@ -64,7 +64,7 @@ Section Adjunction.
 
   Theorem pequiv_adjunction (adj : Adjunction)
     {X Y : pType} `{!IsPointedFunctor G}
-    : (F X ->* Y) <~>* (X ->* G Y).
+    : (F X ->** Y) <~>* (X ->** G Y).
   Proof.
     serapply Build_pEquiv'.
     1: by apply equiv_adjunction.
