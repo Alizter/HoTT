@@ -72,7 +72,7 @@ Proof.
   serapply Pushout_ind_beta_pglue.
 Defined.
 
-Definition Wedge_rec' {X Y : pType} (P : pType)
+Definition Wedge_rec {X Y : pType} (P : pType)
   (f : X ->* P) (g : Y ->* P) : X V Y ->* P.
 Proof.
   serapply Build_pMap.
@@ -81,33 +81,40 @@ Proof.
   apply point_eq.
 Defined.
 
-Arguments Wedge_rec' : simpl never.
+Arguments Wedge_rec : simpl never.
 
-Definition Wedge_rec'_beta_wpp {X Y : pType} (P : pType)
+Definition Wedge_rec_beta_wpp {X Y : pType} (P : pType)
   (f : X ->* P) (g : Y ->* P)
-  : ap (Wedge_rec' P f g) wpp = point_eq f @ (point_eq g)^.
+  : ap (Wedge_rec P f g) wpp = point_eq f @ (point_eq g)^.
 Proof.
   refine (Pushout_rec_beta_pglue P f g (Unit_ind _) _).
 Defined.
 
-Definition wedge_incl {X Y : pType} : X V Y -> X * Y :=
-  Pushout_rec _ (fun x => (x, point Y)) (fun y => (point X, y)) 
-  (fun _ : Unit => idpath).
+Definition wedge_incl (X Y : pType) : X V Y ->* X * Y.
+Proof.
+  serapply Build_pMap.
+  { serapply Wedge_rec.
+    1,2: serapply Build_pMap.
+    1: exact (fun x => (x, point Y)).
+    2: exact (fun y => (point X, y)).
+    all: reflexivity. }
+  reflexivity.
+Defined.
 
 Definition wedge_symm {X Y : pType} : X V Y <~>* Y V X.
 Proof.
   serapply pequiv_adjointify'.
-  1,2: serapply (Wedge_rec' _ winr winl).
+  1,2: serapply (Wedge_rec _ winr winl).
   1,2: serapply Wedge_ind; try reflexivity.
   1,2: apply dp_paths_FFlr.
   1,2: rewrite concat_p1.
   1,2: apply moveR_Vp.
   1,2: symmetry.
   1,2: rewrite concat_p1.
-  1,2: rewrite Wedge_rec'_beta_wpp.
+  1,2: rewrite Wedge_rec_beta_wpp.
   1,2: rewrite path_wpp_point_eq_V.
   1,2: rewrite ap_V.
-  1,2: rewrite Wedge_rec'_beta_wpp.
+  1,2: rewrite Wedge_rec_beta_wpp.
   1,2: rewrite path_wpp_point_eq_V.
   1,2: apply inv_V.
 Defined.
