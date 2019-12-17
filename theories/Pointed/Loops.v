@@ -97,8 +97,15 @@ Defined.
 Lemma loops_functor_pp {X Y : pType} (f : pMap X Y) (x y : loops X)
   : loops_functor f (x @ y) = loops_functor f x @ loops_functor f y.
 Proof.
-  pointed_reduce.
-  apply ap_pp.
+  refine (whiskerL _ _ @ concat_p_pp _ _ _).
+  refine (_ @ concat_pp_p _ _ _ @ concat_pp_p _ _ _).
+  apply whiskerR.
+  refine (ap_pp _ _ _ @ _).
+  apply whiskerR.
+  refine ((concat_p1 _)^ @ _ @ concat_p_pp _ _ _).
+  apply whiskerL.
+  symmetry.
+  apply concat_pV.
 Defined.
 
 (* Loops functor preserves pointed homotopies *)

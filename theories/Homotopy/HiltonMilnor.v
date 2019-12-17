@@ -2,18 +2,68 @@ Require Import Basics Types Pointed.
 Require Import Homotopy.Smash.
 Require Import Homotopy.Wedge.
 Require Import EquivalenceVarieties.
+Require Import Fibrations.
 
 (** Hilton-Milnor splitting *)
 
 Local Open Scope pointed_scope.
 Local Open Scope path_scope.
 
+Lemma isequiv_hfiber {A B C : Type} (f : A -> C) (g : B -> C) (h : A -> B)
+  (s : f == g o h) (c : C)
+  (p : IsEquiv (@functor_hfiber _ _ _ _ f g h idmap s c))
+  : IsEquiv h.
+Proof.
+Admitted.
+
 Lemma isequiv_splitting_lemma {A B : pType} (f : A ->* B)
   (g : loops B ->* loops A)
-  (gissect : pSect g (loops_functor f))
+  (gissect : Sect g (loops_functor f))
   : IsEquiv ((uncurry concat o functor_prod pr1 g)
       : pfiber (loops_functor f) * loops B -> loops A).
 Proof.
+  simple notypeclasses refine (isequiv_hfiber snd (loops_functor f)
+    (uncurry concat o functor_prod pr1 g) _ _ _).
+  { unfold uncurry.
+    intros [[x y] z].
+    unfold snd.
+    symmetry.
+    refine (loops_functor_pp _ _ _ @ _).
+    unfold functor_prod.
+    unfold fst, snd, pr1.
+    refine (whiskerL _ _ @ _).
+    1: apply gissect.
+    refine (whiskerR y _ @ concat_1p _). }
+  1: exact (point _).
+  serapply isequiv_adjointify.
+  { intros x.
+    exact ((x, _); x.2). }
+  { intros [x p].
+    serapply path_sigma.
+    { simpl.
+      unfold uncurry.
+      simpl.
+      refine (whiskerL _ _ @ concat_p1 _).
+      refine (ap g p @ _).
+      apply (point_eq g). }
+    rewrite transport_paths_Fl.
+    cbn in *.
+    apply moveR_Vp.
+    rewrite ap_idmap.
+    apply whiskerR.
+    rewrite inv_V.
+    rewrite (ap_compose _ (concat _)).
+    rewrite (ap_compose _ (fun x => concat x _)).
+    
+    
+    pointed_reduce.
+    
+    
+    unfold loops_
+    hott_simpl.
+    rewrite ? ap_pp.
+    
+    
 Admitted.
 
 (** TODO: move to Pointed.Loops *)
@@ -69,6 +119,7 @@ Defined.
 Theorem pfiber_wedge_incl {X Y : pType}
   : pfiber (wedge_incl X Y) <~>* psusp (Smash (loops X) (loops Y)).
 Proof.
+  
 Admitted.
 
 Definition pmap_loops_concat {X : pType}
@@ -173,6 +224,7 @@ Proof.
     simpl.
     hott_simpl.
     apply pointed_prod_foo. }
+  
 (*  simpl. *)
 Admitted.
 
