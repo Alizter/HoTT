@@ -385,13 +385,56 @@ Defined.
 Global Instance is1cat1_prod A B `{Is1Cat1 A} `{Is1Cat1 B}
   : Is1Cat1 (A * B).
 Proof.
-Admitted.
-
+  srefine (Build_Is1Cat1 (A * B) _ _ _).
+  - intros; split; rapply cat_assoc.
+  - intros; split; rapply cat_idl.
+  - intros; split; rapply cat_idr.
+Defined.
 
 (** ** Sum categories *)
 
-(* TODO? *)
+Global Instance is1cat_sum A B `{Is1Cat A} `{Is1Cat B}
+  : Is1Cat (A + B).
+Proof.
+  srapply (Build_Is1Cat (A + B)).
+  - intros [a1|b1] [a2|b2];
+    [ exact (a1 $-> a2)
+    | exact Empty | exact Empty
+    | exact (b1 $-> b2) ].
+  - intros [a1|b1]; apply Id.
+  - intros [a1|b1] [a2|b2] [a3|b3]; try contradiction;
+    apply Comp.
+Defined.
 
+Global Instance is2cat_sum A B `{Is2Cat A} `{Is2Cat B}
+  : Is2Cat (A + B).
+Proof.
+  srefine (Build_Is2Cat (A + B) _ _ _ _ _ _ _).
+  - intros [a1|b1] [a2|b2]; try contradiction;
+    cbn; intros f g; exact (f $== g).
+  - intros [a1|b1] [a2|b2] f; try contradiction;
+    reflexivity.
+  - intros [a1|b1] [a2|b2]; try contradiction;
+    cbn; intros f g; apply Opp_Htpy.
+  - intros [a1|b1] [a2|b2]; try contradiction;
+    cbn; intros f g h; apply Concat_Htpy.
+  - intros [a1|b1] [a2|b2] [a3|b3]; try contradiction;
+    cbn; intros f g; apply WhiskerL_Htpy.
+  - intros [a1|b1] [a2|b2] [a3|b3]; try contradiction;
+    cbn; intros f g; apply WhiskerR_Htpy.
+Defined.
+
+Global Instance is1cat1_sum A B `{Is1Cat1 A} `{Is1Cat1 B}
+  : Is1Cat1 (A + B).
+Proof.
+  srefine (Build_Is1Cat1 (A + B) _ _ _).
+  - intros [a1|b1] [a2|b2] [a3|b3] [a4|b4] f g h; try contradiction;
+    cbn; rapply cat_assoc.
+  - intros [a1|b1] [a2|b2] f; try contradiction;
+    cbn; rapply cat_idl.
+  - intros [a1|b1] [a2|b2] f; try contradiction;
+    cbn; rapply cat_idr.
+Defined.
 
 (** ** Wild functor categories *)
 
@@ -629,7 +672,15 @@ Global Existing Instance cat_is1cat.
 Global Instance is1cat_wildcat : Is1Cat WildCat.
 Proof.
   refine (Build_Is1Cat WildCat (fun A B => Fun1 A B) _ _).
-Admitted.
+  - intros A.
+    exists idmap.
+    by apply Build_Is1Functor.
+  - intros A B C [F] [G].
+    exists (F o G).
+    apply Build_Is1Functor.
+    cbn; intros x y f.
+    by do 2 rapply fmap.
+Defined.
 
 Global Instance is2cat_wildcat : Is2Cat WildCat.
 Proof.
