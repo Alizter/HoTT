@@ -155,6 +155,7 @@ theories/HIT/V.v
 theories/Limits/Limit.v
 theories/Limits/Equalizer.v
 theories/Limits/Pullback.v
+theories/Limits/Pullback3x3.v
 
 #
 #   Colimits

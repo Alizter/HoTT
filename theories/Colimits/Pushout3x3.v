@@ -1,11 +1,10 @@
 Require Import Basics.
+Require Import Types.
 Require Import Yoneda.
 Require Import Limits.Pullback.
 Require Import Colimits.Pushout.
 
-(* 3x3 Diagram -- We can't use the Diagrams.Diagram since our diagrams commute up to homotopy. Therefore we would need a diagram over a graph with composition. Such as the one defined in Execuse 7.15.
-
-The diagram looks like the following:
+(* The 3x3 Diagram looks like the following:
 
     A00 <--- A02 ---> A04
      ^     // ^ \\     ^
@@ -103,11 +102,68 @@ Section Pushout3x3.
     serapply yoneda.
     { intro X.
       refine (equiv_pullback_pushout^-1 oE _ oE equiv_pullback_pushout).
+      Arguments Pullback _ _ _ _ _ : clear implicits.
+      etransitivity.
+      { serapply equiv_pullback.
+        6-8: serapply equiv_pullback_pushout.
+        { serapply functor_pullback.
+          + intros f a.
+            exact (f (f21 a)).
+          + intros f a.
+            exact (f (f01 a)).
+          + intros f a.
+            exact (f (f41 a)).
+          + reflexivity.
+          + reflexivity. }
+        { serapply functor_pullback.
+          + intros f a.
+            exact (f (f23 a)).
+          + intros f a.
+            exact (f (f03 a)).
+          + intros f a.
+            exact (f (f43 a)).
+          + reflexivity.
+          + reflexivity. }
+        { intro x.
+          cbn.
+          
+          serapply path_sigma.
+          1: reflexivity.
+          serapply path_sigma.
+          1: reflexivity.
+          simpl.
+          rewrite concat_1p, concat_p1.
+          change (fun (f : A20 -> X) (a : A22) => f (f21 a))
+            with (functor_arrow f21 (idmap : X -> X)).
+          refine (ap_functor_arrow _ _ _ _ _ @ _).
+          simpl.
+          apply ap.
+          funext a.
+          refine (_ @ (ap_compose _ _ _)^).
+          rewrite Pushout_rec_beta_pglue.
+          apply ap_idmap. }
+        { intro x.
+          cbn.
+          
+          serapply path_sigma.
+          1: reflexivity.
+          serapply path_sigma.
+          1: reflexivity.
+          simpl.
+          rewrite concat_1p, concat_p1.
+          change (fun (f : A24 -> X) (a : A22) => f (f23 a))
+            with (functor_arrow f23 (idmap : X -> X)).
+          refine (ap_functor_arrow _ _ _ _ _ @ _).
+          simpl.
+          apply ap.
+          funext a.
+          refine (_ @ (ap_compose _ _ _)^).
+          rewrite Pushout_rec_beta_pglue.
+          apply ap_idmap. } }
       
+        all: admit. 
       
-      
-      
-      serapply equiv_pullback.
+        
       1,2,3: refine (equiv_pullback_pushout^-1 oE _ oE equiv_pullback_pushout).
       { serapply equiv_pullback.
         1: reflexivity.

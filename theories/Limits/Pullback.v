@@ -177,3 +177,34 @@ Section EquivPullback.
   Defined.
 
 End EquivPullback.
+
+(** Pullbacks commute with sigmas *)
+Section PullbackSigma.
+
+  Context {X : Type}
+          (A : X -> Type) (B : X -> Type) (C : X -> Type)
+          (f : forall x, B x -> A x) (g : forall x, C x -> A x).
+
+  Definition equiv_sigma_pullback
+    : { x : X & Pullback (f x) (g x) }
+        <~> Pullback (functor_sigma idmap f) (functor_sigma idmap g).
+  Proof.
+    refine (equiv_sigma_assoc _ _ oE _).
+    apply (equiv_functor_sigma' equiv_idmap).
+    intro x; apply (equiv_functor_sigma' equiv_idmap).
+    intro b; refine (equiv_sigma_assoc _ _ oE _).
+    refine (equiv_functor_sigma' equiv_idmap _ oE _).
+    { intro x'.
+      refine (equiv_functor_sigma' equiv_idmap _).
+      intro c; apply equiv_path_sigma. }
+    refine (equiv_functor_sigma' equiv_idmap (fun x' => _) oE _).
+    1: cbn; serapply equiv_sigma_symm.
+    refine ((equiv_sigma_assoc (paths x)
+      (fun l => {b0 : C l.1 & transport A l.2 (f x b) = g l.1 b0}))^-1 oE _).
+    symmetry.
+    refine (_ oE equiv_contr_sigma _).
+    reflexivity.
+Defined.
+
+End PullbackSigma.
+
