@@ -44,6 +44,66 @@ Section Pullback3x3.
 
   Theorem pullback3x3 : AXO <~> AOX.
   Proof.
+    refine (_ oE _).
+    { refine (equiv_sigma_pullback _ _ _ _ oE _).
+      refine (equiv_functor_sigma' equiv_idmap _).
+      intros [x [y p]].
+      cbn.
+      
+  
+  
+  
+  
+    unfold AXO, AOX.
+    unfold fX1, fX3, f1X, f3X.
+    unfold symmetry, symmetric_pointwise_paths.
+    unfold functor_pullback.
+    
+    
+    
+    
+    refine (equiv_sigma_pullback _ _ _ _ oE _
+      oE (equiv_sigma_pullback _ _ _ _)^-1).
+    
+    unfold functor_sigma.
+    unfold Pullback.
+    
+    
+    
+    refine (_ oE @equiv_sigma_prod
+      {_ : _ & {_ : _ & _}}
+      {_ : _ & {_ : _ & _}}
+      (fun bc =>
+        (f01 (fst bc).1;
+          f41 ((fst bc).2).1;
+          (H11 (fst bc).1 @ ap f21 ((fst bc).2).2) @ (H31 ((fst bc).2).1)^)
+        = (f03 (snd bc).1;
+          f43 ((snd bc).2).1;
+          (H13 (snd bc).1 @ ap f23 ((snd bc).2).2) @ (H33 ((snd bc).2).1)^)
+      )).
+    refine ((@equiv_sigma_prod
+      {_ : _ & {_ : _ & _}}
+      {_ : _ & {_ : _ & _}}
+      (fun bc =>
+        (f10 (fst bc).1;
+          f14 ((fst bc).2).1;
+          ((H11 (fst bc).1)^ @ ap f12 ((fst bc).2).2) @ ((H13 ((fst bc).2).1)^)^)
+        = (f30 (snd bc).1;
+          f34 ((snd bc).2).1;
+          ((H31 (snd bc).1)^ @ ap f32 ((snd bc).2).2) @ ((H33 ((snd bc).2).1)^)^)
+      ))^-1 oE _).
+    
+    refine (_ oE _ oE _^-1).
+    1,3: erapply (equiv_functor_sigma' equiv_idmap).
+    1,2: intro.
+    1,2: serapply equiv_path_sigma.
+    simpl.
+    all: cbn.
+    
+    serapply equiv_functor_sigma'.
+    Search prod sigT.
+    
+    
     (** Pullbacks commute with sigmas. *)
     (** Pullbacks commute with paths. *)
   Admitted.
