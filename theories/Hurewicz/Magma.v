@@ -2,6 +2,7 @@ Require Import Basics Types Pointed.
 Require Import Algebra.Group.
 Require Import EquivalenceVarieties.
 Require Import Truncations.
+Require Import PathAny.
 Import TrM.
 
 Record Magma := {
@@ -36,6 +37,102 @@ Proof.
   apply (equiv_ap' issig_MagmaMap^-1 _ _)^-1.
   apply path_sigma_hprop.
   by apply path_forall.
+Defined.
+
+Record MagmaEquiv (X Y : Magma) := {
+  magmamap :> MagmaMap X Y;
+  magmamap_isequiv : IsEquiv (magmamap_map _ _ magmamap);
+}.
+
+Arguments magmamap {X Y} _.
+Arguments magmamap_isequiv {X Y} _.
+
+Definition magmaequiv_to_equiv {X Y : Magma} : MagmaEquiv X Y -> Equiv X Y
+  := fun f => Build_Equiv _ _ f (magmamap_isequiv f).
+
+Coercion magmaequiv_to_equiv : MagmaEquiv >-> Equiv.
+
+Definition build_magmaequiv {X Y : Magma} (f : X -> Y) (e : IsEquiv f)
+           (r : IsSemiGroupPreserving f) : MagmaEquiv X Y
+  := (Build_MagmaEquiv X Y (Build_MagmaMap X Y f r) e).
+
+Definition magma_idmap (X : Magma) : MagmaEquiv X X.
+Proof.
+  refine (build_magmaequiv idmap _ _).
+  unfold IsSemiGroupPreserving.  reflexivity.
+Defined.
+
+Definition magmaequiv_inverse {X Y : Magma} (f : MagmaEquiv X Y) : MagmaEquiv Y X.
+Proof.
+  refine (build_magmaequiv (magmaequiv_to_equiv f)^-1 _ _).
+Defined.
+
+(* This should be in Overture.v, and path_forall2 should be defined in terms of this. *)
+Definition equiv_path_forall2 `{Funext} {A B : Type} {P : A -> B -> Type} (f g : forall x y, P x y)
+  : (forall (a : A) (b : B), f a b = g a b) <~> f = g
+  := (equiv_path_forall f g) oE (equiv_functor_forall_id (fun a => equiv_path_forall (f a) (g a))).
+
+(* Alternatively, one can prove that the existing path_forall2 is an equivalence: *)
+Global Instance isequiv_path_forall2 `{Funext} {A B : Type} {P : A -> B -> Type} (f g : forall x y, P x y)
+  : IsEquiv (path_forall2 f g).
+Proof.
+  unfold path_forall2.
+  simple refine (isequiv_compose' _ _ (path_forall f g) _).
+  apply (isequiv_functor_forall (f:=equiv_idmap) (g:=fun a => path_forall (f a) (g a))).
+Defined.
+
+(* With the second approach, need: *)
+Definition equiv_path_forall2' `{Funext} {A B : Type} {P : A -> B -> Type} (f g : forall x y, P x y)
+  := Build_Equiv _ _ (path_forall2 f g) _.
+
+(* This is a drop-in replacement for contr_basedequiv in Universe.v.
+   Coq is unable to compute the center of contraction with the proof
+   given there, so we reprove it a different way.  I think this proof
+   should replace that proof. *)
+Global Instance contr_basedequiv_fix `{Univalence} {X : Type}
+: Contr {Y : Type & X <~> Y}.
+Proof.
+  exists (X; equiv_idmap).
+  intros [Y f]; revert Y f.
+  apply equiv_induction.
+  reflexivity.
+Defined.
+
+Definition rearrange_sigmas (X : Magma)
+  : { Yf : { Y : Type & X <~> Y } & { m : SgOp Yf.1 & IsSemiGroupPreserving Yf.2 }}
+      <~> {Y : Magma & MagmaEquiv X Y }.
+Proof.
+  serapply equiv_adjointify.
+  - intros [[Y [f e]] [m r]].
+    set (Ym := Build_Magma Y m).
+    exact (Ym; build_magmaequiv (Y:=Ym) f e r).
+  - intros [[Y m] [[f r] e]].
+    exact ((Y; Build_Equiv _ _ f e); (m; r)).
+  - simpl. reflexivity.
+  - simpl. reflexivity.
+Defined.
+
+(* This verifies that we have the right notion of equivalence of magmas. *)
+Definition equiv_magmaequiv_path  `{Univalence} (X Y : Magma) : MagmaEquiv X Y <~> (X = Y).
+Proof.
+  apply equiv_path_from_contr.
+  - intro; apply magma_idmap.
+  - (* Goal: [forall x : Magma, Contr {y : Magma & MagmaEquiv x y}] *)
+    intros [Z m].
+    simple notypeclasses refine (contr_equiv' _ (rearrange_sigmas _)).
+    (* Now we have { a : A & B a}, where both A and B are contractible sigma types.
+       Get rid of A first. *)
+    simpl.
+    simple notypeclasses refine (contr_equiv' _ (equiv_contr_sigma _)^-1).
+    + apply contr_basedequiv_fix.
+    + (* Now we show that [B (center A)] is contractible. *)
+      simpl.
+      simple refine (contr_equiv' {m0 : SgOp Z & m = m0} _).
+      simple refine (equiv_functor_sigma_id _).
+      simpl.
+      intro a.
+      symmetry.
+      apply equiv_path_forall2.
 Defined.
 
 Definition equiv_magmamap `{Funext} {X Y : Magma} (Z : Magma) `{IsHSet Z}
