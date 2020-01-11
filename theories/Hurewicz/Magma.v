@@ -3,7 +3,21 @@ Require Import Algebra.Group.
 Require Import EquivalenceVarieties.
 Require Import Truncations.
 Require Import PathAny.
+Require Import Tactics.
 Import TrM.
+
+(* We use these two idioms several times.  When proving two records are
+   equal, we convert to elements of sigma types and use path_sigma to
+   reduce to goals involving the components.  Assumes only two components
+   in the record, for now. *)
+Ltac record_equality :=
+  simple refine ((equiv_ap' _^-1 _ _)^-1 _); [ | issig | ];
+  simple refine (path_sigma _ _ _ _ _); simpl.
+
+(* Use this one if the fibers are known to be HProps. *)
+Ltac record_equality_hprop :=
+  simple refine ((equiv_ap' _^-1 _ _)^-1 _); [ | issig | ];
+  apply path_sigma_hprop; simpl.
 
 Record Magma := {
   magma_type :> Type;
@@ -23,19 +37,37 @@ Existing Instance magmamap_op_preserving.
 Existing Instance compose_sg_morphism.
 
 Definition magmamap_compose {X Y Z : Magma}
-  (f : MagmaMap Y Z) (g : MagmaMap X Y) : MagmaMap X Z
-  := Build_MagmaMap _ _ (f o g) _.
+  (f : MagmaMap Y Z) (g : MagmaMap X Y) : MagmaMap X Z.
+Proof.
+  (* Typeclass resolution finds [compose_sg_morphism], which uses rewrite. *)
+  apply (Build_MagmaMap _ _ (f o g)).
+  red. intros x0 x1.
+  simple refine ((ap f _) @ _).
+  2: apply magmamap_op_preserving.
+  apply magmamap_op_preserving.
+Defined.
 
-Definition issig_MagmaMap {X Y : Magma}
-  : _ <~> MagmaMap X Y := ltac:(issig).
+Definition magmamap_compose_assoc `{Funext} {W X Y Z : Magma}
+  (f : MagmaMap Y Z) (g : MagmaMap X Y) (h : MagmaMap W X)
+  : magmamap_compose (magmamap_compose f g) h = magmamap_compose f (magmamap_compose g h).
+Proof.
+  record_equality.
+  - reflexivity.
+  - apply path_forall2; intros w0 w1.
+    refine (concat_p_pp _ _ _ @ _).
+    apply whiskerR.
+    refine (_ @ _).
+    2: symmetry; apply ap_pp.
+    apply whiskerR.
+    apply ap_compose.
+Defined.
 
 Definition path_magmamap_hset `{Funext} {X Y : Magma} {f g : MagmaMap X Y}
   `{IsHSet Y}
   : f == g -> f = g.
 Proof.
   intro p.
-  apply (equiv_ap' issig_MagmaMap^-1 _ _)^-1.
-  apply path_sigma_hprop.
+  record_equality_hprop.
   by apply path_forall.
 Defined.
 
@@ -56,15 +88,124 @@ Definition build_magmaequiv {X Y : Magma} (f : X -> Y) (e : IsEquiv f)
            (r : IsSemiGroupPreserving f) : MagmaEquiv X Y
   := (Build_MagmaEquiv X Y (Build_MagmaMap X Y f r) e).
 
+Definition path_magmaequiv `{Funext} {X Y : Magma} (f g : MagmaEquiv X Y)
+  : (magmamap f = magmamap g) <~> (f = g).
+Proof.
+  refine (_^-1 oE _).
+  - refine (equiv_ap' _^-1 _ _).
+    issig.
+  - simpl.
+    exact (equiv_path_sigma_hprop (magmamap f; magmamap_isequiv f) (magmamap g; magmamap_isequiv g)).
+Defined.
+
 Definition magma_idmap (X : Magma) : MagmaEquiv X X.
 Proof.
   refine (build_magmaequiv idmap _ _).
   unfold IsSemiGroupPreserving.  reflexivity.
 Defined.
 
+Definition magmamap_compose_f1 `{Funext} {X Y : Magma} (f : MagmaMap X Y)
+  : magmamap_compose f (magma_idmap X) = f.
+Proof.
+  record_equality.
+  - reflexivity.
+  - apply path_forall2; intros x0 x1.
+    apply concat_1p.
+Defined.
+
+Definition magmamap_compose_1f `{Funext} {X Y : Magma} (f : MagmaMap X Y)
+  : magmamap_compose (magma_idmap Y) f = f.
+Proof.
+  record_equality.
+  - reflexivity.
+  - apply path_forall2; intros x0 x1.
+    refine (_ @ _).
+    1:apply concat_p1.
+    apply ap_idmap.
+Defined.
+
+Definition magmaequiv_compose {X Y Z : Magma} (g : MagmaEquiv Y Z) (f : MagmaEquiv X Y)
+  : MagmaEquiv X Z.
+Proof.
+  (* Typeclass resolution finds [compose_sg_morphism], which uses rewrite. *)
+  simple notypeclasses refine (build_magmaequiv (g oE f) _ _).
+  - apply equiv_isequiv.
+  - apply magmamap_compose.
+Defined.
+
 Definition magmaequiv_inverse {X Y : Magma} (f : MagmaEquiv X Y) : MagmaEquiv Y X.
 Proof.
-  refine (build_magmaequiv (magmaequiv_to_equiv f)^-1 _ _).
+  (* Typeclass resolution uses [invert_sg_morphism], which uses rewrite. *)
+  simple notypeclasses refine (build_magmaequiv (magmaequiv_to_equiv f)^-1 _ _).
+  - apply equiv_isequiv.
+  - apply isequiv_inverse.
+  - red. intros y0 y1.
+    (* Using [equiv_inj] here instead of [(ap (magmaequiv_to_equiv f))^-1]
+       allows us to avoid unfolding it later until the right moment. *)
+    refine (Paths.equiv_inj (magmaequiv_to_equiv f) _).
+    refine (_ @ _ @ _ @ _)^.
+    + exact (preserves_sg_op _ _).
+    (* We could use [apply ap2; apply eisretr] here, but later it is convenient
+       to have things in terms of ap. *)
+    + refine (ap (fun y => sg_op y _) _); apply eisretr.
+    + refine (ap (sg_op y0) _); apply eisretr.
+    + symmetry; apply eisretr.
+Defined.
+
+(* The left inverse law.  Much trickier than I expected.  Would be easier with univalence. *)
+Definition mecompose_eV `{Funext} {X Y : Magma} (f : MagmaEquiv X Y)
+  : magmaequiv_compose f (magmaequiv_inverse f) = magma_idmap _.
+Proof.
+  destruct f as [[f r] e].
+  record_equality_hprop.
+  change (magmamap_map X Y (Build_MagmaMap X Y f r)) with f in *.
+  record_equality.
+  + apply path_forall; intro; apply eisretr.
+  + unfold preserves_sg_op.
+    apply path_forall2; intros y0 y1.
+    rewrite transport_forall_constant.
+    rewrite transport_forall_constant.
+    transport_path_forall_hammer.
+    (* The key to making this proof simple was to avoid equiv_inj getting
+       unfolded into (ap f)^-1 which would get reduced to a complicated
+       expression by simpl/cbn.  We unfold it to (ap f)^-1 now, where it
+       cancels against the adjacent (ap f): *)
+    unfold equiv_inj.
+    rewrite (eisretr (ap f)).
+    rewrite @transport_paths_l.
+    do 2 rewrite @transport_paths_Fr.
+    rewrite inv_pV.
+    do 2 rewrite inv_pp.
+    do 6 rewrite concat_pp_p.
+    do 3 rewrite concat_V_pp.
+    apply concat_Vp.
+Defined.
+
+(* Every magma equivalence f has a right inverse f^-1.  So f^-1 has
+   both left and right inverses.  It follows that
+   (f^-1)^-1 = (f f^-1) (f^-1)^-1 = f (f^-1 (f^-1)^-1) = f. *)
+Definition magmaequiv_inverse_inverse `{Funext} {X Y : Magma} (f : MagmaEquiv X Y)
+  : magmaequiv_inverse (magmaequiv_inverse f) = f.
+Proof.
+  apply path_magmaequiv.
+  pose (fi := (magmaequiv_inverse f)).
+  pose (fii := (magmaequiv_inverse fi)).
+  refine (_^ @ _^ @ _ @ _ @ _).
+  - exact (magmamap_compose_1f fii).
+  - exact (ap (fun k => magmamap_compose (magmamap k) fii) (mecompose_eV f)).
+  - apply magmamap_compose_assoc.
+  - exact (ap (fun k => magmamap_compose f (magmamap k)) (mecompose_eV fi )).
+  - apply magmamap_compose_f1.
+Defined.
+
+(* The right inverse law.  Proving this directly requires different
+   path algebra than mecompose_eV, so we prove it indirectly. *)
+Definition mecompose_Ve `{Funext} {X Y : Magma} (f : MagmaEquiv X Y)
+  : magmaequiv_compose (magmaequiv_inverse f) f = magma_idmap _.
+Proof.
+  refine (_ @ _).
+  - exact (ap _ (magmaequiv_inverse_inverse f)^).
+  - apply mecompose_eV.
 Defined.
 
 (* This should be in Overture.v, and path_forall2 should be defined in terms of this. *)
@@ -113,12 +254,12 @@ Proof.
 Defined.
 
 (* This verifies that we have the right notion of equivalence of magmas. *)
-Definition equiv_magmaequiv_path  `{Univalence} (X Y : Magma) : MagmaEquiv X Y <~> (X = Y).
+Definition equiv_magmaequiv_path  `{Univalence} : forall X Y : Magma, MagmaEquiv X Y <~> (X = Y).
 Proof.
   apply equiv_path_from_contr.
   - intro; apply magma_idmap.
   - (* Goal: [forall x : Magma, Contr {y : Magma & MagmaEquiv x y}] *)
-    intros [Z m].
+    intros [X m].
     simple notypeclasses refine (contr_equiv' _ (rearrange_sigmas _)).
     (* Now we have { a : A & B a}, where both A and B are contractible sigma types.
        Get rid of A first. *)
@@ -127,7 +268,7 @@ Proof.
     + apply contr_basedequiv_fix.
     + (* Now we show that [B (center A)] is contractible. *)
       simpl.
-      simple refine (contr_equiv' {m0 : SgOp Z & m = m0} _).
+      simple refine (contr_equiv' {m0 : SgOp X & m = m0} _).
       simple refine (equiv_functor_sigma_id _).
       simpl.
       intro a.
