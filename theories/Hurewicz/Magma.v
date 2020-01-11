@@ -276,28 +276,23 @@ Proof.
       apply equiv_path_forall2.
 Defined.
 
-Definition equiv_magmamap `{Funext} {X Y : Magma} (Z : Magma) `{IsHSet Z}
-  (e : MagmaMap X Y) `{!IsEquiv e} : MagmaMap Y Z <~> MagmaMap X Z.
+(* This also follows directly from Magma Univalence. *)
+Definition equiv_magmamap `{Funext} {X Y : Magma} (Z : Magma)
+  (e : MagmaEquiv X Y) : MagmaMap Y Z <~> MagmaMap X Z.
 Proof.
   serapply equiv_adjointify.
-  + intro f.
-    exists (f o e).
-    exact _.
-  + intro g.
-    exists (g o e^-1).
-    exact _.
-  + intro f.
-    simpl.
-    serapply path_magmamap_hset.
-    intro x.
-    apply (ap f).
-    apply eissect.
-  + intro g.
-    simpl.
-    serapply path_magmamap_hset.
-    intro y.
-    apply (ap g).
-    apply eisretr.
+  + exact (fun f => magmamap_compose f e).
+  + exact (fun g => magmamap_compose g (magmaequiv_inverse e)).
+  + unfold Sect; intro f.
+    refine (_ @ _).
+    1:apply magmamap_compose_assoc.
+    refine ((ap (magmamap_compose f) (ap magmamap (mecompose_Ve e))) @ _).
+    apply magmamap_compose_f1.
+  + unfold Sect; intro g.
+    refine (_ @ _).
+    1:apply magmamap_compose_assoc.
+    refine ((ap (magmamap_compose g) (ap magmamap (mecompose_eV e))) @ _).
+    apply magmamap_compose_f1.
 Defined.
 
 Definition magma_loops (X : pType) : Magma
