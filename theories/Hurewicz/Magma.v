@@ -26,12 +26,16 @@ Record Magma := {
 
 Existing Instance magma_op.
 
+Definition issig_magma : _ <~> Magma := ltac:(issig).
+
 Record MagmaMap (X Y : Magma) := {
   magmamap_map :> X -> Y;
   magmamap_op_preserving : IsSemiGroupPreserving magmamap_map;
 }.
 
 Existing Instance magmamap_op_preserving.
+
+Definition issig_magmamap X Y : _ <~> MagmaMap X Y := ltac:(issig).
 
 (** TODO make more global anyway *)
 Existing Instance compose_sg_morphism.
@@ -79,6 +83,8 @@ Record MagmaEquiv (X Y : Magma) := {
 Arguments magmamap {X Y} _.
 Arguments magmamap_isequiv {X Y} _.
 
+Definition issig_magmaequiv X Y : _ <~> MagmaEquiv X Y := ltac:(issig).
+
 Definition magmaequiv_to_equiv {X Y : Magma} : MagmaEquiv X Y -> Equiv X Y
   := fun f => Build_Equiv _ _ f (magmamap_isequiv f).
 
@@ -92,8 +98,7 @@ Definition path_magmaequiv `{Funext} {X Y : Magma} (f g : MagmaEquiv X Y)
   : (magmamap f = magmamap g) <~> (f = g).
 Proof.
   refine (_^-1 oE _).
-  - refine (equiv_ap' _^-1 _ _).
-    issig.
+  - apply (equiv_ap' (issig_magmaequiv _ _)^-1).
   - simpl.
     exact (equiv_path_sigma_hprop (magmamap f; magmamap_isequiv f) (magmamap g; magmamap_isequiv g)).
 Defined.
@@ -239,41 +244,27 @@ Proof.
   reflexivity.
 Defined.
 
-Definition rearrange_sigmas (X : Magma)
-  : { Yf : { Y : Type & X <~> Y } & { m : SgOp Yf.1 & IsSemiGroupPreserving Yf.2 }}
-      <~> {Y : Magma & MagmaEquiv X Y }.
+Definition issig_magmaequiv' (X Y : Magma) :
+  {f : X <~> Y & IsSemiGroupPreserving f} <~> MagmaEquiv X Y.
 Proof.
   serapply equiv_adjointify.
-  - intros [[Y [f e]] [m r]].
-    set (Ym := Build_Magma Y m).
-    exact (Ym; build_magmaequiv (Y:=Ym) f e r).
-  - intros [[Y m] [[f r] e]].
-    exact ((Y; Build_Equiv _ _ f e); (m; r)).
+  - intros [[f e] r]; exact (build_magmaequiv f e r).
+  - intros [[f r] e]; exact ((Build_Equiv _ _ f e); r).
   - simpl. reflexivity.
   - simpl. reflexivity.
 Defined.
 
 (* This verifies that we have the right notion of equivalence of magmas. *)
-Definition equiv_magmaequiv_path  `{Univalence} : forall X Y : Magma, MagmaEquiv X Y <~> (X = Y).
+Definition equiv_magmaequiv_path `{Univalence} (X Y : Magma)
+  : MagmaEquiv X Y <~> (X = Y).
 Proof.
-  apply equiv_path_from_contr.
-  - intro; apply magma_idmap.
-  - (* Goal: [forall x : Magma, Contr {y : Magma & MagmaEquiv x y}] *)
-    intros [X m].
-    simple notypeclasses refine (contr_equiv' _ (rearrange_sigmas _)).
-    (* Now we have { a : A & B a}, where both A and B are contractible sigma types.
-       Get rid of A first. *)
-    simpl.
-    simple notypeclasses refine (contr_equiv' _ (equiv_contr_sigma _)^-1).
-    + apply contr_basedequiv_fix.
-    + (* Now we show that [B (center A)] is contractible. *)
-      simpl.
-      simple refine (contr_equiv' {m0 : SgOp X & m = m0} _).
-      simple refine (equiv_functor_sigma_id _).
-      simpl.
-      intro a.
-      symmetry.
-      apply equiv_path_forall2.
+  refine (_ oE (issig_magmaequiv' X Y)^-1).
+  eqp_issig_contr issig_magma; cbn; intros [X m].
+  - exists equiv_idmap.  intros x0 x1.  reflexivity.
+  - contr_sigsig X (equiv_idmap X).
+    exact (@contr_equiv' _ _
+           (equiv_functor_sigma_id (fun f => equiv_path_forall2 _ _))^-1
+           (contr_basedpaths _)).
 Defined.
 
 (* This also follows directly from Magma Univalence. *)
