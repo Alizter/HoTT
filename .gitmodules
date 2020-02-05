@@ -9,3 +9,7 @@
 	path = etc/coq-dpdgraph
 	url = https://github.com/Karmaki/coq-dpdgraph.git
 	branch = coq-master
+[submodule "Coq-Equations"]
+	path = Coq-Equations
+	url = https://github.com/Alizter/Coq-Equations.git
+	branch = hott
