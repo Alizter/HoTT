@@ -27,6 +27,13 @@ COQC = hoqc
 #
 
 #
+#   Equations
+#
+
+theories/Equations/Init.v
+
+
+#
 #   Basics
 #
 
