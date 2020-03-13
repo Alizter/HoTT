@@ -82,7 +82,7 @@ Reserved Notation "{ x : A  |  P  & Q }" (at level 0, x at level 99).
 Reserved Notation "{ x : A  & P }" (at level 0, x at level 99).
 Reserved Notation "{ x : A  & P  & Q }" (at level 0, x at level 99).
 
- 
+
 (** Numeric *)
 Reserved Notation "n .+1" (at level 2, left associativity, format "n .+1").
 Reserved Notation "n .+2" (at level 2, left associativity, format "n .+2").
@@ -152,7 +152,12 @@ Reserved Infix "=n" (at level 70, no associativity).
 Reserved Infix "$->" (at level 99).
 Reserved Infix "$<~>" (at level 85).
 Reserved Infix "$o" (at level 40, left associativity).
+Reserved Infix "$oD" (at level 40, left associativity).
 Reserved Infix "$oE" (at level 40, left associativity).
+Reserved Infix "$<o" (at level 30).
+Reserved Infix "$o>" (at level 30).
+Reserved Infix "$<oD" (at level 30).
+Reserved Infix "$o>D" (at level 30).
 Reserved Infix "$==" (at level 70).
 Reserved Infix "$o@" (at level 30).
 Reserved Infix "$@" (at level 30).
@@ -161,7 +166,10 @@ Reserved Infix "$@R" (at level 30).
 Reserved Infix "$=>" (at level 99).
 Reserved Notation "T ^op" (at level 3, format "T ^op").
 Reserved Notation "f ^-1$" (at level 3, format "f '^-1$'").
+Reserved Notation "f ^-1'$" (at level 3, format "f '^-1'$'").
+Reserved Notation "f ^-1D$" (at level 3, format "f '^-1D$'").
 Reserved Notation "f ^$" (at level 3, format "f '^$'").
+Reserved Notation "f ^D$" (at level 3, format "f '^D$'").
 Reserved Infix "$@h" (at level 35).
 Reserved Infix "$@v" (at level 35).
 Reserved Infix "$@hR" (at level 34).
@@ -283,5 +291,3 @@ Global Open Scope core_scope.
 
 Bind Scope function_scope with Funclass.
 Bind Scope type_scope with Sortclass.
-
-
