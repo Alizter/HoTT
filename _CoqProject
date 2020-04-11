@@ -332,6 +332,7 @@ theories/Algebra/Rings/CRing.v
 theories/Algebra/Rings/Ideal.v
 theories/Algebra/Rings/QuotientRing.v
 theories/Algebra/Rings/Z.v
+theories/Algebra/Rings/Localization.v
 
 theories/Algebra/AbGroups.v
 theories/Algebra/AbGroups/AbelianGroup.v
