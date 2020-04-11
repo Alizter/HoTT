@@ -213,7 +213,7 @@ Defined.
 Global Existing Instances isfunctor0_idmap isfunctor0_compose.
 
 Global Instance isfunctor0_induced {A} `{IsGlob n B} (F : A -> B)
-  : @IsFunctor0 n A n B (isglob_induced F) _ F.
+  : @IsFunctor0 n A n B (isglob_induced F) _ F | 1000.
 Proof.
   rapply Build_IsFunctor0.
 Defined.  
@@ -351,20 +351,25 @@ Class IsInitial `{IsGlob n A} (a : A) :=
   catcontr_initial : forall b, CatContr (a $-> b).
 Global Existing Instance catcontr_initial.
 
-Class HasInitial `{IsGlob n A} :=
+Class HasInitial (A : Type) `{IsGlob n A} :=
 {
   initial_obj : A ;
   isinitial_initial : IsInitial initial_obj ;
 }.
 Global Existing Instance isinitial_initial.
+Arguments initial_obj A {_ _}.
+Arguments isinitial_initial A {_ _ _} _.
 
 Class IsTerminal `{IsGlob n A} (a : A) :=
   catcontr_terminal : forall b, CatContr (b $-> a).
 Global Existing Instance catcontr_terminal.
 
-Class HasTerminal `{IsGlob n A} :=
+Class HasTerminal (A : Type) `{IsGlob n A} :=
 {
   terminal_obj : A ;
   isterminal_terminal : IsTerminal terminal_obj ;
 }.
 Global Existing Instance isterminal_terminal.
+Arguments terminal_obj A {_ _}.
+Arguments isterminal_terminal A {_ _ _} _.
+

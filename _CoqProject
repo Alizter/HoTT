@@ -71,7 +71,9 @@ theories/ooCat/Glob.v
 theories/ooCat/Cat0.v
 theories/ooCat/Cat1.v
 #
+theories/ooCat/Adjoint.v
 theories/ooCat/Core.v
+theories/ooCat/Comma.v
 theories/ooCat/Laxity.v
 theories/ooCat/Transformation.v
 theories/ooCat/EquivCat.v
