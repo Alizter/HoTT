@@ -60,4 +60,25 @@ Defined.
 
 Global Existing Instance isfunctor0_pair.
 
+CoFixpoint isfunctor0_fst `{IsGlob n A} `{IsGlob n B} : IsFunctor0 (@fst A B).
+Proof.
+  snrapply Build_IsFunctor0.
+  1: intros x y; exact fst.
+  intros x y.
+  rapply isfunctor0_fst.
+Defined.
+
+Global Existing Instance isfunctor0_fst.
+
+CoFixpoint isfunctor0_snd `{IsGlob n A} `{IsGlob n B} : IsFunctor0 (@snd A B).
+Proof.
+  snrapply Build_IsFunctor0.
+  1: intros x y; exact snd.
+  intros x y.
+  rapply isfunctor0_snd.
+Defined.
+
+Global Existing Instance isfunctor0_snd.
+
+
 (** TODO: HasEquivs, 1-coherent categories *)

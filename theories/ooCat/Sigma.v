@@ -7,8 +7,8 @@ Generalizable Variables m n A B.
 
 (** * Sigma oo-categories of displayed oo-categories *)
 
-CoFixpoint isglob_sigma `{IsDGlob n A n B}
-  : IsGlob n (sig B).
+CoFixpoint isglob_sigma `{IsDGlob n A m B}
+  : IsGlob m (sig B).
 Proof.
   unshelve econstructor.
   - intros [a u] [b v]; exact { f : a $-> b & DHom f u v }.
@@ -17,8 +17,19 @@ Defined.
 
 Global Existing Instance isglob_sigma.
 
-CoFixpoint iscat0_sigma `{IsDCat0 n A n B}
-  : IsCat0 n (sig B).
+CoFixpoint isfunctor0_pr1 `{IsDGlob n A m B}
+  : IsFunctor0 (@pr1 A B).
+Proof.
+  snrapply Build_IsFunctor0.
+  1: intros x y; exact pr1.
+  intros x y.
+  rapply isfunctor0_pr1.
+Defined.
+
+Global Existing Instance isfunctor0_pr1.
+
+CoFixpoint iscat0_sigma `{IsDCat0 n A m B}
+  : IsCat0 m (sig B).
 Proof.
   unshelve econstructor.
   - intros [a u] [b v] [c w] [g q] [f p].

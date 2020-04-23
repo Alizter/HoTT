@@ -3,6 +3,7 @@
 Require Import Basics.
 Require Export ooCat.Cat1 ooCat.Laxity.
 Require Export ooCat.Prod.
+Require Import ooCat.Sigma.
 
 Generalizable Variables m n p A B C.
 
@@ -27,9 +28,9 @@ Notation DComma := (GenDComma one_colax).
 *)
 
 CoFixpoint isdglob_gendcomma (l : Stream Laxity)
-           {A B C : Type} `{IsGlob n A} `{IsGlob n B} `{HasEquivs p C}
+           {A B C : Type} `{IsGlob n A} `{IsGlob n B} `{HasEquivs m C}
            (F : A -> C) `{!IsFunctor0 F} (G : B -> C) `{!IsFunctor0 G}
-  : IsDGlob p (GenDComma l F G).
+  : IsDGlob m (GenDComma l F G).
 Proof.
   unshelve econstructor.
   - intros [a1 b1] [a2 b2] fg p1 p2; unfold GenDComma in *; cbn in *.
@@ -45,12 +46,40 @@ Global Existing Instance isdglob_gendcomma.
 
 (** The standard comma category is the sigma-category of the displayed one. *)
 Definition GenComma (l : Stream Laxity)
-           {A B C : Type} `{IsGlob n A} `{IsGlob n B} `{HasEquivs p C}
+           {A B C : Type} `{IsGlob n A} `{IsGlob n B} `{HasEquivs m C}
            (F : A -> C) `{!IsFunctor0 F} (G : B -> C) `{!IsFunctor0 G}
   := sig (GenDComma l F G).
 
 Notation IsoComma := (GenComma all_pseudo).
 Notation Comma := (GenComma one_colax).
+
+Section CommaProjections.
+
+  Context (l : Stream Laxity) {A B C : Type}
+   `{IsGlob n A} `{IsGlob n B} `{HasEquivs m C}
+    {F : A -> C} `{!IsFunctor0 F}
+    {G : B -> C} `{!IsFunctor0 G}.
+
+  Definition gencomma_pr1 : GenComma l F G -> A
+    := fun x => fst x.1.
+
+  Definition gencomma_pr2 : GenComma l F G -> B
+    := fun x => snd x.1.
+
+  Global Instance isfunctor0_gencomma_pr1 : IsFunctor0 gencomma_pr1.
+  Proof.
+    rapply isfunctor0_compose.
+  Defined.
+
+  Global Instance isfunctor0_gencomma_pr2 : IsFunctor0 gencomma_pr2.
+  Proof.
+    rapply isfunctor0_compose.
+  Defined.
+
+End CommaProjections.
+
+Notation comma_pr1 := (gencomma_pr1 one_colax).
+Notation comma_pr2 := (gencomma_pr2 one_colax).
 
 (** The arrow category of [A] is the comma category of its identity functor over itself. *)
 Definition GenDArrow (l : Stream Laxity) (A : Type) `{HasEquivs n A}

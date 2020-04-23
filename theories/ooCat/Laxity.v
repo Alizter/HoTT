@@ -35,3 +35,9 @@ Definition lcat_id (l : Laxity) `{IsCat1 n A} (a : A)
   | pseudo => cate_id a
   | lax => cat_id a
   end.
+
+Global Instance isglob_lhom (l : Laxity) `{HasEquivs n A} (a b : A)
+  : IsGlob n.-1 (lHom l a b).
+Proof.
+  destruct l; exact _.
+Defined.
