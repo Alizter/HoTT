@@ -35,6 +35,30 @@ Proof.
   rapply equiv_isfreegroup_rec.
 Defined.
 
+Global Instance ishprop_isfreegroupon `{Funext} (F : Group) (A : Type) (i : A -> F)
+  : IsHProp (IsFreeGroupOn A F i).
+Proof.
+  unfold IsFreeGroupOn.
+  apply trunc_forall.
+Defined.
+
+(** TODO: NAME *)
+(** Both ways of stating the universal property are equivalent. *)
+Definition foobar `{Funext} (F : Group) (A : Type) (i : A -> F)
+  : IsFreeGroupOn A F i <~> forall G, IsEquiv (fun f : F $-> G => f o i).
+Proof.
+  srapply equiv_iff_hprop.
+  1: intros k G; rapply (equiv_isequiv (equiv_isfreegroup_rec G F A i)).
+  intros k G g.
+  specialize (k G).
+  snrapply contr_equiv'.
+  1: exact (hfiber (fun f x => grp_homo_map F G f (i x)) g).
+  { rapply equiv_functor_sigma_id.
+    intro y; symmetry.
+    apply equiv_path_forall. }
+  exact _.
+Defined.
+
 (** TODO: Nielsen-Schreier theorem: Subgroups of free groups are free. Proofs of this statement are non-trivial. We can prove it using covering spaces which haven't yet been considered in this library. In fact, every known proof requires the axiom of choice in some crucical way. *)
 
 (** Here is a sketch of such a proof. If F is a free group on a type X, then it is the fundamental group of the suspension of (X + 1) (This coule be by definition). A subgroup is then the fundamental group of a covering space of Susp (X + 1). This space is a connected 1-type and using choice we can show it has a spanning tree (since it is a topological graph). By shrinking the spanning tree we get that this cover is also the suspension of some non-empty type, hence is a free group. This "proof" is however a sketch and there may be serious problems when allowing groups to be free over arbitrary types. *)
