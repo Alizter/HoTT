@@ -319,6 +319,7 @@ theories/Pointed/pSusp.v
 #   Spectra
 #
 
+theories/Spectra/GeneralizedSpectrum.v
 theories/Spectra/Spectrum.v
 theories/Spectra/Coinductive.v
 
