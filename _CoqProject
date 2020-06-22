@@ -299,6 +299,7 @@ theories/Homotopy/CayleyDickson.v
 
 theories/Homotopy/SuccessorStructure.v
 theories/Homotopy/ExactSequence.v
+theories/Homotopy/Splice.v
 
 #
 #   Pointed
@@ -319,9 +320,13 @@ theories/Pointed/pSusp.v
 #   Spectra
 #
 
+theories/Spectra.v
+
 theories/Spectra/GeneralizedSpectrum.v
 theories/Spectra/Spectrum.v
-theories/Spectra/Coinductive.v
+theories/Spectra/HomotopyGroup.v
+
+theories/Spectra/EMSpectrum.v
 
 #
 #   Algebra
