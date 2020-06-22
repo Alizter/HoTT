@@ -347,3 +347,32 @@ Global Instance isequiv_int_succ : IsEquiv int_succ | 0
 
 Definition equiv_int_succ : Int <~> Int
   := Build_Equiv _ _ _ isequiv_int_succ.
+
+Definition int_succ_pos (n : Pos) : int_succ (pos n) = pos (pos_succ n).
+Proof.
+  destruct n as [|n|n]; reflexivity.
+Qed.
+
+Definition int_succ_pos_succ (n : Pos) : int_succ (neg (pos_succ n)) = neg n.
+Proof.
+  rewrite int_neg_pos_succ, int_succ_pred. reflexivity.
+Qed.
+
+Definition int_sub_add (a b c : Int) : a - (b + c) = (a - b) - c.
+Proof.
+  refine (ap (int_add a) (int_negation_add_distr b c) @ int_add_assoc _ _ _).
+Qed.
+
+Definition int_sub_add_cancel (a b : Int) : (a - b) + b = a.
+Proof.
+  refine ((int_add_assoc _ _ _)^ @ ap (int_add a) (int_add_negation_l b) 
+    @ int_add_0_r a).
+Qed.
+
+Definition pos_int_nat (p : Pos) : pos p = p.
+Proof.
+  induction p using pos_peano_ind.
+  1: reflexivity.
+  rewrite <- int_succ_pos, IHp, nat_pos_succ.
+  reflexivity.
+Qed.

@@ -237,3 +237,14 @@ Defined.
 
 (** Since integers have decidable paths they are a hset *)
 Global Instance hset_int : IsHSet Int | 0 := _.
+
+Definition int_nat : nat -> Int.
+Proof.
+  intros n.
+  induction n.
+  + exact zero.
+  + exact (int_succ IHn).
+Defined.
+
+Coercion int_nat : nat >-> Int.
+
