@@ -70,6 +70,12 @@ Proof.
   by destruct p.
 Qed.
 
+(** ** Permutation of pos and pos_succ *)
+Lemma int_pos_pos_succ p : pos (pos_succ p) = int_succ (pos p).
+Proof.
+  by destruct p.
+Qed.
+
 (** ** Negation of a doubled positive integer *)
 Lemma int_negation_double a
   : - (int_double a) = int_double (- a).
@@ -347,3 +353,130 @@ Global Instance isequiv_int_succ : IsEquiv int_succ | 0
 
 Definition equiv_int_succ : Int <~> Int
   := Build_Equiv _ _ _ isequiv_int_succ.
+
+(** ** Commutativity of multplication *)
+Lemma int_mul_comm n m : n * m = m * n.
+Proof.
+  destruct n, m; cbn; try reflexivity;
+  apply ap; apply pos_mul_comm.
+Qed.
+
+(** Distributivity of multiplication over addition *)
+
+Lemma int_pos_sub_mul_pos n m p
+  : int_pos_sub n m * pos p = int_pos_sub (n * p)%pos (m * p)%pos.
+Proof.
+  rewrite int_mul_comm.
+  rewrite 2 (pos_mul_comm _ p).
+  induction p.
+  { rewrite 2 pos_mul_1_l.
+    apply int_mul_1_l. }
+  { cbn.
+    rewrite <- IHp.
+    set (int_pos_sub n m) as k.
+    by destruct k. }
+  cbn.
+  rewrite int_pos_sub_add.
+  rewrite <- (int_pos_sub_negation _ (x0 _)).
+  rewrite int_pos_sub_add.
+  rewrite int_negation_add_distr.
+  rewrite int_pos_sub_negation.
+  rewrite int_add_assoc.
+  cbn.
+  rewrite <- IHp.
+  set (int_pos_sub n m) as k.
+  by destruct k.
+Qed.
+
+Lemma int_pos_sub_mul_neg n m p
+  : int_pos_sub m n  * neg p = int_pos_sub (n * p)%pos (m * p)%pos.
+Proof.
+  rewrite int_mul_comm.
+  rewrite 2 (pos_mul_comm _ p).
+  induction p.
+  { rewrite 2 pos_mul_1_l.
+    rewrite <- int_pos_sub_negation.
+    by destruct (int_pos_sub n m). }
+  { cbn.
+    rewrite <- IHp.
+    rewrite <- int_pos_sub_negation.
+    set (int_pos_sub n m) as k.
+    by destruct k. }
+  cbn.
+  rewrite int_pos_sub_add.
+  rewrite <- (int_pos_sub_negation _ (x0 _)).
+  rewrite int_pos_sub_add.
+  rewrite int_negation_add_distr.
+  rewrite int_pos_sub_negation.
+  rewrite int_add_assoc.
+  cbn.
+  rewrite <- IHp.
+  rewrite <- (int_pos_sub_negation m).
+  set (int_pos_sub m n) as k.
+  by destruct k.
+Qed.
+
+Lemma int_mul_add_distr_r n m p : (n + m) * p = n * p + m * p.
+Proof.
+  induction p; destruct n, m; cbn; trivial; try f_ap;
+  try apply pos_mul_add_distr_r;
+  try apply int_pos_sub_mul_neg;
+  try apply int_pos_sub_mul_pos;
+  apply int_mul_0_r.
+Qed.
+
+Lemma int_mul_add_distr_l n m p : n * (m + p) = n * m + n * p.
+Proof.
+  rewrite 3 (int_mul_comm n); apply int_mul_add_distr_r.
+Qed.
+
+Lemma int_mul_assoc n m p : n * (m * p) = n * m * p.
+Proof.
+  destruct n, m, p; cbn; trivial; f_ap; apply pos_mul_assoc.
+Qed.
+
+(** Induction principle for the integers *)
+
+Lemma int_peano_ind
+  (Q : Int -> Type) (N : forall x, Q x -> Q (int_pred x))
+  (B : Q 0) (P : forall x, Q x -> Q (int_succ x))
+  : forall z, Q z.
+Proof.
+  intro z.
+  destruct z as [z| |z].
+  + induction z as [|z IHz] using pos_peano_ind.
+    - apply (N 0), B.
+    - rewrite int_neg_pos_succ.
+      apply (N (neg z)), IHz.
+  + exact B.
+  + induction z as [|z IHz] using pos_peano_ind.
+    - apply (P 0), B.
+    - rewrite int_pos_pos_succ.
+      apply (P (pos z)), IHz.
+Defined.
+
+Arguments int_peano_ind : simpl never.
+
+Lemma int_peano_ind_beta_int_succ
+  (Q : Int -> Type) (N : forall x, Q x -> Q (int_pred x))
+  (B : Q 0) (P : forall x, Q x -> Q (int_succ x)) (z : Int)
+  : int_peano_ind Q N B P (int_succ z) = P z (int_peano_ind Q N B P z).
+Proof.
+Admitted.
+
+Lemma int_peano_ind_beta_int_pred
+  (Q : Int -> Type) (N : forall x, Q x -> Q (int_pred x))
+  (B : Q 0) (P : forall x, Q x -> Q (int_succ x)) (z : Int)
+  : int_peano_ind Q N B P (int_pred z) = N z (int_peano_ind Q N B P z).
+Proof.
+Admitted.
+
+(* Lemma int_peano_ind_beta_pos_succ
+  (Q : Int -> Type) (N : forall x, Q x -> Q (int_pred x))
+  (B : Q 0) (P : forall x, Q x -> Q (int_succ x)) (z : Pos)
+  : int_peano_ind Q N B P (pos (pos_succ z))
+    = P (pos z) (int_peano_ind Q N B P (pos z)).
+Proof.
+Admitted. *)
+
+
