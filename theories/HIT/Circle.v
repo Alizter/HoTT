@@ -1,21 +1,20 @@
 (* -*- mode: coq; mode: visual-line -*- *)
-
-(** * Theorems about the circle [S1]. *)
-
-Require Import HoTT.Basics HoTT.Types HProp.
-Require Import HSet.
-Require Import Spaces.Pos.
-Require Import Spaces.Int.
+Require Import Basics Types.
+Require Import HProp HSet.
+Require Import Spaces.Pos Spaces.Int.
 Require Import HIT.Coeq.
 Require Import Modalities.Modality Truncations.
 Require Import Cubical.DPath.
 
 Local Open Scope path_scope.
 
+(** * Theorems about the circle [S1]. *)
+
 Generalizable Variables X A B f g n.
 
 (* ** Definition of the circle. *)
 
+(** TODO: is this really a "naive" definition? *)
 (** We define the circle as the coequalizer of two copies of the identity map of [Unit].  This is easily equivalent to the naive definition
 
 <<<
@@ -232,4 +231,212 @@ Proof.
   exact (S1_ind_beta_loop _ _ _).
 Defined.
 
+(** Here is an alternative proof of the loop space of S1 being equivalent to the integers. *)
+Module LoopS1Alternative.
+
+  Section AssumeUnivalence.
+
+    Context `{Univalence}.
+
+    Local Open Scope positive_scope.
+
+    (** The proof is somewhat similar to the encode-decode proof. In the encode-decode proof we defined maps between the fibers of the universal cover of the circle and paths from a given basepoint. The main work in the proof is showing that these maps are inverses of eachother hence there being an equivalence between the integers (fiber over the basepoint of the universal cover of the circle) and the loop space of the circle.
+
+    Instead of showing that fibers of the universal cover and paths are equivalent, we show that the total spaces of these fibrations are equivalent. This can be done since both total spaces are contractible. Then via the "fundamental theorem of HoTT" we get that fiberwise equivalences are induced by equivalences of total spaces. *)
+
+    (** First we define a winding function which takes an integer [z] and winds [loop] round [z] times. We use [pos_peano_ind] in order to do induction on positive and negative integers. Later we will need to reason about how this interacts with int_succ. *)
+    Definition wind (z : Int) : base = base.
+    Proof.
+      refine (
+        match z with
+        | neg n => _
+        | zero => _
+        | pos n => _
+        end).
+      { (** Negative windings *)
+        induction n as [|n IHn] using pos_peano_ind.
+        { (** -1 case *)
+          exact loop^. }
+        (** < -1 case *)
+        exact (IHn @ loop^). }
+      { (** 0 case *)
+        reflexivity. }
+      (** Positive windings *)
+      induction n as [|n IHn] using pos_peano_ind.
+      { (** 1 case *)
+        exact loop. }
+      (** > 1 case *)
+      exact (IHn @ loop).
+    Defined.
+
+    (** Concatenating a winding with [loop] increments the winding number. *)
+    Definition wind_succ (z : Int)
+      : wind z @ loop = wind (int_succ z).
+    Proof.
+      destruct z.
+      { (** Negative windings *)
+        (** We need to proceed by induction on the negative integer since we have to show that [loop @ loop^] reduces. *)
+        induction p using pos_peano_ind.
+        1: apply concat_Vp.
+        refine (ap (fun x => x @ _) _ @ _).
+        1: rapply pos_peano_ind_beta_pos_succ.
+        refine (concat_pp_p _ _ _ @ _).
+        refine (ap (fun x => _ @ x) _ @ _).
+        1: apply concat_Vp.
+        refine (concat_p1 _ @ _).
+        refine (_ @ ap wind _^).
+        2: apply int_pos_sub_succ_r.
+        reflexivity. }
+      (** 0 winding *)
+      1: apply concat_1p.
+      (** Positive winding *)
+      (** This holds pretty much by definition. However [int_succ (pos p)] reduces to [pos (p + 1)] instead of [pos (pos_succ p)] so we have to rewrite. *) 
+      symmetry; cbn.
+      refine (ap _ _ @ _).
+      1: apply pos_add_1_r.
+      rapply pos_peano_ind_beta_pos_succ.
+    Defined.
+
+    (** Similarly, concatenating a winding with [loop^] decrements the winding number. The proof is essentially the same as before but backwards. *)
+    Lemma wind_pred (z : Int)
+      : wind z @ loop^ = wind (int_pred z).
+    Proof.
+      destruct z.
+      { (** Negative windings *)
+        symmetry; cbn.
+        refine (ap _ _ @ _).
+        1: apply pos_add_1_r.
+        rapply pos_peano_ind_beta_pos_succ. }
+      (** 0 winding *)
+      1: apply concat_1p.
+      (** Positive winding *)
+      induction p using pos_peano_ind.
+      1: apply concat_pV.
+      refine (ap (fun x => x @ _) _ @ _).
+      1: rapply pos_peano_ind_beta_pos_succ.
+      refine (concat_pp_p _ _ _ @ _).
+      refine (ap (fun x => _ @ x) _ @ _).
+      1: apply concat_pV.
+      refine (concat_p1 _ @ _).
+      refine (_ @ ap wind (ap (int_pred o pos) _^ @ _)^).
+      2: rapply pos_add_1_r.
+      2: { change (pos (p + 1)) with (int_succ (pos p)).
+        rapply int_pred_succ. }
+      reflexivity.
+    Defined.
+
+    Lemma fiber_loop_action (x : S1_code base)
+      : loop # x = int_succ x.
+    Proof.
+      unfold S1_code.
+      refine (transport_idmap_ap _ _ _ _ _ _ @ _).
+      rewrite S1_rec_beta_loop.
+      apply transport_path_universe.
+    Defined.
+
+    Lemma fiber_opploop_action (x : S1_code base)
+      : loop^ # x = int_pred x.
+    Proof.
+      unfold S1_code.
+      refine (transport_idmap_ap _ _ _ _ _ _ @ _).
+      rewrite ap_V.
+      rewrite S1_rec_beta_loop.
+      apply transport_path_universe_V.
+    Defined.
+
+  Lemma fiber_wind_action (z : Int) (x : S1_code base)
+    : wind z # x = (x + z)%int.
+  Proof.
+    destruct z.
+    { induction p using pos_peano_ind.
+      1: apply fiber_opploop_action.
+      simpl.
+      rewrite pos_peano_ind_beta_pos_succ.
+      rewrite transport_pp.
+      rewrite IHp.
+      rewrite fiber_opploop_action.
+      rewrite <- pos_add_1_r.
+      apply int_pred_add_r. }
+    { symmetry.
+      apply int_add_0_r. }
+    induction p using pos_peano_ind.
+    1: apply fiber_loop_action.
+    simpl.
+    rewrite pos_peano_ind_beta_pos_succ.
+    rewrite transport_pp.
+    rewrite IHp.
+    rewrite fiber_loop_action.
+    rewrite <- pos_add_1_r.
+    symmetry.
+    apply (int_add_succ_r x (pos p)).
+  Defined.
+
+  (** Now we show that the total space of the universal cover is contractible. *)
+  Instance contr_total_S1_code : Contr (sigT S1_code).
+  Proof.
+    snrapply Build_Contr.
+    { exists base.
+      exact 0%int. }
+    intros [x z].
+(*     revert x z. *)
+    { 
+(*      intro z. *)
+      srapply path_sigma.
+      
+      1: exact (wind z).
+      simpl.
+      apply fiber_wind_action. }
+    funext x.
+    rewrite transport_forall.
+    simpl.
+    srapply path_path_sigma.
+    { unfold pr1_path.
+    simpl.
+    rapply path_ishprop.
+      
+  Admitted.
+
+
+
+  (** The path fibration also has a contractible total space. *)
+  Instance contr_total_paths_base : Contr (sigT (paths base)).
+  Proof.
+    apply contr_basedpaths_etashort.
+  Defined.
+
+  (** [S1_encode] is a map between fibers. Since both total spaces are contractible, the induced map between total spaces must be an equivalence. *)
+  Instance isequiv_functor_sigma_idmap_S1_encode
+    : IsEquiv (functor_sigma idmap S1_encode).
+  Proof.
+    apply isequiv_contr_contr.
+  Defined.
+
+  (** Hence [S1_encode] is an equivalence. *)
+  Instance isequiv_S1_encode : forall x, IsEquiv (S1_encode x).
+  Proof.
+    intro x.
+    apply isequiv_from_functor_sigma.
+    apply isequiv_functor_sigma_idmap_S1_encode.
+  Defined.
+
+  (** Finally, we have an equivalence between the loop space of the circle and the integers. *)
+  Theorem equiv_loopS1_int' : (base = base) <~> Int.
+  Proof.
+    apply (Build_Equiv _ _ (S1_encode base)).
+    apply isequiv_S1_encode.
+  Defined.
+
+
+
+    (** The universal cover of the circle can be constructed with univalence. In HoTT a cover is just a family of hSets. The fibers of this family are all Int and [loop] gets mapped to the path constructed by univalcne from [int_succ]. *)
+    Definition circle_cover : S1 -> Type
+      := S1_rec Type Int (equiv_path_universe _ _ equiv_int_succ).
+
+
+
+  
+
+  End AssumeUnivalence.
+
+End LoopS1Alternative.
 
