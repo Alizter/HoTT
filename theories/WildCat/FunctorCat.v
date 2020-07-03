@@ -18,9 +18,16 @@ Record Fun01 (A B : Type) `{IsGraph A} `{IsGraph B} := {
 Coercion fun01_F : Fun01 >-> Funclass.
 Existing Instance fun01_is0functor.
 
-Definition NatTrans {A B : Type} `{IsGraph A} `{Is1Cat B} (F G : A -> B)
-           {ff : Is0Functor F} {fg : Is0Functor G}
-  := { alpha : F $=> G & Is1Natural F G alpha }.
+Record NatTrans {A B : Type} `{IsGraph A} `{Is1Cat B}
+  (F G : A -> B) {ff : Is0Functor F} {fg : Is0Functor G} := {
+  nattrans_trans : F $=> G ;
+  nattrans_is1nat : Is1Natural F G nattrans_trans ;
+}.
+
+Arguments nattrans_trans {A B _ _ _ _ F G ff fg}.
+
+Coercion nattrans_trans : NatTrans >-> Transformation.
+Existing Instance nattrans_is1nat.
 
 (** Note that even if [A] and [B] are fully coherent oo-categories, the objects of our "functor category" are not fully coherent.  Thus we cannot in general expect this "functor category" to itself be fully coherent.  However, it is at least a 0-coherent 1-category, as long as [B] is a 1-coherent 1-category. *)
 

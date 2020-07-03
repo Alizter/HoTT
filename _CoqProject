@@ -57,6 +57,7 @@ theories/WildCat/Sigma.v
 theories/WildCat/Opposite.v
 theories/WildCat/Paths.v
 theories/WildCat/Type.v
+theories/WildCat/TruncType.v
 theories/WildCat/Induced.v
 theories/WildCat/EquivGpd.v
 theories/WildCat/FunctorCat.v
@@ -332,6 +333,7 @@ theories/Algebra/Rings/CRing.v
 theories/Algebra/Rings/Ideal.v
 theories/Algebra/Rings/QuotientRing.v
 theories/Algebra/Rings/Z.v
+theories/Algebra/Rings/Localization.v
 
 theories/Algebra/AbGroups.v
 theories/Algebra/AbGroups/AbelianGroup.v
@@ -344,6 +346,14 @@ theories/Algebra/Groups/Subgroup.v
 theories/Algebra/Groups/QuotientGroup.v
 theories/Algebra/Groups/Image.v
 theories/Algebra/Groups/Kernel.v
+
+#
+#   Geometry
+#
+
+theories/Geometry/Site.v
+theories/Geometry/Presheaf.v
+theories/Geometry/Sheaf.v
 
 #
 #   Tactics

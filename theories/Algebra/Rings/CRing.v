@@ -1,7 +1,9 @@
 Require Import Basics Types WildCat.
+Require Import Spaces.Finite.
 Require Export Classes.interfaces.abstract_algebra.
 Require Import Algebra.AbGroups.
 Require Export Classes.theory.rings.
+Require Import Constant.
 
 (** Theory of commutative rings *)
 
@@ -35,6 +37,7 @@ Arguments cring_zero {_}.
 Arguments cring_one {_}.
 Arguments cring_negate {_}.
 Arguments cring_isring {_}.
+Opaque cring_isring.
 
 Definition issig_CRing : _ <~> CRing := ltac:(issig).
 
@@ -68,6 +71,10 @@ Proof.
   apply equiv_path_forall.
 Defined.
 
+Global Instance ishset_cringhomomorphism `{Funext} {A B : CRing}
+  : IsHSet (CRingHomomorphism A B)
+  := fun f g => trunc_equiv' _ equiv_path_cringhomomorphism (n:=-1).
+
 Definition rng_homo_id (A : CRing) : CRingHomomorphism A A
   := Build_CRingHomomorphism idmap _.
 
@@ -84,27 +91,44 @@ Defined.
 
 Section RingLaws.
 
-  (** Many of these ring laws have already been prove. But we give them names here so that they are easy to find and use. *)
+  (** Many of these ring laws have already been proven. But we give them names here so that they are easy to find and use. *)
 
   Context {A B : CRing} (f : CRingHomomorphism A B) (x y z : A).
 
+  (** Distributivity *)
   Definition rng_dist_l : x * (y + z) = x * y + x * z := simple_distribute_l _ _ _.
   Definition rng_dist_r : (x + y) * z = x * z + y * z := simple_distribute_r _ _ _.
 
+  (** Associativity *)
+  Definition rng_plus_assoc : x + (y + z) = x + y + z := simple_associativity _ _ _.
+  Definition rng_mult_assoc : x * (y * z) = x * y * z := simple_associativity _ _ _.
+
+  (** Commutativity *)
+  Definition rng_plus_comm : x + y = y + x := commutativity _ _.
+  Definition rng_mult_comm : x * y = y * x := commutativity _ _.
+
+  (** Negation and plus *)
+  Definition rng_negate_plus : - (x + y) = -x + -y := negate_plus_distr _ _.
+
+  (** Multiplicative identities *)
   Definition rng_mult_one_l : 1 * x = x := left_identity _.
   Definition rng_mult_one_r : x * 1 = x := right_identity _.
+
+  (** Multiplication and zero *)
   Definition rng_mult_zero_l : 0 * x = 0 := left_absorb _.
   Definition rng_mult_zero_r : x * 0 = 0 := right_absorb _.
+
+  (** Multiplication and negation *)
   Definition rng_mult_negate_negate : -x * -y = x * y := negate_mult_negate _ _.
   Definition rng_mult_negate_l : -x * y = -(x * y) := inverse (negate_mult_distr_l _ _).
   Definition rng_mult_negate_r : x * -y = -(x * y) := inverse (negate_mult_distr_r _ _).
 
+  (** Ring homomorphism laws *)
   Definition rng_homo_plus : f (x + y) = f x + f y := preserves_plus x y.
   Definition rng_homo_mult : f (x * y) = f x * f y := preserves_mult x y.
   Definition rng_homo_zero : f 0 = 0 := preserves_0.
   Definition rng_homo_one  : f 1 = 1 := preserves_1.
   Definition rng_homo_negate : f (-x) = -(f x) := preserves_negate x.
-
   Definition rng_homo_minus_one : f (-1) = -1
     := preserves_negate 1%mc @ ap negate preserves_1.
 
@@ -244,3 +268,74 @@ Proof.
     exact (isequiv_adjointify f g p q).
 Defined.
 
+(** Operations on rings *)
+
+(** TODO: move *)
+Fixpoint rng_pow {R : CRing} (n : nat) : R -> R
+  := fun r =>
+    match n with
+    | 0%nat => 1
+    | n.+1%nat => r * rng_pow n r
+    end.
+
+Lemma rng_homo_pow {R S : CRing} (n : nat) (r : R) (f : CRingHomomorphism R S)
+  : f (rng_pow n r) = rng_pow n (f r).
+Proof.
+  induction n.
+  1: exact (rng_homo_one _).
+  cbn; rewrite rng_homo_mult; f_ap.
+Qed.
+
+Lemma rng_pow_mult {R : CRing} (n m : nat) (a : R)
+  : rng_pow (Peano.plus n m) a = rng_pow n a * rng_pow m a.
+Proof.
+  induction n.
+  { symmetry.
+    apply left_identity. }
+  simpl.
+  rewrite IHn.
+  apply associativity.
+Qed.
+
+Section Indexed.
+  Context `{Funext} {R : CRing}.
+
+  (** Given a family of elements indexed by fin we can take their sum *)
+  Definition rng_indexed_sum_fin {n : nat} (a : Fin n -> R) : R.
+  Proof.
+    induction n.
+    1: exact 0.
+    exact (a (inr tt) + IHn (a o inl)).
+  Defined.
+
+  (** More generally, given a family of elements indexed by a finite type we can take their sum *)
+  Definition rng_indexed_sum {X : Type} {F : Finite X} (a : X -> R) : R.
+  Proof.
+    destruct F as [n me].
+    revert me.
+    srapply merely_rec_hset.
+    { intro e.
+      exact (rng_indexed_sum_fin (a o e^-1)). }
+    unfold WeaklyConstant.
+    intros e1 e2.
+    refine (_ @ ap _ _).
+    2: funext x; exact (ap a (eissect e1 _)).
+    set (a' := a o e1^-1).
+    set (e' := e1 oE e2^-1).
+    change (rng_indexed_sum_fin a' = rng_indexed_sum_fin (a' o e')).
+    clearbody a' e'; clear e1 e2 a X.
+    induction n.
+    1: reflexivity.
+    revert e'.
+    snrapply equiv_ind.
+    2: apply equiv_fin_equiv.
+    1: exact _.
+    intros [s t].
+    cbv zeta; hnf.
+    change (a' (inr tt) + rng_indexed_sum_fin (a' o inl)
+      = rng_indexed_sum_fin (fun x : Fin n.+1 => a' (equiv_fin_equiv n n (s, t) x))).
+    (** How to proceed? *)
+  Admitted.
+
+
+End Indexed.

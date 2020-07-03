@@ -188,6 +188,13 @@ Proof.
     exact (catie_adjointify f g t s).
 Defined.
 
+Global Instance hasmorext_op {A} `{K : HasMorExt A} : HasMorExt A^op.
+Proof.
+  snrapply Build_HasMorExt.
+  intros X Y f g.
+  apply (@isequiv_Htpy_path A _ _ _ K).
+Defined.
+
 Global Instance isequivs_op {A : Type} `{HasEquivs A}
        {a b : A} (f : a $-> b) {ief : CatIsEquiv f}
   : @CatIsEquiv A^op _ _ _ _ b a f.
