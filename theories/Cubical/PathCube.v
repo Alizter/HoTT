@@ -500,38 +500,76 @@ Proof.
   apply cu_fill_right.
 Defined.
 
-(* PathCube concatenation *)
+(** Concatenations of PathCube's *)
 Section PathCubeConcat.
 
-  Context {A} {x000 x010 x100 x110 x001 x011 x101 x111 x201 x200 x210 x211 : A}
+  Context {A : Type}
+    {x000 x010 x100 x110 x001 x011 x101 x111 : A}
     {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
     {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
     {pi01 : x001 = x101} {pi11 : x011 = x111} {p00i : x000 = x001}
     {p01i : x010 = x011} {p10i : x100 = x101} {p11i : x110 = x111}
+    {s0ii : PathSquare p0i0 p0i1 p00i p01i} {s1ii : PathSquare p1i0 p1i1 p10i p11i}
+    {sii0 : PathSquare p0i0 p1i0 pi00 pi10} {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
+    {si0i : PathSquare p00i p10i pi00 pi01} {si1i : PathSquare p01i p11i pi10 pi11}.
+
+  (** Left-right concatenation *)
+  Definition cu_concat_lr
+    {x201 x200 x210 x211 : A}
     {pj01 : x101 = x201} {pj11 : x111 = x211} {pj10 : x110 = x210}
     {pj00 : x100 = x200} {p2i1 : x201 = x211} {p2i0 : x200 = x210}
     {p20i : x200 = x201} {p21i : x210 = x211}
-    {s0ii : PathSquare p0i0 p0i1 p00i p01i} {s1ii : PathSquare p1i0 p1i1 p10i p11i}
-    {sii0 : PathSquare p0i0 p1i0 pi00 pi10} {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
-    {si0i : PathSquare p00i p10i pi00 pi01} {si1i : PathSquare p01i p11i pi10 pi11}
     {sji0 : PathSquare p1i0 p2i0 pj00 pj10} {sji1 : PathSquare p1i1 p2i1 pj01 pj11}
     {sj0i : PathSquare p10i p20i pj00 pj01} {sj1i : PathSquare p11i p21i pj10 pj11}
-    {s2ii : PathSquare p2i0 p2i1 p20i p21i}.
-
-  (* We only define left right concatenation for now since that is what we
-     need. The other concatenations will not be as nice however, due to the
-     orientation of the faces of the cubes. *)
-
-  (* TODO: Work out why this is so slow *)
-  (* Left right concatenation *)
-  Definition cu_concat_lr : PathCube s0ii s1ii sii0 sii1 si0i si1i
-    -> PathCube s1ii s2ii sji0 sji1 sj0i sj1i
-    -> PathCube s0ii s2ii (sq_concat_h sii0 sji0) (sq_concat_h sii1 sji1)
-         (sq_concat_h si0i sj0i) (sq_concat_h si1i sj1i).
+    {s2ii : PathSquare p2i0 p2i1 p20i p21i}
+    : PathCube s0ii s1ii sii0 sii1 si0i si1i
+   -> PathCube s1ii s2ii sji0 sji1 sj0i sj1i
+   -> PathCube s0ii s2ii (sq_concat_h sii0 sji0) (sq_concat_h sii1 sji1)
+        (sq_concat_h si0i sj0i) (sq_concat_h si1i sj1i).
   Proof.
     intros a b.
     destruct b.
     unfold sq_concat_h.
+    by destruct a.
+  Defined.
+
+  (** Back-front concatenation *)
+  Definition cu_concat_bf
+    {x012 x002 x102 x112 : A}
+    {p00j : x001 = x002} {p10j : x101 = x102} {p01j : x011 = x012}
+    {p11j : x111 = x112} {p0i2 : x002 = x012} {p1i2 : x102 = x112}
+    {pi02 : x002 = x102} {pi12 : x012 = x112}
+    {s0ij : PathSquare p0i1 p0i2 p00j p01j} {s1ij : PathSquare p1i1 p1i2 p10j p11j}
+    {sii2 : PathSquare p0i2 p1i2 pi02 pi12} {si0j : PathSquare p00j p10j pi01 pi02}
+    {si1j : PathSquare p01j p11j pi11 pi12}
+    : PathCube s0ii s1ii sii0 sii1 si0i si1i
+   -> PathCube s0ij s1ij sii1 sii2 si0j si1j
+   -> PathCube (sq_concat_h s0ii s0ij) (sq_concat_h s1ii s1ij) sii0 sii2
+        (sq_concat_v si0i si0j) (sq_concat_v si1i si1j).
+  Proof.
+    intros a b.
+    destruct b.
+    unfold sq_concat_h, sq_concat_v.
+    by destruct a.
+  Defined.
+
+  (** Top-bottom concatenation *)
+  Definition cu_concat_tb
+    {x020 x120 x121 x021 : A}
+    {p0j0 : x010 = x020} {p0j1 : x011 = x021} {p1j0 : x110 = x120}
+    {p1j1 : x111 = x121} {p02i : x020 = x021} {p12i : x120 = x121}
+    {pi20 : x020 = x120} {pi21 : x021 = x121}
+    {sij0 : PathSquare p0j0 p1j0 pi10 pi20} {sij1 : PathSquare p0j1 p1j1 pi11 pi21}
+    {s0ji : PathSquare p0j0 p0j1 p01i p02i} {s1ji : PathSquare p1j0 p1j1 p11i p12i}
+    {si2i : PathSquare p02i p12i pi20 pi21}
+    : PathCube s0ii s1ii sii0 sii1 si0i si1i
+   -> PathCube s0ji s1ji sij0 sij1 si1i si2i
+   -> PathCube (sq_concat_v s0ii s0ji) (sq_concat_v s1ii s1ji)
+        (sq_concat_v sii0 sij0) (sq_concat_v sii1 sij1) si0i si2i.
+  Proof.
+    intros a b.
+    destruct b.
+    unfold sq_concat_v.
     by destruct a.
   Defined.
 
