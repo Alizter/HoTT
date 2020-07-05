@@ -187,6 +187,7 @@ theories/Colimits/Pushout.v
 theories/Colimits/SpanPushout.v
 theories/Colimits/MappingCylinder.v
 theories/Colimits/Quotient.v
+theories/Colimits/SymmetricDoublePushout.v
 
 theories/Colimits/Colimit.v
 theories/Colimits/Colimit_Sigma.v
