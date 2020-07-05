@@ -246,7 +246,9 @@ Notation sq_rot_r := equiv_sq_rot_r.
 (* Lemmas for rewriting sides of squares *)
 Section PathSquareRewriting.
 
-  Context {A : Type}
+  Universe i.
+
+  Context {A : Type@{i}}
     {a00 a10 a01 a11 : A}
     {px0 : a00 = a10} {px1 : a01 = a11}
     {p0x : a00 = a01} {p1x : a10 = a11}.
@@ -255,11 +257,12 @@ Section PathSquareRewriting.
      lemma which we prove is an equivalence giving us all special cases
      as equivalences too *)
 
-  Definition equiv_sq_GGGG {px0' px1' p0x' p1x'} (qx0 : px0 = px0')
+  Definition equiv_sq_GGGG@{} {px0' px1' p0x' p1x'} (qx0 : px0 = px0')
     (qx1 : px1 = px1') (q0x : p0x = p0x') (q1x : p1x = p1x')
     : PathSquare px0 px1 p0x p1x <~> PathSquare px0' px1' p0x' p1x'.
   Proof.
-    by destruct qx0, qx1, q0x, q1x.
+    destruct qx0, qx1, q0x, q1x.
+    apply equiv_idmap.
   Defined.
 
   Context {px0' px1' p0x' p1x'}
