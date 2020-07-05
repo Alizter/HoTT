@@ -239,3 +239,48 @@ Proof.
 Defined.
 
 Notation ds_transport_dpath := equiv_ds_transport_dpath.
+
+(** Dependent square concatenation *)
+Section DPathSquareConcat.
+
+  Context {A : Type} {P : A -> Type} {a00 a10 a01 a11 : A}
+    {px0 : a00 = a10} {px1 : a01 = a11}
+    {p0x : a00 = a01} {p1x : a10 = a11}
+    {s : PathSquare px0 px1 p0x p1x} {b00 b10 b01 b11}
+    {qx0 : DPath P px0 b00 b10} {qx1 : DPath P px1 b01 b11}
+    {q0x : DPath P p0x b00 b01} {q1x : DPath P p1x b10 b11}.
+
+  (* Horizontal concatenation of dependent squares *)
+  Definition ds_concat_h  {a02 a12 : A} {b02 b12}
+    {p0y : a01 = a02} {p1y : a11 = a12} {px2 : a02 = a12}
+    {q0y : DPath P p0y b01 b02} {q1y : DPath P p1y b11 b12}
+    {qx2 : DPath P px2 b02 b12} {t : PathSquare px1 px2 p0y p1y}
+    : DPathSquare P s qx0 qx1 q0x q1x
+      -> DPathSquare P t qx1 qx2 q0y q1y
+      -> DPathSquare P (sq_concat_h s t) qx0 qx2 (q0x @D q0y) (q1x @D q1y).
+  Proof.
+    intros a b.
+    destruct t, b, p0x, p1x, q0x, q1x.
+    assumption.
+  Defined.
+
+  (* Vertical concatenation of dependent squares *)
+  Definition ds_concat_v {a20 a21 : A} {b20 b21}
+    {py0 : a10 = a20} {py1 : a11 = a21} {p2x : a20 = a21}
+    {qy0 : DPath P py0 b10 b20} {qy1 : DPath P py1 b11 b21}
+    {q2x : DPath P p2x b20 b21} {t : PathSquare py0 py1 p1x p2x}
+    : DPathSquare P s qx0 qx1 q0x q1x
+      -> DPathSquare P t qy0 qy1 q1x q2x
+      -> DPathSquare P (sq_concat_v s t) (qx0 @D qy0) (qx1 @D qy1) q0x q2x.
+  Proof.
+    intros a b.
+    destruct t, b, px0, px1, qx0, qx1.
+    assumption.
+  Defined.
+
+End DPathSquareConcat.
+
+
+
+
+
