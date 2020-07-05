@@ -1,8 +1,8 @@
 (* -*- mode: coq; mode: visual-line -*- *)
-Require Import HoTT.Basics.
-Require Import HoTT.Types.
+Require Import Basics Types.
 Require Import HSet TruncType.
 Require Export HIT.Coeq.
+Require Import Cubical.
 Local Open Scope path_scope.
 
 (** * Homotopy Pushouts *)
@@ -84,6 +84,32 @@ Proof.
   eapply (cancelL (transport_const (pglue a) _)).
   refine ((apD_const (@Pushout_ind A B C f g (fun _ => P) pushb pushc _) (pglue a))^ @ _).
   refine (Pushout_ind_beta_pglue (fun _ => P) _ _ _ _).
+Defined.
+
+(** Dependent eliminator using DPath's instead of transports *)
+Definition Pushout_ind_dp {A B C} (f : A -> B) (g : A -> C)
+  (P : Pushout f g -> Type)
+  (pushb : forall b : B, P (pushl b))
+  (pushc : forall c : C, P (pushr c))
+  (pglue' : forall a : A, DPath P (pglue a) (pushb (f a)) (pushc (g a)))
+  : forall (w : Pushout f g), P w.
+Proof.
+  refine (Pushout_ind _ _ _ _).
+  intro a.
+  apply dp_path_transport^-1.
+  revert a.
+  apply pglue'.
+Defined.
+
+Definition Pushout_ind_dp_beta_pglue {A B C f g}
+  (P : Pushout f g -> Type)
+  (pushb : forall b : B, P (push (inl b)))
+  (pushc : forall c : C, P (push (inr c)))
+  (pglue' : forall a : A, DPath P (pglue a) (pushb (f a)) (pushc (g a))) (a : A)
+  : dp_apD (Pushout_ind_dp f g P pushb pushc pglue') (pglue a) = pglue' a.
+Proof.
+  apply dp_apD_path_transport.
+  rapply Pushout_ind_beta_pglue.
 Defined.
 
 (** ** Universal property *)
