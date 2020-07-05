@@ -141,6 +141,14 @@ Defined.
 
 Notation ds_dp := equiv_ds_dp.
 
+(** dp_apD fits into a (degenerate) DPathSquare relating it to dp_const applied to ap *)
+(** Note that this is oriented differently to dp_apD_const. *)
+Definition dp_apD_const_ds {A B : Type} (f : A -> B) {x y : A} (p : x = y)
+  : DPathSquare _ (sq_refl_h p) (dp_const (ap f p)) (dp_apD f p) 1 1.
+Proof.
+  by destruct p.
+Defined.
+
 (** Dependent Kan operations *)
 
 Section Kan.
