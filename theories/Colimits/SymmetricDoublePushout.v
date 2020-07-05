@@ -79,7 +79,7 @@ Module Type SymmetricDoublePushoutSpec.
     Parameter sq : forall x, PathSquare (H1 (fiX x)) (H4 (fjX x)) (H2 (fXi x)) (H3 (fXj x)).  
 
     (** Induction principle *)
-    Parameter SymP_ind : forall (P : SymP AXX -> Type)
+    Parameter SymP_ind@{} : forall (P : SymP AXX -> Type@{U})
       (xa : forall x, P (a x)) (xb : forall x, P (b x))
       (xc : forall x, P (c x)) (xd : forall x, P (d x))
       (Q1 : forall x, DPath P (H1 x) (xa (f0i x)) (xc (f0j x)))
