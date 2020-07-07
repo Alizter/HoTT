@@ -442,3 +442,13 @@ Proof.
   by destruct p.
 Defined.
 
+(** Rewriting the base path *)
+Definition equiv_dp_G {A : Type} {P : A -> Type}
+  {a0 a1} {p q : a0 = a1} {b0 : P a0} {b1 : P a1} (r : p = q)
+  : DPath P p b0 b1 <~> DPath P q b0 b1.
+Proof.
+  destruct r.
+  exact equiv_idmap.
+Defined.
+
+Notation dp_G := equiv_dp_G.

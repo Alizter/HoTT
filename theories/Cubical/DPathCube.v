@@ -204,3 +204,154 @@ Section Kan.
   Defined.
 
 End Kan.
+
+(* Lemmas for rewriting faces of dependent cubes *)
+Section DPathCubeRewriting.
+
+  Context {A B} {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+    {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
+    {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+    {pi01 : x001 = x101} {pi11 : x011 = x111} {p00i : x000 = x001}
+    {p01i : x010 = x011} {p10i : x100 = x101} {p11i : x110 = x111}
+    {s0ii : PathSquare p0i0 p0i1 p00i p01i} {s1ii : PathSquare p1i0 p1i1 p10i p11i}
+    {sii0 : PathSquare p0i0 p1i0 pi00 pi10} {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
+    {si0i : PathSquare p00i p10i pi00 pi01} {si1i : PathSquare p01i p11i pi10 pi11}
+    {cube : PathCube s0ii s1ii sii0 sii1 si0i si1i}
+    {b000 : B x000} {b010 : B x010} {b100 : B x100} {b110 : B x110}
+    {b001 : B x001} {b011 : B x011} {b101 : B x101} {b111 : B x111}
+    {bp0i0 : DPath B p0i0 b000 b010} {bp1i0 : DPath B p1i0 b100 b110}
+    {bpi00 : DPath B pi00 b000 b100} {bpi10 : DPath B pi10 b010 b110}
+    {bp0i1 : DPath B p0i1 b001 b011} {bp1i1 : DPath B p1i1 b101 b111}
+    {bpi01 : DPath B pi01 b001 b101} {bpi11 : DPath B pi11 b011 b111}
+    {bp00i : DPath B p00i b000 b001} {bp01i : DPath B p01i b010 b011}
+    {bp10i : DPath B p10i b100 b101} {bp11i : DPath B p11i b110 b111}
+    {bs0ii : DPathSquare B s0ii bp0i0 bp0i1 bp00i bp01i}
+    {bs1ii : DPathSquare B s1ii bp1i0 bp1i1 bp10i bp11i}
+    {bsii0 : DPathSquare B sii0 bp0i0 bp1i0 bpi00 bpi10}
+    {bsii1 : DPathSquare B sii1 bp0i1 bp1i1 bpi01 bpi11}
+    {bsi0i : DPathSquare B si0i bp00i bp10i bpi00 bpi01}
+    {bsi1i : DPathSquare B si1i bp01i bp11i bpi10 bpi11}.
+
+  (* We write the most general version and derive special cases from this *)
+  Definition equiv_dc_GGGGGG {bs0ii' bs1ii' bsii0' bsii1' bsi0i' bsi1i'}
+    (bt0ii : bs0ii = bs0ii') (bt1ii : bs1ii = bs1ii') (btii0 : bsii0 = bsii0')
+    (btii1 : bsii1 = bsii1') (bti0i : bsi0i = bsi0i') (bti1i : bsi1i = bsi1i')
+    : DPathCube B cube bs0ii bs1ii bsii0 bsii1 bsi0i bsi1i
+    <~> DPathCube B cube bs0ii' bs1ii' bsii0' bsii1' bsi0i' bsi1i'.
+  Proof.
+    destruct cube.
+    by apply equiv_cu_GGGGGG.
+  Defined.
+
+  Context {bs0ii' bs1ii' bsii0' bsii1' bsi0i' bsi1i'}
+    (bt0ii : bs0ii = bs0ii') (bt1ii : bs1ii = bs1ii') (btii0 : bsii0 = bsii0')
+    (btii1 : bsii1 = bsii1') (bti0i : bsi0i = bsi0i') (bti1i : bsi1i = bsi1i').
+
+  Definition equiv_dc_Gccccc := equiv_dc_GGGGGG bt0ii 1 1 1 1 1.
+  Definition equiv_dc_cGcccc := equiv_dc_GGGGGG 1 bt1ii 1 1 1 1.
+  Definition equiv_dc_ccGccc := equiv_dc_GGGGGG 1 1 btii0 1 1 1.
+  Definition equiv_dc_cccGcc := equiv_dc_GGGGGG 1 1 1 btii1 1 1.
+  Definition equiv_dc_ccccGc := equiv_dc_GGGGGG 1 1 1 1 bti0i 1.
+  Definition equiv_dc_cccccG := equiv_dc_GGGGGG 1 1 1 1 1 bti1i.
+  Definition equiv_dc_ccGGGG := equiv_dc_GGGGGG 1 1 btii0 btii1 bti0i bti1i.
+  Definition equiv_dc_GGGGcc := equiv_dc_GGGGGG bt0ii bt1ii btii0 btii1 1 1.
+  Definition equiv_dc_GGcccc := equiv_dc_GGGGGG bt0ii bt1ii 1 1 1 1.
+  Definition equiv_dc_ccGGcc := equiv_dc_GGGGGG 1 1 btii0 btii1 1 1.
+  Definition equiv_dc_ccccGG := equiv_dc_GGGGGG 1 1 1 1 bti0i bti1i.
+
+End DPathCubeRewriting.
+
+Notation dc_GGGGGG := equiv_dc_GGGGGG.
+Notation dc_Gccccc := equiv_dc_Gccccc.
+Notation dc_cGcccc := equiv_dc_cGcccc.
+Notation dc_ccGccc := equiv_dc_ccGccc.
+Notation dc_cccGcc := equiv_dc_cccGcc.
+Notation dc_ccccGc := equiv_dc_ccccGc.
+Notation dc_cccccG := equiv_dc_cccccG.
+Notation dc_ccGGGG := equiv_dc_ccGGGG.
+Notation dc_GGGGcc := equiv_dc_GGGGcc.
+Notation dc_GGcccc := equiv_dc_GGcccc.
+Notation dc_ccGGcc := equiv_dc_ccGGcc.
+Notation dc_ccccGG := equiv_dc_ccccGG.
+
+(** Concatenations of DPathCube's *)
+Section DPathCubeConcat.
+
+  Context {A : Type} {B : A -> Type}
+    {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+    {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
+    {pi10 : x010 = x110} {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+    {pi01 : x001 = x101} {pi11 : x011 = x111} {p00i : x000 = x001}
+    {p01i : x010 = x011} {p10i : x100 = x101} {p11i : x110 = x111}
+    {s0ii : PathSquare p0i0 p0i1 p00i p01i} {s1ii : PathSquare p1i0 p1i1 p10i p11i}
+    {sii0 : PathSquare p0i0 p1i0 pi00 pi10} {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
+    {si0i : PathSquare p00i p10i pi00 pi01} {si1i : PathSquare p01i p11i pi10 pi11}
+    {cube : PathCube s0ii s1ii sii0 sii1 si0i si1i}
+    {b000 : B x000} {b010 : B x010} {b100 : B x100} {b110 : B x110}
+    {b001 : B x001} {b011 : B x011} {b101 : B x101} {b111 : B x111}
+    {bp0i0 : DPath B p0i0 b000 b010} {bp1i0 : DPath B p1i0 b100 b110}
+    {bpi00 : DPath B pi00 b000 b100} {bpi10 : DPath B pi10 b010 b110}
+    {bp0i1 : DPath B p0i1 b001 b011} {bp1i1 : DPath B p1i1 b101 b111}
+    {bpi01 : DPath B pi01 b001 b101} {bpi11 : DPath B pi11 b011 b111}
+    {bp00i : DPath B p00i b000 b001} {bp01i : DPath B p01i b010 b011}
+    {bp10i : DPath B p10i b100 b101} {bp11i : DPath B p11i b110 b111}
+    {bs0ii : DPathSquare B s0ii bp0i0 bp0i1 bp00i bp01i}
+    {bs1ii : DPathSquare B s1ii bp1i0 bp1i1 bp10i bp11i}
+    {bsii0 : DPathSquare B sii0 bp0i0 bp1i0 bpi00 bpi10}
+    {bsii1 : DPathSquare B sii1 bp0i1 bp1i1 bpi01 bpi11}
+    {bsi0i : DPathSquare B si0i bp00i bp10i bpi00 bpi01}
+    {bsi1i : DPathSquare B si1i bp01i bp11i bpi10 bpi11}.
+
+  (** Left-right concatenation *)
+  Definition dc_concat_lr
+    {x201 x200 x210 x211 : A}
+    {pj01 : x101 = x201} {pj11 : x111 = x211} {pj10 : x110 = x210}
+    {pj00 : x100 = x200} {p2i1 : x201 = x211} {p2i0 : x200 = x210}
+    {p20i : x200 = x201} {p21i : x210 = x211}
+    {sji0 : PathSquare p1i0 p2i0 pj00 pj10} {sji1 : PathSquare p1i1 p2i1 pj01 pj11}
+    {sj0i : PathSquare p10i p20i pj00 pj01} {sj1i : PathSquare p11i p21i pj10 pj11}
+    {s2ii : PathSquare p2i0 p2i1 p20i p21i}
+    {cube2 : PathCube s1ii s2ii sji0 sji1 sj0i sj1i}
+    {b201 b200 b210 b211}
+    {bpj01 : DPath B pj01 b101 b201} {bpj11 : DPath B pj11 b111 b211}
+    {bpj10 : DPath B pj10 b110 b210} {bpj00 : DPath B pj00 b100 b200}
+    {bp2i1 : DPath B p2i1 b201 b211} {bp2i0 : DPath B p2i0 b200 b210}
+    {bp20i : DPath B p20i b200 b201} {bp21i : DPath B p21i b210 b211}
+    {bsji0 : DPathSquare B sji0 bp1i0 bp2i0 bpj00 bpj10}
+    {bsji1 : DPathSquare B sji1 bp1i1 bp2i1 bpj01 bpj11}
+    {bsj0i : DPathSquare B sj0i bp10i bp20i bpj00 bpj01}
+    {bsj1i : DPathSquare B sj1i bp11i bp21i bpj10 bpj11}
+    {bs2ii : DPathSquare B s2ii bp2i0 bp2i1 bp20i bp21i}
+    : DPathCube B cube bs0ii bs1ii bsii0 bsii1 bsi0i bsi1i
+    -> DPathCube B cube2 bs1ii bs2ii bsji0 bsji1 bsj0i bsj1i
+    -> DPathCube B (cu_concat_lr cube cube2) bs0ii bs2ii
+        (ds_concat_h bsii0 bsji0) (ds_concat_h bsii1 bsji1)
+        (ds_concat_h bsi0i bsj0i) (ds_concat_h bsi1i bsj1i).
+  Proof.
+    intros a b.
+    destruct cube2.
+    destruct b.
+    unfold ds_concat_h.
+    destruct pi00.
+    destruct pi10.
+    destruct bpi00.
+    destruct bpi10.
+    destruct pi01.
+    destruct pi11.
+    destruct bpi01.
+    destruct bpi11.
+  Admitted.
+
+End DPathCubeConcat.
+
+(** ds_apD fits into a (degenerate) DPathCube relating it to ds_const applied to sq_ap *)
+Definition ds_apD_const_dc {A B : Type} {a00 a10 a01 a11 : A} (f : A -> B) {px0 : a00 = a10} {px1 : a01 = a11} 
+  {p0x : a00 = a01} {p1x : a10 = a11} (s : PathSquare px0 px1 p0x p1x)
+  : DPathCube _ (cu_refl_lr s) (ds_const (sq_ap f s)) (ds_apD f s)
+      (dp_apD_const_ds f px0) (dp_apD_const_ds f px1)
+      (dp_apD_const_ds f p0x) (dp_apD_const_ds f p1x).
+Proof.
+  by destruct s.
+Defined.
+
+
