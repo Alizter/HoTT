@@ -315,7 +315,83 @@ Section DPathSquareConcat.
 
 End DPathSquareConcat.
 
+(* Lemmas for rewriting sides of dependent squares along DPaths. *)
+Section DPathSquareRewriting.
 
+  Universe i.
 
+  Context {A : Type@{i}} {P : A -> Type@{i}} 
+    {a00 a10 a01 a11 : A}
+    {px0 : a00 = a10} {px1 : a01 = a11}
+    {p0x : a00 = a01} {p1x : a10 = a11}
+    {s : PathSquare px0 px1 p0x p1x} {b00 b10 b01 b11}
+    {qx0 : DPath P px0 b00 b10} {qx1 : DPath P px1 b01 b11}
+    {q0x : DPath P p0x b00 b01} {q1x : DPath P p1x b10 b11}.
 
+  Definition equiv_ds_GGGG@{}
+    {px0' : a00 = a10} {px1' : a01 = a11}
+    {p0x' : a00 = a01} {p1x' : a10 = a11}
+    {rx0 : px0 = px0'}
+    {rx1 : px1 = px1'}
+    {r0x : p0x = p0x'}
+    {r1x : p1x = p1x'}
+    {qx0' : DPath P px0' b00 b10}
+    {qx1' : DPath P px1' b01 b11}
+    {q0x' : DPath P p0x' b00 b01}
+    {q1x' : DPath P p1x' b10 b11}
+    (dx0 : DPath (fun x => DPath P x b00 b10) rx0 qx0 qx0')
+    (dx1 : DPath (fun x => DPath P x b01 b11) rx1 qx1 qx1')
+    (d0x : DPath (fun x => DPath P x b00 b01) r0x q0x q0x')
+    (d1x : DPath (fun x => DPath P x b10 b11) r1x q1x q1x')
+    : DPathSquare P s qx0 qx1 q0x q1x
+    <~> DPathSquare P (sq_GGGG rx0 rx1 r0x r1x s) qx0' qx1' q0x' q1x'.
+  Proof.
+    destruct s, rx0, rx1, r0x, r1x.
+    by apply sq_GGGG.
+  Defined.
+
+  Context
+    {px0' : a00 = a10} {px1' : a01 = a11}
+    {p0x' : a00 = a01} {p1x' : a10 = a11}
+    {rx0 : px0 = px0'}
+    {rx1 : px1 = px1'}
+    {r0x : p0x = p0x'}
+    {r1x : p1x = p1x'}
+    {qx0' : DPath P px0' b00 b10}
+    {qx1' : DPath P px1' b01 b11}
+    {q0x' : DPath P p0x' b00 b01}
+    {q1x' : DPath P p1x' b10 b11}
+    (dx0 : DPath (fun x => DPath P x b00 b10) rx0 qx0 qx0')
+    (dx1 : DPath (fun x => DPath P x b01 b11) rx1 qx1 qx1')
+    (d0x : DPath (fun x => DPath P x b00 b01) r0x q0x q0x')
+    (d1x : DPath (fun x => DPath P x b10 b11) r1x q1x q1x').
+
+  Definition equiv_ds_Gccc := equiv_ds_GGGG dx0 1 1 1.
+  Definition equiv_ds_cGcc := equiv_ds_GGGG 1 dx1 1 1.
+  Definition equiv_ds_ccGc := equiv_ds_GGGG 1 1 d0x 1.
+  Definition equiv_ds_cccG := equiv_ds_GGGG 1 1 1 d1x.
+  Definition equiv_ds_GGcc := equiv_ds_GGGG dx0 dx1 1 1.
+  Definition equiv_ds_GcGc := equiv_ds_GGGG dx0 1 d0x 1.
+  Definition equiv_ds_GccG := equiv_ds_GGGG dx0 1 1 d1x.
+  Definition equiv_ds_cGGc := equiv_ds_GGGG 1 dx1 d0x 1.
+  Definition equiv_ds_cGcG := equiv_ds_GGGG 1 dx1 1 d1x.
+  Definition equiv_ds_ccGG := equiv_ds_GGGG 1 1 d0x d1x.
+  Definition equiv_ds_GGGc := equiv_ds_GGGG dx0 dx1 d0x 1.
+  Definition equiv_ds_cGGG := equiv_ds_GGGG 1 dx1 d0x d1x.
+
+End DPathSquareRewriting.
+
+Notation ds_GGGG := equiv_ds_GGGG.
+Notation ds_Gccc := equiv_ds_Gccc.
+Notation ds_cGcc := equiv_ds_cGcc.
+Notation ds_ccGc := equiv_ds_ccGc.
+Notation ds_cccG := equiv_ds_cccG.
+Notation ds_GGcc := equiv_ds_GGcc.
+Notation ds_GcGc := equiv_ds_GcGc.
+Notation ds_GccG := equiv_ds_GccG.
+Notation ds_cGGc := equiv_ds_cGGc.
+Notation ds_cGcG := equiv_ds_cGcG.
+Notation ds_ccGG := equiv_ds_ccGG.
+Notation ds_GGGc := equiv_ds_GGGc.
+Notation ds_cGGG := equiv_ds_cGGG.
 
