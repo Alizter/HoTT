@@ -567,7 +567,8 @@ Notation sq_prod := equiv_sq_prod.
 Definition ap_nat {A B} {f f' : A -> B} (h : f == f') {x y : A} (p : x = y)
   : PathSquare (ap f p) (ap f' p) (h x) (h y).
 Proof.
-  by destruct p; apply sq_1G.
+  destruct p; cbn.
+  apply sq_refl_v.
 Defined.
 
 (* The transpose of the natural square *)
