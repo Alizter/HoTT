@@ -34,26 +34,29 @@ Definition pglue' {A B C : Type} (f : A -> B) (g : A -> C) (a : A) : pushl (f a)
 
 Section PushoutInd.
 
-  Context {A B C : Type} {f : A -> B} {g : A -> C}
-    (P : Pushout f g -> Type)
+  Universe i j k l m.
+
+  Context {A : Type@{i}} {B : Type@{j}} {C : Type@{k}}
+    {f : A -> B} {g : A -> C}
+    (P : Pushout@{i j k l} f g -> Type@{m})
     (pushb : forall b : B, P (pushl b))
     (pushc : forall c : C, P (pushr c))
     (pusha : forall a : A, (pglue a) # (pushb (f a)) = pushc (g a)).
 
-  Definition Pushout_ind
-    : forall (w : Pushout f g), P w
+  Definition Pushout_ind@{}
+    : forall (w : Pushout@{i j k l} f g), P@{i j k l m} w
     := Coeq_ind P (fun bc =>
       match bc with
         | inl b => pushb b
         | inr c => pushc c 
       end) pusha.
 
-  Definition Pushout_ind_beta_pushl (b:B) : Pushout_ind (pushl b) = pushb b
+  Definition Pushout_ind_beta_pushl@{} (b:B) : Pushout_ind (pushl b) = pushb b
     := 1.
-  Definition Pushout_ind_beta_pushr (c:C) : Pushout_ind (pushr c) = pushc c
+  Definition Pushout_ind_beta_pushr@{} (c:C) : Pushout_ind (pushr c) = pushc c
     := 1.
 
-  Definition Pushout_ind_beta_pglue (a:A)
+  Definition Pushout_ind_beta_pglue@{} (a:A)
     : apD Pushout_ind (pglue a) = pusha a
     := Coeq_ind_beta_cglue P (fun bc => match bc with inl b => pushb b | inr c => pushc c end) pusha a.
 
@@ -87,14 +90,16 @@ Proof.
 Defined.
 
 (** Dependent eliminator using DPath's instead of transports *)
-Definition Pushout_ind_dp {A B C} (f : A -> B) (g : A -> C)
-  (P : Pushout f g -> Type)
+Definition Pushout_ind_dp@{i j k l m}
+  {A : Type@{i}} {B : Type@{j}} {C : Type@{k}}
+  (f : A -> B) (g : A -> C)
+  (P : Pushout@{i j k l} f g -> Type@{m})
   (pushb : forall b : B, P (pushl b))
   (pushc : forall c : C, P (pushr c))
   (pglue' : forall a : A, DPath P (pglue a) (pushb (f a)) (pushc (g a)))
   : forall (w : Pushout f g), P w.
 Proof.
-  refine (Pushout_ind _ _ _ _).
+  refine (Pushout_ind@{i j k l m} _ _ _ _).
   intro a.
   apply dp_path_transport^-1.
   revert a.
