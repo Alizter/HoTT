@@ -25,7 +25,8 @@ Definition equiv_dp_path_transport {A : Type} {P : A -> Type}
            {a0 a1 : A} {p : a0 = a1} {b0 : P a0} {b1 : P a1}
   : transport P p b0 = b1 <~> DPath P p b0 b1.
 Proof.
-  by destruct p.
+  destruct p.
+  exact equiv_idmap.
 Defined.
 
 (** We abbreviate many names that are equivalences *)
@@ -316,7 +317,8 @@ Definition equiv_dp_compose' {A B} (f : A -> B) (P : B -> Type) {x y : A}
   {p : x = y} {q : f x = f y} (r : ap f p = q) {u : P (f x)} {v : P (f y)}
   : DPath (fun x => P (f x)) p u v <~> DPath P q u v.
 Proof.
-  by destruct r, p.
+  destruct r, p.
+  exact equiv_idmap.
 Defined.
 
 Notation dp_compose' := equiv_dp_compose'.
