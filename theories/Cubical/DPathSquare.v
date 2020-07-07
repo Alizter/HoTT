@@ -116,7 +116,7 @@ Proof.
   by apply sq_1G.
 Defined.
 
-Definition equiv_ds_G1 {A} (P : A -> Type) {a00 a10 }
+Definition equiv_ds_G1 {A} (P : A -> Type) {a00 a10}
   {px0 px1 : a00 = a10} {p : px0 = px1} {b00 b10}
   (qx0 : DPath P px0 b00 b10) (qx1 : DPath P px1 b00 b10)
   : DPath (fun x => DPath P x b00 b10) p qx0 qx1
@@ -127,6 +127,18 @@ Proof.
 Defined.
 
 Notation ds_G1 := equiv_ds_G1.
+
+Definition equiv_ds_1G {A} (P : A -> Type) {a00 a01}
+  {p0x p1x : a00 = a01} {p : p0x = p1x} {b00 b01}
+  (q0x : DPath P p0x b00 b01) (q1x : DPath P p1x b00 b01)
+  : DPath (fun x => DPath P x b00 b01) p q0x q1x
+      <~> DPathSquare P (sq_1G p) 1 1 q0x q1x.
+Proof.
+  destruct p, p0x.
+  apply sq_1G.
+Defined.
+
+Notation ds_1G := equiv_ds_1G.
 
 (** A DPath in a path-type is naturally a DPathSquare.  *)
 
