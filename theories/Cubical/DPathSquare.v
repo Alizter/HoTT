@@ -153,6 +153,21 @@ Defined.
 
 Notation ds_dp := equiv_ds_dp.
 
+(** DPath's over DPath's become DSquares *)
+Definition equiv_ds_nat_dp_dp {A B : Type} {C : B -> Type}
+  {a1 a2 : A} {p : a1 = a2} {f g : A -> B}
+  {l : forall a, C (f a)} {r : forall a, C (g a)}
+  {k : forall a, f a = g a}
+  (q1 : DPath C (k a1) (l a1) (r a1))
+  (q2 : DPath C (k a2) (l a2) (r a2))
+  : DPath (fun a : A => DPath C (k a) (l a) (r a)) p q1 q2
+    <~> DPathSquare C (ap_nat k p)
+      (dp_compose _ _ _ (dp_apD l p)) (dp_compose _ _ _ (dp_apD r p)) q1 q2.
+Proof.
+  destruct p.
+  exact (ds_1G C (p:=idpath) q1 q2).
+Defined.
+
 (** dp_apD fits into a (degenerate) DPathSquare relating it to dp_const applied to ap *)
 (** Note that this is oriented differently to dp_apD_const. *)
 Definition dp_apD_const_ds {A B : Type} (f : A -> B) {x y : A} (p : x = y)
