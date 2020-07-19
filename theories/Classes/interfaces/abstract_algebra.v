@@ -1,6 +1,7 @@
-Require Coq.Init.Peano.
 Require Export HoTT.Classes.interfaces.canonical_names.
 Require Import HProp.
+Require Import DProp.
+Require Spaces.Nat.
 
 Generalizable Variables A B f g x y.
 
@@ -148,9 +149,9 @@ Section upper_classes.
     ; dec_recip_inverse : forall x, x <> 0 -> x / x = 1 }.
 
   Class FieldCharacteristic@{j} {Aap : Apart@{i j} A} (k : nat) : Type@{j}
-    := field_characteristic : forall n : nat, Peano.lt 0 n ->
-      iff@{j j j} (forall m : nat, not@{j j} (paths@{Set} n (Peano.mult k m)))
-        (@apart A Aap (Peano.nat_iter n (1 +) 0) 0).
+    := field_characteristic : forall n : nat, Spaces.Nat.lt@{Set} 0 n ->
+      iff@{j j j} (forall m : nat, not@{j j} (paths@{Set} n (Spaces.Nat.mult k m)))
+        (@apart A Aap (Spaces.Nat.nat_iter n (1 +) 0) 0).
 
 End upper_classes.
 

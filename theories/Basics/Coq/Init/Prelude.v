@@ -1,11 +1,11 @@
 (** Because we do not use the Coq standard library at all, we have
     to start from scratch. *)
 
-Require Export Notations.
-Require Export Logic.
-Require Export Datatypes.
+Require Export Coq.Init.Notations.
+Require Export Coq.Init.Logic.
+Require Export Coq.Init.Datatypes.
 Require Export Coq.Init.Tactics.
-Require Export Specif.
+Require Export Coq.Init.Specif.
 Require Coq.Init.Decimal.
 Require Coq.Init.Hexadecimal.
 Require Coq.Init.Numeral.

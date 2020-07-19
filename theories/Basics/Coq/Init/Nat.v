@@ -8,8 +8,8 @@
 (*         *     (see LICENSE file for the text of the license)         *)
 (************************************************************************)
 
-Require Import Notations Logic Datatypes.
-Require Decimal Hexadecimal Numeral.
+Require Import Coq.Init.Notations Coq.Init.Logic Coq.Init.Datatypes.
+Require Coq.Init.Decimal Coq.Init.Hexadecimal Coq.Init.Numeral.
 Local Open Scope nat_scope.
 Local Unset Universe Polymorphism.
 (**********************************************************************)

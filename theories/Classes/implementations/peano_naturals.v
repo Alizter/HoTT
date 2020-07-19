@@ -1,5 +1,5 @@
-Require Coq.Init.Peano.
 Require Import HoTT.Basics.Decidable HoTT.Types.Sum.
+Require Import HoTT.Spaces.Nat HoTT.DProp.
 Require Import
   HoTT.Classes.interfaces.abstract_algebra
   HoTT.Classes.interfaces.naturals
@@ -23,20 +23,20 @@ Proof. unfold natpaths;apply _. Qed.
 Global Instance nat_0: Zero@{N} nat := 0%nat.
 Global Instance nat_1: One@{N} nat := 1%nat.
 
-Global Instance nat_plus: Plus@{N} nat := Peano.plus.
+Global Instance nat_plus: Plus@{N} nat := Nat.plus.
 
-Notation mul := Peano.mult.
+Notation mul := Nat.mult.
 
-Global Instance nat_mult: Mult@{N} nat := Peano.mult.
+Global Instance nat_mult: Mult@{N} nat := Nat.mult.
 
 Ltac simpl_nat :=
-  change (@plus nat _) with Peano.plus;
-  change (@mult nat _) with Peano.mult;
+  change (@plus nat _) with Nat.plus;
+  change (@mult nat _) with Nat.mult;
   simpl;
   change nat_plus with (@plus nat nat_plus);
-  change Peano.plus with (@plus nat nat_plus);
+  change Nat.plus with (@plus nat nat_plus);
   change nat_mult with (@mult nat nat_mult);
-  change Peano.mult with (@mult nat nat_mult).
+  change Nat.mult with (@mult nat nat_mult).
 
 Local Instance add_assoc : Associative@{N} (plus : Plus nat).
 Proof.
@@ -67,16 +67,7 @@ Proof. exact idpath. Qed.
 Lemma add_0_l a : 0 + a =N= a.
 Proof. exact idpath. Qed.
 
-Local Instance add_comm : Commutative@{N N} (plus : Plus nat).
-Proof.
-hnf. apply (nat_rect@{N} (fun a => forall b, _));[|intros a IHa];
-intros b;induction b as [|b IHb].
-- reflexivity.
-- change (S b = S (b + 0)). apply ap,IHb.
-- apply (ap S),IHa.
-- change (S (a + S b) = S (b + S a)).
-  rewrite IHa,<-IHb. apply (ap S),(ap S),symmetry,IHa.
-Qed.
+Local Instance add_comm : Commutative@{N N} (plus : Plus nat) := nat_plus_comm.
 
 Local Instance add_mul_distr_l : LeftDistribute@{N}
   (mult :Mult nat) (plus:Plus nat).
@@ -100,7 +91,9 @@ Lemma mul_S_r : forall a b : nat, a * S b =N= a + a * b.
 Proof.
 apply (nat_rect@{N} (fun a => forall b, _));[|intros a IHa];intros b;simpl_nat.
 - reflexivity.
-- simpl_nat. rewrite IHa.
+- simpl_nat.
+  apply ap.
+  unfold mult, nat_mult. rewrite (IHa b).
   rewrite (simple_associativity b a).
   rewrite (commutativity (f:=plus) b a), <-(associativity a b).
   reflexivity.
@@ -110,7 +103,9 @@ Local Instance mul_comm : Commutative@{N N} (mult : Mult nat).
 Proof.
 hnf. apply (nat_rect@{N} (fun a => forall b, _));[|intros a IHa];simpl_nat.
 - intros;apply symmetry,mul_0_r.
-- intros b;rewrite IHa. rewrite mul_S_r,<-IHa. reflexivity.
+- intros b;rewrite IHa.
+  unfold mult, nat_mult.
+  rewrite mul_S_r. reflexivity.
 Qed.
 
 Local Instance mul_assoc : Associative@{N} (mult : Mult nat).
@@ -166,7 +161,11 @@ first [change sg_op with plus; change mon_unit with 0
 - exact add_0_r.
 - exact add_0_r.
 - hnf;simpl_nat. intros a.
-  rewrite mul_S_r,mul_0_r. apply add_0_r.
+  unfold mult.
+  unfold nat_mult.
+  induction a.
+  1: trivial.
+  apply (ap S), IHa.
 Qed.
 
 (* Add Ring nat: (rings.stdlib_semiring_theory nat). *)
@@ -178,8 +177,8 @@ Proof. reflexivity. Qed.
 
 Lemma S_nat_plus_1 x : S x =N= x + 1.
 Proof.
-rewrite add_comm. reflexivity.
-Qed.
+  exact (add_comm 1%nat x).
+Defined.
 
 Lemma S_nat_1_plus x : S x =N= 1 + x.
 Proof. reflexivity. Qed.
@@ -223,7 +222,7 @@ Instance nat_mult_cancel_l
 Proof.
 unfold PropHolds. unfold LeftCancellation.
 intros a Ea b c E;revert b c a Ea E.
-induction b as [|b IHb];intros [|c];simpl_nat;intros a Ea E.
+induction b as [|b IHb];intros [|c];simpl_nat; unfold mult, nat_mult;intros a Ea E.
 - reflexivity.
 - rewrite mul_0_r in E.
   rewrite mul_S_r in E;apply symmetry in E.
@@ -236,24 +235,29 @@ induction b as [|b IHb];intros [|c];simpl_nat;intros a Ea E.
 Qed.
 
 (* Order *)
-Global Instance nat_le: Le@{N N} nat := Peano.le.
-Global Instance nat_lt: Lt@{N N} nat := Peano.lt.
+Global Instance nat_le: Le@{N N} nat := Nat.leq.
+Global Instance nat_lt: Lt@{N N} nat := Nat.lt.
 
 Lemma le_plus : forall n k, n <= k + n.
 Proof.
 induction k.
-- apply Peano.le_n.
-- simpl_nat. constructor. assumption.
+- apply Spaces.Nat.leq_n.
+- apply (Spaces.Nat.leq_S _ _ IHk).
 Qed.
 
 Lemma le_exists : forall n m : nat,
   iff@{N N N} (n <= m) (sig@{N N} (fun k => m =N= k + n)).
 Proof.
 intros n m;split.
-- intros E;induction E as [|m E IH].
-  + exists 0;split.
-  + destruct IH as [k IH].
-    exists (S k). rewrite IH;reflexivity.
+- intros E.
+  unfold le, nat_le, leq in E.
+  induction m.
+  + exists 0. simpl. unfold natpaths. symmetry. 
+    refine (_ @ path_nat E).
+    by induction n.
+  + cbn in E.
+    IHm E)
+    exists (S ). rewrite IH;reflexivity.
 - intros [k Hk].
   rewrite Hk. apply le_plus.
 Qed.
@@ -537,7 +541,7 @@ Definition nat_full@{} := ltac:(first[exact nat_full'@{Ularge Ularge}|
                                       exact nat_full'@{}]).
 Local Existing Instance nat_full.
 
-Lemma le_nat_max_l n m : n <= Peano.max n m.
+Lemma le_nat_max_l n m : n <= Nat.max n m.
 Proof.
   revert m.
   induction n as [|n' IHn];
@@ -545,7 +549,7 @@ Proof.
   - apply zero_least.
   - apply le_S_S. exact (IHn m').
 Qed.
-Lemma le_nat_max_r n m : m <= Peano.max n m.
+Lemma le_nat_max_r n m : m <= Nat.max n m.
 Proof.
   revert m.
   induction n as [|n' IHn];
@@ -637,7 +641,7 @@ intros;apply toR_unique, _.
 Qed.
 Global Existing Instance nat_naturals.
 
-Global Instance nat_cut_minus: CutMinus@{N} nat := Peano.minus.
+Global Instance nat_cut_minus: CutMinus@{N} nat := Nat.minus.
 
 Lemma plus_minus : forall a b, cut_minus (a + b) b =N= a.
 Proof.

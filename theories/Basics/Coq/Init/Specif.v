@@ -14,10 +14,10 @@
 
 Set Implicit Arguments.
 
-Require Import Notations.
-Require Import Datatypes.
+Require Import Coq.Init.Notations.
+Require Import Coq.Init.Datatypes.
 Local Open Scope identity_scope.
-Require Import Logic.
+Require Import Coq.Init.Logic.
 Local Unset Elimination Schemes.
 
 (** [(sig A P)], or more suggestively [{x:A & (P x)}] is a Sigma-type.
@@ -102,54 +102,6 @@ Add Printing Let sig2.
 Notation projT1 := proj1_sig (only parsing).
 Notation projT2 := proj2_sig (only parsing).
 
-
-(** Various forms of the axiom of choice for specifications *)
-
-Section Choice_lemmas.
-
-  Variables S S' : Type.
-  Variable R : S -> S' -> Type.
-  Variable R' : S -> S' -> Type.
-  Variables R1 R2 : S -> Type.
-
-  Lemma Choice :
-   (forall x:S, {y:S' & R' x y}) -> {f:S -> S' & forall z:S, R' z (f z)}.
-  Proof.
-    intro H.
-    exists (fun z => projT1 (H z)).
-    intro z; destruct (H z); assumption.
-  Defined.
-
-(*
-  Lemma bool_choice :
-   (forall x:S, (R1 x) + (R2 x)) ->
-     {f:S -> bool & forall x:S, (f x = true) * (R1 x) + (f x = false) * R2 x}.
-  Proof.
-    intro H.
-    exists (fun z:S => if H z then true else false).
-    intro z; destruct (H z); auto.
-  Defined.
-*)
-
-End Choice_lemmas.
-
-Section Dependent_choice_lemmas.
-
-  Variables X : Type.
-  Variable R : X -> X -> Type.
-
-  Lemma dependent_choice :
-    (forall x:X, {y : _ & R x y}) ->
-    forall x0, {f : nat -> X & (f O = x0) * (forall n, R (f n) (f (S n)))}.
-  Proof.
-    intros H x0.
-    set (f:=fix f n := match n with O => x0 | S n' => projT1 (H (f n')) end).
-    exists f.
-    split. reflexivity.
-    induction n; simpl; apply projT2.
-  Defined.
-
-End Dependent_choice_lemmas.
 
 
  (** A result of type [(Exc A)] is either a normal value of type [A] or

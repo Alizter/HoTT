@@ -1,3 +1,5 @@
+Require Export Basics.Coq.Init.Notations.
+
 (** To reserve this notation, we must first bootstrap, and preserve the underlying [forall] notation *)
 Notation "'forall'  x .. y , P" := (forall x , .. (forall y, P) ..) (at level 200, x binder, y binder, right associativity).
 
@@ -45,7 +47,7 @@ Reserved Notation "A <~> B" (at level 85).
 Reserved Notation "f ^-1" (at level 3, format "f '^-1'").
 Reserved Notation "m ^-1" (at level 3, format "m '^-1'").
 Reserved Notation "g 'oE' f" (at level 40, left associativity).
-Reserved Notation "f *E g" (at level 40, no associativity).
+Reserved Notation "f *E g" (at level 42, no associativity).
 Reserved Notation "f +E g" (at level 50, left associativity).
 
 (** Categories *)
@@ -61,16 +63,16 @@ Reserved Notation "C ^op" (at level 3, format "C '^op'").
 Reserved Infix "=n" (at level 70, no associativity).
 
 (** Wild cat *)
-Reserved Infix "$->" (at level 99).
-Reserved Infix "$<~>" (at level 85).
-Reserved Infix "$o" (at level 40).
-Reserved Infix "$oE" (at level 40).
-Reserved Infix "$==" (at level 70).
-Reserved Infix "$o@" (at level 30).
-Reserved Infix "$@" (at level 30).
-Reserved Infix "$@L" (at level 30).
-Reserved Infix "$@R" (at level 30).
-Reserved Infix "$=>" (at level 99).
+Reserved Infix "$->" (at level 99, no associativity).
+Reserved Infix "$<~>" (at level 85, no associativity).
+Reserved Infix "$o" (at level 40, left associativity).
+Reserved Infix "$oE" (at level 40, left associativity).
+Reserved Infix "$==" (at level 72, no associativity).
+Reserved Infix "$o@" (at level 32, left associativity).
+Reserved Infix "$@" (at level 32, left associativity).
+Reserved Infix "$@L" (at level 32, left associativity).
+Reserved Infix "$@R" (at level 32, left associativity).
+Reserved Infix "$=>" (at level 99, right associativity).
 Reserved Notation "T ^op" (at level 3, format "T ^op").
 Reserved Notation "f ^-1$" (at level 3, format "f '^-1$'").
 Reserved Notation "f ^$" (at level 3, format "f '^$'").

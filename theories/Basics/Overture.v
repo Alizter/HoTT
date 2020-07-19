@@ -1,5 +1,7 @@
 (* -*- mode: coq; mode: visual-line -*-  *)
 
+Require Export Coq.Init.Prelude.
+
 (** * Basic definitions of homotopy type theory, particularly the groupoid structure of identity types. *)
 (** Import the file of reserved notations so we maintain consistent level notations throughout the library *)
 Require Export Basics.Notations.

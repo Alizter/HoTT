@@ -27,6 +27,27 @@ COQC = hoqc
 #
 
 #
+#   Coq Prelude
+#
+theories/Basics/Coq/Init/Logic_Type.v
+theories/Basics/Coq/Init/Hexadecimal.v
+theories/Basics/Coq/Init/Logic.v
+theories/Basics/Coq/Init/Nat.v
+theories/Basics/Coq/Init/Specif.v
+theories/Basics/Coq/Init/Datatypes.v
+theories/Basics/Coq/Init/Decimal.v
+theories/Basics/Coq/Init/Tactics.v
+theories/Basics/Coq/Init/Numeral.v
+theories/Basics/Coq/Init/Notations.v
+theories/Basics/Coq/Init/Prelude.v
+theories/Basics/Coq/Program/Tactics.v
+theories/Basics/Coq/Unicode/Utf8.v
+theories/Basics/Coq/Unicode/Utf8_core.v
+theories/Basics/Coq/Bool/Bool.v
+
+
+
+#
 #   Basics
 #
 
