@@ -199,6 +199,12 @@ AS_IF([test "x$COQMAKEFILE" != "x"],
 AS_IF([test "x$COQMAKEFILE" = "xno"],
       [AC_MSG_ERROR([Could not find coq_makefile])])
 
+# plugins directory
+AC_ARG_VAR([COQPLUGIN], [the absolute path of the stdlib coq plugins])
+AS_IF([test "x$COQPLUGIN" = "x"],
+      [COQPLUGIN="`"$COQTOP" -where 2>/dev/null | tr -d '\r'`/plugins"],[])
+AC_MSG_NOTICE([COQPLUGIN is $COQPLUGIN])
+AC_SUBST([COQPLUGIN])
 
 hottdir="$datadir/hott"
 AC_SUBST([hottdir])
@@ -241,7 +247,7 @@ AC_SUBST([STDLIB_REPLACEMENT_DIRS])
 
 AC_MSG_CHECKING([whether your coqtop supports directory symlinks to the stdlib])
 coqtop_out="$("$COQTOP" -coqlib "$srcdir/coq" < /dev/null 2>&1 | grep -c 'Warning: Cannot open\|Error: File not found on loadpath')"
-AS_IF([test "$coqtop_out" = 0],
+ AS_IF([test "$coqtop_out" = 0],
       [AC_MSG_RESULT([yes])],
       [AC_MSG_RESULT([no])
        AC_MSG_NOTICE([Falling back on making physical copies of the stdlib])

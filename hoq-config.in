@@ -12,6 +12,7 @@ export COQDOC="@COQDOC@"
 export COQIDE="@COQIDE@"
 export COQTOP="@COQTOP@"
 export COQIDETOP="@COQIDETOP@"
+export COQPLUGIN="@COQPLUGIN@"
 
 function readlink_f() {
     # readlink -f doesn't work on Mac OS.  So we roll our own readlink
