@@ -43,7 +43,6 @@ theories/Basics/Coq/Init/Prelude.v
 theories/Basics/Coq/Program/Tactics.v
 theories/Basics/Coq/Unicode/Utf8.v
 theories/Basics/Coq/Unicode/Utf8_core.v
-theories/Basics/Coq/Bool/Bool.v
 
 
 
