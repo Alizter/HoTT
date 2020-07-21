@@ -40,10 +40,4 @@ then
   exit 1
 fi
 
-# We could stick the arguments in hoq-config in COQ_ARGS, and then,
-# using (non-portable) bash arrays, do
-# $ exec "$COQTOP" "${COQ_ARGS[@]}" "$@"
-# or using more evil (but portable) 'eval', do
-# $ eval 'exec "$COQTOP" '"$COQ_ARGS"' "$@"'
-# Instead, we duplicate code, because it's simpler.
-exec "$COQTOP" -noinit -R "$HOTTLIB" HoTT -Q "$HOTTCONTRIB" "" -indices-matter "$@" -I "$COQPLUGIN"
+exec "$COQTOP" "${COQ_ARGS[@]}" "$@"
