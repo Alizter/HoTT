@@ -10,7 +10,7 @@
 (*   This file has been modified for the purposes of the HoTT library.  *)
 (************************************************************************)
 
-Require Import Coq.Init.Notations.
+Require Import HoTT.Basics.Coq.Init.Notations.
 
 Ltac easy :=
   let rec use_hyp H :=
