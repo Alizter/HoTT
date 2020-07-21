@@ -40,4 +40,6 @@ then
   exit 1
 fi
 
+## DEBUG
+echo "$COQPLUGIN"
 exec "$COQC" "${COQ_ARGS[@]}" "$@"
