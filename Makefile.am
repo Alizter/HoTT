@@ -183,6 +183,7 @@ strict: strict-test strict-no-axiom hottlib hott-core hott-categories contrib
 
 # A rule for compiling the HoTT libary files
 $(MAIN_VFILES:.v=.vo) : %.vo : %.v coq-HoTT
+	$(VECHO) $(COQPLUGIN)
 	$(VECHO) HOQC $*
 	$(Q) $(TIMER) ./etc/pipe_out.sh "$<.timing" $(HOQC) -q -time $<
 
