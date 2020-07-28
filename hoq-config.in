@@ -38,8 +38,6 @@ function readlink_f() {
     echo "$RESULT"
 }
 
-
-export COQLIB="$mydir/coq"
 export HOTTLIB="$mydir/theories"
 export HOTTCONTRIB="$mydir/contrib"
 

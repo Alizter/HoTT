@@ -17,12 +17,6 @@ endif
 hottdir=$(datadir)/hott
 EXTRA_DIST = coq theories etc LICENSE.txt CREDITS.txt INSTALL.txt README.markdown
 
-# The path to the Coq library in $(srcdir)
-SRCCOQLIB=$(srcdir)/coq
-
-# Extra standard library replacements to install
-STDLIB_EXTRA_DIST = $(shell find -P $(addprefix "$(SRCCOQLIB)/",$(STDLIB_REPLACEMENT_DIRS)) -type f)
-
 # Flags for hoqchk
 HOQCHKFLAGS=-silent -o
 
