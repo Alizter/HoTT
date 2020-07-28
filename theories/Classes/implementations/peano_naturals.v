@@ -418,6 +418,7 @@ rewrite <- nat_plus_n_O.
 rewrite <- nat_plus_n_Sm.
 rewrite nat_plus_comm.
 rewrite nat_plus_n_Sm.
+unfold natpaths.
 symmetry.
 rewrite E1 in E2.
 rewrite (nat_plus_comm k1).
