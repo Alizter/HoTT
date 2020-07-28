@@ -183,7 +183,6 @@ strict: strict-test strict-no-axiom hottlib hott-core hott-categories contrib
 
 # A rule for compiling the HoTT libary files
 $(MAIN_VFILES:.v=.vo) : %.vo : %.v coq-HoTT
-	$(VECHO) $(COQPLUGIN)
 	$(VECHO) HOQC $*
 	$(Q) $(TIMER) ./etc/pipe_out.sh "$<.timing" $(HOQC) -q -time $<
 
@@ -335,7 +334,7 @@ TAGS : $(TAGS_FILES)
 # Dependency files
 $(MAIN_DEPFILES) : %.v.d : %.v
 	$(VECHO) COQDEP $<
-	$(Q) "$(COQDEP)" -nois -noinit -R "$(srcdir)/theories" HoTT -Q "$(srcdir)/contrib" "" Coq $< | sed s'#\\#/#g' >$@
+	$(Q) "$(COQDEP)" -nois -R "$(srcdir)/theories" HoTT -Q "$(srcdir)/contrib" "" Coq $< | sed s'#\\#/#g' >$@
 
 clean-dpdgraph::
 	(cd etc/coq-dpdgraph && $(MAKE) clean)
