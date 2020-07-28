@@ -23,7 +23,7 @@
 
 *)
 
-Require Import HoTT Coq.Init.Peano.
+Require Import HoTT.
 Require Import HoTT.Metatheory.Core HoTT.Metatheory.FunextVarieties HoTT.Metatheory.UnivalenceImpliesFunext.
 
 Local Open Scope path_scope.
@@ -165,7 +165,7 @@ End Book_1_5.
 
 Fixpoint rec_nat' (C : Type) c0 cs (n : nat) : C :=
   match n with
-    0 => c0
+    0%nat => c0
   | S m => cs m (rec_nat' C c0 cs m)
   end.
 
@@ -173,16 +173,16 @@ Definition add : nat -> nat -> nat :=
   rec_nat' (nat -> nat) (fun m => m) (fun n g m => (S (g m))).
 
 Definition mult : nat -> nat -> nat  :=
-  rec_nat' (nat -> nat) (fun m => 0) (fun n g m => add m (g m)).
+  rec_nat' (nat -> nat) (fun m => 0%nat) (fun n g m => add m (g m)).
 
 (* rec_nat' gives back a function with the wrong argument order, so we flip the
    order of the arguments p and q *)
 Definition exp : nat -> nat -> nat  :=
   fun p q => (rec_nat' (nat -> nat) (fun m => (S 0)) (fun n g m => mult m (g m))) q p.
 
-Example add_example: add 32 17 = 49. reflexivity. Defined.
-Example mult_example: mult 20 5 = 100. reflexivity. Defined.
-Example exp_example: exp 2 10 = 1024. reflexivity. Defined.
+Example add_example: add 32 17 = 49%nat. reflexivity. Defined.
+Example mult_example: mult 20 5 = 100%nat. reflexivity. Defined.
+Example exp_example: exp 2 10 = 1024%nat. reflexivity. Defined.
 
 (* To do: proof that these form a semiring *)
 
@@ -872,7 +872,8 @@ Section Book_3_14.
      (* Without this it somehow proves [H'] using the wrong universe for hprop_Empty and fails when we do [Defined].
         See Coq #4862. *)
       set (path := path_ishprop x x).
-      assert (H' : idpath = path) by apply path_ishprop.
+      assert (H' : idpath = path).
+      1: by apply path_ishprop.
       destruct H'.
       reflexivity.
     - destruct (LEM (P nna) _) as [pnna|npnna]; trivial.
@@ -1258,6 +1259,7 @@ Section Book_5_2.
 End Book_5_2.
 
 Section Book_5_2'.
+  Local Open Scope nat_scope.
   (** Here's another example where two functions are not (currently) definitionally equal, but satisfy the same reucrrence judgmentally.  This example is a bit less robust; it fails in CoqMT. *)
   Let ez : nat := 1.
   Let es : nat -> nat -> nat := fun _ => S.
@@ -1274,6 +1276,7 @@ End Book_5_2'.
 (** Exercise 5.3 *)
 
 Section Book_5_3.
+  Local Open Scope nat_scope.
   Let ez : Bool := true.
   Let es : nat -> Bool -> Bool := fun _ => idmap.
   Let ez' : Bool := true.
@@ -1296,6 +1299,7 @@ Definition Book_5_4 := @HoTT.Types.Bool.equiv_bool_forall_prod.
 (** Exercise 5.5 *)
 
 Section Book_5_5.
+  Local Open Scope nat_scope.
   Let ind_nat (P : nat -> Type) := fun x => @nat_ind P (fst x) (snd x).
 
   Lemma Book_5_5 `{fs : Funext} : ~forall P : nat -> Type,

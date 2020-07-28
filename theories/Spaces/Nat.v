@@ -1,5 +1,5 @@
 (* -*- mode: coq; mode: visual-line -*- *)
-Require Import HoTT.Basics.
+Require Import Basics Types.
 
 
 (** Stdlib file *)
@@ -385,6 +385,11 @@ Fixpoint subnn {n} : n - n =n 0 :=
     | n'.+1 => @subnn n'
   end.
 
+Lemma leq_n n : leq n n.
+Proof.
+  apply subnn.
+Defined.
+
 Global Instance leq_refl : Reflexive leq
   := @subnn.
 
@@ -408,6 +413,36 @@ Fixpoint leq_transd {x y z} : (x <= y -> y <= z -> x <= z)%dprop :=
 
 Global Instance leq_trans : Transitive (fun n m => leq n m)
   := @leq_transd.
+
+Lemma leq_S : forall n m, leq n m -> leq n (S m).
+Proof.
+  intros n m p.
+  rapply leq_trans.
+  1: exact p.
+  exact leqnSn.
+Defined.
+
+(** Induction principle for [leq]. *)
+Definition leq_ind (n : nat) (P : forall k : nat, leq n k -> Type)
+  (b :  P n (leq_n n))
+  (s : forall (m : nat) (l : leq n m), P m l -> P m.+1 (leq_S n m l))
+  : forall (k : nat) (l : leq n k), P k l.
+Proof.
+  induction n.
+  { simpl in *.
+    intros k [].
+    induction k.
+    1: exact b.
+    refine (transport (P k.+1) _ (s k tt _)).
+    1: rapply path_contr.
+    exact IHk. }
+  intros k l.
+  induction k.
+  1: destruct l.
+  refine (IHn (fun k p => P k.+1 p) b _ k l).
+  intros m p.
+  apply s.
+Defined.
 
 Fixpoint leq_antisymd {x y} : (x <= y -> y <= x -> x =n y)%dprop :=
   match x as x, y as y return (x <= y -> y <= x -> x =n y)%dprop with
@@ -444,18 +479,6 @@ Proof.
     + right; assumption.
 Defined.
 
-Lemma leq_n n : leq n n.
-Proof.
-  apply subnn.
-Defined.
-
-Lemma leq_S : forall n m, leq n m -> leq n (S m).
-Proof.
-  intros n m p.
-  rapply leq_trans.
-  1: exact p.
-  exact leqnSn.
-Defined.
 
 Definition geq (n m : nat) := m <= n.
 Hint Unfold geq : core.

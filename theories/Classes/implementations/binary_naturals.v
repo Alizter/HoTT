@@ -1,11 +1,5 @@
-Require Import
-        Coq.Init.Peano.
-Require Import
-        HoTT.Basics.Decidable
-        HoTT.Basics.Equivalences
-        HoTT.Types.Sum
-        HoTT.Types.Paths
-        HoTT.Tactics.
+Require Import HoTT.Basics HoTT.Types HoTT.Tactics.
+Require Import HoTT.Spaces.Nat.
 Require Import
         HoTT.Classes.interfaces.abstract_algebra
         HoTT.Classes.interfaces.naturals

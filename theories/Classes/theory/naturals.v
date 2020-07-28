@@ -1,6 +1,5 @@
-Require Import
-  HoTT.Types.Universe
-  HoTT.Basics.Decidable.
+Require Import HoTT.Basics HoTT.Types.
+Require Import HoTT.Spaces.Nat.
 Require Import
   HoTT.Classes.interfaces.abstract_algebra
   HoTT.Classes.interfaces.orders
@@ -196,10 +195,13 @@ Section borrowed_from_nat.
     forall (x y : s), x + y = 1 -> (x = 1 /\ y = 0) |_| (x = 0 /\ y = 1)) _).
   simpl.
   intros [|x] [|y];auto.
-  - intros E. rewrite add_S_l,add_0_r in E.
+  - intros E.
+    unfold plus, nat_plus in E.
+    rewrite add_S_l,add_0_r in E.
     apply S_inj in E. rewrite E.
     auto.
   - intros E.
+    unfold plus, nat_plus in E.
     rewrite add_S_l,add_S_r in E.
     apply S_inj in E. destruct (S_neq_0 _ E).
   Qed.

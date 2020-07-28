@@ -1,4 +1,4 @@
-Require Import HoTT.Basics.Decidable HoTT.Types.Sum.
+Require Import HoTT.Basics HoTT.Types.
 Require Import HoTT.Spaces.Nat HoTT.DProp.
 Require Import
   HoTT.Classes.interfaces.abstract_algebra
@@ -235,8 +235,8 @@ induction b as [|b IHb];intros [|c];simpl_nat; unfold mult, nat_mult;intros a Ea
 Qed.
 
 (* Order *)
-Global Instance nat_le: Le@{N N} nat := Nat.leq.
-Global Instance nat_lt: Lt@{N N} nat := Nat.lt.
+Global Instance nat_le@{} : Le@{N N} nat := Nat.leq@{N}.
+Global Instance nat_lt@{} : Lt@{N N} nat := Nat.lt@{N}.
 
 Lemma le_plus : forall n k, n <= k + n.
 Proof.
@@ -248,16 +248,12 @@ Qed.
 Lemma le_exists : forall n m : nat,
   iff@{N N N} (n <= m) (sig@{N N} (fun k => m =N= k + n)).
 Proof.
-intros n m;split.
-- intros E.
-  unfold le, nat_le, leq in E.
-  induction m.
-  + exists 0. simpl. unfold natpaths. symmetry. 
-    refine (_ @ path_nat E).
-    by induction n.
-  + cbn in E.
-    IHm E)
-    exists (S ). rewrite IH;reflexivity.
+intros n m; split.
+- revert m.
+  apply leq_ind.
+  + exists 0;split.
+  + intros m l [k IH].
+    exists (S k). rewrite IH;reflexivity.
 - intros [k Hk].
   rewrite Hk. apply le_plus.
 Qed.
@@ -285,8 +281,9 @@ Lemma le_S_either : forall a b, a <= S b -> a <= b |_| a = S b.
 Proof.
 intros [|a] b.
 - intros;left;apply zero_least.
-- intros E. apply (snd (le_S_S _ _)) in E. destruct E as [|b E];auto.
-  left. apply le_S_S. trivial.
+- intros E. apply (snd (le_S_S _ _)) in E.
+  revert b E.
+  apply leq_ind;auto.
 Defined.
 
 Lemma le_lt_dec : forall a b : nat, a <= b |_| b < a.
@@ -313,7 +310,7 @@ Proof.
 intros.
 destruct b.
 - destruct (not_lt_0 a). trivial.
-- constructor. apply le_S_S. trivial.
+- apply leq_S. apply le_S_S. trivial.
 Qed.
 
 Local Instance nat_le_total : TotalRelation@{N N} (_:Le nat).
@@ -331,91 +328,57 @@ apply le_exists in E.
 destruct E as [k E].
 apply (S_neq_0 k).
 apply (left_cancellation@{N} (+) x).
-fold natpaths.
+unfold plus,  nat_plus.
 rewrite add_0_r, add_S_r,<-add_S_l.
-rewrite add_comm. apply natpaths_symm,E.
+rewrite nat_plus_comm. apply natpaths_symm,E.
 Qed.
 
 Local Instance nat_le_hprop : is_mere_relation nat le.
 Proof.
-intros m n;apply Trunc.hprop_allpath.
-generalize (idpath (S n) : S n =N= S n).
-generalize n at 2 3 4 5.
-change (forall n0 : nat,
-S n =N= S n0 -> forall le_mn1 le_mn2 : m <= n0, le_mn1 = le_mn2).
-induction (S n) as [|n0 IHn0].
-- intros ? E;destruct (S_neq_0 _ (natpaths_symm _ _ E)).
-- clear n; intros n H.
-  apply (injective S) in H.
-  rewrite <- H; intros le_mn1 le_mn2; clear n H.
-  pose (def_n2 := idpath n0);
-  path_via (paths_ind n0 (fun n _ => le m _) le_mn2 n0 def_n2).
-  generalize def_n2; revert le_mn1 le_mn2.
-  generalize n0 at 1 4 5 8; intros n1 le_mn1.
-  destruct le_mn1; intros le_mn2; destruct le_mn2.
-  + intros def_n0.
-    rewrite (Trunc.path_ishprop def_n0 idpath).
-    simpl. reflexivity.
-  + intros def_n0; generalize le_mn2; rewrite <-def_n0; intros le_mn0.
-    destruct (irreflexivity nat_lt _ le_mn0).
-  + intros def_n0.
-    destruct (irreflexivity nat_lt m0).
-    rewrite def_n0 in le_mn1;trivial.
-  + intros def_n0. pose proof (injective S _ _ def_n0) as E.
-    destruct E.
-    rewrite (Trunc.path_ishprop def_n0 idpath). simpl.
-    apply ap. apply IHn0;trivial.
-Qed.
+  unfold le.
+  unfold nat_le.
+  exact _.
+Defined.
 
 Local Instance nat_le_po : PartialOrder nat_le.
 Proof.
-repeat split.
-- apply _.
-- apply _.
-- hnf;intros; constructor.
-- hnf. intros a b c E1 E2.
-  apply le_exists in E1;apply le_exists in E2.
-  destruct E1 as [k1 E1], E2 as [k2 E2].
-  rewrite E2,E1,add_assoc. apply le_plus.
-- hnf. intros a b E1 E2.
-  apply le_exists in E1;apply le_exists in E2.
-  destruct E1 as [k1 E1], E2 as [k2 E2].
-  assert (k1 + k2 = 0) as E.
-  + apply (left_cancellation (+) a).
-    rewrite plus_0_r.
-    path_via (k2 + b).
-    rewrite E1.
-    rewrite (plus_comm a), (plus_assoc k2), (plus_comm k2).
-    reflexivity.
-  + apply plus_eq_zero in E. destruct E as [Ek1 Ek2].
-    rewrite Ek2,plus_0_l in E2.
-    trivial.
-Qed.
+  repeat split.
+  1: exact _.
+  1: exact _.
+  all: unfold le, nat_le.
+  1,2: exact _.
+  intros n m.
+  rapply leq_antisym.
+Defined.
 
 Local Instance nat_strict : StrictOrder (_:Lt nat).
 Proof.
-split.
-- apply _.
-- apply _.
-- hnf. intros a b c E1 E2.
+  unfold lt, nat_lt.
+  split; unfold lt.
+  1: exact _.
+  1: exact not_nltn.
+  hnf. intros a b c E1 E2.
   apply le_exists;apply le_exists in E1;apply le_exists in E2.
   destruct E1 as [k1 E1], E2 as [k2 E2].
   exists (S (k1+k2)).
   rewrite E2,E1.
   rewrite !add_S_r,add_S_l.
-  rewrite (add_assoc k2), (add_comm k2).
-  reflexivity.
+  rewrite (nat_plus_comm k1 k2).
+  apply ap, ap.
+  exact (add_assoc k2 k1 a).
 Qed.
 
 Instance nat_trichotomy : Trichotomy@{N N i} (lt:Lt nat).
 Proof.
 hnf. fold natpaths.
-intros a b. destruct (le_lt_dec a b) as [[|]|E];auto.
+intros a b. destruct (le_lt_dec a b) as [|];auto.
+revert b l.
+apply leq_ind.
 - right;left;split.
 - left. apply le_S_S. trivial.
 Qed.
 
-Global Instance nat_apart : Apart@{N N} nat := fun n m => n < m |_| m < n.
+Global Instance nat_apart@{} : Apart@{N N} nat := fun n m => n < m |_| m < n.
 
 Instance nat_apart_mere : is_mere_relation nat nat_apart.
 Proof.
@@ -449,12 +412,17 @@ apply le_exists in E1;apply le_exists in E2.
 destruct E1 as [k1 E1], E2 as [k2 E2].
 apply (S_neq_0 (k1 + k2)).
 apply (left_cancellation (+) a).
-fold natpaths. rewrite add_0_r.
+fold natpaths.
+unfold plus, nat_plus.
+rewrite <- nat_plus_n_O.
+rewrite <- nat_plus_n_Sm.
+rewrite nat_plus_comm.
+rewrite nat_plus_n_Sm.
+symmetry.
 rewrite E1 in E2.
-rewrite add_S_r;rewrite !add_S_r in E2.
-rewrite (add_assoc a), (add_comm a), <-(add_assoc k1), (add_comm a).
-rewrite (add_assoc k1), (add_comm k1), <-(add_assoc k2).
-apply natpaths_symm,E2.
+rewrite (nat_plus_comm k1).
+refine (E2 @ _).
+exact (associativity _ _ _).
 Qed.
 
 Global Instance nat_le_dec: forall x y : nat, Decidable (x ≤ y).
@@ -481,7 +449,8 @@ Proof.
 intros a b c E1 E2.
 apply le_exists in E1;apply le_exists in E2.
 destruct E1 as [k1 E1],E2 as [k2 E2];rewrite E2,E1.
-rewrite add_S_r,add_assoc. apply le_S_S,le_plus.
+rewrite <- nat_plus_n_Sm, simple_associativity.
+apply le_S_S,le_plus.
 Qed.
 
 Lemma lt_strong_cotrans : forall a b : nat, a < b -> forall c, a < c |_| c < b.
@@ -512,7 +481,8 @@ split;[apply _|split|].
     apply le_S_S,le_plus.
   + intros a b E.
     apply le_exists in E;destruct E as [k E].
-    rewrite <-add_S_r,plus_assoc,(plus_comm k z),<-plus_assoc in E.
+    rewrite nat_plus_n_Sm, simple_associativity, (nat_plus_comm k z),
+      <- simple_associativity in E.
     apply (left_cancellation plus _) in E.
     rewrite E;apply le_plus.
 - intros ???? E.
@@ -546,16 +516,14 @@ Proof.
   revert m.
   induction n as [|n' IHn];
   intros m; induction m as [|m' IHm]; try auto; cbn.
-  - apply zero_least.
-  - apply le_S_S. exact (IHn m').
+  apply le_S_S. exact (IHn m').
 Qed.
 Lemma le_nat_max_r n m : m <= Nat.max n m.
 Proof.
   revert m.
   induction n as [|n' IHn];
   intros m; induction m as [|m' IHm]; try auto; cbn.
-  - apply zero_least.
-  - apply le_S_S. exact (IHn m').
+  apply le_S_S. exact (IHn m').
 Qed.
 Instance S_embedding : OrderEmbedding S.
 Proof.
@@ -634,7 +602,7 @@ Section for_another_semiring.
   Qed.
 End for_another_semiring.
 
-Lemma nat_naturals@{i} : Naturals@{N N N N N N N i} nat.
+Lemma nat_naturals@{i} : Naturals@{N N N N N N N i} nat@{}.
 Proof.
 split;try apply _.
 intros;apply toR_unique, _.
@@ -650,10 +618,13 @@ intros a b;revert a;induction b as [|b IH].
 - intros [|a];simpl;try split.
   apply ap,add_0_r.
 - intros [|a].
-  + simpl. pose proof (IH 0) as E.
-    rewrite add_0_l in E. exact E.
+  + pose proof (IH 0) as E.
+    simpl_nat. apply path_nat.
+    apply subnn.
   + simpl. change nat_plus with plus.
-    rewrite add_S_r,<-add_S_l;apply IH.
+    unfold plus, nat_plus.
+    rewrite <- nat_plus_n_Sm.
+    exact (IH (S a)).
 Qed.
 
 Lemma le_plus_minus : forall n m : nat, n <= m -> m =N= (n + (cut_minus m  n)).
@@ -668,7 +639,7 @@ Proof.
 unfold cut_minus,nat_cut_minus.
 intros a b;revert a;induction b as [|b IH];intros [|a];simpl.
 - split.
-- intros E;destruct (not_lt_0 _ E).
+- intros E. destruct (not_lt_0 (S a) E).
 - split.
 - intros E. apply IH;apply le_S_S,E.
 Qed.

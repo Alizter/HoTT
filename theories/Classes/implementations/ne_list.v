@@ -1,8 +1,5 @@
-Require Import
-  Coq.Unicode.Utf8
-  HoTT.Classes.implementations.list
-  HoTT.Basics.Overture
-  HoTT.Spaces.Nat.
+Require Import HoTT.Basics HoTT.Types HoTT.Spaces.Nat HoTT.DProp.
+Require Import HoTT.Classes.implementations.list.
 
 Declare Scope ne_list_scope.
 
@@ -21,7 +18,7 @@ Section with_type.
     [ne_list >-> list]. *)
 
   Inductive ne_list : Type
-    := one: T → ne_list | cons: T → ne_list → ne_list.
+    := one: T -> ne_list | cons: T -> ne_list -> ne_list.
 
   Fixpoint app (a b: ne_list): ne_list :=
     match a with
@@ -29,13 +26,13 @@ Section with_type.
     | cons x y => cons x (app y b)
     end.
 
-  Fixpoint foldr {R} (u: T → R) (f: T → R → R) (a: ne_list): R :=
+  Fixpoint foldr {R} (u: T -> R) (f: T -> R -> R) (a: ne_list): R :=
     match a with
     | one x => u x
     | cons x y => f x (foldr u f y)
     end.
 
-  Fixpoint foldr1 (f: T → T → T) (a: ne_list): T :=
+  Fixpoint foldr1 (f: T -> T -> T) (a: ne_list): T :=
     match a with
     | one x => x
     | cons x y => f x (foldr1 f y)
@@ -61,13 +58,13 @@ Section with_type.
 
   Lemma decomp_eq (l: ne_list): l = from_list (head l) (tail l).
   Proof with auto.
-    induction l...
-    destruct l...
+    induction l; trivial.
+    destruct l; trivial.
     cbn in *.
-    rewrite IHl...
-  Qed. 
+    rewrite IHl; trivial.
+  Qed.
 
-  Definition last: ne_list → T := foldr1 (fun x y => y).
+  Definition last: ne_list -> T := foldr1 (fun x y => y).
 
   Fixpoint replicate_Sn (x: T) (n: nat): ne_list :=
     match n with
@@ -87,17 +84,17 @@ Section with_type.
     | cons x xs => x :: front xs
     end.
 
-  Lemma two_level_rect (P: ne_list → Type)
-    (Pone: ∀ x, P (one x))
-    (Ptwo: ∀ x y, P (cons x (one y)))
-    (Pmore: ∀ x y z, P z → (∀ y', P (cons y' z)) → P (cons x (cons y z)))
-    : ∀ l, P l.
+  Lemma two_level_rect (P: ne_list -> Type)
+    (Pone: forall x, P (one x))
+    (Ptwo: forall x y, P (cons x (one y)))
+    (Pmore: forall x y z, P z -> (forall y', P (cons y' z)) -> P (cons x (cons y z)))
+    : forall l, P l.
   Proof with auto.
-   cut (∀ l, P l * ∀ x, P (cons x l)).
+   cut (forall l, P l * forall x, P (cons x l)).
    - intros. apply X.
-   - destruct l...
+   - destruct l; [by split|].
      revert t.
-     induction l...
+     induction l; auto.
      intros.
      split.
      + apply IHl.
@@ -118,23 +115,25 @@ Fixpoint tails {T} (l: ne_list T): ne_list (ne_list T) :=
   end.
 
 Lemma tails_are_shorter {T} (y x: ne_list T):
-  InList x (to_list (tails y)) →
-  le (length (to_list x)) (length (to_list y)).
+  InList x (to_list (tails y)) ->
+  leq (length (to_list x)) (length (to_list y)).
 Proof with auto.
  induction y; cbn.
  - intros [[] | C].
    + constructor.
    + elim C.
- - intros [[] | C]...
+ - intros [[] | C].
+   1: cbn; apply subnn.
+   apply leq_S, IHy, C.
 Qed.
 
-Fixpoint map {A B} (f: A → B) (l: ne_list A): ne_list B :=
+Fixpoint map {A B} (f: A -> B) (l: ne_list A): ne_list B :=
   match l with
   | one x => one (f x)
   | cons h t => cons (f h) (map f t)
   end.
 
-Lemma list_map {A B} (f: A → B) (l: ne_list A)
+Lemma list_map {A B} (f: A -> B) (l: ne_list A)
   : to_list (map f l) = list.map f (to_list l).
 Proof.
   induction l.
