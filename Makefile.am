@@ -200,7 +200,7 @@ HoTTCore.deps: $(CORE_VFILES)
 html-done.timestamp: $(ALL_GLOBFILES) $(ALL_VFILES)
 	- $(mkdir_p) html
 	touch html-done.timestamp
-	"$(COQDOC)" -toc -interpolate -utf8 -html --no-externals -R "$(srcdir)/theories" HoTT -Q "$(srcdir)/contrib" "" Coq -d html $(ALL_VFILES)
+	"$(COQDOC)" -toc -interpolate -utf8 -html --no-externals -R "$(srcdir)/theories" HoTT -Q "$(srcdir)/contrib" "" -d html $(ALL_VFILES)
 
 html:
 	rm -f html-done.timestamp
