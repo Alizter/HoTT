@@ -33,6 +33,9 @@ jobs:
       - name: Install dune
         run: opam install dune -y
 
+      - name: Install coq (using submodule for dune reasons)
+        run: opam pin add coq -k path coq -y
+      
       # TODO: use opam install instead of opam exec -- dune build
       - name: Build HoTT library
         run: opam exec -- dune build
