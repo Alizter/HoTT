@@ -1,20 +1,30 @@
-name: Greet Everyone
+name: Make HoTT library
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
-    # Job name is Greeting
-    name: Greeting
+    # Job name
+    name: build
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
-      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
-        with:
-          who-to-greet: 'Mona the Octocat'
-        id: hello
-      # This step prints an output (time) from the previous step's action.
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+      - name: Update apt
+        run: sudo apt-get update
+      
+      - name: Install opam
+        run: sudo apt-get install opam -y
+      
+      - name: Update opam packages
+        run: opam update
+      
+      - name: Install Dune and coq
+        run: opam install Dune coq -y
+      
+      # TODO: use opam instead of dune
+      - name: Build HoTT library
+        run: dune build
+
+
+
+
