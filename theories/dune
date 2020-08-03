@@ -4,12 +4,7 @@
   (synopsis "The HoTT library.")
   (libraries
     coq.plugins.ltac
-    coq.plugins.extraction   
     coq.plugins.numeral_notation
-    coq.plugins.string_notation
-;    coq.plugins.int63_syntax
-;    coq.plugins.r_syntax
-;    coq.plugins.float_syntax
 
     )
   (flags -noinit -indices-matter))
