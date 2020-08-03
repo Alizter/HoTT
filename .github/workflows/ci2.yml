@@ -30,6 +30,9 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
+      - name: Install autoconf (needed to build coq locally)
+        run: sudo apt-get install autoconf -y
+        
       - name: Install dune
         run: opam install dune -y
 
