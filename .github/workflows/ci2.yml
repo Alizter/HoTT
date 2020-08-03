@@ -30,11 +30,14 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - name: Installing Dune and coq
-        run: opam install Dune coq -y
-
       - name: Update shell environment
-        run: eval $(opam env)
+        run: eval $(opam config env)
+
+      - name: Install Dune and coq
+        run: opam install dune coq -y
+
+      - name: See what opam has installed
+        run: opam list
 
       # TODO: use opam instead of dune
       - name: Build HoTT library
