@@ -1,0 +1,30 @@
+name: Make HoTT library
+# This workflow is triggered on pushes to the repository.
+on: [push, pull_request]
+
+jobs:
+  build:
+    # Job name
+    name: build
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update apt
+        run: sudo apt-get update
+      
+      - name: Install opam
+        run: sudo apt-get install opam -y
+      
+      - name: Update opam packages
+        run: opam update
+      
+      - name: Install Dune and coq
+        run: opam install Dune coq -y
+      
+      # TODO: use opam instead of dune
+      - name: Build HoTT library
+        run: dune build
+
+
+
+
