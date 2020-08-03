@@ -1,6 +1,7 @@
--R theories HoTT
--Q contrib ""
-COQC = hoqc
+-R "_build/default/theories" HoTT
+-Q "_build/default/contrib" HoTTContrib
+-arg -noinit
+-arg -indices-matter
 
 #
 #   Table of contents:
