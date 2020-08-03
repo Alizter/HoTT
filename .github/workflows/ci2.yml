@@ -25,20 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use OCaml ${{ matrix.ocaml-version }}
+      - name: Install OCaml ${{ matrix.ocaml-version }} and opam
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - name: Update shell environment
-        run: eval $(opam config env)
-
-      - name: Install Dune and coq
+      - name: Install dune and coq
         run: opam install dune coq -y
 
-      - name: See what opam has installed
-        run: opam list
-
-      # TODO: use opam instead of dune
+      # TODO: use opam install instead of opam exec -- dune build
       - name: Build HoTT library
-        run: dune build
+        run: opam exec -- dune build
