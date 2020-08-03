@@ -5,3 +5,6 @@
 	path = etc/coq-dpdgraph
 	url = https://github.com/Karmaki/coq-dpdgraph.git
 	branch = coq-master
+[submodule "coq"]
+	path = coq
+	url = https://github.com/coq/coq
