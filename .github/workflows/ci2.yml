@@ -30,8 +30,8 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - name: Install dune and coq
-        run: opam install dune coq -y
+      - name: Install dune
+        run: opam install dune -y
 
       # TODO: use opam install instead of opam exec -- dune build
       - name: Build HoTT library
