@@ -10,14 +10,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-	os:
-    	  - ubuntu-latest
-	  - macos-latest
-	  - windows-latest
-	ocaml-version:
-	  - 4.10.0
-	  - 4.09.1
-	  - 4.08.1
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        ocaml-version:
+          - 4.10.0
+          - 4.09.1
+          - 4.08.1
 
     runs-on: ${{ matrix.os }}
 
@@ -31,7 +31,7 @@ jobs:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       - name: Installing Dune and coq
-      	run: opam install Dune coq -y
+        run: opam install Dune coq -y
  
       # TODO: use opam instead of dune
       - name: Build HoTT library
