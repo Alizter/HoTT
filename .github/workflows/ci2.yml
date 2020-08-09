@@ -41,6 +41,7 @@ jobs:
       - name: Checkout coq 8.12 tag
         run: |
           cd coq
+          git fetch --all --tags
           git checkout tags/v8.12 -b v8.12
           cd ..
 
