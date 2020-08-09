@@ -1,12 +1,15 @@
 (coq.theory
-  (name HoTT)
+  (name HoTT)	; Qualify all coq modules with HoTT
   (package hott)
   (synopsis "The HoTT library.")
-  (libraries
-    coq.plugins.ltac
-    coq.plugins.numeral_notation
-
+  (libraries			 ; We require a few coq plugins:
+    coq.plugins.ltac  		 ; The ltac plugin for writing ltac proofs
+    coq.plugins.numeral_notation ; numeral_notation plugin for parsing and printing numerals
     )
-  (flags -noinit -indices-matter))
-
-(include_subdirs qualified)
+  (flags
+    -noinit	     ; Don't load standard library
+    -indices-matter  ; Universe levels of index types in inductive types are used to calculate universe level 
+    -color on	     ; Allow color printing (good for errors)
+    ) 
+)
+(include_subdirs qualified) ; Tell dune to look through subdirectories
