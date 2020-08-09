@@ -36,12 +36,13 @@ jobs:
 
       # We install coq by building it from the repo
       - name: Clone coq repo
-        run: git clone https://github.com/coq/coq
+        run: git clone https://github.com/coq/coq coq
         
-      - name: Checkout coq 8.12 tag
+      - name: Checkout coq V8.12.0 tag
         run: |
           cd coq
-          git checkout tags/8.12 -b 8.12
+          git fetch --all --tags 
+          git checkout tags/V8.12.0 -b V8.12.0
           cd ..
 
       - name: Install coq 8.12
