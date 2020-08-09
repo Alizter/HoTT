@@ -30,8 +30,19 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - name: Install dune and coq
-        run: opam install dune coq -y
+      # Currently coq doesn't have the right META file for dune to find the numeral_notations plugin therefore we only install dune
+      - name: Install dune #and coq
+        run: opam install -y dune #coq
+
+      # We install coq by building it from the repo
+      - name: Clone coq repo and checkout 8.12
+        run: git clone https://github.com/coq/coq
+        run:
+          working-directory: coq
+          git checkout tags/v8.12 -b v8.12
+
+      - name: Install coq 8.12
+        run: opam pin add -y coq.8.12.0 -k path .
 
       # TODO: use opam install instead of opam exec -- dune build
       - name: Build HoTT library
