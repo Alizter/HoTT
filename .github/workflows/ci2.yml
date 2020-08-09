@@ -46,7 +46,7 @@ jobs:
           cd ..
 
       - name: Install coq 8.12
-        run: opam pin add -y coq.8.12.0 -k path .
+        run: opam pin add -y coq.8.12.0 -k path . --verbose # verbose for debug
 
       # TODO: use opam install instead of opam exec -- dune build
       - name: Build HoTT library
