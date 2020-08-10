@@ -23,13 +23,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install OCaml ${{ matrix.ocaml-version }} and opam
+      - name: 🐫 Install OCaml ${{ matrix.ocaml-version }} and opam
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       # Currently coq doesn't have the right META file for dune to find the numeral_notations plugin therefore we only install dune
-      - name: Install dune #and coq
+      - name: 🏜️ Install dune #and coq
         run: opam install -y dune #coq
 
       # We install coq by building it from the repo
@@ -43,9 +43,9 @@ jobs:
           git checkout tags/V8.12.0 -b V8.12.0
           cd ..
 
-      - name: Install coq 8.12
+      - name: 🐔 Install coq 8.12
         run: opam pin add -y coq.8.12.0 -k path coq --verbose # verbose for debug
 
       # TODO: use opam install instead of opam exec -- dune build
-      - name: Build HoTT library
+      - name: 🍩 Build HoTT library
         run: opam exec -- dune build
