@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-       - name: Install OCaml ${{ matrix.ocaml-version }} and opam
+      - name: Install OCaml ${{ matrix.ocaml-version }} and opam
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
