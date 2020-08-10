@@ -13,19 +13,19 @@ system<!-- TODO: Link here! -->, the build system used to build the library.
 First, you need to install OPAM.
 
 * To do this in Debian or any distribution with `apt-get` run
-```
+```shell
 $ sudo apt-get update
 $ sudo apt-get install opam
 ```
 * On macOS it is recommended that you use the brew package manager to install OPAM:
-```
+```shell
 $ brew update
 $ brew install opam
 ```
 * TODO: Windows
 
 OPAM is a package manager for OCaml. We first need to initialize it by:
-```
+```shell
 $ opam init
 ```
 It is recommended to allow OPAM to change your .profile file when it
@@ -33,7 +33,7 @@ asks for permission.
 
 It is recommended that you create a switch for your OCaml version. You can do
 this in the following way:
-```
+```shell
 $ opam switch create 4.07.1
 $ opam switch 4.07.1
 ```
@@ -43,7 +43,7 @@ different versions of packages.
 
 After the switch has been installed OPAM will ask you to update the opam
 environment. This will allow you to access any programs OPAM installs.
-```
+```shell
 $ eval $(opam env)
 ```
 
@@ -51,7 +51,7 @@ $ eval $(opam env)
 
 You need to install the Coq proof assistant version 8.12 or above. This can be
 done with the following:
-```
+```shell
 $ opam install coq
 ```
 OPAM will install all the necessery dependencies for you.
@@ -60,8 +60,8 @@ OPAM will install all the necessery dependencies for you.
 
 The HoTT library is built with the dune build system. This can be installed with
 OPAM:
-```
-$ opam install 
+```shell
+$ opam install dune 
 ```
 
 ## Building the HoTT library
@@ -70,23 +70,23 @@ Now that we have OPAM, Coq and Dune installed we can build the main HoTT
 library.
 
 Using git you may clone the repo:
-```
+```shell
 $ git clone https://github.com/HoTT/HoTT.git
 ```
 
 Now change your working directory to the HoTT folder:
-```
+```shell
 $ cd HoTT
 ```
 
 You can now build the library using dune:
-```
+```shell
 $ dune build
 ```
 
 If you want to see which files are being built, you can pass the following `--display`
 argument to dune:
-```
+```shell
 $ dune build --display short
 ```
 
@@ -99,7 +99,7 @@ files.
 
 Coqide is the recommended way to browse coq files. You can install it using
 opam:
-```
+```shell
 $ opam install coqide
 ```
 
