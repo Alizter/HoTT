@@ -7,6 +7,7 @@
     coq.plugins.numeral_notation ; numeral_notation plugin for parsing and printing numerals
     )
   (flags
+    -boot
     -noinit	     ; Don't load standard library
     -indices-matter  ; Universe levels of index types in inductive types are used to calculate universe level 
     -color on	     ; Allow color printing (good for errors)
