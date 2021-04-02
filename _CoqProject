@@ -311,6 +311,7 @@ contrib/HoTTBookExercises.v
 
 theories/Homotopy/HomotopyGroup.v
 theories/Homotopy/Pi1S1.v
+theories/Homotopy/EncodeDecode.v
 
 theories/Homotopy/Suspension.v
 theories/Homotopy/Smash.v
