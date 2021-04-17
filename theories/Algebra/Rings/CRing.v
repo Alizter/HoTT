@@ -83,6 +83,7 @@ Section RingLaws.
   Definition rng_mult_one_r : x * 1 = x := right_identity _.
   Definition rng_mult_zero_l : 0 * x = 0 := left_absorb _.
   Definition rng_mult_zero_r : x * 0 = 0 := right_absorb _.
+  Definition rng_mult_negate : -1 * x = - x := (negate_mult _)^.
   Definition rng_mult_negate_negate : -x * -y = x * y := negate_mult_negate _ _.
   Definition rng_mult_negate_l : -x * y = -(x * y) := inverse (negate_mult_distr_l _ _).
   Definition rng_mult_negate_r : x * -y = -(x * y) := inverse (negate_mult_distr_r _ _).
