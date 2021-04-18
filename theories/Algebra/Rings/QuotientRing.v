@@ -4,6 +4,9 @@ Require Import Algebra.AbGroups.
 Require Import Algebra.Rings.CRing.
 Require Import Algebra.Rings.Ideal.
 
+Import Ideal.Notation.
+Local Open Scope ring_scope.
+
 (** In this file we define the quotient of a commutative ring by an ideal *)
 
 Section QuotientRing.
@@ -100,51 +103,30 @@ Section QuotientRing.
 
 End QuotientRing.
 
-(** Here is an alternative way to build a commutative ring using the underlying abelian group. *)
-Definition Build_CRing' (R : AbGroup)
-  `(Mult R, One R, LeftDistribute R mult (abgroup_sgop R))
-  (iscomm : @IsCommutativeMonoid R mult one)
-  : CRing
-  := Build_CRing R (abgroup_sgop R) _ (abgroup_unit R) _
-       (abgroup_inverse R) (Build_IsRing _ _ _ _).
+Infix "/" := QuotientRing : ring_scope.
 
-(** The image of a ring homomorphism *)
-Definition rng_image {R S : CRing} (f : CRingHomomorphism R S) : CRing.
+(** Quotient map *)
+Definition rng_quotient_map {R : CRing} (I : Ideal R)
+  : CRingHomomorphism R (R / I).
 Proof.
-  snrapply (Build_CRing' (abgroup_image f)).
-  { simpl.
-    intros [x p] [y q].
-    exists (x * y).
-    strip_truncations; apply tr.
-    destruct p as [p p'], q as [q q'].
-    exists (p * q).
-    refine (rng_homo_mult _ _ _ @ _).
-    f_ap. }
-  { exists 1.
-    apply tr.
-    exists 1.
-    exact (rng_homo_one f). }
-  (** Much of this proof is doing the same thing over, so we use some compact tactics. *)
-  2: repeat split.
-  2: exact _.
-  all: intros [].
-  1,2,5: intros [].
-  1,2: intros [].
-  all: apply path_sigma_hprop; cbn.
-  1: apply distribute_l.
-  1: apply associativity.
-  1: apply commutativity.
-  1: apply left_identity.
-  apply right_identity.
+  snrapply Build_CRingHomomorphism'.
+  1: rapply grp_quotient_map.
+  repeat split.
+Defined.
+
+Global Instance issurj_rng_quotient_map {R : CRing} (I : Ideal R)
+  : IsSurjection (rng_quotient_map I).
+Proof.
+  exact _.
 Defined.
 
 (** First isomorphism theorem for commutative rings *)
-Definition rng_first_iso `{Funext} {A B : CRing} (phi : A $-> B)
-  : CRingIsomorphism (QuotientRing A (ideal_kernel phi)) (rng_image phi).
+Definition rng_first_iso `{Funext} {A B : CRing} (f : A $-> B)
+  : A / ideal_kernel f ≅ rng_image f.
 Proof.
   snrapply Build_CRingIsomorphism''.
   { etransitivity.
-    2: exact (grp_first_iso phi).
+    2: exact (grp_first_iso f).
     apply grp_iso_quotient_normal. }
   split.
   { intros x.
@@ -154,4 +136,86 @@ Proof.
     exact (rng_homo_mult _ _ _). }
   srapply path_sigma_hprop.
   exact (rng_homo_one _).
+Defined.
+
+(** Invariance of equal ideals *)
+Lemma rng_quotient_invar {R : CRing} {I J : Ideal R} (p : (I ↔ J)%ideal)
+  : R / I ≅ R / J.
+Proof.
+  snrapply Build_CRingIsomorphism'.
+  { srapply equiv_quotient_functor'.
+    1: exact equiv_idmap.
+    intros x y; cbn.
+    apply p. }
+  repeat split.
+  1,2: intros x; simpl.
+  1,2: srapply Quotient_ind_hprop.
+  1,2: intros y; revert x.
+  1,2: srapply Quotient_ind_hprop.
+  1,2: intros x; rapply qglue.
+  1: change (J ( - (x + y) + (x + y))).
+  2: change (J (- ( x * y) + (x * y))).
+  1,2: rewrite rng_plus_negate_l.
+  1,2: apply ideal_in_zero.
+Defined.
+
+(** We phrase the first ring isomorphism theroem in a slightly differnt way so that it is easier to use. This form specifically asks for a surjective map *)
+Definition rng_first_iso' `{Funext} {A B : CRing} (f : A $-> B)
+  (issurj_f : IsSurjection f)
+  (I : Ideal A) (p : (I ↔ ideal_kernel f)%ideal)
+  : A / I ≅ B.
+Proof.
+  etransitivity.
+  1: apply (rng_quotient_invar p).
+  etransitivity.
+  2: rapply (rng_image_issurj f).
+  apply rng_first_iso.
+Defined.
+
+(** Chinese remainder theorem *)
+Theorem chinese_remainder `{Univalence} {R : CRing} (I J : Ideal R) (c : Coprime I J)
+  : R / (I ∩ J)%ideal ≅ (R / I) × (R / J).
+Proof.
+  (** We use the first isomorphism theorem *)
+  srapply rng_first_iso'.
+  { (** This is the corecursion of the two quotient maps *)
+    apply cring_product_corec.
+    1,2: apply rng_quotient_map. }
+  { (** This map is surjective iff I and J are coprime *)
+    hnf in c.
+    pose (p := c cring_one).
+    destruct p as [_ p].
+    specialize (p tt).
+    strip_truncations.
+    destruct p.
+    
+    all: admit. }
+  (** Finally we must show the ideal of this map is the intersection. *)
+  apply ideal_subset_antisymm.
+  - intros r [i j].
+    apply path_prod; apply qglue.
+    1: change (I (- r + 0)).
+    2: change (J (- r + 0)).
+    1,2: rewrite rng_plus_comm.
+    1,2: apply ideal_in_plus_negate.
+    1,3: apply ideal_in_zero.
+    1,2: assumption.
+  - intros i p.
+    apply equiv_path_prod in p.
+    destruct p as [p q].
+    apply ideal_in_negate'.
+    rewrite <- rng_plus_zero_r.
+    split.
+    1: exact (related_quotient_paths _ _ _ p).
+    1: exact (related_quotient_paths _ _ _ q).
+Admitted.
+
+Theorem chinese_remainder_prod `{Univalence} {R : CRing} (I J : Ideal R) (c : Coprime I J)
+  : R / (I ⋅ J)%ideal ≅ (R / I) × (R / J).
+Proof.
+  etransitivity.
+  { rapply rng_quotient_invar.
+    symmetry.
+    rapply ideal_intersection_is_product. }
+  rapply chinese_remainder.
 Defined.
