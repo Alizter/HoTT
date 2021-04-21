@@ -473,7 +473,7 @@ Proof.
   - transitivity (m + n).+1.
     + apply ap, IH.
     + apply nat_plus_n_Sm.
-Qed.
+Defined.
 
 (** ** Exponentiation *)
 
@@ -622,3 +622,11 @@ Proof.
     + left; assumption.
     + right; assumption.
 Defined.
+
+(** Binomial coefficients defined using pascals triangle *)
+Fixpoint binomial (n k : nat) : nat :=
+  match n , k with
+  | _ , 0 => 1
+  | 0 , k.+1 => 0
+  | n.+1 , k.+1 => binomial n k.+1 + binomial n k
+  end.

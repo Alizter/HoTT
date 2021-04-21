@@ -1,5 +1,5 @@
 Require Import Basics Types WildCat.
-Require Import Spaces.Nat.
+Require Import Spaces.Nat Spaces.Finite.
 Require Export Classes.interfaces.abstract_algebra.
 Require Import Algebra.AbGroups.
 Require Export Classes.theory.rings.
@@ -10,6 +10,8 @@ Require Export Classes.theory.rings.
 
 Declare Scope ring_scope.
 
+Local Open Scope nat_scope.
+Local Open Scope mc_scope.
 Local Open Scope ring_scope.
 
 (** A commutative ring consists of the following data *)
@@ -340,7 +342,14 @@ Proof.
   cbn; apply path_prod; apply rng_homo_one.
 Defined.
 
-(** *** More Ring laws *)
+(** *** Operations on ring elements *)
+
+(** Multiples of rings elements *)
+Fixpoint rng_multiple {R : CRing} (x : R) (n : nat) : R :=
+  match n with
+  | 0%nat => cring_zero
+  | n.+1%nat => x + rng_multiple x n
+  end.
 
 (** Powers of ring elements *)
 Fixpoint rng_power {R : CRing} (x : R) (n : nat) : R :=
@@ -349,7 +358,37 @@ Fixpoint rng_power {R : CRing} (x : R) (n : nat) : R :=
   | n.+1%nat => x * rng_power x n
   end.
 
-(** Power laws *)
+(** *** Operations on the elements of a sequence *)
+
+(** Finite sums of ring elements *)
+Fixpoint rng_fin_sum {R : CRing} {n : nat} (v : FinSeq R n) : R :=
+  match v with
+  | fs_nil => cring_zero
+  | fs_cons _ a v => a + (rng_fin_sum v)
+  end.
+
+(** Finite products of ring elements *)
+Fixpoint rng_fin_prod {R : CRing} {n : nat} (v : FinSeq R n) : R :=
+  match v with
+  | fs_nil => cring_one
+  | fs_cons _ a v => a * (rng_fin_prod v)
+  end.
+
+(** *** Operations on the elemnt of a bound nat-indexed family *)
+
+(** These can be more convenient to use in practice, especially when the dummy variable of the sum appears in the expression. *)
+
+(** Bound sums *)
+Definition rng_bound_sum {R : CRing} (n : nat) (F : forall k, (k < n)%nat -> R) : R
+  := rng_fin_sum (fs_from_fin' n F).
+
+(** Bound product *)
+Definition rng_bound_prod {R : CRing} (n : nat) (F : forall k, (k < n)%nat -> R) : R
+  := rng_fin_prod (fs_from_fin' n F).
+
+(** *** More Ring laws *)
+
+(** Power law *)
 Lemma rng_power_mult_law {R : CRing} (x : R) (n m : nat)
   : (rng_power x n) * (rng_power x m) = rng_power x (n + m).
 Proof.
@@ -362,7 +401,22 @@ Proof.
   f_ap.
 Defined.
 
-(** Powers commute with multiplication *)
+(** Multiples distribute over addition *)
+Lemma rng_multiple_plus {R : CRing} (x y : R) (n : nat)
+  : rng_multiple (x + y) n = rng_multiple x n + rng_multiple y n.
+Proof.
+  induction n.
+  1: symmetry; apply rng_plus_zero_l.
+  cbn.
+  rewrite rng_plus_assoc.
+  rewrite <- (rng_plus_assoc x _ y).
+  rewrite (rng_plus_comm (rng_multiple x n) y).
+  rewrite rng_plus_assoc.
+  rewrite <- (rng_plus_assoc _ (rng_multiple x n)).
+  f_ap.
+Defined.
+
+(** Powers distribute over multiplication *)
 Lemma rng_power_mult {R : CRing} (x y : R) (n : nat)
   : rng_power (x * y) n = rng_power x n * rng_power y n.
 Proof.
@@ -376,5 +430,57 @@ Proof.
   rewrite <- (rng_mult_assoc _ (rng_power x n)).
   f_ap.
 Defined.
+
+(** Moving the final term out of a sum *)
+Lemma rng_bound_sum_S {R : CRing} {n : nat} (F : forall k, (k < n.+1)%nat -> R)
+  (** We need to show that k < n -> k < n.+1 but currently the nat library isn't very good at this. *)
+  : let q : forall k, (k < n)%nat -> (k < n.+1)%nat
+      := fun k p => leq_trans _ _ _ p leqnSn in
+  (** TODO: imporve lt so that ideally typeclass search can find it. *)
+  (** The main statement of this lemma is here: *)
+  rng_bound_sum n.+1 F =  F n (leq_refl _) + rng_bound_sum n (fun k p => F k (q k p)).
+Proof.
+  induction n.
+  1: reflexivity.
+  cbv zeta in *.
+  hnf in *.
+  change (rng_bound_sum n.+1 ?g)
+    with (rng_fin_sum (fs_from_fin' n.+2 g))
+    in |- *.
+  
+  
+(** Distribution of multiplciation over bound sum *)
+Lemma rng_bound_sum_dist_l {R : CRing} {n : nat}
+  (x : R) (F : forall k, (k < n)%nat -> R)
+  : x * rng_bound_sum n F = rng_bound_sum n (fun k p => x * F k p).
+Proof.
+  induction n.
+  1: apply rng_mult_zero_r.
+  unfold rng_bound_sum.
+  unfold fs_from_fin'.
+  simpl.
+  change (rng_bound_sum n.+1 ?x)
+    with (x 0 _ + rng_bound_sum n x).
+
+(** ** Bionomial theorem for rings *)
+
+(** Binomial theorem for rings *)
+Theorem rng_binomial {R : CRing} (x y : R) (n : nat)
+  : rng_power (x + y) n = rng_bound_sum n.+1 (fun k _ =>
+    rng_multiple (rng_power x k * rng_power x (minus n k)) (binomial n k)).
+Proof.
+  induction n.
+  { symmetry.
+    refine (rng_plus_zero_r _ @ _).
+    refine (rng_plus_zero_r _ @ _).
+    apply rng_mult_one_l. }
+  change (rng_power (x + y) n.+1 = ?R)
+    with ((x + y) * rng_power (x + y) n = R).
+  rewrite IHn.
+  refine (rng_dist_r _ _ _ @ _).
+  cbv zeta.
+
+
+
 
 
