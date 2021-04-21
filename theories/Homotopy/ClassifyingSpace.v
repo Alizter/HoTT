@@ -570,7 +570,7 @@ Proof.
         apply equiv_istrunc_contr_iterated_loops.
         snrapply istrunc_leq.
         1: exact 1.
-        { induction n.
+        { induction n using nat_ind.
           1: exact tt.
           rapply trunc_index_leq_transitive. }
         exact _. }
@@ -582,7 +582,7 @@ Proof.
         apply equiv_istrunc_contr_iterated_loops.
         snrapply istrunc_leq.
         1: exact 1.
-        { induction n.
+        { induction n using nat_ind.
           1: exact tt.
           rapply trunc_index_leq_transitive. }
         exact _. }
