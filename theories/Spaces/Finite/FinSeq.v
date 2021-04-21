@@ -1,28 +1,265 @@
-Require Import
-  HoTT.Basics
-  HoTT.Types
-  HoTT.HSet
-  HoTT.DProp
-  HoTT.Spaces.Finite.Fin
-  HoTT.Spaces.Finite.FinInduction
-  HoTT.Spaces.Nat.
+Require Import Basics Types.
+Require Import HSet DProp.
+Require Import Spaces.Nat Spaces.Finite.Fin.
+Require Import Spaces.Finite.FinInduction.
 
-(** Finite-dimensional sequence. It is often referred to as vector,
-    but we call it finite sequence [FinSeq] to avoid confusion with
-    vector from linear algebra.
+Local Unset Elimination Schemes.
 
-    Note that the induction principle [finseq_]*)
+Declare Scope fs_scope.
+Local Open Scope fs_scope.
 
-Definition FinSeq@{u} (n : nat) (A : Type@{u}) : Type@{u} := Fin n -> A.
+(** Finite-dimensional sequence or length-indexed lists. It is often also referred to as vector, but we call it finite sequence [FinSeq] to avoid confusion with vector from linear algebra. *)
+
+Inductive FinSeq@{u} (A : Type@{u}) : nat -> Type@{u} :=
+| fs_nil : FinSeq A 0
+| fs_cons (n : nat) : A -> FinSeq A n -> FinSeq A n.+1
+.
+
+Scheme FinSeq_ind := Induction for FinSeq Sort Type.
+Scheme FinSeq_rect := Induction for FinSeq Sort Type.
+Scheme FinSeq_rec := Minimality for FinSeq Sort Type.
+
+Arguments fs_nil {A}.
+Arguments fs_cons {A n}.
+
+(** List notations for sequences *)
+(* Notation "[ ]" := fs_nil : fs_scope. *)
+Infix "::" := fs_cons : fs_scope.
+Notation "[ x ]" := (fs_cons x fs_nil) : fs_scope.
+(** TODO: sometimes we get a parsing error, why is this? Probably some notation is reserved somewhere *)
+Notation "[ x ; y ; .. ; z ]" := (fs_cons x (fs_cons y .. (fs_cons z fs_nil) ..))
+  : fs_scope.
+
+(** All finite sequences of zero length are equal. *)
+Definition path_fs_nil {A : Type} (v : FinSeq A 0) : fs_nil = v :=
+  match v with
+  | fs_nil => idpath
+  end.
+
+(** So the type of finite sequences of zero length is contractible. *)
+Global Instance contr_finseq_0 {A} : Contr (FinSeq A 0).
+Proof.
+  exists fs_nil.
+  apply path_fs_nil.
+Defined.
+
+(** The head of a non-empty sequence *)
+Definition fs_head {A} {n : nat} (v : FinSeq A n.+1) : A :=
+  match v with
+  | a :: v' => a
+  end.
+
+(** The tail of a non-empty sequence *)
+Definition fs_tail {A} {n : nat} (v : FinSeq A n.+1) : FinSeq A n :=
+  match v with
+  | a :: v' => v'
+  end.
+
+(** A non-empty finite sequence is equal to [fs_cons] of head and tail. *)
+Definition path_fs_eta {A : Type} {n : nat} (v : FinSeq A n.+1)
+  : fs_cons (fs_head v) (fs_tail v) = v :=
+  match v with
+  |  a :: v' => idpath
+  end.
+
+Lemma equiv_fs_singleton {A : Type} : FinSeq A 1 <~> A.
+Proof.
+  snrapply (equiv_adjointify fs_head (fun x => [ x ])).
+  1: reflexivity.
+  intros x.
+  refine (ap _ _ @ path_fs_eta x).
+  apply path_contr.
+Defined.
+
+(** Induction for positive length lists *)
+Definition FinSeq_indS {A} (P : forall n, FinSeq A n.+1 -> Type)
+  (b : forall a, P 0 [ a ])
+  (h : forall a n (v : FinSeq A n.+1), P n v -> P n.+1 (a :: v))
+  (n : nat) (v : FinSeq A n.+1) : P n v.
+Proof.
+  refine (path_fs_eta _ # _).
+  induction n.
+  { rewrite (path_contr (fs_tail v) fs_nil).
+    apply b. }
+  apply h.
+  rewrite <- (path_fs_eta (fs_tail v)).
+  apply IHn.
+Defined.
+
+(** ** Operations on sequences *)
+
+(** Concatenation of sequences *)
+Fixpoint fs_concat {A n m} (v : FinSeq A n) (w : FinSeq A m) : FinSeq A (n + m) :=
+  match v with
+  | fs_nil => w
+  | a :: v' => a :: (v' ++ w)
+  end
+where "a ++ b" := (fs_concat a b) : fs_scope.
+
+(** Append an element to the end of a sequence. We can define this as concatenation but since the length would be "a + 1" we would have to rewrite this to be the successor all the time. *)
+Fixpoint fs_append {A n} (v : FinSeq A n) (a : A) : FinSeq A n.+1 :=
+  match v with
+  | fs_nil => [ a ]
+  | x :: v' => x :: fs_append v' a 
+  end.
+
+(** Reversing a sequence *)
+(** Note that there are more efficient implementations for reversing lists using left-associative folds but it is unclear how to generalize these to dependent types for the time being. We also have to transport due to the index not computing correctly. *)
+Fixpoint fs_reverse {A} {n : nat} (v : FinSeq A n) : FinSeq A n :=
+  match v with
+  | fs_nil => fs_nil
+  | a :: v' => fs_append (fs_reverse v') a
+  end.
+
+Lemma path_fs_reverse_append {A n} (v : FinSeq A n) x
+  : fs_reverse (fs_append v x) = x :: fs_reverse v.
+Proof.
+  induction v.
+  1: reflexivity.
+  cbn; by rewrite IHv.
+Defined.
+
+(** Reversing a sequence twice leaves it unchanges. *)
+Lemma path_fs_reverse_reverse {A} {n : nat} (v : FinSeq A n)
+  : fs_reverse (fs_reverse v) = v.
+Proof.
+  induction v.
+  1: reflexivity.
+  rewrite path_fs_reverse_append.
+  f_ap.
+Defined.
+
+(** Append preserves tail *)
+Lemma path_fs_tail_append {A n} (v : FinSeq A n.+1) (a : A)
+  : fs_tail (fs_append v a) = fs_append (fs_tail v) a.
+Proof.
+  by refine (FinSeq_indS
+    (fun n v => fs_tail (fs_append v a) = fs_append (fs_tail v) a) _ _ n v).
+Defined.
+
+(** Reversing a sequence is an equivalence. *)
+Global Instance isequiv_fs_reverse {A} {n : nat} : IsEquiv (@fs_reverse A n)
+  := isequiv_adjointify
+      fs_reverse fs_reverse
+      path_fs_reverse_reverse path_fs_reverse_reverse.
+
+(** Last element of a sequence *)
+Definition fs_last {A} {n : nat} (v : FinSeq A n.+1) : A
+  := fs_head (fs_reverse v).
+
+(** Initial segment of a sequence (excluding the last element) *)
+Definition fs_init {A} {n : nat} (v : FinSeq A n.+1) : FinSeq A n
+  := fs_reverse (fs_tail (fs_reverse v)).
+
+(** We can derive an eta rule that decomposes sequences the other way *)
+Lemma path_fs_eta' {A} {n : nat} (v : FinSeq A n.+1)
+  : fs_append (fs_init v) (fs_last v) = v.
+Proof.
+  refine (FinSeq_indS (fun n v => fs_append (fs_init v) (fs_last v) = v) _ _ _ v).
+  1: reflexivity.
+  clear n v.
+  intros a n v IH.
+  unfold fs_init, fs_last.
+  change (fs_append (fs_reverse ?v) ?x) with (fs_reverse (x :: v)).
+  refine (ap fs_reverse _ @ eissect fs_reverse _).
+  apply path_fs_eta.
+Defined.
+
+(** Initial segment of tail *)
+Lemma path_fs_init_append {A n} (v : FinSeq A n) (a : A)
+  : fs_init (fs_append v a) = v.
+Proof.
+  induction v.
+  1: reflexivity.
+  unfold fs_init.
+  rewrite 2 path_fs_reverse_append.
+  f_ap.
+  apply path_fs_reverse_reverse.
+Defined.
+
+(** ** Equivalence of [FinSeq] and [Fin n -> A] *)
+
+(** Our definition of FinSeq is a standard list definition found in most programming languages. Our definition of Fin is however a bit different. In Fin, the top most element is the last element whereas in FinSeq the top most element is the first. We therefore need an induction principle that breaks up our sequences from the other end. *)
+
+Definition FinSeq_ind' {A : Type}
+  (P : forall n : nat, FinSeq A n -> Type) (h : P 0 fs_nil)
+  (t : forall n a (v : FinSeq A n), P n v -> P n.+1 (fs_append v a))
+  : forall (n : nat) (v : FinSeq A n), P n v.
+Proof.
+  intros n v.
+  refine (eissect fs_reverse v # _).
+  apply (FinSeq_ind _ (fun n v => P n (fs_reverse v))).
+  1: assumption.
+  clear n v.
+  intros n a f p.
+  refine (path_fs_eta' _ # _).
+  apply t.
+  cbn.
+  rewrite path_fs_init_append.
+  apply p.
+Defined.
+
+(** Projection of nth element from a sequence *)
+Definition fs_proj {A} {n : nat} (v : FinSeq A n) : Fin n -> A.
+Proof.
+  revert n v.
+  refine (FinSeq_ind' _ _ _).
+  1: exact Empty_rec.
+  intros n a v f [x | ].
+  + exact (f x).
+  + exact a.
+Defined.
+
+(** Here is a convenient projector for non-empty sequences. Note that if the index is out of range it will wrap around. *)
+Definition fs_proj' {A} {n : nat} (v : FinSeq A n.+1) (n : nat) : A
+  := fs_proj v (fin_nat n).
+
+Definition fs_from_fin {A} n (F : Fin n -> A) : FinSeq A n.
+Proof.
+  induction n.
+  1: exact fs_nil.
+  exact (fs_append (IHn (F o fin_incl)) (F fin_last)).
+Defined.
+
+Definition fs_from_fin' {A} n (F : forall k, k < n -> A)
+  : FinSeq A n.
+Proof.
+  apply fs_from_fin.
+  intros t.
+  srapply F.
+  2: by rapply FinNat.is_bounded_fin_to_nat.
+Defined.
+
+(* Theorem equiv_fs_fin `{Funext} {A n} : FinSeq A n <~> (Fin n -> A).
+Proof.
+  snrapply equiv_adjointify.
+  1: exact fs_proj.
+  { intros f.
+    apply fs_from_fin.
+    intros k p.
+  
+  intros f.
+    induction n.
+    1: exact fs_nil.
+    exact (fs_append (IHn (f o fin_incl)) (f fin_last)). }
+  - hnf.
+    intros x.
+    induction n.
+    { apply path_forall.
+      intros [ ]. }
+    simpl.
+    
+ *)    
+
+  (* 
+
+(* Definition FinSeq@{u} (n : nat) (A : Type@{u}) : Type@{u} := Fin n -> A. *)
 
 (** The empty finite sequence. *)
 
-Definition fsnil {A : Type} : FinSeq 0 A := Empty_rec.
+(* Definition fsnil {A : Type} : FinSeq 0 A := Empty_rec. *)
 
-Definition path_fsnil `{Funext} {A : Type} (v : FinSeq 0 A) : fsnil = v.
-Proof.
-  apply path_contr.
-Defined.
+
 
 (** Add an element in the end of a finite sequence, [fscons'] and [fscons]. *)
 
@@ -213,5 +450,5 @@ Proof.
   set (p2 := compute_fstail a v).
   induction p1, p2.
   exact (ap (fun p => transport _ p _) (compute_path_fscons _ _)).
-Defined.
+Defined. *)
 
