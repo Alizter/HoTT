@@ -217,7 +217,7 @@ Section ORecursion.
 End ORecursion.
 
 (* We never want to see [extendable_to_O]. *)
-Arguments O_rec : simpl never.
+Arguments O_rec {_ _ _ _ _ _} _ / _.
 Arguments O_rec_beta : simpl never.
 Arguments O_indpaths : simpl never.
 Arguments O_indpaths_beta : simpl never.
