@@ -31,10 +31,11 @@ Proof.
   generalize (path_fin_to_finnat_to_fin (@fin_zero n)).
   induction (path_fin_to_finnat_fin_zero n)^.
   intro p.
-  pose (q := hset_path2 1 p).
-  destruct q.
-  simpl; unfold path_zero_finnat.
-  by rewrite path_sigma_hprop_1.
+  destruct (hset_path2 1 p).
+  cbn.
+  set (q := path_zero_finnat n leq_1_Sn).
+  change (path_zero_finnat n leq_1_Sn) with q.
+  by destruct (hset_path2 1 q).
 Defined.
 
 Lemma compute_fin_ind_fsucc (P : forall n : nat, Fin n -> Type)
@@ -51,8 +52,9 @@ Proof.
   generalize dependent p.
   induction (path_fin_to_finnat_to_fin k).
   induction (path_fin_to_finnat_to_fin k)^.
-  intro p. cbn.
-  pose (hset_path2 p).
+  intro p.
+  induction (hset_path2 p (path_finnat_to_fin_succ (fin_to_finnat k))).
+  apply transport_pV.
 Defined.
 
 Definition fin_rec (B : nat -> Type)
