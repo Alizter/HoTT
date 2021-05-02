@@ -36,6 +36,7 @@ jobs:
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
           etc/coq-scripts/github/reportify-coq.sh --stdout --errors ${{ matrix.extra_gh_reportify }} etc/coq-scripts/timing/make-pretty-timed.sh -j2 TIMING=1
           make
+    - run: tree .opam -L 5
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
