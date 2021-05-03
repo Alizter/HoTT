@@ -36,7 +36,11 @@ jobs:
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
           etc/coq-scripts/github/reportify-coq.sh --stdout --errors ${{ matrix.extra_gh_reportify }} etc/coq-scripts/timing/make-pretty-timed.sh -j2 TIMING=1
           make
-    - run: docker images
+    - run: docker save -o coq-image.tar coqorg/coq 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: coq-image
+        path: coq-image.tar 
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
