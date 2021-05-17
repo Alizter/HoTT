@@ -60,6 +60,8 @@ jobs:
         id: coq-hash
         run: echo "::set-output name=hash::`echo "HELLO WORLD"`"
 
+      - name: Check hash
+        run: echo ${{ steps.coq-hash.outputs.hash }}
 
       - name: Build HoTT library 🍩
         run:
