@@ -36,7 +36,7 @@ jobs:
           cache-name: cache-opam
         with:
           path: ~/.opam
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-ocaml-${{ matrix.ocaml-version }}-coq-${{ matrix.coq-version }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-ocaml-${{ matrix.ocaml-version }}-coq-${{ steps.coq-hash.outputs.hash }}
 
 
       - name: Install OCaml ${{ matrix.ocaml-version }} 🐫
@@ -46,8 +46,7 @@ jobs:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       - name: Install Coq 🐔
-        # We first check we are not on dev since we don't need to check cache for that
-        if: ${{ matrix.coq-version == 'dev' }} || steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           # First add the dev packages
           opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev --all-switches
@@ -56,12 +55,10 @@ jobs:
           # Install coq
           opam install coq.${{ matrix.coq-version }}
 
-      - name: Coq hash
+      # This step outputs the hash of coq for use in key for cache
+      - name: Coq hash #️⃣
         id: coq-hash
-        run: echo "::set-output name=hash::`echo "HELLO WORLD"`"
-
-      - name: Check hash
-        run: echo ${{ steps.coq-hash.outputs.hash }}
+        run: echo "::set-output name=hash::`opam info -f source-hash coq`"
 
       - name: Build HoTT library 🍩
         run:
