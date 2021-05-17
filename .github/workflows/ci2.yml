@@ -50,7 +50,7 @@ jobs:
           # Update package listings
           opam update
           # Install coq
-          opam install coq ${{ matrix.coq-version }}
+          opam install coq.${{ matrix.coq-version }}
 
       - name: Build HoTT library 🍩
         run: make
