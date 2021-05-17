@@ -1,0 +1,46 @@
+name: CI2
+
+on:
+  - push
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        ocaml-version:
+          - 4.11.0
+          - 4.07.1
+        coq-version:
+          - 8.13.2
+          - dev
+
+
+      runs-on: $ {{ matrix.os }}
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+    
+      - name: Install OCaml ${{ matrix.ocaml-version }} 🐫
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Install Coq 🐔
+        run:
+          # First add the dev packages
+          opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev
+          # Update package listings
+          opam update
+          # Install coq
+          opam install coq ${{ matrix.coq-version }}
+
+      - name: Build HoTT library 🍩
+        run: make
+
+
