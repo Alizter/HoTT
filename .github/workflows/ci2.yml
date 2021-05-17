@@ -32,7 +32,7 @@ jobs:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       - name: Install Coq 🐔
-        run:
+        run: |
           # First add the dev packages
           opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev
           # Update package listings
