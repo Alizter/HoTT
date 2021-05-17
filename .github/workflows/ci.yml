@@ -2,10 +2,14 @@
 name: CI
 
 ## These are the triggers for the CI to run
-on: [ push , pull_request ]
+on:
+  - push 
+#  - pull_request
+
 
 jobs:
 
+  ## These jobs run using a docker container
   build:
     strategy:
       fail-fast: false
@@ -40,6 +44,17 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
+
+  # This job is used to build the documentation
+  # We run it without a docker container so we have more control
+  build-doc:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
 
 
   doc:
