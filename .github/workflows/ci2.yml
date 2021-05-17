@@ -53,23 +53,9 @@ jobs:
           # Install coq
           opam install coq.${{ matrix.coq-version }}
 
-      - name: Create alias' 🕵️
-        run: |
-          echo "Before eval:"
-          coqc --version || true
-          echo "After eval:"
-          eval $(opam env)
-          coqc --version || true
-
-
-          alias coq_makefile='opam exec -- coq_makefile'
-          alias coqc='opam exec -- coqc'
-
-          echo "After alias"
-          coqc --version || true
-          
-          
       - name: Build HoTT library 🍩
-        run: make
+        run:
+          eval $(opam env)
+          make
 
 
