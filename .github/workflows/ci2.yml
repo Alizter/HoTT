@@ -60,8 +60,8 @@ jobs:
           alias coqc='opam exec -- coqc'
           eval $(opam env)
           echo $PATH
-          coq_project --version
           opam exec -- coq_project --version
+          coq_project --version
       
       - name: Build HoTT library 🍩
         run: make
