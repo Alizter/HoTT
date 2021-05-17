@@ -22,6 +22,9 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     
+    outputs:
+      coq-hash: ${{ steps.coq-hash.outputs.hash }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -45,7 +48,7 @@ jobs:
       - name: Install Coq 🐔
         # We first check we are not on dev since we don't need to check cache for that
         if: ${{ matrix.coq-version == 'dev' }} || steps.cache.outputs.cache-hit != 'true'
-        run: |
+        run:
           # First add the dev packages
           opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev --all-switches
           # Update package listings
@@ -53,8 +56,14 @@ jobs:
           # Install coq
           opam install coq.${{ matrix.coq-version }}
 
+      - name: Coq hash
+        id: coq-hash
+        run: echo "::set-output name=hash::`echo "HELLO WORLD"`"
+
+
       - name: Build HoTT library 🍩
         run:
+          # Environment variables are local to steps so we have to do this here
           eval $(opam env)
           make
 
