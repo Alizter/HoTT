@@ -48,7 +48,7 @@ jobs:
       - name: Install Coq 🐔
         # We first check we are not on dev since we don't need to check cache for that
         if: ${{ matrix.coq-version == 'dev' }} || steps.cache.outputs.cache-hit != 'true'
-        run:
+        run: |
           # First add the dev packages
           opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev --all-switches
           # Update package listings
