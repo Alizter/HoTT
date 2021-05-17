@@ -55,13 +55,18 @@ jobs:
 
       - name: Create alias' 🕵️
         run: |
+          echo "Before eval:"
           coqc --version || true
+          echo "After eval:"
+          eval $(opam env)
+
+
           alias coq_makefile='opam exec -- coq_makefile'
           alias coqc='opam exec -- coqc'
-          eval $(opam env)
-          coqc --version
-          opam exec -- coqc --version
 
+          echo "After alias"
+          coqc --version
+          
           
       - name: Build HoTT library 🍩
         run: make
