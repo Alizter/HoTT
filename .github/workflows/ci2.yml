@@ -55,14 +55,10 @@ jobs:
 
       - name: Create alias' 🕵️
         run: |
-          echo $PATH
           alias coq_makefile='opam exec -- coq_makefile'
           alias coqc='opam exec -- coqc'
           eval $(opam env)
-          echo $PATH
-          opam exec -- coq_makefile -v
-          coq_makefile -v
-      
+          
       - name: Build HoTT library 🍩
         run: make
 
