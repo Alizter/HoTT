@@ -25,13 +25,25 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-    
+
+      - name: Cache .opam/ 💸
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-opam
+        with:
+          path: ~/.opam
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-ocaml-${{ matrix.ocaml-version }}-coq-${{ matrix.coq-version }}
+
+
       - name: Install OCaml ${{ matrix.ocaml-version }} 🐫
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       - name: Install Coq 🐔
+        # We first check we are not on dev since we don't need to check cache for that
+        if: $${ matrix.coq-version == dev }} || steps.cache.outputs.cache-hit != 'true'
         run: |
           # First add the dev packages
           opam repo add coq-core-dev https://coq.inria.fr/opam/core-dev --all-switches
