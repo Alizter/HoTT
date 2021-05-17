@@ -2,7 +2,7 @@
 name: CI
 
 ## These are the triggers for the CI to run
-#on: [push] 
+on: push 
 #  - pull_request
 
 
