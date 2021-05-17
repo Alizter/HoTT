@@ -2,9 +2,8 @@
 name: CI
 
 ## These are the triggers for the CI to run
-on:
-#  - push 
-  - pull_request
+#on: [push] 
+#  - pull_request
 
 
 jobs:
