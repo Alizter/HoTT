@@ -55,6 +55,7 @@ jobs:
 
       - name: Create alias' 🕵️
         run: |
+          echo $PATH
           alias coq_project="opam exec -- coq_project"
           alias coqc="opam exec -- coqc"
           eval $(opam env)
