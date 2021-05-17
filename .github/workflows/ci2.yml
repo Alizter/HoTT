@@ -41,8 +41,6 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - run: eval $(opam env)
-
       - name: Install Coq 🐔
         # We first check we are not on dev since we don't need to check cache for that
         if: ${{ matrix.coq-version == 'dev' }} || steps.cache.outputs.cache-hit != 'true'
@@ -53,6 +51,8 @@ jobs:
           opam update
           # Install coq
           opam install coq.${{ matrix.coq-version }}
+
+      - run: eval $(opam env)
 
       - name: Build HoTT library 🍩
         run: make
