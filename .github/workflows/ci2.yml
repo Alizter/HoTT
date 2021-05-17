@@ -11,7 +11,7 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-          - windows-latest
+#          - windows-latest
         ocaml-version:
           - 4.11.0
 #          - 4.07.1
@@ -40,6 +40,8 @@ jobs:
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
+
+      - run: eval $(opam env)
 
       - name: Install Coq 🐔
         # We first check we are not on dev since we don't need to check cache for that
