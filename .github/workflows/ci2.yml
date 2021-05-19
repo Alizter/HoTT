@@ -89,4 +89,10 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
+    # We upload the theories/ directory for use by the documentation jobs
+    - uses: actions/upload-artifact@v2
+      with:
+        name: theories-artifact
+        path: theories/
+
 
