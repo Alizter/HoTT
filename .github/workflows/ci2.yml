@@ -46,7 +46,7 @@ jobs:
           # Install coq
           opam install coq.${{ matrix.coq-version }}
       # This step outputs the hash of coq for use in key for cache
-      - name: Coq hash #️⃣
+      - name: Coq hash
         id: coq-hash
         run: echo "::set-output name=hash::`opam info -f source-hash coq`"
       - name: Build HoTT library 🍩
@@ -85,17 +85,21 @@ jobs:
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
           etc/coq-scripts/github/reportify-coq.sh --stdout --errors ${{ matrix.extra_gh_reportify }} etc/coq-scripts/timing/make-pretty-timed.sh -j2 TIMING=1
           make
+
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
-    # We upload the theories/ directory for use by the documentation jobs
-    - uses: actions/upload-artifact@v2
+    # Tar object files
+    - name: 'Tar .vo files'
+      run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -cf objfiles.tar -T -
+    # We upload build artifacts for use by documentation
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
       with:
-        name: theories-artifact-${{ matrix.coq_version }}
-        path: theories/
-
-
+        name: objfiles-artifact-${{ matrix.coq_version }}
+        path: objfiles.tar   
+    
   test-artifact:
     needs: build-quick
     strategy:
@@ -116,8 +120,10 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: theories-artifact-${{ matrix.coq_version }}
-        path: theories/
+        name: objfiles-artifact-${{ matrix.coq_version }}
+        path: objfiles.tar   
+    # Unpack Tar
+    - run: ls
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
