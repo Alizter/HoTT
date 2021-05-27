@@ -121,7 +121,8 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: objfiles-artifact-${{ matrix.coq_version }}
-        path: objfiles.tar   
+        path: objfiles.tar
+    - run: ls
     # Unpack Tar
     - run: tar -xvzf objfiles.tar -C .
     # We use the coq docker so we don't have to build coq
