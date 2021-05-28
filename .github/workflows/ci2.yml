@@ -92,7 +92,7 @@ jobs:
       run: sudo chown -R 1001:116 .
     # Tar object files
     - name: 'Tar .vo files'
-      run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -cf objfiles.tar -T -
+      run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -czvf objfiles.tar -T -
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
@@ -124,7 +124,7 @@ jobs:
         path: objfiles.tar
     - run: ls
     # Unpack Tar
-    - run: tar -xvzf objfiles.tar -C .
+    - run: tar -xzvf objfiles.tar -C .
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
