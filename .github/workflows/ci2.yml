@@ -83,7 +83,6 @@ jobs:
           endGroup
           sudo apt-get -o Acquire::Retries=30 update -q
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
-          etc/coq-scripts/github/reportify-coq.sh --stdout --errors ${{ matrix.extra_gh_reportify }} etc/coq-scripts/timing/make-pretty-timed.sh -j2 TIMING=1
           make
 
     - name: Revert permissions
@@ -121,7 +120,6 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: workspace-${{ matrix.coq_version }}
-    - run: tar -tvf workspace.tar
     # Unpack Tar
     - run: tar -xvf workspace.tar
     # We use the coq docker so we don't have to build coq
