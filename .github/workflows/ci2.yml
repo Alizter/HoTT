@@ -124,7 +124,7 @@ jobs:
         path: objfiles.tar
     - run: ls
     # Unpack Tar
-    - run: tar -xzvf objfiles.tar -C .
+    - run: tar -xzvf objfiles.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
