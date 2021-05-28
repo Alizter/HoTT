@@ -90,17 +90,15 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
-    # Tar object files
+    # Tar workspace files
     - name: 'Tar .vo files'
-      run: tar -cvf objfiles.tar .
-      #run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -cvf objfiles.tar -T -
-    - run: tar -tvf objfiles.tar
+      run: tar -cvf workspace.tar .
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
-        name: objfiles-artifact-${{ matrix.coq_version }}
-        path: objfiles.tar   
+        name: workspace-${{ matrix.coq_version }}
+        path: workspace.tar   
     
   test-artifact:
     needs: build-quick
@@ -122,10 +120,10 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: objfiles-artifact-${{ matrix.coq_version }}
-    - run: tar -tvf objfiles.tar
+        name: workspace-${{ matrix.coq_version }}
+    - run: tar -tvf workspace.tar
     # Unpack Tar
-    - run: tar -xvf objfiles.tar
+    - run: tar -xvf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -137,7 +135,6 @@ jobs:
           endGroup
           sudo apt-get -o Acquire::Retries=30 update -q
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
-          etc/coq-scripts/github/reportify-coq.sh --stdout --errors ${{ matrix.extra_gh_reportify }} etc/coq-scripts/timing/make-pretty-timed.sh -j2 TIMING=1
           make
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
