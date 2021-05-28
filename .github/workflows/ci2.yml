@@ -122,8 +122,6 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: objfiles-artifact-${{ matrix.coq_version }}
-        path: objfiles.tar
-    - run: ls objfiles.tar
     - run: tar -tvf objfiles.tar
     # Unpack Tar
     - run: tar -xvf objfiles.tar
