@@ -92,7 +92,8 @@ jobs:
       run: sudo chown -R 1001:116 .
     # Tar object files
     - name: 'Tar .vo files'
-      run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -cvf objfiles.tar -T -
+      run: tar -cvf objfiles.tar .
+      #run: find . -name "*.vo" -o -name "*.vos" -o -name "*.glob"  | tar -cvf objfiles.tar -T -
     - run: tar -tvf objfiles.tar
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
