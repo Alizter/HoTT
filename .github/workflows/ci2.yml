@@ -75,7 +75,7 @@ jobs:
         path: workspace.tar   
     
   test-artifact:
-    needs: build-quick
+    needs: build
     strategy:
       fail-fast: false
       matrix:
