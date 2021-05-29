@@ -198,4 +198,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: alectryon-html.tar
+        path: alectryon-html.tar
 
