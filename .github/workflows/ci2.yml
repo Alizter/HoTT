@@ -29,7 +29,7 @@ jobs:
           ocaml_version: ${{ matrix.ocaml-version }}
 
   # Quick build
-    opam-build:
+  quick-build:
     strategy:
       fail-fast: false
       matrix:
