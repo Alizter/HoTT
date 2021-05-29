@@ -54,8 +54,7 @@ jobs:
             startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
             endGroup
-            sudo apt-get -o Acquire::Retries=30 update -q
-            sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
+            # Use action script feature instead
             make -j`nproc`
         
   # Main build which docs will run off
@@ -90,7 +89,7 @@ jobs:
           endGroup
           sudo apt-get -o Acquire::Retries=30 update -q
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
-          make
+          etc/coq-scripts/github/reportify-coq.sh --errors make TIMED=1 -j2 --output-sync GH_REPORT_ERRORS=1
 
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
@@ -112,10 +111,14 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq_version: [ '8.13' , 'latest' , 'dev' ]
-        ocaml_version: [ '4.11-flambda' ]
+        coq-version:
+          - '8.13'
+          - 'latest'
+          - 'dev'
+        ocaml-version:
+          - '4.11-flambda'
         include:
-        - coq_version: 'dev'
+        - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
     runs-on: ubuntu-latest
     steps:
@@ -126,14 +129,14 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ matrix.coq_version }}
+        name: workspace-${{ matrix.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
         coq_version: ${{ matrix.coq_version }}
-        ocaml_version: ${{ matrix.ocaml_version }}
+        ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
@@ -145,3 +148,52 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
+
+  alectryon:
+    strategy:
+      fail-fast: false
+      matrix:
+        coq-version:
+          - '8.13'
+        ocaml-version:
+          
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ matrix.coq-version }}
+    # Unpack Tar
+    - run: tar -xvf workspace.tar
+    - name: add problem matchers
+      run: |
+        #echo "::add-matcher::etc/coq-scripts/github/coq-oneline-error.json" # now via a script
+        #echo "::add-matcher::etc/coq-scripts/github/coqdoc.json" # disabled for now, since they don't have file names
+        echo "::add-matcher::etc/coq-scripts/github/alectryon-error.json"
+        #echo "::add-matcher::etc/coq-scripts/github/alectryon-warning.json" # too noisy right now, cf https://github.com/cpitclaudel/alectryon/issues/34 and https://github.com/cpitclaudel/alectryon/issues/33
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ matrix.coq-version }}
+        ocaml_version: 4.11-flambda
+        custom_script: |
+          opam install -y coq-serapi
+          sudo apt-get -o Acquire::Retries=30 update -q
+          sudo apt-get -o Acquire::Retries=30 install python3-pip autoconf -y --allow-unauthenticated
+          python3 -m pip install --user --upgrade pygments dominate beautifulsoup4 docutils
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          make alectryon ALECTRYON_EXTRAFLAGS=--traceback
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+    - name: tar alectryon artifact
+      run: tar -cvf alectryon-html.tar alectryon-html
+    - name: upload alectryon artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: alectryon-html.tar
+
