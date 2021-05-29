@@ -9,14 +9,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        coq-version:
+          - '8.13'
+          - 'latest'
+          - 'dev'
         os:
           - ubuntu-latest
         ocaml-version:
-          - 4.11-flambda
-        coq-version:
-          - 8.13.2
-          - latest
-          - dev
+          - '4.11-flambda'
     runs-on: ${{ matrix.os }}
     outputs:
       coq-hash: ${{ steps.coq-hash.outputs.hash }}
@@ -36,8 +36,12 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq_version: [ '8.13' , 'latest' , 'dev' ]
-        ocaml_version: [ '4.11-flambda' ]
+        coq_version:
+          - '8.13'
+          - 'latest'
+          - 'dev'
+        ocaml_version:
+          - '4.11-flambda'
         include:
         - coq_version: 'dev'
           extra_gh_reportify: '--warnings'
