@@ -4,8 +4,8 @@ on: [ push , pull_request ]
 
 jobs:
 
-  # Quick build
-  quick-build:
+  # Building the library using opam
+  opam-build:
     strategy:
       fail-fast: false
       matrix:
@@ -18,18 +18,46 @@ jobs:
         ocaml-version:
           - '4.11-flambda'
     runs-on: ${{ matrix.os }}
-    outputs:
-      coq-hash: ${{ steps.coq-hash.outputs.hash }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Build library
+      - name: Build HoTT
         uses: coq-community/docker-coq-action@v1
         with:
           opam_file: 'hott.opam'
           coq_version: ${{ matrix.coq-version }}
           ocaml_version: ${{ matrix.ocaml-version }}
-  
+
+  # Quick build
+    opam-build:
+    strategy:
+      fail-fast: false
+      matrix:
+        coq-version:
+          - '8.13'
+          - 'latest'
+          - 'dev'
+        os:
+          - ubuntu-latest
+        ocaml-version:
+          - '4.11-flambda'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Build HoTT
+        uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: ${{ matrix.coq_version }}
+          ocaml_version: ${{ matrix.ocaml_version }}
+          custom_script: |
+            startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+            endGroup
+            sudo apt-get -o Acquire::Retries=30 update -q
+            sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
+            make -j`nproc`
+        
   # Main build which docs will run off
   build:
     strategy:
