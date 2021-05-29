@@ -135,7 +135,7 @@ jobs:
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq_version }}
+        coq_version: ${{ matrix.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -156,7 +156,8 @@ jobs:
         coq-version:
           - '8.13'
         ocaml-version:
-          
+          - '4.11-flambda'
+           
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
