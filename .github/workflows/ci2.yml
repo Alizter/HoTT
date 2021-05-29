@@ -150,6 +150,7 @@ jobs:
       run: sudo chown -R 1001:116 .
 
   alectryon:
+    needs: build
     strategy:
       fail-fast: false
       matrix:
