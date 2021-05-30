@@ -152,7 +152,6 @@ jobs:
   alectryon:
     needs: build
     strategy:
-      fail-fast: false
       matrix:
         coq-version:
           - '8.13'
