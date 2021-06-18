@@ -90,10 +90,10 @@ jobs:
           - 'supported'
           - 'latest'
           - 'dev'
-        ocaml_version:
+        ocaml-version:
           - '4.11-flambda'
         include:
-        - coq_version: 'dev'
+        - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
@@ -110,8 +110,8 @@ jobs:
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq_version }}
-        ocaml_version: ${{ matrix.ocaml_version }}
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
@@ -131,7 +131,7 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
-        name: workspace-${{ matrix.coq_version }}
+        name: workspace-${{ env.coq-version }}
         path: workspace.tar   
 
 ## JOB 4
