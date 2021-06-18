@@ -46,7 +46,7 @@ jobs:
       fail-fast: false
       matrix:
         coq-version:
-          - ${{ coq-version-supported }}
+          - 'supported'
           - 'latest'
           - 'dev'
         os:
