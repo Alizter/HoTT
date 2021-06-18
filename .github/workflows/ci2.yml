@@ -93,7 +93,7 @@ jobs:
         ocaml-version:
           - '4.11-flambda'
         include:
-        - coq-version: 'dev'
+        - coq-version-dummy: 'dev'
           extra_gh_reportify: '--warnings'
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
