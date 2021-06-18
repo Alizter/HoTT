@@ -71,6 +71,12 @@ jobs:
       with:
         coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+          sudo chown -R coq:coq .
+          endGroup
+          # Use action script feature instead
+          make -j`nproc`
 
 ## JOB 3
           
