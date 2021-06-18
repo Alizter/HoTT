@@ -104,8 +104,9 @@ jobs:
       with:
         name: workspace-${{ matrix.coq_version }}
         path: workspace.tar   
-    
-  test-artifact:
+
+  # The coqchk job
+  coqchk:
     needs: build
     strategy:
       fail-fast: false
@@ -141,8 +142,48 @@ jobs:
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
-          sudo apt-get -o Acquire::Retries=30 update -q
-          sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
+          make validate
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+      
+  test-artifact:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version:
+          - '8.13'
+          #- 'latest'
+          - 'dev'
+        ocaml-version:
+          - '4.11-flambda'
+        include:
+        - coq-version: 'dev'
+          extra_gh_reportify: '--warnings'
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ matrix.coq-version }}
+    # Unpack Tar
+    - run: tar -xvf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ matrix.coq-version }}
+        ocaml_version: ${{ matrix.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
           make
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
