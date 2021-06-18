@@ -2,6 +2,7 @@ name: CI2
 
 on: [ push , pull_request ]
 
+# We set the supported coq-version from here. In order to use this environment variable correctly, look at how they are used in the following jobs.
 env:
   coq-version-supported: '8.13'
 
@@ -14,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coq-version:
+        coq-version-dummy:
           - 'supported'
           - 'latest'
           - 'dev'
@@ -23,12 +24,10 @@ jobs:
         ocaml-version:
           - '4.11-flambda'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ${{ matrix.os }}
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -49,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coq-version:
+        coq-version-dummy:
           - 'supported'
           - 'latest'
           - 'dev'
@@ -58,12 +57,10 @@ jobs:
         ocaml-version:
           - '4.11-flambda'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ${{ matrix.os }}
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -72,7 +69,7 @@ jobs:
     - name: Build HoTT
       uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq-version }}
+        coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -89,7 +86,7 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq_version:
+        coq_version-dummy:
           - 'supported'
           - 'latest'
           - 'dev'
@@ -99,12 +96,10 @@ jobs:
         - coq_version: 'dev'
           extra_gh_reportify: '--warnings'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -115,7 +110,7 @@ jobs:
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq_version }}
+        coq_version: ${{ env.coq_version }}
         ocaml_version: ${{ matrix.ocaml_version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -148,7 +143,7 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq-version:
+        coq-version-dummy:
           - 'supported'
           - 'latest'
           - 'dev'
@@ -158,12 +153,10 @@ jobs:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -174,13 +167,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ matrix.coq-version }}
+        name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq-version }}
+        coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -200,7 +193,7 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq-version:
+        coq-version-dummy:
           - 'supported'
           #- 'latest'
           - 'dev'
@@ -210,12 +203,10 @@ jobs:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -226,13 +217,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ matrix.coq-version }}
+        name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq-version }}
+        coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -251,17 +242,15 @@ jobs:
     needs: build
     strategy:
       matrix:
-        coq-version:
+        coq-version-dummy:
           - 'supported'
         ocaml-version:
           - '4.11-flambda'
     env:
-      coq-version: ${{ matrix.coq-version }}    
+      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set coq-version
-      run: echo "coq-version=${{ matrix.coq-version }}" >> $GITHUB_ENV
     - name: Set supported coq-version
       if: matrix.coq-version == 'supported'
       run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
@@ -270,7 +259,7 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ matrix.coq-version }}
+        name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
     - name: add problem matchers
@@ -281,7 +270,7 @@ jobs:
         #echo "::add-matcher::etc/coq-scripts/github/alectryon-warning.json" # too noisy right now, cf https://github.com/cpitclaudel/alectryon/issues/34 and https://github.com/cpitclaudel/alectryon/issues/33
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ matrix.coq-version }}
+        coq_version: ${{ env.coq-version }}
         ocaml_version: 4.11-flambda
         custom_script: |
           opam install -y coq-serapi
