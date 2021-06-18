@@ -2,6 +2,9 @@ name: CI2
 
 on: [ push , pull_request ]
 
+env:
+  coq-version-supported: '8.13'
+
 jobs:
 
   # Building the library using opam
@@ -10,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         coq-version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
           - 'latest'
           - 'dev'
         os:
@@ -34,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         coq-version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
           - 'latest'
           - 'dev'
         os:
@@ -64,7 +67,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq_version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
           - 'latest'
           - 'dev'
         ocaml_version:
@@ -113,7 +116,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
           - 'latest'
           - 'dev'
         ocaml-version:
@@ -155,7 +158,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
           #- 'latest'
           - 'dev'
         ocaml-version:
@@ -190,12 +193,13 @@ jobs:
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
 
+  # alectryon job
   alectryon:
     needs: build
     strategy:
       matrix:
         coq-version:
-          - '8.13'
+          - ${{ env.coq-version-supported }}
         ocaml-version:
           - '4.11-flambda'
            
