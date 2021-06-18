@@ -57,6 +57,9 @@ jobs:
       coq-version: ${{ matrix.coq-version }}    
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Set coq-version
+        if: matrix.coq-version == 'supported'
+        run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Build HoTT
@@ -92,6 +95,9 @@ jobs:
       coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
+    - name: Set coq-version
+      if: matrix.coq-version == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
     # Checkout branch
     - uses: actions/checkout@v2
     # Checkout submodules
@@ -145,6 +151,9 @@ jobs:
       coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
+    - name: Set coq-version
+      if: matrix.coq-version == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
     # Checkout branch
     - uses: actions/checkout@v2
     # Checkout submodules
@@ -191,6 +200,9 @@ jobs:
       coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
+    - name: Set coq-version
+      if: matrix.coq-version == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
     # Checkout branch
     - uses: actions/checkout@v2
     # Checkout submodules
@@ -231,6 +243,9 @@ jobs:
       coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
+    - name: Set coq-version
+      if: matrix.coq-version == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
     - uses: actions/checkout@v2
     - uses: snickerbockers/submodules-init@v4
     # Download artifact
