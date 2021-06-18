@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coq-version: ${{ coq-version-supported }}
+        coq-version: coq-version-supported
           # doesn't work??
           #- ${{ coq-version-supported }}
           #- 'latest'
