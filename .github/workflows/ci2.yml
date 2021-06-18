@@ -7,22 +7,28 @@ env:
 
 jobs:
 
+## JOB 1
+
   # Building the library using opam
   opam-build:
     strategy:
       fail-fast: false
       matrix:
-        coq-version: env.coq-version-supported
-          # doesn't work??
-          #- ${{ coq-version-supported }}
-          #- 'latest'
-          #- 'dev'
+        coq-version:
+          - 'supported'
+          - 'latest'
+          - 'dev'
         os:
           - ubuntu-latest
         ocaml-version:
           - '4.11-flambda'
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Set coq-version
+        if: matrix.coq-version == 'supported'
+        run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV      
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Build HoTT
@@ -32,6 +38,8 @@ jobs:
           coq_version: ${{ matrix.coq-version }}
           ocaml_version: ${{ matrix.ocaml-version }}
 
+## JOB 2
+        
   # Quick build
   quick-build:
     strategy:
@@ -45,6 +53,8 @@ jobs:
           - ubuntu-latest
         ocaml-version:
           - '4.11-flambda'
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repo
@@ -60,7 +70,9 @@ jobs:
             endGroup
             # Use action script feature instead
             make -j`nproc`
-        
+
+## JOB 3
+          
   # Main build which docs will run off
   build:
     strategy:
@@ -68,7 +80,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq_version:
-          - ${{ coq-version-supported }}
+          - 'supported'
           - 'latest'
           - 'dev'
         ocaml_version:
@@ -76,6 +88,8 @@ jobs:
         include:
         - coq_version: 'dev'
           extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -109,6 +123,8 @@ jobs:
         name: workspace-${{ matrix.coq_version }}
         path: workspace.tar   
 
+## JOB 4
+      
   # The coqchk job
   coqchk:
     needs: build
@@ -117,7 +133,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version:
-          - ${{ coq-version-supported }}
+          - 'supported'
           - 'latest'
           - 'dev'
         ocaml-version:
@@ -125,6 +141,8 @@ jobs:
         include:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -151,7 +169,9 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
-      
+
+## JOB 5
+    
   test-artifact:
     needs: build
     strategy:
@@ -159,7 +179,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version:
-          - ${{ coq-version-supported }}
+          - 'supported'
           #- 'latest'
           - 'dev'
         ocaml-version:
@@ -167,6 +187,8 @@ jobs:
         include:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -194,16 +216,19 @@ jobs:
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
 
+## JOB 6
+    
   # alectryon job
   alectryon:
     needs: build
     strategy:
       matrix:
         coq-version:
-          - ${{ coq-version-supported }}
+          - 'supported'
         ocaml-version:
           - '4.11-flambda'
-           
+    env:
+      coq-version: ${{ matrix.coq-version }}    
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
