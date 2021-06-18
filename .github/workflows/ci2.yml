@@ -12,10 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coq-version:
-          - ${{ coq-version-supported }}
-          - 'latest'
-          - 'dev'
+        coq-version: [ ${{ coq-version-supported }} ]
+          # doesn't work??
+          #- ${{ coq-version-supported }}
+          #- 'latest'
+          #- 'dev'
         os:
           - ubuntu-latest
         ocaml-version:
