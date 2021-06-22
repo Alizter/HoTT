@@ -149,3 +149,22 @@ Global Instance is1cat_fun11 {A B :Type} `{Is1Cat A} `{Is1Cat B}
 Global Instance hasequivs_fun11 {A B : Type} `{Is1Cat A} `{HasEquivs B}
   : HasEquivs (Fun11 A B)
   := hasequivs_induced fun01_fun11.
+
+(** * Composition of functors *)
+
+Definition fun01_compose {A B C} `{IsGraph A, IsGraph B, IsGraph C}
+  : Fun01 B C -> Fun01 A B -> Fun01 A C.
+Proof.
+  intros F G.
+  nrapply Build_Fun01.
+  rapply (is0functor_compose G F).
+Defined.
+
+Definition fun11_compose {A B C} `{Is1Cat A, Is1Cat B, Is1Cat C}
+  : Fun11 B C -> Fun11 A B -> Fun11 A C.
+Proof.
+  intros F G.
+  nrapply Build_Fun11.
+  rapply (is1functor_compose G F).
+Defined.
+
