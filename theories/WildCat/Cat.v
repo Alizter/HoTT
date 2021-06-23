@@ -36,10 +36,15 @@ Proof.
   intros A B C f g; exact (fun11_compose f g).
 Defined.
 
-(* Global Instance is1cat_cat1 : Is1Cat Cat1.
+Global Instance is01cat_cat1_hom (a b : Cat1) : Is01Cat (a $-> b).
 Proof.
-  nrapply Build_Is1Cat.
- *)
+  apply is01cat_fun11.
+Defined.
+
+Global Instance is1cat_cat1 : Is1Cat Cat1.
+Proof.
+  snrapply Build_Is1Cat.
+
 
 
 
