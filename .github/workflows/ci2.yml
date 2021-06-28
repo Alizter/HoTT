@@ -443,7 +443,6 @@ jobs:
           endGroup
           ./etc/ci/install_proviola.sh || exit $?
           
-          ## TODO: can we make seperate jobs for these?
           ## Make HTML doc
           make html || exit $?
           ## Make proviola doc
@@ -493,7 +492,7 @@ jobs:
 
   delete-workspace-artifacts:
     # We always want to run this job even if we cancel
-    if: ${{ always() }}
+    if: ${{ !always() }}
     # We depend on the stage 2 jobs
     needs:
       - alectryon
