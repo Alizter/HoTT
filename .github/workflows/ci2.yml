@@ -431,12 +431,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ghc cabal-install
           sudo apt-get install -y --allow-unauthenticated \
-          libnode-dev node-gyp libssl-dev npm aspcud      \
+          libnode-dev node-gyp libssl-dev npm aspcud curl \
           graphviz xsltproc python-lxml python-pexpect    \
-          libxml2-dev libxslt1-dev time lua5.1 unzip      \
-          python3-pip autoconf
+          libxml2-dev libxslt1-dev time lua5.1 unzip python
 
-          python3 -m pip install --user --upgrade pygments dominate beautifulsoup4 docutils
+          sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+          sudo python ./get-pip.py
           ./etc/ci/install_proviola.sh || exit $?
           
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
