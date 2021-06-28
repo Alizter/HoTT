@@ -343,15 +343,13 @@ jobs:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
-    # Update apt listing
-    - name: Update apt
-      run: sudo apt-get update
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
         coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
+          sudo apt-get update
           sudo apt-get install -y ghc cabal-install
           ./etc/ci/install_coq_dot_deps.sh
           ./etc/ci/install_doctoc.sh
