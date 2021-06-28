@@ -351,8 +351,13 @@ jobs:
         custom_script: |
           sudo apt-get update
           sudo apt-get install -y ghc cabal-install
-          ./etc/ci/install_coq_dot_deps.sh
-          ./etc/ci/install_doctoc.sh
+
+          cabal update
+          cabal install graphviz text
+          sudo -E npm config set strict-ssl false
+          sudo -E npm i -g npm
+          sudo -E npm install -g doctoc || exit $?
+          
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
