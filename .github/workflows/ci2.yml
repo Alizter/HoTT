@@ -340,7 +340,9 @@ jobs:
             sudo chown -R coq:coq .
           endGroup
           ## Test install target
-          etc/ci/test-install-target.sh
+          sudo make install "$@" || exit $?
+          (echo 'Require Import HoTT.HoTT.' | coqtop -q) || exit $?
+
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
