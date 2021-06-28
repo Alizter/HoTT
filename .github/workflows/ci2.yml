@@ -6,9 +6,21 @@ on: [ push , pull_request ]
 env:
   coq-version-supported: '8.13'
 
+# Our jobs come in 3 stages, the latter stages depending on the former:
+# - Stage 1: Build jobs
+# - Stage 2: Documentation and validation jobs
+# - Stage 3: Deployment and clean up jobs
+
 jobs:
 
-## JOB 1
+#
+#  Stage 1:
+#
+
+# Here we define the build jobs:
+# - opam-build: Building the library using opam
+# - quick-build: Building the library quickly using make
+# - build: Building with timeing information for use in doc jobs
 
   # Building the library using opam
   opam-build:
@@ -40,8 +52,6 @@ jobs:
         opam_file: 'hott.opam'
         coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
-
-## JOB 2
         
   # Quick build
   quick-build:
@@ -77,8 +87,6 @@ jobs:
           endGroup
           # Use action script feature instead
           make -j`nproc`
-
-## JOB 3
           
   # Main build which docs will run off
   build:
@@ -134,7 +142,15 @@ jobs:
         name: workspace-${{ env.coq-version }}
         path: workspace.tar   
 
-## JOB 4
+#
+#  Stage 2:
+#
+
+# Here we define the documentation and validation jobs:
+# - coqchk: Runs coqchk
+# - alectryon: Builds the alectryon documentation
+# - install: Tests install target
+
       
   # The coqchk job
   coqchk:
@@ -185,59 +201,7 @@ jobs:
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
 
-## JOB 5
-    
-  test-artifact:
-    needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        # We build on our supported version of coq and the master version
-        coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
-        ocaml-version:
-          - '4.11-flambda'
-        include:
-        - coq-version: 'dev'
-          extra_gh_reportify: '--warnings'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}    
-    runs-on: ubuntu-latest
-    steps:
-    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    # Checkout branch
-    - uses: actions/checkout@v2
-    # Checkout submodules
-    - uses: snickerbockers/submodules-init@v4
-    # Download artifact
-    - uses: actions/download-artifact@v2
-      with:
-        name: workspace-${{ env.coq-version }}
-    # Unpack Tar
-    - run: tar -xvf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ matrix.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R coq:coq .
-          endGroup
-          make
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-
-## JOB 6
-    
-  # alectryon job
+   # alectryon job
   alectryon:
     needs: build
     strategy:
@@ -294,8 +258,6 @@ jobs:
         path: alectryon-html.tar
 
 
-# Job 7
-
   # Test install target
   install:
     needs: build
@@ -347,3 +309,44 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
+
+
+
+#
+#  Stage 3
+#
+
+# Here we define the cleanup and deplyoment jobs:
+# - delete-workspace-artifacts: We delete the workspace artifacts from the build job
+
+  delete-workspace-artifacts:
+    needs:
+      - alectryon
+      - coqchk
+      - test-artifact
+      - install
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+          - 'supported'
+          - 'latest'
+          - 'dev'
+        ocaml-version:
+          - '4.11-flambda'
+        include:
+        - coq-version: 'dev'
+          extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Delete workspace artifacts
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: workspace-${{ env.coq-version }}
