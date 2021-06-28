@@ -351,6 +351,10 @@ jobs:
         custom_script: |
           sudo apt-get update
           sudo apt-get install -y ghc cabal-install
+          sudo apt-get install -y --allow-unauthenticated \
+          libnode-dev node-gyp libssl-dev npm aspcud      \
+          graphviz xsltproc python-lxml python-pexpect    \
+          libxml2-dev libxslt1-dev time lua5.1 unzip
 
           cabal update
           cabal install graphviz text
