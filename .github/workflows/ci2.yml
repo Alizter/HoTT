@@ -86,7 +86,7 @@ jobs:
       fail-fast: false
       matrix:
         # We build on our supported version of coq and the master version
-        coq_version-dummy:
+        coq-version-dummy:
           - 'supported'
           - 'latest'
           - 'dev'
