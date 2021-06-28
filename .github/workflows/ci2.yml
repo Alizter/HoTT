@@ -435,7 +435,8 @@ jobs:
           graphviz xsltproc python-lxml python-pexpect    \
           libxml2-dev libxslt1-dev time lua5.1 unzip      \
           python3-pip autoconf
-                  
+
+          python3 -m pip install --user --upgrade pygments dominate beautifulsoup4 docutils
           ./etc/ci/install_proviola.sh || exit $?
           
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -455,7 +456,7 @@ jobs:
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
-    # Tar workspace files
+    # Tar html files
     - name: 'Tar doc files'
       run: |
         tar -cvf coqdoc-html.tar coqdoc-html
@@ -492,7 +493,7 @@ jobs:
 
   delete-workspace-artifacts:
     # We always want to run this job even if we cancel
-    if: ${{ !always() }}
+    if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
       - alectryon
