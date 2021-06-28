@@ -375,6 +375,10 @@ jobs:
           mkdir -p dependencies
           mv HoTT.svg HoTTCore.svg dependencies/
           git add dependencies/*.svg
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
     # Tar workspace files
     - name: 'Tar .svg files'
       run: tar -cvf dependencies.tar dependencies
@@ -384,11 +388,7 @@ jobs:
       with:
         name: dependencies
         path: dependencies.tar   
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-
+    
 
 #
 #  Stage 3
