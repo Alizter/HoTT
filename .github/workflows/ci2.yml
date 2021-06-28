@@ -311,8 +311,8 @@ jobs:
       run: sudo chown -R 1001:116 .
 
 
-  # Make dependency graph
-  install:
+  # Quick-doc job
+  quick-doc:
     needs: build
     strategy:
       fail-fast: false
@@ -394,6 +394,7 @@ jobs:
       - alectryon
       - coqchk
       - install
+      - quick-doc
     strategy:
       fail-fast: false
       matrix:
