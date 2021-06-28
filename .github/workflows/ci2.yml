@@ -396,6 +396,8 @@ jobs:
 # - delete-workspace-artifacts: We delete the workspace artifacts from the build job
 
   delete-workspace-artifacts:
+    # We always want to run this job even if we cancel
+    if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
       - alectryon
