@@ -343,6 +343,10 @@ jobs:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
+    # Install dependencies
+    - run: |
+        # Install haskell
+        sudo apt-get install -y ghc cabal-install
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
