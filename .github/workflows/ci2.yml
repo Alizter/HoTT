@@ -205,6 +205,7 @@ jobs:
   alectryon:
     needs: build
     strategy:
+      fail-fast: false
       matrix:
         coq-version-dummy:
           - 'supported'
@@ -367,8 +368,8 @@ jobs:
           endGroup
           ## Make dependency graph
           make HoTT.deps HoTTCore.deps
-          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot || exit $?
-          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot || exit $?
+          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot
+          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot
           dot -Tsvg HoTT.dot -o HoTT.svg
           dot -Tsvg HoTTCore.dot -o HoTTCore.svg
           rm -rf dependencies
