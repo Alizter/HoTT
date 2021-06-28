@@ -343,6 +343,9 @@ jobs:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
     - run: tar -xvf workspace.tar
+    # Update apt listing
+    - name: Update apt
+      run: sudo apt-get update
     # Install dependencies
     - run: |
         # Install haskell
