@@ -349,12 +349,9 @@ jobs:
     # Install dependencies
     - name: Install deps
       run: |
-        #TODO refine these
-        sudo apt-get install -y --allow-unauthenticated libnode-dev node-gyp libssl-dev
-        sudo apt-get install -y --allow-unauthenticated npm aspcud ghc cabal-install graphviz xsltproc python-lxml python-pexpect libxml2-dev libxslt1-dev time lua5.1 unzip ocaml
         sudo apt-get install -y ghc cabal-install
         ./etc/ci/install_coq_dot_deps.sh
-        ./etc/install_doctoc.sh
+        ./etc/ci/install_doctoc.sh
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -383,10 +380,6 @@ jobs:
       with:
         name: dependencies
         path: dependencies.tar   
-
-
-        
-
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
