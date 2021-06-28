@@ -126,7 +126,7 @@ jobs:
           endGroup
           sudo apt-get -o Acquire::Retries=30 update -q
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
-          etc/coq-scripts/github/reportify-coq.sh --errors make TIMED=1 -j2 --output-sync GH_REPORT_ERRORS=1
+          etc/coq-scripts/github/reportify-coq.sh --errors make TIMED=1 -j`nproc` --output-sync GH_REPORT_ERRORS=1
 
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
@@ -388,7 +388,99 @@ jobs:
       with:
         name: dependencies
         path: dependencies.tar   
-    
+
+  # html-doc job
+  # This builds coqdoc, proviola and timing docs and uploads their artifacts
+  html-doc:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+          - 'supported'
+        ocaml-version:
+          - '4.11-flambda'
+        include:
+        - coq-version: 'dev'
+          extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ env.coq-version }}
+    # Unpack Tar
+    - run: tar -xvf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ matrix.ocaml-version }}
+        custom_script: |
+          sudo apt-get update
+          sudo apt-get install -y ghc cabal-install
+          sudo apt-get install -y --allow-unauthenticated \
+          libnode-dev node-gyp libssl-dev npm aspcud      \
+          graphviz xsltproc python-lxml python-pexpect    \
+          libxml2-dev libxslt1-dev time lua5.1 unzip
+
+          ./etc/ci/install_proviola.sh
+          
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          
+          ## TODO: can we make seperate jobs for these?
+          ## Make HTML doc
+          make html || exit $?
+          ## Make proviola doc
+          make proviola -j`proc` TIMED=1 -k; make proviola TIMED=1 || exit $?
+          ## Make timing doc
+          make timing-html || exit $?
+
+          
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+    # Tar workspace files
+    - name: 'Tar doc files'
+      run: |
+        tar -cvf coqdoc-html.tar coqdoc-html
+        tar -cvf proviola-html.tar proviola-html
+        tar -cvf timing-html.tar timing-html
+    # Upload coqdoc-html artifact
+    - name: 'Upload coqdoc-html Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: coqdoc-html
+        path: coqdoc-html.tar   
+    # Upload proviola-html artifact
+    - name: 'Upload proviola-html Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: proviola-html
+        path: proviola-html.tar   
+    # Upload timing-html artifact
+    - name: 'Upload timing-html Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: timing-html
+        path: timing-html.tar   
+
+        
+      
 
 #
 #  Stage 3
@@ -399,7 +491,7 @@ jobs:
 
   delete-workspace-artifacts:
     # We always want to run this job even if we cancel
-    if: ${{ always() }}
+    if: ${{ !always() }}
     # We depend on the stage 2 jobs
     needs:
       - alectryon
@@ -421,3 +513,16 @@ jobs:
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: alectryon-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: dependencies
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: coqdoc-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: proviola-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: timing-html
+    
