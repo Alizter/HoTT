@@ -352,6 +352,12 @@ jobs:
         sudo apt-get install -y ghc cabal-install
         ./etc/ci/install_coq_dot_deps.sh
         ./etc/ci/install_doctoc.sh
+    # Check for ghc and runhaskell
+    - name: Check ghc
+      run: |
+        ghc --version
+        runhaskell --version
+
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
