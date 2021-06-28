@@ -254,7 +254,7 @@ jobs:
     - name: upload alectryon artifact
       uses: actions/upload-artifact@v1
       with:
-        name: alectryon-html.tar
+        name: alectryon-html
         path: alectryon-html.tar
 
 
@@ -404,28 +404,18 @@ jobs:
       - coqchk
       - install
       - quick-doc
-    strategy:
-      fail-fast: false
-      matrix:
-        # We build on our supported version of coq and the master version
-        coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
-        ocaml-version:
-          - '4.11-flambda'
-        include:
-        - coq-version: 'dev'
-          extra_gh_reportify: '--warnings'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
-    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
     # Delete workspace artifacts
     - uses: geekyeggo/delete-artifact@v1
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: workspace-latest
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: workspace-dev
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: alectryon-html
