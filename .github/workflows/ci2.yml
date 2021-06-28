@@ -346,24 +346,15 @@ jobs:
     # Update apt listing
     - name: Update apt
       run: sudo apt-get update
-    # Install dependencies
-    - name: Install deps
-      run: |
-        sudo apt-get install -y ghc cabal-install
-        ./etc/ci/install_coq_dot_deps.sh
-        ./etc/ci/install_doctoc.sh
-    # Check for ghc and runhaskell
-    - name: Check ghc
-      run: |
-        ghc --version
-        runhaskell --version
-
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
         coq_version: ${{ env.coq-version }}
         ocaml_version: ${{ matrix.ocaml-version }}
         custom_script: |
+          sudo apt-get install -y ghc cabal-install
+          ./etc/ci/install_coq_dot_deps.sh
+          ./etc/ci/install_doctoc.sh
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
