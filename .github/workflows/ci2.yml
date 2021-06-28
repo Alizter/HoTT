@@ -303,7 +303,7 @@ jobs:
           endGroup
           ## Test install target
           make install
-          (echo 'Require Import HoTT.HoTT.' | coqtop -q) || exit $?
+          (echo 'Require Import HoTT.HoTT.' | coqtop -q)
 
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
@@ -360,17 +360,17 @@ jobs:
           cabal install graphviz text
           sudo -E npm config set strict-ssl false
           sudo -E npm i -g npm
-          sudo -E npm install -g doctoc || exit $?
+          sudo -E npm install -g doctoc
           
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
           ## Make dependency graph
-          make HoTT.deps HoTTCore.deps || exit $?
+          make HoTT.deps HoTTCore.deps
           runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot || exit $?
           runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot || exit $?
-          dot -Tsvg HoTT.dot -o HoTT.svg || exit $?
-          dot -Tsvg HoTTCore.dot -o HoTTCore.svg || exit $?
+          dot -Tsvg HoTT.dot -o HoTT.svg
+          dot -Tsvg HoTTCore.dot -o HoTTCore.svg
           rm -rf dependencies
           mkdir -p dependencies
           mv HoTT.svg HoTTCore.svg dependencies/
@@ -441,14 +441,14 @@ jobs:
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
-          ./etc/ci/install_proviola.sh || exit $?
+          ./etc/ci/install_proviola.sh
           
           ## Make HTML doc
-          make html || exit $?
+          make -j`proc` html
           ## Make proviola doc
-          make proviola -j`proc` TIMED=1 -k; make proviola TIMED=1 || exit $?
+          make -j`proc` proviola TIMED=1 -k; make proviola TIMED=1
           ## Make timing doc
-          make timing-html || exit $?
+          make -j`proc` timing-html
 
           
     - name: Revert permissions
