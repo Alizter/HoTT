@@ -293,3 +293,55 @@ jobs:
         name: alectryon-html.tar
         path: alectryon-html.tar
 
+
+# Job 7
+
+  # Test install target
+  install:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+          - 'supported'
+          - 'latest'
+          - 'dev'
+        ocaml-version:
+          - '4.11-flambda'
+        include:
+        - coq-version: 'dev'
+          extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ env.coq-version }}
+    # Unpack Tar
+    - run: tar -xvf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ matrix.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          ## Test install target
+          etc/ci/test-install-target.sh
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
