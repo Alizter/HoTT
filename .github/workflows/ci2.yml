@@ -339,6 +339,7 @@ jobs:
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
+          make clean
           make
           ## Test install target
           sudo make install "$@" || exit $?
