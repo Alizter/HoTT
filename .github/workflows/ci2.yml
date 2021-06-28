@@ -339,6 +339,7 @@ jobs:
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
+          make
           ## Test install target
           sudo make install "$@" || exit $?
           (echo 'Require Import HoTT.HoTT.' | coqtop -q) || exit $?
