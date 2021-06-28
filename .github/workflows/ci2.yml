@@ -320,10 +320,10 @@ jobs:
 # - delete-workspace-artifacts: We delete the workspace artifacts from the build job
 
   delete-workspace-artifacts:
+    # We depend on the stage 2 jobs
     needs:
       - alectryon
       - coqchk
-      - test-artifact
       - install
     strategy:
       fail-fast: false
