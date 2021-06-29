@@ -451,9 +451,9 @@ jobs:
           ## Make HTML doc
           make -j`proc` html
           ## Make proviola doc
-          make -j`proc` proviola TIMED=1 -k; make proviola TIMED=1
+          #make -j`proc` proviola TIMED=1 -k; make proviola TIMED=1
           ## Make timing doc
-          make -j`proc` timing-html
+          #make -j`proc` timing-html
 
           
     - name: Revert permissions
