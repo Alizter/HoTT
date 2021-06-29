@@ -87,6 +87,10 @@ jobs:
           endGroup
           # Use action script feature instead
           make -j`nproc`
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
           
   # Main build which docs will run off
   build:
