@@ -464,7 +464,7 @@ jobs:
     - name: 'Tar doc files'
       run: |
         tar -cvf coqdoc-html.tar coqdoc-html
-        tar -cvf proviola-html.tar proviola-html
+        #tar -cvf proviola-html.tar proviola-html
         tar -cvf timing-html.tar timing-html
     # Upload coqdoc-html artifact
     - name: 'Upload coqdoc-html Artifact'
@@ -498,7 +498,7 @@ jobs:
 
   delete-workspace-artifacts:
     # We always want to run this job even if we cancel
-    if: ${{ !always() }}
+    if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
       - alectryon
