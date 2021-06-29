@@ -473,7 +473,7 @@ jobs:
         name: coqdoc-html
         path: coqdoc-html.tar   
     # Upload proviola-html artifact
-    - if: ${{ !always() }
+    - if: ${{ !always() }}
       name: 'Upload proviola-html Artifact'
       uses: actions/upload-artifact@v2
       with:
