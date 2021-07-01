@@ -534,7 +534,7 @@ jobs:
         ocaml_version: ${{ env.ocaml-version }}
         custom_script: |
           sudo apt-get update
-          sudo apt-get install -y time python
+          sudo apt-get install -y time python lua5.1 
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
