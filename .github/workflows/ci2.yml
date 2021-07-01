@@ -148,10 +148,13 @@ jobs:
 
 # Here we define the documentation and validation jobs:
 # - coqchk: Runs coqchk
-# - alectryon: Builds the alectryon documentation
 # - install: Tests install target
-# - html-doc: Builds the html, proviola and timing documentation
-      
+# - doc-alectryon: Builds the alectryon documentation
+# - quick-doc: builds dependency graph TODO: rename
+# - doc-coqdoc: Builds the coqdoc documentation
+# - doc-proviola: Builds the proviola documentation
+# - doc-timing: Builds the timing documentation
+
   # The coqchk job
   coqchk:
     needs: build
@@ -199,8 +202,58 @@ jobs:
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
 
+  # Test install target
+  install:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+        - 'supported'
+        - 'latest'
+        - 'dev'
+        include:
+        - coq-version: 'dev'
+          extra_gh_reportify: '--warnings'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ env.coq-version }}
+    # Unpack Tar
+    - run: tar -xf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ env.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          ## Test install target
+          make install
+          (echo 'Require Import HoTT.HoTT.' | coqtop -q)
+
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+
    # alectryon job
-  alectryon:
+  doc-alectryon:
     needs: build
     strategy:
       fail-fast: false
@@ -253,57 +306,6 @@ jobs:
       with:
         name: alectryon-html
         path: alectryon-html.tar
-
-
-  # Test install target
-  install:
-    needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        # We build on our supported version of coq and the master version
-        coq-version-dummy:
-        - 'supported'
-        - 'latest'
-        - 'dev'
-        include:
-        - coq-version: 'dev'
-          extra_gh_reportify: '--warnings'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}    
-    runs-on: ubuntu-latest
-    steps:
-    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    # Checkout branch
-    - uses: actions/checkout@v2
-    # Checkout submodules
-    - uses: snickerbockers/submodules-init@v4
-    # Download artifact
-    - uses: actions/download-artifact@v2
-      with:
-        name: workspace-${{ env.coq-version }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R coq:coq .
-          endGroup
-          ## Test install target
-          make install
-          (echo 'Require Import HoTT.HoTT.' | coqtop -q)
-
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
 
 
   # Quick-doc job
@@ -379,9 +381,63 @@ jobs:
         name: dependencies
         path: dependencies.tar   
 
-  # html-doc job
+  # doc-coqdoc job
   # This builds coqdoc, proviola and timing docs and uploads their artifacts
-  html-doc:
+  doc-coqdoc:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+        - 'supported'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ env.coq-version }}
+    # Unpack Tar
+    - run: tar -xf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ env.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          ## Make HTML doc
+          make -j2 html
+          mv html coqdoc-html
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+    # Tar html files
+    - name: 'Tar doc files'
+      run: tar -cf coqdoc-html.tar coqdoc-html
+    # Upload coqdoc-html artifact
+    - name: 'Upload coqdoc-html Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: coqdoc-html
+        path: coqdoc-html.tar      
+          
+  # doc-proviola job
+  # This builds coqdoc, proviola and timing docs and uploads their artifacts
+  doc-proviola:
     needs: build
     strategy:
       fail-fast: false
@@ -427,39 +483,70 @@ jobs:
             sudo chown -R coq:coq .
           endGroup
           ./etc/ci/install_proviola.sh
-          
-          ## Make HTML doc
-          make -j2 html
           ## Make proviola doc
           make -j2 proviola TIMED=1 -k; make proviola TIMED=1 || exit $?
-          ## Make timing doc
-          make -j2 timing-html
-
-          mv html coqdoc-html
-
-          
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
     # Tar html files
     - name: 'Tar doc files'
-      run: |
-        tar -cf coqdoc-html.tar coqdoc-html
-        tar -cf proviola-html.tar proviola-html
-        tar -cf timing-html.tar timing-html
-    # Upload coqdoc-html artifact
-    - name: 'Upload coqdoc-html Artifact'
-      uses: actions/upload-artifact@v2
-      with:
-        name: coqdoc-html
-        path: coqdoc-html.tar   
+      run: tar -cf proviola-html.tar proviola-html
     # Upload proviola-html artifact
     - name: 'Upload proviola-html Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: proviola-html
-        path: proviola-html.tar   
+        path: proviola-html.tar
+          
+  # doc-timing job
+  # This builds coqdoc, proviola and timing docs and uploads their artifacts
+  doc-timing:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        # We build on our supported version of coq and the master version
+        coq-version-dummy:
+        - 'supported'
+    env:
+      coq-version: ${{ matrix.coq-version-dummy }}    
+    runs-on: ubuntu-latest
+    steps:
+    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
+    - name: Set supported coq-version
+      if: matrix.coq-version-dummy == 'supported'
+      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    # Checkout branch
+    - uses: actions/checkout@v2
+    # Checkout submodules
+    - uses: snickerbockers/submodules-init@v4
+    # Download artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: workspace-${{ env.coq-version }}
+    # Unpack Tar
+    - run: tar -xf workspace.tar
+    # We use the coq docker so we don't have to build coq
+    - uses: coq-community/docker-coq-action@v1
+      with:
+        coq_version: ${{ env.coq-version }}
+        ocaml_version: ${{ env.ocaml-version }}
+        custom_script: |
+          sudo apt-get update
+          sudo apt-get install -y time python
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R coq:coq .
+          endGroup
+          ## Make timing doc
+          make -j2 timing-html         
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      run: sudo chown -R 1001:116 .
+    # Tar html files
+    - name: 'Tar doc files'
+      run: tar -cf timing-html.tar timing-html
     # Upload timing-html artifact
     - name: 'Upload timing-html Artifact'
       uses: actions/upload-artifact@v2
@@ -474,9 +561,11 @@ jobs:
 
   deploy-doc:
     needs:
-    - alectryon
+    - doc-alectryon
     - quick-doc
-    - html-doc
+    - doc-coqdoc
+    - doc-proviola
+    - doc-timing 
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -485,6 +574,10 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: alectryon-html
+    # Download dependencies artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: dependencies 
     # Download coqdoc artifact
     - uses: actions/download-artifact@v2
       with:
@@ -500,6 +593,7 @@ jobs:
     # Unpack Tar files
     - run: |
         tar -xf alectryon-html.tar
+        tar -xf dependencies.tar
         tar -xf coqdoc-html.tar
         tar -xf proviola-html.tar
         tar -xf timing-html.tar
