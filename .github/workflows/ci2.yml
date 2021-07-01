@@ -420,7 +420,9 @@ jobs:
 
           sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
           sudo python ./get-pip.py
-          
+
+          python --version
+        
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
