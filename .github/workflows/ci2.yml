@@ -31,9 +31,9 @@ jobs:
       fail-fast: false
       matrix:
         coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
+        - 'supported'
+        - 'latest'
+        - 'dev'
         os:
           - ubuntu-latest
     env:
@@ -60,11 +60,11 @@ jobs:
       fail-fast: false
       matrix:
         coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
+        - 'supported'
+        - 'latest'
+        - 'dev'
         os:
-          - ubuntu-latest
+        - ubuntu-latest
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ${{ matrix.os }}
@@ -97,9 +97,9 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
+        - 'supported'
+        - 'latest'
+        - 'dev'
         include:
         - coq-version-dummy: 'dev'
           extra_gh_reportify: '--warnings'
@@ -160,9 +160,9 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
+        - 'supported'
+        - 'latest'
+        - 'dev'
         include:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
@@ -206,7 +206,7 @@ jobs:
       fail-fast: false
       matrix:
         coq-version-dummy:
-          - 'supported'
+        - 'supported'
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
@@ -263,9 +263,9 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version-dummy:
-          - 'supported'
-          - 'latest'
-          - 'dev'
+        - 'supported'
+        - 'latest'
+        - 'dev'
         include:
         - coq-version: 'dev'
           extra_gh_reportify: '--warnings'
@@ -314,7 +314,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version-dummy:
-          - 'supported'
+        - 'supported'
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
@@ -388,7 +388,7 @@ jobs:
       matrix:
         # We build on our supported version of coq and the master version
         coq-version-dummy:
-          - 'supported'
+        - 'supported'
     env:
       coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
@@ -423,8 +423,6 @@ jobs:
           sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
           sudo python ./get-pip.py
 
-          python --version
-        
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R coq:coq .
           endGroup
@@ -476,11 +474,13 @@ jobs:
 
   deploy-doc:
     needs:
-      - alectryon
-      - quick-doc
-      - html-doc
+    - alectryon
+    - quick-doc
+    - html-doc
     runs-on: ubuntu-latest
     steps:
+    # Checkout branch
+    - uses: actions/checkout@v2
     # Download alectryon artifact
     - uses: actions/download-artifact@v2
       with:
@@ -523,9 +523,9 @@ jobs:
     if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
-      - coqchk
-      - install
-      - deploy-doc
+    - coqchk
+    - install
+    - deploy-doc
     runs-on: ubuntu-latest
     steps:
     # Delete workspace artifacts
