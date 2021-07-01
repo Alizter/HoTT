@@ -257,11 +257,6 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
-      matrix:
-        coq-version-dummy:
-        - 'supported'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}    
     runs-on: ubuntu-latest
     steps:
     # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
@@ -273,7 +268,7 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
     # Unpack Tar
     - run: tar -xf workspace.tar
     - name: add problem matchers
@@ -284,7 +279,7 @@ jobs:
         #echo "::add-matcher::etc/coq-scripts/github/alectryon-warning.json" # too noisy right now, cf https://github.com/cpitclaudel/alectryon/issues/34 and https://github.com/cpitclaudel/alectryon/issues/33
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq-version }}
+        coq_version: ${{ env.coq-version-supported }}
         ocaml_version: 4.11-flambda
         custom_script: |
           opam install -y coq-serapi
@@ -313,8 +308,6 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
-    env:
-      coq-version: ${{ env.coq-version-supported }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -324,13 +317,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
     # Unpack Tar
     - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq-version }}
+        coq_version: ${{ env.coq-version-supported }}
         ocaml_version: ${{ env.ocaml-version }}
         custom_script: |
           sudo apt-get update
@@ -379,8 +372,6 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
-    env:
-      coq-version: ${{ env.coq-version-supported }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -390,13 +381,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
     # Unpack Tar
     - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq-version }}
+        coq_version: ${{ env.coq-version-supported }}
         ocaml_version: ${{ env.ocaml-version }}
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
@@ -424,9 +415,7 @@ jobs:
   doc-proviola:
     needs: build
     strategy:
-      fail-fast: false
-    env:
-      coq-version: ${{ env.coq-version-supported }}    
+      fail-fast: false 
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -436,13 +425,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
     # Unpack Tar
     - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq-version }}
+        coq_version: ${{ env.coq-version-supported }}
         ocaml_version: ${{ env.ocaml-version }}
         custom_script: |
           sudo apt-get update
@@ -481,8 +470,6 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
-    env:
-      coq-version: ${{ env.coq-version-supported }}    
     runs-on: ubuntu-latest
     steps:
     # Checkout branch
@@ -492,13 +479,13 @@ jobs:
     # Download artifact
     - uses: actions/download-artifact@v2
       with:
-        name: workspace-${{ env.coq-version }}
+        name: workspace-${{ env.coq-version-supported }}
     # Unpack Tar
     - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
-        coq_version: ${{ env.coq-version }}
+        coq_version: ${{ env.coq-version-supported }}
         ocaml_version: ${{ env.ocaml-version }}
         custom_script: |
           sudo apt-get update
