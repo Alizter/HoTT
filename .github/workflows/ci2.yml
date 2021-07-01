@@ -85,8 +85,7 @@ jobs:
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
           sudo chown -R coq:coq .
           endGroup
-          # Use action script feature instead
-          make -j`nproc`
+          make -j2
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
@@ -130,7 +129,7 @@ jobs:
           endGroup
           sudo apt-get -o Acquire::Retries=30 update -q
           sudo apt-get -o Acquire::Retries=30 install python -y --allow-unauthenticated
-          etc/coq-scripts/github/reportify-coq.sh --errors make TIMED=1 -j`nproc` --output-sync GH_REPORT_ERRORS=1
+          etc/coq-scripts/github/reportify-coq.sh --errors make TIMED=1 -j2 --output-sync GH_REPORT_ERRORS=1
 
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
@@ -449,11 +448,11 @@ jobs:
           ./etc/ci/install_proviola.sh
           
           ## Make HTML doc
-          make -j`proc` html
+          make -j2 html
           ## Make proviola doc
-          #make -j`proc` proviola TIMED=1 -k; make proviola TIMED=1
+          make -j2 proviola TIMED=1 -k; make proviola TIMED=1
           ## Make timing doc
-          make -j`proc` timing-html
+          make -j2 timing-html
 
           
     - name: Revert permissions
@@ -464,7 +463,7 @@ jobs:
     - name: 'Tar doc files'
       run: |
         tar -cvf coqdoc-html.tar coqdoc-html
-        #tar -cvf proviola-html.tar proviola-html
+        tar -cvf proviola-html.tar proviola-html
         tar -cvf timing-html.tar timing-html
     # Upload coqdoc-html artifact
     - name: 'Upload coqdoc-html Artifact'
