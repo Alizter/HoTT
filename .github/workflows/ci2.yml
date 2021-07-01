@@ -6,11 +6,13 @@ on: [ push , pull_request ]
 env:
   coq-version-supported: '8.13'
   ocaml-version: '4.11-flambda'
+  deployment-branch: 'gh-pages'
 
 # Our jobs come in 3 stages, the latter stages depending on the former:
 # - Stage 1: Build jobs
 # - Stage 2: Documentation and validation jobs
-# - Stage 3: Deployment and clean up jobs
+# - Stage 3: Deployment job
+# - Stage 4: Clean-up job
 
 jobs:
 
@@ -132,7 +134,7 @@ jobs:
       run: sudo chown -R 1001:116 .
     # Tar workspace files
     - name: 'Tar .vo files'
-      run: tar -cvf workspace.tar .
+      run: tar -cf workspace.tar .
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
@@ -148,7 +150,7 @@ jobs:
 # - coqchk: Runs coqchk
 # - alectryon: Builds the alectryon documentation
 # - install: Tests install target
-
+# - html-doc: Builds the html, proviola and timing documentation
       
   # The coqchk job
   coqchk:
@@ -181,7 +183,7 @@ jobs:
       with:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
-    - run: tar -xvf workspace.tar
+    - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -220,7 +222,7 @@ jobs:
       with:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
-    - run: tar -xvf workspace.tar
+    - run: tar -xf workspace.tar
     - name: add problem matchers
       run: |
         #echo "::add-matcher::etc/coq-scripts/github/coq-oneline-error.json" # now via a script
@@ -245,7 +247,7 @@ jobs:
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
     - name: tar alectryon artifact
-      run: tar -cvf alectryon-html.tar alectryon-html
+      run: tar -cf alectryon-html.tar alectryon-html
     - name: upload alectryon artifact
       uses: actions/upload-artifact@v1
       with:
@@ -284,7 +286,7 @@ jobs:
       with:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
-    - run: tar -xvf workspace.tar
+    - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -330,7 +332,7 @@ jobs:
       with:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
-    - run: tar -xvf workspace.tar
+    - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -369,7 +371,7 @@ jobs:
       run: sudo chown -R 1001:116 .
     # Tar workspace files
     - name: 'Tar .svg files'
-      run: tar -cvf dependencies.tar dependencies
+      run: tar -cf dependencies.tar dependencies
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
@@ -404,7 +406,7 @@ jobs:
       with:
         name: workspace-${{ env.coq-version }}
     # Unpack Tar
-    - run: tar -xvf workspace.tar
+    - run: tar -xf workspace.tar
     # We use the coq docker so we don't have to build coq
     - uses: coq-community/docker-coq-action@v1
       with:
@@ -445,9 +447,9 @@ jobs:
     # Tar html files
     - name: 'Tar doc files'
       run: |
-        tar -cvf coqdoc-html.tar coqdoc-html
-        tar -cvf proviola-html.tar proviola-html
-        tar -cvf timing-html.tar timing-html
+        tar -cf coqdoc-html.tar coqdoc-html
+        tar -cf proviola-html.tar proviola-html
+        tar -cf timing-html.tar timing-html
     # Upload coqdoc-html artifact
     - name: 'Upload coqdoc-html Artifact'
       uses: actions/upload-artifact@v2
@@ -455,8 +457,7 @@ jobs:
         name: coqdoc-html
         path: coqdoc-html.tar   
     # Upload proviola-html artifact
-    - if: ${{ !always() }}
-      name: 'Upload proviola-html Artifact'
+    - name: 'Upload proviola-html Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: proviola-html
@@ -469,10 +470,49 @@ jobs:
         path: timing-html.tar   
 
         
-      
-
 #
 #  Stage 3
+#
+
+  deploy-doc:
+    needs:
+      - alectryon
+      - quick-doc
+      - html-doc
+    runs-on: ubuntu-latest
+    steps:
+    # Download alectryon artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: alectryon-html
+    # Download coqdoc artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: coqdoc-html
+    # Download proviola artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: proviola-html
+    # Download timing artifact
+    - uses: actions/download-artifact@v2
+      with:
+        name: timing-html
+    # Unpack Tar files
+    - run: |
+        tar -xf alectryon-html.tar
+        tar -xf coqdoc-html.tar
+        tar -xf proviola-html.tar
+        tar -xf timing-html.tar
+            
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: ${{ env.deployment-branch }}
+        folder: coqdoc-html
+      
+    
+#
+#  Stage 4
 #
 
 # Here we define the cleanup and deplyoment jobs:
@@ -483,11 +523,9 @@ jobs:
     if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
-      - alectryon
       - coqchk
       - install
-      - quick-doc
-      - html-doc
+      - deploy-doc
     runs-on: ubuntu-latest
     steps:
     # Delete workspace artifacts
@@ -500,19 +538,19 @@ jobs:
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: workspace-dev
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: alectryon-html
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: dependencies
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: coqdoc-html
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: proviola-html
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: timing-html
+    # - uses: geekyeggo/delete-artifact@v1
+    #   with:
+    #     name: alectryon-html
+    # - uses: geekyeggo/delete-artifact@v1
+    #   with:
+    #     name: dependencies
+    # - uses: geekyeggo/delete-artifact@v1
+    #   with:
+    #     name: coqdoc-html
+    # - uses: geekyeggo/delete-artifact@v1
+    #   with:
+    #     name: proviola-html
+    # - uses: geekyeggo/delete-artifact@v1
+    #   with:
+    #     name: timing-html
     
