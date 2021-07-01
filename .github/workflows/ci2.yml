@@ -150,7 +150,7 @@ jobs:
 # - coqchk: Runs coqchk
 # - install: Tests install target
 # - doc-alectryon: Builds the alectryon documentation
-# - quick-doc: builds dependency graph TODO: rename
+# - doc-dep-graph: Builds dependency graphs
 # - doc-coqdoc: Builds the coqdoc documentation
 # - doc-proviola: Builds the proviola documentation
 # - doc-timing: Builds the timing documentation
@@ -303,8 +303,8 @@ jobs:
         path: alectryon-html.tar
 
 
-  # Quick-doc job
-  quick-doc:
+  # dependency graph doc job
+  doc-dep-graph:
     needs: build
     strategy:
       fail-fast: false
@@ -348,23 +348,22 @@ jobs:
           runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot
           dot -Tsvg HoTT.dot -o HoTT.svg
           dot -Tsvg HoTTCore.dot -o HoTTCore.svg
-          rm -rf dependencies
-          mkdir -p dependencies
-          mv HoTT.svg HoTTCore.svg dependencies/
-          git add dependencies/*.svg
+          rm -rf dep-graph
+          mkdir -p dep-graph
+          mv HoTT.svg HoTTCore.svg dep-graph/
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
     # Tar workspace files
     - name: 'Tar .svg files'
-      run: tar -cf dependencies.tar dependencies
+      run: tar -cf dep-graph.tar dep-graph
     # We upload build artifacts for use by documentation
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
-        name: dependencies
-        path: dependencies.tar   
+        name: dep-graph
+        path: dep-graph.tar   
 
   # doc-coqdoc job
   # This builds coqdoc, proviola and timing docs and uploads their artifacts
@@ -517,7 +516,7 @@ jobs:
   deploy-doc:
     needs:
     - doc-alectryon
-    - quick-doc
+    - doc-dep-graph
     - doc-coqdoc
     - doc-proviola
     - doc-timing 
