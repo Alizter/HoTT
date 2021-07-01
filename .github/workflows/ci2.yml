@@ -50,7 +50,7 @@ jobs:
       with:
         opam_file: 'hott.opam'
         coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ matrix.ocaml-version }}
+        ocaml_version: ${{ env.ocaml-version }}
         
   # Quick build
   quick-build:
