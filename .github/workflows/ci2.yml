@@ -6,7 +6,7 @@ on: [ push , pull_request ]
 env:
   coq-version-supported: '8.13'
   ocaml-version: '4.11-flambda'
-  deployment-branch: 'gh-pages'
+  deployment-branch: 'gh-pages-test'
 
 # Our jobs come in 3 stages, the latter stages depending on the former:
 # - Stage 1: Build jobs
@@ -509,6 +509,7 @@ jobs:
       with:
         branch: ${{ env.deployment-branch }}
         folder: coqdoc-html
+        single-commit: true
       
     
 #
