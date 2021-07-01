@@ -450,9 +450,11 @@ jobs:
           ## Make HTML doc
           make -j2 html
           ## Make proviola doc
-          make -j2 proviola TIMED=1 -k; make proviola TIMED=1
+          make -j2 proviola TIMED=1 -k; make proviola TIMED=1 || exit $?
           ## Make timing doc
           make -j2 timing-html
+
+          mv html coqdoc-html
 
           
     - name: Revert permissions
