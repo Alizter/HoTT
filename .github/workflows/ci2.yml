@@ -601,19 +601,20 @@ jobs:
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: workspace-dev
-    # - uses: geekyeggo/delete-artifact@v1
-    #   with:
-    #     name: alectryon-html
-    # - uses: geekyeggo/delete-artifact@v1
-    #   with:
-    #     name: dependencies
-    # - uses: geekyeggo/delete-artifact@v1
-    #   with:
-    #     name: coqdoc-html
-    # - uses: geekyeggo/delete-artifact@v1
-    #   with:
-    #     name: proviola-html
-    # - uses: geekyeggo/delete-artifact@v1
-    #   with:
-    #     name: timing-html
+    # Delete documentation artifacts
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: dependencies
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: alectryon-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: coqdoc-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: proviola-html
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: timing-html
     
