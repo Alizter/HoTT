@@ -544,11 +544,11 @@ jobs:
     # Unpack Tar files
     - run: |
         mkdir doc
-        tar -xf alectryon-html.tar doc
-        tar -xf dep-graph.tar doc
-        tar -xf coqdoc-html.tar doc
-        tar -xf proviola-html.tar doc
-        tar -xf timing-html.tar doc
+        tar -xf alectryon-html.tar -C doc
+        tar -xf dep-graph.tar -C doc
+        tar -xf coqdoc-html.tar -C doc
+        tar -xf proviola-html.tar -C doc
+        tar -xf timing-html.tar -C doc
             
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
