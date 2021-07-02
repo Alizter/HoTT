@@ -554,7 +554,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: ${{ env.deployment-branch }}
-        folder: html
+        folder: doc
         single-commit: true
       
     
