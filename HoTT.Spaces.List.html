@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>HoTT.Spaces.List</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library HoTT.Spaces.List</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">list_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a id="lab1169"></a><h2 class="section">Lemmas about lists</h2>
+
+<div class="paragraph"> </div>
+
+ Note that <span class="inlinecode"><a class="idref" href="HoTT.Basics.Datatypes.html#list"><span class="id" title="inductive">list</span></a></span> is currently defined in the coq stdlib. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Section</span> <a id="Fold_Left_Recursor" class="idref" href="#Fold_Left_Recursor"><span class="id" title="section">Fold_Left_Recursor</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variables</span> (<a id="Fold_Left_Recursor.A" class="idref" href="#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a> : <span class="id" title="keyword">Type</span>) (<a id="Fold_Left_Recursor.B" class="idref" href="#Fold_Left_Recursor.B"><span class="id" title="variable">B</span></a> : <span class="id" title="keyword">Type</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="Fold_Left_Recursor.f" class="idref" href="#Fold_Left_Recursor.f"><span class="id" title="variable">f</span></a> : <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Fixpoint</span> <a id="fold_left" class="idref" href="#fold_left"><span class="id" title="definition">fold_left</span></a> (<a id="l:4" class="idref" href="#l:4"><span class="id" title="binder">l</span></a> : <a class="idref" href="HoTT.Basics.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.B"><span class="id" title="variable">B</span></a>) (<a id="a0:5" class="idref" href="#a0:5"><span class="id" title="binder">a0</span></a> : <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a>) : <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.List.html#l:4"><span class="id" title="variable">l</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="HoTT.Basics.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a> ⇒ <a class="idref" href="HoTT.Spaces.List.html#a0:5"><span class="id" title="variable">a0</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="HoTT.Basics.Datatypes.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">b</span> <span class="id" title="var">t</span> ⇒ <a class="idref" href="HoTT.Spaces.List.html#fold_left:6"><span class="id" title="definition">fold_left</span></a> <span class="id" title="var">t</span> (<a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Spaces.List.html#a0:5"><span class="id" title="variable">a0</span></a> <span class="id" title="var">b</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="fold_left_app" class="idref" href="#fold_left_app"><span class="id" title="lemma">fold_left_app</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="l:8" class="idref" href="#l:8"><span class="id" title="binder">l</span></a> <a id="l':9" class="idref" href="#l':9"><span class="id" title="binder">l'</span></a> : <a class="idref" href="HoTT.Basics.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.B"><span class="id" title="variable">B</span></a>) (<a id="i:10" class="idref" href="#i:10"><span class="id" title="binder">i</span></a> : <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor.A"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="HoTT.Spaces.List.html#fold_left"><span class="id" title="definition">fold_left</span></a> (<a class="idref" href="HoTT.Spaces.List.html#l:8"><span class="id" title="variable">l</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bc347c51eaf667706ae54503b26d52c6"><span class="id" title="notation">++</span></a> <a class="idref" href="HoTT.Spaces.List.html#l':9"><span class="id" title="variable">l'</span></a>) <a class="idref" href="HoTT.Spaces.List.html#i:10"><span class="id" title="variable">i</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.List.html#fold_left"><span class="id" title="definition">fold_left</span></a> <a class="idref" href="HoTT.Spaces.List.html#l':9"><span class="id" title="variable">l'</span></a> (<a class="idref" href="HoTT.Spaces.List.html#fold_left"><span class="id" title="definition">fold_left</span></a> <a class="idref" href="HoTT.Spaces.List.html#l:8"><span class="id" title="variable">l</span></a> <a class="idref" href="HoTT.Spaces.List.html#i:10"><span class="id" title="variable">i</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">l</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Spaces.List.html#Fold_Left_Recursor"><span class="id" title="section">Fold_Left_Recursor</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a id="Fold_Right_Recursor" class="idref" href="#Fold_Right_Recursor"><span class="id" title="section">Fold_Right_Recursor</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variables</span> (<a id="Fold_Right_Recursor.A" class="idref" href="#Fold_Right_Recursor.A"><span class="id" title="variable">A</span></a> : <span class="id" title="keyword">Type</span>) (<a id="Fold_Right_Recursor.B" class="idref" href="#Fold_Right_Recursor.B"><span class="id" title="variable">B</span></a> : <span class="id" title="keyword">Type</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="Fold_Right_Recursor.f" class="idref" href="#Fold_Right_Recursor.f"><span class="id" title="variable">f</span></a> : <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.A"><span class="id" title="variable">A</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Fixpoint</span> <a id="fold_right" class="idref" href="#fold_right"><span class="id" title="definition">fold_right</span></a> (<a id="a0:14" class="idref" href="#a0:14"><span class="id" title="binder">a0</span></a> : <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.A"><span class="id" title="variable">A</span></a>) (<a id="l:15" class="idref" href="#l:15"><span class="id" title="binder">l</span></a> : <a class="idref" href="HoTT.Basics.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.B"><span class="id" title="variable">B</span></a>) : <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.A"><span class="id" title="variable">A</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.List.html#l:15"><span class="id" title="variable">l</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="HoTT.Basics.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a> ⇒ <a class="idref" href="HoTT.Spaces.List.html#a0:14"><span class="id" title="variable">a0</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="HoTT.Basics.Datatypes.html#cons"><span class="id" title="constructor">cons</span></a> <span class="id" title="var">b</span> <span class="id" title="var">t</span> ⇒ <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor.f"><span class="id" title="variable">f</span></a> <span class="id" title="var">b</span> (<a class="idref" href="HoTT.Spaces.List.html#fold_right:16"><span class="id" title="definition">fold_right</span></a> <a class="idref" href="HoTT.Spaces.List.html#a0:14"><span class="id" title="variable">a0</span></a> <span class="id" title="var">t</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="fold_right_app" class="idref" href="#fold_right_app"><span class="id" title="lemma">fold_right_app</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="l:18" class="idref" href="#l:18"><span class="id" title="binder">l</span></a> <a id="l':19" class="idref" href="#l':19"><span class="id" title="binder">l'</span></a> <a id="i:20" class="idref" href="#i:20"><span class="id" title="binder">i</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="HoTT.Spaces.List.html#fold_right"><span class="id" title="definition">fold_right</span></a> <a class="idref" href="HoTT.Spaces.List.html#i:20"><span class="id" title="variable">i</span></a> (<a class="idref" href="HoTT.Spaces.List.html#l:18"><span class="id" title="variable">l</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bc347c51eaf667706ae54503b26d52c6"><span class="id" title="notation">++</span></a> <a class="idref" href="HoTT.Spaces.List.html#l':19"><span class="id" title="variable">l'</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.List.html#fold_right"><span class="id" title="definition">fold_right</span></a> (<a class="idref" href="HoTT.Spaces.List.html#fold_right"><span class="id" title="definition">fold_right</span></a> <a class="idref" href="HoTT.Spaces.List.html#i:20"><span class="id" title="variable">i</span></a> <a class="idref" href="HoTT.Spaces.List.html#l':19"><span class="id" title="variable">l'</span></a>) <a class="idref" href="HoTT.Spaces.List.html#l:18"><span class="id" title="variable">l</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">l</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="var">f_ap</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Spaces.List.html#Fold_Right_Recursor"><span class="id" title="section">Fold_Right_Recursor</span></a>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

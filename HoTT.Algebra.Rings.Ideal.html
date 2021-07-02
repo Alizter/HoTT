@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>HoTT.Algebra.Rings.Ideal</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library HoTT.Algebra.Rings.Ideal</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.Rings.CRing.html#"><span class="id" title="library">Algebra.Rings.CRing</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.AbGroups.html#"><span class="id" title="library">Algebra.AbGroups</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In this file we define Ideals 
+<div class="paragraph"> </div>
+
+ TODO: In the future it might be useful to define ideals as submodules when we go about defining R-modules. 
+<div class="paragraph"> </div>
+
+ An additive subgroup I of a ring R is an ideal when: 
+</div>
+<div class="code">
+<span class="id" title="keyword">Class</span> <a id="IsIdeal" class="idref" href="#IsIdeal"><span class="id" title="record">IsIdeal</span></a> {<a id="R:1" class="idref" href="#R:1"><span class="id" title="binder">R</span></a> : <a class="idref" href="HoTT.Algebra.Rings.CRing.html#CRing"><span class="id" title="record">CRing</span></a>} (<a id="I:2" class="idref" href="#I:2"><span class="id" title="binder">I</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#Subgroup"><span class="id" title="record">Subgroup</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#R:1"><span class="id" title="variable">R</span></a>) :=<br/>
+&nbsp;&nbsp;<a id="isideal" class="idref" href="#isideal"><span class="id" title="projection">isideal</span></a> (<a id="r:4" class="idref" href="#r:4"><span class="id" title="binder">r</span></a> <a id="x:5" class="idref" href="#x:5"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#R:1"><span class="id" title="variable">R</span></a>) : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#I:2"><span class="id" title="variable">I</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#x:5"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#I:2"><span class="id" title="variable">I</span></a> (<a class="idref" href="HoTT.Algebra.Rings.Ideal.html#r:4"><span class="id" title="variable">r</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#970301967e3905519c12a089c065f064"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#x:5"><span class="id" title="variable">x</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Record</span> <a id="Ideal" class="idref" href="#Ideal"><span class="id" title="record">Ideal</span></a> (<a id="R:7" class="idref" href="#R:7"><span class="id" title="binder">R</span></a> : <a class="idref" href="HoTT.Algebra.Rings.CRing.html#CRing"><span class="id" title="record">CRing</span></a>) := {<br/>
+&nbsp;&nbsp;<a id="ideal_subgroup" class="idref" href="#ideal_subgroup"><span class="id" title="projection">ideal_subgroup</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#Subgroup"><span class="id" title="record">Subgroup</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#R:7"><span class="id" title="variable">R</span></a>;<br/>
+&nbsp;&nbsp;<a id="ideal_isideal" class="idref" href="#ideal_isideal"><span class="id" title="projection">ideal_isideal</span></a> : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#IsIdeal"><span class="id" title="class">IsIdeal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup:9"><span class="id" title="method">ideal_subgroup</span></a>;<br/>
+}.<br/>
+
+<br/>
+<span class="id" title="keyword">Coercion</span> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup"><span class="id" title="projection">ideal_subgroup</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup"><span class="id" title="projection">:</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup"><span class="id" title="projection">Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup"><span class="id" title="projection">&gt;-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#ideal_subgroup"><span class="id" title="projection">Subgroup</span></a>.<br/>
+<span class="id" title="keyword">Global</span> <span class="id" title="var">Existing</span> <span class="id" title="var">Instances</span> <span class="id" title="var">ideal_isideal</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a id="Examples" class="idref" href="#Examples"><span class="id" title="section">Examples</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> (<a id="R:11" class="idref" href="#R:11"><span class="id" title="binder">R</span></a> : <a class="idref" href="HoTT.Algebra.Rings.CRing.html#CRing"><span class="id" title="record">CRing</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The zero ideal is an ideal 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Global Instance</span> <a id="isideal_trivial_subgroup" class="idref" href="#isideal_trivial_subgroup"><span class="id" title="instance">isideal_trivial_subgroup</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;: <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#IsIdeal"><span class="id" title="class">IsIdeal</span></a> (<span class="id" title="var">R</span>:=<a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a>) <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#trivial_subgroup"><span class="id" title="definition">trivial_subgroup</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="var">cbn</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Algebra.Rings.CRing.html#rng_mult_zero_r"><span class="id" title="definition">rng_mult_zero_r</span></a> <span class="id" title="var">r</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">f_ap</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Zero ideal 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="ideal_zero" class="idref" href="#ideal_zero"><span class="id" title="definition">ideal_zero</span></a> : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Ideal"><span class="id" title="record">Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Build_Ideal"><span class="id" title="constructor">Build_Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#isideal_trivial_subgroup"><span class="id" title="instance">isideal_trivial_subgroup</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The unit ideal is an ideal 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Global Instance</span> <a id="isideal_maximal_subgroup" class="idref" href="#isideal_maximal_subgroup"><span class="id" title="instance">isideal_maximal_subgroup</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;: <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#IsIdeal"><span class="id" title="class">IsIdeal</span></a> (<span class="id" title="var">R</span>:=<a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a>) <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#maximal_subgroup"><span class="id" title="definition">maximal_subgroup</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Unit ideal 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="ideal_unit" class="idref" href="#ideal_unit"><span class="id" title="definition">ideal_unit</span></a> : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Ideal"><span class="id" title="record">Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Build_Ideal"><span class="id" title="constructor">Build_Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples.R"><span class="id" title="variable">R</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#isideal_maximal_subgroup"><span class="id" title="instance">isideal_maximal_subgroup</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+TODO: Intersection of ideals  TODO: Sum of ideals  TODO: Product of ideals 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Examples"><span class="id" title="section">Examples</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="ideal_kernel" class="idref" href="#ideal_kernel"><span class="id" title="definition">ideal_kernel</span></a> {<a id="R:12" class="idref" href="#R:12"><span class="id" title="binder">R</span></a> <a id="S:13" class="idref" href="#S:13"><span class="id" title="binder">S</span></a> : <a class="idref" href="HoTT.Algebra.Rings.CRing.html#CRing"><span class="id" title="record">CRing</span></a>} (<a id="f:14" class="idref" href="#f:14"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.Rings.CRing.html#CRingHomomorphism"><span class="id" title="record">CRingHomomorphism</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#R:12"><span class="id" title="variable">R</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#S:13"><span class="id" title="variable">S</span></a>) : <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Ideal"><span class="id" title="record">Ideal</span></a> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#R:12"><span class="id" title="variable">R</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">snrapply</span> <a class="idref" href="HoTT.Algebra.Rings.Ideal.html#Build_Ideal"><span class="id" title="constructor">Build_Ideal</span></a>.<br/>
+&nbsp;&nbsp;1: <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.Groups.Kernel.html#grp_kernel"><span class="id" title="definition">grp_kernel</span></a> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span> <span class="id" title="var">p</span>; <span class="id" title="var">cbn</span> <span class="id" title="tactic">in</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Algebra.Rings.CRing.html#rng_homo_mult"><span class="id" title="definition">rng_homo_mult</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Algebra.Rings.CRing.html#rng_mult_zero_r"><span class="id" title="definition">rng_mult_zero_r</span></a> (<span class="id" title="var">f</span> <span class="id" title="var">r</span>)).<br/>
+&nbsp;&nbsp;<span class="id" title="var">f_ap</span>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Properties of ideals 
+<div class="paragraph"> </div>
+
+ TODO: Maximal ideals  TODO: Principal ideal  TODO: Prime ideals  TODO: Radical ideals  TODO: Minimal ideals  TODO: Primary ideals 
+</div>
+<div class="code">
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

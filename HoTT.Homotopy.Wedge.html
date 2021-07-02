@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>HoTT.Homotopy.Wedge</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library HoTT.Homotopy.Wedge</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Pointed.Core.html#"><span class="id" title="library">Pointed.Core</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Colimits.Pushout.html#"><span class="id" title="library">Colimits.Pushout</span></a>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">pointed_scope</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Wedge" class="idref" href="#Wedge"><span class="id" title="definition">Wedge</span></a> (<a id="X:1" class="idref" href="#X:1"><span class="id" title="binder">X</span></a> <a id="Y:2" class="idref" href="#Y:2"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>) : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a><br/>
+&nbsp;&nbsp;:= <a class="idref" href="HoTT.Basics.Overture.html#Build_pType"><span class="id" title="constructor">Build_pType</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout"><span class="id" title="definition">Pushout</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> : <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:1"><span class="id" title="variable">X</span></a>) (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:2"><span class="id" title="variable">Y</span></a>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="HoTT.Colimits.Pushout.html#pushl"><span class="id" title="definition">pushl</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:1"><span class="id" title="variable">X</span></a>)).<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a id="6573d6a1fd59dff41b7322fa2527a2bf" class="idref" href="#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">&quot;</span></a>X \/ Y" := (<a class="idref" href="HoTT.Homotopy.Wedge.html#Wedge"><span class="id" title="definition">Wedge</span></a> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>) : <span class="id" title="var">pointed_scope</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="wglue" class="idref" href="#wglue"><span class="id" title="definition">wglue</span></a> {<a id="X:3" class="idref" href="#X:3"><span class="id" title="binder">X</span></a> <a id="Y:4" class="idref" href="#Y:4"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>}<br/>
+&nbsp;&nbsp;: <a class="idref" href="HoTT.Colimits.Pushout.html#pushl"><span class="id" title="definition">pushl</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:3"><span class="id" title="variable">X</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Colimits.Pushout.html#pushr"><span class="id" title="definition">pushr</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:4"><span class="id" title="variable">Y</span></a>) : <a class="idref" href="HoTT.Homotopy.Wedge.html#X:3"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">∨</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:4"><span class="id" title="variable">Y</span></a><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">)</span></a> := <a class="idref" href="HoTT.Colimits.Pushout.html#pglue"><span class="id" title="definition">pglue</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="wedge_incl" class="idref" href="#wedge_incl"><span class="id" title="definition">wedge_incl</span></a> {<a id="X:5" class="idref" href="#X:5"><span class="id" title="binder">X</span></a> <a id="Y:6" class="idref" href="#Y:6"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>} : <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">∨</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Pointed.Core.html#867ca46dea6d6884af1893325332ab7c"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a> :=<br/>
+&nbsp;<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout_rec"><span class="id" title="definition">Pushout_rec</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="x:8" class="idref" href="#x:8"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Wedge.html#x:8"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">)</span></a>) (<span class="id" title="keyword">fun</span> <a id="y:7" class="idref" href="#y:7"><span class="id" title="binder">y</span></a> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#y:7"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">)</span></a>) <br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> : <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
