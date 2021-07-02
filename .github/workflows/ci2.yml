@@ -6,7 +6,7 @@ on: [ push , pull_request ]
 env:
   coq-version-supported: '8.13'
   ocaml-version: '4.11-flambda'
-  deployment-branch: 'gh-pages-test'
+  deployment-branch: 'gh-pages'
 
 # Our jobs come in 3 stages, the latter stages depending on the former:
 # - Stage 1: Build jobs
@@ -546,17 +546,18 @@ jobs:
         name: timing-html
     # Unpack Tar files
     - run: |
-        tar -xf alectryon-html.tar
-        tar -xf dependencies.tar
-        tar -xf coqdoc-html.tar
-        tar -xf proviola-html.tar
-        tar -xf timing-html.tar
+        mkdir html
+        tar -xf alectryon-html.tar html
+        tar -xf dependencies.tar html
+        tar -xf coqdoc-html.tar html
+        tar -xf proviola-html.tar html
+        tar -xf timing-html.tar html
             
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: ${{ env.deployment-branch }}
-        folder: coqdoc-html
+        folder: html
         single-commit: true
       
     
