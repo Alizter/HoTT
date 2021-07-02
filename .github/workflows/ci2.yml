@@ -510,6 +510,8 @@ jobs:
 
   deploy-doc:
     needs:
+    - coqchk
+    - install
     - doc-alectryon
     - doc-dep-graph
     - doc-coqdoc
@@ -568,8 +570,6 @@ jobs:
     if: ${{ always() }}
     # We depend on the stage 2 jobs
     needs:
-    - coqchk
-    - install
     - deploy-doc
     runs-on: ubuntu-latest
     steps:
