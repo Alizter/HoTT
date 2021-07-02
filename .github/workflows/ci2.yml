@@ -543,7 +543,7 @@ jobs:
         name: timing-html
     # Unpack Tar files
     - run: |
-        mkdir html
+        mkdir doc
         tar -xf alectryon-html.tar doc
         tar -xf dep-graph.tar doc
         tar -xf coqdoc-html.tar doc
