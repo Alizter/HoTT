@@ -259,10 +259,6 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
-    # Github actions doesn't let us set workflow level enviornment variables inside the stategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment varible env.coq-version, which uses the globablly set coq-version-supported when running the 'supported' case. 
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
     - uses: actions/checkout@v2
     - uses: snickerbockers/submodules-init@v4
     # Download artifact
@@ -528,10 +524,10 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: alectryon-html
-    # Download dependencies artifact
+    # Download dependency graph artifact
     - uses: actions/download-artifact@v2
       with:
-        name: dependencies 
+        name: dep-graph 
     # Download coqdoc artifact
     - uses: actions/download-artifact@v2
       with:
@@ -547,11 +543,11 @@ jobs:
     # Unpack Tar files
     - run: |
         mkdir html
-        tar -xf alectryon-html.tar html
-        tar -xf dependencies.tar html
-        tar -xf coqdoc-html.tar html
-        tar -xf proviola-html.tar html
-        tar -xf timing-html.tar html
+        tar -xf alectryon-html.tar doc
+        tar -xf dep-graph.tar doc
+        tar -xf coqdoc-html.tar doc
+        tar -xf proviola-html.tar doc
+        tar -xf timing-html.tar doc
             
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
@@ -591,7 +587,7 @@ jobs:
     # Delete documentation artifacts
     - uses: geekyeggo/delete-artifact@v1
       with:
-        name: dependencies
+        name: dep-graph
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: alectryon-html
