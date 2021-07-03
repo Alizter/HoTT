@@ -1,7 +1,13 @@
 Require Import Basics.
-From HoTT.WildCat Require Import
-  Core NatTrans Equiv Prod Opposite Yoneda FunctorCat Cat.
-Require Import WildCat.Type. (** Coq Bug ! *)
+Require Import WildCat.Core.
+Require Import WildCat.NatTrans.
+Require Import WildCat.Equiv.
+Require Import WildCat.Prod.
+Require Import WildCat.Opposite.
+Require Import WildCat.Yoneda.
+Require Import WildCat.FunctorCat.  
+Require Import WildCat.Cat.
+Require Import WildCat.Type.
 
 Generalizable Variables C D F G.
 
@@ -155,47 +161,81 @@ Section BuildingAdjunctions.
 
   (** From the data of an adjunction: unit, counit, left triangle, right triangle *)
 
-(*   Notation "a $--> b" := (@Hom (Hom _ _) _ a b) (at level 20). *)
-(*   Notation "a $-[ A ]-> b" := (@Hom A _ a b) (at level 20). *)
-  Context
-    (ε : F $o G $-> Id _)
-    (η : Id _ $-> G $o F)
-    (t1 : cat_comp (A:=Fun11 C D)
-      (nattrans_prewhisker ε F : (F $o G $o F) $-> F)
-      (nattrans_postwhisker F η : F $-> (F $o G $o F)) = Id _)
-    (t2 : cat_comp (A:=Fun11 D C)
-      (nattrans_postwhisker G ε : (G $o F $o G) $-> G)
-      (nattrans_prewhisker η G : G $-> (G $o F $o G)) = Id _)
-    . 
-
-  Definition Build_Adjunction_unit_counit : Adjunction F G.
-  Proof.
-    
-    snrapply Build_Adjunction.
-    { intros x y.
+  Section HomEquivFromUnitCounit.
+    (** A unit-counit adjunction consists of the following data: *)
+    Context
+      (** A counit *)
+      (ε : F $o G $-> Id _)
+      (** A unit *)
+      (η : Id _ $-> G $o F)
+      (** Triangle identities *)
+      (** Unfortunately, typeclasses whirls out of control if we don't hint at it the base type of [GpdHom], so we have to be explicit here. *)
+      (t1 : GpdHom (A := Hom F F) (cat_comp (A:=Fun11 C D)
+        (nattrans_prewhisker ε F : (F $o G $o F) $-> F)
+        (nattrans_postwhisker F η : F $-> (F $o G $o F))) (Id F))
+      (t2 : GpdHom (A := Hom G G) (cat_comp (A:=Fun11 D C)
+        (nattrans_postwhisker G ε : (G $o F $o G) $-> G)
+        (nattrans_prewhisker η G : G $-> (G $o F $o G))) (Id G))
+      .
+    (** We can construct an equivalence between homs *)
+    Local Definition γ a b : (F a $-> b) $<~> (a $-> G b).
+    Proof.
       srapply equiv_adjointify.
-      { intros f; exact (fmap G f $o (η : Transformation _ _) x). }
-      { intros g; exact ((ε : Transformation _ _) y $o fmap F g). }
-      { intros f.
-        
-        apply path_hom.
-         unfold nattrans_postwhisker in t2.
-         unfold trans_postwhisker in t2.
-    cbv zeta in *.
-      
-  
-    snrapply Build_Adjunction_natequiv_nat_left.
-    { intros x.
-      change (NatEquiv (opyon1 (F x)) (opyon1 x $o G)).
-      Build_Fun01 _ _ _ _ _ (is0functor_compose _ _)
-    
-      nrefine (natequiv_compose _ _).
-      2: {
-        apply natequiv_opyon_equiv
-    
+      1: exact (fun x => fmap G x $o (η : _ $=> _) a).
+      1: exact (fun x => (ε : _ $=> _) b $o fmap F x).
+      + intros f.
+        apply path_hom; simpl.
+        refine ((fmap_comp G _ _ $@R _) $@ _).
+        refine (cat_assoc _ _ _ $@ _).
+        refine ((_ $@L (isnat η f)^$) $@ _).
+        refine (cat_assoc_opp _ _ _ $@ _).
+        refine (_ $@R _ $@ cat_idl _).
+        exact (t2 b).
+      + intros g.
+        apply path_hom; simpl.
+        refine ((_ $@L fmap_comp F _ _) $@ _).
+        refine (cat_assoc_opp _ _ _ $@ _).
+        refine (((isnat ε g) $@R _) $@ _).
+        refine (cat_assoc _ _ _ $@ _).
+        refine (_ $@L _ $@ cat_idr _).
+        exact (t1 a).
+    Defined.
 
+    (** Which is natural in the left *)
+    Lemma is1natural_γ_l (y : D)
+      : Is1Natural (yon y o F) (yon (G y))
+        (is0functor_F := is0functor_compose (A:=C^op) (B:=D^op) (C:=Type) F (yon y))
+        (is0functor_G := is0functor_yon (G y))
+        (fun x : C^op => γ x y).
+    Proof.
+      nrapply (is1natural_natequiv (yon y o F) (yon (G y)) (natequiv_inverse _ _
+        (Build_NatEquiv (yon (G y)) (yon y o F) (fun x => (γ x y)^-1$) _))).
+      rapply is1natural_yoneda.
+      rapply is1functor_compose.
+      1: rapply is1functor_op.
+      rapply is1functor_opyon.
+      rapply hasmorext_op.
+    Defined.
 
+    (** And natural in the right. *)
+    Lemma is1natural_γ_r x
+      : Is1Natural (opyon (F x)) (fun x0 : D => opyon x (G x0)) (fun y : D => γ x y).
+    Proof.
+      rapply is1natural_opyoneda.
+    Defined.
 
+    (** Together this constructs and adjunction. *)
+    Definition Build_Adjunction_unit_counit : Adjunction F G.
+    Proof.
+      snrapply Build_Adjunction.
+      - exact γ.
+      - apply is1natural_γ_l.
+      - apply is1natural_γ_r.
+    Defined.
+
+  End HomEquivFromUnitCounit.
+
+End BuildingAdjunctions. 
 
 
 (** * Properties of adjunctions *)

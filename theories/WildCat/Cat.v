@@ -41,16 +41,3 @@ Proof.
   apply is01cat_fun11.
 Defined.
 
-Global Instance is1cat_cat1 : Is1Cat Cat1.
-Proof.
-  snrapply Build_Is1Cat.
-
-
-
-
-
-
-
-
-
-

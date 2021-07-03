@@ -1,4 +1,5 @@
 (* Basic theory *)
+Require Export WildCat.Adjoint.
 Require Export WildCat.Core.
 Require Export WildCat.Equiv.
 Require Export WildCat.Opposite.

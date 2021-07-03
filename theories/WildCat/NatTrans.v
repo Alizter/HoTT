@@ -159,6 +159,9 @@ Record NatEquiv {A B : Type} `{IsGraph A} `{HasEquivs B}
 Arguments NatEquiv {A B} {isgraph_A}
   {isgraph_B} {is2graph_B} {is01cat_B} {is1cat_B} {hasequivs_B}
   F G {is0functor_F} {is0functor_G} : rename.
+Arguments Build_NatEquiv {A B} {isgraph_A}
+  {isgraph_B} {is2graph_B} {is01cat_B} {is1cat_B} {hasequivs_B}
+  F G {is0functor_F} {is0functor_G} e isnat_e: rename.
 
 Global Existing Instance is1natural_natequiv.
 Coercion cat_equiv_natequiv : NatEquiv >-> Funclass.
