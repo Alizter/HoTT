@@ -203,7 +203,7 @@ jobs:
 
 
   # dependency graph doc job
-  doc-dep-graph:
+  doc-dep-graphs:
     needs: build
     strategy:
       fail-fast: false
@@ -252,6 +252,7 @@ jobs:
           mv HoTT.svg HoTTCore.svg dep-graphs/
 
           ## Make file dependency graphs
+          ./make_dpd_graphs.sh
           make dpdgraph || exit $?
           make svg-file-dep-graphs -k || exit $?
           # `dot` hates file-dep-graphs/hott-all.dot, because it's too big, and
@@ -531,7 +532,7 @@ jobs:
     - coqchk
     - install
     - doc-alectryon
-    - doc-dep-graph
+    - doc-dep-graphs
     - doc-coqdoc
     - doc-proviola
     - doc-timing 
@@ -543,10 +544,14 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: alectryon-html
+    # Download dependency graph artifacts
+    - uses: actions/download-artifact@v2
+      with:
+        name: dep-graphs 
     # Download dependency graph artifact
     - uses: actions/download-artifact@v2
       with:
-        name: dep-graph 
+        name: file-dep-graphs
     # Download coqdoc artifact
     - uses: actions/download-artifact@v2
       with:
