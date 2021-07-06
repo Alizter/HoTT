@@ -1,0 +1,12 @@
+name: clean artifacts older than a day
+
+on: workflow_dispatch
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cleanup
+        uses: glassechidna/artifact-cleaner@master
+        with:
+          minimumAge: 86400 # all artifacts at least one day old
