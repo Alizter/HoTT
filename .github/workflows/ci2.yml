@@ -531,6 +531,9 @@ jobs:
 #
 
   deploy-doc:
+    # We only deploy when the reference is the master branch
+    if: ${{ github.ref == 'refs/heads/master' }}
+    # This job relies on the documentation jobs having finished. Technically we don't need to rely on coqchk and install, but it is simpler this way.
     needs:
     - coqchk
     - install
@@ -551,7 +554,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: dep-graphs 
-    # Download dependency graph artifact
+    # Download file dependency graph artifacts
     - uses: actions/download-artifact@v2
       with:
         name: file-dep-graphs
@@ -589,13 +592,13 @@ jobs:
 #  Stage 4
 #
 
-# Here we define the cleanup and deplyoment jobs:
-# - delete-workspace-artifacts: We delete the workspace artifacts from the build job
+# Here we define the cleanup job:
+# - delete-artifacts: We delete the artifacts from the previous jobs
 
-  delete-workspace-artifacts:
+  delete-artifacts:
     # We always want to run this job even if we cancel
     if: ${{ always() }}
-    # We depend on the stage 2 jobs
+    # We depend on the stage 3 jobs
     needs:
     - deploy-doc
     runs-on: ubuntu-latest
