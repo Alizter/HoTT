@@ -247,22 +247,40 @@ jobs:
           runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/HoTT/proviola-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot
           dot -Tsvg HoTT.dot -o HoTT.svg
           dot -Tsvg HoTTCore.dot -o HoTTCore.svg
-          rm -rf dep-graph
-          mkdir -p dep-graph
-          mv HoTT.svg HoTTCore.svg dep-graph/
+          rm -rf dep-graphs
+          mkdir -p dep-graphs
+          mv HoTT.svg HoTTCore.svg dep-graphs/
+
+          ## Make file dependency graphs
+          make dpdgraph || exit $?
+          make svg-file-dep-graphs -k || exit $?
+          # `dot` hates file-dep-graphs/hott-all.dot, because it's too big, and
+          # makes `dot` spin for over a dozen minutes.  So disable it for now.
+          #make svg-aggregate-dep-graphs -k || exit $?
+          make file-dep-graphs/index.html -k || exit $?
+
+          
+        
     - name: Revert permissions
       # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
       if: ${{ always() }}
       run: sudo chown -R 1001:116 .
-    # Tar workspace files
+    # Tar dependency graph files
     - name: 'Tar .svg files'
-      run: tar -cf dep-graph.tar dep-graph
-    # We upload build artifacts for use by documentation
-    - name: 'Upload Artifact'
+      run: |
+        tar -cf dep-graphs.tar dep-graphs
+        tar -cf file-dep-graphs.tar file-dep-graphs.tar
+    # We upload the artifacts
+    - name: 'Upload Artifact dep-graphs.tar'
       uses: actions/upload-artifact@v2
       with:
-        name: dep-graph
-        path: dep-graph.tar   
+        name: dep-graphs
+        path: dep-graphs.tar
+    - name: 'Upload Artifact file-dep-graphs.tar'
+      uses: actions/upload-artifact@v2
+      with:
+        name: file-dep-graphs
+        path: file-dep-graphs.tar
 
   # doc-coqdoc job
   # This builds coqdoc, proviola and timing docs and uploads their artifacts
@@ -544,11 +562,12 @@ jobs:
     # Unpack Tar files
     - run: |
         mkdir doc
-        tar -xf alectryon-html.tar -C doc
-        tar -xf dep-graph.tar -C doc
-        tar -xf coqdoc-html.tar -C doc
-        tar -xf proviola-html.tar -C doc
-        tar -xf timing-html.tar -C doc
+        tar -xf -C doc alectryon-html.tar  
+        tar -xf -C doc dep-graphs.tar
+        tar -xf -C doc file-dep-graphs.tar
+        tar -xf -C doc coqdoc-html.tar
+        tar -xf -C doc proviola-html.tar
+        tar -xf -C doc timing-html.tar
             
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
@@ -586,7 +605,10 @@ jobs:
     # Delete documentation artifacts
     - uses: geekyeggo/delete-artifact@v1
       with:
-        name: dep-graph
+        name: dep-graphs
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: file-dep-graphs
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: alectryon-html
