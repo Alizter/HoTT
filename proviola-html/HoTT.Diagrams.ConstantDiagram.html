@@ -1,0 +1,735 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "<infomsg>G is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 2)	  	  G : Graph	  C : Type	  ============================	  Diagram G	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "2 subgoals (ID 12)	  	  G : Graph	  C : Type	  ============================	  G -> Type		subgoal 2 (ID 14) is:	 forall i j : G, G i j -> ?obj i -> ?obj j	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 14)	  	  G : Graph	  C : Type	  ============================	  forall i j : G, G i j -> (fun _ : G => C) i -> (fun _ : G => C) j	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 18)	  	  G : Graph	  C : Type	  i, j : G	  k : G i j	  ============================	  (fun _ : G => C) i -> (fun _ : G => C) j	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 7)	  	  G : Graph	  A : Type	  B : Type	  f : A -> B	  ============================	  DiagramMap (diagram_const A) (diagram_const B)	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "2 subgoals (ID 30)	  	  G : Graph	  A : Type	  B : Type	  f : A -> B	  ============================	  forall i : G, diagram_const A i -> diagram_const B i		subgoal 2 (ID 32) is:	 forall (i j : G) (g : G i j) (x : diagram_const A i),	 ((diagram_const B) _f g) (?DiagramMap_obj i x) =	 ?DiagramMap_obj j (((diagram_const A) _f g) x)	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 32)	  	  G : Graph	  A : Type	  B : Type	  f : A -> B	  ============================	  forall (i j : G) (g : G i j) (x : diagram_const A i),	  ((diagram_const B) _f g) ((fun _ : G => f) i x) =	  (fun _ : G => f) j (((diagram_const A) _f g) x)	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 34)	  	  G : Graph	  A : Type	  B : Type	  C : Type	  f : A -> B	  g : B -> C	  ============================	  diagram_const_functor (g o f) =	  diagram_comp (diagram_const_functor g) (diagram_const_functor f)	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "1 subgoal (ID 42)	  	  G : Graph	  A : Type	  ============================	  diagram_const_functor (idmap : A -> A) = diagram_idmap (diagram_const A)	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 48)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  ============================	  DiagramMap D (diagram_const X) <~> Cocone D X	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "4 subgoals (ID 72)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  ============================	  DiagramMap D (diagram_const X) -> Cocone D X		subgoal 2 (ID 74) is:	 Cocone D X -> DiagramMap D (diagram_const X)	subgoal 3 (ID 76) is:	 ?f o ?g == idmap	subgoal 4 (ID 78) is:	 ?g o ?f == idmap	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "4 focused subgoals	(shelved: 2) (ID 98)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  DiagramMap_obj : forall i : G, D i -> diagram_const X i	  w : forall (i j : G) (g : G i j) (x : D i),	      ((diagram_const X) _f g) (DiagramMap_obj i x) =	      DiagramMap_obj j ((D _f g) x)	  ============================	  forall (i j : G) (g : G i j),	  (fun x : D i => ?legs j ((D _f g) x)) == ?legs i		subgoal 2 (ID 101) is:	 forall (i j : G) (g : G i j) (x : D i),	 ((diagram_const X) _f g) (?DiagramMap_obj i x) =	 ?DiagramMap_obj j ((D _f g) x)	subgoal 3 (ID 76) is:	 (fun X0 : DiagramMap D (diagram_const X) =>	  (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	     (w : forall (i j : G) (g : G i j) (x : D i),	          ((diagram_const X) _f g) (DiagramMap_obj i x) =	          DiagramMap_obj j ((D _f g) x)) =>	   {| legs := ?legs; legs_comm := ?Goal |}) X0 (DiagramMap_comm X0))	 o (fun X0 : Cocone D X =>	    (fun (legs : forall i : G, D i -> X)	       (w : forall (i j : G) (g : G i j),	            (fun x : D i => legs j ((D _f g) x)) == legs i) =>	     {| DiagramMap_obj := ?DiagramMap_obj; DiagramMap_comm := ?Goal0 |}) X0	      (legs_comm X0)) == idmap	subgoal 4 (ID 78) is:	 (fun X0 : Cocone D X =>	  (fun (legs : forall i : G, D i -> X)	     (w : forall (i j : G) (g : G i j),	          (fun x : D i => legs j ((D _f g) x)) == legs i) =>	   {| DiagramMap_obj := ?DiagramMap_obj; DiagramMap_comm := ?Goal0 |}) X0	    (legs_comm X0))	 o (fun X0 : DiagramMap D (diagram_const X) =>	    (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	       (w : forall (i j : G) (g : G i j) (x : D i),	            ((diagram_const X) _f g) (DiagramMap_obj i x) =	            DiagramMap_obj j ((D _f g) x)) =>	     {| legs := ?legs; legs_comm := ?Goal |}) X0 (DiagramMap_comm X0)) ==	 idmap	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "4 focused subgoals	(shelved: 2) (ID 132)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  DiagramMap_obj : forall i : G, D i -> diagram_const X i	  w : forall (i j : G) (g : G i j) (x : D i),	      ((diagram_const X) _f g) (DiagramMap_obj i x) =	      DiagramMap_obj j ((D _f g) x)	  ============================	  forall (x y : G) (z : G x y) (z' : D x), ?legs x z' = ?legs y ((D _f z) z')		subgoal 2 (ID 134) is:	 forall (x y : G) (z : G x y) (z' : D x),	 ?DiagramMap_obj y ((D _f z) z') =	 ((diagram_const X) _f z) (?DiagramMap_obj x z')	subgoal 3 (ID 76) is:	 (fun X0 : DiagramMap D (diagram_const X) =>	  (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	     (w : forall (i j : G) (g : G i j) (x : D i),	          ((diagram_const X) _f g) (DiagramMap_obj i x) =	          DiagramMap_obj j ((D _f g) x)) =>	   {|	     legs := ?legs;	     legs_comm := fun (x y : G) (z : G x y) (z' : D x) => (?Goal x y z z')^	   |}) X0 (DiagramMap_comm X0))	 o (fun X0 : Cocone D X =>	    (fun (legs : forall i : G, D i -> X)	       (w : forall (i j : G) (g : G i j),	            (fun x : D i => legs j ((D _f g) x)) == legs i) =>	     {|	       DiagramMap_obj := ?DiagramMap_obj;	       DiagramMap_comm :=	         fun (x y : G) (z : G x y) (z' : D x) => (?Goal0 x y z z')^	     |}) X0 (legs_comm X0)) == idmap	subgoal 4 (ID 78) is:	 (fun X0 : Cocone D X =>	  (fun (legs : forall i : G, D i -> X)	     (w : forall (i j : G) (g : G i j),	          (fun x : D i => legs j ((D _f g) x)) == legs i) =>	   {|	     DiagramMap_obj := ?DiagramMap_obj;	     DiagramMap_comm :=	       fun (x y : G) (z : G x y) (z' : D x) => (?Goal0 x y z z')^	   |}) X0 (legs_comm X0))	 o (fun X0 : DiagramMap D (diagram_const X) =>	    (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	       (w : forall (i j : G) (g : G i j) (x : D i),	            ((diagram_const X) _f g) (DiagramMap_obj i x) =	            DiagramMap_obj j ((D _f g) x)) =>	     {|	       legs := ?legs;	       legs_comm := fun (x y : G) (z : G x y) (z' : D x) => (?Goal x y z z')^	     |}) X0 (DiagramMap_comm X0)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "2 subgoals (ID 76)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  ============================	  (fun X0 : DiagramMap D (diagram_const X) =>	   (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	      (w : forall (i j : G) (g : G i j) (x : D i),	           ((diagram_const X) _f g) (DiagramMap_obj i x) =	           DiagramMap_obj j ((D _f g) x)) =>	    {|	      legs := DiagramMap_obj;	      legs_comm := fun (x y : G) (z : G x y) (z' : D x) => (w x y z z')^	    |}) X0 (DiagramMap_comm X0))	  o (fun X0 : Cocone D X =>	     (fun (legs : forall i : G, D i -> X)	        (w : forall (i j : G) (g : G i j),	             (fun x : D i => legs j ((D _f g) x)) == legs i) =>	      {|	        DiagramMap_obj := legs;	        DiagramMap_comm :=	          fun (x y : G) (z : G x y) (z' : D x) => (w x y z z')^	      |}) X0 (legs_comm X0)) == idmap		subgoal 2 (ID 78) is:	 (fun X0 : Cocone D X =>	  (fun (legs : forall i : G, D i -> X)	     (w : forall (i j : G) (g : G i j),	          (fun x : D i => legs j ((D _f g) x)) == legs i) =>	   {|	     DiagramMap_obj := legs;	     DiagramMap_comm := fun (x y : G) (z : G x y) (z' : D x) => (w x y z z')^	   |}) X0 (legs_comm X0))	 o (fun X0 : DiagramMap D (diagram_const X) =>	    (fun (DiagramMap_obj : forall i : G, D i -> diagram_const X i)	       (w : forall (i j : G) (g : G i j) (x : D i),	            ((diagram_const X) _f g) (DiagramMap_obj i x) =	            DiagramMap_obj j ((D _f g) x)) =>	     {|	       legs := DiagramMap_obj;	       legs_comm := fun (x y : G) (z : G x y) (z' : D x) => (w x y z z')^	     |}) X0 (DiagramMap_comm X0)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "2 subgoals (ID 140)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  legs : forall i : G, D i -> X	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : D i => legs j ((D _f g) x)) == legs i	  ============================	  {|	    legs := legs;	    legs_comm :=	      fun (x y : G) (z : G x y) (z' : D x) => ((legs_comm x y z z')^)^	  |} = {| legs := legs; legs_comm := legs_comm |}		subgoal 2 (ID 146) is:	 {|	   DiagramMap_obj := DiagramMap_obj;	   DiagramMap_comm :=	     fun (x y : G) (z : G x y) (z' : D x) => ((DiagramMap_comm x y z z')^)^	 |} =	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "3 subgoals (ID 174)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  legs : forall i : G, D i -> X	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : D i => legs j ((D _f g) x)) == legs i	  ============================	  forall i : G,	  {|	    legs := legs;	    legs_comm :=	      fun (x y : G) (z : G x y) (z' : D x) => ((legs_comm x y z z')^)^	  |} i == {| legs := legs; legs_comm := legs_comm |} i		subgoal 2 (ID 176) is:	 forall (i j : G) (g : G i j) (x : D i),	 Cocone.legs_comm	   {|	     legs := legs;	     legs_comm :=	       fun (x0 y : G) (z : G x0 y) (z' : D x0) => ((legs_comm x0 y z z')^)^	   |} i j g x @ ?path_legs i x =	 ?path_legs j ((D _f g) x) @	 Cocone.legs_comm {| legs := legs; legs_comm := legs_comm |} i j g x	subgoal 3 (ID 146) is:	 {|	   DiagramMap_obj := DiagramMap_obj;	   DiagramMap_comm :=	     fun (x y : G) (z : G x y) (z' : D x) => ((DiagramMap_comm x y z z')^)^	 |} =	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "4 subgoals (ID 174)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  legs : forall i : G, D i -> X	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : D i => legs j ((D _f g) x)) == legs i	  ============================	  forall i : G,	  {|	    legs := legs;	    legs_comm :=	      fun (x y : G) (z : G x y) (z' : D x) => ((legs_comm x y z z')^)^	  |} i == {| legs := legs; legs_comm := legs_comm |} i		subgoal 2 (ID 176) is:	 forall (i j : G) (g : G i j) (x : D i),	 Cocone.legs_comm	   {|	     legs := legs;	     legs_comm :=	       fun (x0 y : G) (z : G x0 y) (z' : D x0) => ((legs_comm x0 y z z')^)^	   |} i j g x @ ?path_legs i x =	 ?path_legs j ((D _f g) x) @	 Cocone.legs_comm {| legs := legs; legs_comm := legs_comm |} i j g x	subgoal 3 (ID 198) is:	 forall i : G,	 {|	   DiagramMap_obj := DiagramMap_obj;	   DiagramMap_comm :=	     fun (x y : G) (z : G x y) (z' : D x) => ((DiagramMap_comm x y z z')^)^	 |} i ==	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |} i	subgoal 4 (ID 200) is:	 forall (i j : G) (g : G i j) (x : D i),	 Diagram.DiagramMap_comm	   {|	     DiagramMap_obj := DiagramMap_obj;	     DiagramMap_comm :=	       fun (x0 y : G) (z : G x0 y) (z' : D x0) =>	       ((DiagramMap_comm x0 y z z')^)^	   |} g x @ ?h_obj j ((D _f g) x) =	 ap ((diagram_const X) _f g) (?h_obj i x) @	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "2 subgoals (ID 176)	  	  G : Graph	  H : Funext	  D : Diagram G	  X : Type	  legs : forall i : G, D i -> X	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : D i => legs j ((D _f g) x)) == legs i	  ============================	  forall (i j : G) (g : G i j) (x : D i),	  Cocone.legs_comm	    {|	      legs := legs;	      legs_comm :=	        fun (x0 y : G) (z : G x0 y) (z' : D x0) => ((legs_comm x0 y z z')^)^	    |} i j g x @ (fun (i0 : G) (x0 : D i0) => 1) i x =	  (fun (i0 : G) (x0 : D i0) => 1) j ((D _f g) x) @	  Cocone.legs_comm {| legs := legs; legs_comm := legs_comm |} i j g x		subgoal 2 (ID 200) is:	 forall (i j : G) (g : G i j) (x : D i),	 Diagram.DiagramMap_comm	   {|	     DiagramMap_obj := DiagramMap_obj;	     DiagramMap_comm :=	       fun (x0 y : G) (z : G x0 y) (z' : D x0) =>	       ((DiagramMap_comm x0 y z z')^)^	   |} g x @ (fun (i0 : G) (x0 : D i0) => 1) j ((D _f g) x) =	 ap ((diagram_const X) _f g) ((fun (i0 : G) (x0 : D i0) => 1) i x) @	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "1 subgoal (ID 54)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  ============================	  DiagramMap (diagram_const X) D <~> Cone X D	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "4 subgoals (ID 78)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  ============================	  DiagramMap (diagram_const X) D -> Cone X D		subgoal 2 (ID 80) is:	 Cone X D -> DiagramMap (diagram_const X) D	subgoal 3 (ID 82) is:	 ?f o ?g == idmap	subgoal 4 (ID 84) is:	 ?g o ?f == idmap	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "4 focused subgoals	(shelved: 2) (ID 104)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  DiagramMap_obj : forall i : G, diagram_const X i -> D i	  w : forall (i j : G) (g : G i j) (x : diagram_const X i),	      (D _f g) (DiagramMap_obj i x) =	      DiagramMap_obj j (((diagram_const X) _f g) x)	  ============================	  forall (i j : G) (g : G i j),	  (fun x : X => (D _f g) (?legs i x)) == ?legs j		subgoal 2 (ID 107) is:	 forall (i j : G) (g : G i j) (x : diagram_const X i),	 (D _f g) (?DiagramMap_obj i x) =	 ?DiagramMap_obj j (((diagram_const X) _f g) x)	subgoal 3 (ID 82) is:	 (fun X0 : DiagramMap (diagram_const X) D =>	  (fun (DiagramMap_obj : forall i : G, diagram_const X i -> D i)	     (w : forall (i j : G) (g : G i j) (x : diagram_const X i),	          (D _f g) (DiagramMap_obj i x) =	          DiagramMap_obj j (((diagram_const X) _f g) x)) =>	   {| Cone.legs := ?legs; Cone.legs_comm := ?Goal |}) X0 	    (DiagramMap_comm X0))	 o (fun X0 : Cone X D =>	    (fun (legs : forall i : G, X -> D i)	       (w : forall (i j : G) (g : G i j),	            (fun x : X => (D _f g) (legs i x)) == legs j) =>	     {| DiagramMap_obj := ?DiagramMap_obj; DiagramMap_comm := ?Goal0 |}) X0	      (Cone.legs_comm X0)) == idmap	subgoal 4 (ID 84) is:	 (fun X0 : Cone X D =>	  (fun (legs : forall i : G, X -> D i)	     (w : forall (i j : G) (g : G i j),	          (fun x : X => (D _f g) (legs i x)) == legs j) =>	   {| DiagramMap_obj := ?DiagramMap_obj; DiagramMap_comm := ?Goal0 |}) X0	    (Cone.legs_comm X0))	 o (fun X0 : DiagramMap (diagram_const X) D =>	    (fun (DiagramMap_obj : forall i : G, diagram_const X i -> D i)	       (w : forall (i j : G) (g : G i j) (x : diagram_const X i),	            (D _f g) (DiagramMap_obj i x) =	            DiagramMap_obj j (((diagram_const X) _f g) x)) =>	     {| Cone.legs := ?legs; Cone.legs_comm := ?Goal |}) X0	      (DiagramMap_comm X0)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "2 subgoals (ID 82)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  ============================	  (fun X0 : DiagramMap (diagram_const X) D =>	   (fun (DiagramMap_obj : forall i : G, diagram_const X i -> D i)	      (w : forall (i j : G) (g : G i j) (x : diagram_const X i),	           (D _f g) (DiagramMap_obj i x) =	           DiagramMap_obj j (((diagram_const X) _f g) x)) =>	    {| Cone.legs := DiagramMap_obj; Cone.legs_comm := w |}) X0	     (DiagramMap_comm X0))	  o (fun X0 : Cone X D =>	     (fun (legs : forall i : G, X -> D i)	        (w : forall (i j : G) (g : G i j),	             (fun x : X => (D _f g) (legs i x)) == legs j) =>	      {| DiagramMap_obj := legs; DiagramMap_comm := w |}) X0	       (Cone.legs_comm X0)) == idmap		subgoal 2 (ID 84) is:	 (fun X0 : Cone X D =>	  (fun (legs : forall i : G, X -> D i)	     (w : forall (i j : G) (g : G i j),	          (fun x : X => (D _f g) (legs i x)) == legs j) =>	   {| DiagramMap_obj := legs; DiagramMap_comm := w |}) X0 	    (Cone.legs_comm X0))	 o (fun X0 : DiagramMap (diagram_const X) D =>	    (fun (DiagramMap_obj : forall i : G, diagram_const X i -> D i)	       (w : forall (i j : G) (g : G i j) (x : diagram_const X i),	            (D _f g) (DiagramMap_obj i x) =	            DiagramMap_obj j (((diagram_const X) _f g) x)) =>	     {| Cone.legs := DiagramMap_obj; Cone.legs_comm := w |}) X0	      (DiagramMap_comm X0)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "2 subgoals (ID 113)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  legs : forall i : G, X -> D i	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : X => (D _f g) (legs i x)) == legs j	  ============================	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |} =	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |}		subgoal 2 (ID 119) is:	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |} =	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "3 subgoals (ID 147)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  legs : forall i : G, X -> D i	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : X => (D _f g) (legs i x)) == legs j	  ============================	  forall i : G,	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i ==	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i		subgoal 2 (ID 149) is:	 forall (i j : G) (g : G i j) (x : X),	 Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x @	 ?path_legs j x =	 ap (D _f g) (?path_legs i x) @	 Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x	subgoal 3 (ID 119) is:	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |} =	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "4 subgoals (ID 147)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  legs : forall i : G, X -> D i	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : X => (D _f g) (legs i x)) == legs j	  ============================	  forall i : G,	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i ==	  {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i		subgoal 2 (ID 149) is:	 forall (i j : G) (g : G i j) (x : X),	 Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x @	 ?path_legs j x =	 ap (D _f g) (?path_legs i x) @	 Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x	subgoal 3 (ID 171) is:	 forall i : G,	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |} i ==	 {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |} i	subgoal 4 (ID 173) is:	 forall (i j : G) (g : G i j) (x : diagram_const X i),	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x @ ?h_obj j (((diagram_const X) _f g) x) =	 ap (D _f g) (?h_obj i x) @	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "2 subgoals (ID 149)	  	  G : Graph	  H : Funext	  X : Type	  D : Diagram G	  legs : forall i : G, X -> D i	  legs_comm : forall (i j : G) (g : G i j),	              (fun x : X => (D _f g) (legs i x)) == legs j	  ============================	  forall (i j : G) (g : G i j) (x : X),	  Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x @	  (fun (i0 : G) (x0 : X) => 1) j x =	  ap (D _f g) ((fun (i0 : G) (x0 : X) => 1) i x) @	  Cone.legs_comm {| Cone.legs := legs; Cone.legs_comm := legs_comm |} i j g x		subgoal 2 (ID 173) is:	 forall (i j : G) (g : G i j) (x : diagram_const X i),	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x @ (fun (i0 : G) (x0 : X) => 1) j (((diagram_const X) _f g) x) =	 ap (D _f g) ((fun (i0 : G) (x0 : X) => 1) i x) @	 Diagram.DiagramMap_comm	   {| DiagramMap_obj := DiagramMap_obj; DiagramMap_comm := DiagramMap_comm |}	   g x	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Diagrams.ConstantDiagram</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Cone.html#"><span class="id" title="library">Cone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Cocone.html#"><span class="id" title="library">Cocone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#"><span class="id" title="library">Diagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Graph.html#"><span class="id" title="library">Graph</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab828"></a><h1 class="section">Constant diagram</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="ConstantDiagram" class="idref" href="#ConstantDiagram"><span class="id" title="section">ConstantDiagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Context</span> {<a id="G:1" class="idref" href="#G:1"><span class="id" title="binder">G</span></a> : <a class="idref" href="HoTT.Diagrams.Graph.html#Graph"><span class="id" title="record">Graph</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="diagram_const" class="idref" href="#diagram_const"><span class="id" title="definition">diagram_const</span></a> (<a id="C:2" class="idref" href="#C:2"><span class="id" title="binder">C</span></a> : <span class="id" title="keyword">Type</span>) : <a class="idref" href="HoTT.Diagrams.Diagram.html#Diagram"><span class="id" title="record">Diagram</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#ConstantDiagram.G"><span class="id" title="variable">G</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#Build_Diagram"><span class="id" title="constructor">Build_Diagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">exact</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">C</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">i</span> <span class="id" title="var">j</span> <span class="id" title="var">k</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">exact</span> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="diagram_const_functor" class="idref" href="#diagram_const_functor"><span class="id" title="definition">diagram_const_functor</span></a> {<a id="A:3" class="idref" href="#A:3"><span class="id" title="binder">A</span></a> <a id="B:4" class="idref" href="#B:4"><span class="id" title="binder">B</span></a> : <span class="id" title="keyword">Type</span>} (<a id="f:5" class="idref" href="#f:5"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:3"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#B:4"><span class="id" title="variable">B</span></a>)<br>
+    : <a class="idref" href="HoTT.Diagrams.Diagram.html#DiagramMap"><span class="id" title="record">DiagramMap</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const"><span class="id" title="definition">diagram_const</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:3"><span class="id" title="variable">A</span></a>) (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const"><span class="id" title="definition">diagram_const</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#B:4"><span class="id" title="variable">B</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#Build_DiagramMap"><span class="id" title="constructor">Build_DiagramMap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">intro</span> <span class="id" title="var">i</span>; <span class="id" title="tactic">exact</span> <span class="id" title="var">f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(34, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="diagram_const_functor_comp" class="idref" href="#diagram_const_functor_comp"><span class="id" title="definition">diagram_const_functor_comp</span></a> {<a id="A:6" class="idref" href="#A:6"><span class="id" title="binder">A</span></a> <a id="B:7" class="idref" href="#B:7"><span class="id" title="binder">B</span></a> <a id="C:8" class="idref" href="#C:8"><span class="id" title="binder">C</span></a> : <span class="id" title="keyword">Type</span>}<br>
+    (<a id="f:9" class="idref" href="#f:9"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#B:7"><span class="id" title="variable">B</span></a>) (<a id="g:10" class="idref" href="#g:10"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#B:7"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#C:8"><span class="id" title="variable">C</span></a>)<br>
+    : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const_functor"><span class="id" title="definition">diagram_const_functor</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#g:10"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#f:9"><span class="id" title="variable">f</span></a>)<br>
+    <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Diagrams.Diagram.html#diagram_comp"><span class="id" title="definition">diagram_comp</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const_functor"><span class="id" title="definition">diagram_const_functor</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#g:10"><span class="id" title="variable">g</span></a>) (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const_functor"><span class="id" title="definition">diagram_const_functor</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#f:9"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(35, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(36, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(37, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(38, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="diagram_const_functor_idmap" class="idref" href="#diagram_const_functor_idmap"><span class="id" title="definition">diagram_const_functor_idmap</span></a> {<a id="A:11" class="idref" href="#A:11"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>}<br>
+    : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const_functor"><span class="id" title="definition">diagram_const_functor</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a> : <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:11"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:11"><span class="id" title="variable">A</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Diagrams.Diagram.html#diagram_idmap"><span class="id" title="definition">diagram_idmap</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const"><span class="id" title="definition">diagram_const</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#A:11"><span class="id" title="variable">A</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(39, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(40, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(41, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(42, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="equiv_diagram_const_cocone" class="idref" href="#equiv_diagram_const_cocone"><span class="id" title="definition">equiv_diagram_const_cocone</span></a> `{<a id="H:12" class="idref" href="#H:12"><span class="id" title="binder">Funext</span></a>} (<a id="D:13" class="idref" href="#D:13"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Diagrams.Diagram.html#Diagram"><span class="id" title="record">Diagram</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#ConstantDiagram.G"><span class="id" title="variable">G</span></a>) (<a id="X:14" class="idref" href="#X:14"><span class="id" title="binder">X</span></a> : <span class="id" title="keyword">Type</span>)<br>
+    : <a class="idref" href="HoTT.Diagrams.Diagram.html#DiagramMap"><span class="id" title="record">DiagramMap</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#D:13"><span class="id" title="variable">D</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const"><span class="id" title="definition">diagram_const</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#X:14"><span class="id" title="variable">X</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Diagrams.Cocone.html#Cocone"><span class="id" title="class">Cocone</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#D:13"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#X:14"><span class="id" title="variable">X</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(43, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(44, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_adjointify"><span class="id" title="definition">equiv_adjointify</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(45, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">intros</span> [? <span class="id" title="var">w</span>]; <span class="id" title="tactic">econstructor</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(46, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">z'</span>; <span class="id" title="tactic">symmetry</span>; <span class="id" title="var">revert</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">z'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(47, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">exact</span> <span class="id" title="var">w</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(48, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">intros</span>[].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(49, '0_3_7');
+      "><br>
+    1: <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Cocone.html#path_cocone"><span class="id" title="definition">path_cocone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(50, '0_3_7');
+      "><br>
+    3: <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#path_DiagramMap"><span class="id" title="definition">path_DiagramMap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(51, '0_3_7');
+      "><br>
+    1,3: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(52, '0_3_7');
+      "><br>
+    <span class="id" title="var">all</span>: <span class="id" title="var">cbn</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="var">hott_simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(53, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(54, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="equiv_diagram_const_cone" class="idref" href="#equiv_diagram_const_cone"><span class="id" title="definition">equiv_diagram_const_cone</span></a> `{<a id="H:15" class="idref" href="#H:15"><span class="id" title="binder">Funext</span></a>} (<a id="X:16" class="idref" href="#X:16"><span class="id" title="binder">X</span></a> : <span class="id" title="keyword">Type</span>) (<a id="D:17" class="idref" href="#D:17"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Diagrams.Diagram.html#Diagram"><span class="id" title="record">Diagram</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#ConstantDiagram.G"><span class="id" title="variable">G</span></a>)<br>
+    : <a class="idref" href="HoTT.Diagrams.Diagram.html#DiagramMap"><span class="id" title="record">DiagramMap</span></a> (<a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#diagram_const"><span class="id" title="definition">diagram_const</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#X:16"><span class="id" title="variable">X</span></a>) <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#D:17"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Diagrams.Cone.html#Cone"><span class="id" title="class">Cone</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#X:16"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#D:17"><span class="id" title="variable">D</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(55, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(56, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_adjointify"><span class="id" title="definition">equiv_adjointify</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(57, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">intros</span> [? <span class="id" title="var">w</span>]; <span class="id" title="tactic">econstructor</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(58, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">exact</span> <span class="id" title="var">w</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(59, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">intros</span>[].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(60, '0_3_7');
+      "><br>
+    1: <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Cone.html#path_cone"><span class="id" title="definition">path_cone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(61, '0_3_7');
+      "><br>
+    3: <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#path_DiagramMap"><span class="id" title="definition">path_DiagramMap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(62, '0_3_7');
+      "><br>
+    1,3: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(63, '0_3_7');
+      "><br>
+    <span class="id" title="var">all</span>: <span class="id" title="var">cbn</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="var">hott_simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(64, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(65, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Diagrams.ConstantDiagram.html#ConstantDiagram"><span class="id" title="section">ConstantDiagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(66, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

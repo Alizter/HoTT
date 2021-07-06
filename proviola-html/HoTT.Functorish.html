@@ -1,0 +1,393 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "<infomsg>Functorish is defined</infomsg>	<infomsg>Functorish_rect is defined</infomsg>	<infomsg>Functorish_ind is defined</infomsg>	<infomsg>Functorish_rec is defined</infomsg>	<infomsg>Functorish_sind is defined</infomsg>	<infomsg>fmap is defined</infomsg>	<infomsg>fmap_idmap is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>F is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "<infomsg>FF is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 16)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  IsEquiv (fmap F f)	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 36)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  IsEquiv (fmap F 1%equiv)	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 44)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  fmap F f = equiv_path (F A) (F B) (ap F (path_universe f))	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 80)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  fmap F 1%equiv = equiv_path (F A) (F A) (ap F (path_universe 1%equiv))	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "2 subgoals (ID 94)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  fmap F 1%equiv = (idmap : F A -> F A)		subgoal 2 (ID 95) is:	 (idmap : F A -> F A) = equiv_path (F A) (F A) (ap F (path_universe 1%equiv))	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 94)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  fmap F 1%equiv = (idmap : F A -> F A)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 95) is:	 (idmap : F A -> F A) = equiv_path (F A) (F A) (ap F (path_universe 1%equiv))	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 95)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  (idmap : F A -> F A) =	  equiv_path (F A) (F A) (ap F (path_universe 1%equiv))	1 subgoal (ID 100)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  (idmap : F A -> F A) =	  equiv_path (F A) (F A) (ap F (path_universe (equiv_path A A 1)))	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 105)	  	  H : Univalence	  F : Type -> Type	  FF : Functorish F	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  idmap = equiv_path (F A) (F A) (ap F 1)	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Functorish</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a> <a class="idref" href="HoTT.Types.Universe.html#"><span class="id" title="library">Types.Universe</span></a> <a class="idref" href="HoTT.TruncType.html#"><span class="id" title="library">TruncType</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="Functorish" class="idref" href="#Functorish"><span class="id" title="section">Functorish</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Univalence</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Class</span> <a id="Functorish" class="idref" href="#Functorish"><span class="id" title="record">Functorish</span></a> (<a id="F:2" class="idref" href="#F:2"><span class="id" title="binder">F</span></a> : <span class="id" title="keyword">Type</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) := {<br>
+  <a id="fmap" class="idref" href="#fmap"><span class="id" title="projection">fmap</span></a> {<a id="A:4" class="idref" href="#A:4"><span class="id" title="binder">A</span></a> <a id="B:5" class="idref" href="#B:5"><span class="id" title="binder">B</span></a>} (<a id="f:6" class="idref" href="#f:6"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Functorish.html#A:4"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#B:5"><span class="id" title="variable">B</span></a>) : <a class="idref" href="HoTT.Functorish.html#F:2"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#A:4"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#F:2"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#B:5"><span class="id" title="variable">B</span></a> ;<br>
+  <a id="fmap_idmap" class="idref" href="#fmap_idmap"><span class="id" title="projection">fmap_idmap</span></a> (<a id="A:8" class="idref" href="#A:8"><span class="id" title="binder">A</span></a>:<span class="id" title="keyword">Type</span>) : <a class="idref" href="HoTT.Functorish.html#fmap:7"><span class="id" title="method">fmap</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a> : <a class="idref" href="HoTT.Functorish.html#A:8"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#A:8"><span class="id" title="variable">A</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a><br>
+}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global</span> <span class="id" title="var">Arguments</span> <a class="idref" href="HoTT.Functorish.html#fmap"><span class="id" title="method">fmap</span></a> <span class="id" title="var">F</span> {<span class="id" title="var">FF</span>} {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} <span class="id" title="var">f</span> <span class="id" title="var">_</span> : <span class="id" title="tactic">rename</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Global</span> <span class="id" title="var">Arguments</span> <a class="idref" href="HoTT.Functorish.html#fmap_idmap"><span class="id" title="method">fmap_idmap</span></a> <span class="id" title="var">F</span> {<span class="id" title="var">FF</span> <span class="id" title="var">A</span>} : <span class="id" title="tactic">rename</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Context</span> (<a id="F:10" class="idref" href="#F:10"><span class="id" title="binder">F</span></a> : <span class="id" title="keyword">Type</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> {<a id="FF:11" class="idref" href="#FF:11"><span class="id" title="binder">FF</span></a> : <a class="idref" href="HoTT.Functorish.html#Functorish"><span class="id" title="class">Functorish</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Proposition</span> <a id="isequiv_fmap" class="idref" href="#isequiv_fmap"><span class="id" title="lemma">isequiv_fmap</span></a> {<a id="A:12" class="idref" href="#A:12"><span class="id" title="binder">A</span></a> <a id="B:13" class="idref" href="#B:13"><span class="id" title="binder">B</span></a>} (<a id="f:14" class="idref" href="#f:14"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Functorish.html#A:12"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#B:13"><span class="id" title="variable">B</span></a>) `{<a id="H0:15" class="idref" href="#H0:15"><span class="id" title="binder">IsEquiv</span></a> <a id="H0:15" class="idref" href="#H0:15"><span class="id" title="binder">_</span></a> <a id="H0:15" class="idref" href="#H0:15"><span class="id" title="binder">_</span></a> <a id="H0:15" class="idref" href="#H0:15"><span class="id" title="binder">f</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> (<a class="idref" href="HoTT.Functorish.html#fmap"><span class="id" title="method">fmap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#f:14"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Universe.html#equiv_induction"><span class="id" title="lemma">equiv_induction</span></a> (<span class="id" title="keyword">fun</span> <a id="A':18" class="idref" href="#A':18"><span class="id" title="binder">A'</span></a> <a id="e:19" class="idref" href="#e:19"><span class="id" title="binder">e</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> (<a class="idref" href="HoTT.Functorish.html#fmap"><span class="id" title="method">fmap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#e:17"><span class="id" title="variable">e</span></a>)) <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Overture.html#Build_Equiv"><span class="id" title="constructor">Build_Equiv</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">f</span> <span class="id" title="var">_</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Functorish.html#fmap_idmap"><span class="id" title="method">fmap_idmap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <span class="id" title="var">_</span>);<br>
+    <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_idmap"><span class="id" title="instance">isequiv_idmap</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Proposition</span> <a id="fmap_agrees_with_univalence" class="idref" href="#fmap_agrees_with_univalence"><span class="id" title="lemma">fmap_agrees_with_univalence</span></a> {<a id="A:20" class="idref" href="#A:20"><span class="id" title="binder">A</span></a> <a id="B:21" class="idref" href="#B:21"><span class="id" title="binder">B</span></a>} (<a id="f:22" class="idref" href="#f:22"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Functorish.html#A:20"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#B:21"><span class="id" title="variable">B</span></a>) `{<a id="H0:23" class="idref" href="#H0:23"><span class="id" title="binder">IsEquiv</span></a> <a id="H0:23" class="idref" href="#H0:23"><span class="id" title="binder">_</span></a> <a id="H0:23" class="idref" href="#H0:23"><span class="id" title="binder">_</span></a> <a id="H0:23" class="idref" href="#H0:23"><span class="id" title="binder">f</span></a>}<br>
+  : <a class="idref" href="HoTT.Functorish.html#fmap"><span class="id" title="method">fmap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Types.Universe.html#equiv_path"><span class="id" title="definition">equiv_path</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> (<a class="idref" href="HoTT.Types.Universe.html#path_universe"><span class="id" title="definition">path_universe</span></a> <a class="idref" href="HoTT.Functorish.html#f:22"><span class="id" title="variable">f</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Universe.html#equiv_induction"><span class="id" title="lemma">equiv_induction</span></a><br>
+    (<span class="id" title="keyword">fun</span> <a id="A':26" class="idref" href="#A':26"><span class="id" title="binder">A'</span></a> <a id="e:27" class="idref" href="#e:27"><span class="id" title="binder">e</span></a> ⇒ <a class="idref" href="HoTT.Functorish.html#fmap"><span class="id" title="method">fmap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <a class="idref" href="HoTT.Functorish.html#e:25"><span class="id" title="variable">e</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Types.Universe.html#equiv_path"><span class="id" title="definition">equiv_path</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> (<a class="idref" href="HoTT.Types.Universe.html#path_universe"><span class="id" title="definition">path_universe</span></a> <a class="idref" href="HoTT.Functorish.html#e:25"><span class="id" title="variable">e</span></a>)))<br>
+    <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Overture.html#Build_Equiv"><span class="id" title="constructor">Build_Equiv</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">f</span> <span class="id" title="var">_</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">transitivity</span> (<a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a> : <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <span class="id" title="var">A</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Functorish.html#Functorish.F"><span class="id" title="variable">F</span></a> <span class="id" title="var">A</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Functorish.html#fmap_idmap"><span class="id" title="method">fmap_idmap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">change</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">equiv_idmap</span></a> <span class="id" title="var">A</span>) <span class="id" title="keyword">with</span> (<a class="idref" href="HoTT.Types.Universe.html#equiv_path"><span class="id" title="definition">equiv_path</span></a> <span class="id" title="var">A</span> <span class="id" title="var">A</span> 1).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> (@<a class="idref" href="HoTT.Types.Universe.html#eta_path_universe"><span class="id" title="definition">eta_path_universe</span></a> <span class="id" title="var">_</span> <span class="id" title="var">A</span> <span class="id" title="var">A</span> 1). </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><span class="id" title="tactic">exact</span> 1.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Functorish.html#Functorish"><span class="id" title="section">Functorish</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

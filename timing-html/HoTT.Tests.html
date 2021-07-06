@@ -1,0 +1,665 @@
+<html>
+<head>
+<title>Tests.v</title>
+<style>
+.time {
+  background-color: #ffaaaa;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+}
+.code {
+  z-index: 0;
+  position: relative;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+}
+.code:hover {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+pre {
+  margin: 1px;
+}
+</style>
+</head>
+<body>
+<h1>Timings for Tests.v</h1>
+
+<div class="code" title="File: Tests.v
+Line: 1
+Time: 0.38s">
+<div class="time" style="width: 100%"></div>
+<pre>Require Import HoTT.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 1
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Fail Check Type0 : Type0.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 3
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check Susp nat : Type0.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 4
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Fail Check Susp Type0 : Type0.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 5
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Fail Check (fun (P : interval -&gt; Type) (a : P Interval.zero) (b : P Interval.one)
+                (p p' : seg # a = b)
+            =&gt; idpath : interval_ind P a b p = interval_rect P a b p').</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 9
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Local Open Scope nat_scope.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 11
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Fail Check Lift nat : Type0.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 12
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check 1 : Lift nat.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 13
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Check lift'@{i j}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 15
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check lower'@{i j}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 16
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check isequiv_lift'@{i j}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 17
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Check that [ispointed_susp] doesn't require just a [Set] *)</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 19
+Time: 0.002s">
+<div class="time" style="width: 0.52631578947368%"></div>
+<pre>Check (fun A : Type =&gt; _ : IsPointed (Susp A)).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 19
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check (@ispointed_susp Type).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 20
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Check (@ispointed_susp Set).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 21
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Check that nested sigma-type notation didn't get clobbered by surreal cuts *)</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 23
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Check ({ l : Unit &amp; { n : Unit &amp; Unit }}).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 23
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Test 1 from issue #754 *)</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 25
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Module Issue754_1.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 25
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Inductive nat : Type1 :=
+  | O : nat
+  | S : nat -&gt; nat.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 28
+Time: 0.001s">
+<div class="time" style="width: 0.26315789473684%"></div>
+<pre>
+  Fixpoint code_nat (m n : nat) {struct m} : DProp.DHProp :=
+    match m with
+      | O =&gt; match n with
+               | O =&gt; DProp.True
+               | S _ =&gt; DProp.False
+             end
+      | S m' =&gt; match n with
+                  | O =&gt; DProp.False
+                  | S n' =&gt; code_nat m' n'
+                end
+    end.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 39
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Local Set Warnings Append "-notation-overridden".</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 41
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Notation "x =n y" := (code_nat x y) : nat_scope.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 42
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Local Set Warnings Append "notation-overridden".</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 43
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Bind Scope nat_scope with nat.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 44
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Axiom equiv_path_nat :
+    forall n m : nat,
+      Trunc.trunctype_type (DProp.dhprop_hprop (n =n m)) &lt;~&gt; n = m.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 47
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition nat_discr `{Funext} {n: nat}: O &lt;&gt; S n.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 49
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 50
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intro H'.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 51
+Time: 0.003s">
+<div class="time" style="width: 0.78947368421053%"></div>
+<pre>
+    equiv_induction (@equiv_path_nat O (S n)).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 52
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    assumption.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 53
+Time: 0.001s">
+<div class="time" style="width: 0.26315789473684%"></div>
+<pre>
+  Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 54
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+End Issue754_1.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 55
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Module Issue_1358.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 57
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Axiom A@{i} : Type@{i}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 59
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Axiom foo@{i} : A@{i} &lt;~&gt; A@{i}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 61
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition bar@{i} : A@{i} &lt;~&gt; A@{i}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 63
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 64
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    reflexivity.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 65
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 66
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition bar'@{i} : A@{i} &lt;~&gt; A@{i}.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 68
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 69
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exact equiv_idmap.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 70
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 71
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+End Issue_1358.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 73
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Module Issue_973.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 75
+Time: 0.001s">
+<div class="time" style="width: 0.26315789473684%"></div>
+<pre>
+
+  Inductive vec (A : Type) : nat -&gt; Type :=
+  | nil : vec A 0
+  | cons : forall n : nat, A -&gt; vec A n -&gt; vec A (S n).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 79
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+(*   Arguments nil [A]. *)
+
+ </pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 82
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition hd (A : Type) (n : nat) (v : vec A (S n)) : A :=
+  match v in (vec _ (S n)) return A with
+  | cons _ h _ =&gt; h
+  end.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 85
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+End Issue_973.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 87
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+
+Module PR_1382.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 90
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  (* Tests for discriminate tactic *)
+
+ </pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 93
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Goal O = S O -&gt; Empty.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 93
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+   discriminate 1.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 94
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 95
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Goal forall H : O = S O, H = H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 97
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+   discriminate H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 98
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 99
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Goal O = S O -&gt; Unit.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 101
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 102
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> discriminate H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 102
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 102
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Goal O = S O -&gt; Unit.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 103
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> Ltac g x := discriminate x.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> g H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre></pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> g H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Goal (forall x y : nat, x = y -&gt; x = S y) -&gt; Unit.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 106
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 107
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  try discriminate (H O) || exact tt.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 108
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 109
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Goal (forall x y : nat, x = y -&gt; x = S y) -&gt; Unit.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 111
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros H.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 112
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> ediscriminate (H O).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 112
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> instantiate (1:=O).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 112
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> Abort.
+
+  (* Check discriminate on types with local definitions *)
+
+ </pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 116
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Inductive A := B (T := Unit) (x y : Bool) (z := x).</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 116
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Goal forall x y, B x true = B y false -&gt; Empty.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 117
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  discriminate.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 118
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Qed.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 119
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+End PR_1382.</pre>
+</div>
+<div class="code" title="File: Tests.v
+Line: 122
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
+

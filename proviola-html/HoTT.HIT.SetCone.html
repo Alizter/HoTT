@@ -1,0 +1,302 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>f is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "<infomsg>setcone is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "<infomsg>istrunc_setcone is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "<infomsg>setcone_point is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.HIT.SetCone</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">HoTT.Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HSet.html#"><span class="id" title="library">HSet</span></a> <a class="idref" href="HoTT.TruncType.html#"><span class="id" title="library">TruncType</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Colimits.Pushout.html#"><span class="id" title="library">Colimits.Pushout</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Truncations.html#"><span class="id" title="library">HoTT.Truncations</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab871"></a><h1 class="section">Cones of HSets</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="SetCone" class="idref" href="#SetCone"><span class="id" title="section">SetCone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Context</span> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a>} (<a id="f:3" class="idref" href="#f:3"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.SetCone.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.SetCone.html#B:2"><span class="id" title="variable">B</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="setcone" class="idref" href="#setcone"><span class="id" title="definition">setcone</span></a> := <a class="idref" href="HoTT.Truncations.Core.html#Trunc.Trunc"><span class="id" title="inductive">Trunc</span></a> 0 (<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout"><span class="id" title="definition">Pushout</span></a> <a class="idref" href="HoTT.HIT.SetCone.html#SetCone.f"><span class="id" title="variable">f</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#const"><span class="id" title="definition">const</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="istrunc_setcone" class="idref" href="#istrunc_setcone"><span class="id" title="instance">istrunc_setcone</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#IsHSet"><span class="id" title="abbreviation">IsHSet</span></a> <a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> := <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="setcone_point" class="idref" href="#setcone_point"><span class="id" title="definition">setcone_point</span></a> : <a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> := <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> (<a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.SetCone.html#SetCone"><span class="id" title="section">SetCone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

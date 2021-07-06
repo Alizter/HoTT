@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>HoTT.Homotopy.HSpace</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library HoTT.Homotopy.HSpace</h1>
+
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Truncations.html#"><span class="id" title="library">Truncations</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">Classes.interfaces.abstract_algebra</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">trunc_scope</span>.<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_mult_scope</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Class</span> <a id="IsHSpace" class="idref" href="#IsHSpace"><span class="id" title="record">IsHSpace</span></a> (<a id="X:1" class="idref" href="#X:1"><span class="id" title="binder">X</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>) := {<br/>
+&nbsp;&nbsp;<a id="hspace_op" class="idref" href="#hspace_op"><span class="id" title="projection">hspace_op</span></a> :&gt; <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#SgOp"><span class="id" title="class">SgOp</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#X:1"><span class="id" title="variable">X</span></a>;<br/>
+&nbsp;&nbsp;<a id="hspace_left_identity" class="idref" href="#hspace_left_identity"><span class="id" title="projection">hspace_left_identity</span></a> :&gt; <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LeftIdentity"><span class="id" title="class">LeftIdentity</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#hspace_op:3"><span class="id" title="method">hspace_op</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <span class="id" title="var">_</span>);<br/>
+&nbsp;&nbsp;<a id="hspace_right_identity" class="idref" href="#hspace_right_identity"><span class="id" title="projection">hspace_right_identity</span></a> :&gt; <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#RightIdentity"><span class="id" title="class">RightIdentity</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#hspace_op:3"><span class="id" title="method">hspace_op</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <span class="id" title="var">_</span>);<br/>
+}.<br/>
+
+<br/>
+<span class="id" title="keyword">Global Instance</span> <a id="hspace_mon_unit" class="idref" href="#hspace_mon_unit"><span class="id" title="instance">hspace_mon_unit</span></a> {<a id="X:6" class="idref" href="#X:6"><span class="id" title="binder">X</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>} `{<a id="H:7" class="idref" href="#H:7"><span class="id" title="binder">IsHSpace</span></a> <a id="H:7" class="idref" href="#H:7"><span class="id" title="binder">X</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#MonUnit"><span class="id" title="class">MonUnit</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#X:6"><span class="id" title="variable">X</span></a> := <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <span class="id" title="var">_</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="hspace_id" class="idref" href="#hspace_id"><span class="id" title="definition">hspace_id</span></a> {<a id="X:8" class="idref" href="#X:8"><span class="id" title="binder">X</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>} := <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#X:8"><span class="id" title="variable">X</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a id="HSpaceProperties" class="idref" href="#HSpaceProperties"><span class="id" title="section">HSpaceProperties</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> <br/>
+&nbsp;&nbsp;&nbsp;`{<a id="H:9" class="idref" href="#H:9"><span class="id" title="binder">Univalence</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{<a id="A:10" class="idref" href="#A:10"><span class="id" title="binder">A</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;`{<a id="H0:11" class="idref" href="#H0:11"><span class="id" title="binder">IsHSpace</span></a> <a id="H0:11" class="idref" href="#H0:11"><span class="id" title="binder">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;`{<a id="H1:12" class="idref" href="#H1:12"><span class="id" title="binder">IsConnected</span></a> <a id="H1:12" class="idref" href="#H1:12"><span class="id" title="binder">0</span></a> <a id="H1:12" class="idref" href="#H1:12"><span class="id" title="binder">A</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Global Instance</span> <a id="isequiv_hspace_left_op" class="idref" href="#isequiv_hspace_left_op"><span class="id" title="instance">isequiv_hspace_left_op</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;: <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="a:13" class="idref" href="#a:13"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> (<span class="id" title="keyword">fun</span> <a id="x:14" class="idref" href="#x:14"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Homotopy.HSpace.html#a:13"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#601809684726b80a51fcd53b156c93ba"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#x:14"><span class="id" title="variable">x</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#conn_map_elim"><span class="id" title="definition">conn_map_elim</span></a> (-1) (<a class="idref" href="HoTT.Types.Unit.html#unit_name"><span class="id" title="abbreviation">unit_name</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#hspace_id"><span class="id" title="definition">hspace_id</span></a>) <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#Unit_ind"><span class="id" title="definition">Unit_ind</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_homotopic"><span class="id" title="definition">isequiv_homotopic</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">a</span>; <span class="id" title="tactic">symmetry</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_identity"><span class="id" title="definition">left_identity</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Global Instance</span> <a id="isequiv_hspace_right_op" class="idref" href="#isequiv_hspace_right_op"><span class="id" title="instance">isequiv_hspace_right_op</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;: <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="a:15" class="idref" href="#a:15"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> (<span class="id" title="keyword">fun</span> <a id="x:16" class="idref" href="#x:16"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Homotopy.HSpace.html#x:16"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#601809684726b80a51fcd53b156c93ba"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#a:15"><span class="id" title="variable">a</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#conn_map_elim"><span class="id" title="definition">conn_map_elim</span></a> (-1) (<a class="idref" href="HoTT.Types.Unit.html#unit_name"><span class="id" title="abbreviation">unit_name</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#hspace_id"><span class="id" title="definition">hspace_id</span></a>) <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#Unit_ind"><span class="id" title="definition">Unit_ind</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_homotopic"><span class="id" title="definition">isequiv_homotopic</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">a</span>; <span class="id" title="tactic">symmetry</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_identity"><span class="id" title="definition">right_identity</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="equiv_hspace_left_op" class="idref" href="#equiv_hspace_left_op"><span class="id" title="definition">equiv_hspace_left_op</span></a> (<a id="a:17" class="idref" href="#a:17"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a>) : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="HoTT.Basics.Overture.html#Build_Equiv"><span class="id" title="constructor">Build_Equiv</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Homotopy.HSpace.html#isequiv_hspace_left_op"><span class="id" title="instance">isequiv_hspace_left_op</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#a:17"><span class="id" title="variable">a</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="equiv_hspace_right_op" class="idref" href="#equiv_hspace_right_op"><span class="id" title="definition">equiv_hspace_right_op</span></a> (<a id="a:18" class="idref" href="#a:18"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a>) : <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties.A"><span class="id" title="variable">A</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;:= <a class="idref" href="HoTT.Basics.Overture.html#Build_Equiv"><span class="id" title="constructor">Build_Equiv</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Homotopy.HSpace.html#isequiv_hspace_right_op"><span class="id" title="instance">isequiv_hspace_right_op</span></a> <a class="idref" href="HoTT.Homotopy.HSpace.html#a:18"><span class="id" title="variable">a</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Homotopy.HSpace.html#HSpaceProperties"><span class="id" title="section">HSpaceProperties</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

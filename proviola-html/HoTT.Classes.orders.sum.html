@@ -1,0 +1,438 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "1 subgoal (ID 1)	  	  ============================	  Lt Empty	";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>Unit_lt is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "1 subgoal (ID 6)	  	  ============================	  Trichotomy (Empty_lt : Lt Empty)	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 9)	  	  ============================	  Trichotomy (Unit_lt : Lt Unit)	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Alt is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>Blt is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "<infomsg>sum_lt is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 23)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  ============================	  Trichotomy sum_lt	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 24)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  ============================	  forall x y : A + B, (sum_lt x y + ((x = y) + sum_lt y x))%type	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "4 subgoals (ID 46)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  a1, a2 : A	  ============================	  (a1 < a2) + ((inl a1 = inl a2) + (a2 < a1))		subgoal 2 (ID 47) is:	 Unit + ((inl a1 = inr b2) + Empty)	subgoal 3 (ID 48) is:	 Empty + ((inr b1 = inl a2) + Unit)	subgoal 4 (ID 49) is:	 (b1 < b2) + ((inr b1 = inr b2) + (b2 < b1))	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 46)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  a1, a2 : A	  ============================	  (a1 < a2) + ((inl a1 = inl a2) + (a2 < a1))	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 47) is:	 Unit + ((inl a1 = inr b2) + Empty)	subgoal 2 (ID 48) is:	 Empty + ((inr b1 = inl a2) + Unit)	subgoal 3 (ID 49) is:	 (b1 < b2) + ((inr b1 = inr b2) + (b2 < b1))	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 47)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  a1 : A	  b2 : B	  ============================	  Unit + ((inl a1 = inr b2) + Empty)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 48) is:	 Empty + ((inr b1 = inl a2) + Unit)	subgoal 2 (ID 49) is:	 (b1 < b2) + ((inr b1 = inr b2) + (b2 < b1))	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 48)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  b1 : B	  a2 : A	  ============================	  Empty + ((inr b1 = inl a2) + Unit)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 49) is:	 (b1 < b2) + ((inr b1 = inr b2) + (b2 < b1))	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 49)	  	  A : Type0	  Alt : Lt A	  B : Type0	  Blt : Lt B	  Trichotomy0 : Trichotomy Alt	  Trichotomy1 : Trichotomy Blt	  b1, b2 : B	  ============================	  (b1 < b2) + ((inr b1 = inr b2) + (b2 < b1))	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.orders.sum</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+  <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#"><span class="id" title="library">HoTT.Classes.interfaces.canonical_names</span></a><br>
+  <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">HoTT.Classes.interfaces.abstract_algebra</span></a><br>
+  <a class="idref" href="HoTT.Classes.interfaces.orders.html#"><span class="id" title="library">HoTT.Classes.interfaces.orders</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Generalizable</span> <span class="id" title="keyword">Variables</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="Empty_lt" class="idref" href="#Empty_lt"><span class="id" title="instance">Empty_lt</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><span class="id" title="tactic">intros</span> []. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="Unit_lt" class="idref" href="#Unit_lt"><span class="id" title="instance">Unit_lt</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> := <span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="empty_tricho" class="idref" href="#empty_tricho"><span class="id" title="instance">empty_tricho</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Trichotomy"><span class="id" title="class">Trichotomy@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} (<span class="id" title="var">_</span>:<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> [].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="unit_tricho" class="idref" href="#unit_tricho"><span class="id" title="instance">unit_tricho</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Trichotomy"><span class="id" title="class">Trichotomy@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} (<span class="id" title="var">_</span>:<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> [] [];<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="contents" class="idref" href="#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Context</span> `{<a id="Alt:2" class="idref" href="#Alt:2"><span class="id" title="binder">Alt</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} <a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a>} `{<a id="Blt:4" class="idref" href="#Blt:4"><span class="id" title="binder">Blt</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} <a id="B:3" class="idref" href="#B:3"><span class="id" title="binder">B</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="sum_lt" class="idref" href="#sum_lt"><span class="id" title="instance">sum_lt</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Lt"><span class="id" title="class">Lt@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} (<a class="idref" href="HoTT.Classes.orders.sum.html#contents.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">|</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">_</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">|</span></a> <a class="idref" href="HoTT.Classes.orders.sum.html#contents.B"><span class="id" title="variable">B</span></a>) | 2<br>
+  := <span class="id" title="keyword">fun</span> <a id="s1:5" class="idref" href="#s1:5"><span class="id" title="binder">s1</span></a> <a id="s2:6" class="idref" href="#s2:6"><span class="id" title="binder">s2</span></a> ⇒<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.orders.sum.html#s1:5"><span class="id" title="variable">s1</span></a>, <a class="idref" href="HoTT.Classes.orders.sum.html#s2:6"><span class="id" title="variable">s2</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">a1</span>, <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">a2</span> ⇒ <span class="id" title="var">a1</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <span class="id" title="var">a2</span><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">b1</span>, <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">b2</span> ⇒ <span class="id" title="var">b1</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <span class="id" title="var">b2</span><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span>, <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">_</span>, <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="sum_tricho" class="idref" href="#sum_tricho"><span class="id" title="instance">sum_tricho</span></a> `{<a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">!</span></a><a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">Trichotomy@</span></a><a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">{</span></a><a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">Set</span></a> <a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">Set</span></a> <a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">Set</span></a><a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">}</span></a> <a id="Trichotomy0:9" class="idref" href="#Trichotomy0:9"><span class="id" title="binder">Alt</span></a>} `{<a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">!</span></a><a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">Trichotomy@</span></a><a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">{</span></a><a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">Set</span></a> <a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">Set</span></a> <a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">Set</span></a><a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">}</span></a> <a id="Trichotomy1:10" class="idref" href="#Trichotomy1:10"><span class="id" title="binder">Blt</span></a>}<br>
+  : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Trichotomy"><span class="id" title="class">Trichotomy@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span> <span class="id" title="keyword">Set</span>} <a class="idref" href="HoTT.Classes.orders.sum.html#sum_lt"><span class="id" title="instance">sum_lt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><br>
+<span class="id" title="tactic">hnf</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">a1</span>|<span class="id" title="var">b1</span>] [<span class="id" title="var">a2</span>|<span class="id" title="var">b2</span>];<span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trichotomy"><span class="id" title="definition">trichotomy</span></a> <span class="id" title="var">_</span> <span class="id" title="var">a1</span> <span class="id" title="var">a2</span>) <span class="id" title="keyword">as</span> [?|[?|?]];<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(31, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trichotomy"><span class="id" title="definition">trichotomy</span></a> <span class="id" title="var">_</span> <span class="id" title="var">b1</span> <span class="id" title="var">b2</span>) <span class="id" title="keyword">as</span> [?|[?|?]];<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(32, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(33, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.orders.sum.html#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(34, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

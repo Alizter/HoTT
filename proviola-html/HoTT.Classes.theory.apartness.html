@@ -1,0 +1,2224 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "1 subgoal (ID 14)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  ============================	  PropHolds (x ≶ y) -> PropHolds (x <> y)	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "1 subgoal (ID 15)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  ============================	  x ≶ y -> x <> y	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "1 subgoal (ID 20)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  e : x = y	  ============================	  x ≶ y -> Empty	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 29)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  e : x = y	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 17)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  ============================	  forall x y : A, Stable (x = y)	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 19)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  ============================	  Stable (x = y)	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 20)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  ============================	  ~~ (x = y) -> x = y	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 21)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  dn : ~~ (x = y)	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "1 subgoal (ID 28)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  dn : ~~ (x = y)	  ============================	  ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 30)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  dn : ~~ (x = y)	  ap : x ≶ y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 31)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  dn : ~~ (x = y)	  ap : x ≶ y	  ============================	  x <> y	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 32)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  x, y : A	  dn : ~~ (x = y)	  ap : x ≶ y	  ============================	  PropHolds (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 33)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  IsApart A	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "5 subgoals (ID 35)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  IsHSet A		subgoal 2 (ID 36) is:	 is_mere_relation A apart	subgoal 3 (ID 37) is:	 Symmetric apart	subgoal 4 (ID 38) is:	 CoTransitive apart	subgoal 5 (ID 39) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 35)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  IsHSet A	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	4 subgoals		subgoal 1 (ID 36) is:	 is_mere_relation A apart	subgoal 2 (ID 37) is:	 Symmetric apart	subgoal 3 (ID 38) is:	 CoTransitive apart	subgoal 4 (ID 39) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 36)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  is_mere_relation A apart	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 37) is:	 Symmetric apart	subgoal 2 (ID 38) is:	 CoTransitive apart	subgoal 3 (ID 39) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 37)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  Symmetric apart	1 subgoal (ID 47)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ap : x ≶ y	  ============================	  y ≶ x	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 64)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ap : x ≶ y	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 38) is:	 CoTransitive apart	subgoal 2 (ID 39) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "1 subgoal (ID 38)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  CoTransitive apart	1 subgoal (ID 69)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ap : x ≶ y	  z : A	  ============================	  x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 74)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ap : f x ≶ f y	  z : A	  ============================	  x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "1 subgoal (ID 90)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ap : f x ≶ f y	  z : A	  ============================	  (f x ≶ f z) + (f z ≶ f y) -> x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 39) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 39)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  ============================	  forall x y : A, ~ (x ≶ y) <-> x = y	2 subgoals (ID 123)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ============================	  ~ (x ≶ y) -> x = y		subgoal 2 (ID 124) is:	 x = y -> ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 123)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ============================	  ~ (x ≶ y) -> x = y	1 subgoal (ID 125)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  nap : ~ (x ≶ y)	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 131)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  nap : ~ (x ≶ y)	  ============================	  f x = f y	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 138)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  nap : ~ (x ≶ y)	  ============================	  ~ (f x ≶ f y)	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 140)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  nap : ~ (x ≶ y)	  ap : f x ≶ f y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "1 subgoal (ID 141)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  nap : ~ (x ≶ y)	  ap : f x ≶ f y	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 124) is:	 x = y -> ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 124)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  ============================	  x = y -> ~ (x ≶ y)	1 subgoal (ID 150)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  e : x = y	  ap : x ≶ y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "1 subgoal (ID 157)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  e : x = y	  ============================	  f x ≶ f y -> Empty	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "1 subgoal (ID 166)	  	  B : Type	  Aap : Apart B	  H : IsApart B	  A : Type	  H0 : Apart A	  IsHSet0 : IsHSet A	  is_mere_relation0 : is_mere_relation A apart	  f : A -> B	  eq_correct : forall x y : A, x = y <-> f x = f y	  apart_correct : forall x y : A, x ≶ y <-> f x ≶ f y	  x, y : A	  e : x = y	  ============================	  f x = f y	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 49)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  ============================	  is_mere_relation {x : _ & P x} apart	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "1 subgoal (ID 51)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  x, y : {x : _ & P x}	  ============================	  IsHProp (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 52)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  x, y : {x : _ & P x}	  ============================	  IsHProp (x.1 ≶ y.1)	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "1 subgoal (ID 65)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  H0 : forall x : A, IsHProp (P x)	  ============================	  IsApart {x : _ & P x}	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "2 subgoals (ID 584)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  H0 : forall x : A, IsHProp (P x)	  ============================	  forall (x : {x : _ & P x}) (y : {x : _ & P x}), x = y <-> x.1 = y.1		subgoal 2 (ID 585) is:	 forall (x : {x : _ & P x}) (y : {x : _ & P x}), x ≶ y <-> x.1 ≶ y.1	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "1 subgoal (ID 584)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  H0 : forall x : A, IsHProp (P x)	  ============================	  forall (x : {x : _ & P x}) (y : {x : _ & P x}), x = y <-> x.1 = y.1	1 subgoal (ID 587)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  H0 : forall x : A, IsHProp (P x)	  x, y : {x : _ & P x}	  ============================	  x = y <-> x.1 = y.1	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 585) is:	 forall (x : {x : _ & P x}) (y : {x : _ & P x}), x ≶ y <-> x.1 ≶ y.1	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 585)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  P : A -> Type	  H0 : forall x : A, IsHProp (P x)	  ============================	  forall (x : {x : _ & P x}) (y : {x : _ & P x}), x ≶ y <-> x.1 ≶ y.1	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>H is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>Aap0 is declared</infomsg>	<infomsg>H0 is declared</infomsg>	<infomsg>C is declared</infomsg>	<infomsg>Aap1 is declared</infomsg>	<infomsg>H1 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "1 subgoal (ID 81)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  ============================	  IsInjective f	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "1 subgoal (ID 88)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  ============================	  IsInjective f	";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 92)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  x, y : A	  e : f x = f y	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 99)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  x, y : A	  e : f x = f y	  ============================	  ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "1 subgoal (ID 101)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  x, y : A	  e : f x = f y	  ap : x ≶ y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 111)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  x, y : A	  e : ~ (f x ≶ f y)	  ap : x ≶ y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 112)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B	  IsStrongInjective0 : IsStrongInjective (f : A -> B)	  X : StrongExtensionality (f : A -> B)	  x, y : A	  e : ~ (f x ≶ f y)	  ap : x ≶ y	  ============================	  f x ≶ f y	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 96)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  ============================	  forall z : A, StrongExtensionality (f z)	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "1 subgoal (ID 101)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : A	  x, y : B	  E : f z x ≶ f z y	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "1 subgoal (ID 127)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : A	  x, y : B	  E : f z x ≶ f z y	  ============================	  (z ≶ z) + (x ≶ y) -> x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "1 subgoal (ID 133)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : A	  x, y : B	  E : f z x ≶ f z y	  a : z ≶ z	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 143)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : A	  x, y : B	  E : f z x ≶ f z y	  a : z ≶ z	  ============================	  z ≶ z	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 112)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  ============================	  forall z : B, StrongExtensionality (fun x : A => f x z)	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "1 subgoal (ID 117)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : B	  x, y : A	  E : f x z ≶ f y z	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "1 subgoal (ID 143)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : B	  x, y : A	  E : f x z ≶ f y z	  ============================	  (x ≶ y) + (z ≶ z) -> x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "1 subgoal (ID 150)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  StrongBinaryExtensionality0 : StrongBinaryExtensionality (f : A -> B -> C)	  z : B	  x, y : A	  E : f x z ≶ f y z	  a : z ≶ z	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "1 subgoal (ID 139)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  ============================	  StrongBinaryExtensionality f	";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "1 subgoal (ID 145)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  ============================	  x₁ ≶ x₂ \/ y₁ ≶ y₂	";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "1 subgoal (ID 161)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  ============================	  (f x₁ y₁ ≶ f x₂ y₁) + (f x₂ y₁ ≶ f x₂ y₂) -> x₁ ≶ x₂ \/ y₁ ≶ y₂	";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "2 subgoals (ID 171)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  a : f x₁ y₁ ≶ f x₂ y₁	  ============================	  (x₁ ≶ x₂) + (y₁ ≶ y₂)		subgoal 2 (ID 174) is:	 (x₁ ≶ x₂) + (y₁ ≶ y₂)	";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "1 subgoal (ID 171)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  a : f x₁ y₁ ≶ f x₂ y₁	  ============================	  (x₁ ≶ x₂) + (y₁ ≶ y₂)	1 subgoal (ID 176)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  a : f x₁ y₁ ≶ f x₂ y₁	  ============================	  x₁ ≶ x₂	";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 174) is:	 (x₁ ≶ x₂) + (y₁ ≶ y₂)	";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "1 subgoal (ID 174)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  a : f x₂ y₁ ≶ f x₂ y₂	  ============================	  (x₁ ≶ x₂) + (y₁ ≶ y₂)	1 subgoal (ID 185)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  IsApart0 : IsApart A	  IsApart1 : IsApart B	  IsApart2 : IsApart C	  f : A -> B -> C	  H2 : forall z : A, StrongExtensionality (f z)	  H3 : forall z : B, StrongExtensionality (fun x : A => f x z)	  x₁ : A	  y₁ : B	  x₂ : A	  y₂ : B	  E : f x₁ y₁ ≶ f x₂ y₂	  a : f x₂ y₁ ≶ f x₂ y₂	  ============================	  y₁ ≶ y₂	";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>H is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>Aap0 is declared</infomsg>	<infomsg>H0 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "1 subgoal (ID 86)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> A -> B	  Commutative0 : Commutative f	  H1 : forall z : A, StrongExtensionality (f z)	  ============================	  StrongBinaryExtensionality f	";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "1 subgoal (ID 91)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> A -> B	  Commutative0 : Commutative f	  H1 : forall z : A, StrongExtensionality (f z)	  ============================	  forall z : A, StrongExtensionality (fun x : A => f x z)	";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "1 subgoal (ID 150)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> A -> B	  Commutative0 : Commutative f	  H1 : forall z : A, StrongExtensionality (f z)	  z, x, y : A	  ============================	  f x z ≶ f y z -> x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 112;
+            data = "1 subgoal (ID 164)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> A -> B	  Commutative0 : Commutative f	  H1 : forall z : A, StrongExtensionality (f z)	  z, x, y : A	  ============================	  f z x ≶ f z y -> x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 113;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 114;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 115;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 116;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 117;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 118;
+            data = "<infomsg>default_apart is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 119;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 120;
+            data = "1 subgoal (ID 162)	  	  A : Type	  H : DecidablePaths A	  ============================	  TrivialApart A	";
+            responses[i]=data;
+          
+
+            i = 121;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 122;
+            data = "2 subgoals (ID 164)	  	  A : Type	  H : DecidablePaths A	  ============================	  is_mere_relation A apart		subgoal 2 (ID 165) is:	 forall x y : A, x ≶ y <-> x <> y	";
+            responses[i]=data;
+          
+
+            i = 123;
+            data = "1 subgoal (ID 164)	  	  A : Type	  H : DecidablePaths A	  ============================	  is_mere_relation A apart	1 subgoal (ID 166)	  	  A : Type	  H : DecidablePaths A	  ============================	  forall x y : A,	  IsHProp	    (match dec (x = y) with	     | inl _ => false	     | inr _ => true	     end = true)	";
+            responses[i]=data;
+          
+
+            i = 124;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 165) is:	 forall x y : A, x ≶ y <-> x <> y	";
+            responses[i]=data;
+          
+
+            i = 125;
+            data = "1 subgoal (ID 165)	  	  A : Type	  H : DecidablePaths A	  ============================	  forall x y : A, x ≶ y <-> x <> y	2 subgoals (ID 457)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  ============================	  match dec (x = y) with	  | inl _ => false	  | inr _ => true	  end = true -> x <> y		subgoal 2 (ID 458) is:	 x <> y -> match dec (x = y) with	           | inl _ => false	           | inr _ => true	           end = true	";
+            responses[i]=data;
+          
+
+            i = 126;
+            data = "1 subgoal (ID 457)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  ============================	  match dec (x = y) with	  | inl _ => false	  | inr _ => true	  end = true -> x <> y	1 subgoal (ID 459)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  E : match dec (x = y) with	      | inl _ => false	      | inr _ => true	      end = true	  ============================	  x <> y	";
+            responses[i]=data;
+          
+
+            i = 127;
+            data = "2 subgoals (ID 475)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  p : x = y	  E : false = true	  ============================	  x <> y		subgoal 2 (ID 477) is:	 x <> y	";
+            responses[i]=data;
+          
+
+            i = 128;
+            data = "1 subgoal (ID 475)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  p : x = y	  E : false = true	  ============================	  x <> y	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet *.	</infomsg>	2 subgoals		subgoal 1 (ID 477) is:	 x <> y	subgoal 2 (ID 458) is:	 x <> y -> match dec (x = y) with	           | inl _ => false	           | inr _ => true	           end = true	";
+            responses[i]=data;
+          
+
+            i = 129;
+            data = "1 subgoal (ID 477)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  n : x <> y	  E : true = true	  ============================	  x <> y	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 458) is:	 x <> y -> match dec (x = y) with	           | inl _ => false	           | inr _ => true	           end = true	";
+            responses[i]=data;
+          
+
+            i = 130;
+            data = "1 subgoal (ID 458)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  ============================	  x <> y ->	  match dec (x = y) with	  | inl _ => false	  | inr _ => true	  end = true	2 subgoals (ID 492)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  E : x <> y	  e : x = y	  ============================	  false = true		subgoal 2 (ID 494) is:	 true = true	";
+            responses[i]=data;
+          
+
+            i = 131;
+            data = "1 subgoal (ID 492)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  E : x <> y	  e : x = y	  ============================	  false = true	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet *.	</infomsg>	1 subgoal		subgoal 1 (ID 494) is:	 true = true	";
+            responses[i]=data;
+          
+
+            i = 132;
+            data = "1 subgoal (ID 494)	  	  A : Type	  H : DecidablePaths A	  x, y : A	  E : x <> y	  ============================	  true = true	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 133;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 134;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 135;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 136;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>H is declared</infomsg>	<infomsg>H0 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 137;
+            data = "1 subgoal (ID 79)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ============================	  PropHolds (x <> y) -> PropHolds (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 138;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 139;
+            data = "1 subgoal (ID 80)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ap : PropHolds (x <> y)	  ============================	  PropHolds (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 140;
+            data = "1 subgoal (ID 89)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ap : PropHolds (x <> y)	  ============================	  x <> y	";
+            responses[i]=data;
+          
+
+            i = 141;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 142;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 143;
+            data = "1 subgoal (ID 81)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  IsApart A	";
+            responses[i]=data;
+          
+
+            i = 144;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 145;
+            data = "5 subgoals (ID 83)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  IsHSet A		subgoal 2 (ID 84) is:	 is_mere_relation A apart	subgoal 3 (ID 85) is:	 Symmetric apart	subgoal 4 (ID 86) is:	 CoTransitive apart	subgoal 5 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 146;
+            data = "1 subgoal (ID 83)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  IsHSet A	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	4 subgoals		subgoal 1 (ID 84) is:	 is_mere_relation A apart	subgoal 2 (ID 85) is:	 Symmetric apart	subgoal 3 (ID 86) is:	 CoTransitive apart	subgoal 4 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 147;
+            data = "1 subgoal (ID 84)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  is_mere_relation A apart	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 85) is:	 Symmetric apart	subgoal 2 (ID 86) is:	 CoTransitive apart	subgoal 3 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 148;
+            data = "1 subgoal (ID 85)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  Symmetric apart	1 subgoal (ID 391)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x ≶ y	  ============================	  y ≶ x	";
+            responses[i]=data;
+          
+
+            i = 149;
+            data = "1 subgoal (ID 400)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x ≶ y	  ============================	  y <> x	";
+            responses[i]=data;
+          
+
+            i = 150;
+            data = "1 subgoal (ID 408)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  ============================	  y <> x	";
+            responses[i]=data;
+          
+
+            i = 151;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 86) is:	 CoTransitive apart	subgoal 2 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 152;
+            data = "1 subgoal (ID 86)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  CoTransitive apart	1 subgoal (ID 418)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  forall x y : A, x ≶ y -> forall z : A, x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 153;
+            data = "1 subgoal (ID 422)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x ≶ y	  z : A	  ============================	  x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 154;
+            data = "1 subgoal (ID 430)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  ============================	  x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 155;
+            data = "3 subgoals (ID 623)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  e : x = z	  e' : z = y	  ============================	  x ≶ z \/ z ≶ y		subgoal 2 (ID 624) is:	 x ≶ z \/ z ≶ y	subgoal 3 (ID 527) is:	 x ≶ z \/ z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 156;
+            data = "1 subgoal (ID 623)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  e : x = z	  e' : z = y	  ============================	  x ≶ z \/ z ≶ y	1 subgoal (ID 628)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y, z : A	  e : x = z	  e' : z = y	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 157;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	3 subgoals		subgoal 1 (ID 624) is:	 x ≶ z \/ z ≶ y	subgoal 2 (ID 527) is:	 x ≶ z \/ z ≶ y	subgoal 3 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 158;
+            data = "1 subgoal (ID 624)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  e : x = z	  ne' : z <> y	  ============================	  x ≶ z \/ z ≶ y	1 subgoal (ID 637)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  e : x = z	  ne' : z <> y	  ============================	  z ≶ y	";
+            responses[i]=data;
+          
+
+            i = 159;
+            data = "1 subgoal (ID 646)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  e : x = z	  ne' : z <> y	  ============================	  z <> y	";
+            responses[i]=data;
+          
+
+            i = 160;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	2 subgoals		subgoal 1 (ID 527) is:	 x ≶ z \/ z ≶ y	subgoal 2 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 161;
+            data = "1 subgoal (ID 527)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  ne' : x <> z	  ============================	  x ≶ z \/ z ≶ y	1 subgoal (ID 651)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  ne' : x <> z	  ============================	  x ≶ z	";
+            responses[i]=data;
+          
+
+            i = 162;
+            data = "1 subgoal (ID 660)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ne : x <> y	  z : A	  ne' : x <> z	  ============================	  x <> z	";
+            responses[i]=data;
+          
+
+            i = 163;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 87) is:	 forall x y : A, ~ (x ≶ y) <-> x = y	";
+            responses[i]=data;
+          
+
+            i = 164;
+            data = "1 subgoal (ID 87)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  ============================	  forall x y : A, ~ (x ≶ y) <-> x = y	2 subgoals (ID 664)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ============================	  ~ (x ≶ y) -> x = y		subgoal 2 (ID 665) is:	 x = y -> ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 165;
+            data = "1 subgoal (ID 664)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ============================	  ~ (x ≶ y) -> x = y	1 subgoal (ID 666)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  nap : ~ (x ≶ y)	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 166;
+            data = "1 subgoal (ID 763)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  nap : ~ (x ≶ y)	  n : x <> y	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 167;
+            data = "1 subgoal (ID 767)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  n : x <> y	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 168;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 665) is:	 x = y -> ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 169;
+            data = "1 subgoal (ID 665)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  ============================	  x = y -> ~ (x ≶ y)	1 subgoal (ID 779)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  e : x = y	  ============================	  ~ (x ≶ y)	";
+            responses[i]=data;
+          
+
+            i = 170;
+            data = "1 subgoal (ID 781)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  e : x = y	  nap : x ≶ y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 171;
+            data = "1 subgoal (ID 789)	  	  A : Type	  Aap : Apart A	  H : TrivialApart A	  H0 : DecidablePaths A	  x, y : A	  e : x = y	  nap : x <> y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 172;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 173;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 174;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 175;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 176;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>H is declared</infomsg>	<infomsg>TrivialApart0 is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>Aap0 is declared</infomsg>	<infomsg>H0 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 177;
+            data = "1 subgoal (ID 76)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> B	  ============================	  StrongExtensionality f	";
+            responses[i]=data;
+          
+
+            i = 178;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 179;
+            data = "1 subgoal (ID 80)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> B	  x, y : A	  E : f x ≶ f y	  ============================	  x ≶ y	";
+            responses[i]=data;
+          
+
+            i = 180;
+            data = "1 subgoal (ID 89)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> B	  x, y : A	  E : f x ≶ f y	  ============================	  x <> y	";
+            responses[i]=data;
+          
+
+            i = 181;
+            data = "1 subgoal (ID 91)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  f : A -> B	  x, y : A	  E : f x ≶ f y	  e : x = y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 182;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 183;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 184;
+            data = "<infomsg>TrivialApart1 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 185;
+            data = "1 subgoal (ID 86)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  ============================	  IsStrongInjective f	";
+            responses[i]=data;
+          
+
+            i = 186;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 187;
+            data = "1 subgoal (ID 88)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  ============================	  forall x y : A, x ≶ y -> f x ≶ f y	";
+            responses[i]=data;
+          
+
+            i = 188;
+            data = "1 subgoal (ID 95)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ============================	  x ≶ y -> f x ≶ f y	";
+            responses[i]=data;
+          
+
+            i = 189;
+            data = "1 subgoal (ID 96)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x ≶ y	  ============================	  f x ≶ f y	";
+            responses[i]=data;
+          
+
+            i = 190;
+            data = "1 subgoal (ID 104)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x <> y	  ============================	  f x ≶ f y	";
+            responses[i]=data;
+          
+
+            i = 191;
+            data = "1 subgoal (ID 113)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x <> y	  ============================	  f x <> f y	";
+            responses[i]=data;
+          
+
+            i = 192;
+            data = "1 subgoal (ID 115)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x <> y	  e : f x = f y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 193;
+            data = "1 subgoal (ID 116)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x <> y	  e : f x = f y	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 194;
+            data = "1 subgoal (ID 120)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  f : A -> B	  IsInjective0 : IsInjective f	  x, y : A	  ap : x <> y	  e : f x = f y	  ============================	  f x = f y	";
+            responses[i]=data;
+          
+
+            i = 195;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 196;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 197;
+            data = "<infomsg>C is declared</infomsg>	<infomsg>Aap1 is declared</infomsg>	<infomsg>H1 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 198;
+            data = "1 subgoal (ID 96)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  ============================	  StrongBinaryExtensionality f	";
+            responses[i]=data;
+          
+
+            i = 199;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 200;
+            data = "1 subgoal (ID 102)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  ============================	  x1 ≶ x2 \/ y1 ≶ y2	";
+            responses[i]=data;
+          
+
+            i = 201;
+            data = "2 subgoals (ID 128)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  ============================	  (x1 ≶ x2) + (y1 ≶ y2)		subgoal 2 (ID 131) is:	 (x1 ≶ x2) + (y1 ≶ y2)	";
+            responses[i]=data;
+          
+
+            i = 202;
+            data = "1 subgoal (ID 128)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  ============================	  (x1 ≶ x2) + (y1 ≶ y2)	1 subgoal (ID 133)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  ============================	  x1 ≶ x2	";
+            responses[i]=data;
+          
+
+            i = 203;
+            data = "1 subgoal (ID 142)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  ============================	  x1 <> x2	";
+            responses[i]=data;
+          
+
+            i = 204;
+            data = "1 subgoal (ID 144)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  e : x1 = x2	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 205;
+            data = "1 subgoal (ID 155)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x1 y1 ≶ f x2 y1	  e : x1 = x2	  X : forall x y : C, x = y -> ~ (x ≶ y)	  ============================	  f x1 y1 = f x2 y1	";
+            responses[i]=data;
+          
+
+            i = 206;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 131) is:	 (x1 ≶ x2) + (y1 ≶ y2)	";
+            responses[i]=data;
+          
+
+            i = 207;
+            data = "1 subgoal (ID 131)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x2 y1 ≶ f x2 y2	  ============================	  (x1 ≶ x2) + (y1 ≶ y2)	1 subgoal (ID 162)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x2 y1 ≶ f x2 y2	  ============================	  y1 ≶ y2	";
+            responses[i]=data;
+          
+
+            i = 208;
+            data = "1 subgoal (ID 171)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x2 y1 ≶ f x2 y2	  ============================	  y1 <> y2	";
+            responses[i]=data;
+          
+
+            i = 209;
+            data = "1 subgoal (ID 173)	  	  A : Type	  Aap : Apart A	  H : IsApart A	  TrivialApart0 : TrivialApart A	  B : Type	  Aap0 : Apart B	  H0 : IsApart B	  TrivialApart1 : TrivialApart B	  C : Type	  Aap1 : Apart C	  H1 : IsApart C	  f : A -> B -> C	  x1 : A	  y1 : B	  x2 : A	  y2 : B	  hap : f x1 y1 ≶ f x2 y2	  h : f x2 y1 ≶ f x2 y2	  e : y1 = y2	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 210;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 211;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 212;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 213;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 214;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 215;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 216;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 217;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 218;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 219;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 220;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 221;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 222;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 223;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.theory.apartness</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.Decidable.html#"><span class="id" title="library">HoTT.Basics.Decidable</span></a> <a class="idref" href="HoTT.Truncations.html#"><span class="id" title="library">HoTT.Truncations</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">HoTT.Classes.interfaces.abstract_algebra</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Generalizable</span> <span class="id" title="keyword">Variables</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">C</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="contents" class="idref" href="#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H:3" class="idref" href="#H:3"><span class="id" title="binder">IsApart</span></a> <a id="H:3" class="idref" href="#H:3"><span class="id" title="binder">A</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="apart_ne" class="idref" href="#apart_ne"><span class="id" title="lemma">apart_ne</span></a> <a id="x:4" class="idref" href="#x:4"><span class="id" title="binder">x</span></a> <a id="y:5" class="idref" href="#y:5"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:4"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#670ea3ea8354d970116be861b7880a1b"><span class="id" title="notation">≶</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:5"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:4"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:5"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span> <span class="id" title="var">e</span>;<span class="id" title="var">revert</span> <span class="id" title="var">ap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span>: <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:6" class="idref" href="#x:6"><span class="id" title="binder">x</span></a> <a id="y:7" class="idref" href="#y:7"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#contents.A"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Decidable.html#Stable"><span class="id" title="class">Stable</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:6"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:7"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Basics.Decidable.html#Stable"><span class="id" title="class">Stable</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">dn</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">dn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#apart_ne"><span class="id" title="lemma">apart_ne</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+<br>
+#[<span class="id" title="var">export</span>]<br>
+<span class="id" title="keyword">Hint</span> <span class="id" title="keyword">Extern</span> 3 (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <span class="id" title="var">_</span>)) ⇒ <span class="id" title="tactic">eapply</span> @<a class="idref" href="HoTT.Classes.theory.apartness.html#apart_ne"><span class="id" title="lemma">apart_ne</span></a> : <span class="id" title="var">typeclass_instances</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(31, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="projected_strong_setoid" class="idref" href="#projected_strong_setoid"><span class="id" title="lemma">projected_strong_setoid</span></a> `{<a id="H:10" class="idref" href="#H:10"><span class="id" title="binder">IsApart</span></a> <a id="H:10" class="idref" href="#H:10"><span class="id" title="binder">B</span></a>} `{<a id="H0:12" class="idref" href="#H0:12"><span class="id" title="binder">Apart</span></a> <a id="H0:12" class="idref" href="#H0:12"><span class="id" title="binder">A</span></a>} `{<a id="IsHSet0:13" class="idref" href="#IsHSet0:13"><span class="id" title="binder">IsHSet</span></a> <a id="IsHSet0:13" class="idref" href="#IsHSet0:13"><span class="id" title="binder">A</span></a>}<br>
+  `{<a id="is_mere_relation0:14" class="idref" href="#is_mere_relation0:14"><span class="id" title="binder">is_mere_relation</span></a> <a id="is_mere_relation0:14" class="idref" href="#is_mere_relation0:14"><span class="id" title="binder">A</span></a> <a id="is_mere_relation0:14" class="idref" href="#is_mere_relation0:14"><span class="id" title="binder">apart</span></a>}<br>
+  (<a id="f:15" class="idref" href="#f:15"><span class="id" title="binder">f</span></a>: <a class="idref" href="HoTT.Classes.theory.apartness.html#A:11"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#B:8"><span class="id" title="variable">B</span></a>)<br>
+  (<a id="eq_correct:18" class="idref" href="#eq_correct:18"><span class="id" title="binder">eq_correct</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:16" class="idref" href="#x:16"><span class="id" title="binder">x</span></a> <a id="y:17" class="idref" href="#y:17"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:16"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:17"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">↔</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:15"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:16"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:15"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:17"><span class="id" title="variable">y</span></a>)<br>
+  (<a id="apart_correct:21" class="idref" href="#apart_correct:21"><span class="id" title="binder">apart_correct</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:19" class="idref" href="#x:19"><span class="id" title="binder">x</span></a> <a id="y:20" class="idref" href="#y:20"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:19"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#670ea3ea8354d970116be861b7880a1b"><span class="id" title="notation">≶</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:20"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">↔</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:15"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:19"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#670ea3ea8354d970116be861b7880a1b"><span class="id" title="notation">≶</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:15"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:20"><span class="id" title="variable">y</span></a>)<br>
+    : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsApart"><span class="id" title="class">IsApart</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#A:11"><span class="id" title="variable">A</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(32, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(33, '0_3_3');
+      "><br>
+<span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(34, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(35, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(36, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(37, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">apart_correct</span>, <a class="idref" href="HoTT.Basics.Overture.html#symmetry"><span class="id" title="definition">symmetry</span></a>, <span class="id" title="var">apart_correct</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(38, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(39, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">ap</span> <span class="id" title="var">z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(40, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <span class="id" title="var">apart_correct</span> <span class="id" title="tactic">in</span> <span class="id" title="var">ap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(41, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#cotransitive"><span class="id" title="definition">cotransitive</span></a> <span class="id" title="var">ap</span> (<span class="id" title="var">f</span> <span class="id" title="var">z</span>))).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(42, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> [?|?];<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>;[<span class="id" title="tactic">left</span>|<span class="id" title="tactic">right</span>];<span class="id" title="tactic">apply</span> <span class="id" title="var">apart_correct</span>;<span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(43, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>;<span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(44, '0_3_3');
+      "><br>
+  + <span class="id" title="tactic">intros</span> <span class="id" title="var">nap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(45, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">eq_correct</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(46, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(47, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(48, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">nap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(49, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">apart_correct</span>;<span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(50, '0_3_3');
+      "><br>
+  + <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(51, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">apart_correct</span> <span class="id" title="tactic">in</span> <span class="id" title="var">ap</span>;<span class="id" title="var">revert</span> <span class="id" title="var">ap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(52, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(53, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">eq_correct</span>;<span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(54, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(55, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="sg_apart_mere" class="idref" href="#sg_apart_mere"><span class="id" title="instance">sg_apart_mere</span></a> `{<a id="H:24" class="idref" href="#H:24"><span class="id" title="binder">IsApart</span></a> <a id="H:24" class="idref" href="#H:24"><span class="id" title="binder">A</span></a>} (<a id="P:25" class="idref" href="#P:25"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#A:22"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#is_mere_relation"><span class="id" title="abbreviation">is_mere_relation</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#sig"><span class="id" title="record">sig</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#P:25"><span class="id" title="variable">P</span></a>) <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#apart"><span class="id" title="definition">apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(56, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(57, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(58, '0_3_3');
+      "><span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#apart"><span class="id" title="definition">apart</span></a>,<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#sig_apart"><span class="id" title="definition">sig_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(59, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(60, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(61, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="sig_strong_setoid" class="idref" href="#sig_strong_setoid"><span class="id" title="instance">sig_strong_setoid</span></a> `{<a id="H:28" class="idref" href="#H:28"><span class="id" title="binder">IsApart</span></a> <a id="H:28" class="idref" href="#H:28"><span class="id" title="binder">A</span></a>} (<a id="P:29" class="idref" href="#P:29"><span class="id" title="binder">P</span></a>: <a class="idref" href="HoTT.Classes.theory.apartness.html#A:26"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) `{<a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">∀</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">x</span></a><a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">,</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">IsHProp</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">(</span></a><a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">P</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">x</span></a><a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">)</span></a>}<br>
+  : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsApart"><span class="id" title="class">IsApart</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#sig"><span class="id" title="record">sig</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#P:29"><span class="id" title="variable">P</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(62, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(63, '0_3_3');
+      "><br>
+<span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.theory.apartness.html#projected_strong_setoid"><span class="id" title="lemma">projected_strong_setoid</span></a> (@<a class="idref" href="HoTT.Basics.Overture.html#proj1"><span class="id" title="projection">proj1</span></a> <span class="id" title="var">_</span> <span class="id" title="var">P</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(64, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(65, '0_3_3');
+      "><span class="id" title="tactic">split</span>;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#equiv_path_sigma_hprop"><span class="id" title="definition">Sigma.equiv_path_sigma_hprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(66, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span>;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#reflexivity"><span class="id" title="definition">reflexivity</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(67, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(68, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="morphisms" class="idref" href="#morphisms"><span class="id" title="section">morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(69, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:34" class="idref" href="#H:34"><span class="id" title="binder">IsApart</span></a> <a id="H:34" class="idref" href="#H:34"><span class="id" title="binder">A</span></a>} `{<a id="H0:37" class="idref" href="#H0:37"><span class="id" title="binder">IsApart</span></a> <a id="H0:37" class="idref" href="#H0:37"><span class="id" title="binder">B</span></a>} `{<a id="H1:40" class="idref" href="#H1:40"><span class="id" title="binder">IsApart</span></a> <a id="H1:40" class="idref" href="#H1:40"><span class="id" title="binder">C</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(70, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="strong_injective_injective" class="idref" href="#strong_injective_injective"><span class="id" title="instance">strong_injective_injective</span></a> `{<a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">!</span></a><a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">IsStrongInjective</span></a> <a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">(</span></a><a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">f</span></a> <a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">:</span></a> <a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">A</span></a> <a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">→</span></a> <a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">B</span></a><a id="IsStrongInjective0:42" class="idref" href="#IsStrongInjective0:42"><span class="id" title="binder">)</span></a>} :<br>
+    <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsInjective"><span class="id" title="class">IsInjective</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:41"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(71, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(72, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_injective_mor"><span class="id" title="method">strong_injective_mor</span></a> <span class="id" title="var">f</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(73, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> ? ? <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(74, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(75, '0_3_3');
+      "><span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(76, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">e</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(77, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(78, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_injective"><span class="id" title="method">strong_injective</span></a>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(79, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(80, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="strong_setoid_morphism_1" class="idref" href="#strong_setoid_morphism_1"><span class="id" title="instance">strong_setoid_morphism_1</span></a><br>
+    `{<a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">!</span></a><a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">StrongBinaryExtensionality</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">(</span></a><a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">f</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">:</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">A</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">→</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">B</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">→</span></a> <a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">C</span></a><a id="StrongBinaryExtensionality0:44" class="idref" href="#StrongBinaryExtensionality0:44"><span class="id" title="binder">)</span></a>} :<br>
+    <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="z:45" class="idref" href="#z:45"><span class="id" title="binder">z</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongExtensionality"><span class="id" title="class">StrongExtensionality</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#f:43"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#z:45"><span class="id" title="variable">z</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(81, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(82, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">z</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(83, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_binary_extensionality"><span class="id" title="definition">strong_binary_extensionality</span></a> <span class="id" title="var">f</span> <span class="id" title="var">z</span> <span class="id" title="var">x</span> <span class="id" title="var">z</span> <span class="id" title="var">y</span> <span class="id" title="var">E</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(84, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> [?|?];<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(85, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Overture.html#irreflexivity"><span class="id" title="definition">irreflexivity</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#298aff1a65b758e847772f38ce6d28c4"><span class="id" title="notation">(≶)</span></a> <span class="id" title="var">z</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(86, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(87, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(88, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="strong_setoid_morphism_unary_2" class="idref" href="#strong_setoid_morphism_unary_2"><span class="id" title="instance">strong_setoid_morphism_unary_2</span></a><br>
+    `{<a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">!</span></a><a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">StrongBinaryExtensionality</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">(</span></a><a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">f</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">:</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">A</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">→</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">B</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">→</span></a> <a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">C</span></a><a id="StrongBinaryExtensionality0:47" class="idref" href="#StrongBinaryExtensionality0:47"><span class="id" title="binder">)</span></a>} :<br>
+    <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="z:48" class="idref" href="#z:48"><span class="id" title="binder">z</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongExtensionality"><span class="id" title="class">StrongExtensionality</span></a> (<span class="id" title="keyword">fun</span> <a id="x:49" class="idref" href="#x:49"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Classes.theory.apartness.html#f:46"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:49"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#z:48"><span class="id" title="variable">z</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(89, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(90, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">z</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(91, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_binary_extensionality"><span class="id" title="definition">strong_binary_extensionality</span></a> <span class="id" title="var">f</span> <span class="id" title="var">x</span> <span class="id" title="var">z</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> <span class="id" title="var">E</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(92, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> [?|?];<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(93, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Overture.html#irreflexivity"><span class="id" title="definition">irreflexivity</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#298aff1a65b758e847772f38ce6d28c4"><span class="id" title="notation">(≶)</span></a> <span class="id" title="var">z</span>);<span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(94, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(95, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Lemma</span> <a id="strong_binary_setoid_morphism_both_coordinates" class="idref" href="#strong_binary_setoid_morphism_both_coordinates"><span class="id" title="lemma">strong_binary_setoid_morphism_both_coordinates</span></a><br>
+    `{<a id="IsApart0:50" class="idref" href="#IsApart0:50"><span class="id" title="binder">!</span></a><a id="IsApart0:50" class="idref" href="#IsApart0:50"><span class="id" title="binder">IsApart</span></a> <a id="IsApart0:50" class="idref" href="#IsApart0:50"><span class="id" title="binder">A</span></a>} `{<a id="IsApart1:51" class="idref" href="#IsApart1:51"><span class="id" title="binder">!</span></a><a id="IsApart1:51" class="idref" href="#IsApart1:51"><span class="id" title="binder">IsApart</span></a> <a id="IsApart1:51" class="idref" href="#IsApart1:51"><span class="id" title="binder">B</span></a>} `{<a id="IsApart2:52" class="idref" href="#IsApart2:52"><span class="id" title="binder">!</span></a><a id="IsApart2:52" class="idref" href="#IsApart2:52"><span class="id" title="binder">IsApart</span></a> <a id="IsApart2:52" class="idref" href="#IsApart2:52"><span class="id" title="binder">C</span></a>} {<a id="f:53" class="idref" href="#f:53"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#morphisms.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#morphisms.C"><span class="id" title="variable">C</span></a>}<br>
+    `{<a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">∀</span></a> <a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">z</span></a><a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">,</span></a> <a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">StrongExtensionality</span></a> <a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">(</span></a><a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">f</span></a> <a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">z</span></a><a id="H2:55" class="idref" href="#H2:55"><span class="id" title="binder">)</span></a>} `{<a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">∀</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">z</span></a><a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">,</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">StrongExtensionality</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">(</span></a><a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">fun</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">x</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">⇒</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">f</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">x</span></a> <a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">z</span></a><a id="H3:58" class="idref" href="#H3:58"><span class="id" title="binder">)</span></a>}<br>
+     : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongBinaryExtensionality"><span class="id" title="class">StrongBinaryExtensionality</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:53"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(96, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(97, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">x₁</span> <span class="id" title="var">y₁</span> <span class="id" title="var">x₂</span> <span class="id" title="var">y₂</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(98, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#cotransitive"><span class="id" title="definition">cotransitive</span></a> <span class="id" title="var">E</span> (<span class="id" title="var">f</span> <span class="id" title="var">x₂</span> <span class="id" title="var">y₁</span>))).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(99, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> [?|?];<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(100, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(101, '0_3_3');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_extensionality"><span class="id" title="definition">strong_extensionality</span></a> (<span class="id" title="keyword">fun</span> <a id="x:60" class="idref" href="#x:60"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">f</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:59"><span class="id" title="variable">x</span></a> <span class="id" title="var">y₁</span>));<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(102, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(103, '0_3_3');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_extensionality"><span class="id" title="definition">strong_extensionality</span></a> (<span class="id" title="var">f</span> <span class="id" title="var">x₂</span>));<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(104, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(105, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#morphisms"><span class="id" title="section">morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(106, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="more_morphisms" class="idref" href="#more_morphisms"><span class="id" title="section">more_morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(107, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:63" class="idref" href="#H:63"><span class="id" title="binder">IsApart</span></a> <a id="H:63" class="idref" href="#H:63"><span class="id" title="binder">A</span></a>} `{<a id="H0:66" class="idref" href="#H0:66"><span class="id" title="binder">IsApart</span></a> <a id="H0:66" class="idref" href="#H0:66"><span class="id" title="binder">B</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(108, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Lemma</span> <a id="strong_binary_setoid_morphism_commutative" class="idref" href="#strong_binary_setoid_morphism_commutative"><span class="id" title="lemma">strong_binary_setoid_morphism_commutative</span></a> {<a id="f:67" class="idref" href="#f:67"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#more_morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#more_morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#more_morphisms.B"><span class="id" title="variable">B</span></a>} `{<a id="Commutative0:68" class="idref" href="#Commutative0:68"><span class="id" title="binder">!</span></a><a id="Commutative0:68" class="idref" href="#Commutative0:68"><span class="id" title="binder">Commutative</span></a> <a id="Commutative0:68" class="idref" href="#Commutative0:68"><span class="id" title="binder">f</span></a>}<br>
+    `{<a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">∀</span></a> <a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">z</span></a><a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">,</span></a> <a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">StrongExtensionality</span></a> <a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">(</span></a><a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">f</span></a> <a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">z</span></a><a id="H1:70" class="idref" href="#H1:70"><span class="id" title="binder">)</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongBinaryExtensionality"><span class="id" title="class">StrongBinaryExtensionality</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:67"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(109, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(110, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> @<a class="idref" href="HoTT.Classes.theory.apartness.html#strong_binary_setoid_morphism_both_coordinates"><span class="id" title="lemma">strong_binary_setoid_morphism_both_coordinates</span></a>;<span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(111, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">z</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(112, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> !(<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#commutativity"><span class="id" title="definition">commutativity</span></a> <span class="id" title="var">_</span> <span class="id" title="var">z</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(113, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#strong_extensionality"><span class="id" title="definition">strong_extensionality</span></a> (<span class="id" title="var">f</span> <span class="id" title="var">z</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(114, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(115, '0_3_3');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#more_morphisms"><span class="id" title="section">more_morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(116, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="default_apart" class="idref" href="#default_apart"><span class="id" title="section">default_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(117, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:72" class="idref" href="#H:72"><span class="id" title="binder">DecidablePaths</span></a> <a id="H:72" class="idref" href="#H:72"><span class="id" title="binder">A</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(118, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="default_apart" class="idref" href="#default_apart"><span class="id" title="instance">default_apart</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Apart"><span class="id" title="class">Apart</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart.A"><span class="id" title="variable">A</span></a> | 20<br>
+    := <span class="id" title="keyword">fun</span> <a id="x:73" class="idref" href="#x:73"><span class="id" title="binder">x</span></a> <a id="y:74" class="idref" href="#y:74"><span class="id" title="binder">y</span></a> ⇒<br>
+      <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:73"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:74"><span class="id" title="variable">y</span></a>) <span class="id" title="keyword">with</span><br>
+      | <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Types.Bool.html#false"><span class="id" title="constructor">false</span></a><br>
+      | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a><br>
+      <span class="id" title="keyword">end</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(119, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Type</span><span class="id" title="var">classes</span> <span class="id" title="keyword">Opaque</span> <span class="id" title="var">default_apart</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(120, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="default_apart_trivial" class="idref" href="#default_apart_trivial"><span class="id" title="instance">default_apart_trivial</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#TrivialApart"><span class="id" title="class">TrivialApart</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart.A"><span class="id" title="variable">A</span></a> (<span class="id" title="var">Aap</span>:=<a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart"><span class="id" title="instance">default_apart</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(121, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(122, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(123, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#apart"><span class="id" title="definition">apart</span></a>,<a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart"><span class="id" title="instance">default_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(124, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(125, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>;<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#apart"><span class="id" title="definition">apart</span></a>,<a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart"><span class="id" title="instance">default_apart</span></a>;<span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(126, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(127, '0_3_3');
+      "><span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><span class="id" title="var">y</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(128, '0_3_3');
+      "><br>
+      × <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Types.Bool.html#false_ne_true"><span class="id" title="definition">false_ne_true</span></a> <span class="id" title="var">E</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(129, '0_3_3');
+      "><br>
+      × <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(130, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><span class="id" title="var">y</span>)) <span class="id" title="keyword">as</span> [<span class="id" title="var">e</span>|<span class="id" title="var">_</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(131, '0_3_3');
+      "><br>
+      × <span class="id" title="tactic">destruct</span> (<span class="id" title="var">E</span> <span class="id" title="var">e</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(132, '0_3_3');
+      "><br>
+      × <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(133, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(134, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#default_apart"><span class="id" title="section">default_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(135, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="dec_setoid" class="idref" href="#dec_setoid"><span class="id" title="section">dec_setoid</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(136, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:77" class="idref" href="#H:77"><span class="id" title="binder">TrivialApart</span></a> <a id="H:77" class="idref" href="#H:77"><span class="id" title="binder">A</span></a>} `{<a id="H0:78" class="idref" href="#H0:78"><span class="id" title="binder">DecidablePaths</span></a> <a id="H0:78" class="idref" href="#H0:78"><span class="id" title="binder">A</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(137, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="ne_apart" class="idref" href="#ne_apart"><span class="id" title="instance">ne_apart</span></a> <a id="x:79" class="idref" href="#x:79"><span class="id" title="binder">x</span></a> <a id="y:80" class="idref" href="#y:80"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:79"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:80"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#PropHolds"><span class="id" title="class">PropHolds</span></a> (<a class="idref" href="HoTT.Classes.theory.apartness.html#x:79"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#670ea3ea8354d970116be861b7880a1b"><span class="id" title="notation">≶</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#y:80"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(138, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(139, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(140, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(141, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(142, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(143, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="dec_strong_setoid" class="idref" href="#dec_strong_setoid"><span class="id" title="instance">dec_strong_setoid</span></a>: <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsApart"><span class="id" title="class">IsApart</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid.A"><span class="id" title="variable">A</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(144, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(145, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(146, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(147, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(148, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">ne</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(149, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(150, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">ne</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(151, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>;<span class="id" title="tactic">apply</span> <span class="id" title="var">ne</span>,<a class="idref" href="HoTT.Basics.Overture.html#symmetry"><span class="id" title="definition">symmetry</span></a>,<span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(152, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">hnf</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(153, '0_3_3');
+      "><span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">ne</span> <span class="id" title="var">z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(154, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">ne</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(155, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><span class="id" title="var">z</span>)) <span class="id" title="keyword">as</span> [<span class="id" title="var">e</span>|<span class="id" title="var">ne'</span>];[<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<span class="id" title="var">z</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><span class="id" title="var">y</span>)) <span class="id" title="keyword">as</span> [<span class="id" title="var">e'</span>|<span class="id" title="var">ne'</span>]|].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(156, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">destruct</span> <span class="id" title="var">ne</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(157, '0_3_3');
+      "><span class="id" title="var">path_via</span> <span class="id" title="var">z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(158, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>;<span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(159, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(160, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(161, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>;<span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(162, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(163, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(164, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>;<span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(165, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">intros</span> <span class="id" title="var">nap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(166, '0_3_3');
+      "><br>
+      <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#dec"><span class="id" title="definition">dec</span></a> (<span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><span class="id" title="var">y</span>));<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(167, '0_3_3');
+      "><br>
+      <span class="id" title="tactic">destruct</span> <span class="id" title="var">nap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(168, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>;<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(169, '0_3_3');
+      "><br>
+    + <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(170, '0_3_3');
+      "><br>
+      <span class="id" title="tactic">intros</span> <span class="id" title="var">nap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(171, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">nap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(172, '0_3_3');
+      "><span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(173, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(174, '0_3_3');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid"><span class="id" title="section">dec_setoid</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(175, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="dec_setoid_morphisms" class="idref" href="#dec_setoid_morphisms"><span class="id" title="section">dec_setoid_morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(176, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:83" class="idref" href="#H:83"><span class="id" title="binder">IsApart</span></a> <a id="H:83" class="idref" href="#H:83"><span class="id" title="binder">A</span></a>} `{<a id="TrivialApart0:84" class="idref" href="#TrivialApart0:84"><span class="id" title="binder">!</span></a><a id="TrivialApart0:84" class="idref" href="#TrivialApart0:84"><span class="id" title="binder">TrivialApart</span></a> <a id="TrivialApart0:84" class="idref" href="#TrivialApart0:84"><span class="id" title="binder">A</span></a>} `{<a id="H0:87" class="idref" href="#H0:87"><span class="id" title="binder">IsApart</span></a> <a id="H0:87" class="idref" href="#H0:87"><span class="id" title="binder">B</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(177, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="dec_strong_morphism" class="idref" href="#dec_strong_morphism"><span class="id" title="instance">dec_strong_morphism</span></a> (<a id="f:88" class="idref" href="#f:88"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.B"><span class="id" title="variable">B</span></a>) :<br>
+    <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongExtensionality"><span class="id" title="class">StrongExtensionality</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:88"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(178, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(179, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">E</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(180, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(181, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(182, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">E</span>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(183, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(184, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Context</span> `{<a id="TrivialApart1:89" class="idref" href="#TrivialApart1:89"><span class="id" title="binder">!</span></a><a id="TrivialApart1:89" class="idref" href="#TrivialApart1:89"><span class="id" title="binder">TrivialApart</span></a> <a id="TrivialApart1:89" class="idref" href="#TrivialApart1:89"><span class="id" title="binder">B</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(185, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="dec_strong_injective" class="idref" href="#dec_strong_injective"><span class="id" title="instance">dec_strong_injective</span></a> (<a id="f:90" class="idref" href="#f:90"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.B"><span class="id" title="variable">B</span></a>) `{<a id="IsInjective0:91" class="idref" href="#IsInjective0:91"><span class="id" title="binder">!</span></a><a id="IsInjective0:91" class="idref" href="#IsInjective0:91"><span class="id" title="binder">IsInjective</span></a> <a id="IsInjective0:91" class="idref" href="#IsInjective0:91"><span class="id" title="binder">f</span></a>} :<br>
+    <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsStrongInjective"><span class="id" title="class">IsStrongInjective</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:90"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(186, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(187, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">split</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(188, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(189, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">ap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(190, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(191, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(192, '0_3_3');
+      "><span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(193, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <span class="id" title="var">ap</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(194, '0_3_3');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#injective"><span class="id" title="definition">injective</span></a> <span class="id" title="var">f</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(195, '0_3_3');
+      "><span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(196, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(197, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Context</span> `{<a id="H1:94" class="idref" href="#H1:94"><span class="id" title="binder">IsApart</span></a> <a id="H1:94" class="idref" href="#H1:94"><span class="id" title="binder">C</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(198, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Instance</span> <a id="dec_strong_binary_morphism" class="idref" href="#dec_strong_binary_morphism"><span class="id" title="instance">dec_strong_binary_morphism</span></a> (<a id="f:95" class="idref" href="#f:95"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms.C"><span class="id" title="variable">C</span></a>) :<br>
+    <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#StrongBinaryExtensionality"><span class="id" title="class">StrongBinaryExtensionality</span></a> <a class="idref" href="HoTT.Classes.theory.apartness.html#f:95"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(199, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(200, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">x1</span> <span class="id" title="var">y1</span> <span class="id" title="var">x2</span> <span class="id" title="var">y2</span> <span class="id" title="var">hap</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(201, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#cotransitive"><span class="id" title="definition">cotransitive</span></a> <span class="id" title="var">hap</span> (<span class="id" title="var">f</span> <span class="id" title="var">x2</span> <span class="id" title="var">y1</span>)));<span class="id" title="tactic">intros</span> [<span class="id" title="var">h</span>|<span class="id" title="var">h</span>];<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(202, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(203, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(204, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(205, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">h</span>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(206, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="x:97" class="idref" href="#x:97"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">f</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#x:96"><span class="id" title="variable">x</span></a> <span class="id" title="var">y1</span>) <span class="id" title="var">e</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(207, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(208, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trivial_apart"><span class="id" title="method">trivial_apart</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(209, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(210, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#tight_apart"><span class="id" title="method">tight_apart</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">h</span>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(211, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(212, '0_3_3');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.apartness.html#dec_setoid_morphisms"><span class="id" title="section">dec_setoid_morphisms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(213, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

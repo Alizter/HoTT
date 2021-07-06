@@ -1,0 +1,1107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 19)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  forall x : Sphere 1, P x	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "3 subgoals (ID 40)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  P North		subgoal 2 (ID 42) is:	 P South	subgoal 3 (ID 44) is:	 forall	 x : Susp	       ((fix Sphere (n : trunc_index) : Type :=	           match n with	           | (_.+1 as n').+1 => Susp (Sphere n')	           | _ => Empty	           end) (-1)), transport P (merid x) ?H_N = ?H_S	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "2 subgoals (ID 42)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  P South		subgoal 2 (ID 44) is:	 forall	 x : Susp	       ((fix Sphere (n : trunc_index) : Type :=	           match n with	           | (_.+1 as n').+1 => Susp (Sphere n')	           | _ => Empty	           end) (-1)), transport P (merid x) b = ?H_S	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 44)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  forall	  x : Susp	        ((fix Sphere (n : trunc_index) : Type :=	            match n with	            | (_.+1 as n').+1 => Susp (Sphere n')	            | _ => Empty	            end) (-1)), transport P (merid x) b = transport P (merid South) b	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "3 subgoals (ID 77)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  transport P (merid North) b = transport P (merid South) b		subgoal 2 (ID 78) is:	 transport P (merid South) b = transport P (merid South) b	subgoal 3 (ID 79) is:	 forall x : Empty,	 transport	   (fun y : Susp Empty =>	    transport P (merid y) b = transport P (merid South) b) 	   (merid x) ?Goal = ?Goal0	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 77)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  transport P (merid North) b = transport P (merid South) b	1 subgoal (ID 81)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  transport P (merid South)^ (transport P (merid North) b) = b	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 103)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  transport P (merid North @ (merid South)^) b = b	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 119)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  DPath P (merid North @ (merid South)^) b b	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	2 subgoals		subgoal 1 (ID 78) is:	 transport P (merid South) b = transport P (merid South) b	subgoal 2 (ID 79) is:	 forall x : Empty,	 transport	   (fun y : Susp Empty =>	    transport P (merid y) b = transport P (merid South) b) 	   (merid x)	   (moveL_transport_p P (merid South) (transport P (merid North) b) b	      ((transport_pp P (merid North) (merid South)^ b)^ @	       dp_path_transport^-1 p)) = ?Goal	2 subgoals (ID 78)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  transport P (merid South) b = transport P (merid South) b		subgoal 2 (ID 79) is:	 forall x : Empty,	 transport	   (fun y : Susp Empty =>	    transport P (merid y) b = transport P (merid South) b) 	   (merid x)	   (moveL_transport_p P (merid South) (transport P (merid North) b) b	      ((transport_pp P (merid North) (merid South)^ b)^ @	       dp_path_transport^-1 p)) = ?Goal	1 subgoal (ID 79)	  	  H : Univalence	  P : Sphere 1 -> Type	  b : P North	  p : DPath P (merid North @ (merid South)^) b b	  ============================	  forall x : Empty,	  transport	    (fun y : Susp Empty =>	     transport P (merid y) b = transport P (merid South) b) 	    (merid x)	    (moveL_transport_p P (merid South) (transport P (merid North) b) b	       ((transport_pp P (merid North) (merid South)^ b)^ @	        dp_path_transport^-1 p)) = 1%path	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 25)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  Sphere 1 -> P	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "3 subgoals (ID 41)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  P		subgoal 2 (ID 43) is:	 P	subgoal 3 (ID 45) is:	 Susp	   ((fix Sphere (n : trunc_index) : Type :=	       match n with	       | (_.+1 as n').+1 => Susp (Sphere n')	       | _ => Empty	       end) (-1)) -> ?H_N = ?H_S	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 45)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  Susp	    ((fix Sphere (n : trunc_index) : Type :=	        match n with	        | (_.+1 as n').+1 => Susp (Sphere n')	        | _ => Empty	        end) (-1)) -> b = b	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 46)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  Susp Empty -> b = b	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "3 subgoals (ID 62)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  b = b		subgoal 2 (ID 64) is:	 b = b	subgoal 3 (ID 66) is:	 Empty -> ?H_N = ?H_S	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "2 subgoals (ID 64)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  b = b		subgoal 2 (ID 66) is:	 Empty -> p = ?H_S	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 66)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  Empty -> p = 1%path	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 48)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  ap (Sph1_rec P b p) (merid North @ (merid South)^) = p	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 51)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  ap (Sph1_rec P b p) (merid North) @ ap (Sph1_rec P b p) (merid South)^ = p	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 56)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  ap (Sph1_rec P b p) (merid North) @ (ap (Sph1_rec P b p) (merid South))^ =	  p	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 70)	  	  H : Univalence	  P : Type	  b : P	  p : b = b	  ============================	  Susp_rec p 1 Empty_rec North @ (Susp_rec p 1 Empty_rec South)^ = p	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 51)	  	  H : Univalence	  ============================	  forall x : Sphere 1, x = x	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "2 subgoals (ID 61)	  	  H : Univalence	  ============================	  (fun x : Sphere 1 => x = x) North		subgoal 2 (ID 63) is:	 DPath (fun x : Sphere 1 => x = x) (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 61)	  	  H : Univalence	  ============================	  (fun x : Sphere 1 => x = x) North	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 63) is:	 DPath (fun x : Sphere 1 => x = x) (merid North @ (merid South)^)	   (merid North @ (merid South)^) (merid North @ (merid South)^)	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "1 subgoal (ID 63)	  	  H : Univalence	  ============================	  DPath (fun x : Sphere 1 => x = x) (merid North @ (merid South)^)	    (merid North @ (merid South)^) (merid North @ (merid South)^)	1 subgoal (ID 81)	  	  H : Univalence	  ============================	  ((merid North @ (merid South)^)^ @ (merid North @ (merid South)^)) @	  (merid North @ (merid South)^) = merid North @ (merid South)^	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "<infomsg>sgop_s1 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 61)	  	  H : Univalence	  ============================	  LeftIdentity sgop_s1 (point (psphere 1))	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "2 subgoals (ID 71)	  	  H : Univalence	  ============================	  (fun x : Sphere 1 => sgop_s1 (point (psphere 1)) x = x) North		subgoal 2 (ID 73) is:	 DPath (fun x : Sphere 1 => sgop_s1 (point (psphere 1)) x = x)	   (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 73)	  	  H : Univalence	  ============================	  DPath (fun x : Sphere 1 => sgop_s1 (point (psphere 1)) x = x)	    (merid North @ (merid South)^) 1%path 1%path	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "1 subgoal (ID 81)	  	  H : Univalence	  ============================	  ((merid North @ (merid South)^)^ @ 1) @ (merid North @ (merid South)^) =	  1%path	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "1 subgoal (ID 85)	  	  H : Univalence	  ============================	  (merid North @ (merid South)^)^ @ (merid North @ (merid South)^) = 1%path	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 67)	  	  H : Univalence	  ============================	  RightIdentity sgop_s1 (point (psphere 1))	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "2 subgoals (ID 77)	  	  H : Univalence	  ============================	  (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)) = x) North		subgoal 2 (ID 79) is:	 DPath (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)) = x)	   (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 79)	  	  H : Univalence	  ============================	  DPath (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)) = x)	    (merid North @ (merid South)^) 1%path 1%path	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "1 subgoal (ID 90)	  	  H : Univalence	  ============================	  ((ap (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)))	      (merid North @ (merid South)^))^ @ 1) @	  ap idmap (merid North @ (merid South)^) = 1%path	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "1 subgoal (ID 94)	  	  H : Univalence	  ============================	  (ap (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)))	     (merid North @ (merid South)^))^ @	  ap idmap (merid North @ (merid South)^) = 1%path	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 101)	  	  H : Univalence	  ============================	  (ap (fun x : Sphere 1 => sgop_s1 x (point (psphere 1)))	     (merid North @ (merid South)^))^ @ (merid North @ (merid South)^) =	  1%path	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "1 subgoal (ID 105)	  	  H : Univalence	  ============================	  (s1_turn (point (psphere 1)))^ @ (merid North @ (merid South)^) = 1%path	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "<infomsg>hspace_s1 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 72)	  	  H : Univalence	  ============================	  Associative sgop_s1	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 76)	  	  H : Univalence	  x, y, z : psphere 1	  ============================	  sgop_s1 x (sgop_s1 y z) = sgop_s1 (sgop_s1 x y) z	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 78)	  	  H : Univalence	  y, z : psphere 1	  ============================	  forall x : psphere 1, sgop_s1 x (sgop_s1 y z) = sgop_s1 (sgop_s1 x y) z	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "2 subgoals (ID 88)	  	  H : Univalence	  y, z : psphere 1	  ============================	  (fun x : Sphere 1 => sgop_s1 x (sgop_s1 y z) = sgop_s1 (sgop_s1 x y) z)	    North		subgoal 2 (ID 90) is:	 DPath	   (fun x : Sphere 1 => sgop_s1 x (sgop_s1 y z) = sgop_s1 (sgop_s1 x y) z)	   (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 90)	  	  H : Univalence	  y, z : psphere 1	  ============================	  DPath	    (fun x : Sphere 1 => sgop_s1 x (sgop_s1 y z) = sgop_s1 (sgop_s1 x y) z)	    (merid North @ (merid South)^) 1%path 1%path	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 109)	  	  H : Univalence	  y, z : psphere 1	  ============================	  PathSquare 1 1	    (ap (fun x : Sphere 1 => sgop_s1 x (sgop_s1 y z))	       (merid North @ (merid South)^))	    (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x y) z)	       (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "1 subgoal (ID 111)	  	  H : Univalence	  z : psphere 1	  ============================	  forall y : psphere 1,	  PathSquare 1 1	    (ap (fun x : Sphere 1 => sgop_s1 x (sgop_s1 y z))	       (merid North @ (merid South)^))	    (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x y) z)	       (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "2 subgoals (ID 121)	  	  H : Univalence	  z : psphere 1	  ============================	  (fun x : Sphere 1 =>	   PathSquare 1 1	     (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	        (merid North @ (merid South)^))	     (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	        (merid North @ (merid South)^))) North		subgoal 2 (ID 123) is:	 DPath	   (fun x : Sphere 1 =>	    PathSquare 1 1	      (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	         (merid North @ (merid South)^))	      (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	         (merid North @ (merid South)^))) (merid North @ (merid South)^) 	   ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "1 subgoal (ID 121)	  	  H : Univalence	  z : psphere 1	  ============================	  (fun x : Sphere 1 =>	   PathSquare 1 1	     (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	        (merid North @ (merid South)^))	     (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	        (merid North @ (merid South)^))) North	1 subgoal (ID 138)	  	  H : Univalence	  z : psphere 1	  ============================	  PathSquare 1 1	    (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	       (merid North @ (merid South)^))	    (ap (fun x : Sphere 1 => sgop_s1 x (sgop_s1 North z))	       (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 123) is:	 DPath	   (fun x : Sphere 1 =>	    PathSquare 1 1	      (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	         (merid North @ (merid South)^))	      (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	         (merid North @ (merid South)^))) (merid North @ (merid South)^)	   (let X := equiv_fun sq_flip_v in	    X	      (ap_nat'	         (fun a : psphere 1 =>	          ap (fun b : psphere 1 => sgop_s1 b z) (rightidentity_s1 a))	         (merid North @ (merid South)^)))	   (let X := equiv_fun sq_flip_v in	    X	      (ap_nat'	         (fun a : psphere 1 =>	          ap (fun b : psphere 1 => sgop_s1 b z) (rightidentity_s1 a))	         (merid North @ (merid South)^)))	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 123)	  	  H : Univalence	  z : psphere 1	  ============================	  DPath	    (fun x : Sphere 1 =>	     PathSquare 1 1	       (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	          (merid North @ (merid South)^))	       (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	          (merid North @ (merid South)^))) (merid North @ (merid South)^)	    (let X := equiv_fun sq_flip_v in	     X	       (ap_nat'	          (fun a : psphere 1 =>	           ap (fun b : psphere 1 => sgop_s1 b z) (rightidentity_s1 a))	          (merid North @ (merid South)^)))	    (let X := equiv_fun sq_flip_v in	     X	       (ap_nat'	          (fun a : psphere 1 =>	           ap (fun b : psphere 1 => sgop_s1 b z) (rightidentity_s1 a))	          (merid North @ (merid South)^)))	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 162)	  	  H : Univalence	  z : psphere 1	  ============================	  DPath	    (fun x : Sphere 1 =>	     PathSquare 1 1	       (ap (fun x0 : Sphere 1 => sgop_s1 x0 (sgop_s1 x z))	          (merid North @ (merid South)^))	       (ap (fun x0 : Sphere 1 => sgop_s1 (sgop_s1 x0 x) z)	          (merid North @ (merid South)^))) (merid North @ (merid South)^)	    (match	       ap (fun x : Sphere 1 => sgop_s1 x z) (merid North @ (merid South)^) as	       p in (_ = y)	       return	         (forall px1 : y = z,	          1 @	          ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	            (merid North @ (merid South)^) = p @ px1 ->	          PathSquare 1 px1 p	            (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	               (merid North @ (merid South)^)))	     with	     | 1%path =>	         fun px1 : z = z =>	         match	           ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	             (merid North @ (merid South)^) as p in 	           (_ = y)	           return	             (forall px0 : z = y, 1 @ p = 1 @ px0 -> PathSquare 1 px0 1 p)	         with	         | 1%path =>	             fun (px0 : z = z) (e : 1%path = 1 @ px0) =>	             match	               e @ concat_1p px0 in (_ = y)	               return (1%path = 1 @ y -> PathSquare 1 y 1 1)	             with	             | 1%path => fun _ : 1%path = 1%path => 1%square	             end e	         end px1	     end 1%path	       (((concat_1p	            (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	               (merid North @ (merid South)^)))^)^ @	        ((((((concat_1p	                (ap (fun x : Sphere 1 => sgop_s1 x z)	                   (merid North @ (merid South)^)))^ @	             match	               ap_nat'	                 (fun a : Susp (Susp Empty) =>	                  ap (fun b : Susp (Susp Empty) => sgop_s1 b z)	                    (rightidentity_s1 a)) (merid North @ (merid South)^) in	               (@PathSquare _ a00 a10 a01 a11 p p0 p1 p2)	               return (p @ p2 = p1 @ p0)	             with	             | @sq_id _ x => 1	             end) @	            concat_p1	              (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	                 (merid North @ (merid South)^)))^)^)^ @	         (concat_p1	            (ap (fun x : Sphere 1 => sgop_s1 x z)	               (merid North @ (merid South)^)))^)))	    (match	       ap (fun x : Sphere 1 => sgop_s1 x z) (merid North @ (merid South)^) as	       p in (_ = y)	       return	         (forall px1 : y = z,	          1 @	          ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	            (merid North @ (merid South)^) = p @ px1 ->	          PathSquare 1 px1 p	            (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	               (merid North @ (merid South)^)))	     with	     | 1%path =>	         fun px1 : z = z =>	         match	           ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	             (merid North @ (merid South)^) as p in 	           (_ = y)	           return	             (forall px0 : z = y, 1 @ p = 1 @ px0 -> PathSquare 1 px0 1 p)	         with	         | 1%path =>	             fun (px0 : z = z) (e : 1%path = 1 @ px0) =>	             match	               e @ concat_1p px0 in (_ = y)	               return (1%path = 1 @ y -> PathSquare 1 y 1 1)	             with	             | 1%path => fun _ : 1%path = 1%path => 1%square	             end e	         end px1	     end 1%path	       (((concat_1p	            (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	               (merid North @ (merid South)^)))^)^ @	        ((((((concat_1p	                (ap (fun x : Sphere 1 => sgop_s1 x z)	                   (merid North @ (merid South)^)))^ @	             match	               ap_nat'	                 (fun a : Susp (Susp Empty) =>	                  ap (fun b : Susp (Susp Empty) => sgop_s1 b z)	                    (rightidentity_s1 a)) (merid North @ (merid South)^) in	               (@PathSquare _ a00 a10 a01 a11 p p0 p1 p2)	               return (p @ p2 = p1 @ p0)	             with	             | @sq_id _ x => 1	             end) @	            concat_p1	              (ap (fun x : Sphere 1 => sgop_s1 (sgop_s1 x North) z)	                 (merid North @ (merid South)^)))^)^)^ @	         (concat_p1	            (ap (fun x : Sphere 1 => sgop_s1 x z)	               (merid North @ (merid South)^)))^)))	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 75)	  	  H : Univalence	  ============================	  Commutative sgop_s1	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "1 subgoal (ID 78)	  	  H : Univalence	  x, y : psphere 1	  ============================	  sgop_s1 x y = sgop_s1 y x	";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "1 subgoal (ID 80)	  	  H : Univalence	  y : psphere 1	  ============================	  forall x : psphere 1, sgop_s1 x y = sgop_s1 y x	";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "2 subgoals (ID 90)	  	  H : Univalence	  y : psphere 1	  ============================	  (fun x : Sphere 1 => sgop_s1 x y = sgop_s1 y x) North		subgoal 2 (ID 92) is:	 DPath (fun x : Sphere 1 => sgop_s1 x y = sgop_s1 y x)	   (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "1 subgoal (ID 92)	  	  H : Univalence	  y : psphere 1	  ============================	  DPath (fun x : Sphere 1 => sgop_s1 x y = sgop_s1 y x)	    (merid North @ (merid South)^) (right_identity (sgop_s1 North y))^	    (right_identity (sgop_s1 North y))^	";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "1 subgoal (ID 126)	  	  H : Univalence	  y : psphere 1	  ============================	  PathSquare (right_identity (sgop_s1 North y))^	    (right_identity (sgop_s1 North y))^	    (ap (fun x : Sphere 1 => sgop_s1 x y) (merid North @ (merid South)^))	    (ap (sgop_s1 y) (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "1 subgoal (ID 128)	  	  H : Univalence	  ============================	  forall y : psphere 1,	  PathSquare (right_identity (sgop_s1 North y))^	    (right_identity (sgop_s1 North y))^	    (ap (fun x : Sphere 1 => sgop_s1 x y) (merid North @ (merid South)^))	    (ap (sgop_s1 y) (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "2 subgoals (ID 138)	  	  H : Univalence	  ============================	  (fun x : Sphere 1 =>	   PathSquare (right_identity (sgop_s1 North x))^	     (right_identity (sgop_s1 North x))^	     (ap (fun x0 : Sphere 1 => sgop_s1 x0 x) (merid North @ (merid South)^))	     (ap (sgop_s1 x) (merid North @ (merid South)^))) North		subgoal 2 (ID 140) is:	 DPath	   (fun x : Sphere 1 =>	    PathSquare (right_identity (sgop_s1 North x))^	      (right_identity (sgop_s1 North x))^	      (ap (fun x0 : Sphere 1 => sgop_s1 x0 x) (merid North @ (merid South)^))	      (ap (sgop_s1 x) (merid North @ (merid South)^)))	   (merid North @ (merid South)^) ?b ?b	";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "1 subgoal (ID 140)	  	  H : Univalence	  ============================	  DPath	    (fun x : Sphere 1 =>	     PathSquare (right_identity (sgop_s1 North x))^	       (right_identity (sgop_s1 North x))^	       (ap (fun x0 : Sphere 1 => sgop_s1 x0 x) (merid North @ (merid South)^))	       (ap (sgop_s1 x) (merid North @ (merid South)^)))	    (merid North @ (merid South)^)	    (ap_nat' rightidentity_s1 (merid North @ (merid South)^))	    (ap_nat' rightidentity_s1 (merid North @ (merid South)^))	";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Homotopy.HSpaceS1</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Cubical.html#"><span class="id" title="library">Cubical</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Homotopy.Suspension.html#"><span class="id" title="library">Homotopy.Suspension</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Homotopy.HSpace.html#"><span class="id" title="library">Homotopy.HSpace</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Spaces.Spheres.html#"><span class="id" title="library">Spaces.Spheres</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+H-space structure on circle. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="HSpace_S1" class="idref" href="#HSpace_S1"><span class="id" title="section">HSpace_S1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Univalence</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="Sph1_ind" class="idref" href="#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a> (<a id="P:2" class="idref" href="#P:2"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Spaces.Spheres.html#Sphere"><span class="id" title="definition">Sphere</span></a> 1 <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<a id="b:3" class="idref" href="#b:3"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#North"><span class="id" title="definition">North</span></a>)<br>
+    (<a id="p:4" class="idref" href="#p:4"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Cubical.DPath.html#DPath"><span class="id" title="definition">DPath</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:2"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#North"><span class="id" title="definition">North</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#South"><span class="id" title="definition">South</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>) <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:3"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:3"><span class="id" title="variable">b</span></a>)<br>
+    : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:5" class="idref" href="#x:5"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Spheres.html#Sphere"><span class="id" title="definition">Sphere</span></a> 1<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#x:5"><span class="id" title="variable">x</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.Suspension.html#Susp_ind"><span class="id" title="definition">Susp_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">exact</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#South"><span class="id" title="definition">South</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <span class="id" title="var">b</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.Suspension.html#Susp_ind"><span class="id" title="definition">Susp_ind</span></a>; <span class="id" title="tactic">hnf</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+    { <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#moveL_transport_p"><span class="id" title="definition">moveL_transport_p</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+      <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_pp"><span class="id" title="definition">transport_pp</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_path_transport"><span class="id" title="abbreviation">dp_path_transport</span></a><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+      <span class="id" title="tactic">apply</span> <span class="id" title="var">p</span>. }<br>
+    1: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#Empty_ind"><span class="id" title="definition">Empty_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="Sph1_rec" class="idref" href="#Sph1_rec"><span class="id" title="definition">Sph1_rec</span></a> (<a id="P:6" class="idref" href="#P:6"><span class="id" title="binder">P</span></a> : <span class="id" title="keyword">Type</span>) (<a id="b:7" class="idref" href="#b:7"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:6"><span class="id" title="variable">P</span></a>) (<a id="p:8" class="idref" href="#p:8"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:7"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:7"><span class="id" title="variable">b</span></a>)<br>
+    : <a class="idref" href="HoTT.Spaces.Spheres.html#Sphere"><span class="id" title="definition">Sphere</span></a> 1 <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:6"><span class="id" title="variable">P</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.Suspension.html#Susp_rec"><span class="id" title="definition">Susp_rec</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+    1,2: <span class="id" title="tactic">exact</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(34, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(35, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.Suspension.html#Susp_rec"><span class="id" title="definition">Susp_rec</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(36, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">exact</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(37, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(38, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Empty.html#Empty_rec"><span class="id" title="lemma">Empty_rec</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(39, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(40, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="Sph1_rec_beta_loop" class="idref" href="#Sph1_rec_beta_loop"><span class="id" title="definition">Sph1_rec_beta_loop</span></a> (<a id="P:9" class="idref" href="#P:9"><span class="id" title="binder">P</span></a> : <span class="id" title="keyword">Type</span>) (<a id="b:10" class="idref" href="#b:10"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:9"><span class="id" title="variable">P</span></a>) (<a id="p:11" class="idref" href="#p:11"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:10"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:10"><span class="id" title="variable">b</span></a>)<br>
+    : <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_rec"><span class="id" title="definition">Sph1_rec</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#P:9"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:10"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#p:11"><span class="id" title="variable">p</span></a>) (<a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#North"><span class="id" title="definition">North</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#South"><span class="id" title="definition">South</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#p:11"><span class="id" title="variable">p</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(41, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(42, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_pp"><span class="id" title="definition">ap_pp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(43, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_V"><span class="id" title="definition">ap_V</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(44, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> 2 <a class="idref" href="HoTT.Homotopy.Suspension.html#Susp_rec_beta_merid"><span class="id" title="definition">Susp_rec_beta_merid</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(45, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(46, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(47, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="s1_turn" class="idref" href="#s1_turn"><span class="id" title="definition">s1_turn</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:12" class="idref" href="#x:12"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Spheres.html#Sphere"><span class="id" title="definition">Sphere</span></a> 1<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#x:12"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#x:12"><span class="id" title="variable">x</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(48, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(49, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(50, '0_3_7');
+      "><br>
+    + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#North"><span class="id" title="definition">North</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#South"><span class="id" title="definition">South</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(51, '0_3_7');
+      "><br>
+    + <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_paths_lr"><span class="id" title="abbreviation">dp_paths_lr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(52, '0_3_7');
+      "><br>
+      <span class="id" title="tactic">by</span> <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_1p"><span class="id" title="definition">concat_1p</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(53, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(54, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="sgop_s1" class="idref" href="#sgop_s1"><span class="id" title="instance">sgop_s1</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#SgOp"><span class="id" title="class">SgOp</span></a> (<a class="idref" href="HoTT.Spaces.Spheres.html#psphere"><span class="id" title="definition">psphere</span></a> 1)<br>
+    := <span class="id" title="keyword">fun</span> <a id="x:13" class="idref" href="#x:13"><span class="id" title="binder">x</span></a> <a id="y:14" class="idref" href="#y:14"><span class="id" title="binder">y</span></a> ⇒ <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_rec"><span class="id" title="definition">Sph1_rec</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#y:14"><span class="id" title="variable">y</span></a> (<a class="idref" href="HoTT.Homotopy.HSpaceS1.html#s1_turn"><span class="id" title="definition">s1_turn</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#y:14"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#x:13"><span class="id" title="variable">x</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(55, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="leftidentity_s1" class="idref" href="#leftidentity_s1"><span class="id" title="instance">leftidentity_s1</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LeftIdentity"><span class="id" title="class">LeftIdentity</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#sgop_s1"><span class="id" title="instance">sgop_s1</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> (<a class="idref" href="HoTT.Spaces.Spheres.html#psphere"><span class="id" title="definition">psphere</span></a> 1)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(56, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(57, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(58, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(59, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_paths_lr"><span class="id" title="abbreviation">dp_paths_lr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(60, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(61, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(62, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(63, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="rightidentity_s1" class="idref" href="#rightidentity_s1"><span class="id" title="instance">rightidentity_s1</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#RightIdentity"><span class="id" title="class">RightIdentity</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#sgop_s1"><span class="id" title="instance">sgop_s1</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> (<a class="idref" href="HoTT.Spaces.Spheres.html#psphere"><span class="id" title="definition">psphere</span></a> 1)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(64, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(65, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(66, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(67, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_paths_FlFr"><span class="id" title="abbreviation">dp_paths_FlFr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(68, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(69, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_idmap"><span class="id" title="definition">ap_idmap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(70, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_rec_beta_loop"><span class="id" title="definition">Sph1_rec_beta_loop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(71, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(72, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(73, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="hspace_s1" class="idref" href="#hspace_s1"><span class="id" title="instance">hspace_s1</span></a> : <a class="idref" href="HoTT.Homotopy.HSpace.html#IsHSpace"><span class="id" title="class">IsHSpace</span></a> (<a class="idref" href="HoTT.Spaces.Spheres.html#psphere"><span class="id" title="definition">psphere</span></a> 1) := {}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(74, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="associative_sgop_s1" class="idref" href="#associative_sgop_s1"><span class="id" title="instance">associative_sgop_s1</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Associative"><span class="id" title="class">Associative</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#sgop_s1"><span class="id" title="instance">sgop_s1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(75, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(76, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(77, '0_3_7');
+      "><br>
+    <span class="id" title="var">revert</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(78, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(79, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(80, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.PathSquare.html#sq_dp"><span class="id" title="abbreviation">sq_dp</span></a><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(81, '0_3_7');
+      "><br>
+    <span class="id" title="var">revert</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(82, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(83, '0_3_7');
+      "><br>
+    { <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Cubical.PathSquare.html#sq_flip_v"><span class="id" title="abbreviation">sq_flip_v</span></a> (<span class="id" title="var">px0</span>:=1) (<span class="id" title="var">px1</span>:=1)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(84, '0_3_7');
+      "><br>
+      <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Cubical.PathSquare.html#ap_nat'"><span class="id" title="definition">ap_nat'</span></a> (<span class="id" title="keyword">fun</span> <a id="a:17" class="idref" href="#a:17"><span class="id" title="binder">a</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="b:18" class="idref" href="#b:18"><span class="id" title="binder">b</span></a> ⇒ <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#sgop_s1"><span class="id" title="instance">sgop_s1</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#b:16"><span class="id" title="variable">b</span></a> <span class="id" title="var">z</span>)<br>
+        (<a class="idref" href="HoTT.Homotopy.HSpaceS1.html#rightidentity_s1"><span class="id" title="instance">rightidentity_s1</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#a:15"><span class="id" title="variable">a</span></a>)) (<a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#North"><span class="id" title="definition">North</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Suspension.html#merid"><span class="id" title="definition">merid</span></a> <a class="idref" href="HoTT.Homotopy.Suspension.html#South"><span class="id" title="definition">South</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>)). }</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(85, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(86, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_ishprop"><span class="id" title="definition">dp_ishprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(87, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(88, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="commutative_sgop_s1" class="idref" href="#commutative_sgop_s1"><span class="id" title="instance">commutative_sgop_s1</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Commutative"><span class="id" title="class">Commutative</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#sgop_s1"><span class="id" title="instance">sgop_s1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(89, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(90, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(91, '0_3_7');
+      "><br>
+    <span class="id" title="var">revert</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(92, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(93, '0_3_7');
+      "><br>
+    1: <span class="id" title="var">cbn</span>; <span class="id" title="tactic">symmetry</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_identity"><span class="id" title="definition">right_identity</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(94, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.PathSquare.html#sq_dp"><span class="id" title="abbreviation">sq_dp</span></a><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(95, '0_3_7');
+      "><br>
+    <span class="id" title="var">revert</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(96, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#Sph1_ind"><span class="id" title="definition">Sph1_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(97, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Cubical.PathSquare.html#ap_nat'"><span class="id" title="definition">ap_nat'</span></a> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#rightidentity_s1"><span class="id" title="instance">rightidentity_s1</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(98, '0_3_7');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Cubical.DPath.html#dp_ishprop"><span class="id" title="definition">dp_ishprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(99, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(100, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Homotopy.HSpaceS1.html#HSpace_S1"><span class="id" title="section">HSpace_S1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(101, '0_3_7');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

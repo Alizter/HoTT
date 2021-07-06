@@ -1,0 +1,384 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>C is declared</infomsg>	<infomsg>f is declared</infomsg>	<infomsg>g is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 22)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  ============================	  Commutative group_sgop	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 23)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  ============================	  forall x y : grp_pullback f g, group_sgop x y = group_sgop y x	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 41)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  b : B	  c : C	  p : f b = g c	  d : B	  e : C	  q : f d = g e	  ============================	  group_sgop (b; c; p) (d; e; q) = group_sgop (d; e; q) (b; c; p)	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "1 subgoal (ID 49)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  b : B	  c : C	  p : f b = g c	  d : B	  e : C	  q : f d = g e	  ============================	  {p0 : sg_op b d = sg_op d b &	  {q0 : sg_op c e = sg_op e c &	  PathSquare (ap f p0) (ap g q0)	    ((grp_homo_op f b d @	      (ap (fun y : A => sg_op (f b) y) q @ ap (fun x : A => sg_op x (g e)) p)) @	     (grp_homo_op g c e)^)	    ((grp_homo_op f d b @	      (ap (fun y : A => sg_op (f d) y) p @ ap (fun x : A => sg_op x (g c)) q)) @	     (grp_homo_op g e c)^)}}	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 74)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  b : B	  c : C	  p : f b = g c	  d : B	  e : C	  q : f d = g e	  ============================	  PathSquare (ap f (commutativity b d)) (ap g (commutativity c e))	    ((grp_homo_op f b d @	      (ap (fun y : A => sg_op (f b) y) q @ ap (fun x : A => sg_op x (g e)) p)) @	     (grp_homo_op g c e)^)	    ((grp_homo_op f d b @	      (ap (fun y : A => sg_op (f d) y) p @ ap (fun x : A => sg_op x (g c)) q)) @	     (grp_homo_op g e c)^)	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 87)	  	  A, B, C : AbGroup	  f : B $-> A	  g : C $-> A	  b : B	  c : C	  p : f b = g c	  d : B	  e : C	  q : f d = g e	  ============================	  ap f (commutativity b d) @	  ((grp_homo_op f d b @	    (ap (fun y : A => sg_op (f d) y) p @ ap (fun x : A => sg_op x (g c)) q)) @	   (grp_homo_op g e c)^) =	  ((grp_homo_op f b d @	    (ap (fun y : A => sg_op (f b) y) q @ ap (fun x : A => sg_op x (g e)) p)) @	   (grp_homo_op g c e)^) @ ap g (commutativity c e)	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "<infomsg>isabgroup_ab_pullback is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "<infomsg>ab_pullback is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Algebra.AbGroups.AbPullback</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a> <a class="idref" href="HoTT.Limits.Pullback.html#"><span class="id" title="library">Limits.Pullback</span></a> <a class="idref" href="HoTT.Cubical.PathSquare.html#"><span class="id" title="library">Cubical.PathSquare</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.Groups.html#"><span class="id" title="library">Algebra.Groups</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#"><span class="id" title="library">Algebra.AbGroups.AbelianGroup</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.WildCat.html#"><span class="id" title="library">WildCat</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+Pullbacks of abelian groups. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(13, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="AbPullback" class="idref" href="#AbPullback"><span class="id" title="section">AbPullback</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(14, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Context</span> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> <a id="C:3" class="idref" href="#C:3"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>} (<a id="f:4" class="idref" href="#f:4"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#B:2"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#A:1"><span class="id" title="variable">A</span></a>) (<a id="g:5" class="idref" href="#g:5"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#C:3"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#A:1"><span class="id" title="variable">A</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="ab_pullback_commutative" class="idref" href="#ab_pullback_commutative"><span class="id" title="instance">ab_pullback_commutative</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Commutative"><span class="id" title="class">Commutative</span></a> (@<a class="idref" href="HoTT.Algebra.Groups.Group.html#group_sgop"><span class="id" title="projection">group_sgop</span></a> (<a class="idref" href="HoTT.Algebra.Groups.GrpPullback.html#grp_pullback"><span class="id" title="definition">grp_pullback</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.g"><span class="id" title="variable">g</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Commutative"><span class="id" title="class">Commutative</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> [<span class="id" title="var">b</span> [<span class="id" title="var">c</span> <span class="id" title="var">p</span>]] [<span class="id" title="var">d</span> [<span class="id" title="var">e</span> <span class="id" title="var">q</span>]].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Limits.Pullback.html#equiv_path_pullback"><span class="id" title="definition">equiv_path_pullback</span></a>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">refine</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#commutativity"><span class="id" title="definition">commutativity</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#commutativity"><span class="id" title="definition">commutativity</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Cubical.PathSquare.html#equiv_sq_path"><span class="id" title="definition">equiv_sq_path</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#path_ishprop"><span class="id" title="lemma">path_ishprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="isabgroup_ab_pullback" class="idref" href="#isabgroup_ab_pullback"><span class="id" title="instance">isabgroup_ab_pullback</span></a><br>
+    : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsAbGroup"><span class="id" title="class">IsAbGroup</span></a> (<a class="idref" href="HoTT.Algebra.Groups.GrpPullback.html#grp_pullback"><span class="id" title="definition">grp_pullback</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.g"><span class="id" title="variable">g</span></a>) := {}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="ab_pullback" class="idref" href="#ab_pullback"><span class="id" title="definition">ab_pullback</span></a><br>
+    : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a> := <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#Build_AbGroup"><span class="id" title="constructor">Build_AbGroup</span></a> (<a class="idref" href="HoTT.Algebra.Groups.GrpPullback.html#grp_pullback"><span class="id" title="definition">grp_pullback</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback.g"><span class="id" title="variable">g</span></a>) <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+The corecursion principle is inherited from Groups; use grp_pullback_corec and friends from Groups/GrpPullback.v. 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(30, '0_3_11');
+      ">
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Algebra.AbGroups.AbPullback.html#AbPullback"><span class="id" title="section">AbPullback</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(31, '0_3_11');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

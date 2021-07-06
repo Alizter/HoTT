@@ -1,0 +1,624 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "1 subgoal (ID 11)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  P n k	";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "1 subgoal (ID 18)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  P n (finnat_to_fin (fin_to_finnat k))	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "2 subgoals (ID 29)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall n0 : nat, P n0.+1 (finnat_to_fin (zero_finnat n0))		subgoal 2 (ID 30) is:	 forall (n0 : nat) (u : FinNat n0),	 P n0 (finnat_to_fin u) -> P n0.+1 (finnat_to_fin (succ_finnat u))	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "1 subgoal (ID 29)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall n0 : nat, P n0.+1 (finnat_to_fin (zero_finnat n0))	1 subgoal (ID 31)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  n0 : nat	  ============================	  P n0.+1 (finnat_to_fin (zero_finnat n0))	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 30) is:	 forall (n0 : nat) (u : FinNat n0),	 P n0 (finnat_to_fin u) -> P n0.+1 (finnat_to_fin (succ_finnat u))	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "1 subgoal (ID 30)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall (n0 : nat) (u : FinNat n0),	  P n0 (finnat_to_fin u) -> P n0.+1 (finnat_to_fin (succ_finnat u))	1 subgoal (ID 34)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  n' : nat	  u : FinNat n'	  c : P n' (finnat_to_fin u)	  ============================	  P n'.+1 (finnat_to_fin (succ_finnat u))	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 48)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  n' : nat	  u : FinNat n'	  c : P n' (finnat_to_fin u)	  ============================	  P n'.+1 (fsucc (finnat_to_fin u))	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 22)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  fin_ind P z s fin_zero = z n	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 23)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  transport (P n.+1) (path_fin_to_finnat_to_fin fin_zero)	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (fin_to_finnat fin_zero)) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 25)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  forall p : finnat_to_fin (fin_to_finnat fin_zero) = fin_zero,	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (fin_to_finnat fin_zero)) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 38)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  forall p : finnat_to_fin (zero_finnat n) = fin_zero,	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (zero_finnat n)) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "1 subgoal (ID 39)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  p : finnat_to_fin (zero_finnat n) = fin_zero	  ============================	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (zero_finnat n)) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 142)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  transport (P n.+1) 1	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (zero_finnat n)) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 143)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  ============================	  transport	    (fun u : FinNat n.+1 =>	     P n.+1	       (match u.1 as proj1 return (proj1 < n.+1 -> (Fin n + Unit)%type) with	        | 0 => fun _ : 0 < n.+1 => fin_zero	        | x.+1 =>	            fun h : x.+1 < n.+1 =>	            fsucc (finnat_to_fin (x; leq_S_n x.+1 n h))	        end u.2)) (path_zero_finnat n leq_1_Sn) (z n) = 	  z n	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 35)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  fin_ind P z s (fsucc k) = s n k (fin_ind P z s k)	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 36)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  transport (P n.+1) (path_fin_to_finnat_to_fin (fsucc k))	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (fin_to_finnat (fsucc k))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 39)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall p : finnat_to_fin (fin_to_finnat (fsucc k)) = fsucc k,	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (fin_to_finnat (fsucc k))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "1 subgoal (ID 53)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall p : finnat_to_fin (succ_finnat (fin_to_finnat k)) = fsucc k,	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (succ_finnat (fin_to_finnat k))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 54)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  p : finnat_to_fin (succ_finnat (fin_to_finnat k)) = fsucc k	  ============================	  transport (P n.+1) p	    (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	       (fun n0 : nat => z n0)	       (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	        transport (P n'.+1) (path_finnat_to_fin_succ u)^	          (s n' (finnat_to_fin u) c)) (succ_finnat (fin_to_finnat k))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 77)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  p : finnat_to_fin (succ_finnat (fin_to_finnat k)) = fsucc k	  ============================	  transport (P n.+1) p	    (transport (P n.+1) (path_finnat_to_fin_succ (fin_to_finnat k))^	       (s n (finnat_to_fin (fin_to_finnat k))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 79)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall p : finnat_to_fin (succ_finnat (fin_to_finnat k)) = fsucc k,	  transport (P n.+1) p	    (transport (P n.+1) (path_finnat_to_fin_succ (fin_to_finnat k))^	       (s n (finnat_to_fin (fin_to_finnat k))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))) =	  s n k	    (transport (P n) (path_fin_to_finnat_to_fin k)	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 121)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall	  p : finnat_to_fin	        (succ_finnat (fin_to_finnat (finnat_to_fin (fin_to_finnat k)))) =	      fsucc (finnat_to_fin (fin_to_finnat k)),	  transport (P n.+1) p	    (transport (P n.+1)	       (path_finnat_to_fin_succ	          (fin_to_finnat (finnat_to_fin (fin_to_finnat k))))^	       (s n (finnat_to_fin (fin_to_finnat (finnat_to_fin (fin_to_finnat k))))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c))	             (fin_to_finnat (finnat_to_fin (fin_to_finnat k)))))) =	  s n (finnat_to_fin (fin_to_finnat k))	    (transport (P n) 1	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 171)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  ============================	  forall	  p : finnat_to_fin (succ_finnat (fin_to_finnat k)) =	      fsucc (finnat_to_fin (fin_to_finnat k)),	  transport (P n.+1) p	    (transport (P n.+1) (path_finnat_to_fin_succ (fin_to_finnat k))^	       (s n (finnat_to_fin (fin_to_finnat k))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))) =	  s n (finnat_to_fin (fin_to_finnat k))	    (transport (P n) 1	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "1 subgoal (ID 172)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  p : finnat_to_fin (succ_finnat (fin_to_finnat k)) =	      fsucc (finnat_to_fin (fin_to_finnat k))	  ============================	  transport (P n.+1) p	    (transport (P n.+1) (path_finnat_to_fin_succ (fin_to_finnat k))^	       (s n (finnat_to_fin (fin_to_finnat k))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))) =	  s n (finnat_to_fin (fin_to_finnat k))	    (transport (P n) 1	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "1 subgoal (ID 280)	  	  P : forall n : nat, Fin n -> Type	  z : forall n : nat, P n.+1 fin_zero	  s : forall (n : nat) (k : Fin n), P n k -> P n.+1 (fsucc k)	  n : nat	  k : Fin n	  p : finnat_to_fin (succ_finnat (fin_to_finnat k)) =	      fsucc (finnat_to_fin (fin_to_finnat k))	  ============================	  transport (P n.+1) p	    (transport (P n.+1) p^	       (s n (finnat_to_fin (fin_to_finnat k))	          (finnat_ind	             (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	             (fun n0 : nat => z n0)	             (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	              transport (P n'.+1) (path_finnat_to_fin_succ u)^	                (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))) =	  s n (finnat_to_fin (fin_to_finnat k))	    (transport (P n) 1	       (finnat_ind (fun (n0 : nat) (u : FinNat n0) => P n0 (finnat_to_fin u))	          (fun n0 : nat => z n0)	          (fun (n' : nat) (u : FinNat n') (c : P n' (finnat_to_fin u)) =>	           transport (P n'.+1) (path_finnat_to_fin_succ u)^	             (s n' (finnat_to_fin u) c)) (fin_to_finnat k)))	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "<infomsg>fin_rec is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 46)	  	  B : nat -> Type	  z : forall n : nat, B n.+1	  s : forall n : nat, Fin n -> B n -> B n.+1	  n : nat	  ============================	  fin_rec B z s fin_zero = z n	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 57)	  	  B : nat -> Type	  z : forall n : nat, B n.+1	  s : forall n : nat, Fin n -> B n -> B n.+1	  n : nat	  k : Fin n	  ============================	  fin_rec B z s (fsucc k) = s n k (fin_rec B z s k)	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Spaces.Finite.FinInduction</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+  <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a><br>
+  <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">HoTT.Types</span></a><br>
+  <a class="idref" href="HoTT.HSet.html#"><span class="id" title="library">HoTT.HSet</span></a><br>
+  <a class="idref" href="HoTT.Spaces.Nat.html#"><span class="id" title="library">HoTT.Spaces.Nat</span></a><br>
+  <a class="idref" href="HoTT.Spaces.Finite.FinNat.html#"><span class="id" title="library">HoTT.Spaces.Finite.FinNat</span></a><br>
+  <a class="idref" href="HoTT.Spaces.Finite.Fin.html#"><span class="id" title="library">HoTT.Spaces.Finite.Fin</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">nat_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="fin_ind" class="idref" href="#fin_ind"><span class="id" title="definition">fin_ind</span></a> (<a id="P:2" class="idref" href="#P:2"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:1" class="idref" href="#n:1"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:1"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="z:4" class="idref" href="#z:4"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:3" class="idref" href="#n:3"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:3"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a>)<br>
+  (<a id="s:7" class="idref" href="#s:7"><span class="id" title="binder">s</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:5" class="idref" href="#n:5"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="k:6" class="idref" href="#k:6"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:5"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:5"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:6"><span class="id" title="variable">k</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:5"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:6"><span class="id" title="variable">k</span></a>))<br>
+  {<a id="n:8" class="idref" href="#n:8"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="k:9" class="idref" href="#k:9"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:8"><span class="id" title="variable">n</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:2"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:8"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:9"><span class="id" title="variable">k</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="var">P</span> <span class="id" title="var">n</span>) (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_to_fin"><span class="id" title="lemma">path_fin_to_finnat_to_fin</span></a> <span class="id" title="var">k</span>) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#finnat_ind"><span class="id" title="definition">finnat_ind</span></a> (<span class="id" title="keyword">fun</span> <a id="n:12" class="idref" href="#n:12"><span class="id" title="binder">n</span></a> <a id="u:13" class="idref" href="#u:13"><span class="id" title="binder">u</span></a> ⇒ <span class="id" title="var">P</span> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:10"><span class="id" title="variable">n</span></a> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#finnat_to_fin"><span class="id" title="definition">finnat_to_fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#u:11"><span class="id" title="variable">u</span></a>)) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">intro</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">n'</span> <span class="id" title="var">u</span> <span class="id" title="var">c</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_finnat_to_fin_succ"><span class="id" title="lemma">path_finnat_to_fin_succ</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><br>
+    <span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">s</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="compute_fin_ind_fin_zero" class="idref" href="#compute_fin_ind_fin_zero"><span class="id" title="lemma">compute_fin_ind_fin_zero</span></a> (<a id="P:15" class="idref" href="#P:15"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:14" class="idref" href="#n:14"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:14"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="z:17" class="idref" href="#z:17"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:16" class="idref" href="#n:16"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:15"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:16"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a>)<br>
+  (<a id="s:20" class="idref" href="#s:20"><span class="id" title="binder">s</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:18" class="idref" href="#n:18"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="k:19" class="idref" href="#k:19"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:18"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:15"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:18"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:19"><span class="id" title="variable">k</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:15"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:18"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:19"><span class="id" title="variable">k</span></a>)) (<a id="n:21" class="idref" href="#n:21"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:15"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:17"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:20"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:17"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:21"><span class="id" title="variable">n</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">generalize</span> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_to_fin"><span class="id" title="lemma">path_fin_to_finnat_to_fin</span></a> (@<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a> <span class="id" title="var">n</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">induction</span> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_fin_zero"><span class="id" title="lemma">path_fin_to_finnat_fin_zero</span></a> <span class="id" title="var">n</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.HSet.html#hset_path2"><span class="id" title="lemma">hset_path2</span></a> 1 <span class="id" title="var">p</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><br>
+  <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">by</span> <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.HSet.html#hset_path2"><span class="id" title="lemma">hset_path2</span></a> 1 (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_zero_finnat"><span class="id" title="lemma">path_zero_finnat</span></a> <span class="id" title="var">n</span> <a class="idref" href="HoTT.Spaces.Nat.html#leq_1_Sn"><span class="id" title="definition">leq_1_Sn</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="compute_fin_ind_fsucc" class="idref" href="#compute_fin_ind_fsucc"><span class="id" title="lemma">compute_fin_ind_fsucc</span></a> (<a id="P:23" class="idref" href="#P:23"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:22" class="idref" href="#n:22"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:22"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="z:25" class="idref" href="#z:25"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:24" class="idref" href="#n:24"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:23"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:24"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a>)<br>
+  (<a id="s:28" class="idref" href="#s:28"><span class="id" title="binder">s</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:26" class="idref" href="#n:26"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="k:27" class="idref" href="#k:27"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:26"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:23"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:26"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:27"><span class="id" title="variable">k</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:23"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:26"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:27"><span class="id" title="variable">k</span></a>))<br>
+  {<a id="n:29" class="idref" href="#n:29"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="k:30" class="idref" href="#k:30"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:29"><span class="id" title="variable">n</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:23"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:25"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:28"><span class="id" title="variable">s</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:30"><span class="id" title="variable">k</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:28"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:29"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:30"><span class="id" title="variable">k</span></a> (<a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#P:23"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:25"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:28"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:30"><span class="id" title="variable">k</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(31, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">generalize</span> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_to_fin"><span class="id" title="lemma">path_fin_to_finnat_to_fin</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <span class="id" title="var">k</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(32, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">induction</span> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_fsucc"><span class="id" title="lemma">path_fin_to_finnat_fsucc</span></a> <span class="id" title="var">k</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(33, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(34, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="var">P</span> <span class="id" title="var">n</span><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a>) <span class="id" title="var">p</span>) (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#compute_finnat_ind_succ"><span class="id" title="lemma">compute_finnat_ind_succ</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(35, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(36, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">induction</span> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_to_fin"><span class="id" title="lemma">path_fin_to_finnat_to_fin</span></a> <span class="id" title="var">k</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(37, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">induction</span> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_fin_to_finnat_to_fin"><span class="id" title="lemma">path_fin_to_finnat_to_fin</span></a> <span class="id" title="var">k</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(38, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(39, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">induction</span> (<a class="idref" href="HoTT.HSet.html#hset_path2"><span class="id" title="lemma">hset_path2</span></a> <span class="id" title="var">p</span> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#path_finnat_to_fin_succ"><span class="id" title="lemma">path_finnat_to_fin_succ</span></a> (<a class="idref" href="HoTT.Spaces.Finite.FinNat.html#fin_to_finnat"><span class="id" title="definition">fin_to_finnat</span></a> <span class="id" title="var">k</span>))).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(40, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_pV"><span class="id" title="definition">transport_pV</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(41, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(42, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="fin_rec" class="idref" href="#fin_rec"><span class="id" title="definition">fin_rec</span></a> (<a id="B:31" class="idref" href="#B:31"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  : <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:32" class="idref" href="#n:32"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:31"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:32"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:33" class="idref" href="#n:33"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:33"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:31"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:33"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:31"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:33"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br>
+    <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">{</span></a><a id="n:34" class="idref" href="#n:34"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">},</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:34"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:31"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:34"><span class="id" title="variable">n</span></a><br>
+  := <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_ind"><span class="id" title="definition">fin_ind</span></a> (<span class="id" title="keyword">fun</span> <a id="n:35" class="idref" href="#n:35"><span class="id" title="binder">n</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:31"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:35"><span class="id" title="variable">n</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(43, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="compute_fin_rec_fin_zero" class="idref" href="#compute_fin_rec_fin_zero"><span class="id" title="lemma">compute_fin_rec_fin_zero</span></a> (<a id="B:36" class="idref" href="#B:36"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="z:38" class="idref" href="#z:38"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:37" class="idref" href="#n:37"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:36"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:37"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a>)<br>
+  (<a id="s:41" class="idref" href="#s:41"><span class="id" title="binder">s</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:39" class="idref" href="#n:39"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="k:40" class="idref" href="#k:40"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:39"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:36"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:39"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:36"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:39"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a>) (<a id="n:42" class="idref" href="#n:42"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_rec"><span class="id" title="definition">fin_rec</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:36"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:38"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:41"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.Fin.html#fin_zero"><span class="id" title="definition">fin_zero</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:38"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:42"><span class="id" title="variable">n</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(44, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(45, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#compute_fin_ind_fin_zero"><span class="id" title="lemma">compute_fin_ind_fin_zero</span></a> (<span class="id" title="keyword">fun</span> <a id="n:44" class="idref" href="#n:44"><span class="id" title="binder">n</span></a> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">B</span> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:43"><span class="id" title="variable">n</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(46, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(47, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="compute_fin_rec_fsucc" class="idref" href="#compute_fin_rec_fsucc"><span class="id" title="lemma">compute_fin_rec_fsucc</span></a> (<a id="B:45" class="idref" href="#B:45"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="z:47" class="idref" href="#z:47"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:46" class="idref" href="#n:46"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:45"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:46"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a>)<br>
+  (<a id="s:50" class="idref" href="#s:50"><span class="id" title="binder">s</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="n:48" class="idref" href="#n:48"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="k:49" class="idref" href="#k:49"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:48"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:45"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:48"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:45"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:48"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bda89d73ec4a8f23ae92b565ffb5aaa6"><span class="id" title="notation">.+1</span></a>)<br>
+  {<a id="n:51" class="idref" href="#n:51"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>} (<a id="k:52" class="idref" href="#k:52"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Spaces.Finite.Fin.html#Fin"><span class="id" title="definition">Fin</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:51"><span class="id" title="variable">n</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_rec"><span class="id" title="definition">fin_rec</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:45"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:47"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:50"><span class="id" title="variable">s</span></a> (<a class="idref" href="HoTT.Spaces.Finite.Fin.html#fsucc"><span class="id" title="definition">fsucc</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:52"><span class="id" title="variable">k</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:50"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:51"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:52"><span class="id" title="variable">k</span></a> (<a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#fin_rec"><span class="id" title="definition">fin_rec</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#B:45"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#z:47"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#s:50"><span class="id" title="variable">s</span></a> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#k:52"><span class="id" title="variable">k</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(48, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(49, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#compute_fin_ind_fsucc"><span class="id" title="lemma">compute_fin_ind_fsucc</span></a> (<span class="id" title="keyword">fun</span> <a id="n:54" class="idref" href="#n:54"><span class="id" title="binder">n</span></a> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">B</span> <a class="idref" href="HoTT.Spaces.Finite.FinInduction.html#n:53"><span class="id" title="variable">n</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(50, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(51, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

@@ -1,0 +1,258 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "<infomsg>Q is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "<infomsg>Aap is declared</infomsg>	<infomsg>Aplus is declared</infomsg>	<infomsg>Amult is declared</infomsg>	<infomsg>Azero is declared</infomsg>	<infomsg>Aone is declared</infomsg>	<infomsg>Aneg is declared</infomsg>	<infomsg>Arecip is declared</infomsg>	<infomsg>Ale is declared</infomsg>	<infomsg>Alt is declared</infomsg>	<infomsg>U is declared</infomsg>	<infomsg>Qrats is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "<infomsg>F is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "<infomsg>Alt0 is declared</infomsg>	<infomsg>Ale0 is declared</infomsg>	<infomsg>Aap0 is declared</infomsg>	<infomsg>Azero0 is declared</infomsg>	<infomsg>Aone0 is declared</infomsg>	<infomsg>Aplus0 is declared</infomsg>	<infomsg>Anegate is declared</infomsg>	<infomsg>Amult0 is declared</infomsg>	<infomsg>Arecip0 is declared</infomsg>	<infomsg>Ajoin is declared</infomsg>	<infomsg>Ameet is declared</infomsg>	<infomsg>Aorderedfield is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>Achar is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>qinc is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.interfaces.archimedean</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT.Classes</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+     <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">interfaces.abstract_algebra</span></a><br>
+     <a class="idref" href="HoTT.Classes.interfaces.rationals.html#"><span class="id" title="library">interfaces.rationals</span></a><br>
+     <a class="idref" href="HoTT.Classes.interfaces.orders.html#"><span class="id" title="library">interfaces.orders</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="property" class="idref" href="#property"><span class="id" title="section">property</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> (<a id="Q:1" class="idref" href="#Q:1"><span class="id" title="binder">Q</span></a> : <span class="id" title="keyword">Type</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="Qrats:12" class="idref" href="#Qrats:12"><span class="id" title="binder">Qrats</span></a> : <a class="idref" href="HoTT.Classes.interfaces.rationals.html#Rationals"><span class="id" title="class">Rationals</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.Q"><span class="id" title="variable">Q</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> (<a id="F:13" class="idref" href="#F:13"><span class="id" title="binder">F</span></a> : <span class="id" title="keyword">Type</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="Aorderedfield:25" class="idref" href="#Aorderedfield:25"><span class="id" title="binder">Aorderedfield</span></a> : <a class="idref" href="HoTT.Classes.interfaces.orders.html#OrderedField"><span class="id" title="class">OrderedField</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.F"><span class="id" title="variable">F</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Context</span> {<a id="Achar:26" class="idref" href="#Achar:26"><span class="id" title="binder">Achar</span></a> : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#FieldCharacteristic"><span class="id" title="class">FieldCharacteristic</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.F"><span class="id" title="variable">F</span></a> 0}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="qinc" class="idref" href="#qinc"><span class="id" title="definition">qinc</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Cast"><span class="id" title="class">Cast</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.Q"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.F"><span class="id" title="variable">F</span></a> := <a class="idref" href="HoTT.Classes.interfaces.rationals.html#rationals_to_field"><span class="id" title="definition">rationals_to_field</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.Q"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property.F"><span class="id" title="variable">F</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+  <span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">qinc</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Class</span> <a id="ArchimedeanProperty" class="idref" href="#ArchimedeanProperty"><span class="id" title="record">ArchimedeanProperty</span></a> := <a id="archimedean_property" class="idref" href="#archimedean_property"><span class="id" title="projection">archimedean_property</span></a><br>
+    : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:28" class="idref" href="#x:28"><span class="id" title="binder">x</span></a> <a id="y:29" class="idref" href="#y:29"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#x:28"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#y:29"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<span class="id" title="keyword">fun</span> <a id="q:30" class="idref" href="#q:30"><span class="id" title="binder">q</span></a> ⇒ <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#x:28"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:''''_x"><span class="id" title="notation">'</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#q:30"><span class="id" title="variable">q</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#y:29"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.interfaces.archimedean.html#property"><span class="id" title="section">property</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

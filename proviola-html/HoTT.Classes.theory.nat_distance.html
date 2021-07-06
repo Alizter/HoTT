@@ -1,0 +1,667 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "<infomsg>H is declared</infomsg>	<infomsg>H0 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>N is declared</infomsg>	<infomsg>Aap is declared</infomsg>	<infomsg>Aplus is declared</infomsg>	<infomsg>Amult is declared</infomsg>	<infomsg>Azero is declared</infomsg>	<infomsg>Aone is declared</infomsg>	<infomsg>Ale is declared</infomsg>	<infomsg>Alt is declared</infomsg>	<infomsg>U is declared</infomsg>	<infomsg>H1 is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "1 subgoal (ID 26)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  ============================	  forall x y : N, nat_distance x y = nat_distance x y	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 28)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y : N	  ============================	  nat_distance x y = nat_distance x y	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "1 subgoal (ID 29)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y : N	  ============================	  match nat_distance_sig x y with	  | inl s => s.1	  | inr s => s.1	  end = match nat_distance_sig x y with	        | inl s => s.1	        | inr s => s.1	        end	";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "4 subgoals (ID 96)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : x + z1 = y	  z2 : N	  E2 : x + z2 = y	  ============================	  z1 = z2		subgoal 2 (ID 97) is:	 z1 = z2	subgoal 3 (ID 98) is:	 z1 = z2	subgoal 4 (ID 99) is:	 z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 96)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : x + z1 = y	  z2 : N	  E2 : x + z2 = y	  ============================	  z1 = z2	1 subgoal (ID 134)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : x + z1 = y	  z2 : N	  E2 : x + z2 = y	  ============================	  x + z1 = x + z2	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 97) is:	 z1 = z2	subgoal 2 (ID 98) is:	 z1 = z2	subgoal 3 (ID 99) is:	 z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 97)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : x + z1 = y	  z2 : N	  E2 : y + z2 = x	  ============================	  z1 = z2	1 subgoal (ID 191)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : y + (z2 + z1) = y + 0	  E2 : y + z2 = x	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 233)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : z2 + z1 = 0	  E2 : y + z2 = x	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 247)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : (z2 = 0) * (z1 = 0)	  E2 : y + z2 = x	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 98) is:	 z1 = z2	subgoal 2 (ID 99) is:	 z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 98)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : y + z1 = x	  z2 : N	  E2 : x + z2 = y	  ============================	  z1 = z2	1 subgoal (ID 313)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : x + (z2 + z1) = x + 0	  E2 : x + z2 = y	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 355)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : z2 + z1 = 0	  E2 : x + z2 = y	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 369)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1, z2 : N	  E1 : (z2 = 0) * (z1 = 0)	  E2 : x + z2 = y	  ============================	  z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 99) is:	 z1 = z2	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 99)	  	  H : Funext	  H0 : Univalence	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H1 : Naturals N	  a, b : NatDistance N	  x, y, z1 : N	  E1 : y + z1 = x	  z2 : N	  E2 : y + z2 = x	  ============================	  z1 = z2	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 36)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  ============================	  NatDistance N	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 37)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  ============================	  forall x y : N, ({z : N & (x + z)%mc = y} + {z : N & (y + z)%mc = x})%type	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 39)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "2 subgoals (ID 51)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : x ≤ y	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}		subgoal 2 (ID 52) is:	 {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 51)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : x ≤ y	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	1 subgoal (ID 54)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : x ≤ y	  ============================	  {z : N & x + z = y}	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 58)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : x ≤ y	  ============================	  x + (y ∸ x) = y	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 52) is:	 {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "1 subgoal (ID 52)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : ~ (x ≤ y)	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	1 subgoal (ID 100)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : ~ (x ≤ y)	  ============================	  {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 104)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  TrivialApart0 : TrivialApart N	  cm : CutMinus N	  CutMinusSpec0 : CutMinusSpec N cm	  H0 : forall x y : N, Decidable (x ≤ y)	  x, y : N	  E : ~ (x ≤ y)	  ============================	  y + (x ∸ y) = x	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 57)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  ============================	  NatDistance N	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 60)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "2 subgoals (ID 160)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}		subgoal 2 (ID 165) is:	 {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 160)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	1 subgoal (ID 167)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  {z : N & x + z = y}	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "1 subgoal (ID 186)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  x + naturals_to_semiring nat N n = y	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "1 subgoal (ID 242)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  x + naturals_to_semiring nat N n =	  naturals_to_semiring nat N (naturals_to_semiring N nat x + n)	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 296)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat x + n = naturals_to_semiring N nat y	  ============================	  x + naturals_to_semiring nat N n = x + naturals_to_semiring nat N n	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 165) is:	 {z : N & x + z = y} + {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "1 subgoal (ID 165)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat y + n = naturals_to_semiring N nat x	  ============================	  {z : N & x + z = y} + {z : N & y + z = x}	1 subgoal (ID 321)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat y + n = naturals_to_semiring N nat x	  ============================	  {z : N & y + z = x}	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 340)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat y + n = naturals_to_semiring N nat x	  ============================	  y + naturals_to_semiring nat N n = x	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "1 subgoal (ID 396)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat y + n = naturals_to_semiring N nat x	  ============================	  y + naturals_to_semiring nat N n =	  naturals_to_semiring nat N (naturals_to_semiring N nat y + n)	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 450)	  	  N : Type	  Aap : Apart N	  Aplus : Plus N	  Amult : Mult N	  Azero : Zero N	  Aone : One N	  Ale : Le N	  Alt : Lt N	  U : NaturalsToSemiRing N	  H : Naturals N	  x, y : N	  n : nat	  E : naturals_to_semiring N nat y + n = naturals_to_semiring N nat x	  ============================	  y + naturals_to_semiring nat N n = y + naturals_to_semiring nat N n	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.theory.nat_distance</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.Universe.html#"><span class="id" title="library">HoTT.Types.Universe</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+  <a class="idref" href="HoTT.Classes.orders.naturals.html#"><span class="id" title="library">HoTT.Classes.orders.naturals</span></a><br>
+  <a class="idref" href="HoTT.Classes.implementations.peano_naturals.html#"><span class="id" title="library">HoTT.Classes.implementations.peano_naturals</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+  <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">HoTT.Classes.interfaces.abstract_algebra</span></a><br>
+  <a class="idref" href="HoTT.Classes.interfaces.naturals.html#"><span class="id" title="library">HoTT.Classes.interfaces.naturals</span></a><br>
+  <a class="idref" href="HoTT.Classes.interfaces.orders.html#"><span class="id" title="library">HoTT.Classes.interfaces.orders</span></a><br>
+  <a class="idref" href="HoTT.Classes.theory.naturals.html#"><span class="id" title="library">HoTT.Classes.theory.naturals</span></a><br>
+  <a class="idref" href="HoTT.Classes.theory.additional_operations.html#"><span class="id" title="library">HoTT.Classes.theory.additional_operations</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Generalizable</span> <span class="id" title="keyword">Variables</span> <span class="id" title="var">N</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="contents" class="idref" href="#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Funext</span></a>} `{<a id="H0:2" class="idref" href="#H0:2"><span class="id" title="binder">Univalence</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H1:12" class="idref" href="#H1:12"><span class="id" title="binder">Naturals</span></a> <a id="H1:12" class="idref" href="#H1:12"><span class="id" title="binder">N</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="nat_distance_unique" class="idref" href="#nat_distance_unique"><span class="id" title="lemma">nat_distance_unique</span></a> {<a id="a:13" class="idref" href="#a:13"><span class="id" title="binder">a</span></a> <a id="b:14" class="idref" href="#b:14"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Classes.interfaces.naturals.html#NatDistance"><span class="id" title="class">NatDistance</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#contents.N"><span class="id" title="variable">N</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:15" class="idref" href="#x:15"><span class="id" title="binder">x</span></a> <a id="y:16" class="idref" href="#y:16"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> @<a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance"><span class="id" title="definition">nat_distance</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#a:13"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#x:15"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#y:16"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> @<a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance"><span class="id" title="definition">nat_distance</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#b:14"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#x:15"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#y:16"><span class="id" title="variable">y</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance"><span class="id" title="definition">nat_distance</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<span class="id" title="tactic">destruct</span> (@<a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance_sig"><span class="id" title="definition">nat_distance_sig</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) <span class="id" title="keyword">as</span> [[<span class="id" title="var">z1</span> <span class="id" title="var">E1</span>]|[<span class="id" title="var">z1</span> <span class="id" title="var">E1</span>]],<br>
+(@<a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance_sig"><span class="id" title="definition">nat_distance_sig</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">b</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) <span class="id" title="keyword">as</span> [[<span class="id" title="var">z2</span> <span class="id" title="var">E2</span>]|[<span class="id" title="var">z2</span> <span class="id" title="var">E2</span>]];<span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_cancellation"><span class="id" title="definition">left_cancellation</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#plus"><span class="id" title="definition">plus</span></a> <span class="id" title="var">x</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><span class="id" title="var">path_via</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">rewrite</span> &lt;-(<a class="idref" href="HoTT.Classes.theory.rings.html#plus_0_r"><span class="id" title="instance">rings.plus_0_r</span></a> <span class="id" title="var">y</span>),&lt;-<span class="id" title="var">E2</span>,&lt;-<a class="idref" href="HoTT.Classes.theory.rings.html#plus_assoc"><span class="id" title="instance">rings.plus_assoc</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_cancellation"><span class="id" title="definition">left_cancellation</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#plus"><span class="id" title="definition">plus</span></a> <span class="id" title="var">y</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.theory.naturals.html#zero_sum"><span class="id" title="lemma">naturals.zero_sum</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">E1</span>;<span class="id" title="var">path_via</span> 0.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">rewrite</span> &lt;-(<a class="idref" href="HoTT.Classes.theory.rings.html#plus_0_r"><span class="id" title="instance">rings.plus_0_r</span></a> <span class="id" title="var">x</span>),&lt;-<span class="id" title="var">E2</span>,&lt;-<a class="idref" href="HoTT.Classes.theory.rings.html#plus_assoc"><span class="id" title="instance">rings.plus_assoc</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_cancellation"><span class="id" title="definition">left_cancellation</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#plus"><span class="id" title="definition">plus</span></a> <span class="id" title="var">x</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.theory.naturals.html#zero_sum"><span class="id" title="lemma">naturals.zero_sum</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">E1</span>;<span class="id" title="var">path_via</span> 0.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_cancellation"><span class="id" title="definition">left_cancellation</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#plus"><span class="id" title="definition">plus</span></a> <span class="id" title="var">y</span>);<span class="id" title="var">path_via</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(31, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="natdistance_cut_minus" class="idref" href="#natdistance_cut_minus"><span class="id" title="instance">natdistance_cut_minus</span></a> `{<a id="H:26" class="idref" href="#H:26"><span class="id" title="binder">Naturals</span></a> <a id="H:26" class="idref" href="#H:26"><span class="id" title="binder">N</span></a>} `{<a id="TrivialApart0:27" class="idref" href="#TrivialApart0:27"><span class="id" title="binder">!</span></a><a id="TrivialApart0:27" class="idref" href="#TrivialApart0:27"><span class="id" title="binder">TrivialApart</span></a> <a id="TrivialApart0:27" class="idref" href="#TrivialApart0:27"><span class="id" title="binder">N</span></a>}<br>
+   {<a id="cm:28" class="idref" href="#cm:28"><span class="id" title="binder">cm</span></a>} `{<a id="CutMinusSpec0:29" class="idref" href="#CutMinusSpec0:29"><span class="id" title="binder">!</span></a><a id="CutMinusSpec0:29" class="idref" href="#CutMinusSpec0:29"><span class="id" title="binder">CutMinusSpec</span></a> <a id="CutMinusSpec0:29" class="idref" href="#CutMinusSpec0:29"><span class="id" title="binder">N</span></a> <a id="CutMinusSpec0:29" class="idref" href="#CutMinusSpec0:29"><span class="id" title="binder">cm</span></a>} `{<a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">∀</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">x</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">y</span></a><a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">,</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">Decidable</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">(</span></a><a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">x</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">≤</span></a> <a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">y</span></a><a id="H0:32" class="idref" href="#H0:32"><span class="id" title="binder">)</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.naturals.html#NatDistance"><span class="id" title="class">NatDistance</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#N:17"><span class="id" title="variable">N</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(32, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(33, '0_3_3');
+      "><br>
+<span class="id" title="tactic">red</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(34, '0_3_3');
+      "><span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(35, '0_3_3');
+      "><span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#decide_rel"><span class="id" title="definition">decide_rel</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#b77fdbbf476f0b76515ea59c767a3b1c"><span class="id" title="notation">(&lt;=)</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">E</span>|<span class="id" title="var">E</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(36, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(37, '0_3_3');
+      "><span class="id" title="tactic">∃</span> (<span class="id" title="var">y</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#e929a788780657ba87db0995734f0028"><span class="id" title="notation">∸</span></a> <span class="id" title="var">x</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(38, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Classes.theory.rings.html#plus_comm"><span class="id" title="instance">rings.plus_comm</span></a>;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#cut_minus_le"><span class="id" title="method">cut_minus_le</span></a>;<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(39, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(40, '0_3_3');
+      "><span class="id" title="tactic">∃</span> (<span class="id" title="var">x</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#e929a788780657ba87db0995734f0028"><span class="id" title="notation">∸</span></a> <span class="id" title="var">y</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(41, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Classes.theory.rings.html#plus_comm"><span class="id" title="instance">rings.plus_comm</span></a>;<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#cut_minus_le"><span class="id" title="method">cut_minus_le</span></a>, <a class="idref" href="HoTT.Classes.orders.orders.html#le_flip"><span class="id" title="lemma">orders.le_flip</span></a>;<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(42, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(43, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="natdistance_default" class="idref" href="#natdistance_default"><span class="id" title="instance">natdistance_default</span></a> `{<a id="H:42" class="idref" href="#H:42"><span class="id" title="binder">Naturals</span></a> <a id="H:42" class="idref" href="#H:42"><span class="id" title="binder">N</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.naturals.html#NatDistance"><span class="id" title="class">NatDistance</span></a> <a class="idref" href="HoTT.Classes.theory.nat_distance.html#N:33"><span class="id" title="variable">N</span></a> | 10.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(44, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(45, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(46, '0_3_3');
+      "><br>
+<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.naturals.html#nat_distance_sig"><span class="id" title="definition">nat_distance_sig</span></a> (<a class="idref" href="HoTT.Classes.interfaces.naturals.html#naturals_to_semiring"><span class="id" title="definition">naturals_to_semiring</span></a> <span class="id" title="var">N</span> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">x</span>)<br>
+  (<a class="idref" href="HoTT.Classes.interfaces.naturals.html#naturals_to_semiring"><span class="id" title="definition">naturals_to_semiring</span></a> <span class="id" title="var">N</span> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">y</span>)) <span class="id" title="keyword">as</span> [[<span class="id" title="var">n</span> <span class="id" title="var">E</span>]|[<span class="id" title="var">n</span> <span class="id" title="var">E</span>]].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(47, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(48, '0_3_3');
+      "><span class="id" title="tactic">∃</span> (<a class="idref" href="HoTT.Classes.interfaces.naturals.html#naturals_to_semiring"><span class="id" title="definition">naturals_to_semiring</span></a> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">N</span> <span class="id" title="var">n</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(49, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> &lt;-(<a class="idref" href="HoTT.Classes.theory.naturals.html#to_semiring_involutive"><span class="id" title="lemma">naturals.to_semiring_involutive</span></a> <span class="id" title="var">N</span> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">y</span>), &lt;-<span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(50, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> (<a class="idref" href="HoTT.Classes.theory.rings.html#preserves_plus"><span class="id" title="lemma">rings.preserves_plus</span></a> (<span class="id" title="var">A</span>:=<a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>)), (<a class="idref" href="HoTT.Classes.theory.naturals.html#to_semiring_involutive"><span class="id" title="lemma">naturals.to_semiring_involutive</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(51, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(52, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(53, '0_3_3');
+      "><span class="id" title="tactic">∃</span> (<a class="idref" href="HoTT.Classes.interfaces.naturals.html#naturals_to_semiring"><span class="id" title="definition">naturals_to_semiring</span></a> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">N</span> <span class="id" title="var">n</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(54, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> &lt;-(<a class="idref" href="HoTT.Classes.theory.naturals.html#to_semiring_involutive"><span class="id" title="lemma">naturals.to_semiring_involutive</span></a> <span class="id" title="var">N</span> <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> <span class="id" title="var">x</span>), &lt;-<span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(55, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> (<a class="idref" href="HoTT.Classes.theory.rings.html#preserves_plus"><span class="id" title="lemma">rings.preserves_plus</span></a> (<span class="id" title="var">A</span>:=<a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>)), (<a class="idref" href="HoTT.Classes.theory.naturals.html#to_semiring_involutive"><span class="id" title="lemma">naturals.to_semiring_involutive</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(56, '0_3_3');
+      "><br>
+  <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(57, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(58, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

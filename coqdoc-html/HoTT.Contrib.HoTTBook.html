@@ -1,0 +1,4218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>HoTT.Contrib.HoTTBook</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library HoTT.Contrib.HoTTBook</h1>
+
+<div class="code">
+</div>
+
+<div class="doc">
+The HoTT Book formalization. 
+<div class="paragraph"> </div>
+
+ This file links the results of the HoTT Book with their formalizations
+    in the HoTT library. You can lookup definitions and theorems by their
+    number in the HoTT Book. 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HoTT.html#"><span class="id" title="library">HoTT</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Metatheory.Core.html#"><span class="id" title="library">HoTT.Metatheory.Core</span></a> <a class="idref" href="HoTT.Metatheory.IntervalImpliesFunext.html#"><span class="id" title="library">HoTT.Metatheory.IntervalImpliesFunext</span></a> <a class="idref" href="HoTT.Metatheory.UnivalenceImpliesFunext.html#"><span class="id" title="library">HoTT.Metatheory.UnivalenceImpliesFunext</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <a class="idref" href="HoTT.Categories.html#"><span class="id" title="library">HoTT.Categories</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT.Classes</span> <span class="id" title="keyword">Require</span><br/>
+&nbsp;&nbsp;<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">interfaces.abstract_algebra</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="HoTT.Classes.interfaces.orders.html#"><span class="id" title="library">interfaces.orders</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="HoTT.Classes.theory.premetric.html#"><span class="id" title="library">theory.premetric</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.1.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_1" class="idref" href="#Book_2_1_1"><span class="id" title="definition">Book_2_1_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#inverse"><span class="id" title="definition">HoTT.Basics.Overture.inverse</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.1.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_2" class="idref" href="#Book_2_1_2"><span class="id" title="definition">Book_2_1_2</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#transitive_paths"><span class="id" title="instance">HoTT.Basics.Overture.transitive_paths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.1.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_i" class="idref" href="#Book_2_1_4_item_i"><span class="id" title="definition">Book_2_1_4_item_i</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_p1</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_i'" class="idref" href="#Book_2_1_4_item_i'"><span class="id" title="definition">Book_2_1_4_item_i'</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_1p"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_1p</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_ii" class="idref" href="#Book_2_1_4_item_ii"><span class="id" title="definition">Book_2_1_4_item_ii</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_Vp</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_ii'" class="idref" href="#Book_2_1_4_item_ii'"><span class="id" title="definition">Book_2_1_4_item_ii'</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_pV"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_pV</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_iii" class="idref" href="#Book_2_1_4_item_iii"><span class="id" title="definition">Book_2_1_4_item_iii</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#inv_V"><span class="id" title="definition">HoTT.Basics.PathGroupoids.inv_V</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_4_item_iv" class="idref" href="#Book_2_1_4_item_iv"><span class="id" title="definition">Book_2_1_4_item_iv</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p_pp"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_p_pp</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.1.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_6" class="idref" href="#Book_2_1_6"><span class="id" title="definition">Book_2_1_6</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#eckmann_hilton"><span class="id" title="definition">HoTT.Basics.PathGroupoids.eckmann_hilton</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 2.1.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_7" class="idref" href="#Book_2_1_7"><span class="id" title="definition">Book_2_1_7</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">HoTT.Basics.Overture.pType</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 2.1.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_1_8" class="idref" href="#Book_2_1_8"><span class="id" title="definition">Book_2_1_8</span></a> := @<a class="idref" href="HoTT.Pointed.Loops.html#iterated_loops"><span class="id" title="definition">HoTT.Pointed.Loops.iterated_loops</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.2.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_2_1" class="idref" href="#Book_2_2_1"><span class="id" title="definition">Book_2_2_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">HoTT.Basics.Overture.ap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.2.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_2_2_item_i" class="idref" href="#Book_2_2_2_item_i"><span class="id" title="definition">Book_2_2_2_item_i</span></a>   := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_pp"><span class="id" title="definition">HoTT.Basics.PathGroupoids.ap_pp</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_2_2_item_ii" class="idref" href="#Book_2_2_2_item_ii"><span class="id" title="definition">Book_2_2_2_item_ii</span></a>  := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#inverse_ap"><span class="id" title="definition">HoTT.Basics.PathGroupoids.inverse_ap</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_2_2_item_iii" class="idref" href="#Book_2_2_2_item_iii"><span class="id" title="definition">Book_2_2_2_item_iii</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_compose"><span class="id" title="definition">HoTT.Basics.PathGroupoids.ap_compose</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_2_2_item_iv" class="idref" href="#Book_2_2_2_item_iv"><span class="id" title="definition">Book_2_2_2_item_iv</span></a>  := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_idmap"><span class="id" title="definition">HoTT.Basics.PathGroupoids.ap_idmap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_1" class="idref" href="#Book_2_3_1"><span class="id" title="definition">Book_2_3_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">HoTT.Basics.Overture.transport</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_2" class="idref" href="#Book_2_3_2"><span class="id" title="definition">Book_2_3_2</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#equiv_path_sigma"><span class="id" title="definition">HoTT.Types.Sigma.equiv_path_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_4" class="idref" href="#Book_2_3_4"><span class="id" title="definition">Book_2_3_4</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#apD"><span class="id" title="definition">HoTT.Basics.Overture.apD</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_5" class="idref" href="#Book_2_3_5"><span class="id" title="definition">Book_2_3_5</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_const"><span class="id" title="definition">HoTT.Basics.PathGroupoids.transport_const</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_8" class="idref" href="#Book_2_3_8"><span class="id" title="definition">Book_2_3_8</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#apD_const"><span class="id" title="lemma">HoTT.Basics.PathGroupoids.apD_const</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_9" class="idref" href="#Book_2_3_9"><span class="id" title="definition">Book_2_3_9</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_compose"><span class="id" title="lemma">HoTT.Basics.PathGroupoids.transport_compose</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.10 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_10" class="idref" href="#Book_2_3_10"><span class="id" title="definition">Book_2_3_10</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_transport"><span class="id" title="lemma">HoTT.Basics.PathGroupoids.ap_transport</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.3.11 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_3_11" class="idref" href="#Book_2_3_11"><span class="id" title="definition">Book_2_3_11</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_pp"><span class="id" title="definition">HoTT.Basics.PathGroupoids.transport_pp</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 2.4.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_1" class="idref" href="#Book_2_4_1"><span class="id" title="definition">Book_2_4_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#pointwise_paths"><span class="id" title="definition">HoTT.Basics.Overture.pointwise_paths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.4.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_2" class="idref" href="#Book_2_4_2"><span class="id" title="definition">Book_2_4_2</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#pointwise_paths"><span class="id" title="definition">HoTT.Basics.Overture.pointwise_paths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.4.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_3" class="idref" href="#Book_2_4_3"><span class="id" title="definition">Book_2_4_3</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Ap"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_Ap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 2.4.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_4" class="idref" href="#Book_2_4_4"><span class="id" title="definition">Book_2_4_4</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_A1p"><span class="id" title="definition">HoTT.Basics.PathGroupoids.concat_A1p</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 2.4.6 
+<div class="paragraph"> </div>
+
+ Quasi-inverses do not occur explicitly in the library since
+    they are `not good'. They do only occur implicitly as input to
+    isequiv_adjointify : IsEquiv f. Therefore we link to the half
+    adjoint equivalence extending the quasi-inverse 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_6" class="idref" href="#Book_2_4_6"><span class="id" title="definition">Book_2_4_6</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_adjointify"><span class="id" title="definition">HoTT.Basics.Equivalences.isequiv_adjointify</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 2.4.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_7" class="idref" href="#Book_2_4_7"><span class="id" title="definition">Book_2_4_7</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">HoTT.Basics.Equivalences.equiv_idmap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 2.4.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_8_i" class="idref" href="#Book_2_4_8_i"><span class="id" title="definition">Book_2_4_8_i</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#isequiv_concat_l"><span class="id" title="instance">HoTT.Types.Paths.isequiv_concat_l</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_8_ii" class="idref" href="#Book_2_4_8_ii"><span class="id" title="definition">Book_2_4_8_ii</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#isequiv_concat_r"><span class="id" title="instance">HoTT.Types.Paths.isequiv_concat_r</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 2.4.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_9" class="idref" href="#Book_2_4_9"><span class="id" title="definition">Book_2_4_9</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_transport"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_transport</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.4.12 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_12_item_i" class="idref" href="#Book_2_4_12_item_i"><span class="id" title="definition">Book_2_4_12_item_i</span></a>   := @<a class="idref" href="HoTT.Basics.Equivalences.html#reflexive_equiv"><span class="id" title="instance">HoTT.Basics.Equivalences.reflexive_equiv</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_12_item_ii" class="idref" href="#Book_2_4_12_item_ii"><span class="id" title="definition">Book_2_4_12_item_ii</span></a>  := @<a class="idref" href="HoTT.Basics.Equivalences.html#symmetric_equiv"><span class="id" title="instance">HoTT.Basics.Equivalences.symmetric_equiv</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_4_12_item_iii" class="idref" href="#Book_2_4_12_item_iii"><span class="id" title="definition">Book_2_4_12_item_iii</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#transitive_equiv"><span class="id" title="instance">HoTT.Basics.Equivalences.transitive_equiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.6.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_6_2" class="idref" href="#Book_2_6_2"><span class="id" title="definition">Book_2_6_2</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#equiv_path_prod"><span class="id" title="definition">HoTT.Types.Prod.equiv_path_prod</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.6.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_6_4" class="idref" href="#Book_2_6_4"><span class="id" title="definition">Book_2_6_4</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#transport_prod"><span class="id" title="definition">HoTT.Types.Prod.transport_prod</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.6.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_6_5" class="idref" href="#Book_2_6_5"><span class="id" title="definition">Book_2_6_5</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#ap_functor_prod"><span class="id" title="definition">HoTT.Types.Prod.ap_functor_prod</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.7.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_7_2" class="idref" href="#Book_2_7_2"><span class="id" title="definition">Book_2_7_2</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#equiv_path_sigma"><span class="id" title="definition">HoTT.Types.Sigma.equiv_path_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 2.7.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_7_3" class="idref" href="#Book_2_7_3"><span class="id" title="definition">Book_2_7_3</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#eta_sigma"><span class="id" title="definition">HoTT.Types.Sigma.eta_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.7.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_7_4" class="idref" href="#Book_2_7_4"><span class="id" title="definition">Book_2_7_4</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#transportD_is_transport"><span class="id" title="definition">HoTT.Types.Sigma.transportD_is_transport</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.8.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_8_1" class="idref" href="#Book_2_8_1"><span class="id" title="definition">Book_2_8_1</span></a> := @<a class="idref" href="HoTT.Types.Unit.html#equiv_path_unit"><span class="id" title="definition">HoTT.Types.Unit.equiv_path_unit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Axiom 2.9.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_9_3" class="idref" href="#Book_2_9_3"><span class="id" title="definition">Book_2_9_3</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#path_forall"><span class="id" title="definition">HoTT.Basics.Overture.path_forall</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.9.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_9_6" class="idref" href="#Book_2_9_6"><span class="id" title="definition">Book_2_9_6</span></a> := @<a class="idref" href="HoTT.Types.Arrow.html#dpath_arrow"><span class="id" title="definition">HoTT.Types.Arrow.dpath_arrow</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.9.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_9_7" class="idref" href="#Book_2_9_7"><span class="id" title="definition">Book_2_9_7</span></a> := @<a class="idref" href="HoTT.Types.Forall.html#dpath_forall"><span class="id" title="definition">HoTT.Types.Forall.dpath_forall</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.10.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_10_1" class="idref" href="#Book_2_10_1"><span class="id" title="definition">Book_2_10_1</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#equiv_path"><span class="id" title="definition">HoTT.Types.Universe.equiv_path</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Axiom 2.10.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_10_3" class="idref" href="#Book_2_10_3"><span class="id" title="definition">Book_2_10_3</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#isequiv_equiv_path"><span class="id" title="axiom">HoTT.Types.Universe.isequiv_equiv_path</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.10.5 
+<div class="paragraph"> </div>
+
+ Lemma 2.10.5 is a special case of Lemma 2.3.10, but also of: 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="Book_2_10_5" class="idref" href="#Book_2_10_5"><span class="id" title="definition">Book_2_10_5</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#transport_path_universe'"><span class="id" title="definition">HoTT.Types.Universe.transport_path_universe'</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.11.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_1" class="idref" href="#Book_2_11_1"><span class="id" title="definition">Book_2_11_1</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_ap"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_ap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 2.11.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_2_item_1" class="idref" href="#Book_2_11_2_item_1"><span class="id" title="definition">Book_2_11_2_item_1</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#transport_paths_l"><span class="id" title="definition">HoTT.Types.Paths.transport_paths_l</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_2_item_2" class="idref" href="#Book_2_11_2_item_2"><span class="id" title="definition">Book_2_11_2_item_2</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#transport_paths_r"><span class="id" title="definition">HoTT.Types.Paths.transport_paths_r</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_2_item_3" class="idref" href="#Book_2_11_2_item_3"><span class="id" title="definition">Book_2_11_2_item_3</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#transport_paths_lr"><span class="id" title="definition">HoTT.Types.Paths.transport_paths_lr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.11.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_3" class="idref" href="#Book_2_11_3"><span class="id" title="definition">Book_2_11_3</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#transport_paths_FlFr"><span class="id" title="definition">HoTT.Types.Paths.transport_paths_FlFr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.11.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_4" class="idref" href="#Book_2_11_4"><span class="id" title="definition">Book_2_11_4</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#transport_paths_FlFr_D"><span class="id" title="definition">HoTT.Types.Paths.transport_paths_FlFr_D</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.11.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_11_5" class="idref" href="#Book_2_11_5"><span class="id" title="definition">Book_2_11_5</span></a> := @<a class="idref" href="HoTT.Types.Paths.html#dpath_path_lr"><span class="id" title="definition">HoTT.Types.Paths.dpath_path_lr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.12.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_12_5" class="idref" href="#Book_2_12_5"><span class="id" title="definition">Book_2_12_5</span></a> := @<a class="idref" href="HoTT.Types.Sum.html#equiv_path_sum"><span class="id" title="definition">HoTT.Types.Sum.equiv_path_sum</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.13.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_13_1" class="idref" href="#Book_2_13_1"><span class="id" title="definition">Book_2_13_1</span></a> := @<a class="idref" href="HoTT.Spaces.Nat.html#equiv_path_nat"><span class="id" title="definition">HoTT.Spaces.Nat.equiv_path_nat</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.15.2 
+<div class="paragraph"> </div>
+
+ non-dependent as special case of dependent, Theorem 2.15.5 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="Book_2_15_2" class="idref" href="#Book_2_15_2"><span class="id" title="definition">Book_2_15_2</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#isequiv_prod_coind"><span class="id" title="instance">HoTT.Types.Prod.isequiv_prod_coind</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.15.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_15_5" class="idref" href="#Book_2_15_5"><span class="id" title="definition">Book_2_15_5</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#isequiv_prod_coind"><span class="id" title="instance">HoTT.Types.Prod.isequiv_prod_coind</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 2.15.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_2_15_7" class="idref" href="#Book_2_15_7"><span class="id" title="definition">Book_2_15_7</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#isequiv_sig_coind"><span class="id" title="instance">HoTT.Types.Sigma.isequiv_sig_coind</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.1.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_1" class="idref" href="#Book_3_1_1"><span class="id" title="definition">Book_3_1_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#IsTrunc"><span class="id" title="class">HoTT.Basics.Overture.IsTrunc</span></a> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_2" class="idref" href="#Book_3_1_2"><span class="id" title="definition">Book_3_1_2</span></a> := @<a class="idref" href="HoTT.Types.Unit.html#contr_unit"><span class="id" title="instance">HoTT.Types.Unit.contr_unit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_3" class="idref" href="#Book_3_1_3"><span class="id" title="definition">Book_3_1_3</span></a> := @<a class="idref" href="HoTT.Types.Empty.html#hprop_Empty"><span class="id" title="instance">HoTT.Types.Empty.hprop_Empty</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_4" class="idref" href="#Book_3_1_4"><span class="id" title="definition">Book_3_1_4</span></a> := @<a class="idref" href="HoTT.Spaces.Nat.html#hset_nat"><span class="id" title="instance">HoTT.Spaces.Nat.hset_nat</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_5" class="idref" href="#Book_3_1_5"><span class="id" title="definition">Book_3_1_5</span></a> := @<a class="idref" href="HoTT.Types.Prod.html#istrunc_prod"><span class="id" title="instance">HoTT.Types.Prod.istrunc_prod</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_6" class="idref" href="#Book_3_1_6"><span class="id" title="definition">Book_3_1_6</span></a> := @<a class="idref" href="HoTT.Types.Forall.html#istrunc_forall"><span class="id" title="instance">HoTT.Types.Forall.istrunc_forall</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.1.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_7" class="idref" href="#Book_3_1_7"><span class="id" title="definition">Book_3_1_7</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#IsTrunc"><span class="id" title="class">HoTT.Basics.Overture.IsTrunc</span></a> 1.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.1.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_8" class="idref" href="#Book_3_1_8"><span class="id" title="definition">Book_3_1_8</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#istrunc_succ"><span class="id" title="instance">HoTT.Basics.Trunc.istrunc_succ</span></a> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.1.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_1_9" class="idref" href="#Book_3_1_9"><span class="id" title="definition">Book_3_1_9</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#not_hset_Type"><span class="id" title="definition">HoTT.Types.Universe.not_hset_Type</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 3.2.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 3.2.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.3.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_1" class="idref" href="#Book_3_3_1"><span class="id" title="definition">Book_3_3_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#IsTrunc"><span class="id" title="class">HoTT.Basics.Overture.IsTrunc</span></a> (-1).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.3.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_2" class="idref" href="#Book_3_3_2"><span class="id" title="definition">Book_3_3_2</span></a> := @<a class="idref" href="HoTT.HProp.html#if_hprop_then_equiv_Unit"><span class="id" title="lemma">HoTT.HProp.if_hprop_then_equiv_Unit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.3.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_3" class="idref" href="#Book_3_3_3"><span class="id" title="definition">Book_3_3_3</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">HoTT.Basics.Trunc.equiv_iff_hprop</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.3.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_4" class="idref" href="#Book_3_3_4"><span class="id" title="definition">Book_3_3_4</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#istrunc_succ"><span class="id" title="instance">HoTT.Basics.Trunc.istrunc_succ</span></a> (-1).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.3.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_5_i" class="idref" href="#Book_3_3_5_i"><span class="id" title="definition">Book_3_3_5_i</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#ishprop_istrunc"><span class="id" title="instance">HoTT.Basics.Trunc.ishprop_istrunc</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.3.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_3_5_ii" class="idref" href="#Book_3_3_5_ii"><span class="id" title="definition">Book_3_3_5_ii</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#ishprop_istrunc"><span class="id" title="instance">HoTT.Basics.Trunc.ishprop_istrunc</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.4.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_4_3_part_i" class="idref" href="#Book_3_4_3_part_i"><span class="id" title="definition">Book_3_4_3_part_i</span></a>   := @<a class="idref" href="HoTT.Basics.Decidable.html#Decidable"><span class="id" title="class">HoTT.Basics.Decidable.Decidable</span></a>.<br/>
+</div>
+
+<div class="doc">
+Definition Book_3_4_3_part_ii  :=  
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="Book_3_4_3_part_iii" class="idref" href="#Book_3_4_3_part_iii"><span class="id" title="definition">Book_3_4_3_part_iii</span></a> := @<a class="idref" href="HoTT.Basics.Decidable.html#DecidablePaths"><span class="id" title="class">HoTT.Basics.Decidable.DecidablePaths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.5.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_5_1" class="idref" href="#Book_3_5_1"><span class="id" title="definition">Book_3_5_1</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">HoTT.Types.Sigma.path_sigma_hprop</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 3.6.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_6_2" class="idref" href="#Book_3_6_2"><span class="id" title="definition">Book_3_6_2</span></a> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Funext</span></a>} (<a id="A:2" class="idref" href="#A:2"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>) (<a id="B:3" class="idref" href="#B:3"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:2"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br/>
+&nbsp;&nbsp;:= @<a class="idref" href="HoTT.Types.Forall.html#istrunc_forall"><span class="id" title="instance">HoTT.Types.Forall.istrunc_forall</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:2"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:3"><span class="id" title="variable">B</span></a> (-1).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.7.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.8.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.8.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.9.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_9_1" class="idref" href="#Book_3_9_1"><span class="id" title="definition">Book_3_9_1</span></a> := @<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#isequiv_to_O_inO"><span class="id" title="definition">HoTT.Modalities.ReflectiveSubuniverse.isequiv_to_O_inO</span></a> (<a class="idref" href="HoTT.Truncations.Core.html#Tr"><span class="id" title="definition">Tr</span></a> (-1)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 3.9.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_9_2" class="idref" href="#Book_3_9_2"><span class="id" title="definition">Book_3_9_2</span></a> := @<a class="idref" href="HoTT.HIT.unique_choice.html#unique_choice"><span class="id" title="lemma">HoTT.HIT.unique_choice.unique_choice</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 3.11.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_1" class="idref" href="#Book_3_11_1"><span class="id" title="definition">Book_3_11_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#IsTrunc"><span class="id" title="class">HoTT.Basics.Overture.IsTrunc</span></a> (-2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_3" class="idref" href="#Book_3_11_3"><span class="id" title="definition">Book_3_11_3</span></a> := @<a class="idref" href="HoTT.Types.Unit.html#contr_unit"><span class="id" title="instance">HoTT.Types.Unit.contr_unit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_4" class="idref" href="#Book_3_11_4"><span class="id" title="definition">Book_3_11_4</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#ishprop_istrunc"><span class="id" title="instance">HoTT.Basics.Trunc.ishprop_istrunc</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 3.11.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_5" class="idref" href="#Book_3_11_5"><span class="id" title="definition">Book_3_11_5</span></a> := @<a class="idref" href="HoTT.Basics.Contractible.html#contr_contr"><span class="id" title="instance">HoTT.Basics.Contractible.contr_contr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_6" class="idref" href="#Book_3_11_6"><span class="id" title="definition">Book_3_11_6</span></a> := @<a class="idref" href="HoTT.Types.Forall.html#istrunc_forall"><span class="id" title="instance">HoTT.Types.Forall.istrunc_forall</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_7a" class="idref" href="#Book_3_11_7a"><span class="id" title="definition">Book_3_11_7a</span></a> := @<a class="idref" href="HoTT.Idempotents.html#contr_retracttype"><span class="id" title="definition">HoTT.Idempotents.contr_retracttype</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_7" class="idref" href="#Book_3_11_7"><span class="id" title="definition">Book_3_11_7</span></a> := @<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#inO_to_O_retract"><span class="id" title="definition">HoTT.Modalities.ReflectiveSubuniverse.inO_to_O_retract</span></a> (<a class="idref" href="HoTT.Truncations.Core.html#Tr"><span class="id" title="definition">Tr</span></a> (-2)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_8" class="idref" href="#Book_3_11_8"><span class="id" title="definition">Book_3_11_8</span></a> := @<a class="idref" href="HoTT.Basics.Contractible.html#contr_basedpaths"><span class="id" title="instance">HoTT.Basics.Contractible.contr_basedpaths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_9_part_i" class="idref" href="#Book_3_11_9_part_i"><span class="id" title="definition">Book_3_11_9_part_i</span></a>  := @<a class="idref" href="HoTT.Types.Sigma.html#equiv_sigma_contr"><span class="id" title="definition">HoTT.Types.Sigma.equiv_sigma_contr</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_9_part_ii" class="idref" href="#Book_3_11_9_part_ii"><span class="id" title="definition">Book_3_11_9_part_ii</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#equiv_contr_sigma"><span class="id" title="definition">HoTT.Types.Sigma.equiv_contr_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 3.11.10 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_10_if" class="idref" href="#Book_3_11_10_if"><span class="id" title="definition">Book_3_11_10_if</span></a>     := @<a class="idref" href="HoTT.Basics.Trunc.html#path_ishprop"><span class="id" title="lemma">HoTT.Basics.Trunc.path_ishprop</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_3_11_10_onlyif" class="idref" href="#Book_3_11_10_onlyif"><span class="id" title="definition">Book_3_11_10_onlyif</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#hprop_allpath"><span class="id" title="lemma">HoTT.Basics.Trunc.hprop_allpath</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.1.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.1.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.1.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.2.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_1" class="idref" href="#Book_4_2_1"><span class="id" title="definition">Book_4_2_1</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">HoTT.Basics.Overture.IsEquiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_2" class="idref" href="#Book_4_2_2"><span class="id" title="definition">Book_4_2_2</span></a> := <span class="id" title="keyword">fun</span> (<a id="A:4" class="idref" href="#A:4"><span class="id" title="binder">A</span></a> <a id="B:5" class="idref" href="#B:5"><span class="id" title="binder">B</span></a> : <span class="id" title="keyword">Type</span>) (<a id="f:6" class="idref" href="#f:6"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:4"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:5"><span class="id" title="variable">B</span></a>) (<a id="feq:7" class="idref" href="#feq:7"><span class="id" title="binder">feq</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#f:6"><span class="id" title="variable">f</span></a>) (<a id="y:8" class="idref" href="#y:8"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:5"><span class="id" title="variable">B</span></a>) ⇒<br/>
+&nbsp;&nbsp;@<a class="idref" href="HoTT.Basics.Overture.html#eisadj"><span class="id" title="method">HoTT.Basics.Overture.eisadj</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:5"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:4"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#f:6"><span class="id" title="variable">f</span></a><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(@<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_inverse"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_inverse</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:4"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:5"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#f:6"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#feq:7"><span class="id" title="variable">feq</span></a>) <a class="idref" href="HoTT.Contrib.HoTTBook.html#y:8"><span class="id" title="variable">y</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.2.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_3" class="idref" href="#Book_4_2_3"><span class="id" title="definition">Book_4_2_3</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_adjointify"><span class="id" title="definition">HoTT.Basics.Equivalences.isequiv_adjointify</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.2.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_4" class="idref" href="#Book_4_2_4"><span class="id" title="definition">Book_4_2_4</span></a> := @<a class="idref" href="HoTT.Basics.Overture.html#hfiber"><span class="id" title="definition">HoTT.Basics.Overture.hfiber</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_5" class="idref" href="#Book_4_2_5"><span class="id" title="definition">Book_4_2_5</span></a> := @<a class="idref" href="HoTT.HFiber.html#equiv_path_hfiber"><span class="id" title="definition">HoTT.HFiber.equiv_path_hfiber</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.2.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_6" class="idref" href="#Book_4_2_6"><span class="id" title="definition">Book_4_2_6</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#contr_map_isequiv"><span class="id" title="instance">HoTT.Types.Equiv.contr_map_isequiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.2.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_7_i" class="idref" href="#Book_4_2_7_i"><span class="id" title="definition">Book_4_2_7_i</span></a> {<a id="A:9" class="idref" href="#A:9"><span class="id" title="binder">A</span></a> <a id="B:10" class="idref" href="#B:10"><span class="id" title="binder">B</span></a>} (<a id="f:11" class="idref" href="#f:11"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:9"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:10"><span class="id" title="variable">B</span></a>) := <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="g:12" class="idref" href="#g:12"><span class="id" title="binder">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:10"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:9"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#g:12"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#f:11"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_7_ii" class="idref" href="#Book_4_2_7_ii"><span class="id" title="definition">Book_4_2_7_ii</span></a> {<a id="A:13" class="idref" href="#A:13"><span class="id" title="binder">A</span></a> <a id="B:14" class="idref" href="#B:14"><span class="id" title="binder">B</span></a>} (<a id="f:15" class="idref" href="#f:15"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:13"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:14"><span class="id" title="variable">B</span></a>) := <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="g:16" class="idref" href="#g:16"><span class="id" title="binder">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#B:14"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:13"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#f:15"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#g:16"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_8_i" class="idref" href="#Book_4_2_8_i"><span class="id" title="definition">Book_4_2_8_i</span></a>  := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_postcompose"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_postcompose</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_8_ii" class="idref" href="#Book_4_2_8_ii"><span class="id" title="definition">Book_4_2_8_ii</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_precompose"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_precompose</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_9_i" class="idref" href="#Book_4_2_9_i"><span class="id" title="definition">Book_4_2_9_i</span></a>  := @<a class="idref" href="HoTT.Types.Equiv.html#contr_sect_equiv"><span class="id" title="instance">HoTT.Types.Equiv.contr_sect_equiv</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_9_ii" class="idref" href="#Book_4_2_9_ii"><span class="id" title="definition">Book_4_2_9_ii</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#contr_retr_equiv"><span class="id" title="instance">HoTT.Types.Equiv.contr_retr_equiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.2.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.2.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.2.13 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_2_13" class="idref" href="#Book_4_2_13"><span class="id" title="definition">Book_4_2_13</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#hprop_isequiv"><span class="id" title="instance">HoTT.Types.Equiv.hprop_isequiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.3.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_3_1" class="idref" href="#Book_4_3_1"><span class="id" title="definition">Book_4_3_1</span></a>  := @<a class="idref" href="HoTT.Equiv.BiInv.html#BiInv"><span class="id" title="definition">HoTT.Equiv.BiInv.BiInv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.3.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_3_2" class="idref" href="#Book_4_3_2"><span class="id" title="definition">Book_4_3_2</span></a>  := @<a class="idref" href="HoTT.Equiv.BiInv.html#isprop_biinv"><span class="id" title="instance">HoTT.Equiv.BiInv.isprop_biinv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 4.3.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_3_3" class="idref" href="#Book_4_3_3"><span class="id" title="definition">Book_4_3_3</span></a>  := @<a class="idref" href="HoTT.Equiv.BiInv.html#equiv_biinv_isequiv"><span class="id" title="definition">HoTT.Equiv.BiInv.equiv_biinv_isequiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.4.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_4_1" class="idref" href="#Book_4_4_1"><span class="id" title="definition">Book_4_4_1</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#IsTruncMap"><span class="id" title="class">HoTT.Basics.Trunc.IsTruncMap</span></a> (-2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.4.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_4_3" class="idref" href="#Book_4_4_3"><span class="id" title="definition">Book_4_4_3</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#isequiv_contr_map"><span class="id" title="definition">HoTT.Types.Equiv.isequiv_contr_map</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.4.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_4_4" class="idref" href="#Book_4_4_4"><span class="id" title="definition">Book_4_4_4</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#ishprop_istrunc"><span class="id" title="instance">HoTT.Basics.Trunc.ishprop_istrunc</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.4.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_4_5" class="idref" href="#Book_4_4_5"><span class="id" title="definition">Book_4_4_5</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#equiv_contr_map_isequiv"><span class="id" title="definition">HoTT.Types.Equiv.equiv_contr_map_isequiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 4.4.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_4_6" class="idref" href="#Book_4_4_6"><span class="id" title="definition">Book_4_4_6</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#isequiv_inhab_codomain"><span class="id" title="definition">HoTT.Types.Equiv.isequiv_inhab_codomain</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.6.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_6_1" class="idref" href="#Book_4_6_1"><span class="id" title="definition">Book_4_6_1</span></a> := @<a class="idref" href="HoTT.Basics.Trunc.html#IsTruncMap"><span class="id" title="class">HoTT.Basics.Trunc.IsTruncMap</span></a> (-1).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.6.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_6_3" class="idref" href="#Book_4_6_3"><span class="id" title="definition">Book_4_6_3</span></a> := @<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#isequiv_conn_ino_map"><span class="id" title="definition">HoTT.Modalities.ReflectiveSubuniverse.isequiv_conn_ino_map</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.7.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_1_part_i" class="idref" href="#Book_4_7_1_part_i"><span class="id" title="definition">Book_4_7_1_part_i</span></a>   := @<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_compose"><span class="id" title="instance">HoTT.Basics.Equivalences.isequiv_compose</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_1_part_ii" class="idref" href="#Book_4_7_1_part_ii"><span class="id" title="definition">Book_4_7_1_part_ii</span></a>  := @<a class="idref" href="HoTT.Basics.Equivalences.html#cancelR_isequiv"><span class="id" title="definition">HoTT.Basics.Equivalences.cancelR_isequiv</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_1_part_iii" class="idref" href="#Book_4_7_1_part_iii"><span class="id" title="definition">Book_4_7_1_part_iii</span></a> := @<a class="idref" href="HoTT.Basics.Equivalences.html#cancelL_isequiv"><span class="id" title="definition">HoTT.Basics.Equivalences.cancelL_isequiv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.7.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.7.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.7.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.7.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_5" class="idref" href="#Book_4_7_5"><span class="id" title="definition">Book_4_7_5</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#functor_sigma"><span class="id" title="definition">HoTT.Types.Sigma.functor_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.7.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_6" class="idref" href="#Book_4_7_6"><span class="id" title="definition">Book_4_7_6</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#hfiber_functor_sigma"><span class="id" title="definition">HoTT.Types.Sigma.hfiber_functor_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.7.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_7_7" class="idref" href="#Book_4_7_7"><span class="id" title="definition">Book_4_7_7</span></a> := @<a class="idref" href="HoTT.Types.Equiv.html#equiv_total_iff_equiv_fiberwise"><span class="id" title="definition">HoTT.Types.Equiv.equiv_total_iff_equiv_fiberwise</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.8.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_8_1" class="idref" href="#Book_4_8_1"><span class="id" title="definition">Book_4_8_1</span></a> := @<a class="idref" href="HoTT.HFiber.html#hfiber_fibration"><span class="id" title="definition">HoTT.HFiber.hfiber_fibration</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.8.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_8_2" class="idref" href="#Book_4_8_2"><span class="id" title="definition">Book_4_8_2</span></a> := @<a class="idref" href="HoTT.HFiber.html#equiv_fibration_replacement"><span class="id" title="definition">HoTT.HFiber.equiv_fibration_replacement</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.8.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_8_3" class="idref" href="#Book_4_8_3"><span class="id" title="definition">Book_4_8_3</span></a> := @<a class="idref" href="HoTT.ObjectClassifier.html#equiv_sigma_fibration"><span class="id" title="definition">HoTT.ObjectClassifier.equiv_sigma_fibration</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.8.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_8_4" class="idref" href="#Book_4_8_4"><span class="id" title="definition">Book_4_8_4</span></a> := @<a class="idref" href="HoTT.ObjectClassifier.html#ispullback_objectclassifier_square"><span class="id" title="lemma">HoTT.ObjectClassifier.ispullback_objectclassifier_square</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 4.9.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_9_1" class="idref" href="#Book_4_9_1"><span class="id" title="definition">Book_4_9_1</span></a> := @<a class="idref" href="HoTT.Metatheory.FunextVarieties.html#WeakFunext"><span class="id" title="definition">HoTT.Metatheory.FunextVarieties.WeakFunext</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 4.9.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_9_2" class="idref" href="#Book_4_9_2"><span class="id" title="definition">Book_4_9_2</span></a> := @<a class="idref" href="HoTT.Metatheory.UnivalenceImpliesFunext.html#univalence_isequiv_postcompose"><span class="id" title="lemma">HoTT.Metatheory.UnivalenceImpliesFunext.univalence_isequiv_postcompose</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 4.9.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.9.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_9_4" class="idref" href="#Book_4_9_4"><span class="id" title="definition">Book_4_9_4</span></a> := @<a class="idref" href="HoTT.Metatheory.UnivalenceImpliesFunext.html#Univalence_implies_WeakFunext"><span class="id" title="definition">HoTT.Metatheory.UnivalenceImpliesFunext.Univalence_implies_WeakFunext</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 4.9.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_4_9_5" class="idref" href="#Book_4_9_5"><span class="id" title="definition">Book_4_9_5</span></a> := @<a class="idref" href="HoTT.Metatheory.FunextVarieties.html#WeakFunext_implies_Funext"><span class="id" title="lemma">HoTT.Metatheory.FunextVarieties.WeakFunext_implies_Funext</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.1.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.3.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 5.4.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 5.4.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.4.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.4.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 5.5.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 5.8.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.8.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_5_8_2_iv_implies_iii" class="idref" href="#Book_5_8_2_iv_implies_iii"><span class="id" title="definition">Book_5_8_2_iv_implies_iii</span></a> := @<a class="idref" href="HoTT.PathAny.html#equiv_path_from_contr"><span class="id" title="definition">HoTT.PathAny.equiv_path_from_contr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 5.8.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 5.8.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_5_8_5" class="idref" href="#Book_5_8_5"><span class="id" title="definition">Book_5_8_5</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#equiv_induction'"><span class="id" title="lemma">HoTT.Types.Universe.equiv_induction'</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_5_8_5_comp" class="idref" href="#Book_5_8_5_comp"><span class="id" title="definition">Book_5_8_5_comp</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#equiv_induction'_comp"><span class="id" title="definition">HoTT.Types.Universe.equiv_induction'_comp</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 5.8.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.2.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_2_5" class="idref" href="#Book_6_2_5"><span class="id" title="definition">Book_6_2_5</span></a> := @<a class="idref" href="HoTT.Spaces.Circle.html#Circle_rec"><span class="id" title="definition">HoTT.Spaces.Circle.Circle_rec</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.2.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.2.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.3.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_3_1" class="idref" href="#Book_6_3_1"><span class="id" title="definition">Book_6_3_1</span></a> := @<a class="idref" href="HoTT.HIT.Interval.html#contr_interval"><span class="id" title="instance">HoTT.HIT.Interval.contr_interval</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.3.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_3_2" class="idref" href="#Book_6_3_2"><span class="id" title="definition">Book_6_3_2</span></a> := @<a class="idref" href="HoTT.Metatheory.IntervalImpliesFunext.html#funext_type_from_interval"><span class="id" title="definition">HoTT.Metatheory.IntervalImpliesFunext.funext_type_from_interval</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.4.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.4.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.4.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_4_4" class="idref" href="#Book_6_4_4"><span class="id" title="definition">Book_6_4_4</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap02"><span class="id" title="definition">HoTT.Basics.PathGroupoids.ap02</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.4.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_4_5" class="idref" href="#Book_6_4_5"><span class="id" title="definition">Book_6_4_5</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport2"><span class="id" title="definition">HoTT.Basics.PathGroupoids.transport2</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.4.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_4_6" class="idref" href="#Book_6_4_6"><span class="id" title="definition">Book_6_4_6</span></a> := @<a class="idref" href="HoTT.Basics.PathGroupoids.html#apD02"><span class="id" title="definition">HoTT.Basics.PathGroupoids.apD02</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.5.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_5_1" class="idref" href="#Book_6_5_1"><span class="id" title="definition">Book_6_5_1</span></a> := @<a class="idref" href="HoTT.Spaces.Spheres.html#isequiv_S1_to_Circle"><span class="id" title="instance">HoTT.Spaces.Spheres.isequiv_S1_to_Circle</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.5.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_5_4" class="idref" href="#Book_6_5_4"><span class="id" title="definition">Book_6_5_4</span></a> := @<a class="idref" href="HoTT.Pointed.pSusp.html#loop_susp_adjoint"><span class="id" title="definition">HoTT.Pointed.pSusp.loop_susp_adjoint</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 6.8.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.8.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.9.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_9_1" class="idref" href="#Book_6_9_1"><span class="id" title="definition">Book_6_9_1</span></a> := @<a class="idref" href="HoTT.Truncations.Core.html#Trunc.Trunc_ind"><span class="id" title="definition">HoTT.Truncations.Core.Trunc.Trunc_ind</span></a> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.9.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_9_2" class="idref" href="#Book_6_9_2"><span class="id" title="definition">Book_6_9_2</span></a> := @<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#isequiv_o_to_O"><span class="id" title="instance">HoTT.Modalities.ReflectiveSubuniverse.isequiv_o_to_O</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.9.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.10.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_10_2" class="idref" href="#Book_6_10_2"><span class="id" title="definition">Book_6_10_2</span></a> := @<a class="idref" href="HoTT.HIT.quotient.html#quotient_surjective"><span class="id" title="lemma">HoTT.HIT.quotient.quotient_surjective</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.10.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_10_3" class="idref" href="#Book_6_10_3"><span class="id" title="definition">Book_6_10_3</span></a> := @<a class="idref" href="HoTT.HIT.quotient.html#quotient_ump"><span class="id" title="lemma">HoTT.HIT.quotient.quotient_ump</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 6.10.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.10.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 6.10.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.10.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 6.10.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 6.11.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.11.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_1" class="idref" href="#Book_6_12_1"><span class="id" title="definition">Book_6_12_1</span></a> := @<a class="idref" href="HoTT.Types.Universe.html#transport_path_universe'"><span class="id" title="definition">HoTT.Types.Universe.transport_path_universe'</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_2" class="idref" href="#Book_6_12_2"><span class="id" title="definition">Book_6_12_2</span></a> := @<a class="idref" href="HoTT.HIT.Flattening.html#equiv_flattening"><span class="id" title="definition">HoTT.HIT.Flattening.equiv_flattening</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_4" class="idref" href="#Book_6_12_4"><span class="id" title="definition">Book_6_12_4</span></a> := @<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_ind"><span class="id" title="definition">HoTT.HIT.Flattening.sWtil_ind</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_5" class="idref" href="#Book_6_12_5"><span class="id" title="definition">Book_6_12_5</span></a> := @<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec"><span class="id" title="definition">HoTT.HIT.Flattening.sWtil_rec</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_7" class="idref" href="#Book_6_12_7"><span class="id" title="definition">Book_6_12_7</span></a> := @<a class="idref" href="HoTT.Types.Sigma.html#ap_sig_rec_path_sigma"><span class="id" title="definition">HoTT.Types.Sigma.ap_sig_rec_path_sigma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 6.12.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_6_12_8" class="idref" href="#Book_6_12_8"><span class="id" title="definition">Book_6_12_8</span></a> := @<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec_beta_ppt"><span class="id" title="definition">HoTT.HIT.Flattening.sWtil_rec_beta_ppt</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 6.13.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 7.1.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.1.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_7_1_9" class="idref" href="#Book_7_1_9"><span class="id" title="definition">Book_7_1_9</span></a> := @<a class="idref" href="HoTT.Types.Forall.html#istrunc_forall"><span class="id" title="instance">HoTT.Types.Forall.istrunc_forall</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.1.11 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book7_1_11" class="idref" href="#Book7_1_11"><span class="id" title="definition">Book7_1_11</span></a> := @<a class="idref" href="HoTT.TruncType.html#istrunc_trunctype"><span class="id" title="instance">HoTT.TruncType.istrunc_trunctype</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_7_2_2" class="idref" href="#Book_7_2_2"><span class="id" title="definition">Book_7_2_2</span></a> := @<a class="idref" href="HoTT.HSet.html#ishset_hrel_subpaths"><span class="id" title="lemma">HoTT.HSet.ishset_hrel_subpaths</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.2.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.2.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.2.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.2.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.3.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.3.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.3.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.3.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.3.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.3.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.3.12 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_7_3_12" class="idref" href="#Book_7_3_12"><span class="id" title="definition">Book_7_3_12</span></a> := @<a class="idref" href="HoTT.Truncations.Core.html#equiv_path_Tr"><span class="id" title="definition">HoTT.Truncations.Core.equiv_path_Tr</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.3.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.4.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.4.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.5.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_7_5_8" class="idref" href="#Book_7_5_8"><span class="id" title="definition">Book_7_5_8</span></a> := @<a class="idref" href="HoTT.Modalities.Modality.html#conn_map_to_O"><span class="id" title="instance">HoTT.Modalities.Modality.conn_map_to_O</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.5.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.5.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.5.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.6.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_7_6_2" class="idref" href="#Book_7_6_2"><span class="id" title="definition">Book_7_6_2</span></a> := @<a class="idref" href="HoTT.HFiber.html#equiv_istruncmap_ap"><span class="id" title="definition">HoTT.HFiber.equiv_istruncmap_ap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 7.6.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.6.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.6.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.6.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 7.6.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.6.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 7.7.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.7.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 7.7.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.7.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 7.7.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 7.7.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.0.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.1.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.1.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.1.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.1.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.1.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.1.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.1.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.1.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.1.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.2.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.2.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.3.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.4.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.4.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.4.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.4.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.4.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.4.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.5.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.5.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.5.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.5.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.5.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.6.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.6.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.6.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 8.6.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.6.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.6.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.6.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.6.17 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.6.19 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.7.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.7.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.7.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 8.7.17 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.8.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_8_8_1" class="idref" href="#Book_8_8_1"><span class="id" title="definition">Book_8_8_1</span></a> := @<a class="idref" href="HoTT.Homotopy.WhiteheadsPrinciple.html#isequiv_issurj_tr0_isequiv_ap"><span class="id" title="definition">HoTT.Homotopy.WhiteheadsPrinciple.isequiv_issurj_tr0_isequiv_ap</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.8.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_8_8_2" class="idref" href="#Book_8_8_2"><span class="id" title="definition">Book_8_8_2</span></a> := @<a class="idref" href="HoTT.Homotopy.WhiteheadsPrinciple.html#isequiv_isbij_tr0_isequiv_loops"><span class="id" title="definition">HoTT.Homotopy.WhiteheadsPrinciple.isequiv_isbij_tr0_isequiv_loops</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.8.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_8_8_3" class="idref" href="#Book_8_8_3"><span class="id" title="definition">Book_8_8_3</span></a> := @<a class="idref" href="HoTT.Homotopy.WhiteheadsPrinciple.html#whiteheads_principle"><span class="id" title="definition">HoTT.Homotopy.WhiteheadsPrinciple.whiteheads_principle</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.8.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 8.8.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 8.9.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.10.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.10.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 8.10.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.1.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_1" class="idref" href="#Book_9_1_1"><span class="id" title="definition">Book_9_1_1</span></a> := @<a class="idref" href="HoTT.Categories.Category.Core.html#PreCategory"><span class="id" title="record">HoTT.Categories.Category.Core.PreCategory</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.1.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_2" class="idref" href="#Book_9_1_2"><span class="id" title="definition">Book_9_1_2</span></a> := @<a class="idref" href="HoTT.Categories.Category.Morphisms.html#Isomorphic"><span class="id" title="class">HoTT.Categories.Category.Morphisms.Isomorphic</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.1.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_3" class="idref" href="#Book_9_1_3"><span class="id" title="definition">Book_9_1_3</span></a> := @<a class="idref" href="HoTT.Categories.Category.Morphisms.html#istrunc_isisomorphism"><span class="id" title="instance">HoTT.Categories.Category.Morphisms.istrunc_isisomorphism</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.1.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_4" class="idref" href="#Book_9_1_4"><span class="id" title="definition">Book_9_1_4</span></a> := @<a class="idref" href="HoTT.Categories.Category.Morphisms.html#idtoiso"><span class="id" title="definition">HoTT.Categories.Category.Morphisms.idtoiso</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_5" class="idref" href="#Book_9_1_5"><span class="id" title="definition">Book_9_1_5</span></a> := @<a class="idref" href="HoTT.Categories.SetCategory.Core.html#set_cat"><span class="id" title="definition">HoTT.Categories.SetCategory.Core.set_cat</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.1.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_6" class="idref" href="#Book_9_1_6"><span class="id" title="definition">Book_9_1_6</span></a> <a id="C:17" class="idref" href="#C:17"><span class="id" title="binder">C</span></a> := (<a class="idref" href="HoTT.Categories.Category.Univalent.html#IsCategory"><span class="id" title="abbreviation">HoTT.Categories.Category.Univalent.IsCategory</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#C:17"><span class="id" title="variable">C</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.7 
+<div class="paragraph"> </div>
+
+ Once this is proven, we will have
+<pre>
+Definition Book_9_1_7 := @HoTT.Categories.SetCategory.Morphisms.iscategory_set_cat.
+</pre>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.1.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_8" class="idref" href="#Book_9_1_8"><span class="id" title="definition">Book_9_1_8</span></a> := @<a class="idref" href="HoTT.Categories.Category.Univalent.html#trunc_category"><span class="id" title="instance">HoTT.Categories.Category.Univalent.trunc_category</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.1.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.15 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_15" class="idref" href="#Book_9_1_15"><span class="id" title="definition">Book_9_1_15</span></a> <a id="A:18" class="idref" href="#A:18"><span class="id" title="binder">A</span></a> `{<a id="H:19" class="idref" href="#H:19"><span class="id" title="binder">H</span></a> : <a class="idref" href="HoTT.Categories.Category.Univalent.html#IsCategory"><span class="id" title="abbreviation">HoTT.Categories.Category.Univalent.IsCategory</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:18"><span class="id" title="variable">A</span></a>}<br/>
+: <a class="idref" href="HoTT.Basics.Overture.html#IsHSet"><span class="id" title="abbreviation">IsHSet</span></a> (<a class="idref" href="HoTT.Categories.Category.Core.html#object"><span class="id" title="projection">HoTT.Categories.Category.Core.object</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:18"><span class="id" title="variable">A</span></a>)<br/>
+&nbsp;&nbsp;<a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">↔</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:20" class="idref" href="#a:20"><span class="id" title="binder">a</span></a> <a id="b:21" class="idref" href="#b:21"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsHProp"><span class="id" title="abbreviation">IsHProp</span></a> (@<a class="idref" href="HoTT.Categories.Category.Morphisms.html#Isomorphic"><span class="id" title="class">HoTT.Categories.Category.Morphisms.Isomorphic</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#A:18"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#a:20"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#b:21"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">)</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">H'</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Basics.Trunc.html#istrunc_isequiv_istrunc"><span class="id" title="definition">istrunc_isequiv_istrunc</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">refine</span> (<span class="id" title="var">H'</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">H'</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Basics.Trunc.html#istrunc_isequiv_istrunc"><span class="id" title="definition">istrunc_isequiv_istrunc</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> (<span class="id" title="var">H'</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> (@<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_inverse"><span class="id" title="instance">isequiv_inverse</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">H</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>)).<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.16 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_16" class="idref" href="#Book_9_1_16"><span class="id" title="definition">Book_9_1_16</span></a> := @<a class="idref" href="HoTT.Categories.GroupoidCategory.Core.html#groupoid_category"><span class="id" title="definition">HoTT.Categories.GroupoidCategory.Core.groupoid_category</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.17 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_17" class="idref" href="#Book_9_1_17"><span class="id" title="definition">Book_9_1_17</span></a> := @<a class="idref" href="HoTT.Categories.FundamentalPreGroupoidCategory.html#fundamental_pregroupoid_category"><span class="id" title="definition">HoTT.Categories.FundamentalPreGroupoidCategory.fundamental_pregroupoid_category</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.18 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_1_18" class="idref" href="#Book_9_1_18"><span class="id" title="definition">Book_9_1_18</span></a> := @<a class="idref" href="HoTT.Categories.HomotopyPreCategory.html#homotopy_precategory"><span class="id" title="definition">HoTT.Categories.HomotopyPreCategory.homotopy_precategory</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.1.19 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.2.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_1" class="idref" href="#Book_9_2_1"><span class="id" title="definition">Book_9_2_1</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Core.html#Functor"><span class="id" title="record">HoTT.Categories.Functor.Core.Functor</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.2.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_2" class="idref" href="#Book_9_2_2"><span class="id" title="definition">Book_9_2_2</span></a> := @<a class="idref" href="HoTT.Categories.NaturalTransformation.Core.html#NaturalTransformation"><span class="id" title="record">HoTT.Categories.NaturalTransformation.Core.NaturalTransformation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.2.3 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_3" class="idref" href="#Book_9_2_3"><span class="id" title="definition">Book_9_2_3</span></a> := @<a class="idref" href="HoTT.Categories.FunctorCategory.Core.html#functor_category"><span class="id" title="definition">HoTT.Categories.FunctorCategory.Core.functor_category</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.2.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_4" class="idref" href="#Book_9_2_4"><span class="id" title="definition">Book_9_2_4</span></a> := @<a class="idref" href="HoTT.Categories.FunctorCategory.Morphisms.html#isisomorphism_natural_transformation"><span class="id" title="definition">HoTT.Categories.FunctorCategory.Morphisms.isisomorphism_natural_transformation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.2.5 
+<div class="paragraph"> </div>
+
+ When this is done, it will be
+<pre>
+Definition Book_9_2_5 := @HoTT.Categories.FunctorCategory.Morphisms.iscategory_functor_category.
+</pre>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.2.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_6" class="idref" href="#Book_9_2_6"><span class="id" title="definition">Book_9_2_6</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Composition.Core.html#compose"><span class="id" title="definition">HoTT.Categories.Functor.Composition.Core.compose</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.2.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_7_l" class="idref" href="#Book_9_2_7_l"><span class="id" title="definition">Book_9_2_7_l</span></a> := @<a class="idref" href="HoTT.Categories.NaturalTransformation.Composition.Core.html#whisker_l"><span class="id" title="definition">HoTT.Categories.NaturalTransformation.Composition.Core.whisker_l</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_7_r" class="idref" href="#Book_9_2_7_r"><span class="id" title="definition">Book_9_2_7_r</span></a> := @<a class="idref" href="HoTT.Categories.NaturalTransformation.Composition.Core.html#whisker_r"><span class="id" title="definition">HoTT.Categories.NaturalTransformation.Composition.Core.whisker_r</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.2.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_8" class="idref" href="#Book_9_2_8"><span class="id" title="definition">Book_9_2_8</span></a> := @<a class="idref" href="HoTT.Categories.NaturalTransformation.Composition.Laws.html#exchange_whisker"><span class="id" title="lemma">HoTT.Categories.NaturalTransformation.Composition.Laws.exchange_whisker</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.2.9 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_9" class="idref" href="#Book_9_2_9"><span class="id" title="definition">Book_9_2_9</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Composition.Laws.html#associativity"><span class="id" title="lemma">HoTT.Categories.Functor.Composition.Laws.associativity</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.2.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.2.11 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_11_l" class="idref" href="#Book_9_2_11_l"><span class="id" title="definition">Book_9_2_11_l</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Composition.Laws.html#left_identity"><span class="id" title="lemma">HoTT.Categories.Functor.Composition.Laws.left_identity</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_11_r" class="idref" href="#Book_9_2_11_r"><span class="id" title="definition">Book_9_2_11_r</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Composition.Laws.html#right_identity"><span class="id" title="lemma">HoTT.Categories.Functor.Composition.Laws.right_identity</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_2_11" class="idref" href="#Book_9_2_11"><span class="id" title="definition">Book_9_2_11</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Composition.Laws.html#triangle"><span class="id" title="lemma">HoTT.Categories.Functor.Composition.Laws.triangle</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.3.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_3_1" class="idref" href="#Book_9_3_1"><span class="id" title="definition">Book_9_3_1</span></a> := @<a class="idref" href="HoTT.Categories.Adjoint.UnitCounit.html#AdjunctionUnitCounit"><span class="id" title="record">HoTT.Categories.Adjoint.UnitCounit.AdjunctionUnitCounit</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.3.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.4.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_2a" class="idref" href="#Book_9_4_2a"><span class="id" title="definition">Book_9_4_2a</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsFaithful"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsFaithful</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_2b" class="idref" href="#Book_9_4_2b"><span class="id" title="definition">Book_9_4_2b</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsFull"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsFull</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_2c" class="idref" href="#Book_9_4_2c"><span class="id" title="definition">Book_9_4_2c</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsFullyFaithful"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsFullyFaithful</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.4.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.4.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_4" class="idref" href="#Book_9_4_4"><span class="id" title="definition">Book_9_4_4</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsSplitEssentiallySurjective"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsSplitEssentiallySurjective</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.4.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_6_ess" class="idref" href="#Book_9_4_6_ess"><span class="id" title="definition">Book_9_4_6_ess</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsEssentiallySurjective"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsEssentiallySurjective</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_6_weq" class="idref" href="#Book_9_4_6_weq"><span class="id" title="definition">Book_9_4_6_weq</span></a> := @<a class="idref" href="HoTT.Categories.Functor.Attributes.html#IsWeakEquivalence"><span class="id" title="class">HoTT.Categories.Functor.Attributes.IsWeakEquivalence</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.4.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.4.13 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_4_13" class="idref" href="#Book_9_4_13"><span class="id" title="definition">Book_9_4_13</span></a> := @<a class="idref" href="HoTT.Categories.IndiscreteCategory.html#Core.indiscrete_category"><span class="id" title="definition">HoTT.Categories.IndiscreteCategory.Core.indiscrete_category</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.4.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.4.16 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.5.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_5_1" class="idref" href="#Book_9_5_1"><span class="id" title="definition">Book_9_5_1</span></a> := @<a class="idref" href="HoTT.Categories.Category.Dual.html#opposite"><span class="id" title="definition">HoTT.Categories.Category.Dual.opposite</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.5.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_5_2" class="idref" href="#Book_9_5_2"><span class="id" title="definition">Book_9_5_2</span></a> := @<a class="idref" href="HoTT.Categories.Category.Prod.html#prod"><span class="id" title="definition">HoTT.Categories.Category.Prod.prod</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.5.3 
+<div class="paragraph"> </div>
+
+ When we prove it, this should be mapped to the law, not the functor. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="Book_9_5_3" class="idref" href="#Book_9_5_3"><span class="id" title="definition">Book_9_5_3</span></a> := @<a class="idref" href="HoTT.Categories.ExponentialLaws.Law4.Functors.html#functor"><span class="id" title="definition">HoTT.Categories.ExponentialLaws.Law4.Functors.functor</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.5.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_5_4" class="idref" href="#Book_9_5_4"><span class="id" title="definition">Book_9_5_4</span></a> := @<a class="idref" href="HoTT.Categories.Yoneda.html#yoneda_lemma"><span class="id" title="instance">HoTT.Categories.Yoneda.yoneda_lemma</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 9.5.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_5_6" class="idref" href="#Book_9_5_6"><span class="id" title="definition">Book_9_5_6</span></a> := @<a class="idref" href="HoTT.Categories.Yoneda.html#yoneda_embedding"><span class="id" title="definition">HoTT.Categories.Yoneda.yoneda_embedding</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 9.5.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.5.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.5.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.5.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 9.5.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.6.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_6_1" class="idref" href="#Book_9_6_1"><span class="id" title="definition">Book_9_6_1</span></a> <a id="C:22" class="idref" href="#C:22"><span class="id" title="binder">C</span></a> := <a class="idref" href="HoTT.Categories.Category.Strict.html#IsStrictCategory"><span class="id" title="abbreviation">HoTT.Categories.Category.Strict.IsStrictCategory</span></a> <a class="idref" href="HoTT.Contrib.HoTTBook.html#C:22"><span class="id" title="variable">C</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.6.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.6.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.7.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.7.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.7.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.7.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.7.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.7.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.7.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.8.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_8_1" class="idref" href="#Book_9_8_1"><span class="id" title="definition">Book_9_8_1</span></a> := @<a class="idref" href="HoTT.Categories.Structure.Core.html#NotionOfStructure"><span class="id" title="record">HoTT.Categories.Structure.Core.NotionOfStructure</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.8.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_9_8_2" class="idref" href="#Book_9_8_2"><span class="id" title="definition">Book_9_8_2</span></a> := @<a class="idref" href="HoTT.Categories.Structure.IdentityPrinciple.html#structure_identity_principle"><span class="id" title="instance">HoTT.Categories.Structure.IdentityPrinciple.structure_identity_principle</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.8.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 9.8.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.9.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 9.9.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.9.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.9.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.9.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 9.9.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 9.9.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.1 
+<div class="paragraph"> </div>
+
+ The third notion in the book is called embedding. No complete equivalence yet, but see:
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_1_iii" class="idref" href="#Book_10_1_1_iii"><span class="id" title="definition">Book_10_1_1_iii</span></a> := @<a class="idref" href="HoTT.HSet.html#isinj_embedding"><span class="id" title="lemma">HSet.isinj_embedding</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.2 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_2rl" class="idref" href="#Book_10_1_2rl"><span class="id" title="definition">Book_10_1_2rl</span></a> := @<a class="idref" href="HoTT.HSet.html#isinj_ismono"><span class="id" title="definition">HSet.isinj_ismono</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_2lr" class="idref" href="#Book_10_1_2lr"><span class="id" title="definition">Book_10_1_2lr</span></a> := @<a class="idref" href="HoTT.HSet.html#ismono_isinj"><span class="id" title="lemma">HSet.ismono_isinj</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_4_i_iii" class="idref" href="#Book_10_1_4_i_iii"><span class="id" title="definition">Book_10_1_4_i_iii</span></a> := @<a class="idref" href="HoTT.HIT.epi.html#isepi_issurj"><span class="id" title="lemma">HIT.epi.isepi_issurj</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_4_i_ii" class="idref" href="#Book_10_1_4_i_ii"><span class="id" title="definition">Book_10_1_4_i_ii</span></a> := @<a class="idref" href="HoTT.HIT.epi.html#isepi'_contr_cone"><span class="id" title="lemma">HIT.epi.isepi'_contr_cone</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_4_iii_i" class="idref" href="#Book_10_1_4_iii_i"><span class="id" title="definition">Book_10_1_4_iii_i</span></a> := @<a class="idref" href="HoTT.HIT.epi.html#issurj_isepi"><span class="id" title="lemma">HIT.epi.issurj_isepi</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_1_8" class="idref" href="#Book_10_1_8"><span class="id" title="definition">Book_10_1_8</span></a> := @<a class="idref" href="HoTT.HIT.quotient.html#sets_exact"><span class="id" title="lemma">HIT.quotient.sets_exact</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.9 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.1.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.1.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.2.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.2.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.2.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.2.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.3.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 10.3.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Example 10.3.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.3.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.3.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.3.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 10.3.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.3.20 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.3.21 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.3.22 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.4.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.4.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.5.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_1" class="idref" href="#Book_10_5_1"><span class="id" title="definition">Book_10_5_1</span></a> := @<a class="idref" href="HoTT.HIT.V.html#CumulativeHierarchy.V"><span class="id" title="inductive">HoTT.HIT.V.CumulativeHierarchy.V</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.5.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_4" class="idref" href="#Book_10_5_4"><span class="id" title="definition">Book_10_5_4</span></a> := @<a class="idref" href="HoTT.HIT.V.html#bisimulation"><span class="id" title="definition">HoTT.HIT.V.bisimulation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.5.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_5" class="idref" href="#Book_10_5_5"><span class="id" title="definition">Book_10_5_5</span></a> := @<a class="idref" href="HoTT.HIT.V.html#bisimulation_equiv_id"><span class="id" title="lemma">HoTT.HIT.V.bisimulation_equiv_id</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.5.6 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_6" class="idref" href="#Book_10_5_6"><span class="id" title="definition">Book_10_5_6</span></a> := @<a class="idref" href="HoTT.HIT.V.html#monic_set_present"><span class="id" title="lemma">HoTT.HIT.V.monic_set_present</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 10.5.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_7" class="idref" href="#Book_10_5_7"><span class="id" title="definition">Book_10_5_7</span></a> := @<a class="idref" href="HoTT.HIT.V.html#type_of_members"><span class="id" title="definition">HoTT.HIT.V.type_of_members</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.5.8 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_i" class="idref" href="#Book_10_5_8_item_i"><span class="id" title="definition">Book_10_5_8_item_i</span></a> := @<a class="idref" href="HoTT.HIT.V.html#extensionality"><span class="id" title="lemma">HoTT.HIT.V.extensionality</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_ii" class="idref" href="#Book_10_5_8_item_ii"><span class="id" title="definition">Book_10_5_8_item_ii</span></a> := @<a class="idref" href="HoTT.HIT.V.html#not_mem_Vempty"><span class="id" title="lemma">HoTT.HIT.V.not_mem_Vempty</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_iii" class="idref" href="#Book_10_5_8_item_iii"><span class="id" title="definition">Book_10_5_8_item_iii</span></a> := @<a class="idref" href="HoTT.HIT.V.html#pairing"><span class="id" title="lemma">HoTT.HIT.V.pairing</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_iv" class="idref" href="#Book_10_5_8_item_iv"><span class="id" title="definition">Book_10_5_8_item_iv</span></a> := @<a class="idref" href="HoTT.HIT.V.html#infinity"><span class="id" title="lemma">HoTT.HIT.V.infinity</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_v" class="idref" href="#Book_10_5_8_item_v"><span class="id" title="definition">Book_10_5_8_item_v</span></a> := @<a class="idref" href="HoTT.HIT.V.html#union"><span class="id" title="lemma">HoTT.HIT.V.union</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_vi" class="idref" href="#Book_10_5_8_item_vi"><span class="id" title="definition">Book_10_5_8_item_vi</span></a> := @<a class="idref" href="HoTT.HIT.V.html#function"><span class="id" title="lemma">HoTT.HIT.V.function</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_vii" class="idref" href="#Book_10_5_8_item_vii"><span class="id" title="definition">Book_10_5_8_item_vii</span></a> := @<a class="idref" href="HoTT.HIT.V.html#mem_induction"><span class="id" title="lemma">HoTT.HIT.V.mem_induction</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_viii" class="idref" href="#Book_10_5_8_item_viii"><span class="id" title="definition">Book_10_5_8_item_viii</span></a> := @<a class="idref" href="HoTT.HIT.V.html#replacement"><span class="id" title="lemma">HoTT.HIT.V.replacement</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_10_5_8_item_ix" class="idref" href="#Book_10_5_8_item_ix"><span class="id" title="definition">Book_10_5_8_item_ix</span></a> := @<a class="idref" href="HoTT.HIT.V.html#separation"><span class="id" title="lemma">HoTT.HIT.V.separation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 10.5.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 10.5.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 10.5.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.2.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.2.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.2.4 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.2.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.2.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_2_7" class="idref" href="#Book_11_2_7"><span class="id" title="definition">Book_11_2_7</span></a> := @<a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsField"><span class="id" title="class">HoTT.Classes.interfaces.abstract_algebra.IsField</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_2_7'" class="idref" href="#Book_11_2_7'"><span class="id" title="definition">Book_11_2_7'</span></a> := @<a class="idref" href="HoTT.Classes.interfaces.orders.html#FullPseudoSemiRingOrder"><span class="id" title="class">HoTT.Classes.interfaces.orders.FullPseudoSemiRingOrder</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.2.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.2.10 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_2_10" class="idref" href="#Book_11_2_10"><span class="id" title="definition">Book_11_2_10</span></a> := @<a class="idref" href="HoTT.Classes.theory.premetric.html#Approximation"><span class="id" title="record">HoTT.Classes.theory.premetric.Approximation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.2.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.2.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.2.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 11.2.16 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.3.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.8 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.10 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.12 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.3.14 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_3_14" class="idref" href="#Book_11_3_14"><span class="id" title="definition">Book_11_3_14</span></a> := @<a class="idref" href="HoTT.Classes.theory.premetric.html#Lipschitz"><span class="id" title="class">HoTT.Classes.theory.premetric.Lipschitz</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.16 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.32 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.36 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.37 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.39 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.40 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.41 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.42 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.3.43 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.44 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.46 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.48 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.3.50 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.4.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 11.4.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.5.1 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.5.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.5.3 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.5.5 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.5.6 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.5.7 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.5.9 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.5.11 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.5.13 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Lemma 11.5.14 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 11.5.15 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.5.16 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Definition 11.6.1 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_1" class="idref" href="#Book_11_6_1"><span class="id" title="definition">Book_11_6_1</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#No"><span class="id" title="definition">HoTT.Spaces.No.Core.No</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.6.2 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.6.4 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_4_i" class="idref" href="#Book_11_6_4_i"><span class="id" title="definition">Book_11_6_4_i</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#le_reflexive"><span class="id" title="lemma">HoTT.Spaces.No.Core.le_reflexive</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_4_ii_l" class="idref" href="#Book_11_6_4_ii_l"><span class="id" title="definition">Book_11_6_4_ii_l</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#lt_lopt"><span class="id" title="lemma">HoTT.Spaces.No.Core.lt_lopt</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_4_ii_r" class="idref" href="#Book_11_6_4_ii_r"><span class="id" title="definition">Book_11_6_4_ii_r</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#lt_ropt"><span class="id" title="lemma">HoTT.Spaces.No.Core.lt_ropt</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 11.6.5 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_5" class="idref" href="#Book_11_6_5"><span class="id" title="definition">Book_11_6_5</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#isset_No"><span class="id" title="instance">HoTT.Spaces.No.Core.isset_No</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.6.7 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_7" class="idref" href="#Book_11_6_7"><span class="id" title="definition">Book_11_6_7</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#No_codes_package"><span class="id" title="definition">HoTT.Spaces.No.Core.No_codes_package</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Theorem 11.6.16 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_16_i" class="idref" href="#Book_11_6_16_i"><span class="id" title="definition">Book_11_6_16_i</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#No_encode_le_lt"><span class="id" title="definition">HoTT.Spaces.No.Core.No_encode_le_lt</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_16_ii" class="idref" href="#Book_11_6_16_ii"><span class="id" title="definition">Book_11_6_16_ii</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#No_decode_le_lt"><span class="id" title="definition">HoTT.Spaces.No.Core.No_decode_le_lt</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Corollary 11.6.17 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_17_i" class="idref" href="#Book_11_6_17_i"><span class="id" title="definition">Book_11_6_17_i</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#lt_le"><span class="id" title="lemma">HoTT.Spaces.No.Core.lt_le</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_17_ii" class="idref" href="#Book_11_6_17_ii"><span class="id" title="definition">Book_11_6_17_ii</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#le_le_trans"><span class="id" title="lemma">HoTT.Spaces.No.Core.le_le_trans</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_17_iii" class="idref" href="#Book_11_6_17_iii"><span class="id" title="definition">Book_11_6_17_iii</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#le_lt_trans"><span class="id" title="lemma">HoTT.Spaces.No.Core.le_lt_trans</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_17_iv" class="idref" href="#Book_11_6_17_iv"><span class="id" title="definition">Book_11_6_17_iv</span></a> := @<a class="idref" href="HoTT.Spaces.No.Core.html#lt_le_trans"><span class="id" title="lemma">HoTT.Spaces.No.Core.lt_le_trans</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Example 11.6.18 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="Book_11_6_18" class="idref" href="#Book_11_6_18"><span class="id" title="definition">Book_11_6_18</span></a> := @<a class="idref" href="HoTT.Spaces.No.Addition.html#plus"><span class="id" title="definition">HoTT.Spaces.No.Addition.plus</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

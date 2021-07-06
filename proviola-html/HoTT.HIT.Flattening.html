@@ -1,0 +1,1624 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "<infomsg>Interactive Module FlattenedHIT started</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "<infomsg>Wtil is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "<infomsg>ppt is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "<infomsg>Wtil_ind is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "<infomsg>Wtil_ind_beta_ppt is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "<infomsg>Module FlattenedHIT is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "<infomsg>Wtil_rec is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 89)	  	  A : Type	  B : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  Q : Type	  cct' : forall a : A, C a -> Q	  ppt' : forall (b : B) (y : C (f b)), cct' (f b) y = cct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ap (Wtil_rec Q cct' ppt') (ppt b y) = ppt' b y	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 90)	  	  A : Type	  B : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  Q : Type	  cct' : forall a : A, C a -> Q	  ppt' : forall (b : B) (y : C (f b)), cct' (f b) y = cct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ap	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)) 	    (ppt b y) = ppt' b y	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 focused subgoal	(shelved: 2) (ID 106)	  	  A : Type	  B : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  Q : Type	  cct' : forall a : A, C a -> Q	  ppt' : forall (b : B) (y : C (f b)), cct' (f b) y = cct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  transport_const (ppt b y)	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)	       (cct (f b) y)) @	  ap	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)) 	    (ppt b y) =	  transport_const (ppt b y)	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)	       (cct (f b) y)) @ ppt' b y	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 129)	  	  A : Type	  B : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  Q : Type	  cct' : forall a : A, C a -> Q	  ppt' : forall (b : B) (y : C (f b)), cct' (f b) y = cct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  apD	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)) 	    (ppt b y) =	  transport_const (ppt b y)	    (Wtil_ind (fun _ : Wtil A B f g C D => Q) cct'	       (fun (b0 : B) (y0 : C (f b0)) =>	        transport_const (ppt b0 y0) (cct' (f b0) y0) @ ppt' b0 y0)	       (cct (f b) y)) @ ppt' b y	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "<infomsg>B is declared</infomsg>	<infomsg>A is declared</infomsg>	<infomsg>f is declared</infomsg>	<infomsg>g is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "<infomsg>C is declared</infomsg>	<infomsg>D is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "<infomsg>W' is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "<infomsg>P is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "<infomsg>sWtil is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "<infomsg>scct is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "<infomsg>sppt is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 153)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  ============================	  forall w : sWtil, Q w	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "1 subgoal (ID 156)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  ============================	  forall (proj1 : W') (proj2 : P proj1), Q (proj1; proj2)	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 169)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  ============================	  forall b : B,	  transport (fun w : Coeq f g => forall x : P w, Q (w; x)) 	    (cglue b) (fun x : P (coeq (f b)) => scct' (f b) x) =	  (fun x : P (coeq (g b)) => scct' (g b) x)	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 170)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  ============================	  transport (fun w : Coeq f g => forall x : P w, Q (w; x)) 	    (cglue b) (fun x : P (coeq (f b)) => scct' (f b) x) =	  (fun x : P (coeq (g b)) => scct' (g b) x)	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "1 subgoal (ID 192)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  ============================	  forall y1 : P (coeq (f b)),	  transportD P (fun (a : W') (b0 : P a) => Q (a; b0)) 	    (cglue b) y1 (scct' (f b) y1) = scct' (g b) (transport P (cglue b) y1)	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 193)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  ============================	  transportD P (fun (a : W') (b0 : P a) => Q (a; b0)) 	    (cglue b) y (scct' (f b) y) = scct' (g b) (transport P (cglue b) y)	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 211)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transportD P (fun (a : W') (b0 : P a) => Q (a; b0)) 	    (cglue b) y (scct' (f b) y) = scct' (g b) (transport P (cglue b) y)	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "1 subgoal (ID 213)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transport Q (path_sigma' P (cglue b) 1) (scct' (f b) y) =	  scct' (g b) (transport P (cglue b) y)	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "1 subgoal (ID 228)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transport Q (path_sigma' P (cglue b) 1) (scct' (f b) y) =	  transport (fun x : C (g b) => Q (scct (g b) x)) q^ (scct' (g b) (D b y))	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "1 subgoal (ID 238)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transport (fun x : C (g b) => Q (scct (g b) x)) q	    (transport Q (path_sigma' P (cglue b) 1) (scct' (f b) y)) =	  scct' (g b) (D b y)	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "1 subgoal (ID 249)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transport Q (path_sigma' P (cglue b) 1 @ ap (scct (g b)) q) (scct' (f b) y) =	  scct' (g b) (D b y)	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 257)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  transport Q (path_sigma' P (cglue b) 1 @ ap (scct (g b)) q) (scct' (f b) y) =	  transport Q (sppt b y) (scct' (f b) y)	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 265)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  path_sigma' P (cglue b) 1 @ ap (scct (g b)) q = sppt b y	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "1 subgoal (ID 289)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : sWtil -> Type	  scct' : forall (a : A) (x : C a), Q (scct a x)	  sppt' : forall (b : B) (y : C (f b)),	          transport Q (sppt b y) (scct' (f b) y) = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  q := transport_path_universe' P (cglue b) (D b)	         (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	         y : transport P (cglue b) y = D b y	  ============================	  path_sigma' P (cglue b) 1 @ path_sigma' P 1 q = sppt b y	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "<infomsg>sWtil_ind_beta_cct is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "1 subgoal (ID 176)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  ============================	  sWtil -> Q	";
+            responses[i]=data;
+          
+
+            i = 112;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 113;
+            data = "1 subgoal (ID 179)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  ============================	  forall proj1 : W', P proj1 -> Q	";
+            responses[i]=data;
+          
+
+            i = 114;
+            data = "1 subgoal (ID 189)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  ============================	  forall b : B,	  transport (fun w : Coeq f g => P w -> Q) (cglue b)	    (fun x : P (coeq (f b)) => scct' (f b) x) =	  (fun x : P (coeq (g b)) => scct' (g b) x)	";
+            responses[i]=data;
+          
+
+            i = 115;
+            data = "1 subgoal (ID 190)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  ============================	  transport (fun w : Coeq f g => P w -> Q) (cglue b)	    (fun x : P (coeq (f b)) => scct' (f b) x) =	  (fun x : P (coeq (g b)) => scct' (g b) x)	";
+            responses[i]=data;
+          
+
+            i = 116;
+            data = "1 subgoal (ID 206)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  ============================	  forall y1 : P (coeq (f b)),	  transport (fun _ : W' => Q) (cglue b) (scct' (f b) y1) =	  scct' (g b) (transport P (cglue b) y1)	";
+            responses[i]=data;
+          
+
+            i = 117;
+            data = "1 subgoal (ID 207)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  ============================	  transport (fun _ : W' => Q) (cglue b) (scct' (f b) y) =	  scct' (g b) (transport P (cglue b) y)	";
+            responses[i]=data;
+          
+
+            i = 118;
+            data = "1 subgoal (ID 222)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  ============================	  scct' (f b) y = scct' (g b) (transport P (cglue b) y)	";
+            responses[i]=data;
+          
+
+            i = 119;
+            data = "1 subgoal (ID 237)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  ============================	  D b y = transport P (cglue b) y	";
+            responses[i]=data;
+          
+
+            i = 120;
+            data = "1 subgoal (ID 253)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : P (coeq (f b))	  ============================	  ap P (cglue b) = path_universe (D b)	";
+            responses[i]=data;
+          
+
+            i = 121;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 122;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 123;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 124;
+            data = "1 subgoal (ID 192)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ap (sWtil_rec Q scct' sppt') (sppt b y) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 125;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 126;
+            data = "1 subgoal (ID 193)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ap	    (sig_ind (fun _ : {w : W' & P w} => Q)	       (Coeq_ind (fun w : Coeq f g => P w -> Q)	          (fun (a : A) (x : P (coeq a)) => scct' a x)	          (fun b0 : B =>	           dpath_arrow P (fun _ : W' => Q) (cglue b0)	             (fun x : P (coeq (f b0)) => scct' (f b0) x)	             (fun x : P (coeq (g b0)) => scct' (g b0) x)	             (fun y0 : P (coeq (f b0)) =>	              transport_const (cglue b0) (scct' (f b0) y0)	              @' (sppt' b0 y0	                  @' ap (scct' (g b0))	                       (transport_path_universe' P 	                          (cglue b0) (D b0)	                          (Coeq_rec_beta_cglue Type C	                             (fun b1 : B => path_universe (D b1)) b0) y0)^)))))	    (path_sigma' P (cglue b)	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y)) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 127;
+            data = "1 subgoal (ID 217)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  (transport_const (cglue b) (scct' (f b) y))^	  @' (ap	        (fun x : C (f b) =>	         transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	        (transport_Vp P (cglue b) y))^	  @' (transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	        (transport P (cglue b) y))^	  @' ap10	       (apD	          (Coeq_ind (fun w : Coeq f g => P w -> Q)	             (fun (a : A) (x : C a) => scct' a x)	             (fun b0 : B =>	              dpath_arrow P (fun _ : W' => Q) (cglue b0)	                (fun x : C (f b0) => scct' (f b0) x)	                (fun x : C (g b0) => scct' (g b0) x)	                (fun y0 : C (f b0) =>	                 transport_const (cglue b0) (scct' (f b0) y0)	                 @' (sppt' b0 y0	                     @' ap (scct' (g b0))	                          (transport_path_universe' P 	                             (cglue b0) (D b0)	                             (Coeq_rec_beta_cglue Type C	                                (fun b1 : B => path_universe (D b1)) b0) y0)^))))	          (cglue b)) (transport P (cglue b) y)	  @' ap (fun x : C (g b) => scct' (g b) x)	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 128;
+            data = "1 subgoal (ID 218)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  (transport_const (cglue b) (scct' (f b) y))^	  @' (ap	        (fun x : C (f b) =>	         transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	        (transport_Vp P (cglue b) y))^	  @' (transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	        (transport P (cglue b) y))^	  @' ap10	       (dpath_arrow P (fun _ : W' => Q) (cglue b)	          (fun x : C (f b) => scct' (f b) x)	          (fun x : C (g b) => scct' (g b) x)	          (fun y0 : C (f b) =>	           transport_const (cglue b) (scct' (f b) y0)	           @' (sppt' b y0	               @' ap (scct' (g b))	                    (transport_path_universe' P (cglue b) 	                       (D b)	                       (Coeq_rec_beta_cglue Type C	                          (fun b0 : B => path_universe (D b0)) b) y0)^)))	       (transport P (cglue b) y)	  @' ap (fun x : C (g b) => scct' (g b) x)	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 129;
+            data = "1 subgoal (ID 234)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  (transport_const (cglue b) (scct' (f b) y))^	  @' (ap	        (fun x : C (f b) =>	         transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	        (transport_Vp P (cglue b) y))^	  @' (transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	        (transport P (cglue b) y))^	  @' (transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	        (transport P (cglue b) y)	      @' ap	           (fun x : P (coeq (f b)) =>	            transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	           (transport_Vp P (cglue b) y)	      @' (transport_const (cglue b) (scct' (f b) y)	          @' (sppt' b y	              @' ap (scct' (g b))	                   (transport_path_universe' P (cglue b) 	                      (D b)	                      (Coeq_rec_beta_cglue Type C	                         (fun b0 : B => path_universe (D b0)) b) y)^)))	  @' ap (fun x : C (g b) => scct' (g b) x)	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 130;
+            data = "1 subgoal (ID 288)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  (transport_const (cglue b) (scct' (f b) y))^	  @' (ap	        (fun x : C (f b) =>	         transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	        (transport_Vp P (cglue b) y))^	  @' (transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	        (transport P (cglue b) y))^	  @' transport_arrow (cglue b) (fun x : C (f b) => scct' (f b) x)	       (transport P (cglue b) y)	  @' ap	       (fun x : P (coeq (f b)) =>	        transport (fun _ : W' => Q) (cglue b) (scct' (f b) x))	       (transport_Vp P (cglue b) y)	  @' transport_const (cglue b) (scct' (f b) y)	  @' sppt' b y	  @' ap (scct' (g b))	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y)^	  @' ap (fun x : C (g b) => scct' (g b) x)	       (transport_path_universe' P (cglue b) (D b)	          (Coeq_rec_beta_cglue Type C (fun b0 : B => path_universe (D b0)) b)	          y) = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 131;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 132;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 133;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 134;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 135;
+            data = "1 subgoal (ID 334)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  Q : Type	  scct' : forall a : A, C a -> Q	  sppt' : forall (b : B) (y : C (f b)), scct' (f b) y = scct' (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  1	  @' sppt' b y = sppt' b y	";
+            responses[i]=data;
+          
+
+            i = 136;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 137;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 138;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 139;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 140;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 141;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 142;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 143;
+            data = "1 subgoal (ID 193)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  Wtil A B f g C D <~> sWtil	";
+            responses[i]=data;
+          
+
+            i = 144;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 145;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 146;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 147;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 148;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 149;
+            data = "2 subgoals (ID 222)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  (fun x : sWtil =>	   Wtil_rec sWtil scct sppt (sWtil_rec (Wtil A B f g C D) cct ppt x)) ==	  idmap		subgoal 2 (ID 223) is:	 (fun x : Wtil A B f g C D =>	  sWtil_rec (Wtil A B f g C D) cct ppt (Wtil_rec sWtil scct sppt x)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 150;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 151;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 152;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 153;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 154;
+            data = "1 subgoal (ID 222)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  (fun x : sWtil =>	   Wtil_rec sWtil scct sppt (sWtil_rec (Wtil A B f g C D) cct ppt x)) ==	  idmap	1 subgoal (ID 232)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  forall (b : B) (y : C (f b)),	  transport	    (fun w : sWtil =>	     Wtil_rec sWtil scct sppt (sWtil_rec (Wtil A B f g C D) cct ppt w) = w)	    (sppt b y) 1 = 1	";
+            responses[i]=data;
+          
+
+            i = 155;
+            data = "1 subgoal (ID 234)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  transport	    (fun w : sWtil =>	     Wtil_rec sWtil scct sppt (sWtil_rec (Wtil A B f g C D) cct ppt w) = w)	    (sppt b y) 1 = 1	";
+            responses[i]=data;
+          
+
+            i = 156;
+            data = "1 subgoal (ID 244)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  1 @ sppt b y =	  ap (Wtil_rec sWtil scct sppt)	    (ap (sWtil_rec (Wtil A B f g C D) cct ppt) (sppt b y)) @ 1	";
+            responses[i]=data;
+          
+
+            i = 157;
+            data = "1 subgoal (ID 255)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  sppt b y =	  ap (Wtil_rec sWtil scct sppt)	    (ap (sWtil_rec (Wtil A B f g C D) cct ppt) (sppt b y))	";
+            responses[i]=data;
+          
+
+            i = 158;
+            data = "1 subgoal (ID 259)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  sppt b y = ap (Wtil_rec sWtil scct sppt) (ppt b y)	";
+            responses[i]=data;
+          
+
+            i = 159;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 223) is:	 (fun x : Wtil A B f g C D =>	  sWtil_rec (Wtil A B f g C D) cct ppt (Wtil_rec sWtil scct sppt x)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 160;
+            data = "1 subgoal (ID 223)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  (fun x : Wtil A B f g C D =>	   sWtil_rec (Wtil A B f g C D) cct ppt (Wtil_rec sWtil scct sppt x)) ==	  idmap	1 subgoal (ID 284)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  ============================	  forall (b : B) (y : C (f b)),	  transport	    (fun w : Wtil A B f g C D =>	     sWtil_rec (Wtil A B f g C D) cct ppt (Wtil_rec sWtil scct sppt w) = w)	    (ppt b y) 1 = 1	";
+            responses[i]=data;
+          
+
+            i = 161;
+            data = "1 subgoal (ID 286)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  transport	    (fun w : Wtil A B f g C D =>	     sWtil_rec (Wtil A B f g C D) cct ppt (Wtil_rec sWtil scct sppt w) = w)	    (ppt b y) 1 = 1	";
+            responses[i]=data;
+          
+
+            i = 162;
+            data = "1 subgoal (ID 296)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  1 @ ppt b y =	  ap (sWtil_rec (Wtil A B f g C D) cct ppt)	    (ap (Wtil_rec sWtil scct sppt) (ppt b y)) @ 1	";
+            responses[i]=data;
+          
+
+            i = 163;
+            data = "1 subgoal (ID 307)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ppt b y =	  ap (sWtil_rec (Wtil A B f g C D) cct ppt)	    (ap (Wtil_rec sWtil scct sppt) (ppt b y))	";
+            responses[i]=data;
+          
+
+            i = 164;
+            data = "1 subgoal (ID 317)	  	  H : Univalence	  B : Type	  A : Type	  f, g : B -> A	  C : A -> Type	  D : forall b : B, C (f b) <~> C (g b)	  W' := Coeq f g : Type	  P := Coeq_rec Type C (fun b : B => path_universe (D b)) : W' -> Type	  sWtil := {w : W' & P w} : Type	  scct := fun (a : A) (x : C a) => (coeq a; x) : forall a : A, C a -> sWtil	  sppt := fun (b : B) (y : C (f b)) =>	          path_sigma' P (cglue b)	            (transport_path_universe' P (cglue b) 	               (D b)	               (Coeq_rec_beta_cglue Type C	                  (fun b0 : B => path_universe (D b0)) b) y)	   : forall (b : B) (y : C (f b)), scct (f b) y = scct (g b) (D b y)	  b : B	  y : C (f b)	  ============================	  ppt b y = ap (sWtil_rec (Wtil A B f g C D) cct ppt) (sppt b y)	";
+            responses[i]=data;
+          
+
+            i = 165;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 166;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 167;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 168;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 169;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 170;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 171;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 172;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 173;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 174;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 175;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 176;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 177;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 178;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.HIT.Flattening</h1>
+<div scenenumber="3" class="code"><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<br>
+</span></div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab867"></a><h1 class="section">The flattening lemma.</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(13, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(14, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.Paths.html#"><span class="id" title="library">Types.Paths</span></a> <a class="idref" href="HoTT.Types.Forall.html#"><span class="id" title="library">Types.Forall</span></a> <a class="idref" href="HoTT.Types.Sigma.html#"><span class="id" title="library">Types.Sigma</span></a> <a class="idref" href="HoTT.Types.Arrow.html#"><span class="id" title="library">Types.Arrow</span></a> <a class="idref" href="HoTT.Types.Universe.html#"><span class="id" title="library">Types.Universe</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HIT.Coeq.html#"><span class="id" title="library">HoTT.HIT.Coeq</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+The base HIT <span class="inlinecode"><a class="idref" href="HoTT.Types.WType.html#W"><span class="id" title="inductive">W</span></a></span> is just a homotopy coequalizer <span class="inlinecode"><a class="idref" href="HoTT.HIT.Coeq.html#Coeq.Coeq"><span class="id" title="inductive">Coeq</span></a></span>. 
+<div class="doc" scenenumber="5"> </div>
+
+ TODO: Make the names in this file more usable, move it into <span class="inlinecode"><span class="id" title="var">Coeq.v</span></span>, and use it to derive corresponding flattening lemmas for <span class="inlinecode"><span class="id" title="var">pushout</span></span>, etc. 
+<div class="doc" scenenumber="11"> </div>
+
+ Now we define the flattened HIT which will be equivalent to the total space of a fibration over <span class="inlinecode"><a class="idref" href="HoTT.Types.WType.html#W"><span class="id" title="inductive">W</span></a></span>. 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(35, '0_3_11');
+      ">
+<br>
+<span class="id" title="keyword">Module</span> <span class="id" title="keyword">Export</span> <a id="FlattenedHIT" class="idref" href="#FlattenedHIT"><span class="id" title="module">FlattenedHIT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(36, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="var">Private</span> <span class="id" title="keyword">Inductive</span> <a id="FlattenedHIT.Wtil" class="idref" href="#FlattenedHIT.Wtil"><span class="id" title="inductive">Wtil</span></a> (<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> : <span class="id" title="keyword">Type</span>) (<a id="f:3" class="idref" href="#f:3"><span class="id" title="binder">f</span></a> <a id="g:4" class="idref" href="#g:4"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#B:2"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:1"><span class="id" title="variable">A</span></a>)<br>
+  (<a id="C:5" class="idref" href="#C:5"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<a id="D:7" class="idref" href="#D:7"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:6" class="idref" href="#b:6"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:5"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:3"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:6"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:5"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:4"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:6"><span class="id" title="variable">b</span></a>))<br>
+  : <span class="id" title="keyword">Type</span> :=<br>
+| <a id="FlattenedHIT.cct" class="idref" href="#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:10" class="idref" href="#a:10"><span class="id" title="binder">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:5"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:10"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Wtil:8"><span class="id" title="inductive">Wtil</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:2"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:3"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:4"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:5"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:7"><span class="id" title="variable">D</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(37, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="var">Arguments</span> <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">C</span> <span class="id" title="var">D</span>} <span class="id" title="var">a</span> <span class="id" title="var">c</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(38, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Axiom</span> <a id="FlattenedHIT.ppt" class="idref" href="#FlattenedHIT.ppt"><span class="id" title="axiom">ppt</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> {<a id="A:11" class="idref" href="#A:11"><span class="id" title="binder">A</span></a> <a id="B:12" class="idref" href="#B:12"><span class="id" title="binder">B</span></a> <a id="f:13" class="idref" href="#f:13"><span class="id" title="binder">f</span></a> <a id="g:14" class="idref" href="#g:14"><span class="id" title="binder">g</span></a> <a id="C:15" class="idref" href="#C:15"><span class="id" title="binder">C</span></a> <a id="D:16" class="idref" href="#D:16"><span class="id" title="binder">D</span></a>} (<a id="b:17" class="idref" href="#b:17"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#B:12"><span class="id" title="variable">B</span></a>) (<a id="y:18" class="idref" href="#y:18"><span class="id" title="binder">y</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#C:15"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:13"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:17"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a><br>
+  @<a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:11"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:12"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:13"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:14"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:15"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:16"><span class="id" title="variable">D</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:13"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:17"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:18"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:14"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:17"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#D:16"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:17"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:18"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(39, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="FlattenedHIT.Wtil_ind" class="idref" href="#FlattenedHIT.Wtil_ind"><span class="id" title="definition">Wtil_ind</span></a> {<a id="A:20" class="idref" href="#A:20"><span class="id" title="binder">A</span></a> <a id="B:21" class="idref" href="#B:21"><span class="id" title="binder">B</span></a> <a id="f:22" class="idref" href="#f:22"><span class="id" title="binder">f</span></a> <a id="g:23" class="idref" href="#g:23"><span class="id" title="binder">g</span></a> <a id="C:24" class="idref" href="#C:24"><span class="id" title="binder">C</span></a> <a id="D:25" class="idref" href="#D:25"><span class="id" title="binder">D</span></a>} (<a id="Q:26" class="idref" href="#Q:26"><span class="id" title="binder">Q</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.Wtil"><span class="id" title="inductive">Wtil</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:20"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:21"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:23"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:24"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:25"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="cct':29" class="idref" href="#cct':29"><span class="id" title="binder">cct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:27" class="idref" href="#a:27"><span class="id" title="binder">a</span></a> <a id="x:28" class="idref" href="#x:28"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:26"><span class="id" title="variable">Q</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:27"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:28"><span class="id" title="variable">x</span></a>))<br>
+  (<a id="ppt':32" class="idref" href="#ppt':32"><span class="id" title="binder">ppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:30" class="idref" href="#b:30"><span class="id" title="binder">b</span></a> <a id="y:31" class="idref" href="#y:31"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.ppt"><span class="id" title="axiom">ppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:30"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:31"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#cct':29"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:30"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:31"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':29"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:23"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:30"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#D:25"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:30"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:31"><span class="id" title="variable">y</span></a>))<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="w:33" class="idref" href="#w:33"><span class="id" title="binder">w</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:26"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#w:33"><span class="id" title="variable">w</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="w:34" class="idref" href="#w:34"><span class="id" title="binder">w</span></a> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.HIT.Flattening.html#w:34"><span class="id" title="variable">w</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> <span class="id" title="var">a</span> <span class="id" title="var">x</span> ⇒ <a class="idref" href="HoTT.HIT.Flattening.html#cct':29"><span class="id" title="variable">cct'</span></a> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(40, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Axiom</span> <a id="FlattenedHIT.Wtil_ind_beta_ppt" class="idref" href="#FlattenedHIT.Wtil_ind_beta_ppt"><span class="id" title="axiom">Wtil_ind_beta_ppt</span></a><br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> {<a id="A:36" class="idref" href="#A:36"><span class="id" title="binder">A</span></a> <a id="B:37" class="idref" href="#B:37"><span class="id" title="binder">B</span></a> <a id="f:38" class="idref" href="#f:38"><span class="id" title="binder">f</span></a> <a id="g:39" class="idref" href="#g:39"><span class="id" title="binder">g</span></a> <a id="C:40" class="idref" href="#C:40"><span class="id" title="binder">C</span></a> <a id="D:41" class="idref" href="#D:41"><span class="id" title="binder">D</span></a>} (<a id="Q:42" class="idref" href="#Q:42"><span class="id" title="binder">Q</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.Wtil"><span class="id" title="inductive">Wtil</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:36"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:37"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:38"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:39"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:40"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:41"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+    (<a id="cct':45" class="idref" href="#cct':45"><span class="id" title="binder">cct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:43" class="idref" href="#a:43"><span class="id" title="binder">a</span></a> <a id="x:44" class="idref" href="#x:44"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:42"><span class="id" title="variable">Q</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.cct"><span class="id" title="constructor">cct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:43"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:44"><span class="id" title="variable">x</span></a>))<br>
+    (<a id="ppt':48" class="idref" href="#ppt':48"><span class="id" title="binder">ppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:46" class="idref" href="#b:46"><span class="id" title="binder">b</span></a> <a id="y:47" class="idref" href="#y:47"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.ppt"><span class="id" title="axiom">ppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:46"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:47"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#cct':45"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:38"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:46"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:47"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':45"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:39"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:46"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#D:41"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:46"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:47"><span class="id" title="variable">y</span></a>))<br>
+    (<a id="b:49" class="idref" href="#b:49"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#B:37"><span class="id" title="variable">B</span></a>) (<a id="y:50" class="idref" href="#y:50"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#C:40"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:38"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:49"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a><br>
+    <a class="idref" href="HoTT.Basics.Overture.html#apD"><span class="id" title="definition">apD</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.Wtil_ind"><span class="id" title="definition">Wtil_ind</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:42"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':45"><span class="id" title="variable">cct'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt':48"><span class="id" title="variable">ppt'</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.ppt"><span class="id" title="axiom">ppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:49"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:50"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt':48"><span class="id" title="variable">ppt'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:49"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:50"><span class="id" title="variable">y</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(41, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT"><span class="id" title="module">FlattenedHIT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(42, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Wtil_rec" class="idref" href="#Wtil_rec"><span class="id" title="definition">Wtil_rec</span></a> {<a id="A:52" class="idref" href="#A:52"><span class="id" title="binder">A</span></a> <a id="B:53" class="idref" href="#B:53"><span class="id" title="binder">B</span></a> <a id="f:54" class="idref" href="#f:54"><span class="id" title="binder">f</span></a> <a id="g:55" class="idref" href="#g:55"><span class="id" title="binder">g</span></a> <a id="C:56" class="idref" href="#C:56"><span class="id" title="binder">C</span></a>} {<a id="D:58" class="idref" href="#D:58"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:57" class="idref" href="#b:57"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:56"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:54"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:57"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:56"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:55"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:57"><span class="id" title="variable">b</span></a>)}<br>
+  (<a id="Q:59" class="idref" href="#Q:59"><span class="id" title="binder">Q</span></a> : <span class="id" title="keyword">Type</span>) (<a id="cct':62" class="idref" href="#cct':62"><span class="id" title="binder">cct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:60" class="idref" href="#a:60"><span class="id" title="binder">a</span></a> (<a id="x:61" class="idref" href="#x:61"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#C:56"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:60"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:59"><span class="id" title="variable">Q</span></a>)<br>
+  (<a id="ppt':65" class="idref" href="#ppt':65"><span class="id" title="binder">ppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:63" class="idref" href="#b:63"><span class="id" title="binder">b</span></a> (<a id="y:64" class="idref" href="#y:64"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#C:56"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:54"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:63"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':62"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:54"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:63"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:64"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':62"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:55"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:63"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#D:58"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:63"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:64"><span class="id" title="variable">y</span></a>))<br>
+  : <a class="idref" href="HoTT.HIT.Flattening.html#Wtil"><span class="id" title="inductive">Wtil</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:52"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:53"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:54"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:55"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:56"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:58"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:59"><span class="id" title="variable">Q</span></a><br>
+  := <a class="idref" href="HoTT.HIT.Flattening.html#Wtil_ind"><span class="id" title="definition">Wtil_ind</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.HIT.Flattening.html#Q:59"><span class="id" title="variable">Q</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#cct':62"><span class="id" title="variable">cct'</span></a> (<span class="id" title="keyword">fun</span> <a id="b:66" class="idref" href="#b:66"><span class="id" title="binder">b</span></a> <a id="y:67" class="idref" href="#y:67"><span class="id" title="binder">y</span></a> ⇒ <a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_const"><span class="id" title="definition">transport_const</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt':65"><span class="id" title="variable">ppt'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:66"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:67"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(43, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Wtil_rec_beta_ppt" class="idref" href="#Wtil_rec_beta_ppt"><span class="id" title="definition">Wtil_rec_beta_ppt</span></a><br>
+  {<a id="A:68" class="idref" href="#A:68"><span class="id" title="binder">A</span></a> <a id="B:69" class="idref" href="#B:69"><span class="id" title="binder">B</span></a> <a id="f:70" class="idref" href="#f:70"><span class="id" title="binder">f</span></a> <a id="g:71" class="idref" href="#g:71"><span class="id" title="binder">g</span></a> <a id="C:72" class="idref" href="#C:72"><span class="id" title="binder">C</span></a>} {<a id="D:74" class="idref" href="#D:74"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:73" class="idref" href="#b:73"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:70"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:73"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:71"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:73"><span class="id" title="variable">b</span></a>)}<br>
+  (<a id="Q:75" class="idref" href="#Q:75"><span class="id" title="binder">Q</span></a> : <span class="id" title="keyword">Type</span>) (<a id="cct':78" class="idref" href="#cct':78"><span class="id" title="binder">cct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:76" class="idref" href="#a:76"><span class="id" title="binder">a</span></a> (<a id="x:77" class="idref" href="#x:77"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:76"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:75"><span class="id" title="variable">Q</span></a>)<br>
+  (<a id="ppt':81" class="idref" href="#ppt':81"><span class="id" title="binder">ppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="b:79" class="idref" href="#b:79"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#B:69"><span class="id" title="variable">B</span></a>) (<a id="y:80" class="idref" href="#y:80"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:70"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:79"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':78"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:70"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:79"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:80"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':78"><span class="id" title="variable">cct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#g:71"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:79"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#D:74"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:79"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:80"><span class="id" title="variable">y</span></a>))<br>
+  (<a id="b:82" class="idref" href="#b:82"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#B:69"><span class="id" title="variable">B</span></a>) (<a id="y:83" class="idref" href="#y:83"><span class="id" title="binder">y</span></a>: <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#f:70"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:82"><span class="id" title="variable">b</span></a>))<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (@<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_rec"><span class="id" title="definition">Wtil_rec</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:68"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#B:69"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#f:70"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#g:71"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:72"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#D:74"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:75"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#cct':78"><span class="id" title="variable">cct'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt':81"><span class="id" title="variable">ppt'</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#ppt"><span class="id" title="axiom">ppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:82"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:83"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt':81"><span class="id" title="variable">ppt'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:82"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:83"><span class="id" title="variable">y</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(44, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(45, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.HIT.Flattening.html#Wtil_rec"><span class="id" title="definition">Wtil_rec</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(46, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">eapply</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#cancelL"><span class="id" title="definition">cancelL</span></a> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_const"><span class="id" title="definition">transport_const</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#ppt"><span class="id" title="axiom">ppt</span></a> (<span class="id" title="var">C</span>:=<span class="id" title="var">C</span>) <span class="id" title="var">b</span> <span class="id" title="var">y</span>) <span class="id" title="var">_</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(47, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#apD_const"><span class="id" title="lemma">apD_const</span></a><br>
+    (@<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_ind"><span class="id" title="definition">Wtil_ind</span></a> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">C</span> <span class="id" title="var">D</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">Q</span>) <span class="id" title="var">cct'</span> <span class="id" title="var">_</span>) (<a class="idref" href="HoTT.HIT.Flattening.html#ppt"><span class="id" title="axiom">ppt</span></a> <span class="id" title="var">b</span> <span class="id" title="var">y</span>)<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(48, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_ind_beta_ppt"><span class="id" title="axiom">Wtil_ind_beta_ppt</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">Q</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(49, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(50, '0_3_11');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+Now we define the fibration over it that we will be considering the total space of. 
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(54, '0_3_15');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="AssumeAxioms" class="idref" href="#AssumeAxioms"><span class="id" title="section">AssumeAxioms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(55, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H:84" class="idref" href="#H:84"><span class="id" title="binder">Univalence</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(56, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Context</span> {<a id="B:85" class="idref" href="#B:85"><span class="id" title="binder">B</span></a> <a id="A:86" class="idref" href="#A:86"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>} {<a id="f:87" class="idref" href="#f:87"><span class="id" title="binder">f</span></a> <a id="g:88" class="idref" href="#g:88"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#B:85"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#A:86"><span class="id" title="variable">A</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(57, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Context</span> {<a id="C:89" class="idref" href="#C:89"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>} {<a id="D:91" class="idref" href="#D:91"><span class="id" title="binder">D</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:90" class="idref" href="#b:90"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:89"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:90"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#C:89"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:90"><span class="id" title="variable">b</span></a>)}.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(58, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Let</span> <a id="AssumeAxioms.W'" class="idref" href="#AssumeAxioms.W'"><span class="id" title="variable">W'</span></a> := <a class="idref" href="HoTT.HIT.Coeq.html#Coeq.Coeq"><span class="id" title="inductive">Coeq</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(59, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Let</span> <a id="AssumeAxioms.P" class="idref" href="#AssumeAxioms.P"><span class="id" title="variable">P</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.W'"><span class="id" title="variable">W'</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span><br>
+  := <a class="idref" href="HoTT.HIT.Coeq.html#Coeq_rec"><span class="id" title="definition">Coeq_rec</span></a> <span class="id" title="keyword">Type</span> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<span class="id" title="keyword">fun</span> <a id="b:92" class="idref" href="#b:92"><span class="id" title="binder">b</span></a> ⇒ <a class="idref" href="HoTT.Types.Universe.html#path_universe"><span class="id" title="definition">path_universe</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:92"><span class="id" title="variable">b</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(60, '0_3_15');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+<div class="doc" scenenumber="17">
+Now we give the total space the same structure as <span class="inlinecode"><a class="idref" href="HoTT.HIT.Flattening.html#FlattenedHIT.Wtil"><span class="id" title="inductive">Wtil</span></a></span>. 
+</div>
+<div scenenumber="19" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(66, '0_3_19');
+      ">
+<br>
+<span class="id" title="keyword">Let</span> <a id="AssumeAxioms.sWtil" class="idref" href="#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a> := <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a> <a id="w:93" class="idref" href="#w:93"><span class="id" title="binder">w</span></a><a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a><a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.W'"><span class="id" title="variable">W'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#w:93"><span class="id" title="variable">w</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(67, '0_3_19');
+      "><br>
+<br>
+<span class="id" title="keyword">Let</span> <a id="AssumeAxioms.scct" class="idref" href="#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> (<a id="a:94" class="idref" href="#a:94"><span class="id" title="binder">a</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a>) (<a id="x:95" class="idref" href="#x:95"><span class="id" title="binder">x</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:94"><span class="id" title="variable">a</span></a>) : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a> := (<a class="idref" href="HoTT.Basics.Overture.html#exist"><span class="id" title="constructor">exist</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.coeq"><span class="id" title="constructor">coeq</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:94"><span class="id" title="variable">a</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#x:95"><span class="id" title="variable">x</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(68, '0_3_19');
+      "><br>
+<br>
+<span class="id" title="keyword">Let</span> <a id="AssumeAxioms.sppt" class="idref" href="#AssumeAxioms.sppt"><span class="id" title="variable">sppt</span></a> (<a id="b:96" class="idref" href="#b:96"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a>) (<a id="y:97" class="idref" href="#y:97"><span class="id" title="binder">y</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>)) : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:97"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:97"><span class="id" title="variable">y</span></a>)<br>
+  := <a class="idref" href="HoTT.Types.Sigma.html#path_sigma'"><span class="id" title="definition">path_sigma'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>)<br>
+       (<a class="idref" href="HoTT.Types.Universe.html#transport_path_universe'"><span class="id" title="definition">transport_path_universe'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>)<br>
+         (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq_rec_beta_cglue"><span class="id" title="definition">Coeq_rec_beta_cglue</span></a> <span class="id" title="keyword">Type</span> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<span class="id" title="keyword">fun</span> <a id="b0:98" class="idref" href="#b0:98"><span class="id" title="binder">b0</span></a> ⇒ <a class="idref" href="HoTT.Types.Universe.html#path_universe"><span class="id" title="definition">path_universe</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b0:98"><span class="id" title="variable">b0</span></a>)) <a class="idref" href="HoTT.HIT.Flattening.html#b:96"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:97"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(69, '0_3_19');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_19"><pre><span></span></pre></div>
+<div class="doc" scenenumber="21">
+Here is the dependent eliminator 
+</div>
+<div scenenumber="23" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(73, '0_3_23');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="sWtil_ind" class="idref" href="#sWtil_ind"><span class="id" title="definition">sWtil_ind</span></a> (<a id="Q:99" class="idref" href="#Q:99"><span class="id" title="binder">Q</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="scct':102" class="idref" href="#scct':102"><span class="id" title="binder">scct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:100" class="idref" href="#a:100"><span class="id" title="binder">a</span></a> <a id="x:101" class="idref" href="#x:101"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:99"><span class="id" title="variable">Q</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:100"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:101"><span class="id" title="variable">x</span></a>))<br>
+  (<a id="sppt':105" class="idref" href="#sppt':105"><span class="id" title="binder">sppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:103" class="idref" href="#b:103"><span class="id" title="binder">b</span></a> <a id="y:104" class="idref" href="#y:104"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sppt"><span class="id" title="variable">sppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:103"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:104"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#scct':102"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:103"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:104"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':102"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:103"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:103"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:104"><span class="id" title="variable">y</span></a>))<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="w:106" class="idref" href="#w:106"><span class="id" title="binder">w</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:99"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#w:106"><span class="id" title="variable">w</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(74, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(75, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#sig_ind"><span class="id" title="definition">sig_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(76, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.Coeq_ind"><span class="id" title="definition">Coeq_ind</span></a> (<span class="id" title="keyword">fun</span> <a id="w:113" class="idref" href="#w:113"><span class="id" title="binder">w</span></a> ⇒ <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:114" class="idref" href="#x:114"><span class="id" title="binder">x</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#w:109"><span class="id" title="variable">w</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <span class="id" title="var">Q</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#w:109"><span class="id" title="variable">w</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a><a class="idref" href="HoTT.HIT.Flattening.html#x:110"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>)<br>
+    (<span class="id" title="keyword">fun</span> <a id="a:111" class="idref" href="#a:111"><span class="id" title="binder">a</span></a> <a id="x:112" class="idref" href="#x:112"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">scct'</span> <a class="idref" href="HoTT.HIT.Flattening.html#a:107"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:108"><span class="id" title="variable">x</span></a>) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(77, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(78, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Types.Forall.html#dpath_forall"><span class="id" title="definition">dpath_forall</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<span class="id" title="keyword">fun</span> <a id="a:117" class="idref" href="#a:117"><span class="id" title="binder">a</span></a> <a id="b:118" class="idref" href="#b:118"><span class="id" title="binder">b</span></a> ⇒ <span class="id" title="var">Q</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#a:115"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a><a class="idref" href="HoTT.HIT.Flattening.html#b:116"><span class="id" title="variable">b</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <span class="id" title="var">b</span>)<br>
+    (<span class="id" title="var">scct'</span> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <span class="id" title="var">b</span>)) (<span class="id" title="var">scct'</span> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <span class="id" title="var">b</span>))).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(79, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(80, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">set</span> (<span class="id" title="var">q</span> := <a class="idref" href="HoTT.Types.Universe.html#transport_path_universe'"><span class="id" title="definition">transport_path_universe'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <span class="id" title="var">b</span>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <span class="id" title="var">b</span>)<br>
+    (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq_rec_beta_cglue"><span class="id" title="definition">Coeq_rec_beta_cglue</span></a> <span class="id" title="keyword">Type</span> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<span class="id" title="keyword">fun</span> <a id="b0:120" class="idref" href="#b0:120"><span class="id" title="binder">b0</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a> ⇒ <a class="idref" href="HoTT.Types.Universe.html#path_universe"><span class="id" title="definition">path_universe</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b0:119"><span class="id" title="variable">b0</span></a>)) <span class="id" title="var">b</span>) <span class="id" title="var">y</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(81, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Types.Sigma.html#transportD_is_transport"><span class="id" title="definition">transportD_is_transport</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(82, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#apD"><span class="id" title="definition">apD</span></a> (<span class="id" title="var">scct'</span> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <span class="id" title="var">b</span>)) <span class="id" title="var">q</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(83, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#moveL_transport_V"><span class="id" title="definition">moveL_transport_V</span></a> (<span class="id" title="keyword">fun</span> <a id="x:122" class="idref" href="#x:122"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">Q</span> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <span class="id" title="var">b</span>) <a class="idref" href="HoTT.HIT.Flattening.html#x:121"><span class="id" title="variable">x</span></a>)) <span class="id" title="var">q</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(84, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_compose"><span class="id" title="lemma">transport_compose</span></a>, &lt;- <a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_pp"><span class="id" title="definition">transport_pp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(85, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">sppt'</span> <span class="id" title="var">b</span> <span class="id" title="var">y</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(86, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#ap10"><span class="id" title="definition">ap10</span></a>, <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(87, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#whiskerL"><span class="id" title="definition">whiskerL</span></a> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Types.Sigma.html#ap_exist"><span class="id" title="definition">ap_exist</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.coeq"><span class="id" title="constructor">coeq</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <span class="id" title="var">b</span>)) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">q</span>) <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(88, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Types.Sigma.html#path_sigma_p1_1p'"><span class="id" title="definition">path_sigma_p1_1p'</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(89, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(90, '0_3_23');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_23"><pre><span></span></pre></div>
+<div class="doc" scenenumber="25">
+The eliminator computes on the point constructor. 
+</div>
+<div scenenumber="27" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(94, '0_3_27');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="sWtil_ind_beta_cct" class="idref" href="#sWtil_ind_beta_cct"><span class="id" title="definition">sWtil_ind_beta_cct</span></a> (<a id="Q:123" class="idref" href="#Q:123"><span class="id" title="binder">Q</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br>
+  (<a id="scct':126" class="idref" href="#scct':126"><span class="id" title="binder">scct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:124" class="idref" href="#a:124"><span class="id" title="binder">a</span></a> <a id="x:125" class="idref" href="#x:125"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:123"><span class="id" title="variable">Q</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:124"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:125"><span class="id" title="variable">x</span></a>))<br>
+  (<a id="sppt':129" class="idref" href="#sppt':129"><span class="id" title="binder">sppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:127" class="idref" href="#b:127"><span class="id" title="binder">b</span></a> <a id="y:128" class="idref" href="#y:128"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sppt"><span class="id" title="variable">sppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:127"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:128"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">#</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.Flattening.html#scct':126"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:127"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:128"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#2b82354f12c687608f5c1ade3e7ee37d"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':126"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:127"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:127"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:128"><span class="id" title="variable">y</span></a>))<br>
+  (<a id="a:130" class="idref" href="#a:130"><span class="id" title="binder">a</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a>) (<a id="x:131" class="idref" href="#x:131"><span class="id" title="binder">x</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:130"><span class="id" title="variable">a</span></a>)<br>
+  : <a class="idref" href="HoTT.HIT.Flattening.html#sWtil_ind"><span class="id" title="definition">sWtil_ind</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:123"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':126"><span class="id" title="variable">scct'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#sppt':129"><span class="id" title="variable">sppt'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:130"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:131"><span class="id" title="variable">x</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':126"><span class="id" title="variable">scct'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:130"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:131"><span class="id" title="variable">x</span></a><br>
+  := 1.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(95, '0_3_27');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_27"><pre><span></span></pre></div>
+<div class="doc" scenenumber="29">
+This would be its propositional computation rule on the path constructor... 
+<div class="doc" scenenumber="1"> </div>
+<pre>
+Definition sWtil_ind_beta_ppt (Q : sWtil -&gt; Type)
+  (scct' : forall a x, Q (scct a x))
+  (sppt' : forall b y, (sppt b y) # (scct' (f b) y) = scct' (g b) (D b y))
+  (b:B) (y:C (f b))
+  : apD (sWtil_ind Q scct' sppt') (sppt b y) = sppt' b y.
+Proof.
+  unfold sWtil_ind.
+  (** ... but it's a doozy! *)
+Abort.
+</pre>
+<div class="doc" scenenumber="5"> </div>
+
+ Fortunately, it turns out to be enough to have the computation rule for the *non-dependent* eliminator! 
+<div class="doc" scenenumber="7"> </div>
+
+ We could define that in terms of the dependent one, as usual...
+<pre>
+Definition sWtil_rec (P : Type)
+  (scct' : forall a (x : C a), P)
+  (sppt' : forall b (y : C (f b)), scct' (f b) y = scct' (g b) (D b y))
+  : sWtil -&gt; P
+  := sWtil_ind (fun _ =&gt; P) scct' (fun b y =&gt; transport_const _ _ @ sppt' b y).
+</pre>
+<div class="doc" scenenumber="11"> </div>
+
+ ...but if we define it diindly, then it's easier to reason about. 
+</div>
+<div scenenumber="31" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(111, '0_3_31');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="sWtil_rec" class="idref" href="#sWtil_rec"><span class="id" title="definition">sWtil_rec</span></a> (<a id="Q:132" class="idref" href="#Q:132"><span class="id" title="binder">Q</span></a> : <span class="id" title="keyword">Type</span>)<br>
+  (<a id="scct':135" class="idref" href="#scct':135"><span class="id" title="binder">scct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:133" class="idref" href="#a:133"><span class="id" title="binder">a</span></a> (<a id="x:134" class="idref" href="#x:134"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:133"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:132"><span class="id" title="variable">Q</span></a>)<br>
+  (<a id="sppt':138" class="idref" href="#sppt':138"><span class="id" title="binder">sppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:136" class="idref" href="#b:136"><span class="id" title="binder">b</span></a> (<a id="y:137" class="idref" href="#y:137"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:136"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':135"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:136"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:137"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':135"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:136"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:136"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:137"><span class="id" title="variable">y</span></a>))<br>
+  : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:132"><span class="id" title="variable">Q</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(112, '0_3_31');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(113, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#sig_ind"><span class="id" title="definition">sig_ind</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(114, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.Coeq_ind"><span class="id" title="definition">Coeq_ind</span></a> (<span class="id" title="keyword">fun</span> <a id="w:144" class="idref" href="#w:144"><span class="id" title="binder">w</span></a> ⇒ <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#w:141"><span class="id" title="variable">w</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">Q</span>) (<span class="id" title="keyword">fun</span> <a id="a:142" class="idref" href="#a:142"><span class="id" title="binder">a</span></a> <a id="x:143" class="idref" href="#x:143"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">scct'</span> <a class="idref" href="HoTT.HIT.Flattening.html#a:139"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#x:140"><span class="id" title="variable">x</span></a>) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(115, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(116, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Arrow.html#dpath_arrow"><span class="id" title="definition">dpath_arrow</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">Q</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(117, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(118, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_const"><span class="id" title="definition">transport_const</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(119, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<span class="id" title="var">sppt'</span> <span class="id" title="var">b</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(120, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Types.Universe.html#transport_path_universe'"><span class="id" title="definition">transport_path_universe'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <span class="id" title="var">b</span>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <span class="id" title="var">b</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(121, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq_rec_beta_cglue"><span class="id" title="definition">Coeq_rec_beta_cglue</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(122, '0_3_31');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(123, '0_3_31');
+      "><br>
+<br>
+<span class="id" title="keyword">Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">long_path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(124, '0_3_31');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="sWtil_rec_beta_ppt" class="idref" href="#sWtil_rec_beta_ppt"><span class="id" title="definition">sWtil_rec_beta_ppt</span></a> (<a id="Q:145" class="idref" href="#Q:145"><span class="id" title="binder">Q</span></a> : <span class="id" title="keyword">Type</span>)<br>
+  (<a id="scct':148" class="idref" href="#scct':148"><span class="id" title="binder">scct'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:146" class="idref" href="#a:146"><span class="id" title="binder">a</span></a> (<a id="x:147" class="idref" href="#x:147"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#a:146"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:145"><span class="id" title="variable">Q</span></a>)<br>
+  (<a id="sppt':151" class="idref" href="#sppt':151"><span class="id" title="binder">sppt'</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:149" class="idref" href="#b:149"><span class="id" title="binder">b</span></a> (<a id="y:150" class="idref" href="#y:150"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:149"><span class="id" title="variable">b</span></a>)<a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':148"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:149"><span class="id" title="variable">b</span></a>) <a class="idref" href="HoTT.HIT.Flattening.html#y:150"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':148"><span class="id" title="variable">scct'</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:149"><span class="id" title="variable">b</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:149"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:150"><span class="id" title="variable">y</span></a>))<br>
+  (<a id="b:152" class="idref" href="#b:152"><span class="id" title="binder">b</span></a>:<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a>) (<a id="y:153" class="idref" href="#y:153"><span class="id" title="binder">y</span></a>: <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:152"><span class="id" title="variable">b</span></a>))<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec"><span class="id" title="definition">sWtil_rec</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#Q:145"><span class="id" title="variable">Q</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#scct':148"><span class="id" title="variable">scct'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#sppt':151"><span class="id" title="variable">sppt'</span></a>) (<a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sppt"><span class="id" title="variable">sppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:152"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:153"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#sppt':151"><span class="id" title="variable">sppt'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#b:152"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#y:153"><span class="id" title="variable">y</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(125, '0_3_31');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(126, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec"><span class="id" title="definition">sWtil_rec</span></a>, <span class="id" title="var">sppt</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(127, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">refine</span> (@<a class="idref" href="HoTT.Types.Sigma.html#ap_sig_rec_path_sigma"><span class="id" title="definition">ap_sig_rec_path_sigma</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.W'"><span class="id" title="variable">W'</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> <span class="id" title="var">Q</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <span class="id" title="var">b</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>); <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(128, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> (@<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.Coeq_ind_beta_cglue"><span class="id" title="axiom">Coeq_ind_beta_cglue</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(129, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">rewrite</span> (<a class="idref" href="HoTT.Types.Arrow.html#ap10_dpath_arrow"><span class="id" title="definition">ap10_dpath_arrow</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.P"><span class="id" title="variable">P</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">Q</span>) (<a class="idref" href="HoTT.HIT.Coeq.html#Coeq.cglue"><span class="id" title="axiom">cglue</span></a> <span class="id" title="var">b</span>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">y</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(130, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">repeat</span> <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p_pp"><span class="id" title="definition">concat_p_pp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(131, '0_3_31');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_31"><pre><span></span></pre></div>
+<div class="doc" scenenumber="33">
+Now everything cancels! 
+</div>
+<div scenenumber="35" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(135, '0_3_35');
+      ">
+  <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#ap_V"><span class="id" title="definition">ap_V</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_pV_p"><span class="id" title="definition">concat_pV_p</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_pV_p"><span class="id" title="definition">concat_pV_p</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_pV_p"><span class="id" title="definition">concat_pV_p</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(136, '0_3_35');
+      "><br>
+  <span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_1p"><span class="id" title="definition">concat_1p</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(137, '0_3_35');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(138, '0_3_35');
+      "><br>
+<br>
+<span class="id" title="keyword">Close</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">long_path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(139, '0_3_35');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_35"><pre><span></span></pre></div>
+<div class="doc" scenenumber="37">
+Woot! 
+</div>
+<div scenenumber="39" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(143, '0_3_39');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="equiv_flattening" class="idref" href="#equiv_flattening"><span class="id" title="definition">equiv_flattening</span></a> : <a class="idref" href="HoTT.HIT.Flattening.html#Wtil"><span class="id" title="inductive">Wtil</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sWtil"><span class="id" title="variable">sWtil</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(144, '0_3_39');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(145, '0_3_39');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_39"><pre><span></span></pre></div>
+<div class="doc" scenenumber="41">
+The maps back and forth are obtained easily from the non-dependent eliminators. 
+</div>
+<div scenenumber="43" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_43');
+      " onmouseover="
+      mouseover(149, '0_3_43');
+      ">
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_adjointify"><span class="id" title="definition">equiv_adjointify</span></a><br>
+    (<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_rec"><span class="id" title="definition">Wtil_rec</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.scct"><span class="id" title="variable">scct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.sppt"><span class="id" title="variable">sppt</span></a>)<br>
+    (<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec"><span class="id" title="definition">sWtil_rec</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.Flattening.html#cct"><span class="id" title="constructor">cct</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#ppt"><span class="id" title="axiom">ppt</span></a>)<br>
+    <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_43');
+      " onmouseover="
+      mouseover(150, '0_3_43');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_43"><pre><span></span></pre></div>
+<div class="doc" scenenumber="45">
+The two homotopies are completely symmetrical, using the *dependent* eliminators, but only the computation rules for the non-dependent ones. 
+</div>
+<div scenenumber="47" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(154, '0_3_47');
+      ">
+  - <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.HIT.Flattening.html#sWtil_ind"><span class="id" title="definition">sWtil_ind</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="a:156" class="idref" href="#a:156"><span class="id" title="binder">a</span></a> <a id="x:157" class="idref" href="#x:157"><span class="id" title="binder">x</span></a> ⇒ 1) <span class="id" title="var">_</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(155, '0_3_47');
+      "><span class="id" title="tactic">intros</span> <span class="id" title="var">b</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(156, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Paths.html#dpath_path_FFlr"><span class="id" title="definition">dpath_path_FFlr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(157, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_1p"><span class="id" title="definition">concat_1p</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(158, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec_beta_ppt"><span class="id" title="definition">sWtil_rec_beta_ppt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(159, '0_3_47');
+      "><br>
+      <span class="id" title="tactic">by</span> <span class="id" title="tactic">symmetry</span>; <span class="id" title="tactic">apply</span> (@<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_rec_beta_ppt"><span class="id" title="definition">Wtil_rec_beta_ppt</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.A"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.C"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms.D"><span class="id" title="variable">D</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(160, '0_3_47');
+      "><br>
+  - <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.HIT.Flattening.html#Wtil_ind"><span class="id" title="definition">Wtil_ind</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="a:160" class="idref" href="#a:160"><span class="id" title="binder">a</span></a> <a id="x:161" class="idref" href="#x:161"><span class="id" title="binder">x</span></a> ⇒ 1) <span class="id" title="var">_</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(161, '0_3_47');
+      "><span class="id" title="tactic">intros</span> <span class="id" title="var">b</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(162, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Paths.html#dpath_path_FFlr"><span class="id" title="definition">dpath_path_FFlr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(163, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_1p"><span class="id" title="definition">concat_1p</span></a>, <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(164, '0_3_47');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.HIT.Flattening.html#Wtil_rec_beta_ppt"><span class="id" title="definition">Wtil_rec_beta_ppt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(165, '0_3_47');
+      "><br>
+      <span class="id" title="tactic">by</span> <span class="id" title="tactic">symmetry</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.HIT.Flattening.html#sWtil_rec_beta_ppt"><span class="id" title="definition">sWtil_rec_beta_ppt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(166, '0_3_47');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(167, '0_3_47');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.Flattening.html#AssumeAxioms"><span class="id" title="section">AssumeAxioms</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(168, '0_3_47');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_47"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

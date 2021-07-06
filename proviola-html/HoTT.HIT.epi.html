@@ -1,0 +1,1582 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "<infomsg>ua is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "<infomsg>isepi is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "<infomsg>isepi' is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 54)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  ============================	  isepi f <~> isepi' f	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "1 subgoal (ID 55)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  ============================	  (forall (Z : HSet) (g h : Y -> Z),	   (fun x : X => g (f x)) = (fun x : X => h (f x)) -> g = h) <~>	  (forall (Z : HSet) (g : Y -> Z),	   Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))})	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 72)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  ============================	  (forall g h : Y -> 1%equiv Z,	   (fun x : X => g (f x)) = (fun x : X => h (f x)) -> g = h) <~>	  (forall g : Y -> Z,	   Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))})	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 89)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  (forall h : Y -> 1%equiv Z,	   (fun x : X => 1%equiv g (f x)) = (fun x : X => h (f x)) -> 1%equiv g = h) <~>	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 91)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  (forall h : Y -> Z,	   (fun x : X => g (f x)) = (fun x : X => h (f x)) -> g = h) <~>	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "1 subgoal (ID 128)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  (forall	   xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	   g = xy.1) <~>	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "2 subgoals (ID 233)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  (forall	   xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	   g = xy.1) ->	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}		subgoal 2 (ID 234) is:	 Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))} ->	 forall xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	 g = xy.1	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 233)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  (forall	   xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	   g = xy.1) ->	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	1 subgoal (ID 235)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  hepi : forall	         xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	         g = xy.1	  ============================	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 245)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  hepi : forall	         xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	         g = xy.1	  ============================	  forall y : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	  (g; 1) = y	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 248)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	  hepi : g = xy.1	  ============================	  (g; 1) = xy	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 250)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	  hepi : g = xy.1	  ============================	  {p : (g; 1).1 = xy.1 &	  transport	    (fun h : Y -> Z => (fun x : X => g (f x)) = (fun x : X => h (f x))) p	    (g; 1).2 = xy.2}	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 252)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	  hepi : g = xy.1	  ============================	  transport	    (fun h : Y -> Z => (fun x : X => g (f x)) = (fun x : X => h (f x))) hepi	    (g; 1).2 = xy.2	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 234) is:	 Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))} ->	 forall xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	 g = xy.1	1 subgoal (ID 234)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))} ->	  forall xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	  g = xy.1	1 subgoal (ID 234)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  ============================	  Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))} ->	  forall xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))},	  g = xy.1	1 subgoal (ID 318)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  Z : HSet	  g : Y -> 1%equiv Z	  hepi : Contr {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	  xy : {h : Y -> Z & (fun x : X => g (f x)) = (fun x : X => h (f x))}	  ============================	  g = xy.1	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 63)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  ============================	  isepi' f -> Contr (setcone f)	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 64)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  ============================	  Contr (setcone f)	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 71)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 74)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 131)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "2 subgoals (ID 132)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  tot		subgoal 2 (ID 134) is:	 forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "1 subgoal (ID 132)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  tot	3 subgoals (ID 159)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  B + ?Goal0@{g0:=tr} -> Pushout f (const tt)		subgoal 2 (ID 165) is:	 Type	subgoal 3 (ID 167) is:	 (fun h : B -> setcone f => tr o push o inl o f = h o f) (tr o ?f0 o inl)	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 159)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  B + ?Goal0@{g0:=tr} -> Pushout f (const tt)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	2 subgoals		subgoal 1 (ID 167) is:	 (fun h : B -> setcone f => tr o push o inl o f = h o f) (tr o push o inl)	subgoal 2 (ID 134) is:	 forall y : setcone f, setcone_point f = y	1 subgoal (ID 167)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  (fun h : B -> setcone f => tr o push o inl o f = h o f) (tr o push o inl)	1 subgoal (ID 167)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  ============================	  (fun h : B -> setcone f => tr o push o inl o f = h o f) (tr o push o inl)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 134) is:	 forall y : setcone f, setcone_point f = y	<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 134) is:	 forall y : setcone f, setcone_point f = y	1 subgoal (ID 134)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  l := (tr o push o inl; 1) : tot	  ============================	  forall y : setcone f, setcone_point f = y	1 subgoal (ID 213)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  tot := {h : B -> setcone f & tr o push o inl o f = h o f} : Type	  l := (tr o push o inl; 1) : tot	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        tot) : tot	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "1 subgoal (ID 217)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  l := (tr o push o inl; 1)	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        {h : B -> setcone f & tr o push o inl o f = h o f})	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "2 subgoals (ID 220)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  l := (tr o push o inl; 1)	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        {h : B -> setcone f & tr o push o inl o f = h o f})	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  ============================	  l = r		subgoal 2 (ID 222) is:	 forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 220)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  l := (tr o push o inl; 1)	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        {h : B -> setcone f & tr o push o inl o f = h o f})	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  ============================	  l = r	1 subgoal (ID 270)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  l := (tr o push o inl; 1)	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        {h : B -> setcone f & tr o push o inl o f = h o f})	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  i := (fun (X : Type) (push' : B + X -> Pushout f (const tt)) =>	        hepi (Build_HSet (setcone f)) (tr o push' o inl)) Unit push	   : Contr {h : B -> Build_HSet (setcone f) & tr o push o inl o f = h o f}	  ============================	  l = r	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 222) is:	 forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 222)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  l := (tr o push o inl; 1)	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  r := ((const (setcone_point f);	        ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	          (path_forall (fun a : A => pushl (f a))	             (fun a : A => pushr (const tt a)) alpha1))	        :	        {h : B -> setcone f & tr o push o inl o f = h o f})	   : {h : B -> setcone f & tr o push o inl o f = h o f}	  X : l = r	  ============================	  forall y : setcone f, setcone_point f = y	1 subgoal (ID 279)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 289)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) alpha1)).1 b	  ============================	  forall y : setcone f, setcone_point f = y	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "1 subgoal (ID 336)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) alpha1)).1 b	  ============================	  forall a : Pushout f (const tt), setcone_point f = tr a	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 355)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) alpha1)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  ============================	  forall a : Pushout f (const tt), setcone_point f = tr a	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "1 subgoal (ID 373)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) alpha1)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  ============================	  forall a : A,	  transport (fun w : Pushout f (const tt) => setcone_point f = tr w)	    (pglue a) (I0f (inl (f a))) = I0f (inr (const tt a))	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "1 subgoal (ID 374)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  alpha1 := pglue : forall a : A, pushl (f a) = pushr (const tt a)	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) alpha1))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) alpha1)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  ============================	  forall a : A,	  transport (fun w : Pushout f (const tt) => setcone_point f = tr w)	    (pglue a) (I0 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "1 subgoal (ID 379)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) pglue)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  ============================	  forall a : A,	  transport (fun w : Pushout f (const tt) => setcone_point f = tr w)	    (pglue a) (I0 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "1 subgoal (ID 380)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) pglue)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  ============================	  transport (fun w : Pushout f (const tt) => setcone_point f = tr w)	    (pglue a) (I0 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 381)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0 := fun b : B => ap10 X ..1 b	   : forall b : B,	     (tr o push o inl; 1).1 b =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) pglue)).1 b	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => (I0 a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (I0 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "1 subgoal (ID 385)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) ((fun b : B => ap10 X ..1 b) (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "1 subgoal (ID 386)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 391)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  p := X ..2	   : transport (fun h : B -> setcone f => tr o push o inl o f = h o f) 	       X ..1 (tr o push o inl; 1).2 =	     (const (setcone_point f);	     ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) pglue)).2	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "1 subgoal (ID 392)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  p := X ..2	   : transport	       (fun h : B -> setcone f =>	        (fun x : A => tr (push (inl (f x)))) = (fun x : A => h (f x))) 	       X ..1 1 =	     ap (fun (f0 : A -> Pushout f (const tt)) (x : A) => tr (f0 x))	       (path_forall (fun a : A => pushl (f a))	          (fun a : A => pushr (const tt a)) pglue)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "1 subgoal (ID 405)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  p : ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1 =	      ap (fun (f0 : A -> Pushout f (const tt)) (x : A) => tr (f0 x))	        (path_forall (fun a : A => pushl (f a))	           (fun a : A => pushr (const tt a)) pglue)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 483)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  p : ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1 =	      ap (fun (f0 : A -> Pushout f (const tt)) (x : A) => tr (f0 x))	        (path_forall (fun a : A => pushl (f a))	           (fun a : A => pushr (const tt a)) pglue)	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (ap10 (path_arrow (pushl o f) (pushr o const tt) pglue) a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "1 subgoal (ID 491)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  p : ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1 =	      ap (fun (f0 : A -> Pushout f (const tt)) (x : A) => tr (f0 x))	        (path_forall (fun a : A => pushl (f a))	           (fun a : A => pushr (const tt a)) pglue)	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "1 subgoal (ID 495)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "1 subgoal (ID 512)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  p := (ap10_ap_precompose f X ..1 a)^ @ H'	   : ap10 X ..1 (f a) = ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 513)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  p : ap10 X ..1 (f a) = ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 514)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  p : ap10 X ..1 (f a) = ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap10 X ..1 (f a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "1 subgoal (ID 515)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  p : ap10 X ..1 (f a) = ap tr (pglue a)	  ============================	  transport (fun w : Pushout f (const tt) => tr (push (inr tt)) = tr w)	    (pglue a) (ap tr (pglue a))^ = 1	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 522)	  	  ua : Univalence	  H : Funext	  A : HSet	  B : HSet	  f : A -> B	  hepi : isepi' f	  X : (tr o push o inl; 1) =	      ((const (setcone_point f);	       ap (fun f0 : A -> Pushout f (const tt) => tr o f0)	         (path_forall (fun a : A => pushl (f a))	            (fun a : A => pushr (const tt a)) pglue))	       :	       {h : B -> setcone f & tr o push o inl o f = h o f})	  I0f := fun a : B + Unit =>	         match a as a0 return (setcone_point f = tr (push a0)) with	         | inl a' => ((fun b : B => ap10 X ..1 b) a')^	         | inr u =>	             match u as u0 return (setcone_point f = tr (push (inr u0))) with	             | tt => 1	             end	         end : forall a : B + Unit, setcone_point f = tr (push a)	  a : A	  H' : ap10 (ap (fun (h : B -> setcone f) (x : A) => h (f x)) X ..1) a =	       ap tr (pglue a)	  p : ap10 X ..1 (f a) = ap tr (pglue a)	  ============================	  (ap tr (pglue a))^ @ ap tr (pglue a) = 1	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "1 subgoal (ID 64)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  ============================	  IsConnMap (Tr (-1)) f -> isepi f	";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "1 subgoal (ID 70)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  sur : IsConnMap (Tr (-1)) f	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  ============================	  g = h	";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "1 subgoal (ID 77)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  sur : IsConnMap (Tr (-1)) f	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  ============================	  g == h	";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "1 subgoal (ID 79)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  sur : IsConnMap (Tr (-1)) f	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  y : Y	  ============================	  g y = h y	";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "1 subgoal (ID 81)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  ============================	  g y = h y	";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "1 subgoal (ID 92)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  ============================	  g y = h y	";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "1 subgoal (ID 119)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  ============================	  {x : X & f x = y} -> g y = h y	";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "1 subgoal (ID 125)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  ============================	  g y = h y	";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "1 subgoal (ID 131)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  p0 := apD10 ep x : (fun x : X => g (f x)) x = (fun x : X => h (f x)) x	  ============================	  g y = h y	";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "2 subgoals (ID 144)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  p0 := apD10 ep x : (fun x : X => g (f x)) x = (fun x : X => h (f x)) x	  ============================	  g y = g (f x)		subgoal 2 (ID 145) is:	 g (f x) = h y	";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "1 subgoal (ID 144)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  p0 := apD10 ep x : (fun x : X => g (f x)) x = (fun x : X => h (f x)) x	  ============================	  g y = g (f x)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 145) is:	 g (f x) = h y	";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "1 subgoal (ID 145)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  p0 := apD10 ep x : (fun x : X => g (f x)) x = (fun x : X => h (f x)) x	  ============================	  g (f x) = h y	1 subgoal (ID 175)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  y : Y	  sur : IsConnected (Tr (-1)) (hfiber f y)	  Z : HSet	  g, h : Y -> Z	  ep : (fun x : X => g (f x)) = (fun x : X => h (f x))	  r := center (Tr (-1) (hfiber f y)) : Tr (-1) (hfiber f y)	  x : X	  p : f x = y	  p0 := apD10 ep x : (fun x : X => g (f x)) x = (fun x : X => h (f x)) x	  ============================	  h (f x) = h y	";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 112;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 113;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 114;
+            data = "<infomsg>X is declared</infomsg>	<infomsg>Y is declared</infomsg>	<infomsg>f is declared</infomsg>	<infomsg>Hisepi is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 115;
+            data = "<infomsg>epif is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 116;
+            data = "1 subgoal (ID 74)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  ============================	  HProp	";
+            responses[i]=data;
+          
+
+            i = 117;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 118;
+            data = "1 subgoal (ID 79)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  ============================	  HProp	";
+            responses[i]=data;
+          
+
+            i = 119;
+            data = "1 subgoal (ID 89)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  ============================	  Pushout f (const tt) -> HProp	";
+            responses[i]=data;
+          
+
+            i = 120;
+            data = "1 subgoal (ID 98)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  x : X	  ============================	  fib (f x) = Unit_hp	";
+            responses[i]=data;
+          
+
+            i = 121;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 122;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 123;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 124;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 125;
+            data = "1 subgoal (ID 109)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  x : X	  i := contr_inhabited_hprop (fib (f x)) (tr (x; 1)) : Contr (fib (f x))	  ============================	  fib (f x) = Unit_hp	";
+            responses[i]=data;
+          
+
+            i = 126;
+            data = "1 subgoal (ID 113)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  x : X	  i := contr_inhabited_hprop (fib (f x)) (tr (x; 1)) : Contr (fib (f x))	  ============================	  fib (f x) <~> Unit_hp	";
+            responses[i]=data;
+          
+
+            i = 127;
+            data = "1 subgoal (ID 114)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  x : X	  i := contr_inhabited_hprop (fib (f x)) (tr (x; 1)) : Contr (fib (f x))	  ============================	  Tr (-1) {x0 : X & f x0 = f x} <~> Unit	";
+            responses[i]=data;
+          
+
+            i = 128;
+            data = "1 subgoal (ID 115)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  c : setcone f	  fib := fun y : Y => hexists (fun x : X => f x = y) : Y -> HProp	  x : X	  i := contr_inhabited_hprop (Tr (-1) {x0 : X & f x0 = f x}) (tr (x; 1))	   : Contr (Tr (-1) {x0 : X & f x0 = f x})	  ============================	  Tr (-1) {x0 : X & f x0 = f x} <~> Unit	";
+            responses[i]=data;
+          
+
+            i = 129;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 130;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 131;
+            data = "1 subgoal (ID 77)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  ============================	  IsConnMap (Tr (-1)) f	";
+            responses[i]=data;
+          
+
+            i = 132;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 133;
+            data = "1 subgoal (ID 79)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  ============================	  IsConnected (Tr (-1)) (hfiber f y)	";
+            responses[i]=data;
+          
+
+            i = 134;
+            data = "1 subgoal (ID 88)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  ============================	  IsConnected (Tr (-1)) (hfiber f y)	";
+            responses[i]=data;
+          
+
+            i = 135;
+            data = "2 subgoals (ID 95)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  ============================	  forall x : setcone f, fam x = fam (setcone_point f)		subgoal 2 (ID 97) is:	 IsConnected (Tr (-1)) (hfiber f y)	";
+            responses[i]=data;
+          
+
+            i = 136;
+            data = "1 subgoal (ID 95)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  ============================	  forall x : setcone f, fam x = fam (setcone_point f)	1 subgoal (ID 98)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  x : setcone f	  ============================	  fam x = fam (setcone_point f)	";
+            responses[i]=data;
+          
+
+            i = 137;
+            data = "1 subgoal (ID 101)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  x : setcone f	  ============================	  Contr (setcone f)	";
+            responses[i]=data;
+          
+
+            i = 138;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Try unfocusing with \"}\".	</infomsg>	1 subgoal		subgoal 1 (ID 97) is:	 IsConnected (Tr (-1)) (hfiber f y)	1 subgoal (ID 97)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  X0 : forall x : setcone f, fam x = fam (setcone_point f)	  ============================	  IsConnected (Tr (-1)) (hfiber f y)	1 subgoal (ID 112)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  X0 : fam (tr (push (inl y))) = fam (setcone_point f)	  ============================	  IsConnected (Tr (-1)) (hfiber f y)	";
+            responses[i]=data;
+          
+
+            i = 139;
+            data = "1 subgoal (ID 113)	  	  ua : Univalence	  X : HSet	  Y : HSet	  f : X -> Y	  Hisepi : isepi f	  y : Y	  i := isepi'_contr_cone f epif : Contr (setcone f)	  X0 : hexists (fun x : X => f x = y) = Unit_hp	  ============================	  IsConnected (Tr (-1)) (hfiber f y)	";
+            responses[i]=data;
+          
+
+            i = 140;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 141;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 142;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 143;
+            data = "1 subgoal (ID 77)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  ============================	  isepi f	";
+            responses[i]=data;
+          
+
+            i = 144;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 145;
+            data = "1 subgoal (ID 82)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) = (fun x : X => h (f x))	  ============================	  g = h	";
+            responses[i]=data;
+          
+
+            i = 146;
+            data = "1 subgoal (ID 88)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  ============================	  g = h	";
+            responses[i]=data;
+          
+
+            i = 147;
+            data = "1 subgoal (ID 95)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  ============================	  g == h	";
+            responses[i]=data;
+          
+
+            i = 148;
+            data = "1 subgoal (ID 97)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g x = h x	";
+            responses[i]=data;
+          
+
+            i = 149;
+            data = "2 subgoals (ID 116)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g x = g (f (f^-1 x))		subgoal 2 (ID 117) is:	 g (f (f^-1 x)) = h x	";
+            responses[i]=data;
+          
+
+            i = 150;
+            data = "1 subgoal (ID 116)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g x = g (f (f^-1 x))	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 117) is:	 g (f (f^-1 x)) = h x	";
+            responses[i]=data;
+          
+
+            i = 151;
+            data = "1 subgoal (ID 117)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g (f (f^-1 x)) = h x	2 subgoals (ID 143)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g (f (f^-1 x)) = h (f (f^-1 x))		subgoal 2 (ID 144) is:	 h (f (f^-1 x)) = h x	";
+            responses[i]=data;
+          
+
+            i = 152;
+            data = "1 subgoal (ID 143)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  g (f (f^-1 x)) = h (f (f^-1 x))	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet *.	</infomsg>	1 subgoal		subgoal 1 (ID 144) is:	 h (f (f^-1 x)) = h x	";
+            responses[i]=data;
+          
+
+            i = 153;
+            data = "1 subgoal (ID 144)	  	  ua : Univalence	  X : Type	  Y : Type	  f : X -> Y	  H : IsEquiv f	  Z : HSet	  g, h : Y -> Z	  H' : (fun x : X => g (f x)) == (fun x : X => h (f x))	  x : Y	  ============================	  h (f (f^-1 x)) = h x	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 154;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 155;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 156;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 157;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 158;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 159;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 160;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 161;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 162;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 163;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 164;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 165;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 166;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.HIT.epi</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HProp.html#"><span class="id" title="library">HProp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HSet.html#"><span class="id" title="library">HSet</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.TruncType.html#"><span class="id" title="library">TruncType</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Colimits.Pushout.html#"><span class="id" title="library">Colimits.Pushout</span></a> <a class="idref" href="HoTT.Truncations.html#"><span class="id" title="library">Truncations</span></a> <a class="idref" href="HoTT.HIT.SetCone.html#"><span class="id" title="library">HIT.SetCone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="AssumingUA" class="idref" href="#AssumingUA"><span class="id" title="section">AssumingUA</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="ua:1" class="idref" href="#ua:1"><span class="id" title="binder">ua</span></a>:<a class="idref" href="HoTT.Types.Universe.html#Univalence"><span class="id" title="class">Univalence</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+We will now prove that for sets, epis and surjections are equivalent.
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="isepi" class="idref" href="#isepi"><span class="id" title="definition">isepi</span></a> {<a id="X:2" class="idref" href="#X:2"><span class="id" title="binder">X</span></a> <a id="Y:3" class="idref" href="#Y:3"><span class="id" title="binder">Y</span></a>} `(<a id="f:4" class="idref" href="#f:4"><span class="id" title="binder">f</span></a>:<a class="idref" href="HoTT.HIT.epi.html#X:2"><span class="id" title="variable">X</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><a class="idref" href="HoTT.HIT.epi.html#Y:3"><span class="id" title="variable">Y</span></a>) := <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="Z:5" class="idref" href="#Z:5"><span class="id" title="binder">Z</span></a>: <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a><br>
+  <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="g:6" class="idref" href="#g:6"><span class="id" title="binder">g</span></a> <a id="h:7" class="idref" href="#h:7"><span class="id" title="binder">h</span></a>: <a class="idref" href="HoTT.HIT.epi.html#Y:3"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Z:5"><span class="id" title="variable">Z</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.epi.html#g:6"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:4"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:7"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:4"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#g:6"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:7"><span class="id" title="variable">h</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="isepi'" class="idref" href="#isepi'"><span class="id" title="definition">isepi'</span></a> {<a id="X:8" class="idref" href="#X:8"><span class="id" title="binder">X</span></a> <a id="Y:9" class="idref" href="#Y:9"><span class="id" title="binder">Y</span></a>} `(<a id="f:10" class="idref" href="#f:10"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.epi.html#X:8"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:9"><span class="id" title="variable">Y</span></a>) :=<br>
+  <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="Z:11" class="idref" href="#Z:11"><span class="id" title="binder">Z</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a>) (<a id="g:12" class="idref" href="#g:12"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.HIT.epi.html#Y:9"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Z:11"><span class="id" title="variable">Z</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Contr"><span class="id" title="abbreviation">Contr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6556914db359db999889decec6a4a562"><span class="id" title="notation">{</span></a> <a id="h:13" class="idref" href="#h:13"><span class="id" title="binder">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6556914db359db999889decec6a4a562"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:9"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Z:11"><span class="id" title="variable">Z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6556914db359db999889decec6a4a562"><span class="id" title="notation">|</span></a> <a class="idref" href="HoTT.HIT.epi.html#g:12"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:13"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6556914db359db999889decec6a4a562"><span class="id" title="notation">}</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="equiv_isepi_isepi'" class="idref" href="#equiv_isepi_isepi'"><span class="id" title="lemma">equiv_isepi_isepi'</span></a> {<a id="X:14" class="idref" href="#X:14"><span class="id" title="binder">X</span></a> <a id="Y:15" class="idref" href="#Y:15"><span class="id" title="binder">Y</span></a>} <a id="f:16" class="idref" href="#f:16"><span class="id" title="binder">f</span></a> : @<a class="idref" href="HoTT.HIT.epi.html#isepi"><span class="id" title="definition">isepi</span></a> <a class="idref" href="HoTT.HIT.epi.html#X:14"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:15"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:16"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> @<a class="idref" href="HoTT.HIT.epi.html#isepi'"><span class="id" title="definition">isepi'</span></a> <a class="idref" href="HoTT.HIT.epi.html#X:14"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:15"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:16"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.HIT.epi.html#isepi"><span class="id" title="definition">isepi</span></a>, <a class="idref" href="HoTT.HIT.epi.html#isepi'"><span class="id" title="definition">isepi'</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> (@<a class="idref" href="HoTT.Types.Forall.html#equiv_functor_forall'"><span class="id" title="definition">equiv_functor_forall'</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">equiv_idmap</span></a> <span class="id" title="var">_</span>)); <span class="id" title="tactic">intro</span> <span class="id" title="var">Z</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> (@<a class="idref" href="HoTT.Types.Forall.html#equiv_functor_forall'"><span class="id" title="definition">equiv_functor_forall'</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">equiv_idmap</span></a> <span class="id" title="var">_</span>)); <span class="id" title="tactic">intro</span> <span class="id" title="var">g</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">equiv_idmap</span></a>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#transitivity"><span class="id" title="definition">transitivity</span></a> (@<a class="idref" href="HoTT.Types.Sigma.html#equiv_sig_ind"><span class="id" title="definition">equiv_sig_ind</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="h:19" class="idref" href="#h:19"><span class="id" title="binder">h</span></a> : <span class="id" title="var">Y</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">Z</span> ⇒ <span class="id" title="var">g</span> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:17"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span>) (<span class="id" title="keyword">fun</span> <a id="h:20" class="idref" href="#h:20"><span class="id" title="binder">h</span></a> ⇒ <span class="id" title="var">g</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:18"><span class="id" title="variable">h</span></a><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.1'"><span class="id" title="notation">.1</span></a>)) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+TODO(JasonGross): Can we do this entirely by chaining equivalences? 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(32, '0_3_11');
+      ">
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">equiv_iff_hprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(33, '0_3_11');
+      "><br>
+  { <span class="id" title="tactic">intro</span> <span class="id" title="var">hepi</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(34, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> {| <a class="idref" href="HoTT.Basics.Overture.html#center"><span class="id" title="method">center</span></a> := <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">g</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a> |}.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(35, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">intro</span> <span class="id" title="var">xy</span>; <span class="id" title="tactic">specialize</span> (<span class="id" title="var">hepi</span> <span class="id" title="var">xy</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(36, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_uncurried"><span class="id" title="definition">path_sigma_uncurried</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(37, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">∃</span> <span class="id" title="var">hepi</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(38, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#path_ishprop"><span class="id" title="lemma">path_ishprop</span></a>. }<br>
+  { <span class="id" title="tactic">intros</span> <span class="id" title="var">hepi</span> <span class="id" title="var">xy</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(39, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="HoTT.Basics.Overture.html#pr1"><span class="id" title="abbreviation">pr1</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#contr"><span class="id" title="method">contr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">g</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> 1<a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#contr"><span class="id" title="method">contr</span></a> <span class="id" title="var">xy</span>)). }</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(40, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(41, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="AssumingUA.cones" class="idref" href="#AssumingUA.cones"><span class="id" title="section">cones</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(42, '0_3_11');
+      "><br>
+  <span class="id" title="keyword">Lemma</span> <a id="isepi'_contr_cone" class="idref" href="#isepi'_contr_cone"><span class="id" title="lemma">isepi'_contr_cone</span></a> `{<a id="H:21" class="idref" href="#H:21"><span class="id" title="binder">Funext</span></a>} {<a id="A:22" class="idref" href="#A:22"><span class="id" title="binder">A</span></a> <a id="B:23" class="idref" href="#B:23"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a>} (<a id="f:24" class="idref" href="#f:24"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.epi.html#A:22"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#B:23"><span class="id" title="variable">B</span></a>) : <a class="idref" href="HoTT.HIT.epi.html#isepi'"><span class="id" title="definition">isepi'</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:24"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Contr"><span class="id" title="abbreviation">Contr</span></a> (<a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:24"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(43, '0_3_11');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(44, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">hepi</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(45, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">∃</span> (<a class="idref" href="HoTT.HIT.SetCone.html#setcone_point"><span class="id" title="definition">setcone_point</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(46, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">alpha1</span> := @<a class="idref" href="HoTT.Colimits.Pushout.html#pglue"><span class="id" title="definition">pglue</span></a> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> <span class="id" title="var">f</span> (<a class="idref" href="HoTT.Basics.Overture.html#const"><span class="id" title="definition">const</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(47, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">tot</span>:= <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a> <a id="h:26" class="idref" href="#h:26"><span class="id" title="binder">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <span class="id" title="var">B</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#h:25"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(48, '0_3_11');
+      "><br>
+    <span class="id" title="var">transparent</span> <span class="id" title="tactic">assert</span> (<span class="id" title="var">l</span> : <span class="id" title="var">tot</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(49, '0_3_11');
+      "><br>
+    { <span class="id" title="tactic">simple</span> <span class="id" title="tactic">refine</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(50, '0_3_11');
+      "><br>
+      { <span class="id" title="tactic">refine</span> <a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a>. }<br>
+      { <span class="id" title="tactic">refine</span> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>. } }<br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">r</span> := <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a>@<a class="idref" href="HoTT.Basics.Overture.html#const"><span class="id" title="definition">const</span></a> <span class="id" title="var">B</span> (<a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <span class="id" title="var">f</span>) (<a class="idref" href="HoTT.HIT.SetCone.html#setcone_point"><span class="id" title="definition">setcone_point</span></a> <span class="id" title="var">_</span>)<a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="f:28" class="idref" href="#f:28"><span class="id" title="binder">f</span></a> ⇒ @<a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> 0 <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:27"><span class="id" title="variable">f</span></a>) (<a class="idref" href="HoTT.Basics.Overture.html#path_forall"><span class="id" title="definition">path_forall</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">alpha1</span>)<a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">))</span></a> : <span class="id" title="var">tot</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(51, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">subst</span> <span class="id" title="var">tot</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(52, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">assert</span> (<span class="id" title="var">X</span> : <span class="id" title="var">l</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">r</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(53, '0_3_11');
+      "><br>
+      { <span class="id" title="keyword">let</span> <span class="id" title="var">lem</span> := <span class="id" title="keyword">constr</span>:(<span class="id" title="keyword">fun</span> <a id="X:31" class="idref" href="#X:31"><span class="id" title="binder">X</span></a> <a id="push':32" class="idref" href="#push':32"><span class="id" title="binder">push'</span></a> ⇒ <span class="id" title="var">hepi</span> (<a class="idref" href="HoTT.Basics.Trunc.html#Build_HSet"><span class="id" title="abbreviation">Build_HSet</span></a> (<a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <span class="id" title="var">f</span>)) (<a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.HIT.epi.html#push':30"><span class="id" title="variable">push'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> @<a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.epi.html#X:29"><span class="id" title="variable">X</span></a>)) <span class="id" title="tactic">in</span><br>
+        <span class="id" title="tactic">pose</span> (<span class="id" title="var">lem</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(54, '0_3_11');
+      "><br>
+        <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Contractible.html#path_contr"><span class="id" title="definition">path_contr</span></a> <span class="id" title="var">l</span> <span class="id" title="var">r</span>). }</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(55, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">subst</span> <span class="id" title="var">l</span> <span class="id" title="var">r</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(56, '0_3_11');
+      "><br>
+<br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">I0</span> <a id="b:34" class="idref" href="#b:34"><span class="id" title="binder">b</span></a> := <a class="idref" href="HoTT.Basics.Overture.html#ap10"><span class="id" title="definition">ap10</span></a> (<span class="id" title="var">X</span> ..<a class="idref" href="HoTT.Types.Sigma.html#::fibration_scope:x_'..1'"><span class="id" title="notation">1</span></a>) <a class="idref" href="HoTT.HIT.epi.html#b:33"><span class="id" title="variable">b</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(57, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Truncations.Core.html#Trunc.Trunc_ind"><span class="id" title="definition">Trunc_ind</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(58, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="keyword">fun</span> <a id="a:37" class="idref" href="#a:37"><span class="id" title="binder">a</span></a> : <span class="id" title="var">B</span> <a class="idref" href="HoTT.Basics.Datatypes.html#e03f39daf98516fa530d3f6f5a1b4d92"><span class="id" title="notation">+</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> ⇒ (<span class="id" title="keyword">match</span> <a class="idref" href="HoTT.HIT.epi.html#a:35"><span class="id" title="variable">a</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">a</span> <span class="id" title="keyword">return</span> <a class="idref" href="HoTT.HIT.SetCone.html#setcone_point"><span class="id" title="definition">setcone_point</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> (<a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a> <a class="idref" href="HoTT.HIT.epi.html#a:36"><span class="id" title="variable">a</span></a>) <span class="id" title="keyword">with</span><br>
+                                 | <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">a'</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><span class="id" title="var">I0</span> <span class="id" title="var">a'</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a><br>
+                                 | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a><br>
+                               <span class="id" title="keyword">end</span>)) <span class="id" title="keyword">as</span> <span class="id" title="var">I0f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(59, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout_ind"><span class="id" title="definition">Pushout_ind</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="a':42" class="idref" href="#a':42"><span class="id" title="binder">a'</span></a> ⇒ <span class="id" title="var">I0f</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <a class="idref" href="HoTT.HIT.epi.html#a':40"><span class="id" title="variable">a'</span></a>)) (<span class="id" title="keyword">fun</span> <a id="u:41" class="idref" href="#u:41"><span class="id" title="binder">u</span></a> ⇒ (<span class="id" title="var">I0f</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.HIT.epi.html#u:39"><span class="id" title="variable">u</span></a>))) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(60, '0_3_11');
+      "><br>
+<br>
+    <span class="id" title="tactic">simpl</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(61, '0_3_11');
+      "><span class="id" title="tactic">subst</span> <span class="id" title="var">alpha1</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(62, '0_3_11');
+      "><span class="id" title="tactic">intros</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(63, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.HIT.SetCone.html#setcone_point"><span class="id" title="definition">setcone_point</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(64, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">subst</span> <span class="id" title="var">I0</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(65, '0_3_11');
+      "><span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(66, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">X</span>..<a class="idref" href="HoTT.Types.Sigma.html#::fibration_scope:x_'..2'"><span class="id" title="notation">2</span></a>) <span class="id" title="keyword">as</span> <span class="id" title="var">p</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(67, '0_3_11');
+      "><span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(68, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#transport_precompose"><span class="id" title="lemma">transport_precompose</span></a> <span class="id" title="var">f</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">X</span>..<a class="idref" href="HoTT.Types.Sigma.html#::fibration_scope:x_'..1'"><span class="id" title="notation">1</span></a>) <span class="id" title="tactic">in</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(69, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">assert</span> (<span class="id" title="var">H'</span>:=<a class="idref" href="HoTT.Basics.Overture.html#concat"><span class="id" title="definition">concat</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="x:44" class="idref" href="#x:44"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#ap10"><span class="id" title="definition">ap10</span></a> <a class="idref" href="HoTT.HIT.epi.html#x:43"><span class="id" title="variable">x</span></a> <span class="id" title="var">a</span>) <span class="id" title="var">p</span>) (<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap10_ap_postcompose"><span class="id" title="definition">ap10_ap_postcompose</span></a> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> (<a class="idref" href="HoTT.Types.Arrow.html#path_arrow"><span class="id" title="definition">path_arrow</span></a> (<a class="idref" href="HoTT.Colimits.Pushout.html#pushl"><span class="id" title="definition">pushl</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span>) (<a class="idref" href="HoTT.Colimits.Pushout.html#pushr"><span class="id" title="definition">pushr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Overture.html#const"><span class="id" title="definition">const</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>) <a class="idref" href="HoTT.Colimits.Pushout.html#pglue"><span class="id" title="definition">pglue</span></a>) <span class="id" title="var">_</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(70, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Types.Arrow.html#ap10_path_arrow"><span class="id" title="definition">ap10_path_arrow</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(71, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">clear</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(72, '0_3_11');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+Apparently <span class="inlinecode"><span class="id" title="tactic">pose</span>;</span> <span class="inlinecode"><span class="id" title="var">clearbody</span></span> is only ~.8 seconds, while <span class="inlinecode"><span class="id" title="tactic">pose</span></span> <span class="inlinecode"><span class="id" title="var">proof</span></span> is ~4 seconds? 
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(84, '0_3_15');
+      ">
+    <span class="id" title="tactic">pose</span> (<a class="idref" href="HoTT.Basics.Overture.html#concat"><span class="id" title="definition">concat</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#ap10_ap_precompose"><span class="id" title="definition">ap10_ap_precompose</span></a> <span class="id" title="var">f</span> (<span class="id" title="var">X</span> ..<a class="idref" href="HoTT.Types.Sigma.html#::fibration_scope:x_'..1'"><span class="id" title="notation">1</span></a>) <span class="id" title="var">a</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <span class="id" title="var">H'</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(85, '0_3_15');
+      "><br>
+    <span class="id" title="var">clearbody</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(86, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(87, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(88, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Types.Paths.html#transport_paths_Fr"><span class="id" title="definition">transport_paths_Fr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(89, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(90, '0_3_15');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(91, '0_3_15');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.cones"><span class="id" title="section">cones</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(92, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="issurj_isepi" class="idref" href="#issurj_isepi"><span class="id" title="lemma">issurj_isepi</span></a> {<a id="X:45" class="idref" href="#X:45"><span class="id" title="binder">X</span></a> <a id="Y:46" class="idref" href="#Y:46"><span class="id" title="binder">Y</span></a>} (<a id="f:47" class="idref" href="#f:47"><span class="id" title="binder">f</span></a>:<a class="idref" href="HoTT.HIT.epi.html#X:45"><span class="id" title="variable">X</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><a class="idref" href="HoTT.HIT.epi.html#Y:46"><span class="id" title="variable">Y</span></a>): <a class="idref" href="HoTT.Truncations.Core.html#IsSurjection"><span class="id" title="abbreviation">IsSurjection</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:47"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#isepi"><span class="id" title="definition">isepi</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:47"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(93, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(94, '0_3_15');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">sur</span> ? ? ? <span class="id" title="var">ep</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(95, '0_3_15');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#path_forall"><span class="id" title="definition">path_forall</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(96, '0_3_15');
+      "><span class="id" title="tactic">intro</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(97, '0_3_15');
+      "><br>
+<span class="id" title="tactic">specialize</span> (<span class="id" title="var">sur</span> <span class="id" title="var">y</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(98, '0_3_15');
+      "><span class="id" title="tactic">pose</span> (<a class="idref" href="HoTT.Basics.Overture.html#center"><span class="id" title="method">center</span></a> (<a class="idref" href="HoTT.Truncations.Core.html#merely"><span class="id" title="definition">merely</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#hfiber"><span class="id" title="definition">hfiber</span></a> <span class="id" title="var">f</span> <span class="id" title="var">y</span>))).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(99, '0_3_15');
+      "><br>
+<span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Truncations.Core.html#Trunc_rec"><span class="id" title="definition">Trunc_rec</span></a> (<span class="id" title="var">n</span>:=-1) (<span class="id" title="var">A</span>:=(<a class="idref" href="HoTT.Basics.Overture.html#sig"><span class="id" title="record">sig</span></a> (<span class="id" title="keyword">fun</span> <a id="x:49" class="idref" href="#x:49"><span class="id" title="binder">x</span></a> : <span class="id" title="var">X</span> ⇒ <span class="id" title="var">f</span> <a class="idref" href="HoTT.HIT.epi.html#x:48"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">y</span>))));<br>
+  <span class="id" title="tactic">try</span> <span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(100, '0_3_15');
+      "><br>
+<span class="id" title="tactic">intros</span> [<span class="id" title="var">x</span> <span class="id" title="var">p</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(101, '0_3_15');
+      "><span class="id" title="tactic">set</span> (<span class="id" title="var">p0</span>:=<a class="idref" href="HoTT.Basics.Overture.html#apD10"><span class="id" title="definition">apD10</span></a> <span class="id" title="var">ep</span> <span class="id" title="var">x</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(102, '0_3_15');
+      "><br>
+<span class="id" title="tactic">transitivity</span> (<span class="id" title="var">g</span> (<span class="id" title="var">f</span> <span class="id" title="var">x</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(103, '0_3_15');
+      "><br>
+- <span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(104, '0_3_15');
+      "><br>
+- <span class="id" title="tactic">transitivity</span> (<span class="id" title="var">h</span> (<span class="id" title="var">f</span> <span class="id" title="var">x</span>));<span class="id" title="tactic">auto</span> <span class="id" title="keyword">with</span> <span class="id" title="var">path_hints</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(105, '0_3_15');
+      "><span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(106, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(107, '0_3_15');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+<div class="doc" scenenumber="17">
+Old-style proof using polymorphic Omega. Needs resizing for the isepi proof to live in the
+ same universe as X and Y (the Z quantifier is instantiated with an HSet at a level higher)
+<pre>
+Lemma isepi_issurj {X Y} (f:X-&gt;Y): isepi f -&gt; issurj f.
+Proof.
+  intros epif y.
+  set (g :=fun _:Y =&gt; Unit_hp).
+  set (h:=(fun y:Y =&gt; (hp (hexists (fun _ : Unit =&gt; {x:X &amp; y = (f x)})) _ ))).
+  assert (X1: g o f = h o f ).
+  - apply path_forall. intro x. apply path_equiv_biimp_rec;[|done].
+    intros _ . apply min1. exists tt. by (exists x).
+  - specialize (epif _ g h).
+    specialize (epif X1). clear X1.
+    set (p:=apD10 epif y).
+    apply (@minus1Trunc_map (sig (fun _ : Unit =&gt; sig (fun x : X =&gt; y = f x)))).
+    + intros [ _ [x eq]].
+      exists x.
+        by symmetry.
+    + apply (transport hproptype p tt).
+Defined.
+</pre>
+</div>
+<div scenenumber="19" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(113, '0_3_19');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="AssumingUA.isepi_issurj" class="idref" href="#AssumingUA.isepi_issurj"><span class="id" title="section">isepi_issurj</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(114, '0_3_19');
+      "><br>
+  <span class="id" title="keyword">Context</span> {<a id="X:50" class="idref" href="#X:50"><span class="id" title="binder">X</span></a> <a id="Y:51" class="idref" href="#Y:51"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a>} (<a id="f:52" class="idref" href="#f:52"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.epi.html#X:50"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:51"><span class="id" title="variable">Y</span></a>) (<a id="Hisepi:53" class="idref" href="#Hisepi:53"><span class="id" title="binder">Hisepi</span></a> : <a class="idref" href="HoTT.HIT.epi.html#isepi"><span class="id" title="definition">isepi</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:52"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(115, '0_3_19');
+      "><br>
+  <span class="id" title="keyword">Definition</span> <a id="epif" class="idref" href="#epif"><span class="id" title="definition">epif</span></a> := <a class="idref" href="HoTT.HIT.epi.html#equiv_isepi_isepi'"><span class="id" title="lemma">equiv_isepi_isepi'</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.Hisepi"><span class="id" title="variable">Hisepi</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(116, '0_3_19');
+      "><br>
+  <span class="id" title="keyword">Definition</span> <a id="fam" class="idref" href="#fam"><span class="id" title="definition">fam</span></a> (<a id="c:54" class="idref" href="#c:54"><span class="id" title="binder">c</span></a> : <a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a>) : <a class="idref" href="HoTT.Basics.Trunc.html#HProp"><span class="id" title="abbreviation">HProp</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(117, '0_3_19');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(118, '0_3_19');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">fib</span> <a id="y:57" class="idref" href="#y:57"><span class="id" title="binder">y</span></a> := <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<span class="id" title="keyword">fun</span> <a id="x:58" class="idref" href="#x:58"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.X"><span class="id" title="variable">X</span></a> ⇒ <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.epi.html#x:56"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#y:55"><span class="id" title="variable">y</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(119, '0_3_19');
+      "><br>
+    <span class="id" title="tactic">apply</span> (<span class="id" title="keyword">fun</span> <a id="f:60" class="idref" href="#f:60"><span class="id" title="binder">f</span></a> ⇒ @<a class="idref" href="HoTT.Truncations.Core.html#Trunc_rec"><span class="id" title="definition">Trunc_rec</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Trunc.html#HProp"><span class="id" title="abbreviation">HProp</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.epi.html#f:59"><span class="id" title="variable">f</span></a> <span class="id" title="var">c</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(120, '0_3_19');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout_rec"><span class="id" title="definition">Pushout_rec</span></a> <a class="idref" href="HoTT.Basics.Trunc.html#HProp"><span class="id" title="abbreviation">HProp</span></a> <span class="id" title="var">fib</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.TruncType.html#Unit_hp"><span class="id" title="definition">Unit_hp</span></a>) (<span class="id" title="keyword">fun</span> <a id="x:62" class="idref" href="#x:62"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">_</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(121, '0_3_19');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_19"><pre><span></span></pre></div>
+<div class="doc" scenenumber="21">
+Prove that the truncated sigma is equivalent to Unit 
+</div>
+<div scenenumber="23" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(125, '0_3_23');
+      ">
+    <span class="id" title="tactic">pose</span> (<a class="idref" href="HoTT.Basics.Trunc.html#contr_inhabited_hprop"><span class="id" title="lemma">contr_inhabited_hprop</span></a> (<span class="id" title="var">fib</span> (<a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a> <span class="id" title="var">x</span>)) (<a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>)) <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(126, '0_3_23');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.TruncType.html#path_hprop"><span class="id" title="definition">path_hprop</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(127, '0_3_23');
+      "><span class="id" title="tactic">simpl</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(128, '0_3_23');
+      "><span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">i</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(129, '0_3_23');
+      "><br>
+    <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Types.Unit.html#equiv_contr_unit"><span class="id" title="definition">equiv_contr_unit</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(130, '0_3_23');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(131, '0_3_23');
+      "><br>
+<br>
+  <span class="id" title="keyword">Lemma</span> <a id="isepi_issurj" class="idref" href="#isepi_issurj"><span class="id" title="lemma">isepi_issurj</span></a> : <a class="idref" href="HoTT.Truncations.Core.html#IsSurjection"><span class="id" title="abbreviation">IsSurjection</span></a> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(132, '0_3_23');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(133, '0_3_23');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">y</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(134, '0_3_23');
+      "><br>
+    <span class="id" title="tactic">pose</span> (<span class="id" title="var">i</span> := <a class="idref" href="HoTT.HIT.epi.html#isepi'_contr_cone"><span class="id" title="lemma">isepi'_contr_cone</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.epi.html#epif"><span class="id" title="definition">epif</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(135, '0_3_23');
+      "><br>
+<br>
+    <span class="id" title="tactic">assert</span> (<span class="id" title="var">X0</span> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:64" class="idref" href="#x:64"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.HIT.SetCone.html#setcone"><span class="id" title="definition">setcone</span></a> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.epi.html#fam"><span class="id" title="definition">fam</span></a> <a class="idref" href="HoTT.HIT.epi.html#x:63"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.epi.html#fam"><span class="id" title="definition">fam</span></a> (<a class="idref" href="HoTT.HIT.SetCone.html#setcone_point"><span class="id" title="definition">setcone_point</span></a> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj.f"><span class="id" title="variable">f</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(136, '0_3_23');
+      "><br>
+    { <span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(137, '0_3_23');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Contractible.html#contr_dom_equiv"><span class="id" title="definition">contr_dom_equiv</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(138, '0_3_23');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">i</span>. }<br>
+    <span class="id" title="tactic">specialize</span> (<span class="id" title="var">X0</span> (<a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a> (<a class="idref" href="HoTT.Colimits.Pushout.html#push"><span class="id" title="definition">push</span></a> (<a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">y</span>)))). </span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(139, '0_3_23');
+      "><span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">X0</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(140, '0_3_23');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> <a class="idref" href="HoTT.Basics.Overture.html#Contr"><span class="id" title="abbreviation">Contr</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="HoTT.Basics.Trunc.html#trunctype_type"><span class="id" title="projection">trunctype_type</span></a> <span class="id" title="var">X0</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(141, '0_3_23');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(142, '0_3_23');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA.isepi_issurj"><span class="id" title="section">isepi_issurj</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(143, '0_3_23');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="isepi_isequiv" class="idref" href="#isepi_isequiv"><span class="id" title="lemma">isepi_isequiv</span></a> <a id="X:65" class="idref" href="#X:65"><span class="id" title="binder">X</span></a> <a id="Y:66" class="idref" href="#Y:66"><span class="id" title="binder">Y</span></a> (<a id="f:67" class="idref" href="#f:67"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.epi.html#X:65"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.epi.html#Y:66"><span class="id" title="variable">Y</span></a>) `{<a id="H:68" class="idref" href="#H:68"><span class="id" title="binder">IsEquiv</span></a> <a id="H:68" class="idref" href="#H:68"><span class="id" title="binder">_</span></a> <a id="H:68" class="idref" href="#H:68"><span class="id" title="binder">_</span></a> <a id="H:68" class="idref" href="#H:68"><span class="id" title="binder">f</span></a>}<br>
+: <a class="idref" href="HoTT.HIT.epi.html#isepi"><span class="id" title="definition">isepi</span></a> <a class="idref" href="HoTT.HIT.epi.html#f:67"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(144, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(145, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">intros</span> ? <span class="id" title="var">g</span> <span class="id" title="var">h</span> <span class="id" title="var">H'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(146, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#ap10"><span class="id" title="definition">ap10</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(147, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#path_forall"><span class="id" title="definition">path_forall</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(148, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(149, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">transitivity</span> (<span class="id" title="var">g</span> (<span class="id" title="var">f</span> (<span class="id" title="var">f</span><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a> <a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">x</span></a>))).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(150, '0_3_23');
+      "><br>
+  - <span class="id" title="tactic">by</span> <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.Overture.html#eisretr"><span class="id" title="method">eisretr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(151, '0_3_23');
+      "><br>
+  - <span class="id" title="tactic">transitivity</span> (<span class="id" title="var">h</span> (<span class="id" title="var">f</span> (<span class="id" title="var">f</span><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">^-1</span></a> <a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">x</span></a>))).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(152, '0_3_23');
+      "><br>
+    × <span class="id" title="tactic">apply</span> <span class="id" title="var">H'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(153, '0_3_23');
+      "><br>
+    × <span class="id" title="tactic">by</span> <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Basics.Overture.html#eisretr"><span class="id" title="method">eisretr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(154, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(155, '0_3_23');
+      "><br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.epi.html#AssumingUA"><span class="id" title="section">AssumingUA</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(156, '0_3_23');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_23"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

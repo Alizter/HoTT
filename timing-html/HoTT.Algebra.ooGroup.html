@@ -1,0 +1,1529 @@
+<html>
+<head>
+<title>ooGroup.v</title>
+<style>
+.time {
+  background-color: #ffaaaa;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+}
+.code {
+  z-index: 0;
+  position: relative;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+}
+.code:hover {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+pre {
+  margin: 1px;
+}
+</style>
+</head>
+<body>
+<h1>Timings for ooGroup.v</h1>
+
+<div class="code" title="File: ooGroup.v
+Line: 1
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>(* -*- mode: coq; mode: visual-line -*-  *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 1
+Time: 0.05s">
+<div class="time" style="width: 12.07729468599%"></div>
+<pre>Require Import Basics Types.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 1
+Time: 0.069s">
+<div class="time" style="width: 16.666666666667%"></div>
+<pre>
+Require Import Pointed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 2
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+Require Import Truncations.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 3
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+Require Import Colimits.Quotient.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 4
+Time: 0.064s">
+<div class="time" style="width: 15.458937198068%"></div>
+<pre>
+Require Import Homotopy.ClassifyingSpace.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 5
+Time: 0.014s">
+<div class="time" style="width: 3.3816425120773%"></div>
+<pre>
+Require Import Algebra.Groups.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 6
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+Require Import WildCat.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 7
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Local Open Scope trunc_scope.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 9
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Local Open Scope path_scope.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 10
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Local Open Scope pointed_scope.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 11
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Keyed unification makes [rewrite !loops_functor_group] take a really long time.  See https://coq.inria.fr/bugs/show_bug.cgi?id=4544 for more discussion. *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 13
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Local Unset Keyed Unification.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 13
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** * oo-Groups *)
+
+(** We want a workable definition of "oo-group" (what a classical homotopy theorist would call a "grouplike Aoo-space"). The classical definitions using operads or Segal spaces involve infinitely much data, which we don't know how to handle in HoTT. But instead, we can invoke the theorem (which is a theorem in classical homotopy theory, and also in any oo-topos) that every oo-group is the loop space of some pointed connected object, and use it instead as a definition: we define an oo-group to be a pointed connected type (its classifying space or delooping). Then we make subsidiary definitions to allow us to treat such an object in the way we would expect, e.g. an oo-group homomorphism is a pointed map between classifying spaces. *)
+
+(** ** Definition *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 20
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>Record ooGroup :=
+  { classifying_space : pType ;
+    isconn_classifying_space : IsConnected 0 classifying_space
+  }.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 23
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Global Existing Instance isconn_classifying_space.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 25
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Local Notation B := classifying_space.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 27
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre>
+
+Definition group_type (G : ooGroup) : Type
+  := point (B G) = point (B G).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 30
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** The following is fundamental: we declare a coercion from oo-groups to types which takes a pointed connected type not to its underlying type, but to its loop space. Thus, if [G : ooGroup], then [g : G] means that [g] is an element of the oo-group that [G] is intended to denote, which is the loop space of the pointed connected type that is technically the data of which [G : ooGroup] consists. This makes it easier to really think of [G] as "really being" an oo-group rather than its classifying space.
+
+This is also convenient because elements of oo-groups are, definitionally, loops in some type. Thus, the oo-group operations like multiplication, inverse, associativity, higher associativity, etc. are simply special cases of the corresponding operations for paths. *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 35
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Coercion group_type : ooGroup &gt;-&gt; Sortclass.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 35
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Every pointed type has a loop space that is an oo-group. *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 37
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition group_loops (X : pType)
+  : ooGroup.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 38
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 39
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  (* Work around https://coq.inria.fr/bugs/show_bug.cgi?id=4256 *)
+ </pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 41
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>pose (x0 := point X);
+  pose (BG := (Build_pType
+               { x:X &amp; merely (x = point X) }
+               (exist (fun x:X =&gt; merely (x = point X)) x0 (tr 1)))).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 44
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  (** Using [cut] prevents Coq from looking for these facts with typeclass search, which is slow and (for some reason) introduces scads of extra universes. *)
+ </pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 46
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>cut (IsConnected 0 BG).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 46
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  {</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 47
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact (Build_ooGroup BG).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 47
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> }</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 47
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  cut (IsSurjection (unit_name (point BG))).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 48
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  {</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 49
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre> intros; refine (conn_pointed_type (point _)).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 49
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> }</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 49
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  apply BuildIsSurjection; simpl; intros [x p].</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 50
+Time: 0.018s">
+<div class="time" style="width: 4.3478260869565%"></div>
+<pre>
+  strip_truncations; apply tr; exists tt.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 51
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+  apply path_sigma_hprop; simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 52
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  exact (p^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 53
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 54
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Unfortunately, the underlying type of that oo-group is not *definitionally* the same as the ordinary loop space, but it is equivalent to it. *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 56
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition loops_group (X : pType)
+  : loops X &lt;~&gt; group_loops X.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 57
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 58
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  unfold loops, group_type.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 59
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 59
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+  exact (equiv_path_sigma_hprop (point X ; tr 1) (point X ; tr 1)).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 60
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 61
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** ** Homomorphisms *)
+
+(** *** Definition *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 66
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition ooGroupHom (G H : ooGroup)
+  := B G -&gt;* B H.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 67
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+
+Definition grouphom_fun {G H} (phi : ooGroupHom G H) : G -&gt; H
+  := fmap loops phi.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 70
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Coercion grouphom_fun : ooGroupHom &gt;-&gt; Funclass.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 72
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** The loop group functor takes values in oo-group homomorphisms. *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 74
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>Definition group_loops_functor
+           {X Y : pType} (f : X -&gt;* Y)
+: ooGroupHom (group_loops X) (group_loops Y).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 76
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 77
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  simple refine (Build_pMap _ _ _ _); simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 78
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 79
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros [x p].</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 79
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exists (f x).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 80
+Time: 0.026s">
+<div class="time" style="width: 6.280193236715%"></div>
+<pre>
+    strip_truncations; apply tr.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 81
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exact (ap f p @ point_eq f).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 82
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 83
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre> apply path_sigma_hprop; simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 83
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply point_eq.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 84
+Time: 0.01s">
+<div class="time" style="width: 2.4154589371981%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 85
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** And this functor "is" the same as the ordinary loop space functor. *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 87
+Time: 0.037s">
+<div class="time" style="width: 8.9371980676329%"></div>
+<pre>Definition loops_functor_group
+           {X Y : pType} (f : X -&gt;* Y)
+: fmap loops (group_loops_functor f) o loops_group X
+  == loops_group Y o fmap loops f.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 90
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 91
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros x.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 92
+Time: 0.01s">
+<div class="time" style="width: 2.4154589371981%"></div>
+<pre>
+  apply (equiv_inj (equiv_path_sigma_hprop _ _)^-1).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 93
+Time: 0.014s">
+<div class="time" style="width: 3.3816425120773%"></div>
+<pre>
+  simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 94
+Time: 0.033s">
+<div class="time" style="width: 7.9710144927536%"></div>
+<pre>
+  unfold pr1_path; rewrite !ap_pp.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 95
+Time: 0.043s">
+<div class="time" style="width: 10.386473429952%"></div>
+<pre>
+  rewrite ap_V, !ap_pr1_path_sigma_hprop.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 96
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+  apply whiskerL, whiskerR.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 97
+Time: 0.008s">
+<div class="time" style="width: 1.9323671497585%"></div>
+<pre>
+  transitivity (ap (fun X0 : {x0 : X &amp; merely (x0 = point X)} =&gt; f X0.1)
+                   (path_sigma_hprop (point X; tr 1) (point X; tr 1) x)).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 99
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 100
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre> match goal with
+        |- ap ?f (ap ?g ?p) = ?z =&gt;
+        symmetry; refine (ap_compose g f p)
+    end.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 103
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 104
+Time: 0.004s">
+<div class="time" style="width: 0.96618357487923%"></div>
+<pre> rewrite ap_compose; apply ap.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply ap_pr1_path_sigma_hprop.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 105
+Time: 0.081s">
+<div class="time" style="width: 19.565217391304%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 106
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition grouphom_compose {G H K : ooGroup}
+           (psi : ooGroupHom H K) (phi : ooGroupHom G H)
+: ooGroupHom G K
+  := pmap_compose psi phi.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 111
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** *** Functoriality *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 114
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>Definition group_loops_functor_compose
+           {X Y Z : pType}
+           (psi : Y -&gt;* Z) (phi : X -&gt;* Y)
+: grouphom_compose (group_loops_functor psi) (group_loops_functor phi)
+  == group_loops_functor (pmap_compose psi phi).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 118
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 119
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros g.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 120
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  unfold grouphom_fun, grouphom_compose.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 121
+Time: 0.01s">
+<div class="time" style="width: 2.4154589371981%"></div>
+<pre>
+  refine (pointed_htpy (fmap_comp loops _ _) g @ _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 122
+Time: 0.005s">
+<div class="time" style="width: 1.207729468599%"></div>
+<pre>
+  pose (p := eisretr (loops_group X) g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 123
+Time: 0.005s">
+<div class="time" style="width: 1.207729468599%"></div>
+<pre>
+  change (fmap loops (group_loops_functor psi)
+            (fmap loops (group_loops_functor phi) g)
+          = fmap loops (group_loops_functor
+                                 (pmap_compose psi phi)) g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 127
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  rewrite &lt;- p.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 128
+Time: 0.414s">
+<div class="time" style="width: 100%"></div>
+<pre>
+  rewrite !loops_functor_group.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 129
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  apply ap.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 130
+Time: 0.142s">
+<div class="time" style="width: 34.299516908213%"></div>
+<pre>
+  symmetry; rapply (fmap_comp loops).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 131
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 132
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition grouphom_idmap (G : ooGroup) : ooGroupHom G G
+  := pmap_idmap.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 135
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+
+Definition group_loops_functor_idmap {X : pType}
+: grouphom_idmap (group_loops X)
+  == group_loops_functor (Id (A:=pType) _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 139
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 140
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros g.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 141
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+  refine (fmap_id loops _ g @ _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 142
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+  rewrite &lt;- (eisretr (loops_group X) g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 143
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  unfold grouphom_fun, grouphom_idmap.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 144
+Time: 0.151s">
+<div class="time" style="width: 36.473429951691%"></div>
+<pre>
+  rewrite !loops_functor_group.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 145
+Time: 0.023s">
+<div class="time" style="width: 5.5555555555556%"></div>
+<pre>
+  exact (ap (loops_group X) (fmap_id loops _ _)^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 146
+Time: 0.005s">
+<div class="time" style="width: 1.207729468599%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 147
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** *** Homomorphic properties *)
+
+(** The following tactic often allows us to "pretend" that phi preserves basepoints strictly.  This is basically a simple extension of [pointed_reduce_rewrite] (see Pointed.v). *)</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 151
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Ltac grouphom_reduce :=
+  unfold grouphom_fun; cbn;
+  repeat match goal with
+           | [ G : ooGroup |- _ ] =&gt; destruct G as [G ?]
+           | [ phi : ooGroupHom ?G ?H |- _ ] =&gt; destruct phi as [phi ?]
+         end;
+  pointed_reduce_rewrite.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 157
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition compose_grouphom {G H K : ooGroup}
+           (psi : ooGroupHom H K) (phi : ooGroupHom G H)
+: grouphom_compose psi phi == psi o phi.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 161
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 162
+Time: 0.031s">
+<div class="time" style="width: 7.487922705314%"></div>
+<pre>
+  intros g; grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 163
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  exact (ap_compose phi psi g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 164
+Time: 0.015s">
+<div class="time" style="width: 3.6231884057971%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 165
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition idmap_grouphom (G : ooGroup)
+: grouphom_idmap G == idmap.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 168
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 169
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre>
+  intros g; grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 170
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  exact (ap_idmap g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 171
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 172
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition grouphom_pp {G H} (phi : ooGroupHom G H) (g1 g2 : G)
+: phi (g1 @ g2) = phi g1 @ phi g2.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 175
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 176
+Time: 0.019s">
+<div class="time" style="width: 4.5893719806763%"></div>
+<pre>
+  grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 177
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  exact (ap_pp phi g1 g2).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 178
+Time: 0.009s">
+<div class="time" style="width: 2.1739130434783%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 179
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition grouphom_V {G H} (phi : ooGroupHom G H) (g : G)
+: phi g^ = (phi g)^.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 182
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 183
+Time: 0.013s">
+<div class="time" style="width: 3.1400966183575%"></div>
+<pre>
+  grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 184
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  exact (ap_V phi g).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 185
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 186
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition grouphom_1 {G H} (phi : ooGroupHom G H)
+: phi 1 = 1.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 189
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 190
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+  grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 191
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  reflexivity.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 192
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre>
+Qed.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 193
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+
+Definition grouphom_pp_p {G H} (phi : ooGroupHom G H) (g1 g2 g3 : G)
+: grouphom_pp phi (g1 @ g2) g3
+  @ whiskerR (grouphom_pp phi g1 g2) (phi g3)
+  @ concat_pp_p (phi g1) (phi g2) (phi g3)
+  = ap phi (concat_pp_p g1 g2 g3)
+    @ grouphom_pp phi g1 (g2 @ g3)
+    @ whiskerL (phi g1) (grouphom_pp phi g2 g3).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 201
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 202
+Time: 0.185s">
+<div class="time" style="width: 44.685990338164%"></div>
+<pre>
+  grouphom_reduce.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 203
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Abort.
+
+(** ** Subgroups *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 207
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Section Subgroups.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 207
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Context {G H : ooGroup} (incl : ooGroupHom H G) `{IsEmbedding incl}.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 208
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** A subgroup induces an equivalence relation on the ambient group, whose equivalence classes are called "cosets". *)
+ </pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 211
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition in_coset : G -&gt; G -&gt; Type
+    := fun g1 g2 =&gt; hfiber incl (g1 @ g2^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 212
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Global Instance ishprop_in_coset : is_mere_relation G in_coset.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 214
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 215
+Time: 0.01s">
+<div class="time" style="width: 2.4154589371981%"></div>
+<pre>
+    exact _.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 216
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 217
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Global Instance reflexive_coset : Reflexive in_coset.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 219
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 220
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros g.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 221
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exact (1 ; grouphom_1 incl @ (concat_pV g)^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 222
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 223
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Global Instance symmetric_coset : Symmetric in_coset.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 225
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 226
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros g1 g2 [h p].</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 227
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exists (h^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 228
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+    refine (grouphom_V incl h @ inverse2 p @ inv_pp _ _ @ whiskerR (inv_V _) _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 229
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 230
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Global Instance transitive_coset : Transitive in_coset.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 232
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 233
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros g1 g2 g3 [h1 p1] [h2 p2].</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 234
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exists (h1 @ h2).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 235
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+    refine (grouphom_pp incl h1 h2
+            @ (p1 @@ p2)
+            @ concat_p_pp _ _ _
+            @ whiskerR (concat_pV_p _ _) _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 239
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 240
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Every coset is equivalent (as a type) to the subgroup itself. *)
+ </pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 243
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition equiv_coset_subgroup (g : G)
+  : { g' : G &amp; in_coset g g'} &lt;~&gt; H.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 244
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 245
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    simple refine (equiv_adjointify _ _ _ _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 246
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 247
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros [? [h ?]]; exact h.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 247
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 248
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros h; exists (incl h^ @ g); exists h; simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 248
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+      abstract (rewrite inv_pp, grouphom_V, inv_V, concat_p_Vp; reflexivity).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 249
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 250
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros h; reflexivity.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 250
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 251
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre> intros [g' [h p]].</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 251
+Time: 0.004s">
+<div class="time" style="width: 0.96618357487923%"></div>
+<pre>
+      apply path_sigma_hprop; simpl.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 252
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      refine ((grouphom_V incl h @@ 1) @ _).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 253
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      apply moveR_Vp, moveL_pM.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 254
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact (p^).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 254
+Time: 0.004s">
+<div class="time" style="width: 0.96618357487923%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 255
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition cosets := Quotient in_coset.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 257
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+
+End Subgroups.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 259
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** The wild category of oo-groups is induced by the wild category of pTypes *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 262
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Global Instance isgraph_oogroup : IsGraph ooGroup
+  := Build_IsGraph _ ooGroupHom.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 263
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Global Instance is01cat_oogroup : Is01Cat ooGroup
+  := Build_Is01Cat _ _ grouphom_idmap (@grouphom_compose).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 265
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+Global Instance is2graph_oogroup : Is2Graph ooGroup
+  := is2graph_induced classifying_space.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 267
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+Global Instance is1cat_oogroup : Is1Cat ooGroup
+  := is1cat_induced classifying_space.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 269
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** ** 1-groups as oo-groups *)
+
+</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 272
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition group_to_oogroup : Group -&gt; ooGroup
+  := fun G =&gt; Build_ooGroup (pClassifyingSpace G) _.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 273
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Global Instance is0functor_group_to_oogroup : Is0Functor group_to_oogroup.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 275
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 276
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  snrapply Build_Is0Functor.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 277
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  intros G H f.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 278
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+  by rapply (fmap pClassifyingSpace).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 279
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 280
+Time: 0.001s">
+<div class="time" style="width: 0.24154589371981%"></div>
+<pre>
+
+Global Instance is1functor_group_to_oogroup : Is1Functor group_to_oogroup.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 282
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 283
+Time: 0.003s">
+<div class="time" style="width: 0.72463768115942%"></div>
+<pre>
+  snrapply Build_Is1Functor; hnf; intros.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 284
+Time: 0.005s">
+<div class="time" style="width: 1.207729468599%"></div>
+<pre>
+  1: by rapply (fmap2 pClassifyingSpace).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 285
+Time: 0.004s">
+<div class="time" style="width: 0.96618357487923%"></div>
+<pre>
+  1: by rapply (fmap_id pClassifyingSpace).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 286
+Time: 0.006s">
+<div class="time" style="width: 1.4492753623188%"></div>
+<pre>
+  by rapply (fmap_comp pClassifyingSpace).</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 287
+Time: 0.002s">
+<div class="time" style="width: 0.48309178743961%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: ooGroup.v
+Line: 289
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+</pre>
+</div>
+</body>
+</html>
+

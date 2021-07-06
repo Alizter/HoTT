@@ -1,0 +1,996 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "<infomsg>ab_pushout is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 71)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  ============================	  ab_pushout f g $-> Y	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "2 subgoals (ID 99)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  ============================	  ab_biprod B C $-> Y		subgoal 2 (ID 101) is:	 forall n : ab_biprod B C,	 {|	   normalsubgroup_subgroup :=	     grp_image (ab_biprod_corec f (g $o ab_homo_negation));	   normalsubgroup_isnormal :=	     isnormal_ab_subgroup (ab_biprod B C)	       (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	 |} n -> ?f n = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 99)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  ============================	  ab_biprod B C $-> Y	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 101) is:	 forall n : ab_biprod B C,	 {|	   normalsubgroup_subgroup :=	     grp_image (ab_biprod_corec f (g $o ab_homo_negation));	   normalsubgroup_isnormal :=	     isnormal_ab_subgroup (ab_biprod B C)	       (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	 |} n -> ab_biprod_rec b c n = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 101)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  ============================	  forall n : ab_biprod B C,	  {|	    normalsubgroup_subgroup :=	      grp_image (ab_biprod_corec f (g $o ab_homo_negation));	    normalsubgroup_isnormal :=	      isnormal_ab_subgroup (ab_biprod B C)	        (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	  |} n -> ab_biprod_rec b c n = mon_unit	1 subgoal (ID 406)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  q : {a : A & ab_biprod_corec f (g $o ab_homo_negation) a = (x, y)}	  ============================	  b x + c y = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "1 subgoal (ID 411)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  a : A	  q : ab_biprod_corec f (g $o ab_homo_negation) a = (x, y)	  ============================	  b x + c y = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 412)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  a : A	  q : (f a, g (- a)) = (x, y)	  ============================	  b x + c y = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 433)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  a : A	  q : (f a, g (- a)) = (x, y)	  ============================	  uncurry (fun (x0 : B) (y0 : C) => b x0 + c y0) (f a, g (- a)) = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 435)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  a : A	  q : (f a, g (- a)) = (x, y)	  ============================	  b (f a) + c (g (- a)) = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 470)	  	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : b o f == c o g	  x : B	  y : C	  a : A	  q : (f a, g (- a)) = (x, y)	  ============================	  c (g a) + - (c $o g) a = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 113)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  Y : AbGroup	  ============================	  {b : B $-> Y & {c : C $-> Y & b o f == c o g}} -> ab_pushout f g $-> Y	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "<infomsg>ab_pushout_inl is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "<infomsg>ab_pushout_inr is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 180)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  ab_pushout_inl $o f == ab_pushout_inr $o g	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 182)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  ============================	  (ab_pushout_inl $o f) a = (ab_pushout_inr $o g) a	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 187)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 200)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  bc := grp_image_in (ab_biprod_corec f (g $o ab_homo_negation)) a	   : grp_image (ab_biprod_corec f (g $o ab_homo_negation))	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 210)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : grp_image (ab_biprod_corec f (g $o ab_homo_negation)) (b, c)	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 238)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : {a : A & ab_biprod_corec f (g $o ab_homo_negation) a = (b, c)}	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 304)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : ab_biprod_corec f (g $o ab_homo_negation) p = (b, c)	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "1 subgoal (ID 315)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : (fst (ab_biprod_corec f (g $o ab_homo_negation) p) = fst (b, c)) *	      (snd (ab_biprod_corec f (g $o ab_homo_negation) p) = snd (b, c))	  ============================	  in_cosetL	    {|	      normalsubgroup_subgroup :=	        grp_image (ab_biprod_corec f (g $o ab_homo_negation));	      normalsubgroup_isnormal :=	        isnormal_ab_subgroup (ab_biprod B C)	          (grp_image (ab_biprod_corec f (g $o ab_homo_negation)))	    |} (grp_prod_inl (f a)) (grp_prod_inr (g a))	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "1 subgoal (ID 322)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  Tr (-1) {a0 : A & (f a0, g (- a0)) = - (f a, mon_unit) + (mon_unit, g a)}	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 325)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  {a0 : A & (f a0, g (- a0)) = - (f a, mon_unit) + (mon_unit, g a)}	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "1 subgoal (ID 330)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  (f (- a), g (- - a)) = - (f a, mon_unit) + (mon_unit, g a)	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "2 subgoals (ID 335)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  f (- a) = - f a + mon_unit		subgoal 2 (ID 336) is:	 g (- - a) = - mon_unit + g a	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 335)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  f (- a) = - f a + mon_unit	1 subgoal (ID 339)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  - f a = - f a + mon_unit	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "1 subgoal (ID 351)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  - f a + mon_unit = - f a	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 336) is:	 g (- - a) = - mon_unit + g a	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 336)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  g (- - a) = - mon_unit + g a	1 subgoal (ID 444)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  g a = - mon_unit + g a	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "1 subgoal (ID 455)	  	  A, B, C : AbGroup	  f : A $-> B	  g : A $-> C	  a : A	  b : B	  c : C	  p : A	  q : f p = b	  r : g (- p) = c	  ============================	  g a = mon_unit + g a	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "1 subgoal (ID 237)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  ============================	  ab_pushout_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr)	    (fun a : A => ap phi (ab_pushout_commsq a)) = phi	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "1 subgoal (ID 250)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  N := grp_image (ab_biprod_corec f (g $o ab_homo_negation))	   : Subgroup (ab_biprod B C)	  ============================	  ab_pushout_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr)	    (fun a : A => ap phi (ab_pushout_commsq a)) = phi	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 290)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  N := grp_image (ab_biprod_corec f (g $o ab_homo_negation))	   : Subgroup (ab_biprod B C)	  ============================	  ((equiv_quotient_abgroup_ump N Y)^-1)%equiv	    (ab_pushout_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr)	       (fun a : A => ap phi (ab_pushout_commsq a))) =	  ((equiv_quotient_abgroup_ump N Y)^-1)%equiv phi	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "1 subgoal (ID 373)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  N := grp_image (ab_biprod_corec f (g $o ab_homo_negation))	   : Subgroup (ab_biprod B C)	  ============================	  (((equiv_quotient_abgroup_ump N Y)^-1)%equiv	     (ab_pushout_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr)	        (fun a : A => ap phi (ab_pushout_commsq a)))).1 =	  (((equiv_quotient_abgroup_ump N Y)^-1)%equiv phi).1	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "1 subgoal (ID 661)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  N := grp_image (ab_biprod_corec f (g $o ab_homo_negation))	   : Subgroup (ab_biprod B C)	  ============================	  ab_biprod_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr) =	  (((equiv_quotient_abgroup_ump N Y)^-1)%equiv phi).1	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 672)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  N := grp_image (ab_biprod_corec f (g $o ab_homo_negation))	   : Subgroup (ab_biprod B C)	  bc : ab_biprod B C	  ============================	  ab_biprod_rec (phi $o ab_pushout_inl) (phi $o ab_pushout_inr) bc =	  (((equiv_quotient_abgroup_ump N Y)^-1)%equiv phi).1 bc	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 254)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  IsEquiv (ab_pushout_rec_uncurried f g Y)	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "3 subgoals (ID 280)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  (ab_pushout f g $-> Y) -> {b : B $-> Y & {c : C $-> Y & b o f == c o g}}		subgoal 2 (ID 282) is:	 ab_pushout_rec_uncurried f g Y o ?g == idmap	subgoal 3 (ID 284) is:	 ?g o ab_pushout_rec_uncurried f g Y == idmap	";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "1 subgoal (ID 280)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  (ab_pushout f g $-> Y) -> {b : B $-> Y & {c : C $-> Y & b o f == c o g}}	1 subgoal (ID 285)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  ============================	  {b : B $-> Y & {c : C $-> Y & b o f == c o g}}	";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 316)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  ============================	  (fun x : A => (phi $o ab_pushout_inl) (f x)) ==	  (fun x : A => (phi $o ab_pushout_inr) (g x))	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 318)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  a : A	  ============================	  (phi $o ab_pushout_inl) (f a) = (phi $o ab_pushout_inr) (g a)	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "1 subgoal (ID 323)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  a : A	  ============================	  ab_pushout_inl (f a) = ab_pushout_inr (g a)	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 282) is:	 ab_pushout_rec_uncurried f g Y	 o (fun phi : ab_pushout f g $-> Y =>	    (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	    fun a : A => ap phi (ab_pushout_commsq a))) == idmap	subgoal 2 (ID 284) is:	 (fun phi : ab_pushout f g $-> Y =>	  (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	  fun a : A => ap phi (ab_pushout_commsq a)))	 o ab_pushout_rec_uncurried f g Y == idmap	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 282)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  ab_pushout_rec_uncurried f g Y	  o (fun phi : ab_pushout f g $-> Y =>	     (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	     fun a : A => ap phi (ab_pushout_commsq a))) == idmap	1 subgoal (ID 330)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  phi : ab_pushout f g $-> Y	  ============================	  ab_pushout_rec_uncurried f g Y	    (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	    fun a : A => ap phi (ab_pushout_commsq a)) = phi	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 284) is:	 (fun phi : ab_pushout f g $-> Y =>	  (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	  fun a : A => ap phi (ab_pushout_commsq a)))	 o ab_pushout_rec_uncurried f g Y == idmap	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 284)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  ============================	  (fun phi : ab_pushout f g $-> Y =>	   (phi $o ab_pushout_inl; phi $o ab_pushout_inr;	   fun a : A => ap phi (ab_pushout_commsq a)))	  o ab_pushout_rec_uncurried f g Y == idmap	1 subgoal (ID 347)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	  ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	  fun a : A =>	  ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)) =	  (b; c; p)	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "2 subgoals (ID 381)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	  ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	  fun a : A =>	  ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).1 =	  (b; c; p).1		subgoal 2 (ID 383) is:	 transport	   (fun b0 : B $-> Y =>	    {c0 : C $-> Y & (fun x : A => b0 (f x)) == (fun x : A => c0 (g x))}) 	   ?p	   (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	   ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	   fun a : A =>	   ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2 =	 (b; c; p).2	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "1 subgoal (ID 381)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	  ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	  fun a : A =>	  ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).1 =	  (b; c; p).1	1 subgoal (ID 392)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	  ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	  fun a : A =>	  ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).1 ==	  (b; c; p).1	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "1 subgoal (ID 395)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  x : B	  ============================	  b x + c mon_unit = b x	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "1 subgoal (ID 411)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  x : B	  ============================	  b x + mon_unit = b x	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 383) is:	 transport	   (fun b0 : B $-> Y =>	    {c0 : C $-> Y & (fun x : A => b0 (f x)) == (fun x : A => c0 (g x))})	   (let X := equiv_fun equiv_path_grouphomomorphism in	    X	      (fun x : B =>	       ap (fun k : Y => b x + k) (grp_homo_unit c) @ right_identity (b x)))	   (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	   ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	   fun a : A =>	   ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2 =	 (b; c; p).2	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 383)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  transport	    (fun b0 : B $-> Y =>	     {c0 : C $-> Y & (fun x : A => b0 (f x)) == (fun x : A => c0 (g x))})	    (let X := equiv_fun equiv_path_grouphomomorphism in	     X	       (fun x : B =>	        ap (fun k : Y => b x + k) (grp_homo_unit c) @ right_identity (b x)))	    (ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	    ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	    fun a : A =>	    ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2 =	  (b; c; p).2	1 subgoal (ID 513)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  (((ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	    ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	    fun a : A =>	    ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2).1;	  transport	    (fun x : B $-> Y =>	     (fun x0 : A => x (f x0)) ==	     (fun x0 : A =>	      ((ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	       ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	       fun a : A =>	       ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2).1	        (g x0)))	    (let X := equiv_fun equiv_path_grouphomomorphism in	     X	       (fun x : B =>	        ap (fun k : Y => b x + k) (grp_homo_unit c) @ right_identity (b x)))	    ((ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inl;	     ab_pushout_rec_uncurried f g Y (b; c; p) $o ab_pushout_inr;	     fun a : A =>	     ap (ab_pushout_rec_uncurried f g Y (b; c; p)) (ab_pushout_commsq a)).2).2) =	  (b; c; p).2	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 770)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  grp_homo_compose (ab_pushout_rec_uncurried f g Y (b; c; p)) ab_pushout_inr =	  c	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "1 subgoal (ID 779)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  ============================	  grp_homo_compose (ab_pushout_rec_uncurried f g Y (b; c; p)) ab_pushout_inr ==	  c	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 782)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  y : C	  ============================	  b mon_unit + c y = c y	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "1 subgoal (ID 799)	  	  H : Funext	  A, B, C, Y : AbGroup	  f : A $-> B	  g : A $-> C	  b : B $-> Y	  c : C $-> Y	  p : (fun x : A => b (f x)) == (fun x : A => c (g x))	  y : C	  ============================	  mon_unit + c y = c y	";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Algebra.AbGroups.AbPushout</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a> <a class="idref" href="HoTT.WildCat.html#"><span class="id" title="library">WildCat</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.Groups.html#"><span class="id" title="library">Algebra.Groups</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#"><span class="id" title="library">Algebra.AbGroups.AbelianGroup</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_add_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab4"></a><h1 class="section">Pushouts of abelian groups.</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="ab_pushout" class="idref" href="#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> <a id="C:3" class="idref" href="#C:3"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>}<br>
+           (<a id="f:4" class="idref" href="#f:4"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:2"><span class="id" title="variable">B</span></a>) (<a id="g:5" class="idref" href="#g:5"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:3"><span class="id" title="variable">C</span></a>) : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a><br>
+  := <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#QuotientAbGroup"><span class="id" title="definition">QuotientAbGroup</span></a><br>
+       (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod"><span class="id" title="definition">ab_biprod</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:2"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:3"><span class="id" title="variable">C</span></a>)<br>
+       (<a class="idref" href="HoTT.Algebra.Groups.Image.html#grp_image"><span class="id" title="definition">grp_image</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod_corec"><span class="id" title="definition">ab_biprod_corec</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:4"><span class="id" title="variable">f</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:5"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_homo_negation"><span class="id" title="definition">ab_homo_negation</span></a>))).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+Recursion principle. 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(22, '0_3_11');
+      ">
+<span class="id" title="keyword">Theorem</span> <a id="ab_pushout_rec" class="idref" href="#ab_pushout_rec"><span class="id" title="lemma">ab_pushout_rec</span></a> {<a id="A:6" class="idref" href="#A:6"><span class="id" title="binder">A</span></a> <a id="B:7" class="idref" href="#B:7"><span class="id" title="binder">B</span></a> <a id="C:8" class="idref" href="#C:8"><span class="id" title="binder">C</span></a> <a id="Y:9" class="idref" href="#Y:9"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>} {<a id="f:10" class="idref" href="#f:10"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:7"><span class="id" title="variable">B</span></a>} {<a id="g:11" class="idref" href="#g:11"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:8"><span class="id" title="variable">C</span></a>}<br>
+        (<a id="b:12" class="idref" href="#b:12"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:7"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:9"><span class="id" title="variable">Y</span></a>) (<a id="c:13" class="idref" href="#c:13"><span class="id" title="binder">c</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:8"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:9"><span class="id" title="variable">Y</span></a>) (<a id="p:14" class="idref" href="#p:14"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#b:12"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#c:13"><span class="id" title="variable">c</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:11"><span class="id" title="variable">g</span></a>)<br>
+  : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:11"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:9"><span class="id" title="variable">Y</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(23, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(24, '0_3_11');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Algebra.Groups.QuotientGroup.html#grp_quotient_rec"><span class="id" title="definition">grp_quotient_rec</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(25, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod_rec"><span class="id" title="lemma">ab_biprod_rec</span></a> <span class="id" title="var">b</span> <span class="id" title="var">c</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(26, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> [<span class="id" title="var">x</span> <span class="id" title="var">y</span>] <span class="id" title="var">q</span>; <span class="id" title="var">strip_truncations</span>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(27, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">destruct</span> <span class="id" title="var">q</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">a</span> <span class="id" title="var">q</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(28, '0_3_11');
+      "><span class="id" title="var">cbn</span> <span class="id" title="tactic">in</span> <span class="id" title="var">q</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(29, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#uncurry"><span class="id" title="definition">uncurry</span></a> (<span class="id" title="keyword">fun</span> <a id="x:17" class="idref" href="#x:17"><span class="id" title="binder">x</span></a> <a id="y:18" class="idref" href="#y:18"><span class="id" title="binder">y</span></a> ⇒ <span class="id" title="var">b</span> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#x:15"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#903023549b997efe3766fb719fc396b5"><span class="id" title="notation">+</span></a> <span class="id" title="var">c</span> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#y:16"><span class="id" title="variable">y</span></a>)) <span class="id" title="var">q</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(30, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Basics.Overture.html#uncurry"><span class="id" title="definition">uncurry</span></a>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(31, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#ap011"><span class="id" title="definition">ap011</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#sg_op"><span class="id" title="definition">sg_op</span></a> (<span class="id" title="var">p</span> <span class="id" title="var">a</span>) (<a class="idref" href="HoTT.Classes.theory.groups.html#preserves_negate"><span class="id" title="lemma">preserves_negate</span></a> (<span class="id" title="var">f</span>:=<span class="id" title="var">c</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <span class="id" title="var">g</span>) <span class="id" title="var">_</span>) <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(32, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_inverse"><span class="id" title="definition">right_inverse</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(33, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(34, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Corollary</span> <a id="ab_pushout_rec_uncurried" class="idref" href="#ab_pushout_rec_uncurried"><span class="id" title="lemma">ab_pushout_rec_uncurried</span></a> {<a id="A:19" class="idref" href="#A:19"><span class="id" title="binder">A</span></a> <a id="B:20" class="idref" href="#B:20"><span class="id" title="binder">B</span></a> <a id="C:21" class="idref" href="#C:21"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>}<br>
+          (<a id="f:22" class="idref" href="#f:22"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:19"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:20"><span class="id" title="variable">B</span></a>) (<a id="g:23" class="idref" href="#g:23"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:19"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:21"><span class="id" title="variable">C</span></a>) (<a id="Y:24" class="idref" href="#Y:24"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>)<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="b:25" class="idref" href="#b:25"><span class="id" title="binder">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:20"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:24"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="c:26" class="idref" href="#c:26"><span class="id" title="binder">c</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:21"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:24"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#b:25"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#c:26"><span class="id" title="variable">c</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:23"><span class="id" title="variable">g</span></a><a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}}</span></a><br>
+      <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:23"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:24"><span class="id" title="variable">Y</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(35, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(36, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intros</span> [<span class="id" title="var">b</span> [<span class="id" title="var">c</span> <span class="id" title="var">p</span>]]; <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_rec"><span class="id" title="lemma">ab_pushout_rec</span></a> <span class="id" title="var">b</span> <span class="id" title="var">c</span> <span class="id" title="var">p</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(37, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(38, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="ab_pushout_inl" class="idref" href="#ab_pushout_inl"><span class="id" title="definition">ab_pushout_inl</span></a> {<a id="A:27" class="idref" href="#A:27"><span class="id" title="binder">A</span></a> <a id="B:28" class="idref" href="#B:28"><span class="id" title="binder">B</span></a> <a id="C:29" class="idref" href="#C:29"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>} {<a id="f:30" class="idref" href="#f:30"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:27"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:28"><span class="id" title="variable">B</span></a>} {<a id="g:31" class="idref" href="#g:31"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:27"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:29"><span class="id" title="variable">C</span></a>}<br>
+  : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:28"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:30"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:31"><span class="id" title="variable">g</span></a> := <a class="idref" href="HoTT.Algebra.Groups.QuotientGroup.html#grp_quotient_map"><span class="id" title="definition">grp_quotient_map</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_prod_inl"><span class="id" title="definition">grp_prod_inl</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(39, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="ab_pushout_inr" class="idref" href="#ab_pushout_inr"><span class="id" title="definition">ab_pushout_inr</span></a> {<a id="A:32" class="idref" href="#A:32"><span class="id" title="binder">A</span></a> <a id="B:33" class="idref" href="#B:33"><span class="id" title="binder">B</span></a> <a id="C:34" class="idref" href="#C:34"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>} {<a id="f:35" class="idref" href="#f:35"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:32"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:33"><span class="id" title="variable">B</span></a>} {<a id="g:36" class="idref" href="#g:36"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:32"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:34"><span class="id" title="variable">C</span></a>}<br>
+  : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:34"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:35"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:36"><span class="id" title="variable">g</span></a> := <a class="idref" href="HoTT.Algebra.Groups.QuotientGroup.html#grp_quotient_map"><span class="id" title="definition">grp_quotient_map</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_prod_inr"><span class="id" title="definition">grp_prod_inr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(40, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Proposition</span> <a id="ab_pushout_commsq" class="idref" href="#ab_pushout_commsq"><span class="id" title="lemma">ab_pushout_commsq</span></a> {<a id="A:37" class="idref" href="#A:37"><span class="id" title="binder">A</span></a> <a id="B:38" class="idref" href="#B:38"><span class="id" title="binder">B</span></a> <a id="C:39" class="idref" href="#C:39"><span class="id" title="binder">C</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>} {<a id="f:40" class="idref" href="#f:40"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:37"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:38"><span class="id" title="variable">B</span></a>} {<a id="g:41" class="idref" href="#g:41"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:37"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:39"><span class="id" title="variable">C</span></a>}<br>
+  : <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">(</span></a>@<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inl"><span class="id" title="definition">ab_pushout_inl</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:37"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:38"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:39"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:40"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:41"><span class="id" title="variable">g</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:40"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inr"><span class="id" title="definition">ab_pushout_inr</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:41"><span class="id" title="variable">g</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(41, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(42, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intro</span> <span class="id" title="var">a</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(43, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Colimits.Quotient.html#qglue"><span class="id" title="definition">qglue</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(44, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<span class="id" title="var">bc</span> := <a class="idref" href="HoTT.Algebra.Groups.Image.html#grp_image_in"><span class="id" title="definition">grp_image_in</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod_corec"><span class="id" title="definition">ab_biprod_corec</span></a> <span class="id" title="var">f</span> (<span class="id" title="var">g</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_homo_negation"><span class="id" title="definition">ab_homo_negation</span></a>)) <span class="id" title="var">a</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(45, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">bc</span> <span class="id" title="keyword">as</span> [[<span class="id" title="var">b</span> <span class="id" title="var">c</span>] <span class="id" title="var">p</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(46, '0_3_11');
+      "><br>
+  <span class="id" title="var">strip_truncations</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(47, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">p</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">p</span> <span class="id" title="var">q</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(48, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Prod.html#equiv_path_prod"><span class="id" title="definition">equiv_path_prod</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">q</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(49, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">q</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">q</span> <span class="id" title="var">r</span>]; <span class="id" title="var">cbn</span> <span class="id" title="tactic">in</span> <span class="id" title="var">q</span>, <span class="id" title="var">r</span>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(50, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(51, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">∃</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:'-'_x"><span class="id" title="notation">-</span></a><span class="id" title="var">a</span>); <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(52, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Prod.html#path_prod"><span class="id" title="definition">path_prod</span></a>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(53, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_inv"><span class="id" title="definition">grp_homo_inv</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(54, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">symmetry</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(55, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_identity"><span class="id" title="definition">right_identity</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(56, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Classes.theory.groups.html#negate_involutive"><span class="id" title="instance">negate_involutive</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(57, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Classes.theory.groups.html#negate_mon_unit"><span class="id" title="lemma">negate_mon_unit</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(58, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_identity"><span class="id" title="definition">left_identity</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(59, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(60, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Proposition</span> <a id="ab_pushout_rec_beta" class="idref" href="#ab_pushout_rec_beta"><span class="id" title="lemma">ab_pushout_rec_beta</span></a> `{<a id="H:42" class="idref" href="#H:42"><span class="id" title="binder">Funext</span></a>} {<a id="A:43" class="idref" href="#A:43"><span class="id" title="binder">A</span></a> <a id="B:44" class="idref" href="#B:44"><span class="id" title="binder">B</span></a> <a id="C:45" class="idref" href="#C:45"><span class="id" title="binder">C</span></a> <a id="Y:46" class="idref" href="#Y:46"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>}<br>
+            {<a id="f:47" class="idref" href="#f:47"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:43"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:44"><span class="id" title="variable">B</span></a>} {<a id="g:48" class="idref" href="#g:48"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:43"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:45"><span class="id" title="variable">C</span></a>}<br>
+            (<a id="phi:49" class="idref" href="#phi:49"><span class="id" title="binder">phi</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout"><span class="id" title="definition">ab_pushout</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:47"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:48"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:46"><span class="id" title="variable">Y</span></a>)<br>
+  : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_rec"><span class="id" title="lemma">ab_pushout_rec</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#phi:49"><span class="id" title="variable">phi</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inl"><span class="id" title="definition">ab_pushout_inl</span></a>) (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#phi:49"><span class="id" title="variable">phi</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inr"><span class="id" title="definition">ab_pushout_inr</span></a>)<br>
+                   (<span class="id" title="keyword">fun</span> <a id="a:50" class="idref" href="#a:50"><span class="id" title="binder">a</span></a>:<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:43"><span class="id" title="variable">A</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#phi:49"><span class="id" title="variable">phi</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_commsq"><span class="id" title="lemma">ab_pushout_commsq</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#a:50"><span class="id" title="variable">a</span></a>)) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#phi:49"><span class="id" title="variable">phi</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(61, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(62, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<span class="id" title="var">N</span> := <a class="idref" href="HoTT.Algebra.Groups.Image.html#grp_image"><span class="id" title="definition">grp_image</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod_corec"><span class="id" title="definition">ab_biprod_corec</span></a> <span class="id" title="var">f</span> (<span class="id" title="var">g</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_homo_negation"><span class="id" title="definition">ab_homo_negation</span></a>))).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(63, '0_3_11');
+      "><br>
+  <span class="id" title="var">rapply</span> <a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Equivalences.html#equiv_ap'"><span class="id" title="definition">equiv_ap'</span></a> <a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#equiv_quotient_abgroup_ump"><span class="id" title="lemma">equiv_quotient_abgroup_ump</span></a> (<span class="id" title="var">G</span>:=<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod"><span class="id" title="definition">ab_biprod</span></a> <span class="id" title="var">B</span> <span class="id" title="var">C</span>) <span class="id" title="var">N</span> <span class="id" title="var">Y</span><a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">)^-1</span></a>%<span class="id" title="var">equiv</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#f3f2d22838b594a6e5dbfb541ecf90ae"><span class="id" title="notation">)^-1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(64, '0_3_11');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(65, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Algebra.Groups.QuotientGroup.html#grp_quotient_rec_beta"><span class="id" title="lemma">grp_quotient_rec_beta</span></a> <span class="id" title="var">_</span> <span class="id" title="var">Y</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(66, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#equiv_path_grouphomomorphism"><span class="id" title="definition">equiv_path_grouphomomorphism</span></a>; <span class="id" title="tactic">intro</span> <span class="id" title="var">bc</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(67, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#ab_biprod_rec_beta'"><span class="id" title="lemma">ab_biprod_rec_beta'</span></a> (<span class="id" title="var">phi</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.Groups.QuotientGroup.html#grp_quotient_map"><span class="id" title="definition">grp_quotient_map</span></a>) <span class="id" title="var">bc</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(68, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(69, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Theorem</span> <a id="isequiv_ab_pushout_rec" class="idref" href="#isequiv_ab_pushout_rec"><span class="id" title="lemma">isequiv_ab_pushout_rec</span></a> `{<a id="H:51" class="idref" href="#H:51"><span class="id" title="binder">Funext</span></a>} {<a id="A:52" class="idref" href="#A:52"><span class="id" title="binder">A</span></a> <a id="B:53" class="idref" href="#B:53"><span class="id" title="binder">B</span></a> <a id="C:54" class="idref" href="#C:54"><span class="id" title="binder">C</span></a> <a id="Y:55" class="idref" href="#Y:55"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbelianGroup.html#AbGroup"><span class="id" title="record">AbGroup</span></a>}<br>
+        {<a id="f:56" class="idref" href="#f:56"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:52"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#B:53"><span class="id" title="variable">B</span></a>} {<a id="g:57" class="idref" href="#g:57"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#A:52"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#C:54"><span class="id" title="variable">C</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_rec_uncurried"><span class="id" title="lemma">ab_pushout_rec_uncurried</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#f:56"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#g:57"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#Y:55"><span class="id" title="variable">Y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(70, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(71, '0_3_11');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_adjointify"><span class="id" title="definition">isequiv_adjointify</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(72, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intro</span> <span class="id" title="var">phi</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(73, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">phi</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inl"><span class="id" title="definition">ab_pushout_inl</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">phi</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_inr"><span class="id" title="definition">ab_pushout_inr</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(74, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">intro</span> <span class="id" title="var">a</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(75, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">phi</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(76, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_commsq"><span class="id" title="lemma">ab_pushout_commsq</span></a> <span class="id" title="var">a</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(77, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intro</span> <span class="id" title="var">phi</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(78, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#ab_pushout_rec_beta"><span class="id" title="lemma">ab_pushout_rec_beta</span></a> <span class="id" title="var">phi</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(79, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> [<span class="id" title="var">b</span> [<span class="id" title="var">c</span> <span class="id" title="var">p</span>]].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(80, '0_3_11');
+      "><br>
+    <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma"><span class="id" title="definition">path_sigma</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(81, '0_3_11');
+      "><br>
+    + <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#equiv_path_grouphomomorphism"><span class="id" title="definition">equiv_path_grouphomomorphism</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(82, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(83, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="k:59" class="idref" href="#k:59"><span class="id" title="binder">k</span></a> ⇒ <span class="id" title="var">b</span> <span class="id" title="var">x</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#903023549b997efe3766fb719fc396b5"><span class="id" title="notation">+</span></a> <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#k:58"><span class="id" title="variable">k</span></a>) (<a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_unit"><span class="id" title="definition">grp_homo_unit</span></a> <span class="id" title="var">c</span>) <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(84, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_identity"><span class="id" title="definition">right_identity</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(85, '0_3_11');
+      "><br>
+    + <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Sigma.html#transport_sigma'"><span class="id" title="definition">transport_sigma'</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(86, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(87, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#equiv_path_grouphomomorphism"><span class="id" title="definition">equiv_path_grouphomomorphism</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(88, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">intro</span> <span class="id" title="var">y</span>; <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(89, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> (<span class="id" title="keyword">fun</span> <a id="k:61" class="idref" href="#k:61"><span class="id" title="binder">k</span></a> ⇒ <a class="idref" href="HoTT.Algebra.AbGroups.AbPushout.html#k:60"><span class="id" title="variable">k</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#903023549b997efe3766fb719fc396b5"><span class="id" title="notation">+</span></a> <span class="id" title="var">c</span> <span class="id" title="var">y</span>) (<a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_unit"><span class="id" title="definition">grp_homo_unit</span></a> <span class="id" title="var">b</span>) <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(90, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#left_identity"><span class="id" title="definition">left_identity</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(91, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(92, '0_3_11');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

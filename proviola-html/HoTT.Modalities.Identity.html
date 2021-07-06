@@ -1,0 +1,404 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 1)	  	  ============================	  Modality	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "6 subgoals (ID 166)	  	  ============================	  forall T U : Type,	  (fun _ : Type => Unit) T ->	  forall f : T -> U, IsEquiv f -> (fun _ : Type => Unit) U		subgoal 2 (ID 169) is:	 forall T : Type, (fun _ : Type => Unit) (idmap T)	subgoal 3 (ID 171) is:	 forall T : Type, T -> idmap T	subgoal 4 (ID 173) is:	 forall (A : Type) (B : idmap A -> Type),	 (forall oa : idmap A, (fun _ : Type => Unit) (B oa)) ->	 (forall a : A, B (?to' A a)) -> forall z : idmap A, B z	subgoal 5 (ID 175) is:	 forall (A : Type) (B : idmap A -> Type)	 (B_inO : forall oa : idmap A, (fun _ : Type => Unit) (B oa))	 (f : forall a : A, B (?to' A a)) (a : A),	 ?O_ind' A B B_inO f (?to' A a) = f a	subgoal 6 (ID 177) is:	 forall A : Type,	 (fun _ : Type => Unit) A -> forall z z' : A, (fun _ : Type => Unit) (z = z')	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "3 subgoals (ID 171)	  	  ============================	  forall T : Type, T -> idmap T		subgoal 2 (ID 173) is:	 forall (A : Type) (B : idmap A -> Type),	 (forall oa : idmap A, (fun _ : Type => Unit) (B oa)) ->	 (forall a : A, B (?to' A a)) -> forall z : idmap A, B z	subgoal 3 (ID 175) is:	 forall (A : Type) (B : idmap A -> Type)	 (B_inO : forall oa : idmap A, (fun _ : Type => Unit) (B oa))	 (f : forall a : A, B (?to' A a)) (a : A),	 ?O_ind' A B B_inO f (?to' A a) = f a	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 171)	  	  ============================	  forall T : Type, T -> idmap T	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 173) is:	 forall (A : Type) (B : idmap A -> Type),	 (forall oa : idmap A, (fun _ : Type => Unit) (B oa)) ->	 (forall a : A, B ((fun T : Type => idmap) A a)) -> forall z : idmap A, B z	subgoal 2 (ID 175) is:	 forall (A : Type) (B : idmap A -> Type)	 (B_inO : forall oa : idmap A, (fun _ : Type => Unit) (B oa))	 (f : forall a : A, B ((fun T : Type => idmap) A a)) 	 (a : A), ?O_ind' A B B_inO f ((fun T : Type => idmap) A a) = f a	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "1 subgoal (ID 173)	  	  ============================	  forall (A : Type) (B : idmap A -> Type),	  (forall oa : idmap A, (fun _ : Type => Unit) (B oa)) ->	  (forall a : A, B ((fun T : Type => idmap) A a)) -> forall z : idmap A, B z	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 175) is:	 forall (A : Type) (B : idmap A -> Type)	 (B_inO : forall oa : idmap A, (fun _ : Type => Unit) (B oa))	 (f : forall a : A, B ((fun T : Type => idmap) A a)) 	 (a : A),	 (fun (A0 : Type) (B0 : idmap A0 -> Type)	    (_ : forall oa : idmap A0, (fun _ : Type => Unit) (B0 oa))	    (f0 : forall a0 : A0, B0 ((fun T : Type => idmap) A0 a0)) 	    (z : idmap A0) => f0 z) A B B_inO f ((fun T : Type => idmap) A a) = 	 f a	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 175)	  	  ============================	  forall (A : Type) (B : idmap A -> Type)	  (B_inO : forall oa : idmap A, (fun _ : Type => Unit) (B oa))	  (f : forall a : A, B ((fun T : Type => idmap) A a)) 	  (a : A),	  (fun (A0 : Type) (B0 : idmap A0 -> Type)	     (_ : forall oa : idmap A0, (fun _ : Type => Unit) (B0 oa))	     (f0 : forall a0 : A0, B0 ((fun T : Type => idmap) A0 a0)) 	     (z : idmap A0) => f0 z) A B B_inO f ((fun T : Type => idmap) A a) = 	  f a	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 2)	  	  ============================	  IsAccModality purely	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "2 subgoals (ID 4)	  	  ============================	  NullGenerators		subgoal 2 (ID 5) is:	 forall X : Type, In purely X <-> IsNull_Internal.IsNull ?acc_ngen X	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 4)	  	  ============================	  NullGenerators	1 focused subgoal	(shelved: 1) (ID 8)	  	  ============================	  ?ngen_indices -> Type	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 5) is:	 forall X : Type,	 In purely X <->	 IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |} X	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 5)	  	  ============================	  forall X : Type,	  In purely X <->	  IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |}	    X	2 subgoals (ID 11)	  	  X : Type	  ============================	  In purely X ->	  IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |}	    X		subgoal 2 (ID 12) is:	 IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |} X ->	 In purely X	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "1 subgoal (ID 11)	  	  X : Type	  ============================	  In purely X ->	  IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |}	    X	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 12) is:	 IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |} X ->	 In purely X	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 12)	  	  X : Type	  ============================	  IsNull_Internal.IsNull {| ngen_indices := Empty; ngen_type := Empty_rec |}	    X -> In purely X	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Modalities.Identity</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">HoTT.Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Modalities.Modality.html#"><span class="id" title="library">Modality</span></a> <a class="idref" href="HoTT.Modalities.Accessible.html#"><span class="id" title="library">Accessible</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab965"></a><h1 class="section">The identity modality</h1>
+<div class="doc" scenenumber="4"> </div>
+
+ Everything to say here is fairly trivial. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="purely" class="idref" href="#purely"><span class="id" title="definition">purely</span></a> : <a class="idref" href="HoTT.Modalities.Modality.html#Modality"><span class="id" title="record">Modality</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+  <span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Modalities.Modality.html#Build_Modality"><span class="id" title="definition">Build_Modality</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a>) <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+  1-2,6:<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">exact</span> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">assumption</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span> ? ? ? <span class="id" title="var">f</span> <span class="id" title="var">z</span>; <span class="id" title="tactic">exact</span> (<span class="id" title="var">f</span> <span class="id" title="var">z</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="accmodality_purely" class="idref" href="#accmodality_purely"><span class="id" title="instance">accmodality_purely</span></a> : <a class="idref" href="HoTT.Modalities.Accessible.html#IsAccModality"><span class="id" title="class">IsAccModality</span></a> <a class="idref" href="HoTT.Modalities.Identity.html#purely"><span class="id" title="definition">purely</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+  <span class="id" title="var">unshelve</span> <span class="id" title="tactic">econstructor</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">econstructor</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">exact</span> (@<a class="idref" href="HoTT.Types.Empty.html#Empty_rec"><span class="id" title="lemma">Empty_rec</span></a> <span class="id" title="keyword">Type</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">X</span>; <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+    + <span class="id" title="tactic">intros</span> <span class="id" title="var">_</span> [].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+    + <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">exact</span> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(34, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(35, '0_3_7');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

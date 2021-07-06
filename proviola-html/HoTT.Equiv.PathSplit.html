@@ -1,0 +1,1113 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "<infomsg>PathSplit is defined</infomsg>	<infomsg>PathSplit is recursively defined (guarded on 1st argument)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 22)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  PathSplit n.+2 f -> IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 30)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  k : forall x y : A, PathSplit n.+1 (ap f)	  ============================	  IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 38)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  k : forall x y : A, PathSplit n.+1 (ap f)	  h := fun (x y : A) (p : f x = f y) => (fst (k x y) p).1	   : forall x y : A, f x = f y -> x = y	  ============================	  IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 62)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  k : forall x y : A, PathSplit n.+1 (ap f)	  h := fun (x y : A) (p : f x = f y) => (fst (k x y) p).1	   : forall x y : A, f x = f y -> x = y	  hs := fun x y : A =>	        (fun p : f x = f y => (fst (k x y) p).2) : ap f o h x y == idmap	   : forall x y : A, ap f o h x y == idmap	  ============================	  IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "1 subgoal (ID 65)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  ============================	  IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 70)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  ============================	  Contr (hfiber f b)	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "2 subgoals (ID 71)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  ============================	  IsHProp (hfiber f b)		subgoal 2 (ID 72) is:	 hfiber f b	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 71)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  ============================	  IsHProp (hfiber f b)	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 83)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  (a; p) = (a'; p')	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "1 subgoal (ID 100)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  transport (fun x : A => f x = b) (h a a' (p @ p'^)) p = p'	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 117)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  (ap f (h a a' (p @ p'^)))^ @ p = p'	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 146)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  (p @ p'^)^ @ p = p'	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 170)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  ((p'^)^ @ p^) @ p = p'	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 188)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  (p'^)^ @ (p^ @ p) = p'	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 210)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  g : forall a : B, hfiber f a	  h : forall x y : A, f x = f y -> x = y	  hs : forall x y : A, ap f o h x y == idmap	  b : B	  a : A	  p : f a = b	  a' : A	  p' : f a' = b	  ============================	  (p'^)^ @ 1 = p'	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 36)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  Contr (PathSplit n f)	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 40)	  	  H : Funext	  n : nat	  ============================	  forall (A B : Type) (f : A -> B), IsEquiv f -> Contr (PathSplit n f)	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "2 subgoals (ID 56)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  Contr (PathSplit 0 f)		subgoal 2 (ID 60) is:	 Contr (PathSplit n.+1 f)	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 56)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  Contr (PathSplit 0 f)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 60) is:	 Contr (PathSplit n.+1 f)	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 60)	  	  H : Funext	  n : nat	  IHn : forall (A B : Type) (f : A -> B), IsEquiv f -> Contr (PathSplit n f)	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  Contr (PathSplit n.+1 f)	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 45)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  IsHProp (PathSplit n.+2 f)	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "1 subgoal (ID 47)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ps : PathSplit n.+2 f	  ============================	  Contr (PathSplit n.+2 f)	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 51)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ps : PathSplit n.+2 f	  i := isequiv_pathsplit n ps : IsEquiv f	  ============================	  Contr (PathSplit n.+2 f)	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 56)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  PathSplit n.+2 f <~> IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "2 subgoals (ID 98)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  PathSplit n.+2 f -> IsEquiv f		subgoal 2 (ID 99) is:	 IsEquiv f -> PathSplit n.+2 f	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 98)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  PathSplit n.+2 f -> IsEquiv f	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 99) is:	 IsEquiv f -> PathSplit n.+2 f	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "1 subgoal (ID 99)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  f : A -> B	  ============================	  IsEquiv f -> PathSplit n.+2 f	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 95)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit n f <~> PathSplit n g	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "2 subgoals (ID 99)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit 0 f <~> PathSplit 0 g		subgoal 2 (ID 102) is:	 PathSplit n.+1 f <~> PathSplit n.+1 g	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 102)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit n.+1 f <~> PathSplit n.+1 g	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "2 subgoals (ID 107)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit 1 f <~> PathSplit 1 g		subgoal 2 (ID 110) is:	 PathSplit n.+2 f <~> PathSplit n.+2 g	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "1 subgoal (ID 107)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit 1 f <~> PathSplit 1 g	1 subgoal (ID 115)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  (forall a : B, hfiber f a) * (A -> A -> Unit) <~>	  (forall a : D, hfiber g a) * (C -> C -> Unit)	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 162)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  (forall a : B, hfiber f a) <~> (forall a : D, hfiber g a)	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "1 subgoal (ID 175)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  d : D	  ============================	  hfiber f ((k^-1)%equiv d) <~> hfiber g d	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "1 subgoal (ID 176)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  d : D	  ============================	  {x : A & f x = (k^-1)%equiv d} <~> {x : C & g x = d}	";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "1 subgoal (ID 184)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  d : D	  a : A	  ============================	  f a = (k^-1)%equiv d <~> g (h a) = d	";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 193)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  d : D	  a : A	  ============================	  f a = (k^-1)%equiv d <~> k (f a) = d	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 110) is:	 PathSplit n.+2 f <~> PathSplit n.+2 g	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "1 subgoal (ID 110)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  PathSplit n.+2 f <~> PathSplit n.+2 g	1 subgoal (ID 206)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  IsEquiv f <~> PathSplit n.+2 g	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 218)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  ============================	  IsEquiv f <~> IsEquiv g	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "2 subgoals (ID 249)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  e : IsEquiv f	  ============================	  IsEquiv g		subgoal 2 (ID 250) is:	 IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "1 subgoal (ID 249)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  e : IsEquiv f	  ============================	  IsEquiv g	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 250) is:	 IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 250)	  	  H : Funext	  n : nat	  A : Type	  B : Type	  C : Type	  D : Type	  f : A -> B	  g : C -> D	  h : A <~> C	  k : B <~> D	  p : g o h == k o f	  e : IsEquiv g	  ============================	  IsEquiv f	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "<infomsg>ooPathSplit is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "<infomsg>isequiv_oopathsplit is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "1 subgoal (ID 123)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  H0 : IsEquiv f	  ============================	  Contr (ooPathSplit f)	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "1 subgoal (ID 131)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ============================	  IsHProp (ooPathSplit f)	";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "1 subgoal (ID 133)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ps : ooPathSplit f	  ============================	  Contr (ooPathSplit f)	";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "1 subgoal (ID 137)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ps : ooPathSplit f	  i := isequiv_oopathsplit ps : IsEquiv f	  ============================	  Contr (ooPathSplit f)	";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "1 subgoal (ID 141)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ============================	  ooPathSplit f <~> IsEquiv f	";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "2 subgoals (ID 183)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ============================	  ooPathSplit f -> IsEquiv f		subgoal 2 (ID 184) is:	 IsEquiv f -> ooPathSplit f	";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "1 subgoal (ID 183)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ============================	  ooPathSplit f -> IsEquiv f	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 184) is:	 IsEquiv f -> ooPathSplit f	";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "1 subgoal (ID 184)	  	  H : Funext	  A : Type	  B : Type	  f : A -> B	  ============================	  IsEquiv f -> ooPathSplit f	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 112;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 113;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 114;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Equiv.PathSplit</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">HoTT.Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">nat_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">path_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Generalizable</span> <span class="id" title="keyword">Variables</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="AssumeFunext" class="idref" href="#AssumeFunext"><span class="id" title="section">AssumeFunext</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Context</span> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Funext</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab836"></a><h1 class="section">n-Path-split maps.</h1>
+<div class="doc" scenenumber="4"> </div>
+
+A map is n-path-split if its induced maps on the first n iterated path-spaces are split surjections.  Thus every map is 0-path-split, the 1-path-split maps are the split surjections, and so on.  It turns out that for n&gt;1, being n-path-split is the same as being an equivalence. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="PathSplit" class="idref" href="#PathSplit"><span class="id" title="definition">PathSplit</span></a> (<a id="n:2" class="idref" href="#n:2"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) `(<a id="f:5" class="idref" href="#f:5"><span class="id" title="binder">f</span></a> : <a id="A:3" class="idref" href="#A:3"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:4" class="idref" href="#B:4"><span class="id" title="binder">B</span></a>) : <span class="id" title="keyword">Type</span><br>
+  := <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:2"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br>
+       | 0 ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a><br>
+       | <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">n</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:8" class="idref" href="#a:8"><span class="id" title="binder">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#hfiber"><span class="id" title="definition">hfiber</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:5"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#a:8"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">×</span></a><br>
+                <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="x:9" class="idref" href="#x:9"><span class="id" title="binder">x</span></a> <a id="y:10" class="idref" href="#y:10"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#A:3"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit:6"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:2"><span class="id" title="variable">n</span></a> (@<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:5"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#x:9"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#y:10"><span class="id" title="variable">y</span></a>)<br>
+     <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="isequiv_pathsplit" class="idref" href="#isequiv_pathsplit"><span class="id" title="definition">isequiv_pathsplit</span></a> (<a id="n:11" class="idref" href="#n:11"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) `{<a id="f:14" class="idref" href="#f:14"><span class="id" title="binder">f</span></a> : <a id="A:12" class="idref" href="#A:12"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:13" class="idref" href="#B:13"><span class="id" title="binder">B</span></a>}<br>
+: <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:11"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bc63483175fac06bcd5541a5e9093b18"><span class="id" title="notation">.+2</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:14"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:14"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">intros</span> [<span class="id" title="var">g</span> <span class="id" title="var">k</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<span class="id" title="var">h</span> := <span class="id" title="keyword">fun</span> <a id="x:18" class="idref" href="#x:18"><span class="id" title="binder">x</span></a> <a id="y:19" class="idref" href="#y:19"><span class="id" title="binder">y</span></a> <a id="p:20" class="idref" href="#p:20"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.1'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#fst"><span class="id" title="projection">fst</span></a> (<span class="id" title="var">k</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#x:15"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#y:16"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Equiv.PathSplit.html#p:17"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.1'"><span class="id" title="notation">).1</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<span class="id" title="var">hs</span> := <span class="id" title="keyword">fun</span> <a id="x:24" class="idref" href="#x:24"><span class="id" title="binder">x</span></a> <a id="y:25" class="idref" href="#y:25"><span class="id" title="binder">y</span></a> ⇒ (<span class="id" title="keyword">fun</span> <a id="p:26" class="idref" href="#p:26"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#fst"><span class="id" title="projection">fst</span></a> (<span class="id" title="var">k</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#x:21"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#y:22"><span class="id" title="variable">y</span></a>) <a class="idref" href="HoTT.Equiv.PathSplit.html#p:23"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">).2</span></a>)<br>
+                         : <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">f</span><a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">(</span></a><span class="id" title="var">h</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#x:21"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#y:22"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idmap"><span class="id" title="abbreviation">idmap</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+  <span class="id" title="var">clearbody</span> <span class="id" title="var">hs</span>; <span class="id" title="var">clearbody</span> <span class="id" title="var">h</span>; <span class="id" title="tactic">clear</span> <span class="id" title="var">k</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Equiv.html#isequiv_contr_map"><span class="id" title="definition">isequiv_contr_map</span></a>; <span class="id" title="tactic">intros</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#contr_inhabited_hprop"><span class="id" title="lemma">contr_inhabited_hprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><br>
+  2:<span class="id" title="tactic">exact</span> (<span class="id" title="var">g</span> <span class="id" title="var">b</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#hprop_allpath"><span class="id" title="lemma">hprop_allpath</span></a>; <span class="id" title="tactic">intros</span> [<span class="id" title="var">a</span> <span class="id" title="var">p</span>] [<span class="id" title="var">a'</span> <span class="id" title="var">p'</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Sigma.html#path_sigma'"><span class="id" title="definition">path_sigma'</span></a> <span class="id" title="var">_</span> (<span class="id" title="var">h</span> <span class="id" title="var">a</span> <span class="id" title="var">a'</span> (<span class="id" title="var">p</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">p'</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a>)) <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Paths.html#transport_paths_Fl"><span class="id" title="definition">transport_paths_Fl</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(34, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#inverse2"><span class="id" title="definition">inverse2</span></a> (<span class="id" title="var">hs</span> <span class="id" title="var">a</span> <span class="id" title="var">a'</span> (<span class="id" title="var">p</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">p'</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a>)) <a class="idref" href="HoTT.Basics.PathGroupoids.html#3b607a272444a2e3acbecfa52b796d2a"><span class="id" title="notation">@@</span></a> 1<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(35, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#inv_pp"><span class="id" title="definition">inv_pp</span></a> <span class="id" title="var">p</span> <span class="id" title="var">p'</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a> <a class="idref" href="HoTT.Basics.PathGroupoids.html#3b607a272444a2e3acbecfa52b796d2a"><span class="id" title="notation">@@</span></a> 1<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(36, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_pp_p"><span class="id" title="definition">concat_pp_p</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(37, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a>1 <a class="idref" href="HoTT.Basics.PathGroupoids.html#3b607a272444a2e3acbecfa52b796d2a"><span class="id" title="notation">@@</span></a> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_Vp"><span class="id" title="definition">concat_Vp</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(38, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.PathGroupoids.html#inv_V"><span class="id" title="definition">inv_V</span></a> <span class="id" title="var">p'</span> <a class="idref" href="HoTT.Basics.PathGroupoids.html#3b607a272444a2e3acbecfa52b796d2a"><span class="id" title="notation">@@</span></a> 1<a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.PathGroupoids.html#concat_p1"><span class="id" title="definition">concat_p1</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(39, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(40, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="contr_pathsplit_isequiv" class="idref" href="#contr_pathsplit_isequiv"><span class="id" title="instance">contr_pathsplit_isequiv</span></a><br>
+           (<a id="n:27" class="idref" href="#n:27"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) `(<a id="f:30" class="idref" href="#f:30"><span class="id" title="binder">f</span></a> : <a id="A:28" class="idref" href="#A:28"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:29" class="idref" href="#B:29"><span class="id" title="binder">B</span></a>) `{<a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">IsEquiv</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">_</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">_</span></a> <a id="H0:31" class="idref" href="#H0:31"><span class="id" title="binder">f</span></a>}<br>
+: <a class="idref" href="HoTT.Basics.Overture.html#Contr"><span class="id" title="abbreviation">Contr</span></a> (<a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:27"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:30"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(41, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(42, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">B</span>; <span class="id" title="var">revert</span> <span class="id" title="var">A</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(43, '0_3_7');
+      "><br>
+  <span class="id" title="var">simple_induction</span> <span class="id" title="var">n</span> <span class="id" title="var">n</span> <span class="id" title="var">IHn</span>; <span class="id" title="tactic">intros</span> <span class="id" title="var">A</span> <span class="id" title="var">B</span> <span class="id" title="var">f</span> ?.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(44, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">exact</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(45, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Prod.html#contr_prod"><span class="id" title="instance">contr_prod</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(46, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(47, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="ishprop_pathsplit" class="idref" href="#ishprop_pathsplit"><span class="id" title="instance">ishprop_pathsplit</span></a> (<a id="n:32" class="idref" href="#n:32"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) `(<a id="f:35" class="idref" href="#f:35"><span class="id" title="binder">f</span></a> : <a id="A:33" class="idref" href="#A:33"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:34" class="idref" href="#B:34"><span class="id" title="binder">B</span></a>)<br>
+: <a class="idref" href="HoTT.Basics.Overture.html#IsHProp"><span class="id" title="abbreviation">IsHProp</span></a> (<a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:32"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bc63483175fac06bcd5541a5e9093b18"><span class="id" title="notation">.+2</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:35"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(48, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(49, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#hprop_inhabited_contr"><span class="id" title="instance">hprop_inhabited_contr</span></a>; <span class="id" title="tactic">intros</span> <span class="id" title="var">ps</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(50, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<a class="idref" href="HoTT.Equiv.PathSplit.html#isequiv_pathsplit"><span class="id" title="definition">isequiv_pathsplit</span></a> <span class="id" title="var">n</span> <span class="id" title="var">ps</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(51, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">exact</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(52, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(53, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="equiv_pathsplit_isequiv" class="idref" href="#equiv_pathsplit_isequiv"><span class="id" title="definition">equiv_pathsplit_isequiv</span></a> (<a id="n:36" class="idref" href="#n:36"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) `(<a id="f:39" class="idref" href="#f:39"><span class="id" title="binder">f</span></a> : <a id="A:37" class="idref" href="#A:37"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:38" class="idref" href="#B:38"><span class="id" title="binder">B</span></a>)<br>
+: <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:36"><span class="id" title="variable">n</span></a><a class="idref" href="HoTT.Basics.Nat.html#bc63483175fac06bcd5541a5e9093b18"><span class="id" title="notation">.+2</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:39"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:39"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(54, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(55, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">equiv_iff_hprop</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(56, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#isequiv_pathsplit"><span class="id" title="definition">isequiv_pathsplit</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(57, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span> ?; <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#center"><span class="id" title="method">center</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(58, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(59, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+Path-splitness transfers across commutative squares of equivalences. 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(63, '0_3_11');
+      ">
+<span class="id" title="keyword">Lemma</span> <a id="equiv_functor_pathsplit" class="idref" href="#equiv_functor_pathsplit"><span class="id" title="lemma">equiv_functor_pathsplit</span></a> (<a id="n:40" class="idref" href="#n:40"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) {<a id="A:41" class="idref" href="#A:41"><span class="id" title="binder">A</span></a> <a id="B:42" class="idref" href="#B:42"><span class="id" title="binder">B</span></a> <a id="C:43" class="idref" href="#C:43"><span class="id" title="binder">C</span></a> <a id="D:44" class="idref" href="#D:44"><span class="id" title="binder">D</span></a>}<br>
+      (<a id="f:45" class="idref" href="#f:45"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#A:41"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#B:42"><span class="id" title="variable">B</span></a>) (<a id="g:46" class="idref" href="#g:46"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#C:43"><span class="id" title="variable">C</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#D:44"><span class="id" title="variable">D</span></a>) (<a id="h:47" class="idref" href="#h:47"><span class="id" title="binder">h</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#A:41"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#C:43"><span class="id" title="variable">C</span></a>) (<a id="k:48" class="idref" href="#k:48"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#B:42"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#D:44"><span class="id" title="variable">D</span></a>)<br>
+      (<a id="p:49" class="idref" href="#p:49"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Equiv.PathSplit.html#g:46"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#h:47"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#k:48"><span class="id" title="variable">k</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:45"><span class="id" title="variable">f</span></a>)<br>
+: <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:40"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:45"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:40"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#g:46"><span class="id" title="variable">g</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(64, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(65, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">n</span> <span class="id" title="keyword">as</span> [|<span class="id" title="var">n</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(66, '0_3_11');
+      "><br>
+  1:<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_idmap"><span class="id" title="definition">equiv_idmap</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(67, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">destruct</span> <span class="id" title="var">n</span> <span class="id" title="keyword">as</span> [|<span class="id" title="var">n</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(68, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(69, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Types.Prod.html#06be55fdc319c6b5e93cef6bd5e1f3f9"><span class="id" title="notation">×</span></a><a class="idref" href="HoTT.Types.Prod.html#06be55fdc319c6b5e93cef6bd5e1f3f9"><span class="id" title="notation">E</span></a> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_contr_contr"><span class="id" title="lemma">equiv_contr_contr</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(70, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Forall.html#equiv_functor_forall'"><span class="id" title="definition">equiv_functor_forall'</span></a> <span class="id" title="var">k</span><a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">^-1</span></a> <span class="id" title="var">_</span>); <span class="id" title="tactic">intros</span> <span class="id" title="var">d</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(71, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Basics.Overture.html#hfiber"><span class="id" title="definition">hfiber</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(72, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Sigma.html#equiv_functor_sigma'"><span class="id" title="definition">equiv_functor_sigma'</span></a> <span class="id" title="var">h</span> <span class="id" title="var">_</span>); <span class="id" title="tactic">intros</span> <span class="id" title="var">a</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(73, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Types.Paths.html#equiv_concat_l"><span class="id" title="definition">equiv_concat_l</span></a> (<span class="id" title="var">p</span> <span class="id" title="var">a</span>) <span class="id" title="var">d</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(74, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Paths.html#equiv_moveR_equiv_M"><span class="id" title="definition">equiv_moveR_equiv_M</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(75, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#equiv_pathsplit_isequiv"><span class="id" title="definition">equiv_pathsplit_isequiv</span></a> <span class="id" title="var">n</span> <span class="id" title="var">f</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(76, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Equiv.PathSplit.html#equiv_pathsplit_isequiv"><span class="id" title="definition">equiv_pathsplit_isequiv</span></a> <span class="id" title="var">n</span> <span class="id" title="var">g</span><a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">)^-1</span></a> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(77, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">equiv_iff_hprop</span></a>; <span class="id" title="tactic">intros</span> <span class="id" title="var">e</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(78, '0_3_11');
+      "><br>
+    + <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_commsq"><span class="id" title="definition">isequiv_commsq</span></a> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span> <span class="id" title="var">k</span> (<span class="id" title="keyword">fun</span> <a id="a:51" class="idref" href="#a:51"><span class="id" title="binder">a</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><span class="id" title="var">p</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#a:50"><span class="id" title="variable">a</span></a><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(79, '0_3_11');
+      "><br>
+    + <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#isequiv_commsq'"><span class="id" title="definition">isequiv_commsq'</span></a> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span> <span class="id" title="var">k</span> <span class="id" title="var">p</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(80, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(81, '0_3_11');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+A map is oo-path-split if it is n-path-split for all n.  This is also equivalent to being an equivalence. 
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(85, '0_3_15');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="ooPathSplit" class="idref" href="#ooPathSplit"><span class="id" title="definition">ooPathSplit</span></a> `(<a id="f:54" class="idref" href="#f:54"><span class="id" title="binder">f</span></a> : <a id="A:52" class="idref" href="#A:52"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:53" class="idref" href="#B:53"><span class="id" title="binder">B</span></a>) : <span class="id" title="keyword">Type</span><br>
+  := <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="n:55" class="idref" href="#n:55"><span class="id" title="binder">n</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#PathSplit"><span class="id" title="definition">PathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#n:55"><span class="id" title="variable">n</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:54"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(86, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="isequiv_oopathsplit" class="idref" href="#isequiv_oopathsplit"><span class="id" title="definition">isequiv_oopathsplit</span></a> `{<a id="f:58" class="idref" href="#f:58"><span class="id" title="binder">f</span></a> : <a id="A:56" class="idref" href="#A:56"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:57" class="idref" href="#B:57"><span class="id" title="binder">B</span></a>}<br>
+: <a class="idref" href="HoTT.Equiv.PathSplit.html#ooPathSplit"><span class="id" title="definition">ooPathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:58"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:58"><span class="id" title="variable">f</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="ps:59" class="idref" href="#ps:59"><span class="id" title="binder">ps</span></a> ⇒ <a class="idref" href="HoTT.Equiv.PathSplit.html#isequiv_pathsplit"><span class="id" title="definition">isequiv_pathsplit</span></a> 0 (<a class="idref" href="HoTT.Equiv.PathSplit.html#ps:59"><span class="id" title="variable">ps</span></a> 2).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(87, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="contr_oopathsplit_isequiv" class="idref" href="#contr_oopathsplit_isequiv"><span class="id" title="instance">contr_oopathsplit_isequiv</span></a><br>
+           `(<a id="f:62" class="idref" href="#f:62"><span class="id" title="binder">f</span></a> : <a id="A:60" class="idref" href="#A:60"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:61" class="idref" href="#B:61"><span class="id" title="binder">B</span></a>) `{<a id="H0:63" class="idref" href="#H0:63"><span class="id" title="binder">IsEquiv</span></a> <a id="H0:63" class="idref" href="#H0:63"><span class="id" title="binder">_</span></a> <a id="H0:63" class="idref" href="#H0:63"><span class="id" title="binder">_</span></a> <a id="H0:63" class="idref" href="#H0:63"><span class="id" title="binder">f</span></a>}<br>
+: <a class="idref" href="HoTT.Basics.Overture.html#Contr"><span class="id" title="abbreviation">Contr</span></a> (<a class="idref" href="HoTT.Equiv.PathSplit.html#ooPathSplit"><span class="id" title="definition">ooPathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:62"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(88, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(89, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Forall.html#contr_forall"><span class="id" title="instance">contr_forall</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(90, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(91, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="ishprop_oopathsplit" class="idref" href="#ishprop_oopathsplit"><span class="id" title="instance">ishprop_oopathsplit</span></a> `(<a id="f:66" class="idref" href="#f:66"><span class="id" title="binder">f</span></a> : <a id="A:64" class="idref" href="#A:64"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:65" class="idref" href="#B:65"><span class="id" title="binder">B</span></a>)<br>
+: <a class="idref" href="HoTT.Basics.Overture.html#IsHProp"><span class="id" title="abbreviation">IsHProp</span></a> (<a class="idref" href="HoTT.Equiv.PathSplit.html#ooPathSplit"><span class="id" title="definition">ooPathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:66"><span class="id" title="variable">f</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(92, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(93, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#hprop_inhabited_contr"><span class="id" title="instance">hprop_inhabited_contr</span></a>; <span class="id" title="tactic">intros</span> <span class="id" title="var">ps</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(94, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">pose</span> (<a class="idref" href="HoTT.Equiv.PathSplit.html#isequiv_oopathsplit"><span class="id" title="definition">isequiv_oopathsplit</span></a> <span class="id" title="var">ps</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(95, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">exact</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(96, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(97, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="equiv_oopathsplit_isequiv" class="idref" href="#equiv_oopathsplit_isequiv"><span class="id" title="definition">equiv_oopathsplit_isequiv</span></a> `(<a id="f:69" class="idref" href="#f:69"><span class="id" title="binder">f</span></a> : <a id="A:67" class="idref" href="#A:67"><span class="id" title="binder">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a id="B:68" class="idref" href="#B:68"><span class="id" title="binder">B</span></a>)<br>
+: <a class="idref" href="HoTT.Equiv.PathSplit.html#ooPathSplit"><span class="id" title="definition">ooPathSplit</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:69"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsEquiv"><span class="id" title="class">IsEquiv</span></a> <a class="idref" href="HoTT.Equiv.PathSplit.html#f:69"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(98, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(99, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">equiv_iff_hprop</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(100, '0_3_15');
+      "><br>
+  - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#isequiv_oopathsplit"><span class="id" title="definition">isequiv_oopathsplit</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(101, '0_3_15');
+      "><br>
+  - <span class="id" title="tactic">intros</span> ?; <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#center"><span class="id" title="method">center</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(102, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(103, '0_3_15');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Equiv.PathSplit.html#AssumeFunext"><span class="id" title="section">AssumeFunext</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(104, '0_3_15');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

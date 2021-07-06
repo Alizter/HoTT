@@ -1,0 +1,1510 @@
+<html>
+<head>
+<title>Join.v</title>
+<style>
+.time {
+  background-color: #ffaaaa;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+}
+.code {
+  z-index: 0;
+  position: relative;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+}
+.code:hover {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+pre {
+  margin: 1px;
+}
+</style>
+</head>
+<body>
+<h1>Timings for Join.v</h1>
+
+<div class="code" title="File: Join.v
+Line: 1
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>(* -*- mode: coq; mode: visual-line -*- *)</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 1
+Time: 0.034s">
+<div class="time" style="width: 85%"></div>
+<pre>Require Import Basics.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 1
+Time: 0.015s">
+<div class="time" style="width: 37.5%"></div>
+<pre>
+Require Import Types.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 2
+Time: 0.009s">
+<div class="time" style="width: 22.5%"></div>
+<pre>
+Require Import Cubical.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 3
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Require Import HProp.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 4
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Require Import HSet.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 5
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Require Import NullHomotopy.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 6
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+Require Import Extensions.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 7
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Require Import Colimits.Pushout.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 8
+Time: 0.04s">
+<div class="time" style="width: 100%"></div>
+<pre>
+Require Import Truncations.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 9
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Local Open Scope path_scope.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 11
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** * Joins *)
+
+(** The join is the pushout of two types under their product. *)</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 15
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Section Join.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 15
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition Join (A : Type@{i}) (B : Type@{j})
+    := Pushout@{k i j k} (@fst A B) (@snd A B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 18
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition joinl {A B} : A -&gt; Join A B
+    := fun a =&gt; @pushl (A*B) A B fst snd a.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 21
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition joinr {A B} : B -&gt; Join A B
+    := fun b =&gt; @pushr (A*B) A B fst snd b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 24
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+  Definition jglue {A B} a b : joinl a = joinr b
+    := @pglue (A*B) A B fst snd (a , b).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 27
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+  Definition Join_ind {A B : Type} (P : Join A B -&gt; Type)
+    (P_A : forall a, P (joinl a)) (P_B : forall b, P (joinr b))
+    (P_g : forall a b, DPath P (jglue a b) (P_A a) (P_B b))
+    : forall (x : Join A B), P x.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 32
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 33
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    srapply (Pushout_ind P P_A P_B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 34
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros [a b].</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 35
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+    apply dp_path_transport^-1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 36
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exact (P_g a b).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 37
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 38
+Time: 0.002s">
+<div class="time" style="width: 5%"></div>
+<pre>
+
+  Definition Join_ind_beta_jglue {A B : Type} (P : Join A B -&gt; Type)
+    (P_A : forall a, P (joinl a)) (P_B : forall b, P (joinr b))
+    (P_g : forall a b, DPath P (jglue a b) (P_A a) (P_B b)) a b
+    : dp_apD (Join_ind P P_A P_B P_g) (jglue a b) = P_g a b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 43
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 44
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    apply dp_apD_path_transport.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 45
+Time: 0.004s">
+<div class="time" style="width: 10%"></div>
+<pre>
+    srapply Pushout_ind_beta_pglue.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 46
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 47
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition Join_rec {A B P : Type} (P_A : A -&gt; P) (P_B : B -&gt; P)
+    (P_g : forall a b, P_A a = P_B b) : Join A B -&gt; P.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 50
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 51
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    srapply (Pushout_rec P P_A P_B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 52
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros [a b].</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 53
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply P_g.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 54
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 55
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+  Definition Join_rec_beta_jglue {A B P : Type} (P_A : A -&gt; P)
+    (P_B : B -&gt; P) (P_g : forall a b, P_A a = P_B b) a b
+    : ap (Join_rec P_A P_B P_g) (jglue a b) = P_g a b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 59
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 60
+Time: 0.004s">
+<div class="time" style="width: 10%"></div>
+<pre>
+    srapply Pushout_rec_beta_pglue.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 61
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 62
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Joining with a contractible type produces a contractible type *)
+ </pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 65
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Global Instance contr_join A B `{Contr A} : Contr (Join A B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 65
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 66
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exists (pushl (center A)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 67
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros y; simple refine (Pushout_ind _ _ _ _ y).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 68
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 69
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros a; apply ap, contr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 69
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 70
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros b; exact (pglue (center A , b)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 70
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 71
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre> intros [a b]; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 71
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+      refine ( _ @ apD (fun a' =&gt; jglue a' b) (contr a)^).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 72
+Time: 0.004s">
+<div class="time" style="width: 10%"></div>
+<pre>
+      rewrite transport_paths_r, transport_paths_FlFr; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 73
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+      rewrite ap_V, inv_V, concat_pp_p.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 74
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+      rewrite ap_const, concat_p1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 75
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 76
+Time: 0.007s">
+<div class="time" style="width: 17.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 77
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Join is symmetric *)
+ </pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 80
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition join_sym A B : Join A B &lt;~&gt; Join B A.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 80
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 81
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    unfold Join; refine (pushout_sym oE _).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 82
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    refine (equiv_pushout (equiv_prod_symm A B) 1 1 _ _);
+      intros [a b]; reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 84
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 85
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+  Definition join_natsq_v {A B : Type} {a a' : A} {b b' : B}
+    (p : a = a') (q : b = b')
+    : PathSquare (ap joinl p) (ap joinr q) (jglue a b) (jglue a' b').</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 89
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 90
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    destruct p, q.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 91
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply sq_refl_v.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 92
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 93
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+  Definition join_natsq_h {A B : Type} {a a' : A} {b b' : B}
+    (p : a = a') (q : b = b')
+    : PathSquare (jglue a b) (jglue a' b') (ap joinl p) (ap joinr q).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 97
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 98
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    destruct p, q.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 99
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply sq_refl_h.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 100
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 101
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition functor_join {A B C D} (f : A -&gt; C) (g : B -&gt; D)
+    : Join A B -&gt; Join C D.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 104
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 105
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    srapply Join_rec.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 106
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1: intro a; apply joinl, f, a.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 107
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1: intro b; apply joinr, g, b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 108
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros a b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 109
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    apply jglue.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 110
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 111
+Time: 0.003s">
+<div class="time" style="width: 7.5%"></div>
+<pre>
+
+  Definition functor_join_compose {A B C D E F}
+    (f : A -&gt; C) (g : B -&gt; D) (h : C -&gt; E) (i : D -&gt; F)
+    : functor_join (h o f) (i o g) == functor_join h i o functor_join f g.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 115
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 116
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    srapply Join_ind.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 117
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1,2: reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 118
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros a b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 119
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    simpl.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 120
+Time: 0.003s">
+<div class="time" style="width: 7.5%"></div>
+<pre>
+    apply sq_dp^-1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 121
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    apply sq_1G.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 122
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    symmetry.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 123
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    rewrite ap_compose.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 124
+Time: 0.019s">
+<div class="time" style="width: 47.5%"></div>
+<pre>
+    rewrite 3 Join_rec_beta_jglue.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 125
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 126
+Time: 0.007s">
+<div class="time" style="width: 17.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 127
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition functor_join_idmap {A}
+    : functor_join idmap idmap == (idmap : Join A A -&gt; Join A A).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 130
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 131
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    srapply Join_ind.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 132
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1,2: reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 133
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros a b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 134
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    cbn; apply dp_paths_FlFr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 135
+Time: 0.004s">
+<div class="time" style="width: 10%"></div>
+<pre>
+    rewrite Join_rec_beta_jglue.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 136
+Time: 0.002s">
+<div class="time" style="width: 5%"></div>
+<pre>
+    rewrite ap_idmap, concat_p1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 137
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply concat_Vp.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 138
+Time: 0.003s">
+<div class="time" style="width: 7.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 139
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Global Instance isequiv_functor_join {A B C D}
+    (f : A -&gt; C) `{!IsEquiv f} (g : B -&gt; D) `{!IsEquiv g}
+    : IsEquiv (functor_join f g).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 143
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 144
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    srapply isequiv_adjointify.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 145
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1: apply (functor_join f^-1 g^-1).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 146
+Time: 0.003s">
+<div class="time" style="width: 7.5%"></div>
+<pre>
+    1,2: srapply Join_ind.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 147
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    1,2: intro; simpl; apply ap, eisretr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 148
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    2,3: intro; simpl; apply ap, eissect.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 149
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    1,2: intros c d; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 150
+Time: 0.008s">
+<div class="time" style="width: 20%"></div>
+<pre>
+    1,2: apply sq_dp^-1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 151
+Time: 0.027s">
+<div class="time" style="width: 67.5%"></div>
+<pre>
+     1 : rewrite (ap_compose _ (functor_join f g)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 152
+Time: 0.002s">
+<div class="time" style="width: 5%"></div>
+<pre>
+     2 : rewrite (ap_compose (functor_join f g)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 153
+Time: 0.024s">
+<div class="time" style="width: 60%"></div>
+<pre>
+    1,2: rewrite 2 Join_rec_beta_jglue, ap_idmap.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 154
+Time: 0.034s">
+<div class="time" style="width: 85%"></div>
+<pre>
+    1,2: apply join_natsq_v.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 155
+Time: 0.007s">
+<div class="time" style="width: 17.5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 156
+Time: 0.012s">
+<div class="time" style="width: 30%"></div>
+<pre>
+
+  Definition equiv_functor_join {A B C D} (f : A &lt;~&gt; C) (g : B &lt;~&gt; D)
+    : Join A B &lt;~&gt; Join C D := Build_Equiv _ _ (functor_join f g) _.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 159
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** The join of hprops is an hprop *)
+ </pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 162
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Global Instance ishprop_join `{Funext} A B `{IsHProp A} `{IsHProp B} : IsHProp (Join A B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 162
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 163
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply hprop_inhabited_contr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 164
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    unfold Join.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 165
+Time: 0.016s">
+<div class="time" style="width: 40%"></div>
+<pre>
+    refine (Pushout_rec _ _ _ (fun _ =&gt; path_ishprop _ _)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 166
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 167
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros a; apply contr_join.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 167
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>  
+      exact (contr_inhabited_hprop A a).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 168
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 169
+Time: 0.007s">
+<div class="time" style="width: 17.5%"></div>
+<pre> intros b; refine (istrunc_equiv_istrunc (Join B A) (join_sym B A)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 169
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      apply contr_join.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 170
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      exact (contr_inhabited_hprop B b).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 171
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 172
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** And coincides with their disjunction *)
+ </pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 175
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Definition equiv_join_hor `{Funext} A B `{IsHProp A} `{IsHProp B} 
+    : Join A B &lt;~&gt; hor A B.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 176
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 177
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+    apply equiv_iff_hprop.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 178
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 179
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre> refine (Pushout_rec _ (fun a =&gt; tr (inl a)) (fun b =&gt; tr (inr b)) (fun _ =&gt; path_ishprop _ _)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 179
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 180
+Time: 0.006s">
+<div class="time" style="width: 15%"></div>
+<pre> apply Trunc_rec, push.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 180
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 181
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Joins add connectivity *)
+ </pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 184
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Global Instance isconnected_join `{Univalence} {m n : trunc_index}
+         (A B : Type) `{IsConnected m A} `{IsConnected n B}
+    : IsConnected (m +2+ n) (Join A B).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 186
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 187
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply isconnected_from_elim; intros C ? k.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 188
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    pose @istrunc_inO_tr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 189
+Time: 0.004s">
+<div class="time" style="width: 10%"></div>
+<pre>
+    pose proof (istrunc_extension_along_conn
+                  (fun b:B =&gt; tt) (fun _ =&gt; C) (k o pushr)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 191
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    unfold ExtensionAlong in *.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 192
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    transparent assert (f : (A -&gt; {s : Unit -&gt; C &amp;
+                                   forall x, s tt = k (pushr x)})).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 194
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    {</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 195
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros a; exists (fun _ =&gt; k (pushl a)); intros b.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 195
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      exact (ap k (jglue a b)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 196
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> }</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 196
+Time: 0.006s">
+<div class="time" style="width: 15%"></div>
+<pre>
+    assert (h := isconnected_elim
+                   m {s : Unit -&gt; C &amp; forall x : B, s tt = k (pushr x)} f).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 198
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+    unfold NullHomotopy in *; destruct h as [[c g] h].</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 199
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exists (c tt).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 200
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    srefine (Pushout_ind _ _ _ _).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 201
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 202
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros a; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 202
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact (ap10 (h a)..1 tt).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 202
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 203
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> intros b; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 203
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact ((g b)^).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 203
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 204
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre> intros [a b].</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 204
+Time: 0.007s">
+<div class="time" style="width: 17.5%"></div>
+<pre>
+      rewrite transport_paths_FlFr, ap_const, concat_p1; cbn.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 205
+Time: 0.01s">
+<div class="time" style="width: 25%"></div>
+<pre>
+      subst f; set (ha := h a); clearbody ha; clear h;
+      assert (ha2 := ha..2); set (ha1 := ha..1) in *;
+      clearbody ha1; clear ha; cbn in *.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 208
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+      rewrite &lt;- (inv_V (ap10 ha1 tt)).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 209
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+      rewrite &lt;- inv_pp.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 210
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      apply inverse2.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 211
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      refine (_ @ apD10 ha2 b); clear ha2.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 212
+Time: 0.005s">
+<div class="time" style="width: 12.5%"></div>
+<pre>
+      rewrite transport_forall_constant, transport_paths_FlFr.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 213
+Time: 0.003s">
+<div class="time" style="width: 7.5%"></div>
+<pre>
+      rewrite ap_const, concat_p1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 214
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      reflexivity.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 215
+Time: 0.014s">
+<div class="time" style="width: 35%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 216
+Time: 0.019s">
+<div class="time" style="width: 47.5%"></div>
+<pre>
+
+End Join.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 218
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** Diamond lemmas for Join *)</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 220
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Section Diamond.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 220
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Context {A B : Type}.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 222
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition Diamond (a a' : A) (b b' : B)
+    := PathSquare (jglue a b) (jglue a' b')^ (jglue a b') (jglue a' b)^.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 225
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition diamond_h {a a' : A} (b b' : B) (p : a = a')
+    : Diamond a a' b b'.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 228
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 229
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    destruct p.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 230
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    apply sq_path.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 231
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    exact (concat_pV _ @ (concat_pV _)^).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 232
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 233
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Definition diamond_v (a a' : A) {b b' : B} (p : b = b')
+    : Diamond a a' b b'.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 236
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 237
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    destruct p.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 238
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    by apply sq_path.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 239
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 240
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Lemma diamond_symm (a : A) (b : B)
+    : diamond_v a a 1 = diamond_h b b 1.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 243
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 244
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    unfold diamond_v, diamond_h.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 245
+Time: 0.002s">
+<div class="time" style="width: 5%"></div>
+<pre>
+    symmetry; apply ap, concat_pV.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 246
+Time: 0.002s">
+<div class="time" style="width: 5%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 247
+Time: 0.001s">
+<div class="time" style="width: 2.5%"></div>
+<pre>
+
+End Diamond.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 249
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Definition diamond_twist {A : Type} {a a' : A} (p : a = a')
+  : DPath (fun x =&gt; Diamond a' x a x) p
+    (diamond_v a' a 1) (diamond_h a a' 1).</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 253
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Proof.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 254
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  destruct p.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 255
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  apply diamond_symm.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 256
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Defined.</pre>
+</div>
+<div class="code" title="File: Join.v
+Line: 258
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+
+</pre>
+</div>
+</body>
+</html>
+

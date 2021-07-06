@@ -1,0 +1,356 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "<infomsg>Equalizer is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "1 subgoal (ID 66)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B -> B'	  k : A -> A'	  p : h o f == f' o k	  q : h o g == g' o k	  ============================	  Equalizer f g -> Equalizer f' g'	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "1 subgoal (ID 71)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B -> B'	  k : A -> A'	  p : h o f == f' o k	  q : h o g == g' o k	  x : A	  r : f x = g x	  ============================	  Equalizer f' g'	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 73)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B -> B'	  k : A -> A'	  p : h o f == f' o k	  q : h o g == g' o k	  x : A	  r : f x = g x	  ============================	  f' (k x) = g' (k x)	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 127)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  ============================	  Equalizer f g <~> Equalizer f' g'	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 128)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  ============================	  {x : A & f x = g x} <~> {x : A' & f' x = g' x}	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 138)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  ============================	  forall a : A,	  (fun x : A => f x = g x) a <~> (fun x : A' => f' x = g' x) (k a)	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 138)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  ============================	  forall a : A,	  (fun x : A => f x = g x) a <~> (fun x : A' => f' x = g' x) (k a)	1 subgoal (ID 140)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  a : A	  ============================	  f a = g a <~> f' (k a) = g' (k a)	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "2 focused subgoals	(shelved: 1) (ID 149)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  a : A	  ============================	  ?Goal <~> f' (k a) = g' (k a)		subgoal 2 (ID 150) is:	 f a = g a <~> ?Goal	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 149)	  	  A : Type	  B : Type	  A' : Type	  B' : Type	  f, g : A -> B	  f', g' : A' -> B'	  h : B <~> B'	  k : A <~> A'	  p : h o f == f' o k	  q : h o g == g' o k	  a : A	  ============================	  h (f a) = h (g a) <~> f' (k a) = g' (k a)	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Limits.Equalizer</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.Sigma.html#"><span class="id" title="library">Types.Sigma</span></a> <a class="idref" href="HoTT.Types.Paths.html#"><span class="id" title="library">Types.Paths</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+Equalizers 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(11, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Equalizer" class="idref" href="#Equalizer"><span class="id" title="definition">Equalizer</span></a> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a>} (<a id="f:3" class="idref" href="#f:3"><span class="id" title="binder">f</span></a> <a id="g:4" class="idref" href="#g:4"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B:2"><span class="id" title="variable">B</span></a>)<br>
+  := <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="x:5" class="idref" href="#x:5"><span class="id" title="binder">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f:3"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#x:5"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g:4"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#x:5"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Overture.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(12, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="functor_equalizer" class="idref" href="#functor_equalizer"><span class="id" title="definition">functor_equalizer</span></a> {<a id="A:6" class="idref" href="#A:6"><span class="id" title="binder">A</span></a> <a id="B:7" class="idref" href="#B:7"><span class="id" title="binder">B</span></a> <a id="A':8" class="idref" href="#A':8"><span class="id" title="binder">A'</span></a> <a id="B':9" class="idref" href="#B':9"><span class="id" title="binder">B'</span></a>} (<a id="f:10" class="idref" href="#f:10"><span class="id" title="binder">f</span></a> <a id="g:11" class="idref" href="#g:11"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B:7"><span class="id" title="variable">B</span></a>)<br>
+           (<a id="f':12" class="idref" href="#f':12"><span class="id" title="binder">f'</span></a> <a id="g':13" class="idref" href="#g':13"><span class="id" title="binder">g'</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A':8"><span class="id" title="variable">A'</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B':9"><span class="id" title="variable">B'</span></a>)<br>
+           (<a id="h:14" class="idref" href="#h:14"><span class="id" title="binder">h</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#B:7"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B':9"><span class="id" title="variable">B'</span></a>) (<a id="k:15" class="idref" href="#k:15"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#A':8"><span class="id" title="variable">A'</span></a>)<br>
+           (<a id="p:16" class="idref" href="#p:16"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#h:14"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f':12"><span class="id" title="variable">f'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#k:15"><span class="id" title="variable">k</span></a>) (<a id="q:17" class="idref" href="#q:17"><span class="id" title="binder">q</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#h:14"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g:11"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g':13"><span class="id" title="variable">g'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#k:15"><span class="id" title="variable">k</span></a>)<br>
+  : <a class="idref" href="HoTT.Limits.Equalizer.html#Equalizer"><span class="id" title="definition">Equalizer</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f:10"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g:11"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#Equalizer"><span class="id" title="definition">Equalizer</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f':12"><span class="id" title="variable">f'</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g':13"><span class="id" title="variable">g'</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(13, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(14, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">intros</span> [<span class="id" title="var">x</span> <span class="id" title="var">r</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">∃</span> (<span class="id" title="var">k</span> <span class="id" title="var">x</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><span class="id" title="var">p</span> <span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">h</span> <span class="id" title="var">r</span><a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">(</span></a><span class="id" title="var">q</span> <span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">)</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="equiv_functor_equalizer" class="idref" href="#equiv_functor_equalizer"><span class="id" title="definition">equiv_functor_equalizer</span></a> {<a id="A:18" class="idref" href="#A:18"><span class="id" title="binder">A</span></a> <a id="B:19" class="idref" href="#B:19"><span class="id" title="binder">B</span></a> <a id="A':20" class="idref" href="#A':20"><span class="id" title="binder">A'</span></a> <a id="B':21" class="idref" href="#B':21"><span class="id" title="binder">B'</span></a>} (<a id="f:22" class="idref" href="#f:22"><span class="id" title="binder">f</span></a> <a id="g:23" class="idref" href="#g:23"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A:18"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B:19"><span class="id" title="variable">B</span></a>)<br>
+           (<a id="f':24" class="idref" href="#f':24"><span class="id" title="binder">f'</span></a> <a id="g':25" class="idref" href="#g':25"><span class="id" title="binder">g'</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A':20"><span class="id" title="variable">A'</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B':21"><span class="id" title="variable">B'</span></a>)<br>
+           (<a id="h:26" class="idref" href="#h:26"><span class="id" title="binder">h</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#B:19"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#B':21"><span class="id" title="variable">B'</span></a>) (<a id="k:27" class="idref" href="#k:27"><span class="id" title="binder">k</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#A:18"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#A':20"><span class="id" title="variable">A'</span></a>)<br>
+           (<a id="p:28" class="idref" href="#p:28"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#h:26"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f':24"><span class="id" title="variable">f'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#k:27"><span class="id" title="variable">k</span></a>) (<a id="q:29" class="idref" href="#q:29"><span class="id" title="binder">q</span></a> : <a class="idref" href="HoTT.Limits.Equalizer.html#h:26"><span class="id" title="variable">h</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g:23"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g':25"><span class="id" title="variable">g'</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#k:27"><span class="id" title="variable">k</span></a>)<br>
+  : <a class="idref" href="HoTT.Limits.Equalizer.html#Equalizer"><span class="id" title="definition">Equalizer</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f:22"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g:23"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#Equalizer"><span class="id" title="definition">Equalizer</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#f':24"><span class="id" title="variable">f'</span></a> <a class="idref" href="HoTT.Limits.Equalizer.html#g':25"><span class="id" title="variable">g'</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Limits.Equalizer.html#Equalizer"><span class="id" title="definition">Equalizer</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+  <span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Types.Sigma.html#equiv_functor_sigma'"><span class="id" title="definition">equiv_functor_sigma'</span></a> <span class="id" title="var">k</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intro</span> <span class="id" title="var">a</span>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+    2: <span class="id" title="var">rapply</span> (<a class="idref" href="HoTT.Basics.Equivalences.html#equiv_ap"><span class="id" title="definition">equiv_ap</span></a> <span class="id" title="var">h</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Types.Paths.html#equiv_concat_r"><span class="id" title="definition">equiv_concat_r</span></a> (<span class="id" title="var">q</span> <span class="id" title="var">a</span>) <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <a class="idref" href="HoTT.Types.Paths.html#equiv_concat_l"><span class="id" title="definition">equiv_concat_l</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">(</span></a><span class="id" title="var">p</span> <span class="id" title="var">a</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">)^</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

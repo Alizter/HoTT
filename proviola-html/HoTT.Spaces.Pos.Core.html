@@ -1,0 +1,2613 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>Pos is defined</infomsg>	<infomsg>Pos_rect is defined</infomsg>	<infomsg>Pos_ind is defined</infomsg>	<infomsg>Pos_rec is defined</infomsg>	<infomsg>Pos_sind is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "<infomsg>pos_succ is defined</infomsg>	<infomsg>pos_succ is recursively defined (guarded on 1st argument)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "<infomsg>pos_peano_ind is defined</infomsg>	<infomsg>pos_peano_ind is recursively defined (guarded on 4th argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "<infomsg>pos_peano_ind_beta_1 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 31)	  	  P : Pos -> Type	  a : P 1	  f : forall p : Pos, P p -> P (pos_succ p)	  p : Pos	  ============================	  pos_peano_ind P a f (pos_succ p) = f p (pos_peano_ind P a f p)	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 33)	  	  p : Pos	  ============================	  forall (P : Pos -> Type) (a : P 1)	  (f : forall p0 : Pos, P p0 -> P (pos_succ p0)),	  pos_peano_ind P a f (pos_succ p) = f p (pos_peano_ind P a f p)	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 44)	  	  p : Pos	  IHp : forall (P : Pos -> Type) (a : P 1)	        (f : forall p : Pos, P p -> P (pos_succ p)),	        pos_peano_ind P a f (pos_succ p) = f p (pos_peano_ind P a f p)	  ============================	  forall (P : Pos -> Type) (a : P 1)	  (f : forall p0 : Pos, P p0 -> P (pos_succ p0)),	  pos_peano_ind P a f (pos_succ p~1) = f p~1 (pos_peano_ind P a f p~1)	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 56)	  	  p : Pos	  IHp : forall (P : Pos -> Type) (a : P 1)	        (f : forall p : Pos, P p -> P (pos_succ p)),	        pos_peano_ind P a f (pos_succ p) = f p (pos_peano_ind P a f p)	  P : Pos -> Type	  a : P 1	  f : forall p : Pos, P p -> P (pos_succ p)	  ============================	  pos_peano_ind P a f (pos_succ p~1) = f p~1 (pos_peano_ind P a f p~1)	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "<infomsg>pos_peano_rec is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "<infomsg>pos_peano_rec_beta_pos_succ is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "<infomsg>x0_inj is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "<infomsg>x1_inj is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "<infomsg>x0_neq_xH is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "<infomsg>x1_neq_xH is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "<infomsg>x0_neq_x1 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "<infomsg>xH_neq_x0 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "<infomsg>xH_neq_x1 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "<infomsg>x1_neq_x0 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 189)	  	  ============================	  DecidablePaths Pos	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "9 subgoals (ID 210)	  	  ============================	  Decidable (1 = 1)		subgoal 2 (ID 214) is:	 Decidable (1 = zm~0)	subgoal 3 (ID 216) is:	 Decidable (1 = om~1)	subgoal 4 (ID 221) is:	 Decidable (zn~0 = 1)	subgoal 5 (ID 225) is:	 Decidable (zn~0 = zm~0)	subgoal 6 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 7 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 8 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 9 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 210)	  	  ============================	  Decidable (1 = 1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	8 subgoals		subgoal 1 (ID 214) is:	 Decidable (1 = zm~0)	subgoal 2 (ID 216) is:	 Decidable (1 = om~1)	subgoal 3 (ID 221) is:	 Decidable (zn~0 = 1)	subgoal 4 (ID 225) is:	 Decidable (zn~0 = zm~0)	subgoal 5 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 6 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 7 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 8 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 214)	  	  zm : Pos	  IHzm : Decidable (1 = zm)	  ============================	  Decidable (1 = zm~0)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	7 subgoals		subgoal 1 (ID 216) is:	 Decidable (1 = om~1)	subgoal 2 (ID 221) is:	 Decidable (zn~0 = 1)	subgoal 3 (ID 225) is:	 Decidable (zn~0 = zm~0)	subgoal 4 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 5 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 6 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 7 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "1 subgoal (ID 216)	  	  om : Pos	  IHom : Decidable (1 = om)	  ============================	  Decidable (1 = om~1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	6 subgoals		subgoal 1 (ID 221) is:	 Decidable (zn~0 = 1)	subgoal 2 (ID 225) is:	 Decidable (zn~0 = zm~0)	subgoal 3 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 4 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 5 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 6 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 221)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  ============================	  Decidable (zn~0 = 1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	5 subgoals		subgoal 1 (ID 225) is:	 Decidable (zn~0 = zm~0)	subgoal 2 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 3 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 4 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 5 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 225)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  zm : Pos	  IHzm : Decidable (zn~0 = zm)	  ============================	  Decidable (zn~0 = zm~0)	2 subgoals (ID 258)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  zm : Pos	  IHzm : Decidable (zn~0 = zm)	  p : zn = zm	  ============================	  Decidable (zn~0 = zm~0)		subgoal 2 (ID 259) is:	 Decidable (zn~0 = zm~0)	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "1 subgoal (ID 258)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  zm : Pos	  IHzm : Decidable (zn~0 = zm)	  p : zn = zm	  ============================	  Decidable (zn~0 = zm~0)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	5 subgoals		subgoal 1 (ID 259) is:	 Decidable (zn~0 = zm~0)	subgoal 2 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 3 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 4 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 5 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "1 subgoal (ID 259)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  zm : Pos	  IHzm : Decidable (zn~0 = zm)	  q : zn <> zm	  ============================	  Decidable (zn~0 = zm~0)	1 subgoal (ID 270)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  zm : Pos	  IHzm : Decidable (zn~0 = zm)	  q : zn <> zm	  p : zn~0 = zm~0	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	4 subgoals		subgoal 1 (ID 227) is:	 Decidable (zn~0 = om~1)	subgoal 2 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 3 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 4 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "1 subgoal (ID 227)	  	  zn : Pos	  IHzn : forall y : Pos, Decidable (zn = y)	  om : Pos	  IHom : Decidable (zn~0 = om)	  ============================	  Decidable (zn~0 = om~1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	3 subgoals		subgoal 1 (ID 232) is:	 Decidable (on~1 = 1)	subgoal 2 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 3 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 232)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  ============================	  Decidable (on~1 = 1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	2 subgoals		subgoal 1 (ID 236) is:	 Decidable (on~1 = zm~0)	subgoal 2 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 236)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  zm : Pos	  IHzm : Decidable (on~1 = zm)	  ============================	  Decidable (on~1 = zm~0)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 238) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "1 subgoal (ID 238)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  om : Pos	  IHom : Decidable (on~1 = om)	  ============================	  Decidable (on~1 = om~1)	2 subgoals (ID 292)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  om : Pos	  IHom : Decidable (on~1 = om)	  p : on = om	  ============================	  Decidable (on~1 = om~1)		subgoal 2 (ID 293) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 292)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  om : Pos	  IHom : Decidable (on~1 = om)	  p : on = om	  ============================	  Decidable (on~1 = om~1)	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 293) is:	 Decidable (on~1 = om~1)	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "1 subgoal (ID 293)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  om : Pos	  IHom : Decidable (on~1 = om)	  q : on <> om	  ============================	  Decidable (on~1 = om~1)	1 subgoal (ID 304)	  	  on : Pos	  IHon : forall y : Pos, Decidable (on = y)	  om : Pos	  IHom : Decidable (on~1 = om)	  q : on <> om	  p : on~1 = om~1	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "<infomsg>ishset_pos is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 109;
+            data = "<infomsg>pos_add is defined</infomsg>	<infomsg>pos_add_carry is defined</infomsg>	<infomsg>	pos_add, pos_add_carry are recursively defined (guarded respectively on 1st,	1st arguments)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 110;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 111;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 112;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 113;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 114;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 115;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 116;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 117;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 118;
+            data = "<infomsg>pos_pred_double is defined</infomsg>	<infomsg>pos_pred_double is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 119;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 120;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 121;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 122;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 123;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 124;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 125;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 126;
+            data = "<infomsg>pos_pred is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 127;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 128;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 129;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 130;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 131;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 132;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 133;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 134;
+            data = "<infomsg>Pos_mask is defined</infomsg>	<infomsg>Pos_mask_rect is defined</infomsg>	<infomsg>Pos_mask_ind is defined</infomsg>	<infomsg>Pos_mask_rec is defined</infomsg>	<infomsg>Pos_mask_sind is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 135;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 136;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 137;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 138;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 139;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 140;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 141;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 142;
+            data = "<infomsg>pos_mask_succ_double is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 143;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 144;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 145;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 146;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 147;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 148;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 149;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 150;
+            data = "<infomsg>pos_mask_double is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 151;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 152;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 153;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 154;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 155;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 156;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 157;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 158;
+            data = "<infomsg>pos_mask_double_pred is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 159;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 160;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 161;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 162;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 163;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 164;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 165;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 166;
+            data = "<infomsg>pos_mask_pred is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 167;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 168;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 169;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 170;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 171;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 172;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 173;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 174;
+            data = "<infomsg>pos_mask_sub is defined</infomsg>	<infomsg>pos_mask_sub_carry is defined</infomsg>	<infomsg>	pos_mask_sub, pos_mask_sub_carry are recursively defined	(guarded respectively on 2nd, 2nd arguments)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 175;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 176;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 177;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 178;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 179;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 180;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 181;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 182;
+            data = "<infomsg>pos_sub is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 183;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 184;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 185;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 186;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 187;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 188;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 189;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 190;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 191;
+            data = "<infomsg>pos_mul is defined</infomsg>	<infomsg>pos_mul is recursively defined (guarded on 1st argument)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 192;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 193;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 194;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 195;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 196;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 197;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 198;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 199;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 200;
+            data = "1 subgoal (ID 240)	  	  A : Type	  f : A -> A	  ============================	  Pos -> A -> A	";
+            responses[i]=data;
+          
+
+            i = 201;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 202;
+            data = "1 subgoal (ID 242)	  	  A : Type	  f : A -> A	  ============================	  Pos -> (A -> A) -> A -> A	";
+            responses[i]=data;
+          
+
+            i = 203;
+            data = "1 subgoal (ID 244)	  	  A : Type	  f : A -> A	  n : Pos	  g : A -> A	  ============================	  A -> A	";
+            responses[i]=data;
+          
+
+            i = 204;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 205;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 206;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 207;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 208;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 209;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 210;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 211;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 212;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 213;
+            data = "<infomsg>pos_pow is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 214;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 215;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 216;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 217;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 218;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 219;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 220;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 221;
+            data = "<infomsg>pos_square is defined</infomsg>	<infomsg>pos_square is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 222;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 223;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 224;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 225;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 226;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 227;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 228;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 229;
+            data = "<infomsg>pos_div2 is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 230;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 231;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 232;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 233;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 234;
+            data = "<infomsg>pos_div2_up is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 235;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 236;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 237;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 238;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 239;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 240;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 241;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 242;
+            data = "<infomsg>nat_pos_size is defined</infomsg>	<infomsg>nat_pos_size is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 243;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 244;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 245;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 246;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 247;
+            data = "<infomsg>pos_size is defined</infomsg>	<infomsg>pos_size is recursively defined (guarded on 1st argument)</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 248;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 249;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 250;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 251;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 252;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 253;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 254;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 255;
+            data = "<infomsg>pos_iter_op is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 256;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 257;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 258;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 259;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 260;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 261;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 262;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 263;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 264;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 265;
+            data = "<infomsg>pos_of_nat is defined</infomsg>	<infomsg>pos_of_nat is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 266;
+            data = "<infomsg>pos_of_succ_nat is defined</infomsg>	<infomsg>pos_of_succ_nat is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 267;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 268;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 269;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 270;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 271;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 272;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 273;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 274;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 275;
+            data = "<infomsg>pos_of_uint_acc is defined</infomsg>	<infomsg>pos_of_uint_acc is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 276;
+            data = "<infomsg>pos_of_uint is defined</infomsg>	<infomsg>pos_of_uint is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 277;
+            data = "<infomsg>pos_of_decimal_int is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 278;
+            data = "<infomsg>pos_of_number_uint is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 279;
+            data = "<infomsg>pos_to_little_uint is defined</infomsg>	<infomsg>pos_to_little_uint is recursively defined (guarded on 1st argument)	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 280;
+            data = "<infomsg>pos_to_uint is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 281;
+            data = "<infomsg>pos_to_decimal_int is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 282;
+            data = "<infomsg>pos_to_number_uint is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 283;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 284;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 285;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 286;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 287;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 288;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 289;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 290;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 291;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 292;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 293;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 294;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Spaces.Pos.Core</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+Most of this file has been adapted from the coq standard library for positive binary integers. 
+<div class="doc" scenenumber="1"> </div>
+
+ Here we define the inductive type of positive binary numbers. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(13, '0_3_7');
+      ">
+<span class="id" title="keyword">Inductive</span> <a id="Pos" class="idref" href="#Pos"><span class="id" title="inductive">Pos</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#Type0"><span class="id" title="abbreviation">Type0</span></a> :=<br>
+  | <a id="xH" class="idref" href="#xH"><span class="id" title="constructor">xH</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos:1"><span class="id" title="inductive">Pos</span></a><br>
+  | <a id="x0" class="idref" href="#x0"><span class="id" title="constructor">x0</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos:1"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos:1"><span class="id" title="inductive">Pos</span></a><br>
+  | <a id="x1" class="idref" href="#x1"><span class="id" title="constructor">x1</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos:1"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos:1"><span class="id" title="inductive">Pos</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(14, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="var">Declare</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Delimit</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">positive_scope</span> <span class="id" title="keyword">with</span> <span class="id" title="var">pos</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+Here are some notations that let us right binary positive integers more easily. 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(20, '0_3_11');
+      ">
+<span class="id" title="keyword">Notation</span> <a id="::positive_scope:'1'" class="idref" href="#::positive_scope:'1'"><span class="id" title="notation">"</span></a>1" := <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(21, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Notation</span> <a id="119ad21c8e0c4947cd973f1f72e5feea" class="idref" href="#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">"</span></a>p ~ 1" := (<a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">p</span>) : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(22, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Notation</span> <a id="35713fcadfdd66af247cbf95acf859fa" class="idref" href="#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">"</span></a>p ~ 0" := (<a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">p</span>) : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(23, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(24, '0_3_11');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+<a id="lab1216"></a><h2 class="section">Successor</h2>
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(31, '0_3_15');
+      ">
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_succ" class="idref" href="#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a id="x:3" class="idref" href="#x:3"><span class="id" title="binder">x</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:3"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ:4"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+    | 1 ⇒ 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(32, '0_3_15');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+<div class="doc" scenenumber="17">
+Peano induction (due to Daniel Schepler) 
+</div>
+<div scenenumber="19" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(36, '0_3_19');
+      ">
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_peano_ind" class="idref" href="#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> (<a id="P:6" class="idref" href="#P:6"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<a id="a:7" class="idref" href="#a:7"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> 1)<br>
+  (<a id="f:9" class="idref" href="#f:9"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="p:8" class="idref" href="#p:8"><span class="id" title="binder">p</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:8"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:8"><span class="id" title="variable">p</span></a>)) (<a id="p:10" class="idref" href="#p:10"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:10"><span class="id" title="variable">p</span></a><br>
+  := <span class="id" title="keyword">let</span> <a id="f2:15" class="idref" href="#f2:15"><span class="id" title="binder">f2</span></a> := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind:11"><span class="id" title="definition">pos_peano_ind</span></a> (<span class="id" title="keyword">fun</span> <a id="p:14" class="idref" href="#p:14"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#p:14"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>))<br>
+    (<a class="idref" href="HoTT.Spaces.Pos.Core.html#f:9"><span class="id" title="variable">f</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:7"><span class="id" title="variable">a</span></a>) (<span class="id" title="keyword">fun</span> <a id="p:12" class="idref" href="#p:12"><span class="id" title="binder">p</span></a> (<a id="x:13" class="idref" href="#x:13"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:6"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:12"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>) ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:9"><span class="id" title="variable">f</span></a> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#f:9"><span class="id" title="variable">f</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:13"><span class="id" title="variable">x</span></a>))<br>
+  <span class="id" title="tactic">in</span> <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:10"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+      | <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:9"><span class="id" title="variable">f</span></a> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#f2:15"><span class="id" title="variable">f2</span></a> <span class="id" title="var">q</span>)<br>
+      | <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#f2:15"><span class="id" title="variable">f2</span></a> <span class="id" title="var">q</span><br>
+      | 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:7"><span class="id" title="variable">a</span></a><br>
+     <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_19');
+      " onmouseover="
+      mouseover(37, '0_3_19');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_19"><pre><span></span></pre></div>
+<div class="doc" scenenumber="21">
+Computation rules for Peano induction 
+</div>
+<div scenenumber="23" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(41, '0_3_23');
+      ">
+<span class="id" title="keyword">Definition</span> <a id="pos_peano_ind_beta_1" class="idref" href="#pos_peano_ind_beta_1"><span class="id" title="definition">pos_peano_ind_beta_1</span></a> (<a id="P:17" class="idref" href="#P:17"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<a id="a:18" class="idref" href="#a:18"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:17"><span class="id" title="variable">P</span></a> 1)<br>
+  (<a id="f:20" class="idref" href="#f:20"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="p:19" class="idref" href="#p:19"><span class="id" title="binder">p</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:17"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:19"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:17"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:19"><span class="id" title="variable">p</span></a>))<br>
+  : <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:17"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:18"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:20"><span class="id" title="variable">f</span></a> 1 <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:18"><span class="id" title="variable">a</span></a> := <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(42, '0_3_23');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_peano_ind_beta_pos_succ" class="idref" href="#pos_peano_ind_beta_pos_succ"><span class="id" title="definition">pos_peano_ind_beta_pos_succ</span></a> (<a id="P:21" class="idref" href="#P:21"><span class="id" title="binder">P</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<a id="a:22" class="idref" href="#a:22"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:21"><span class="id" title="variable">P</span></a> 1)<br>
+  (<a id="f:24" class="idref" href="#f:24"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="p:23" class="idref" href="#p:23"><span class="id" title="binder">p</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:21"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:23"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:21"><span class="id" title="variable">P</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:23"><span class="id" title="variable">p</span></a>)) (<a id="p:25" class="idref" href="#p:25"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:21"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:22"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:24"><span class="id" title="variable">f</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:25"><span class="id" title="variable">p</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:24"><span class="id" title="variable">f</span></a> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:21"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:22"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:24"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:25"><span class="id" title="variable">p</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(43, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(44, '0_3_23');
+      "><br>
+  <span class="id" title="var">revert</span> <span class="id" title="var">P</span> <span class="id" title="var">a</span> <span class="id" title="var">f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(45, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">induction</span> <span class="id" title="var">p</span>; <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(46, '0_3_23');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">P</span> <span class="id" title="var">a</span> <span class="id" title="var">f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(47, '0_3_23');
+      "><br>
+  <span class="id" title="var">srapply</span> <span class="id" title="var">IHp</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(48, '0_3_23');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(49, '0_3_23');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_peano_rec" class="idref" href="#pos_peano_rec"><span class="id" title="definition">pos_peano_rec</span></a> (<a id="P:26" class="idref" href="#P:26"><span class="id" title="binder">P</span></a> : <span class="id" title="keyword">Type</span>)<br>
+  : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:26"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:26"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:26"><span class="id" title="variable">P</span></a><a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:26"><span class="id" title="variable">P</span></a><br>
+  := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:26"><span class="id" title="variable">P</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(50, '0_3_23');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_peano_rec_beta_pos_succ" class="idref" href="#pos_peano_rec_beta_pos_succ"><span class="id" title="definition">pos_peano_rec_beta_pos_succ</span></a> (<a id="P:27" class="idref" href="#P:27"><span class="id" title="binder">P</span></a> : <span class="id" title="keyword">Type</span>)<br>
+  (<a id="a:28" class="idref" href="#a:28"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a>) (<a id="f:29" class="idref" href="#f:29"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a>) (<a id="p:30" class="idref" href="#p:30"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_rec"><span class="id" title="definition">pos_peano_rec</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:28"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:29"><span class="id" title="variable">f</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:30"><span class="id" title="variable">p</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:29"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:30"><span class="id" title="variable">p</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_rec"><span class="id" title="definition">pos_peano_rec</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:28"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:29"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:30"><span class="id" title="variable">p</span></a>)<br>
+  := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind_beta_pos_succ"><span class="id" title="definition">pos_peano_ind_beta_pos_succ</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#P:27"><span class="id" title="variable">P</span></a>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:28"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#f:29"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:30"><span class="id" title="variable">p</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_23');
+      " onmouseover="
+      mouseover(51, '0_3_23');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_23"><pre><span></span></pre></div>
+<div class="doc" scenenumber="25">
+<a id="lab1217"></a><h2 class="section">Properties of constructors</h2>
+</div>
+<div scenenumber="27" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(58, '0_3_27');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x0_inj" class="idref" href="#x0_inj"><span class="id" title="definition">x0_inj</span></a> {<a id="z:31" class="idref" href="#z:31"><span class="id" title="binder">z</span></a> <a id="w:32" class="idref" href="#w:32"><span class="id" title="binder">w</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} (<a id="p:33" class="idref" href="#p:33"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:31"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:32"><span class="id" title="variable">w</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:31"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:32"><span class="id" title="variable">w</span></a><br>
+  := <a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="keyword">fun</span> <a id="s:34" class="idref" href="#s:34"><span class="id" title="binder">s</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:31"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">(</span></a><br>
+    <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#s:34"><span class="id" title="variable">s</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:32"><span class="id" title="variable">w</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">a</span> ⇒ <span class="id" title="var">a</span> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:32"><span class="id" title="variable">w</span></a> <span class="id" title="keyword">end</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">)</span></a>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:33"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(59, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x1_inj" class="idref" href="#x1_inj"><span class="id" title="definition">x1_inj</span></a> {<a id="z:36" class="idref" href="#z:36"><span class="id" title="binder">z</span></a> <a id="w:37" class="idref" href="#w:37"><span class="id" title="binder">w</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} (<a id="p:38" class="idref" href="#p:38"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:36"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:37"><span class="id" title="variable">w</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:36"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:37"><span class="id" title="variable">w</span></a><br>
+  := <a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="keyword">fun</span> <a id="s:39" class="idref" href="#s:39"><span class="id" title="binder">s</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:36"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">(</span></a><br>
+    <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#s:39"><span class="id" title="variable">s</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:37"><span class="id" title="variable">w</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:37"><span class="id" title="variable">w</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">a</span> ⇒ <span class="id" title="var">a</span> <span class="id" title="keyword">end</span><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">)</span></a>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:38"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(60, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x0_neq_xH" class="idref" href="#x0_neq_xH"><span class="id" title="definition">x0_neq_xH</span></a> {<a id="z:41" class="idref" href="#z:41"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:41"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="p:42" class="idref" href="#p:42"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="keyword">fun</span> <a id="s:43" class="idref" href="#s:43"><span class="id" title="binder">s</span></a> ⇒<br>
+    <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#s:43"><span class="id" title="variable">s</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:41"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">a</span> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:42"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(61, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x1_neq_xH" class="idref" href="#x1_neq_xH"><span class="id" title="definition">x1_neq_xH</span></a> {<a id="z:45" class="idref" href="#z:45"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:45"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="p:46" class="idref" href="#p:46"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="keyword">fun</span> <a id="s:47" class="idref" href="#s:47"><span class="id" title="binder">s</span></a> ⇒<br>
+    <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#s:47"><span class="id" title="variable">s</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:45"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">a</span> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:46"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(62, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x0_neq_x1" class="idref" href="#x0_neq_x1"><span class="id" title="definition">x0_neq_x1</span></a> {<a id="z:49" class="idref" href="#z:49"><span class="id" title="binder">z</span></a> <a id="w:50" class="idref" href="#w:50"><span class="id" title="binder">w</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:49"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:50"><span class="id" title="variable">w</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="p:51" class="idref" href="#p:51"><span class="id" title="binder">p</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#transport"><span class="id" title="definition">transport</span></a> (<span class="id" title="keyword">fun</span> <a id="s:52" class="idref" href="#s:52"><span class="id" title="binder">s</span></a> ⇒<br>
+    <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#s:52"><span class="id" title="variable">s</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <span class="id" title="var">a</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:49"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">a</span> | <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:51"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(63, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="xH_neq_x0" class="idref" href="#xH_neq_x0"><span class="id" title="definition">xH_neq_x0</span></a> {<a id="z:54" class="idref" href="#z:54"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:54"><span class="id" title="variable">z</span></a><br>
+  := <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0_neq_xH"><span class="id" title="definition">x0_neq_xH</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Overture.html#symmetry"><span class="id" title="definition">symmetry</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(64, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="xH_neq_x1" class="idref" href="#xH_neq_x1"><span class="id" title="definition">xH_neq_x1</span></a> {<a id="z:55" class="idref" href="#z:55"><span class="id" title="binder">z</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH"><span class="id" title="constructor">xH</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:55"><span class="id" title="variable">z</span></a><br>
+  := <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1_neq_xH"><span class="id" title="definition">x1_neq_xH</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Overture.html#symmetry"><span class="id" title="definition">symmetry</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(65, '0_3_27');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="x1_neq_x0" class="idref" href="#x1_neq_x0"><span class="id" title="definition">x1_neq_x0</span></a> {<a id="z:56" class="idref" href="#z:56"><span class="id" title="binder">z</span></a> <a id="w:57" class="idref" href="#w:57"><span class="id" title="binder">w</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1"><span class="id" title="constructor">x1</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#z:56"><span class="id" title="variable">z</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0"><span class="id" title="constructor">x0</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#w:57"><span class="id" title="variable">w</span></a><br>
+  := <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0_neq_x1"><span class="id" title="definition">x0_neq_x1</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Basics.Overture.html#symmetry"><span class="id" title="definition">symmetry</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_27');
+      " onmouseover="
+      mouseover(66, '0_3_27');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_27"><pre><span></span></pre></div>
+<div class="doc" scenenumber="29">
+<a id="lab1218"></a><h1 class="section">Positive binary integers have decidable paths</h1>
+</div>
+<div scenenumber="31" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(73, '0_3_31');
+      ">
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="decpaths_pos" class="idref" href="#decpaths_pos"><span class="id" title="instance">decpaths_pos</span></a> : <a class="idref" href="HoTT.Basics.Decidable.html#DecidablePaths"><span class="id" title="class">DecidablePaths</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(74, '0_3_31');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(75, '0_3_31');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">n</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">n</span> <span class="id" title="keyword">as</span> [|<span class="id" title="var">zn</span>|<span class="id" title="var">on</span>];<br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">m</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">m</span> <span class="id" title="keyword">as</span> [|<span class="id" title="var">zm</span>|<span class="id" title="var">om</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(76, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(77, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH_neq_x0"><span class="id" title="definition">xH_neq_x0</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(78, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#xH_neq_x1"><span class="id" title="definition">xH_neq_x1</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(79, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0_neq_xH"><span class="id" title="definition">x0_neq_xH</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(80, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">destruct</span> (<span class="id" title="var">IHzn</span> <span class="id" title="var">zm</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">p</span>|<span class="id" title="var">q</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(81, '0_3_31');
+      "><br>
+    - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a>, <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a>, <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(82, '0_3_31');
+      "><br>
+    - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a>; <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(83, '0_3_31');
+      "><br>
+      <span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">q</span>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0_inj"><span class="id" title="definition">x0_inj</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(84, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x0_neq_x1"><span class="id" title="definition">x0_neq_x1</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(85, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1_neq_xH"><span class="id" title="definition">x1_neq_xH</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(86, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1_neq_x0"><span class="id" title="definition">x1_neq_x0</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(87, '0_3_31');
+      "><br>
+  + <span class="id" title="tactic">destruct</span> (<span class="id" title="var">IHon</span> <span class="id" title="var">om</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">p</span>|<span class="id" title="var">q</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(88, '0_3_31');
+      "><br>
+    - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a>, <a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a>, <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(89, '0_3_31');
+      "><br>
+    - <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a>; <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(90, '0_3_31');
+      "><br>
+      <span class="id" title="tactic">by</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">q</span>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#x1_inj"><span class="id" title="definition">x1_inj</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(91, '0_3_31');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_31');
+      " onmouseover="
+      mouseover(92, '0_3_31');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_31"><pre><span></span></pre></div>
+<div class="doc" scenenumber="33">
+Decidable paths imply Pos is a hSet 
+</div>
+<div scenenumber="35" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(96, '0_3_35');
+      ">
+<span class="id" title="keyword">Global Instance</span> <a id="ishset_pos" class="idref" href="#ishset_pos"><span class="id" title="instance">ishset_pos</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#IsHSet"><span class="id" title="abbreviation">IsHSet</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> := <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_35');
+      " onmouseover="
+      mouseover(97, '0_3_35');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_35"><pre><span></span></pre></div>
+<div class="doc" scenenumber="37">
+<a id="lab1219"></a><h1 class="section">Operations over positive numbers</h1>
+<div class="doc" scenenumber="4"> </div>
+<a id="lab1220"></a><h2 class="section">Addition</h2>
+</div>
+<div scenenumber="39" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(109, '0_3_39');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_add" class="idref" href="#pos_add"><span class="id" title="definition">pos_add</span></a> <a id="x:58" class="idref" href="#x:58"><span class="id" title="binder">x</span></a> <a id="y:59" class="idref" href="#y:59"><span class="id" title="binder">y</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:58"><span class="id" title="variable">x</span></a>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:59"><span class="id" title="variable">y</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add_carry:63"><span class="id" title="definition">pos_add_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add:62"><span class="id" title="definition">pos_add</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add:62"><span class="id" title="definition">pos_add</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add:62"><span class="id" title="definition">pos_add</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, 1 ⇒ <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+    | 1, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | 1, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+    | 1, 1 ⇒ 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><br>
+  <span class="id" title="keyword">end</span><br>
+<br>
+<span class="id" title="keyword">with</span> <a id="pos_add_carry" class="idref" href="#pos_add_carry"><span class="id" title="definition">pos_add_carry</span></a> <a id="x:60" class="idref" href="#x:60"><span class="id" title="binder">x</span></a> <a id="y:61" class="idref" href="#y:61"><span class="id" title="binder">y</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:60"><span class="id" title="variable">x</span></a>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:61"><span class="id" title="variable">y</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add_carry:63"><span class="id" title="definition">pos_add_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add_carry:63"><span class="id" title="definition">pos_add_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add_carry:63"><span class="id" title="definition">pos_add_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add:62"><span class="id" title="definition">pos_add</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | 1, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | 1, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | 1, 1 ⇒ 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(110, '0_3_39');
+      "><br>
+<br>
+<span class="id" title="keyword">Infix</span> <a id="50efadf7a9f9d41adb2b162cbba3bda7" class="idref" href="#50efadf7a9f9d41adb2b162cbba3bda7"><span class="id" title="notation">"</span></a>+" := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_39');
+      " onmouseover="
+      mouseover(111, '0_3_39');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_39"><pre><span></span></pre></div>
+<div class="doc" scenenumber="41">
+<a id="lab1221"></a><h2 class="section">Operation <span class="inlinecode"><a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">2*<a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a>-1</span>
+</h2>
+</div>
+<div scenenumber="43" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_43');
+      " onmouseover="
+      mouseover(118, '0_3_43');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_pred_double" class="idref" href="#pos_pred_double"><span class="id" title="definition">pos_pred_double</span></a> <a id="x:68" class="idref" href="#x:68"><span class="id" title="binder">x</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:68"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred_double:69"><span class="id" title="definition">pos_pred_double</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">)~1</span></a><br>
+    | 1 ⇒ 1<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_43');
+      " onmouseover="
+      mouseover(119, '0_3_43');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_43"><pre><span></span></pre></div>
+<div class="doc" scenenumber="45">
+<a id="lab1222"></a><h2 class="section">Predecessor</h2>
+</div>
+<div scenenumber="47" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(126, '0_3_47');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_pred" class="idref" href="#pos_pred"><span class="id" title="definition">pos_pred</span></a> <a id="x:71" class="idref" href="#x:71"><span class="id" title="binder">x</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:71"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred_double"><span class="id" title="definition">pos_pred_double</span></a> <span class="id" title="var">p</span><br>
+    | 1 ⇒ 1<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_47');
+      " onmouseover="
+      mouseover(127, '0_3_47');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_47"><pre><span></span></pre></div>
+<div class="doc" scenenumber="49">
+<a id="lab1223"></a><h2 class="section">An auxiliary type for subtraction</h2>
+</div>
+<div scenenumber="51" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_51');
+      " onmouseover="
+      mouseover(134, '0_3_51');
+      ">
+<br>
+<span class="id" title="keyword">Inductive</span> <a id="Pos_mask" class="idref" href="#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> : <span class="id" title="keyword">Set</span> :=<br>
+  | <a id="IsNul" class="idref" href="#IsNul"><span class="id" title="constructor">IsNul</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask:73"><span class="id" title="inductive">Pos_mask</span></a><br>
+  | <a id="IsPos" class="idref" href="#IsPos"><span class="id" title="constructor">IsPos</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask:73"><span class="id" title="inductive">Pos_mask</span></a><br>
+  | <a id="IsNeg" class="idref" href="#IsNeg"><span class="id" title="constructor">IsNeg</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask:73"><span class="id" title="inductive">Pos_mask</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_51');
+      " onmouseover="
+      mouseover(135, '0_3_51');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_51"><pre><span></span></pre></div>
+<div class="doc" scenenumber="53">
+<a id="lab1224"></a><h2 class="section">Operation <span class="inlinecode"><a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">2*<a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a>+1</span>
+</h2>
+</div>
+<div scenenumber="55" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_55');
+      " onmouseover="
+      mouseover(142, '0_3_55');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_mask_succ_double" class="idref" href="#pos_mask_succ_double"><span class="id" title="definition">pos_mask_succ_double</span></a> (<a id="x:75" class="idref" href="#x:75"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:75"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> 1<br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_55');
+      " onmouseover="
+      mouseover(143, '0_3_55');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_55"><pre><span></span></pre></div>
+<div class="doc" scenenumber="57">
+<a id="lab1225"></a><h2 class="section">Operation <span class="inlinecode"><a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">2*<a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a></span>
+</h2>
+</div>
+<div scenenumber="59" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_59');
+      " onmouseover="
+      mouseover(150, '0_3_59');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_mask_double" class="idref" href="#pos_mask_double"><span class="id" title="definition">pos_mask_double</span></a> (<a id="x:77" class="idref" href="#x:77"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:77"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_59');
+      " onmouseover="
+      mouseover(151, '0_3_59');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_59"><pre><span></span></pre></div>
+<div class="doc" scenenumber="61">
+<a id="lab1226"></a><h2 class="section">Operation <span class="inlinecode"><a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">2*<a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a>-2</span>
+</h2>
+</div>
+<div scenenumber="63" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_63');
+      " onmouseover="
+      mouseover(158, '0_3_63');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_mask_double_pred" class="idref" href="#pos_mask_double_pred"><span class="id" title="definition">pos_mask_double_pred</span></a> <a id="x:79" class="idref" href="#x:79"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:79"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred_double"><span class="id" title="definition">pos_pred_double</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_63');
+      " onmouseover="
+      mouseover(159, '0_3_63');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_63"><pre><span></span></pre></div>
+<div class="doc" scenenumber="65">
+<a id="lab1227"></a><h2 class="section">Predecessor with mask</h2>
+</div>
+<div scenenumber="67" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_67');
+      " onmouseover="
+      mouseover(166, '0_3_67');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_mask_pred" class="idref" href="#pos_mask_pred"><span class="id" title="definition">pos_mask_pred</span></a> (<a id="p:81" class="idref" href="#p:81"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:81"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">q</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred"><span class="id" title="definition">pos_pred</span></a> <span class="id" title="var">q</span>)<br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_67');
+      " onmouseover="
+      mouseover(167, '0_3_67');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_67"><pre><span></span></pre></div>
+<div class="doc" scenenumber="69">
+<a id="lab1228"></a><h2 class="section">Subtraction, result as a mask</h2>
+</div>
+<div scenenumber="71" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_71');
+      " onmouseover="
+      mouseover(174, '0_3_71');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_mask_sub" class="idref" href="#pos_mask_sub"><span class="id" title="definition">pos_mask_sub</span></a> (<a id="x:83" class="idref" href="#x:83"><span class="id" title="binder">x</span></a> <a id="y:84" class="idref" href="#y:84"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">y</span>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:83"><span class="id" title="variable">x</span></a>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:84"><span class="id" title="variable">y</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_double"><span class="id" title="definition">pos_mask_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub:87"><span class="id" title="definition">pos_mask_sub</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_succ_double"><span class="id" title="definition">pos_mask_succ_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub:87"><span class="id" title="definition">pos_mask_sub</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_succ_double"><span class="id" title="definition">pos_mask_succ_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub_carry:88"><span class="id" title="definition">pos_mask_sub_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_double"><span class="id" title="definition">pos_mask_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub:87"><span class="id" title="definition">pos_mask_sub</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred_double"><span class="id" title="definition">pos_pred_double</span></a> <span class="id" title="var">p</span>)<br>
+    | 1, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNul"><span class="id" title="constructor">IsNul</span></a><br>
+    | 1, <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+  <span class="id" title="keyword">end</span><br>
+<br>
+<span class="id" title="keyword">with</span> <a id="pos_mask_sub_carry" class="idref" href="#pos_mask_sub_carry"><span class="id" title="definition">pos_mask_sub_carry</span></a> (<a id="x:85" class="idref" href="#x:85"><span class="id" title="binder">x</span></a> <a id="y:86" class="idref" href="#y:86"><span class="id" title="binder">y</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) {<span class="id" title="keyword">struct</span> <span class="id" title="var">y</span>} : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos_mask"><span class="id" title="inductive">Pos_mask</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:85"><span class="id" title="variable">x</span></a>, <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:86"><span class="id" title="variable">y</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_succ_double"><span class="id" title="definition">pos_mask_succ_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub_carry:88"><span class="id" title="definition">pos_mask_sub_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_double"><span class="id" title="definition">pos_mask_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub:87"><span class="id" title="definition">pos_mask_sub</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_pred_double"><span class="id" title="definition">pos_pred_double</span></a> <span class="id" title="var">p</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_double"><span class="id" title="definition">pos_mask_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub_carry:88"><span class="id" title="definition">pos_mask_sub_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, <span class="id" title="var">q</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_succ_double"><span class="id" title="definition">pos_mask_succ_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub_carry:88"><span class="id" title="definition">pos_mask_sub_carry</span></a> <span class="id" title="var">p</span> <span class="id" title="var">q</span>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>, 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_double_pred"><span class="id" title="definition">pos_mask_double_pred</span></a> <span class="id" title="var">p</span><br>
+    | 1, <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsNeg"><span class="id" title="constructor">IsNeg</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_71');
+      " onmouseover="
+      mouseover(175, '0_3_71');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_71"><pre><span></span></pre></div>
+<div class="doc" scenenumber="73">
+<a id="lab1229"></a><h2 class="section">Subtraction, result as a positive, returning 1 if <span class="inlinecode"><a class="idref" href="HoTT.Categories.Grothendieck.ToSet.Core.html#x"><span class="id" title="projection">x</span></a>≤<a class="idref" href="HoTT.Categories.Functor.Attributes.html#fully_faithful_helpers.y"><span class="id" title="variable">y</span></a></span>
+</h2>
+</div>
+<div scenenumber="75" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_75');
+      " onmouseover="
+      mouseover(182, '0_3_75');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_sub" class="idref" href="#pos_sub"><span class="id" title="definition">pos_sub</span></a> <a id="x:93" class="idref" href="#x:93"><span class="id" title="binder">x</span></a> <a id="y:94" class="idref" href="#y:94"><span class="id" title="binder">y</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mask_sub"><span class="id" title="definition">pos_mask_sub</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:93"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:94"><span class="id" title="variable">y</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Spaces.Pos.Core.html#IsPos"><span class="id" title="constructor">IsPos</span></a> <span class="id" title="var">z</span> ⇒ <span class="id" title="var">z</span><br>
+    | <span class="id" title="var">_</span> ⇒ 1<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_75');
+      " onmouseover="
+      mouseover(183, '0_3_75');
+      "><br>
+<br>
+<span class="id" title="keyword">Infix</span> <a id="::positive_scope:x_'-'_x" class="idref" href="#::positive_scope:x_'-'_x"><span class="id" title="notation">"</span></a>-" := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_sub"><span class="id" title="definition">pos_sub</span></a> : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_75');
+      " onmouseover="
+      mouseover(184, '0_3_75');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_75"><pre><span></span></pre></div>
+<div class="doc" scenenumber="77">
+<a id="lab1230"></a><h2 class="section">Multiplication</h2>
+</div>
+<div scenenumber="79" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_79');
+      " onmouseover="
+      mouseover(191, '0_3_79');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_mul" class="idref" href="#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a id="x:95" class="idref" href="#x:95"><span class="id" title="binder">x</span></a> <a id="y:96" class="idref" href="#y:96"><span class="id" title="binder">y</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:95"><span class="id" title="variable">x</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:96"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#50efadf7a9f9d41adb2b162cbba3bda7"><span class="id" title="notation">+</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul:97"><span class="id" title="definition">pos_mul</span></a> <span class="id" title="var">p</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:96"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul:97"><span class="id" title="definition">pos_mul</span></a> <span class="id" title="var">p</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:96"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><br>
+    | 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#y:96"><span class="id" title="variable">y</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_79');
+      " onmouseover="
+      mouseover(192, '0_3_79');
+      "><br>
+<br>
+<span class="id" title="keyword">Infix</span> <a id="83db3fa9f059c10cb623a122cf097cd0" class="idref" href="#83db3fa9f059c10cb623a122cf097cd0"><span class="id" title="notation">"</span></a>×" := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_79');
+      " onmouseover="
+      mouseover(193, '0_3_79');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_79"><pre><span></span></pre></div>
+<div class="doc" scenenumber="81">
+<a id="lab1231"></a><h2 class="section">Iteration over a positive number</h2>
+</div>
+<div scenenumber="83" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(200, '0_3_83');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_iter" class="idref" href="#pos_iter"><span class="id" title="definition">pos_iter</span></a> {<a id="A:99" class="idref" href="#A:99"><span class="id" title="binder">A</span></a> : <span class="id" title="keyword">Type</span>} (<a id="f:100" class="idref" href="#f:100"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:99"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:99"><span class="id" title="variable">A</span></a>)<br>
+  : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:99"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:99"><span class="id" title="variable">A</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(201, '0_3_83');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(202, '0_3_83');
+      "><br>
+  <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_peano_ind"><span class="id" title="definition">pos_peano_ind</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <span class="id" title="var">A</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">A</span>) <span class="id" title="var">f</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(203, '0_3_83');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">n</span> <span class="id" title="var">g</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(204, '0_3_83');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<span class="id" title="var">f</span> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">g</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(205, '0_3_83');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_83');
+      " onmouseover="
+      mouseover(206, '0_3_83');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_83"><pre><span></span></pre></div>
+<div class="doc" scenenumber="85">
+<a id="lab1232"></a><h2 class="section">Power</h2>
+</div>
+<div scenenumber="87" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_87');
+      " onmouseover="
+      mouseover(213, '0_3_87');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_pow" class="idref" href="#pos_pow"><span class="id" title="definition">pos_pow</span></a> (<a id="x:101" class="idref" href="#x:101"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) := <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_iter"><span class="id" title="definition">pos_iter</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#x:101"><span class="id" title="variable">x</span></a>) 1.</span><span class="command" onmouseout="
+      mouseout('0_3_87');
+      " onmouseover="
+      mouseover(214, '0_3_87');
+      "><br>
+<br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_87"><pre><span></span></pre></div>
+<div class="doc" scenenumber="89">
+<a id="lab1233"></a><h2 class="section">Square</h2>
+</div>
+<div scenenumber="91" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_91');
+      " onmouseover="
+      mouseover(221, '0_3_91');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_square" class="idref" href="#pos_square"><span class="id" title="definition">pos_square</span></a> <a id="p:102" class="idref" href="#p:102"><span class="id" title="binder">p</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:102"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_square:103"><span class="id" title="definition">pos_square</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:102"><span class="id" title="variable">p</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#50efadf7a9f9d41adb2b162cbba3bda7"><span class="id" title="notation">+</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:102"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_square:103"><span class="id" title="definition">pos_square</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:102"><span class="id" title="variable">p</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">)~0~0</span></a><br>
+    | 1 ⇒ 1<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_91');
+      " onmouseover="
+      mouseover(222, '0_3_91');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_91"><pre><span></span></pre></div>
+<div class="doc" scenenumber="93">
+<a id="lab1234"></a><h2 class="section">Division by 2 rounded below but for 1</h2>
+</div>
+<div scenenumber="95" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_95');
+      " onmouseover="
+      mouseover(229, '0_3_95');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_div2" class="idref" href="#pos_div2"><span class="id" title="definition">pos_div2</span></a> <a id="p:105" class="idref" href="#p:105"><span class="id" title="binder">p</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:105"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+    | 1 ⇒ 1<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:105"><span class="id" title="variable">p</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:105"><span class="id" title="variable">p</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_95');
+      " onmouseover="
+      mouseover(230, '0_3_95');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_95"><pre><span></span></pre></div>
+<div class="doc" scenenumber="97">
+Division by 2 rounded up 
+</div>
+<div scenenumber="99" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_99');
+      " onmouseover="
+      mouseover(234, '0_3_99');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_div2_up" class="idref" href="#pos_div2_up"><span class="id" title="definition">pos_div2_up</span></a> <a id="p:107" class="idref" href="#p:107"><span class="id" title="binder">p</span></a> :=<br>
+ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:107"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+   | 1 ⇒ 1<br>
+   | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:107"><span class="id" title="variable">p</span></a><br>
+   | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:107"><span class="id" title="variable">p</span></a><br>
+ <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_99');
+      " onmouseover="
+      mouseover(235, '0_3_99');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_99"><pre><span></span></pre></div>
+<div class="doc" scenenumber="101">
+<a id="lab1235"></a><h2 class="section">Number of digits in a positive number</h2>
+</div>
+<div scenenumber="103" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_103');
+      " onmouseover="
+      mouseover(242, '0_3_103');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="nat_pos_size" class="idref" href="#nat_pos_size"><span class="id" title="definition">nat_pos_size</span></a> <a id="p:109" class="idref" href="#p:109"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:109"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+    | 1 ⇒ <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="HoTT.Basics.Overture.html#O"><span class="id" title="constructor">O</span></a><br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#nat_pos_size:110"><span class="id" title="definition">nat_pos_size</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:109"><span class="id" title="variable">p</span></a>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#nat_pos_size:110"><span class="id" title="definition">nat_pos_size</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:109"><span class="id" title="variable">p</span></a>)<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_103');
+      " onmouseover="
+      mouseover(243, '0_3_103');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_103"><pre><span></span></pre></div>
+<div class="doc" scenenumber="105">
+Same, with positive output 
+</div>
+<div scenenumber="107" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_107');
+      " onmouseover="
+      mouseover(247, '0_3_107');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_size" class="idref" href="#pos_size"><span class="id" title="definition">pos_size</span></a> <a id="p:112" class="idref" href="#p:112"><span class="id" title="binder">p</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:112"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+    | 1 ⇒ 1<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_size:113"><span class="id" title="definition">pos_size</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:112"><span class="id" title="variable">p</span></a>)<br>
+    | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_size:113"><span class="id" title="definition">pos_size</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:112"><span class="id" title="variable">p</span></a>)<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_107');
+      " onmouseover="
+      mouseover(248, '0_3_107');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_107"><pre><span></span></pre></div>
+<div class="doc" scenenumber="109">
+<a id="lab1236"></a><h2 class="section">From binary positive numbers to Peano natural numbers</h2>
+</div>
+<div scenenumber="111" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_111');
+      " onmouseover="
+      mouseover(255, '0_3_111');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_iter_op" class="idref" href="#pos_iter_op"><span class="id" title="definition">pos_iter_op</span></a> {<a id="A:115" class="idref" href="#A:115"><span class="id" title="binder">A</span></a>} (<a id="op:116" class="idref" href="#op:116"><span class="id" title="binder">op</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:115"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:115"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:115"><span class="id" title="variable">A</span></a>)<br>
+  := <span class="id" title="keyword">fix</span> <span class="id" title="var">pos_iter</span> (<a id="p:117" class="idref" href="#p:117"><span class="id" title="binder">p</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) (<a id="a:118" class="idref" href="#a:118"><span class="id" title="binder">a</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:115"><span class="id" title="variable">A</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#A:115"><span class="id" title="variable">A</span></a><br>
+    := <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:117"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+        | 1 ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a><br>
+        | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_iter:119"><span class="id" title="variable">pos_iter</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:117"><span class="id" title="variable">p</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#op:116"><span class="id" title="variable">op</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a>)<br>
+        | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#op:116"><span class="id" title="variable">op</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_iter:119"><span class="id" title="variable">pos_iter</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:117"><span class="id" title="variable">p</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#op:116"><span class="id" title="variable">op</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#a:118"><span class="id" title="variable">a</span></a>))<br>
+       <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_111');
+      " onmouseover="
+      mouseover(256, '0_3_111');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_111"><pre><span></span></pre></div>
+<div class="doc" scenenumber="113">
+<a id="lab1237"></a><h2 class="section">From Peano natural numbers to binary positive numbers</h2>
+<div class="doc" scenenumber="4"> </div>
+
+ A version preserving positive numbers, and sending 0 to 1. 
+</div>
+<div scenenumber="115" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_115');
+      " onmouseover="
+      mouseover(265, '0_3_115');
+      ">
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_of_nat" class="idref" href="#pos_of_nat"><span class="id" title="definition">pos_of_nat</span></a> (<a id="n:121" class="idref" href="#n:121"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> :=<br>
+ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#n:121"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br>
+   | <a class="idref" href="HoTT.Basics.Overture.html#O"><span class="id" title="constructor">O</span></a> ⇒ 1<br>
+   | <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="HoTT.Basics.Overture.html#O"><span class="id" title="constructor">O</span></a> ⇒ 1<br>
+   | <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">x</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_nat:122"><span class="id" title="definition">pos_of_nat</span></a> <span class="id" title="var">x</span>)<br>
+ <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_115');
+      " onmouseover="
+      mouseover(266, '0_3_115');
+      "><br>
+<br>
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_of_succ_nat" class="idref" href="#pos_of_succ_nat"><span class="id" title="definition">pos_of_succ_nat</span></a> (<a id="n:124" class="idref" href="#n:124"><span class="id" title="binder">n</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#nat"><span class="id" title="inductive">nat</span></a>) : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#n:124"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Basics.Overture.html#O"><span class="id" title="constructor">O</span></a> ⇒ 1<br>
+    | <a class="idref" href="HoTT.Basics.Overture.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">x</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_succ"><span class="id" title="definition">pos_succ</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_succ_nat:125"><span class="id" title="definition">pos_of_succ_nat</span></a> <span class="id" title="var">x</span>)<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_115');
+      " onmouseover="
+      mouseover(267, '0_3_115');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_115"><pre><span></span></pre></div>
+<div class="doc" scenenumber="117">
+<a id="lab1238"></a><h2 class="section">Conversion with a decimal representation for printing/parsing</h2>
+</div>
+<div scenenumber="119" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(274, '0_3_119');
+      ">
+<br>
+<span class="id" title="keyword">Local</span> <span class="id" title="keyword">Notation</span> <a id="ten" class="idref" href="#ten"><span class="id" title="abbreviation">ten</span></a> := 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(275, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_of_uint_acc" class="idref" href="#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> (<a id="d:127" class="idref" href="#d:127"><span class="id" title="binder">d</span></a> : <a class="idref" href="HoTT.Basics.Decimal.html#uint"><span class="id" title="inductive">Decimal.uint</span></a>) (<a id="acc:128" class="idref" href="#acc:128"><span class="id" title="binder">acc</span></a> : <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a>) :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:127"><span class="id" title="variable">d</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#Nil"><span class="id" title="constructor">Decimal.Nil</span></a> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D0"><span class="id" title="constructor">Decimal.D0</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>)<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D1"><span class="id" title="constructor">Decimal.D1</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1 (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D2"><span class="id" title="constructor">Decimal.D2</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D3"><span class="id" title="constructor">Decimal.D3</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D4"><span class="id" title="constructor">Decimal.D4</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D5"><span class="id" title="constructor">Decimal.D5</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D6"><span class="id" title="constructor">Decimal.D6</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D7"><span class="id" title="constructor">Decimal.D7</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1~1</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D8"><span class="id" title="constructor">Decimal.D8</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0~0</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#D9"><span class="id" title="constructor">Decimal.D9</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc:129"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_add"><span class="id" title="definition">pos_add</span></a> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_mul"><span class="id" title="definition">pos_mul</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#ten"><span class="id" title="abbreviation">ten</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#acc:128"><span class="id" title="variable">acc</span></a>))<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(276, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_of_uint" class="idref" href="#pos_of_uint"><span class="id" title="definition">pos_of_uint</span></a> (<a id="d:131" class="idref" href="#d:131"><span class="id" title="binder">d</span></a> : <a class="idref" href="HoTT.Basics.Decimal.html#uint"><span class="id" title="inductive">Decimal.uint</span></a>) : <a class="idref" href="HoTT.Basics.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:131"><span class="id" title="variable">d</span></a> <span class="id" title="keyword">with</span><br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#Nil"><span class="id" title="constructor">Decimal.Nil</span></a> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#None"><span class="id" title="constructor">None</span></a><br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D0"><span class="id" title="constructor">Decimal.D0</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint:132"><span class="id" title="definition">pos_of_uint</span></a> <span class="id" title="var">l</span><br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D1"><span class="id" title="constructor">Decimal.D1</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D2"><span class="id" title="constructor">Decimal.D2</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D3"><span class="id" title="constructor">Decimal.D3</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D4"><span class="id" title="constructor">Decimal.D4</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D5"><span class="id" title="constructor">Decimal.D5</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D6"><span class="id" title="constructor">Decimal.D6</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D7"><span class="id" title="constructor">Decimal.D7</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1~1</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D8"><span class="id" title="constructor">Decimal.D8</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0~0</span></a>)<br>
+    | <a class="idref" href="HoTT.Basics.Decimal.html#D9"><span class="id" title="constructor">Decimal.D9</span></a> <span class="id" title="var">l</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint_acc"><span class="id" title="definition">pos_of_uint_acc</span></a> <span class="id" title="var">l</span> 1<a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0~0</span></a><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a>)<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(277, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_of_decimal_int" class="idref" href="#pos_of_decimal_int"><span class="id" title="definition">pos_of_decimal_int</span></a> (<a id="d:134" class="idref" href="#d:134"><span class="id" title="binder">d</span></a>:<a class="idref" href="HoTT.Basics.Decimal.html#int"><span class="id" title="inductive">Decimal.int</span></a>) : <a class="idref" href="HoTT.Basics.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:134"><span class="id" title="variable">d</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#Pos"><span class="id" title="constructor">Decimal.Pos</span></a> <span class="id" title="var">d</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_uint"><span class="id" title="definition">pos_of_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:134"><span class="id" title="variable">d</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Decimal.html#Neg"><span class="id" title="constructor">Decimal.Neg</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#None"><span class="id" title="constructor">None</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(278, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_of_number_uint" class="idref" href="#pos_of_number_uint"><span class="id" title="definition">pos_of_number_uint</span></a> (<a id="d:136" class="idref" href="#d:136"><span class="id" title="binder">d</span></a>:<a class="idref" href="HoTT.Basics.Numeral.html#int"><span class="id" title="inductive">Numeral.int</span></a>) : <a class="idref" href="HoTT.Basics.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:136"><span class="id" title="variable">d</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Basics.Numeral.html#IntDec"><span class="id" title="constructor">Numeral.IntDec</span></a> <span class="id" title="var">d</span> ⇒ <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_decimal_int"><span class="id" title="definition">pos_of_decimal_int</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#d:136"><span class="id" title="variable">d</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Numeral.html#IntHex"><span class="id" title="constructor">Numeral.IntHex</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#None"><span class="id" title="constructor">None</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(279, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Fixpoint</span> <a id="pos_to_little_uint" class="idref" href="#pos_to_little_uint"><span class="id" title="definition">pos_to_little_uint</span></a> <a id="p:138" class="idref" href="#p:138"><span class="id" title="binder">p</span></a> :=<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:138"><span class="id" title="variable">p</span></a> <span class="id" title="keyword">with</span><br>
+  | 1 ⇒ <a class="idref" href="HoTT.Basics.Decimal.html#D1"><span class="id" title="constructor">Decimal.D1</span></a> <a class="idref" href="HoTT.Basics.Decimal.html#Nil"><span class="id" title="constructor">Decimal.Nil</span></a><br>
+  | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#119ad21c8e0c4947cd973f1f72e5feea"><span class="id" title="notation">~1</span></a> ⇒ <a class="idref" href="HoTT.Basics.Decimal.html#Little.succ_double"><span class="id" title="definition">Decimal.Little.succ_double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_little_uint:139"><span class="id" title="definition">pos_to_little_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:138"><span class="id" title="variable">p</span></a>)<br>
+  | <span class="id" title="var">p</span><a class="idref" href="HoTT.Spaces.Pos.Core.html#35713fcadfdd66af247cbf95acf859fa"><span class="id" title="notation">~0</span></a> ⇒ <a class="idref" href="HoTT.Basics.Decimal.html#Little.double"><span class="id" title="definition">Decimal.Little.double</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_little_uint:139"><span class="id" title="definition">pos_to_little_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:138"><span class="id" title="variable">p</span></a>)<br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(280, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_to_uint" class="idref" href="#pos_to_uint"><span class="id" title="definition">pos_to_uint</span></a> <a id="p:141" class="idref" href="#p:141"><span class="id" title="binder">p</span></a> := <a class="idref" href="HoTT.Basics.Decimal.html#rev"><span class="id" title="definition">Decimal.rev</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_little_uint"><span class="id" title="definition">pos_to_little_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:141"><span class="id" title="variable">p</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(281, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_to_decimal_int" class="idref" href="#pos_to_decimal_int"><span class="id" title="definition">pos_to_decimal_int</span></a> <a id="n:142" class="idref" href="#n:142"><span class="id" title="binder">n</span></a> := <a class="idref" href="HoTT.Basics.Decimal.html#Pos"><span class="id" title="constructor">Decimal.Pos</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_uint"><span class="id" title="definition">pos_to_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#n:142"><span class="id" title="variable">n</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(282, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="pos_to_number_uint" class="idref" href="#pos_to_number_uint"><span class="id" title="definition">pos_to_number_uint</span></a> <a id="p:143" class="idref" href="#p:143"><span class="id" title="binder">p</span></a> := <a class="idref" href="HoTT.Basics.Numeral.html#UIntDec"><span class="id" title="constructor">Numeral.UIntDec</span></a> (<a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_uint"><span class="id" title="definition">pos_to_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#p:143"><span class="id" title="variable">p</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(283, '0_3_119');
+      "><br>
+<br>
+<span class="id" title="var">Number</span> <span class="id" title="keyword">Notation</span> <a class="idref" href="HoTT.Spaces.Pos.Core.html#Pos"><span class="id" title="inductive">Pos</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_of_number_uint"><span class="id" title="definition">pos_of_number_uint</span></a> <a class="idref" href="HoTT.Spaces.Pos.Core.html#pos_to_number_uint"><span class="id" title="definition">pos_to_number_uint</span></a> : <span class="id" title="var">positive_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_119');
+      " onmouseover="
+      mouseover(284, '0_3_119');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_119"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

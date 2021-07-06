@@ -1,0 +1,485 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 1)	  	  ============================	  Graph	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 3)	  	  ============================	  Bool -> Bool -> Type	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 5)	  	  i, j : Bool	  ============================	  Type	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "1 subgoal (ID 6)	  	  A : Type	  B : Type	  f, g : A -> B	  ============================	  Diagram parallel_pair_graph	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "2 subgoals (ID 16)	  	  A : Type	  B : Type	  f, g : A -> B	  ============================	  parallel_pair_graph -> Type		subgoal 2 (ID 18) is:	 forall i j : parallel_pair_graph,	 parallel_pair_graph i j -> ?obj i -> ?obj j	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 18)	  	  A : Type	  B : Type	  f, g : A -> B	  ============================	  forall i j : parallel_pair_graph,	  parallel_pair_graph i j ->	  (fun X : parallel_pair_graph => if X then A else B) i ->	  (fun X : parallel_pair_graph => if X then A else B) j	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 40)	  	  A : Type	  B : Type	  Q : Type	  f, g : B -> A	  q : A -> Q	  Hq : q o g == q o f	  ============================	  Cocone (parallel_pair f g) Q	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "2 subgoals (ID 53)	  	  A : Type	  B : Type	  Q : Type	  f, g : B -> A	  q : A -> Q	  Hq : q o g == q o f	  ============================	  forall i : parallel_pair_graph, parallel_pair f g i -> Q		subgoal 2 (ID 55) is:	 forall (i j : parallel_pair_graph) (g0 : parallel_pair_graph i j),	 ?legs j o (parallel_pair f g) _f g0 == ?legs i	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "1 subgoal (ID 55)	  	  A : Type	  B : Type	  Q : Type	  f, g : B -> A	  q : A -> Q	  Hq : q o g == q o f	  ============================	  forall (i j : parallel_pair_graph) (g0 : parallel_pair_graph i j),	  (fun i0 : parallel_pair_graph =>	   if i0 as b return (parallel_pair f g b -> Q) then q o f else q) j	  o (parallel_pair f g) _f g0 ==	  (fun i0 : parallel_pair_graph =>	   if i0 as b return (parallel_pair f g b -> Q) then q o f else q) i	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Diagrams.ParallelPair</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Graph.html#"><span class="id" title="library">Diagrams.Graph</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#"><span class="id" title="library">Diagrams.Diagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Diagrams.Cocone.html#"><span class="id" title="library">Diagrams.Cocone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+Parallel pairs 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="parallel_pair_graph" class="idref" href="#parallel_pair_graph"><span class="id" title="definition">parallel_pair_graph</span></a> : <a class="idref" href="HoTT.Diagrams.Graph.html#Graph"><span class="id" title="record">Graph</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+  <span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Diagrams.Graph.html#Build_Graph"><span class="id" title="constructor">Build_Graph</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">i</span> <span class="id" title="var">j</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+  <span class="id" title="tactic">exact</span> (<span class="id" title="keyword">if</span> <span class="id" title="var">i</span> <span class="id" title="keyword">then</span> <span class="id" title="keyword">if</span> <span class="id" title="var">j</span> <span class="id" title="keyword">then</span> <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">else</span> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a> <span class="id" title="keyword">else</span> <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+Parallel pair diagram 
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(25, '0_3_11');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="parallel_pair" class="idref" href="#parallel_pair"><span class="id" title="definition">parallel_pair</span></a> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> : <span class="id" title="keyword">Type</span>} (<a id="f:3" class="idref" href="#f:3"><span class="id" title="binder">f</span></a> <a id="g:4" class="idref" href="#g:4"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Diagrams.ParallelPair.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#B:2"><span class="id" title="variable">B</span></a>)<br>
+  : <a class="idref" href="HoTT.Diagrams.Diagram.html#Diagram"><span class="id" title="record">Diagram</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#parallel_pair_graph"><span class="id" title="definition">parallel_pair_graph</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(26, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(27, '0_3_11');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Diagram.html#Build_Diagram"><span class="id" title="constructor">Build_Diagram</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(28, '0_3_11');
+      "><br>
+  1: <span class="id" title="tactic">intros</span> []; [<span class="id" title="tactic">exact</span> <span class="id" title="var">A</span> | <span class="id" title="tactic">exact</span> <span class="id" title="var">B</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(29, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intros</span> [] [] []; [<span class="id" title="tactic">exact</span> <span class="id" title="var">f</span> | <span class="id" title="tactic">exact</span> <span class="id" title="var">g</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(30, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(31, '0_3_11');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+Cones on <span class="inlinecode"><a class="idref" href="HoTT.Diagrams.ParallelPair.html#parallel_pair"><span class="id" title="definition">parallel_pair</span></a></span>s 
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(37, '0_3_15');
+      ">
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Build_parallel_pair_cocone" class="idref" href="#Build_parallel_pair_cocone"><span class="id" title="definition">Build_parallel_pair_cocone</span></a> {<a id="A:5" class="idref" href="#A:5"><span class="id" title="binder">A</span></a> <a id="B:6" class="idref" href="#B:6"><span class="id" title="binder">B</span></a> <a id="Q:7" class="idref" href="#Q:7"><span class="id" title="binder">Q</span></a>} {<a id="f:8" class="idref" href="#f:8"><span class="id" title="binder">f</span></a> <a id="g:9" class="idref" href="#g:9"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Diagrams.ParallelPair.html#B:6"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#A:5"><span class="id" title="variable">A</span></a>}<br>
+  `(<a id="q:10" class="idref" href="#q:10"><span class="id" title="binder">q</span></a>: <a class="idref" href="HoTT.Diagrams.ParallelPair.html#A:5"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#Q:7"><span class="id" title="variable">Q</span></a>) (<a id="Hq:11" class="idref" href="#Hq:11"><span class="id" title="binder">Hq</span></a>: <a class="idref" href="HoTT.Diagrams.ParallelPair.html#q:10"><span class="id" title="variable">q</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#g:9"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#q:10"><span class="id" title="variable">q</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#f:8"><span class="id" title="variable">f</span></a>)<br>
+  : <a class="idref" href="HoTT.Diagrams.Cocone.html#Cocone"><span class="id" title="class">Cocone</span></a> (<a class="idref" href="HoTT.Diagrams.ParallelPair.html#parallel_pair"><span class="id" title="definition">parallel_pair</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#f:8"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Diagrams.ParallelPair.html#g:9"><span class="id" title="variable">g</span></a>) <a class="idref" href="HoTT.Diagrams.ParallelPair.html#Q:7"><span class="id" title="variable">Q</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(38, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(39, '0_3_15');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Diagrams.Cocone.html#Build_Cocone"><span class="id" title="constructor">Build_Cocone</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(40, '0_3_15');
+      "><br>
+  1: <span class="id" title="tactic">intros</span> []; [<span class="id" title="tactic">exact</span> (<span class="id" title="var">q</span> <a class="idref" href="HoTT.Basics.Overture.html#::function_scope:x_'o'_x"><span class="id" title="notation">o</span></a> <span class="id" title="var">f</span>) | <span class="id" title="tactic">exact</span> <span class="id" title="var">q</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(41, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">intros</span> [] [] []; [<span class="id" title="tactic">reflexivity</span> | <span class="id" title="tactic">exact</span> <span class="id" title="var">Hq</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(42, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(43, '0_3_15');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

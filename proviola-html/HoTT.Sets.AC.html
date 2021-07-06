@@ -1,0 +1,835 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "<infomsg>Choice is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "<infomsg>Choice_type is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "<infomsg>AC is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "<infomsg>is_global_axiom_propresizing is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 10)	  	  LEM : ExcludedMiddle	  ============================	  (forall X : HSet, hexists (fun A : Ordinal => InjectsInto X A)) ->	  Choice_type	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 16)	  	  LEM : ExcludedMiddle	  H : forall X : HSet, hexists (fun A : Ordinal => InjectsInto X A)	  X : HSet	  Y : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  ============================	  hexists (fun f : X -> Y => forall x : X, R x (f x))	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "1 subgoal (ID 18)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  ============================	  hexists (fun f : X -> Y => forall x : X, R x (f x))	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "1 subgoal (ID 27)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  ============================	  {A : Ordinal & InjectsInto Y A} ->	  hexists (fun f : X -> Y => forall x : X, R x (f x))	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "1 subgoal (ID 32)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  ============================	  hexists (fun f : X -> Y => forall x : X, R x (f x))	";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 41)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  ============================	  Injection Y A -> hexists (fun f : X -> Y => forall x : X, R x (f x))	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "1 subgoal (ID 46)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  ============================	  hexists (fun f0 : X -> Y => forall x : X, R x (f0 x))	";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 49)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  ============================	  {f0 : X -> Y & forall x : X, R x (f0 x)}	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "2 subgoals (ID 51)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  ============================	  X -> Y		subgoal 2 (ID 52) is:	 forall x : X, R x (?f x)	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "1 subgoal (ID 51)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  ============================	  X -> Y	1 subgoal (ID 53)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  ============================	  Y	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "2 subgoals (ID 61)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  ============================	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))		subgoal 2 (ID 63) is:	 Y	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "1 subgoal (ID 61)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  ============================	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	1 subgoal (ID 77)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  ============================	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "2 subgoals (ID 87)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  ============================	  merely {a : A & Build_HProp (merely {y : Y & ((f y = a) * R x y)%type})}		subgoal 2 (ID 86) is:	 {a : A &	 (Build_HProp (merely {y : Y & (f y = a) * R x y}) *	  (forall b : A,	   Build_HProp (merely {y : Y & (f y = b) * R x y}) -> a < b \/ a = b))%type} ->	 hexists	   (fun y : Y =>	    merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "1 subgoal (ID 87)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  ============================	  merely {a : A & Build_HProp (merely {y : Y & ((f y = a) * R x y)%type})}	1 subgoal (ID 96)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  ============================	  {x0 : Y & R x x0} ->	  merely {a : A & Build_HProp (merely {y : Y & ((f y = a) * R x y)%type})}	";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "1 subgoal (ID 101)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  Hy : R x y	  ============================	  merely {a : A & Build_HProp (merely {y0 : Y & ((f y0 = a) * R x y0)%type})}	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 104)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  Hy : R x y	  ============================	  {a : A & Build_HProp (merely {y0 : Y & ((f y0 = a) * R x y0)%type})}	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 106)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  Hy : R x y	  ============================	  Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 109)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  Hy : R x y	  ============================	  {y0 : Y & ((f y0 = f y) * R x y0)%type}	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "1 subgoal (ID 111)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  Hy : R x y	  ============================	  (f y = f y) * R x y	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet *.	</infomsg>	3 subgoals		subgoal 1 (ID 86) is:	 {a : A &	 (Build_HProp (merely {y : Y & (f y = a) * R x y}) *	  (forall b : A,	   Build_HProp (merely {y : Y & (f y = b) * R x y}) -> a < b \/ a = b))%type} ->	 hexists	   (fun y : Y =>	    merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	subgoal 2 (ID 63) is:	 Y	subgoal 3 (ID 52) is:	 forall x : X,	 R x	   ((fun x0 : X =>	     let HR' :=	       let HAR :=	         ordinal_has_minimal_hsolutions A	           (fun a : A =>	            Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type})) in	       merely_destruct	         (HAR	            (merely_destruct (HR x0)	               (fun X0 : {x1 : Y & R x0 x1} =>	                (fun (y : Y) (Hy : R x0 y) => tr (f y; tr (y; (1%path, Hy))))	                  X0.1 X0.2))) ?Goal1@{x:=x0} in	     ?Goal0@{x:=x0}) x)	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 86)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  ============================	  {a : A &	  (Build_HProp (merely {y : Y & (f y = a) * R x y}) *	   (forall b : A,	    Build_HProp (merely {y : Y & (f y = b) * R x y}) -> a < b \/ a = b))%type} ->	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	1 subgoal (ID 173)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  a : A	  H1 : Build_HProp (merely {y : Y & ((f y = a) * R x y)%type})	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       a < b \/ a = b	  ============================	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "1 subgoal (ID 182)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  a : A	  H1 : Build_HProp (merely {y : Y & ((f y = a) * R x y)%type})	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       a < b \/ a = b	  ============================	  {y : Y & ((f y = a) * R x y)%type} ->	  hexists	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "1 subgoal (ID 199)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  ============================	  hexists	    (fun y0 : Y =>	     merely (R x y0 * (forall y' : Y, R x y' -> f y0 < f y' \/ f y0 = f y')))	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 202)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  ============================	  {y0 : Y &	  merely (R x y0 * (forall y' : Y, R x y' -> f y0 < f y' \/ f y0 = f y'))}	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "1 subgoal (ID 204)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  ============================	  merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 207)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  ============================	  R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 210)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  ============================	  forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "1 subgoal (ID 214)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  y' : Y	  Hy' : R x y'	  ============================	  f y < f y' \/ f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 215)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  y' : Y	  Hy' : R x y'	  ============================	  Build_HProp (merely {y0 : Y & ((f y0 = f y') * R x y0)%type})	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "1 subgoal (ID 218)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  y' : Y	  Hy' : R x y'	  ============================	  {y0 : Y & ((f y0 = f y') * R x y0)%type}	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "1 subgoal (ID 220)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HAR : merely	          {a : A &	          (fun a0 : A =>	           Build_HProp (merely {y : Y & ((f y = a0) * R x y)%type})) a} ->	        merely	          {a : A &	          ((fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	             a *	           (forall b : A,	            (fun a0 : A => Build_HProp (merely {y : Y & (f y = a0) * R x y}))	              b -> a < b \/ a = b))%type}	  y : Y	  H2 : forall b : A,	       Build_HProp (merely {y : Y & ((f y = b) * R x y)%type}) ->	       f y < b \/ f y = b	  H1 : Build_HProp (merely {y0 : Y & ((f y0 = f y) * R x y0)%type})	  Hy : R x y	  y' : Y	  Hy' : R x y'	  ============================	  (f y' = f y') * R x y'	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	2 subgoals		subgoal 1 (ID 63) is:	 Y	subgoal 2 (ID 52) is:	 forall x : X,	 R x	   ((fun x0 : X =>	     let HR' :=	       let HAR :=	         ordinal_has_minimal_hsolutions A	           (fun a : A =>	            Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type})) in	       merely_destruct	         (HAR	            (merely_destruct (HR x0)	               (fun X0 : {x1 : Y & R x0 x1} =>	                (fun (y : Y) (Hy : R x0 y) => tr (f y; tr (y; (1%path, Hy))))	                  X0.1 X0.2)))	         (fun	            X0 : {a : A &	                 (Build_HProp (merely {y : Y & (f y = a) * R x0 y}) *	                  (forall b : A,	                   Build_HProp (merely {y : Y & (f y = b) * R x0 y}) ->	                   a < b \/ a = b))%type} =>	          (fun (a : A)	             (proj2 : Build_HProp	                        (merely {y : Y & ((f y = a) * R x0 y)%type}) *	                      (forall b : A,	                       Build_HProp	                         (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                       a < b \/ a = b)) =>	           (fun	              (H1 : Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type}))	              (H2 : forall b : A,	                    Build_HProp (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                    a < b \/ a = b) =>	            merely_destruct H1	              (fun X1 : {y : Y & ((f y = a) * R x0 y)%type} =>	               (fun (y : Y) (proj3 : (f y = a) * R x0 y) =>	                (fun fst : f y = a =>	                 internal_paths_rew A (f y)	                   (fun a0 : A =>	                    Build_HProp	                      (merely {y0 : Y & ((f y0 = a0) * R x0 y0)%type}) ->	                    (forall b : A,	                     Build_HProp	                       (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                     a0 < b \/ a0 = b) ->	                    R x0 y ->	                    hexists	                      (fun y0 : Y =>	                       merely	                         (R x0 y0 *	                          (forall y' : Y,	                           R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                   (fun	                      (_ : Build_HProp	                             (merely {y0 : Y & ((f y0 = f y) * R x0 y0)%type}))	                      (H4 : forall b : A,	                            Build_HProp	                              (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                            f y < b \/ f y = b) (Hy : R x0 y) =>	                    tr	                      (y;	                      tr	                        (Hy,	                        fun (y' : Y) (Hy' : R x0 y') =>	                        H4 (f y') (tr (y'; (1%path, Hy')))))) a fst H1 H2)	                  (fst proj3) (snd proj3)) X1.1 X1.2)) 	             (fst proj2) (snd proj2)) X0.1 X0.2) in	     ?Goal0@{x:=x0}) x)	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "1 subgoal (ID 63)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  ============================	  Y	2 focused subgoals	(shelved: 1) (ID 228)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  ============================	  forall x0 : Y, IsHProp (?P x0)		subgoal 2 (ID 229) is:	 hunique ?P	2 subgoals (ID 228)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  ============================	  forall x0 : Y,	  IsHProp	    ((fun y : Y =>	      trunctype_type	        (merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))))	       x0)		subgoal 2 (ID 238) is:	 atmost1P	   (fun y : Y =>	    merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	1 subgoal (ID 238)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  ============================	  atmost1P	    (fun y : Y =>	     merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 261)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  ============================	  y = y'	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "1 subgoal (ID 292)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  ============================	  R x y * (forall y'0 : Y, R x y'0 -> f y < f y'0 \/ f y = f y'0) -> y = y'	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "1 subgoal (ID 297)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  ============================	  y = y'	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 328)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  ============================	  R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0) ->	  y = y'	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "1 subgoal (ID 333)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  ============================	  y = y'	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "1 subgoal (ID 334)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  ============================	  f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 365)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  ============================	  (f y < f y') + (f y = f y') -> f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "1 subgoal (ID 373)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  H5 : f y < f y'	  ============================	  f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "1 subgoal (ID 405)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  H5 : f y < f y'	  ============================	  (f y' < f y) + (f y' = f y) -> f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "1 subgoal (ID 413)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  H5 : f y < f y'	  H6 : f y' < f y	  ============================	  f y = f y'	";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "1 subgoal (ID 418)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  H5 : f y < f y'	  H6 : f y' < f y	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 424)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  HR' : hexists	          (fun y : Y =>	           merely	             (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y')))	  y, y' : Y	  Hy : merely (R x y * (forall y' : Y, R x y' -> f y < f y' \/ f y = f y'))	  Hy' : merely	          (R x y' * (forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0))	  H1 : R x y	  H2 : forall y' : Y, R x y' -> f y < f y' \/ f y = f y'	  H3 : R x y'	  H4 : forall y'0 : Y, R x y'0 -> f y' < f y'0 \/ f y' = f y'0	  H5 : f y < f y'	  H6 : f y' < f y	  ============================	  f y < f y	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 52) is:	 forall x : X,	 R x	   ((fun x0 : X =>	     let HR' :=	       let HAR :=	         ordinal_has_minimal_hsolutions A	           (fun a : A =>	            Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type})) in	       merely_destruct	         (HAR	            (merely_destruct (HR x0)	               (fun X0 : {x1 : Y & R x0 x1} =>	                (fun (y : Y) (Hy : R x0 y) => tr (f y; tr (y; (1%path, Hy))))	                  X0.1 X0.2)))	         (fun	            X0 : {a : A &	                 (Build_HProp (merely {y : Y & (f y = a) * R x0 y}) *	                  (forall b : A,	                   Build_HProp (merely {y : Y & (f y = b) * R x0 y}) ->	                   a < b \/ a = b))%type} =>	          (fun (a : A)	             (proj2 : Build_HProp	                        (merely {y : Y & ((f y = a) * R x0 y)%type}) *	                      (forall b : A,	                       Build_HProp	                         (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                       a < b \/ a = b)) =>	           (fun	              (H1 : Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type}))	              (H2 : forall b : A,	                    Build_HProp (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                    a < b \/ a = b) =>	            merely_destruct H1	              (fun X1 : {y : Y & ((f y = a) * R x0 y)%type} =>	               (fun (y : Y) (proj3 : (f y = a) * R x0 y) =>	                (fun fst : f y = a =>	                 internal_paths_rew A (f y)	                   (fun a0 : A =>	                    Build_HProp	                      (merely {y0 : Y & ((f y0 = a0) * R x0 y0)%type}) ->	                    (forall b : A,	                     Build_HProp	                       (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                     a0 < b \/ a0 = b) ->	                    R x0 y ->	                    hexists	                      (fun y0 : Y =>	                       merely	                         (R x0 y0 *	                          (forall y' : Y,	                           R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                   (fun	                      (_ : Build_HProp	                             (merely {y0 : Y & ((f y0 = f y) * R x0 y0)%type}))	                      (H4 : forall b : A,	                            Build_HProp	                              (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                            f y < b \/ f y = b) (Hy : R x0 y) =>	                    tr	                      (y;	                      tr	                        (Hy,	                        fun (y' : Y) (Hy' : R x0 y') =>	                        H4 (f y') (tr (y'; (1%path, Hy')))))) a fst H1 H2)	                  (fst proj3) (snd proj3)) X1.1 X1.2)) 	             (fst proj2) (snd proj2)) X0.1 X0.2) in	     let s :=	       iota	         (fun y : Y =>	          merely	            (R x0 y * (forall y' : Y, R x0 y' -> f y < f y' \/ f y = f y')))	         (fun x1 : Y =>	          istrunc_truncation (-1)	            (R x0 x1 * (forall y' : Y, R x0 y' -> f x1 < f y' \/ f x1 = f y')))	         (HR',	         fun (y y' : Y)	           (Hy : merely	                   (R x0 y *	                    (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)))	           (Hy' : merely	                    (R x0 y' *	                     (forall y'0 : Y,	                      R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0))) =>	         merely_destruct Hy	           (fun	              X0 : R x0 y *	                   (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	            =>	            (fun (H1 : R x0 y)	               (H2 : forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	             =>	             merely_destruct Hy'	               (fun	                  X1 : R x0 y' *	                       (forall y'0 : Y,	                        R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                (fun (H3 : R x0 y')	                   (H4 : forall y'0 : Y,	                         R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                 Hf y y'	                   (merely_destruct (H2 y' H3)	                      (fun X2 : (f y < f y') + (f y = f y') =>	                       match X2 with	                       | inl H5 =>	                           merely_destruct (H4 y H1)	                             (fun X3 : (f y' < f y) + (f y' = f y) =>	                              match X3 with	                              | inl H6 =>	                                  Empty_rec	                                    (irreflexive_ordinal_relation A lt	                                       (ordinal_property A) 	                                       (f y)	                                       (ordinal_transitivity 	                                          (f y) (f y') 	                                          (f y) H5 H6))	                              | inr p =>	                                  internal_paths_rew_r A 	                                    (f y') (f y) (fun t : A => f y = t)	                                    1%path p	                              end)	                       | inr H5 => H5	                       end))) (fst X1) (snd X1))) 	              (fst X0) (snd X0))) in	     (fun (y : Y)	        (_ : (fun y0 : Y =>	              trunctype_type	                (merely	                   (R x0 y0 *	                    (forall y' : Y, R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	               y) => y) s.1 s.2) x)	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 52)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  ============================	  forall x : X,	  R x	    ((fun x0 : X =>	      let HR' :=	        let HAR :=	          ordinal_has_minimal_hsolutions A	            (fun a : A =>	             Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type})) in	        merely_destruct	          (HAR	             (merely_destruct (HR x0)	                (fun X0 : {x1 : Y & R x0 x1} =>	                 (fun (y : Y) (Hy : R x0 y) => tr (f y; tr (y; (1%path, Hy))))	                   X0.1 X0.2)))	          (fun	             X0 : {a : A &	                  (Build_HProp (merely {y : Y & (f y = a) * R x0 y}) *	                   (forall b : A,	                    Build_HProp (merely {y : Y & (f y = b) * R x0 y}) ->	                    a < b \/ a = b))%type} =>	           (fun (a : A)	              (proj2 : Build_HProp	                         (merely {y : Y & ((f y = a) * R x0 y)%type}) *	                       (forall b : A,	                        Build_HProp	                          (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                        a < b \/ a = b)) =>	            (fun	               (H1 : Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type}))	               (H2 : forall b : A,	                     Build_HProp (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                     a < b \/ a = b) =>	             merely_destruct H1	               (fun X1 : {y : Y & ((f y = a) * R x0 y)%type} =>	                (fun (y : Y) (proj3 : (f y = a) * R x0 y) =>	                 (fun fst : f y = a =>	                  internal_paths_rew A (f y)	                    (fun a0 : A =>	                     Build_HProp	                       (merely {y0 : Y & ((f y0 = a0) * R x0 y0)%type}) ->	                     (forall b : A,	                      Build_HProp	                        (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                      a0 < b \/ a0 = b) ->	                     R x0 y ->	                     hexists	                       (fun y0 : Y =>	                        merely	                          (R x0 y0 *	                           (forall y' : Y,	                            R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                    (fun	                       (_ : Build_HProp	                              (merely	                                 {y0 : Y & ((f y0 = f y) * R x0 y0)%type}))	                       (H4 : forall b : A,	                             Build_HProp	                               (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                             f y < b \/ f y = b) (Hy : R x0 y) =>	                     tr	                       (y;	                       tr	                         (Hy,	                         fun (y' : Y) (Hy' : R x0 y') =>	                         H4 (f y') (tr (y'; (1%path, Hy')))))) a fst H1 H2)	                   (fst proj3) (snd proj3)) X1.1 X1.2)) 	              (fst proj2) (snd proj2)) X0.1 X0.2) in	      let s :=	        iota	          (fun y : Y =>	           merely	             (R x0 y * (forall y' : Y, R x0 y' -> f y < f y' \/ f y = f y')))	          (fun x1 : Y =>	           istrunc_truncation (-1)	             (R x0 x1 *	              (forall y' : Y, R x0 y' -> f x1 < f y' \/ f x1 = f y')))	          (HR',	          fun (y y' : Y)	            (Hy : merely	                    (R x0 y *	                     (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)))	            (Hy' : merely	                     (R x0 y' *	                      (forall y'0 : Y,	                       R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0))) =>	          merely_destruct Hy	            (fun	               X0 : R x0 y *	                    (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	             =>	             (fun (H1 : R x0 y)	                (H2 : forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	              =>	              merely_destruct Hy'	                (fun	                   X1 : R x0 y' *	                        (forall y'0 : Y,	                         R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                 (fun (H3 : R x0 y')	                    (H4 : forall y'0 : Y,	                          R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                  Hf y y'	                    (merely_destruct (H2 y' H3)	                       (fun X2 : (f y < f y') + (f y = f y') =>	                        match X2 with	                        | inl H5 =>	                            merely_destruct (H4 y H1)	                              (fun X3 : (f y' < f y) + (f y' = f y) =>	                               match X3 with	                               | inl H6 =>	                                   Empty_rec	                                     (irreflexive_ordinal_relation A lt	                                        (ordinal_property A) 	                                        (f y)	                                        (ordinal_transitivity 	                                           (f y) (f y') 	                                           (f y) H5 H6))	                               | inr p =>	                                   internal_paths_rew_r A 	                                     (f y') (f y) 	                                     (fun t : A => f y = t) 1%path p	                               end)	                        | inr H5 => H5	                        end))) (fst X1) (snd X1))) 	               (fst X0) (snd X0))) in	      (fun (y : Y)	         (_ : (fun y0 : Y =>	               trunctype_type	                 (merely	                    (R x0 y0 *	                     (forall y' : Y, R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                y) => y) s.1 s.2) x)	1 subgoal (ID 432)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  ============================	  R x	    ((fun x0 : X =>	      let HR' :=	        let HAR :=	          ordinal_has_minimal_hsolutions A	            (fun a : A =>	             Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type})) in	        merely_destruct	          (HAR	             (merely_destruct (HR x0)	                (fun X0 : {x1 : Y & R x0 x1} =>	                 (fun (y : Y) (Hy : R x0 y) => tr (f y; tr (y; (1%path, Hy))))	                   X0.1 X0.2)))	          (fun	             X0 : {a : A &	                  (Build_HProp (merely {y : Y & (f y = a) * R x0 y}) *	                   (forall b : A,	                    Build_HProp (merely {y : Y & (f y = b) * R x0 y}) ->	                    a < b \/ a = b))%type} =>	           (fun (a : A)	              (proj2 : Build_HProp	                         (merely {y : Y & ((f y = a) * R x0 y)%type}) *	                       (forall b : A,	                        Build_HProp	                          (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                        a < b \/ a = b)) =>	            (fun	               (H1 : Build_HProp (merely {y : Y & ((f y = a) * R x0 y)%type}))	               (H2 : forall b : A,	                     Build_HProp (merely {y : Y & ((f y = b) * R x0 y)%type}) ->	                     a < b \/ a = b) =>	             merely_destruct H1	               (fun X1 : {y : Y & ((f y = a) * R x0 y)%type} =>	                (fun (y : Y) (proj3 : (f y = a) * R x0 y) =>	                 (fun fst : f y = a =>	                  internal_paths_rew A (f y)	                    (fun a0 : A =>	                     Build_HProp	                       (merely {y0 : Y & ((f y0 = a0) * R x0 y0)%type}) ->	                     (forall b : A,	                      Build_HProp	                        (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                      a0 < b \/ a0 = b) ->	                     R x0 y ->	                     hexists	                       (fun y0 : Y =>	                        merely	                          (R x0 y0 *	                           (forall y' : Y,	                            R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                    (fun	                       (_ : Build_HProp	                              (merely	                                 {y0 : Y & ((f y0 = f y) * R x0 y0)%type}))	                       (H4 : forall b : A,	                             Build_HProp	                               (merely {y0 : Y & ((f y0 = b) * R x0 y0)%type}) ->	                             f y < b \/ f y = b) (Hy : R x0 y) =>	                     tr	                       (y;	                       tr	                         (Hy,	                         fun (y' : Y) (Hy' : R x0 y') =>	                         H4 (f y') (tr (y'; (1%path, Hy')))))) a fst H1 H2)	                   (fst proj3) (snd proj3)) X1.1 X1.2)) 	              (fst proj2) (snd proj2)) X0.1 X0.2) in	      let s :=	        iota	          (fun y : Y =>	           merely	             (R x0 y * (forall y' : Y, R x0 y' -> f y < f y' \/ f y = f y')))	          (fun x1 : Y =>	           istrunc_truncation (-1)	             (R x0 x1 *	              (forall y' : Y, R x0 y' -> f x1 < f y' \/ f x1 = f y')))	          (HR',	          fun (y y' : Y)	            (Hy : merely	                    (R x0 y *	                     (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)))	            (Hy' : merely	                     (R x0 y' *	                      (forall y'0 : Y,	                       R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0))) =>	          merely_destruct Hy	            (fun	               X0 : R x0 y *	                    (forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	             =>	             (fun (H1 : R x0 y)	                (H2 : forall y'0 : Y, R x0 y'0 -> f y < f y'0 \/ f y = f y'0)	              =>	              merely_destruct Hy'	                (fun	                   X1 : R x0 y' *	                        (forall y'0 : Y,	                         R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                 (fun (H3 : R x0 y')	                    (H4 : forall y'0 : Y,	                          R x0 y'0 -> f y' < f y'0 \/ f y' = f y'0) =>	                  Hf y y'	                    (merely_destruct (H2 y' H3)	                       (fun X2 : (f y < f y') + (f y = f y') =>	                        match X2 with	                        | inl H5 =>	                            merely_destruct (H4 y H1)	                              (fun X3 : (f y' < f y) + (f y' = f y) =>	                               match X3 with	                               | inl H6 =>	                                   Empty_rec	                                     (irreflexive_ordinal_relation A lt	                                        (ordinal_property A) 	                                        (f y)	                                        (ordinal_transitivity 	                                           (f y) (f y') 	                                           (f y) H5 H6))	                               | inr p =>	                                   internal_paths_rew_r A 	                                     (f y') (f y) 	                                     (fun t : A => f y = t) 1%path p	                               end)	                        | inr H5 => H5	                        end))) (fst X1) (snd X1))) 	               (fst X0) (snd X0))) in	      (fun (y : Y)	         (_ : (fun y0 : Y =>	               trunctype_type	                 (merely	                    (R x0 y0 *	                     (forall y' : Y, R x0 y' -> f y0 < f y' \/ f y0 = f y'))))	                y) => y) s.1 s.2) x)	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 433)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  ============================	  R x	    (iota	       (fun y : Y =>	        Trunc (-1)	          (R x y *	           (forall y' : Y, R x y' -> Trunc (-1) ((f y < f y') + (f y = f y')))))	       (fun x0 : Y =>	        istrunc_truncation (-1)	          (R x x0 *	           (forall y' : Y,	            R x y' -> Trunc (-1) ((f x0 < f y') + (f x0 = f y')))))	       (merely_destruct	          (ordinal_has_minimal_hsolutions A	             (fun a : ordinal_carrier A =>	              Build_HProp (Trunc (-1) {y : Y & ((f y = a) * R x y)%type}))	             (merely_destruct (HR x)	                (fun X0 : {x0 : Y & R x x0} =>	                 tr (f X0.1; tr (X0.1; (1%path, X0.2))))))	          (fun	             X0 : {a : ordinal_carrier A &	                  (Trunc (-1) {y : Y & (f y = a) * R x y} *	                   (forall b : ordinal_carrier A,	                    Trunc (-1) {y : Y & (f y = b) * R x y} ->	                    Trunc (-1) ((a < b) + (a = b))))%type} =>	           merely_destruct (fst X0.2)	             (fun X1 : {y : Y & ((f y = X0.1) * R x y)%type} =>	              internal_paths_rew (ordinal_carrier A) 	                (f X1.1)	                (fun a : ordinal_carrier A =>	                 Trunc (-1) {y : Y & ((f y = a) * R x y)%type} ->	                 (forall b : ordinal_carrier A,	                  Trunc (-1) {y : Y & ((f y = b) * R x y)%type} ->	                  Trunc (-1) ((a < b) + (a = b))) ->	                 R x X1.1 ->	                 Trunc (-1)	                   {y : Y &	                   Trunc (-1)	                     (R x y *	                      (forall y' : Y,	                       R x y' -> Trunc (-1) ((f y < f y') + (f y = f y'))))})	                (fun (_ : Trunc (-1) {y : Y & ((f y = f X1.1) * R x y)%type})	                   (H2 : forall b : ordinal_carrier A,	                         Trunc (-1) {y : Y & ((f y = b) * R x y)%type} ->	                         Trunc (-1) ((f X1.1 < b) + (f X1.1 = b)))	                   (Hy : R x X1.1) =>	                 tr	                   (X1.1;	                   tr	                     (Hy,	                     fun (y' : Y) (Hy' : R x y') =>	                     H2 (f y') (tr (y'; (1%path, Hy')))))) X0.1 	                (fst X1.2) (fst X0.2) (snd X0.2) (snd X1.2))),	       fun (y y' : Y)	         (Hy : Trunc (-1)	                 (R x y *	                  (forall y'0 : Y,	                   R x y'0 -> Trunc (-1) ((f y < f y'0) + (f y = f y'0)))))	         (Hy' : Trunc (-1)	                  (R x y' *	                   (forall y'0 : Y,	                    R x y'0 -> Trunc (-1) ((f y' < f y'0) + (f y' = f y'0)))))	       =>	       merely_destruct Hy	         (fun	            X0 : R x y *	                 (forall y'0 : Y,	                  R x y'0 -> Trunc (-1) ((f y < f y'0) + (f y = f y'0))) =>	          merely_destruct Hy'	            (fun	               X1 : R x y' *	                    (forall y'0 : Y,	                     R x y'0 -> Trunc (-1) ((f y' < f y'0) + (f y' = f y'0)))	             =>	             Hf y y'	               (merely_destruct (snd X0 y' (fst X1))	                  (fun X2 : (f y < f y') + (f y = f y') =>	                   match X2 with	                   | inl H5 =>	                       merely_destruct (snd X1 y (fst X0))	                         (fun X3 : (f y' < f y) + (f y' = f y) =>	                          match X3 with	                          | inl H6 =>	                              Empty_rec	                                (irreflexive_ordinal_relation	                                   (ordinal_carrier A) lt	                                   (ordinal_property A) 	                                   (f y)	                                   (ordinal_transitivity 	                                      (f y) (f y') 	                                      (f y) H5 H6))	                          | inr p =>	                              internal_paths_rew_r 	                                (ordinal_carrier A) 	                                (f y') (f y)	                                (fun t : ordinal_carrier A => f y = t) 1%path	                                p	                          end)	                   | inr H5 => H5	                   end)))))).1	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "1 subgoal (ID 444)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  y : Y	  Hy : Trunc (-1)	         (R x y *	          (forall y' : Y, R x y' -> Trunc (-1) ((f y < f y') + (f y = f y'))))	  ============================	  R x y	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 453)	  	  LEM : ExcludedMiddle	  Y : HSet	  H : hexists (fun A : Ordinal => InjectsInto Y A)	  X : HSet	  R : X -> Y -> HProp	  HR : forall x : X, hexists (fun x0 : Y => R x x0)	  A : Ordinal	  HA : InjectsInto Y A	  f : Y -> A	  Hf : IsInjective f	  x : X	  y : Y	  Hy : Trunc (-1)	         (R x y *	          (forall y' : Y, R x y' -> Trunc (-1) ((f y < f y') + (f y = f y'))))	  ============================	  R x y * (forall y' : Y, R x y' -> Trunc (-1) ((f y < f y') + (f y = f y'))) ->	  R x y	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Sets.AC</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.TruncType.html#"><span class="id" title="library">TruncType</span></a> <a class="idref" href="HoTT.ExcludedMiddle.html#"><span class="id" title="library">ExcludedMiddle</span></a> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">abstract_algebra</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.HIT.unique_choice.html#"><span class="id" title="library">HIT.unique_choice</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Spaces.Card.html#"><span class="id" title="library">Spaces.Card</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">From</span> <span class="id" title="var">HoTT.Sets</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Sets.Ordinals.html#"><span class="id" title="library">Ordinals</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab1062"></a><h1 class="section">Set-theoretic formulation of the axiom of choice (AC)</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      ">
+<br>
+<span class="id" title="var">Monomorphic</span> <span class="id" title="keyword">Axiom</span> <a id="Choice" class="idref" href="#Choice"><span class="id" title="axiom">Choice</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#Type0"><span class="id" title="abbreviation">Type0</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Class</span> <span class="id" title="var">Choice</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Choice_type" class="idref" href="#Choice_type"><span class="id" title="definition">Choice_type</span></a> :=<br>
+  <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="X:2" class="idref" href="#X:2"><span class="id" title="binder">X</span></a> <a id="Y:3" class="idref" href="#Y:3"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a>) (<a id="R:4" class="idref" href="#R:4"><span class="id" title="binder">R</span></a> : <a class="idref" href="HoTT.Sets.AC.html#X:2"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Sets.AC.html#Y:3"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Basics.Trunc.html#HProp"><span class="id" title="abbreviation">HProp</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:5" class="idref" href="#x:5"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<a class="idref" href="HoTT.Sets.AC.html#R:4"><span class="id" title="variable">R</span></a> <a class="idref" href="HoTT.Sets.AC.html#x:5"><span class="id" title="variable">x</span></a>)<a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<span class="id" title="keyword">fun</span> <a id="f:6" class="idref" href="#f:6"><span class="id" title="binder">f</span></a> ⇒ <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:7" class="idref" href="#x:7"><span class="id" title="binder">x</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Sets.AC.html#R:4"><span class="id" title="variable">R</span></a> <a class="idref" href="HoTT.Sets.AC.html#x:7"><span class="id" title="variable">x</span></a> (<a class="idref" href="HoTT.Sets.AC.html#f:6"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Sets.AC.html#x:7"><span class="id" title="variable">x</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Axiom</span> <a id="AC" class="idref" href="#AC"><span class="id" title="axiom">AC</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">`{</span></a><a id="H:8" class="idref" href="#H:8"><span class="id" title="binder">Choice</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">},</span></a> <a class="idref" href="HoTT.Sets.AC.html#Choice_type"><span class="id" title="definition">Choice_type</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="is_global_axiom_propresizing" class="idref" href="#is_global_axiom_propresizing"><span class="id" title="instance">is_global_axiom_propresizing</span></a> : <a class="idref" href="HoTT.Basics.Tactics.html#IsGlobalAxiom"><span class="id" title="class">IsGlobalAxiom</span></a> <a class="idref" href="HoTT.Sets.AC.html#Choice"><span class="id" title="class">Choice</span></a> := {}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+<a id="lab1063"></a><h1 class="section">The well-ordering theorem implies AC</h1>
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(29, '0_3_11');
+      ">
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="WO_AC" class="idref" href="#WO_AC"><span class="id" title="lemma">WO_AC</span></a> {<a id="LEM:10" class="idref" href="#LEM:10"><span class="id" title="binder">LEM</span></a> : <a class="idref" href="HoTT.ExcludedMiddle.html#ExcludedMiddle"><span class="id" title="class">ExcludedMiddle</span></a>} :<br>
+  <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">(</span></a><a id="X:11" class="idref" href="#X:11"><span class="id" title="binder">X</span></a> : <a class="idref" href="HoTT.Basics.Trunc.html#HSet"><span class="id" title="abbreviation">HSet</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">),</span></a> <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<span class="id" title="keyword">fun</span> (<a id="A:12" class="idref" href="#A:12"><span class="id" title="binder">A</span></a> : <a class="idref" href="HoTT.Sets.Ordinals.html#Ordinal"><span class="id" title="record">Ordinal</span></a>) ⇒ <a class="idref" href="HoTT.Spaces.Card.html#InjectsInto"><span class="id" title="definition">InjectsInto</span></a> <a class="idref" href="HoTT.Sets.AC.html#X:11"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Sets.AC.html#A:12"><span class="id" title="variable">A</span></a>)<a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Sets.AC.html#Choice_type"><span class="id" title="definition">Choice_type</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(30, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(31, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intros</span> <span class="id" title="var">H</span> <span class="id" title="var">X</span> <span class="id" title="var">Y</span> <span class="id" title="var">R</span> <span class="id" title="var">HR</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(32, '0_3_11');
+      "><span class="id" title="tactic">specialize</span> (<span class="id" title="var">H</span> <span class="id" title="var">Y</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(33, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(34, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intros</span> [<span class="id" title="var">A</span> <span class="id" title="var">HA</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(35, '0_3_11');
+      "><span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">HA</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(36, '0_3_11');
+      "><br>
+  <span class="id" title="tactic">intros</span> [<span class="id" title="var">f</span> <span class="id" title="var">Hf</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(37, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(38, '0_3_11');
+      "><span class="id" title="var">unshelve</span> <span class="id" title="tactic">eexists</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(39, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(40, '0_3_11');
+      "><span class="id" title="tactic">assert</span> (<span class="id" title="var">HR'</span> : <a class="idref" href="HoTT.Truncations.Core.html#hexists"><span class="id" title="definition">hexists</span></a> (<span class="id" title="keyword">fun</span> <a id="y:15" class="idref" href="#y:15"><span class="id" title="binder">y</span></a> ⇒ <a class="idref" href="HoTT.Truncations.Core.html#merely"><span class="id" title="definition">merely</span></a> (<span class="id" title="var">R</span> <span class="id" title="var">x</span> <a class="idref" href="HoTT.Sets.AC.html#y:13"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="y':16" class="idref" href="#y':16"><span class="id" title="binder">y'</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <span class="id" title="var">R</span> <span class="id" title="var">x</span> <a class="idref" href="HoTT.Sets.AC.html#y':14"><span class="id" title="variable">y'</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Sets.AC.html#y:13"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:x_'&lt;'_x"><span class="id" title="notation">&lt;</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Sets.AC.html#y':14"><span class="id" title="variable">y'</span></a> <a class="idref" href="HoTT.Truncations.Core.html#f031fe1957c4a4a8e217aa46af2b4e25"><span class="id" title="notation">∨</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Sets.AC.html#y:13"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Sets.AC.html#y':14"><span class="id" title="variable">y'</span></a>))).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(41, '0_3_11');
+      "><br>
+    + <span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="var">HAR</span> := <a class="idref" href="HoTT.Sets.Ordinals.html#ordinal_has_minimal_hsolutions"><span class="id" title="lemma">ordinal_has_minimal_hsolutions</span></a> <span class="id" title="var">A</span> (<span class="id" title="keyword">fun</span> <a id="a:19" class="idref" href="#a:19"><span class="id" title="binder">a</span></a> ⇒ <a class="idref" href="HoTT.Basics.Trunc.html#Build_HProp"><span class="id" title="abbreviation">Build_HProp</span></a> (<a class="idref" href="HoTT.Truncations.Core.html#merely"><span class="id" title="definition">merely</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="y:20" class="idref" href="#y:20"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <span class="id" title="var">f</span> <a class="idref" href="HoTT.Sets.AC.html#y:18"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Sets.AC.html#a:17"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <span class="id" title="var">R</span> <span class="id" title="var">x</span> <a class="idref" href="HoTT.Sets.AC.html#y:18"><span class="id" title="variable">y</span></a>)))).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(42, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">HAR</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(43, '0_3_11');
+      "><br>
+      × <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> (<span class="id" title="var">HR</span> <span class="id" title="var">x</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(44, '0_3_11');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">y</span> <span class="id" title="var">Hy</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(45, '0_3_11');
+      "><br>
+        <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(46, '0_3_11');
+      "><span class="id" title="tactic">∃</span> (<span class="id" title="var">f</span> <span class="id" title="var">y</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(47, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(48, '0_3_11');
+      "><span class="id" title="tactic">∃</span> <span class="id" title="var">y</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(49, '0_3_11');
+      "><span class="id" title="var">now</span> <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(50, '0_3_11');
+      "><br>
+      × <span class="id" title="tactic">intros</span> [<span class="id" title="var">a</span> [<span class="id" title="var">H1</span> <span class="id" title="var">H2</span>]]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(51, '0_3_11');
+      "><span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">H1</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(52, '0_3_11');
+      "><br>
+        <span class="id" title="tactic">intros</span> [<span class="id" title="var">y</span> [&lt;- <span class="id" title="var">Hy</span>]]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(53, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(54, '0_3_11');
+      "><span class="id" title="tactic">∃</span> <span class="id" title="var">y</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(55, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(56, '0_3_11');
+      "><span class="id" title="tactic">split</span>; <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(57, '0_3_11');
+      "><br>
+        <span class="id" title="tactic">intros</span> <span class="id" title="var">y'</span> <span class="id" title="var">Hy'</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(58, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">H2</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(59, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Truncations.Core.html#Trunc.tr"><span class="id" title="constructor">tr</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(60, '0_3_11');
+      "><span class="id" title="tactic">∃</span> <span class="id" title="var">y'</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(61, '0_3_11');
+      "><span class="id" title="tactic">split</span>; <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(62, '0_3_11');
+      "><br>
+    + <span class="id" title="var">edestruct</span> (@<a class="idref" href="HoTT.HIT.unique_choice.html#iota"><span class="id" title="lemma">iota</span></a> <span class="id" title="var">Y</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">y</span> <span class="id" title="var">Hy</span>]; <span class="id" title="tactic">try</span> <span class="id" title="tactic">exact</span> <span class="id" title="var">y</span>. 2: <span class="id" title="tactic">split</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">HR'</span>. 1: <span class="id" title="tactic">exact</span> <span class="id" title="var">_</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(63, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">intros</span> <span class="id" title="var">y</span> <span class="id" title="var">y'</span> <span class="id" title="var">Hy</span> <span class="id" title="var">Hy'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(64, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">Hy</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(65, '0_3_11');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">H1</span> <span class="id" title="var">H2</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(66, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">Hy'</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(67, '0_3_11');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">H3</span> <span class="id" title="var">H4</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(68, '0_3_11');
+      "><span class="id" title="tactic">apply</span> <span class="id" title="var">Hf</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(69, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> (<span class="id" title="var">H2</span> <span class="id" title="var">y'</span>); <span class="id" title="tactic">trivial</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(70, '0_3_11');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">H5</span>|<span class="id" title="var">H5</span>]; <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(71, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> (<span class="id" title="var">H4</span> <span class="id" title="var">y</span>); <span class="id" title="tactic">trivial</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(72, '0_3_11');
+      "><span class="id" title="tactic">intros</span> [<span class="id" title="var">H6</span>| → ]; <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(73, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Empty.html#Empty_rec"><span class="id" title="lemma">Empty_rec</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(74, '0_3_11');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Sets.Ordinals.html#irreflexive_ordinal_relation"><span class="id" title="instance">irreflexive_ordinal_relation</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">f</span> <span class="id" title="var">y</span>)).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(75, '0_3_11');
+      "><br>
+      <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Sets.Ordinals.html#ordinal_transitivity"><span class="id" title="method">ordinal_transitivity</span></a> <span class="id" title="var">_</span> (<span class="id" title="var">f</span> <span class="id" title="var">y'</span>)); <span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(76, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(77, '0_3_11');
+      "><span class="id" title="var">cbn</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(78, '0_3_11');
+      "><span class="id" title="tactic">destruct</span> <a class="idref" href="HoTT.HIT.unique_choice.html#iota"><span class="id" title="lemma">iota</span></a> <span class="id" title="keyword">as</span> [<span class="id" title="var">y</span> <span class="id" title="var">Hy</span>]. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(79, '0_3_11');
+      "><span class="id" title="tactic">eapply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#merely_destruct"><span class="id" title="lemma">merely_destruct</span></a>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <span class="id" title="var">Hy</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(80, '0_3_11');
+      "><span class="id" title="var">now</span> <span class="id" title="tactic">intros</span> [].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(81, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(82, '0_3_11');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

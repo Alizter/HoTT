@@ -1,0 +1,931 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "<infomsg>decide_eqb is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "1 subgoal (ID 120)	  	  A : Type	  H : DecidablePaths A	  ============================	  forall a b : A, (a =? b) = true <-> a = b	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "1 subgoal (ID 121)	  	  A : Type	  H : DecidablePaths A	  ============================	  forall a b : A,	  (if decide_rel paths a b then true else false) = true <-> a = b	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "2 subgoals (ID 146)	  	  A : Type	  H : DecidablePaths A	  a, b : A	  E1 : a <> b	  E2 : false = true	  ============================	  a = b		subgoal 2 (ID 147) is:	 false = true	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "1 subgoal (ID 146)	  	  A : Type	  H : DecidablePaths A	  a, b : A	  E1 : a <> b	  E2 : false = true	  ============================	  a = b	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 147) is:	 false = true	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 147)	  	  A : Type	  H : DecidablePaths A	  a, b : A	  E1 : a <> b	  E2 : a = b	  ============================	  false = true	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 123)	  	  ============================	  LT <> EQ	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "1 subgoal (ID 125)	  	  E : LT = EQ	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 130)	  	  E : LT = EQ	  ============================	  (fun r : comparison => match r with	                         | LT => Unit	                         | _ => Empty	                         end) EQ	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 131)	  	  E : LT = EQ	  ============================	  Unit	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 126)	  	  ============================	  LT <> GT	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 128)	  	  E : LT = GT	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "1 subgoal (ID 133)	  	  E : LT = GT	  ============================	  (fun r : comparison => match r with	                         | LT => Unit	                         | _ => Empty	                         end) GT	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 134)	  	  E : LT = GT	  ============================	  Unit	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 129)	  	  ============================	  EQ <> LT	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "1 subgoal (ID 132)	  	  ============================	  EQ <> GT	";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "1 subgoal (ID 134)	  	  E : EQ = GT	  ============================	  Empty	";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "1 subgoal (ID 139)	  	  E : EQ = GT	  ============================	  (fun r : comparison => match r with	                         | EQ => Unit	                         | _ => Empty	                         end) GT	";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "1 subgoal (ID 140)	  	  E : EQ = GT	  ============================	  Unit	";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 135)	  	  ============================	  GT <> EQ	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "<infomsg>compare_eqb is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 215)	  	  A : Type	  H : Compare A	  ============================	  forall a b : A, (a =? b) = true -> (a ?= b) = EQ	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "1 subgoal (ID 217)	  	  A : Type	  H : Compare A	  ============================	  forall a b : A,	  match a ?= b with	  | EQ => true	  | _ => false	  end = true -> (a ?= b) = EQ	";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 219)	  	  A : Type	  H : Compare A	  a, b : A	  ============================	  match a ?= b with	  | EQ => true	  | _ => false	  end = true -> (a ?= b) = EQ	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "<infomsg>tricho_compare is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "1 subgoal (ID 237)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  ============================	  forall a b : A, (a ?= b) = EQ -> a = b	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 238)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  ============================	  forall a b : A,	  match trichotomy R a b with	  | inl _ => LT	  | inr (inl _) => EQ	  | inr (inr _) => GT	  end = EQ -> a = b	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "2 subgoals (ID 251)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  a, b : A	  E : R a b	  ============================	  LT = EQ -> a = b		subgoal 2 (ID 258) is:	 GT = EQ -> a = b	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 251)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  a, b : A	  E : R a b	  ============================	  LT = EQ -> a = b	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 258) is:	 GT = EQ -> a = b	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "1 subgoal (ID 258)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  a, b : A	  E : R b a	  ============================	  GT = EQ -> a = b	No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "1 subgoal (ID 254)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  ============================	  forall a b : A, (a ?= b) = EQ <-> a = b	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 255)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  ============================	  forall a b : A,	  match trichotomy R a b with	  | inl _ => LT	  | inr (inl _) => EQ	  | inr (inr _) => GT	  end = EQ <-> a = b	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "4 subgoals (ID 277)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R a b	  ============================	  LT = EQ -> a = b		subgoal 2 (ID 278) is:	 a = b -> LT = EQ	subgoal 3 (ID 283) is:	 GT = EQ -> a = b	subgoal 4 (ID 284) is:	 a = b -> GT = EQ	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "1 subgoal (ID 277)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R a b	  ============================	  LT = EQ -> a = b	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 278) is:	 a = b -> LT = EQ	subgoal 2 (ID 283) is:	 GT = EQ -> a = b	subgoal 3 (ID 284) is:	 a = b -> GT = EQ	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "1 subgoal (ID 278)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R a b	  ============================	  a = b -> LT = EQ	1 subgoal (ID 296)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R b b	  E2 : a = b	  ============================	  LT = EQ	";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 283) is:	 GT = EQ -> a = b	subgoal 2 (ID 284) is:	 a = b -> GT = EQ	";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "1 subgoal (ID 283)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R b a	  ============================	  GT = EQ -> a = b	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 284) is:	 a = b -> GT = EQ	";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "1 subgoal (ID 284)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R b a	  ============================	  a = b -> GT = EQ	1 subgoal (ID 308)	  	  A : Type	  R : Relation A	  H : Trichotomy R	  H0 : Irreflexive R	  a, b : A	  E1 : R b b	  E2 : a = b	  ============================	  GT = EQ	";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "1 subgoal (ID 292)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  ============================	  forall x : A, ((0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x))%type	";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 293)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  ============================	  (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "2 subgoals (ID 306)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : 0 ≤ x	  ============================	  (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)		subgoal 2 (ID 307) is:	 (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)	";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 306)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : 0 ≤ x	  ============================	  (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)	1 subgoal (ID 309)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : 0 ≤ x	  ============================	  (0 ≤ x) * (abs x = x)	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "1 subgoal (ID 312)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : 0 ≤ x	  ============================	  abs x = x	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 307) is:	 (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 307)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : x ≤ 0	  ============================	  (0 ≤ x) * (abs x = x) + (x ≤ 0) * (abs x = - x)	1 subgoal (ID 325)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : x ≤ 0	  ============================	  (x ≤ 0) * (abs x = - x)	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 328)	  	  A : Type	  H : Le A	  H0 : Zero A	  H1 : Negate A	  H2 : Abs A	  TotalRelation0 : TotalRelation le	  x : A	  E : x ≤ 0	  ============================	  abs x = - x	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.theory.additional_operations</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">HoTT.Classes.interfaces.abstract_algebra</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Generalizable</span> <span class="id" title="keyword">Variables</span> <span class="id" title="var">A</span> <span class="id" title="var">R</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Local</span> <span class="id" title="keyword">Set</span> <span class="id" title="var">Universe</span> <span class="id" title="var">Minimization</span> <span class="id" title="var">ToSet</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="decide_eqb" class="idref" href="#decide_eqb"><span class="id" title="instance">decide_eqb</span></a> `{<a id="H:2" class="idref" href="#H:2"><span class="id" title="binder">DecidablePaths</span></a> <a id="H:2" class="idref" href="#H:2"><span class="id" title="binder">A</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Eqb"><span class="id" title="class">Eqb</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:1"><span class="id" title="variable">A</span></a><br>
+  := <span class="id" title="keyword">fun</span> <a id="a:3" class="idref" href="#a:3"><span class="id" title="binder">a</span></a> <a id="b:4" class="idref" href="#b:4"><span class="id" title="binder">b</span></a> ⇒ <span class="id" title="keyword">if</span> <a class="idref" href="HoTT.Basics.Decidable.html#decide_rel"><span class="id" title="definition">decide_rel</span></a> <a class="idref" href="HoTT.Basics.Overture.html#paths"><span class="id" title="inductive">paths</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:3"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:4"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">then</span> <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a> <span class="id" title="keyword">else</span> <a class="idref" href="HoTT.Types.Bool.html#false"><span class="id" title="constructor">false</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="decide_eqb_ok" class="idref" href="#decide_eqb_ok"><span class="id" title="lemma">decide_eqb_ok@</span></a>{<span class="id" title="var">i</span>} {<a id="A:5" class="idref" href="#A:5"><span class="id" title="binder">A</span></a>:<span class="id" title="var">Type@</span>{<span class="id" title="var">i</span>} } `{<a id="H:6" class="idref" href="#H:6"><span class="id" title="binder">DecidablePaths</span></a> <a id="H:6" class="idref" href="#H:6"><span class="id" title="binder">A</span></a>} :<br>
+  <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:7" class="idref" href="#a:7"><span class="id" title="binder">a</span></a> <a id="b:8" class="idref" href="#b:8"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#iff"><span class="id" title="definition">iff@</span></a>{<span class="id" title="keyword">Set</span> <span class="id" title="var">i</span> <span class="id" title="var">i</span>} (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#eqb"><span class="id" title="definition">eqb</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:7"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:8"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a>) (<a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:7"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:8"><span class="id" title="variable">b</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#eqb"><span class="id" title="definition">eqb</span></a>,<a class="idref" href="HoTT.Classes.theory.additional_operations.html#decide_eqb"><span class="id" title="instance">decide_eqb</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Decidable.html#decide_rel"><span class="id" title="definition">decide_rel</span></a> <a class="idref" href="HoTT.Basics.Overture.html#paths"><span class="id" title="inductive">paths</span></a> <span class="id" title="var">a</span> <span class="id" title="var">b</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">E1</span>|<span class="id" title="var">E1</span>];<span class="id" title="tactic">split</span>;<span class="id" title="tactic">intros</span> <span class="id" title="var">E2</span>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Types.Bool.html#false_ne_true"><span class="id" title="definition">false_ne_true</span></a> <span class="id" title="var">E2</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">destruct</span> (<span class="id" title="var">E1</span> <span class="id" title="var">E2</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="LT_EQ" class="idref" href="#LT_EQ"><span class="id" title="lemma">LT_EQ</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(19, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(20, '0_3_3');
+      "><br>
+<span class="id" title="tactic">change</span> ((<span class="id" title="keyword">fun</span> <a id="r:11" class="idref" href="#r:11"><span class="id" title="binder">r</span></a> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#r:9"><span class="id" title="variable">r</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> | <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(21, '0_3_3');
+      "><br>
+<span class="id" title="tactic">rewrite</span> &lt;-<span class="id" title="var">E</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(22, '0_3_3');
+      "><span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(23, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(24, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="LT_GT" class="idref" href="#LT_GT"><span class="id" title="lemma">LT_GT</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(25, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(26, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(27, '0_3_3');
+      "><br>
+<span class="id" title="tactic">change</span> ((<span class="id" title="keyword">fun</span> <a id="r:15" class="idref" href="#r:15"><span class="id" title="binder">r</span></a> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#r:13"><span class="id" title="variable">r</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> | <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(28, '0_3_3');
+      "><br>
+<span class="id" title="tactic">rewrite</span> &lt;-<span class="id" title="var">E</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(29, '0_3_3');
+      "><span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(30, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(31, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="EQ_LT" class="idref" href="#EQ_LT"><span class="id" title="lemma">EQ_LT</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(32, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(33, '0_3_3');
+      "><br>
+<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#symmetric_neq"><span class="id" title="definition">symmetric_neq</span></a>, <a class="idref" href="HoTT.Classes.theory.additional_operations.html#LT_EQ"><span class="id" title="lemma">LT_EQ</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(34, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(35, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="EQ_GT" class="idref" href="#EQ_GT"><span class="id" title="lemma">EQ_GT</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(36, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(37, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(38, '0_3_3');
+      "><br>
+<span class="id" title="tactic">change</span> ((<span class="id" title="keyword">fun</span> <a id="r:19" class="idref" href="#r:19"><span class="id" title="binder">r</span></a> ⇒ <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#r:17"><span class="id" title="variable">r</span></a> <span class="id" title="keyword">with</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> | <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#Empty"><span class="id" title="inductive">Empty</span></a> <span class="id" title="keyword">end</span>) <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(39, '0_3_3');
+      "><br>
+<span class="id" title="tactic">rewrite</span> &lt;-<span class="id" title="var">E</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(40, '0_3_3');
+      "><span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(41, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(42, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="GT_EQ" class="idref" href="#GT_EQ"><span class="id" title="lemma">GT_EQ</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a> <a class="idref" href="HoTT.Basics.Overture.html#::type_scope:x_'&lt;&gt;'_x"><span class="id" title="notation">≠</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(43, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(44, '0_3_3');
+      "><br>
+<span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#symmetric_neq"><span class="id" title="definition">symmetric_neq</span></a>, <a class="idref" href="HoTT.Classes.theory.additional_operations.html#EQ_GT"><span class="id" title="lemma">EQ_GT</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(45, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(46, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="compare_eqb" class="idref" href="#compare_eqb"><span class="id" title="instance">compare_eqb</span></a> `{<a id="H:22" class="idref" href="#H:22"><span class="id" title="binder">Compare</span></a> <a id="H:22" class="idref" href="#H:22"><span class="id" title="binder">A</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Eqb"><span class="id" title="class">Eqb</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:21"><span class="id" title="variable">A</span></a> | 2 := <span class="id" title="keyword">fun</span> <a id="a:23" class="idref" href="#a:23"><span class="id" title="binder">a</span></a> <a id="b:24" class="idref" href="#b:24"><span class="id" title="binder">b</span></a> ⇒<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:23"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#27c5d0dfc0b6842b9a1d9c94fbd6c756"><span class="id" title="notation">?=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:24"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> ⇒ <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a><br>
+  | <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Types.Bool.html#false"><span class="id" title="constructor">false</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(47, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="compare_eqb_eq" class="idref" href="#compare_eqb_eq"><span class="id" title="lemma">compare_eqb_eq</span></a> `{<a id="H:26" class="idref" href="#H:26"><span class="id" title="binder">Compare</span></a> <a id="H:26" class="idref" href="#H:26"><span class="id" title="binder">A</span></a>} : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:27" class="idref" href="#a:27"><span class="id" title="binder">a</span></a> <a id="b:28" class="idref" href="#b:28"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:25"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:27"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#2001f65f2a911387a696dac3449e93fa"><span class="id" title="notation">=?</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:28"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:27"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#27c5d0dfc0b6842b9a1d9c94fbd6c756"><span class="id" title="notation">?=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:28"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(48, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(49, '0_3_3');
+      "><br>
+<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#eqb"><span class="id" title="definition">eqb</span></a>,<a class="idref" href="HoTT.Classes.theory.additional_operations.html#compare_eqb"><span class="id" title="instance">compare_eqb</span></a>;<span class="id" title="tactic">simpl</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(50, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(51, '0_3_3');
+      "><span class="id" title="tactic">destruct</span> (<span class="id" title="var">a</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#27c5d0dfc0b6842b9a1d9c94fbd6c756"><span class="id" title="notation">?=</span></a> <span class="id" title="var">b</span>);<span class="id" title="tactic">trivial</span>;<span class="id" title="tactic">intros</span> <span class="id" title="var">E</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Types.Bool.html#false_ne_true"><span class="id" title="definition">false_ne_true</span></a> <span class="id" title="var">E</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(52, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(53, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="tricho_compare" class="idref" href="#tricho_compare"><span class="id" title="instance">tricho_compare</span></a> `{<a id="H:31" class="idref" href="#H:31"><span class="id" title="binder">Trichotomy</span></a> <a id="H:31" class="idref" href="#H:31"><span class="id" title="binder">A</span></a> <a id="H:31" class="idref" href="#H:31"><span class="id" title="binder">R</span></a>} : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Compare"><span class="id" title="class">Compare</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:29"><span class="id" title="variable">A</span></a> | 2<br>
+  := <span class="id" title="keyword">fun</span> <a id="a:32" class="idref" href="#a:32"><span class="id" title="binder">a</span></a> <a id="b:33" class="idref" href="#b:33"><span class="id" title="binder">b</span></a> ⇒<br>
+  <span class="id" title="keyword">match</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trichotomy"><span class="id" title="definition">trichotomy</span></a> <span class="id" title="var">R</span> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:32"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:33"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">with</span><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#LT"><span class="id" title="constructor">LT</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> (<a class="idref" href="HoTT.Basics.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">_</span>) ⇒ <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a><br>
+  | <a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> (<a class="idref" href="HoTT.Basics.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">_</span>) ⇒ <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#GT"><span class="id" title="constructor">GT</span></a><br>
+  <span class="id" title="keyword">end</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(54, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="tricho_compare_eq" class="idref" href="#tricho_compare_eq"><span class="id" title="lemma">tricho_compare_eq</span></a> `{<a id="H:36" class="idref" href="#H:36"><span class="id" title="binder">Trichotomy</span></a> <a id="H:36" class="idref" href="#H:36"><span class="id" title="binder">A</span></a> <a id="H:36" class="idref" href="#H:36"><span class="id" title="binder">R</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:37" class="idref" href="#a:37"><span class="id" title="binder">a</span></a> <a id="b:38" class="idref" href="#b:38"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:34"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#compare"><span class="id" title="definition">compare</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:37"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:38"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:37"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:38"><span class="id" title="variable">b</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(55, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(56, '0_3_3');
+      "><br>
+<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#compare"><span class="id" title="definition">compare</span></a>,<a class="idref" href="HoTT.Classes.theory.additional_operations.html#tricho_compare"><span class="id" title="instance">tricho_compare</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(57, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trichotomy"><span class="id" title="definition">trichotomy</span></a> <span class="id" title="var">R</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">E</span>|[<span class="id" title="var">E</span>|<span class="id" title="var">E</span>]];<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(58, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E1</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.theory.additional_operations.html#LT_EQ"><span class="id" title="lemma">LT_EQ</span></a> <span class="id" title="var">E1</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(59, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E1</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.theory.additional_operations.html#GT_EQ"><span class="id" title="lemma">GT_EQ</span></a> <span class="id" title="var">E1</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(60, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(61, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="tricho_compare_ok" class="idref" href="#tricho_compare_ok"><span class="id" title="lemma">tricho_compare_ok</span></a> `{<a id="H:41" class="idref" href="#H:41"><span class="id" title="binder">Trichotomy</span></a> <a id="H:41" class="idref" href="#H:41"><span class="id" title="binder">A</span></a> <a id="H:41" class="idref" href="#H:41"><span class="id" title="binder">R</span></a>} `{<a id="H0:42" class="idref" href="#H0:42"><span class="id" title="binder">Irreflexive</span></a> <a id="H0:42" class="idref" href="#H0:42"><span class="id" title="binder">A</span></a> <a id="H0:42" class="idref" href="#H0:42"><span class="id" title="binder">R</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:43" class="idref" href="#a:43"><span class="id" title="binder">a</span></a> <a id="b:44" class="idref" href="#b:44"><span class="id" title="binder">b</span></a> : <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:39"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#compare"><span class="id" title="definition">compare</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:43"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:44"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#EQ"><span class="id" title="constructor">EQ</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#::type_scope:x_'&lt;-&gt;'_x"><span class="id" title="notation">↔</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#a:43"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#b:44"><span class="id" title="variable">b</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(62, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(63, '0_3_3');
+      "><br>
+<span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#compare"><span class="id" title="definition">compare</span></a>,<a class="idref" href="HoTT.Classes.theory.additional_operations.html#tricho_compare"><span class="id" title="instance">tricho_compare</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(64, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#trichotomy"><span class="id" title="definition">trichotomy</span></a> <span class="id" title="var">R</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">E1</span>|[<span class="id" title="var">E1</span>|<span class="id" title="var">E1</span>]];<span class="id" title="tactic">split</span>;<span class="id" title="tactic">auto</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(65, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E2</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.theory.additional_operations.html#LT_EQ"><span class="id" title="lemma">LT_EQ</span></a> <span class="id" title="var">E2</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(66, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E2</span>;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">E2</span> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(67, '0_3_3');
+      "><span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Overture.html#irreflexivity"><span class="id" title="definition">irreflexivity</span></a> <span class="id" title="var">R</span> <span class="id" title="var">_</span> <span class="id" title="var">E1</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(68, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E2</span>;<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.theory.additional_operations.html#GT_EQ"><span class="id" title="lemma">GT_EQ</span></a> <span class="id" title="var">E2</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(69, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">intros</span> <span class="id" title="var">E2</span>;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">E2</span> <span class="id" title="tactic">in</span> <span class="id" title="var">E1</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(70, '0_3_3');
+      "><span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Basics.Overture.html#irreflexivity"><span class="id" title="definition">irreflexivity</span></a> <span class="id" title="var">R</span> <span class="id" title="var">_</span> <span class="id" title="var">E1</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(71, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(72, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Lemma</span> <a id="total_abs_either" class="idref" href="#total_abs_either"><span class="id" title="lemma">total_abs_either</span></a> `{<a id="H2:49" class="idref" href="#H2:49"><span class="id" title="binder">Abs</span></a> <a id="H2:49" class="idref" href="#H2:49"><span class="id" title="binder">A</span></a>} `{<a id="TotalRelation0:50" class="idref" href="#TotalRelation0:50"><span class="id" title="binder">!</span></a><a id="TotalRelation0:50" class="idref" href="#TotalRelation0:50"><span class="id" title="binder">TotalRelation</span></a> <a id="TotalRelation0:50" class="idref" href="#TotalRelation0:50"><span class="id" title="binder">le</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:51" class="idref" href="#x:51"><span class="id" title="binder">x</span></a> : <a class="idref" href="HoTT.Classes.theory.additional_operations.html#A:45"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">(</span></a>0 <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#d1d9bfcd022e0f929a0ed5b837981c66"><span class="id" title="notation">≤</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#abs"><span class="id" title="definition">abs</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">|</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">_</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">|</span></a> <a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#d1d9bfcd022e0f929a0ed5b837981c66"><span class="id" title="notation">≤</span></a> 0 <a class="idref" href="HoTT.Basics.Datatypes.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#abs"><span class="id" title="definition">abs</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#::mc_scope:'-'_x"><span class="id" title="notation">-</span></a> <a class="idref" href="HoTT.Classes.theory.additional_operations.html#x:51"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#bb39a8e92ce12cfa0e6356e26e0a8a98"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(73, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(74, '0_3_3');
+      "><br>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(75, '0_3_3');
+      "><br>
+<span class="id" title="tactic">destruct</span> (<a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#total"><span class="id" title="definition">total</span></a> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#le"><span class="id" title="definition">le</span></a> 0 <span class="id" title="var">x</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">E</span>|<span class="id" title="var">E</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(76, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">left</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(77, '0_3_3');
+      "><span class="id" title="tactic">split</span>;<span class="id" title="tactic">trivial</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(78, '0_3_3');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#abs_sig"><span class="id" title="definition">abs_sig</span></a> <span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">).2</span></a>);<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(79, '0_3_3');
+      "><br>
+- <span class="id" title="tactic">right</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(80, '0_3_3');
+      "><span class="id" title="tactic">split</span>;<span class="id" title="tactic">trivial</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(81, '0_3_3');
+      "><span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#abs_sig"><span class="id" title="definition">abs_sig</span></a> <span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">).2</span></a>);<span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(82, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(83, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

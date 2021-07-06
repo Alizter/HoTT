@@ -1,0 +1,1001 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "1 subgoal (ID 16)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  NormalSubgroup A	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "2 subgoals (ID 26)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  Subgroup A		subgoal 2 (ID 28) is:	 IsNormalSubgroup ?normalsubgroup_subgroup	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "1 subgoal (ID 26)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  Subgroup A	2 subgoals (ID 492)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  (fun x : A => f x = group_unit) mon_unit		subgoal 2 (ID 494) is:	 forall x y : A,	 (fun x0 : A => f x0 = group_unit) x ->	 (fun x0 : A => f x0 = group_unit) y ->	 (fun x0 : A => f x0 = group_unit) (x * - y)	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "1 subgoal (ID 494)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  forall x y : A,	  (fun x0 : A => f x0 = group_unit) x ->	  (fun x0 : A => f x0 = group_unit) y ->	  (fun x0 : A => f x0 = group_unit) (x * - y)	";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "1 subgoal (ID 718)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  p : f x = group_unit	  q : f y = group_unit	  ============================	  f (x * - y) = group_unit	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "2 focused subgoals	(shelved: 1) (ID 749)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  p : f x = group_unit	  q : f y = group_unit	  ============================	  f (- y) = ?Goal		subgoal 2 (ID 750) is:	 group_unit * ?Goal = group_unit	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 750)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  p : f x = group_unit	  q : f y = group_unit	  ============================	  group_unit * - f y = group_unit	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 28) is:	 IsNormalSubgroup	   (Build_Subgroup' (fun x : A => f x = group_unit) 	      (grp_homo_unit f)	      (fun (x y : A) (p : (fun x0 : A => f x0 = group_unit) x)	         (q : (fun x0 : A => f x0 = group_unit) y) =>	       (grp_homo_op f x (- y) @ ap011 sg_op p (grp_homo_inv f y)) @	       internal_paths_rew_r B (f y) group_unit	         (fun g : B => group_unit * - g = group_unit)	         (right_inverse group_unit) q))	";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 28)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  ============================	  IsNormalSubgroup	    (Build_Subgroup' (fun x : A => f x = group_unit) 	       (grp_homo_unit f)	       (fun (x y : A) (p : (fun x0 : A => f x0 = group_unit) x)	          (q : (fun x0 : A => f x0 = group_unit) y) =>	        (grp_homo_op f x (- y) @ ap011 sg_op p (grp_homo_inv f y)) @	        internal_paths_rew_r B (f y) group_unit	          (fun g : B => group_unit * - g = group_unit)	          (right_inverse group_unit) q))	1 subgoal (ID 767)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  ============================	  f (- x * y) = group_unit <~> f (x * - y) = group_unit	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 773)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  ============================	  f (- x) * f y = group_unit <~> f x * f (- y) = group_unit	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "1 subgoal (ID 781)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  ============================	  - f x * f y = group_unit <~> f x * - f y = group_unit	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "1 subgoal (ID 795)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  ============================	  f x * - f y = group_unit <~> f y = f x	";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "1 subgoal (ID 806)	  	  A : Group	  B : Group	  f : GroupHomomorphism A B	  x, y : A	  ============================	  group_unit = f x * - f y <~> f y = f x	";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "1 subgoal (ID 41)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  ============================	  G $-> grp_kernel f	";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 44;
+            data = "2 subgoals (ID 51)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  ============================	  G -> grp_kernel f		subgoal 2 (ID 53) is:	 IsSemiGroupPreserving ?f	";
+            responses[i]=data;
+          
+
+            i = 45;
+            data = "1 subgoal (ID 51)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  ============================	  G -> grp_kernel f	<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 53) is:	 IsSemiGroupPreserving (fun x : G => (g x; h x))	";
+            responses[i]=data;
+          
+
+            i = 46;
+            data = "1 subgoal (ID 53)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  ============================	  IsSemiGroupPreserving (fun x : G => (g x; h x))	1 subgoal (ID 69)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  x, x' : G	  ============================	  (g (x * x'); h (x * x')) = (g x; h x) * (g x'; h x')	";
+            responses[i]=data;
+          
+
+            i = 47;
+            data = "1 subgoal (ID 87)	  	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  h : f $o g == grp_homo_const	  x, x' : G	  ============================	  g (x * x') = g x * g x'	";
+            responses[i]=data;
+          
+
+            i = 48;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 49;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 50;
+            data = "1 subgoal (ID 66)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  (G $-> grp_kernel f) <~> {g : G $-> A & f $o g == grp_homo_const}	";
+            responses[i]=data;
+          
+
+            i = 51;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 52;
+            data = "4 subgoals (ID 90)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  (G $-> grp_kernel f) -> {g : G $-> A & f $o g == grp_homo_const}		subgoal 2 (ID 92) is:	 {g : G $-> A & f $o g == grp_homo_const} -> G $-> grp_kernel f	subgoal 3 (ID 94) is:	 ?f o ?g == idmap	subgoal 4 (ID 96) is:	 ?g o ?f == idmap	";
+            responses[i]=data;
+          
+
+            i = 53;
+            data = "1 subgoal (ID 90)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  (G $-> grp_kernel f) -> {g : G $-> A & f $o g == grp_homo_const}	1 subgoal (ID 97)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  ============================	  {g : G $-> A & f $o g == grp_homo_const}	";
+            responses[i]=data;
+          
+
+            i = 54;
+            data = "2 subgoals (ID 107)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  ============================	  grp_kernel f $-> A		subgoal 2 (ID 109) is:	 (fun g : G $-> A => f $o g == grp_homo_const) (?Goal $o k)	";
+            responses[i]=data;
+          
+
+            i = 55;
+            data = "1 subgoal (ID 109)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  ============================	  (fun g : G $-> A => f $o g == grp_homo_const)	    (subgroup_incl (grp_kernel f) $o k)	";
+            responses[i]=data;
+          
+
+            i = 56;
+            data = "1 subgoal (ID 113)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  x : G	  ============================	  f (k x).1 = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 57;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	3 subgoals		subgoal 1 (ID 92) is:	 {g : G $-> A & f $o g == grp_homo_const} -> G $-> grp_kernel f	subgoal 2 (ID 94) is:	 (fun k : G $-> grp_kernel f =>	  (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2)) o 	 ?g == idmap	subgoal 3 (ID 96) is:	 ?g	 o (fun k : G $-> grp_kernel f =>	    (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 58;
+            data = "1 subgoal (ID 92)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  {g : G $-> A & f $o g == grp_homo_const} -> G $-> grp_kernel f	1 subgoal (ID 120)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  p : f $o g == grp_homo_const	  ============================	  G $-> grp_kernel f	";
+            responses[i]=data;
+          
+
+            i = 59;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	2 subgoals		subgoal 1 (ID 94) is:	 (fun k : G $-> grp_kernel f =>	  (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2))	 o (fun X : {g : G $-> A & f $o g == grp_homo_const} =>	    (fun (g : G $-> A) (p : f $o g == grp_homo_const) => grp_kernel_corec p)	      X.1 X.2) == idmap	subgoal 2 (ID 96) is:	 (fun X : {g : G $-> A & f $o g == grp_homo_const} =>	  (fun (g : G $-> A) (p : f $o g == grp_homo_const) => grp_kernel_corec p)	    X.1 X.2)	 o (fun k : G $-> grp_kernel f =>	    (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 60;
+            data = "1 subgoal (ID 94)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  (fun k : G $-> grp_kernel f =>	   (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2))	  o (fun X : {g : G $-> A & f $o g == grp_homo_const} =>	     (fun (g : G $-> A) (p : f $o g == grp_homo_const) => grp_kernel_corec p)	       X.1 X.2) == idmap	1 subgoal (ID 131)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  p : f $o g == grp_homo_const	  ============================	  (subgroup_incl (grp_kernel f) $o grp_kernel_corec p;	  fun x : G => (grp_kernel_corec p x).2) = (g; p)	";
+            responses[i]=data;
+          
+
+            i = 61;
+            data = "1 subgoal (ID 388)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  g : G $-> A	  p : f $o g == grp_homo_const	  ============================	  subgroup_incl (grp_kernel f) $o grp_kernel_corec p = g	";
+            responses[i]=data;
+          
+
+            i = 62;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 96) is:	 (fun X : {g : G $-> A & f $o g == grp_homo_const} =>	  (fun (g : G $-> A) (p : f $o g == grp_homo_const) => grp_kernel_corec p)	    X.1 X.2)	 o (fun k : G $-> grp_kernel f =>	    (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2)) == idmap	";
+            responses[i]=data;
+          
+
+            i = 63;
+            data = "1 subgoal (ID 96)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  ============================	  (fun X : {g : G $-> A & f $o g == grp_homo_const} =>	   (fun (g : G $-> A) (p : f $o g == grp_homo_const) => grp_kernel_corec p)	     X.1 X.2)	  o (fun k : G $-> grp_kernel f =>	     (subgroup_incl (grp_kernel f) $o k; fun x : G => (k x).2)) == idmap	1 subgoal (ID 402)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  ============================	  grp_kernel_corec (fun x : G => (k x).2) = k	";
+            responses[i]=data;
+          
+
+            i = 64;
+            data = "1 subgoal (ID 413)	  	  H : Funext	  A, B, G : Group	  f : A $-> B	  k : G $-> grp_kernel f	  x : G	  ============================	  grp_kernel_corec (fun x0 : G => (k x0).2) x = k x	";
+            responses[i]=data;
+          
+
+            i = 65;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 66;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 67;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 68;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 69;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 70;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 71;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 72;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 73;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 74;
+            data = "1 subgoal (ID 78)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  ============================	  grp_kernel f = trivial_subgroup <~> IsEmbedding f	";
+            responses[i]=data;
+          
+
+            i = 75;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 76;
+            data = "1 subgoal (ID 94)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  ============================	  (forall g : A, grp_kernel f g <-> trivial_subgroup g) <~> IsEmbedding f	";
+            responses[i]=data;
+          
+
+            i = 77;
+            data = "2 subgoals (ID 324)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  ============================	  (forall g : A, grp_kernel f g <-> trivial_subgroup g) -> IsEmbedding f		subgoal 2 (ID 325) is:	 IsEmbedding f -> forall g : A, grp_kernel f g <-> trivial_subgroup g	";
+            responses[i]=data;
+          
+
+            i = 78;
+            data = "1 subgoal (ID 324)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  ============================	  (forall g : A, grp_kernel f g <-> trivial_subgroup g) -> IsEmbedding f	1 subgoal (ID 489)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  ============================	  IsEmbedding f	";
+            responses[i]=data;
+          
+
+            i = 79;
+            data = "1 subgoal (ID 491)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  ============================	  IsHProp (hfiber f b)	";
+            responses[i]=data;
+          
+
+            i = 80;
+            data = "1 subgoal (ID 492)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  ============================	  forall x y : hfiber f b, x = y	";
+            responses[i]=data;
+          
+
+            i = 81;
+            data = "1 subgoal (ID 502)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  (x; p) = (y; q)	";
+            responses[i]=data;
+          
+
+            i = 82;
+            data = "1 subgoal (ID 723)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  x = y	";
+            responses[i]=data;
+          
+
+            i = 83;
+            data = "1 subgoal (ID 730)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  x * - y = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 84;
+            data = "1 subgoal (ID 734)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  f (x * - y) = group_unit	";
+            responses[i]=data;
+          
+
+            i = 85;
+            data = "1 subgoal (ID 742)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  f x * - f y = group_unit	";
+            responses[i]=data;
+          
+
+            i = 86;
+            data = "1 subgoal (ID 746)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  h : forall g : A, f g = group_unit <-> g = mon_unit	  b : B	  x : A	  p : f x = b	  y : A	  q : f y = b	  ============================	  b * - b = group_unit	";
+            responses[i]=data;
+          
+
+            i = 87;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet -.	</infomsg>	1 subgoal		subgoal 1 (ID 325) is:	 IsEmbedding f -> forall g : A, grp_kernel f g <-> trivial_subgroup g	";
+            responses[i]=data;
+          
+
+            i = 88;
+            data = "1 subgoal (ID 325)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  ============================	  IsEmbedding f -> forall g : A, grp_kernel f g <-> trivial_subgroup g	1 subgoal (ID 758)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : IsEmbedding f	  g : A	  ============================	  grp_kernel f g <-> trivial_subgroup g	";
+            responses[i]=data;
+          
+
+            i = 89;
+            data = "1 subgoal (ID 762)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  ============================	  grp_kernel f g <-> trivial_subgroup g	";
+            responses[i]=data;
+          
+
+            i = 90;
+            data = "2 subgoals (ID 764)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  ============================	  grp_kernel f g -> trivial_subgroup g		subgoal 2 (ID 765) is:	 trivial_subgroup g -> grp_kernel f g	";
+            responses[i]=data;
+          
+
+            i = 91;
+            data = "1 subgoal (ID 764)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  ============================	  grp_kernel f g -> trivial_subgroup g	1 subgoal (ID 767)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  p : f g = group_unit	  ============================	  g = mon_unit	";
+            responses[i]=data;
+          
+
+            i = 92;
+            data = "1 subgoal (ID 768)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  p : f g = group_unit	  ============================	  f g = f mon_unit	";
+            responses[i]=data;
+          
+
+            i = 93;
+            data = "1 subgoal (ID 778)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  p : f g = group_unit	  ============================	  f mon_unit = group_unit	";
+            responses[i]=data;
+          
+
+            i = 94;
+            data = "<infomsg>	This subproof is complete, but there are some unfocused goals.	Focus next goal with bullet +.	</infomsg>	1 subgoal		subgoal 1 (ID 765) is:	 trivial_subgroup g -> grp_kernel f g	";
+            responses[i]=data;
+          
+
+            i = 95;
+            data = "1 subgoal (ID 765)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  ============================	  trivial_subgroup g -> grp_kernel f g	1 subgoal (ID 782)	  	  H : Univalence	  A, B : Group	  f : A $-> B	  isemb_f : isinj f	  g : A	  p : g = mon_unit	  ============================	  f g = group_unit	";
+            responses[i]=data;
+          
+
+            i = 96;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 97;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 98;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 99;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 100;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 101;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 102;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 103;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 104;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 105;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 106;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 107;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 108;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Algebra.Groups.Kernel</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a> <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">Types</span></a> <a class="idref" href="HoTT.HSet.html#"><span class="id" title="library">HSet</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#"><span class="id" title="library">Algebra.Groups.Group</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#"><span class="id" title="library">Algebra.Groups.Subgroup</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.WildCat.html#"><span class="id" title="library">WildCat</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+<a id="lab34"></a><h1 class="section">Kernels of group homomorphisms</h1>
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">mc_mult_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="grp_kernel" class="idref" href="#grp_kernel"><span class="id" title="definition">grp_kernel</span></a> {<a id="A:1" class="idref" href="#A:1"><span class="id" title="binder">A</span></a> <a id="B:2" class="idref" href="#B:2"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Group.html#Group"><span class="id" title="record">Group</span></a>} (<a id="f:3" class="idref" href="#f:3"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Group.html#GroupHomomorphism"><span class="id" title="record">GroupHomomorphism</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:1"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#B:2"><span class="id" title="variable">B</span></a>) : <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#NormalSubgroup"><span class="id" title="record">NormalSubgroup</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:1"><span class="id" title="variable">A</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+  <span class="id" title="var">snrapply</span> <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#Build_NormalSubgroup"><span class="id" title="constructor">Build_NormalSubgroup</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+  - <span class="id" title="var">srapply</span> (<a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#Build_Subgroup'"><span class="id" title="definition">Build_Subgroup'</span></a> (<span class="id" title="keyword">fun</span> <a id="x:5" class="idref" href="#x:5"><span class="id" title="binder">x</span></a> ⇒ <span class="id" title="var">f</span> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#x:4"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#group_unit"><span class="id" title="projection">group_unit</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_unit"><span class="id" title="definition">grp_homo_unit</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">p</span> <span class="id" title="var">q</span>; <span class="id" title="var">cbn</span> <span class="id" title="tactic">in</span> <span class="id" title="var">p</span>, <span class="id" title="var">q</span>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_op"><span class="id" title="definition">grp_homo_op</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Basics.PathGroupoids.html#ap011"><span class="id" title="definition">ap011</span></a> <span class="id" title="var">_</span> <span class="id" title="var">p</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+    1: <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_inv"><span class="id" title="definition">grp_homo_inv</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <span class="id" title="var">q</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_inverse"><span class="id" title="definition">right_inverse</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> 2 <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_op"><span class="id" title="definition">grp_homo_op</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> 2 <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_inv"><span class="id" title="definition">grp_homo_inv</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">^-1</span></a> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_moveL_M1"><span class="id" title="definition">grp_moveL_M1</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <a class="idref" href="HoTT.Types.Paths.html#equiv_path_inverse"><span class="id" title="definition">equiv_path_inverse</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_moveR_1M"><span class="id" title="definition">grp_moveR_1M</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(34, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(35, '0_3_7');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+<div class="doc" scenenumber="9">
+<a id="lab35"></a><h2 class="section">Corecursion principle for group kernels</h2>
+</div>
+<div scenenumber="11" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(42, '0_3_11');
+      ">
+<br>
+<span class="id" title="keyword">Proposition</span> <a id="grp_kernel_corec" class="idref" href="#grp_kernel_corec"><span class="id" title="lemma">grp_kernel_corec</span></a> {<a id="A:6" class="idref" href="#A:6"><span class="id" title="binder">A</span></a> <a id="B:7" class="idref" href="#B:7"><span class="id" title="binder">B</span></a> <a id="G:8" class="idref" href="#G:8"><span class="id" title="binder">G</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Group.html#Group"><span class="id" title="record">Group</span></a>} {<a id="f:9" class="idref" href="#f:9"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:6"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#B:7"><span class="id" title="variable">B</span></a>} {<a id="g:10" class="idref" href="#g:10"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#G:8"><span class="id" title="variable">G</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:6"><span class="id" title="variable">A</span></a>}<br>
+            (<a id="h:11" class="idref" href="#h:11"><span class="id" title="binder">h</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:9"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#g:10"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_const"><span class="id" title="definition">grp_homo_const</span></a>) : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#G:8"><span class="id" title="variable">G</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#grp_kernel"><span class="id" title="definition">grp_kernel</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:9"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(43, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(44, '0_3_11');
+      "><br>
+  <span class="id" title="var">snrapply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#Build_GroupHomomorphism"><span class="id" title="definition">Build_GroupHomomorphism</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(45, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">exact</span> (<span class="id" title="keyword">fun</span> <a id="x:13" class="idref" href="#x:13"><span class="id" title="binder">x</span></a>:<span class="id" title="var">G</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">g</span> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#x:12"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">h</span> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#x:12"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(46, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">x'</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(47, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(48, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_op"><span class="id" title="definition">grp_homo_op</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(49, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(50, '0_3_11');
+      "><br>
+<br>
+<span class="id" title="keyword">Theorem</span> <a id="equiv_grp_kernel_corec" class="idref" href="#equiv_grp_kernel_corec"><span class="id" title="lemma">equiv_grp_kernel_corec</span></a> `{<a id="H:14" class="idref" href="#H:14"><span class="id" title="binder">Funext</span></a>} {<a id="A:15" class="idref" href="#A:15"><span class="id" title="binder">A</span></a> <a id="B:16" class="idref" href="#B:16"><span class="id" title="binder">B</span></a> <a id="G:17" class="idref" href="#G:17"><span class="id" title="binder">G</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Group.html#Group"><span class="id" title="record">Group</span></a>} {<a id="f:18" class="idref" href="#f:18"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:15"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#B:16"><span class="id" title="variable">B</span></a>}<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Algebra.Groups.Kernel.html#G:17"><span class="id" title="variable">G</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#grp_kernel"><span class="id" title="definition">grp_kernel</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:18"><span class="id" title="variable">f</span></a><a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="g:19" class="idref" href="#g:19"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#G:17"><span class="id" title="variable">G</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:15"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:18"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#g:19"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_const"><span class="id" title="definition">grp_homo_const</span></a><a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(51, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(52, '0_3_11');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Basics.Equivalences.html#equiv_adjointify"><span class="id" title="definition">equiv_adjointify</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(53, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intro</span> <span class="id" title="var">k</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(54, '0_3_11');
+      "><br>
+    <span class="id" title="var">srefine</span> <a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">(</span></a><span class="id" title="var">_</span> <a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">$</span></a><a class="idref" href="HoTT.WildCat.Core.html#dccd97e5e8654d6017c4fbeb4597fdb1"><span class="id" title="notation">o</span></a> <span class="id" title="var">k</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">;</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#4887cec9c4a6ccb88dc6b18963c35c8f"><span class="id" title="notation">)</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(55, '0_3_11');
+      "><br>
+    1: <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#subgroup_incl"><span class="id" title="definition">subgroup_incl</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(56, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(57, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> <a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">(</span></a><span class="id" title="var">k</span> <span class="id" title="var">x</span><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">).2</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(58, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> [<span class="id" title="var">g</span> <span class="id" title="var">p</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(59, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">exact</span> (<a class="idref" href="HoTT.Algebra.Groups.Kernel.html#grp_kernel_corec"><span class="id" title="lemma">grp_kernel_corec</span></a> <span class="id" title="var">p</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(60, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intros</span> [<span class="id" title="var">g</span> <span class="id" title="var">p</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(61, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>; <span class="id" title="tactic">unfold</span> <a class="idref" href="HoTT.Basics.Overture.html#proj1"><span class="id" title="projection">pr1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(62, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#equiv_path_grouphomomorphism"><span class="id" title="definition">equiv_path_grouphomomorphism</span></a>; <span class="id" title="tactic">intro</span>; <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(63, '0_3_11');
+      "><br>
+  - <span class="id" title="tactic">intro</span> <span class="id" title="var">k</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(64, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#equiv_path_grouphomomorphism"><span class="id" title="definition">equiv_path_grouphomomorphism</span></a>; <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(65, '0_3_11');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>; <span class="id" title="tactic">reflexivity</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(66, '0_3_11');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_11');
+      " onmouseover="
+      mouseover(67, '0_3_11');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_11"><pre><span></span></pre></div>
+<div class="doc" scenenumber="13">
+<a id="lab36"></a><h2 class="section">Characterisation of group embeddings</h2>
+</div>
+<div scenenumber="15" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(74, '0_3_15');
+      ">
+<span class="id" title="keyword">Proposition</span> <a id="equiv_kernel_isembedding" class="idref" href="#equiv_kernel_isembedding"><span class="id" title="lemma">equiv_kernel_isembedding</span></a> `{<a id="H:20" class="idref" href="#H:20"><span class="id" title="binder">Univalence</span></a>} {<a id="A:21" class="idref" href="#A:21"><span class="id" title="binder">A</span></a> <a id="B:22" class="idref" href="#B:22"><span class="id" title="binder">B</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Group.html#Group"><span class="id" title="record">Group</span></a>} (<a id="f:23" class="idref" href="#f:23"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:21"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.WildCat.Core.html#c02781df22df625c7b63399d41d90de5"><span class="id" title="notation">$-&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#B:22"><span class="id" title="variable">B</span></a>)<br>
+  : <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Algebra.Groups.Kernel.html#grp_kernel"><span class="id" title="definition">grp_kernel</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:23"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#b8b2ebc8e1a8b9aa935c0702efb5dccf"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#trivial_subgroup"><span class="id" title="definition">trivial_subgroup</span></a> <a class="idref" href="HoTT.Basics.Overture.html#b8b2ebc8e1a8b9aa935c0702efb5dccf"><span class="id" title="notation">:&gt;</span></a> <a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#Subgroup"><span class="id" title="record">Subgroup</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#A:21"><span class="id" title="variable">A</span></a><a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">)</span></a> <a class="idref" href="HoTT.Basics.Overture.html#068136b784cb569aaadfa01f234d5c01"><span class="id" title="notation">&lt;~&gt;</span></a> <a class="idref" href="HoTT.Basics.Trunc.html#IsEmbedding"><span class="id" title="abbreviation">IsEmbedding</span></a> <a class="idref" href="HoTT.Algebra.Groups.Kernel.html#f:23"><span class="id" title="variable">f</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(75, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(76, '0_3_15');
+      "><br>
+  <span class="id" title="tactic">refine</span> (<span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Equivalences.html#::equiv_scope:x_'oE'_x"><span class="id" title="notation">oE</span></a> <a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Algebra.Groups.Subgroup.html#equiv_path_subgroup'"><span class="id" title="lemma">equiv_path_subgroup'</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Equivalences.html#76214fa316f18d720833e810bbfd71fb"><span class="id" title="notation">)^-1</span></a>%<span class="id" title="var">equiv</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(77, '0_3_15');
+      "><br>
+  <span class="id" title="var">srapply</span> <a class="idref" href="HoTT.Basics.Trunc.html#equiv_iff_hprop"><span class="id" title="definition">equiv_iff_hprop</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(78, '0_3_15');
+      "><br>
+  - <span class="id" title="var">cbn</span>; <span class="id" title="tactic">intros</span> <span class="id" title="var">h</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(79, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">b</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(80, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Trunc.html#hprop_allpath"><span class="id" title="lemma">hprop_allpath</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(81, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">intros</span> [<span class="id" title="var">x</span> <span class="id" title="var">p</span>] [<span class="id" title="var">y</span> <span class="id" title="var">q</span>].</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(82, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#path_sigma_hprop"><span class="id" title="definition">path_sigma_hprop</span></a>; <span class="id" title="var">cbn</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(83, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_moveL_1M"><span class="id" title="definition">grp_moveL_1M</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(84, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <span class="id" title="var">h</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(85, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_op"><span class="id" title="definition">grp_homo_op</span></a>, <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_inv"><span class="id" title="definition">grp_homo_inv</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(86, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">rewrite</span> <span class="id" title="var">p</span>, <span class="id" title="var">q</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(87, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#right_inverse"><span class="id" title="definition">right_inverse</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(88, '0_3_15');
+      "><br>
+  - <span class="id" title="tactic">intros</span> <span class="id" title="var">isemb_f</span> <span class="id" title="var">g</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(89, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.HSet.html#isinj_embedding"><span class="id" title="lemma">isinj_embedding</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">isemb_f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(90, '0_3_15');
+      "><br>
+    <span class="id" title="tactic">split</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(91, '0_3_15');
+      "><br>
+    + <span class="id" title="var">cbn</span>; <span class="id" title="tactic">intros</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(92, '0_3_15');
+      "><br>
+      <span class="id" title="tactic">apply</span> <span class="id" title="var">isemb_f</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(93, '0_3_15');
+      "><br>
+      <span class="id" title="tactic">refine</span> (<span class="id" title="var">p</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <span class="id" title="var">_</span><a class="idref" href="HoTT.Basics.Overture.html#6bc2e8b4a6e295632a90f5f35132db8d"><span class="id" title="notation">^</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(94, '0_3_15');
+      "><br>
+      <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_unit"><span class="id" title="definition">grp_homo_unit</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(95, '0_3_15');
+      "><br>
+    + <span class="id" title="var">cbn</span>; <span class="id" title="tactic">intros</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(96, '0_3_15');
+      "><br>
+      <span class="id" title="tactic">refine</span> (<a class="idref" href="HoTT.Basics.Overture.html#ap"><span class="id" title="definition">ap</span></a> <span class="id" title="var">_</span> <span class="id" title="var">p</span> <a class="idref" href="HoTT.Basics.Overture.html#da4283005a63bc086811fc2e64b35356"><span class="id" title="notation">@</span></a> <a class="idref" href="HoTT.Algebra.Groups.Group.html#grp_homo_unit"><span class="id" title="definition">grp_homo_unit</span></a> <span class="id" title="var">f</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(97, '0_3_15');
+      "><br>
+<span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_15');
+      " onmouseover="
+      mouseover(98, '0_3_15');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_15"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

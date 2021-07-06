@@ -1,0 +1,416 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>H is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>A is declared</infomsg>	<infomsg>B is declared</infomsg>	<infomsg>C is declared</infomsg>	<infomsg>IsHSet0 is declared</infomsg>	<infomsg>f is declared</infomsg>	<infomsg>g is declared</infomsg>	<infomsg>Esurj is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "<infomsg>Eg is declared</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "1 subgoal (ID 19)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  ============================	  forall b : B, IsHProp {c : C & forall a : A, g a = b -> f a = c}	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "1 subgoal (ID 20)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  b : B	  ============================	  IsHProp {c : C & forall a : A, g a = b -> f a = c}	";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "1 subgoal (ID 106)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  b : B	  ============================	  forall x y : C,	  (forall a : A, g a = b -> f a = x) ->	  (forall a : A, g a = b -> f a = y) -> x = y	";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "1 subgoal (ID 110)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  b : B	  c1, c2 : C	  E1 : forall a : A, g a = b -> f a = c1	  E2 : forall a : A, g a = b -> f a = c2	  ============================	  c1 = c2	";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "1 subgoal (ID 148)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  b : B	  c1, c2 : C	  E1 : forall a : A, g a = b -> f a = c1	  E2 : forall a : A, g a = b -> f a = c2	  ============================	  hfiber g b -> c1 = c2	";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "1 subgoal (ID 164)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  c1, c2 : C	  a : A	  E1 : forall a0 : A, g a0 = g a -> f a0 = c1	  E2 : forall a0 : A, g a0 = g a -> f a0 = c2	  ============================	  c1 = c2	";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "<infomsg>surjective_factor_aux is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "<infomsg>surjective_factor is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "1 subgoal (ID 60)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  ============================	  f == surjective_factor o g	";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "1 subgoal (ID 62)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  a : A	  ============================	  f a = surjective_factor (g a)	";
+            responses[i]=data;
+          
+
+            i = 29;
+            data = "1 subgoal (ID 65)	  	  H : Funext	  A : Type	  B : Type	  C : Type	  IsHSet0 : IsHSet C	  f : A -> C	  g : A -> B	  Esurj : IsConnMap (Tr (-1)) g	  Eg : forall x y : A, g x = g y -> f x = f y	  a : A	  ============================	  g a = g a	";
+            responses[i]=data;
+          
+
+            i = 30;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 31;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 32;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 33;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 34;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 35;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 36;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 37;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 38;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 39;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 40;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 41;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 42;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 43;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.HIT.surjective_factor</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+        <a class="idref" href="HoTT.Types.html#"><span class="id" title="library">HoTT.Types</span></a><br>
+        <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">HoTT.Basics</span></a><br>
+        <a class="idref" href="HoTT.Truncations.html#"><span class="id" title="library">HoTT.Truncations</span></a><br>
+        <a class="idref" href="HoTT.HIT.unique_choice.html#"><span class="id" title="library">HoTT.HIT.unique_choice</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+<div class="doc" scenenumber="5">
+Definition by factoring through a surjection. 
+</div>
+<div scenenumber="7" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(11, '0_3_7');
+      ">
+<br>
+<span class="id" title="keyword">Section</span> <a id="surjective_factor" class="idref" href="#surjective_factor"><span class="id" title="section">surjective_factor</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(12, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Context</span> `{<a id="H:1" class="idref" href="#H:1"><span class="id" title="binder">Funext</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(13, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Context</span> {<a id="A:2" class="idref" href="#A:2"><span class="id" title="binder">A</span></a> <a id="B:3" class="idref" href="#B:3"><span class="id" title="binder">B</span></a> <a id="C:4" class="idref" href="#C:4"><span class="id" title="binder">C</span></a>} `{<a id="IsHSet0:5" class="idref" href="#IsHSet0:5"><span class="id" title="binder">IsHSet</span></a> <a id="IsHSet0:5" class="idref" href="#IsHSet0:5"><span class="id" title="binder">C</span></a>} `(<a id="f:6" class="idref" href="#f:6"><span class="id" title="binder">f</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#A:2"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#C:4"><span class="id" title="variable">C</span></a>) `(<a id="g:7" class="idref" href="#g:7"><span class="id" title="binder">g</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#A:2"><span class="id" title="variable">A</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#B:3"><span class="id" title="variable">B</span></a>) {<a id="Esurj:8" class="idref" href="#Esurj:8"><span class="id" title="binder">Esurj</span></a> : <a class="idref" href="HoTT.Truncations.Core.html#IsSurjection"><span class="id" title="abbreviation">IsSurjection</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#g:7"><span class="id" title="variable">g</span></a>}.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(14, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Variable</span> (<a id="surjective_factor.Eg" class="idref" href="#surjective_factor.Eg"><span class="id" title="variable">Eg</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="x:9" class="idref" href="#x:9"><span class="id" title="binder">x</span></a> <a id="y:10" class="idref" href="#y:10"><span class="id" title="binder">y</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#x:9"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#y:10"><span class="id" title="variable">y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#x:9"><span class="id" title="variable">x</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#y:10"><span class="id" title="variable">y</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(15, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Lemma</span> <a id="ishprop_surjective_factor_aux" class="idref" href="#ishprop_surjective_factor_aux"><span class="id" title="lemma">ishprop_surjective_factor_aux</span></a> : <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="b:12" class="idref" href="#b:12"><span class="id" title="binder">b</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#IsHProp"><span class="id" title="abbreviation">IsHProp</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="c:13" class="idref" href="#c:13"><span class="id" title="binder">c</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.C"><span class="id" title="variable">C</span></a><a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:14" class="idref" href="#a:14"><span class="id" title="binder">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:14"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#b:12"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:14"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#c:13"><span class="id" title="variable">c</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(16, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(17, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(18, '0_3_7');
+      "><span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Types.Sigma.html#ishprop_sigma_disjoint"><span class="id" title="definition">Sigma.ishprop_sigma_disjoint</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(19, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">c1</span> <span class="id" title="var">c2</span> <span class="id" title="var">E1</span> <span class="id" title="var">E2</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(20, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">generalize</span> (@<a class="idref" href="HoTT.Basics.Overture.html#center"><span class="id" title="method">center</span></a> <span class="id" title="var">_</span> (<a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.Esurj"><span class="id" title="variable">Esurj</span></a> <span class="id" title="var">b</span>)); <span class="id" title="tactic">apply</span> (<a class="idref" href="HoTT.Truncations.Core.html#Trunc.Trunc_ind"><span class="id" title="definition">Trunc_ind</span></a> <span class="id" title="var">_</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(21, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> [<span class="id" title="var">a</span> <span class="id" title="var">p</span>];<span class="id" title="tactic">destruct</span> <span class="id" title="var">p</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(22, '0_3_7');
+      "><br>
+    <span class="id" title="var">path_via</span> (<a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <span class="id" title="var">a</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(23, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(24, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="surjective_factor_aux" class="idref" href="#surjective_factor_aux"><span class="id" title="definition">surjective_factor_aux</span></a> :=<br>
+    @<a class="idref" href="HoTT.Modalities.ReflectiveSubuniverse.html#conn_map_elim"><span class="id" title="definition">conn_map_elim</span></a><br>
+      <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.Esurj"><span class="id" title="variable">Esurj</span></a> (<span class="id" title="keyword">fun</span> <a id="b:15" class="idref" href="#b:15"><span class="id" title="binder">b</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="c:16" class="idref" href="#c:16"><span class="id" title="binder">c</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.C"><span class="id" title="variable">C</span></a><a class="idref" href="HoTT.Basics.Overture.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:17" class="idref" href="#a:17"><span class="id" title="binder">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:17"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#b:15"><span class="id" title="variable">b</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:17"><span class="id" title="variable">a</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#c:16"><span class="id" title="variable">c</span></a>)<br>
+      <a class="idref" href="HoTT.HIT.surjective_factor.html#ishprop_surjective_factor_aux"><span class="id" title="lemma">ishprop_surjective_factor_aux</span></a><br>
+      (<span class="id" title="keyword">fun</span> <a id="a:18" class="idref" href="#a:18"><span class="id" title="binder">a</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#exist"><span class="id" title="constructor">exist</span></a> (<span class="id" title="keyword">fun</span> <a id="c:20" class="idref" href="#c:20"><span class="id" title="binder">c</span></a> ⇒ <a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">∀</span></a> <a id="a:21" class="idref" href="#a:21"><span class="id" title="binder">a</span></a><a class="idref" href="HoTT.Basics.Notations.html#adf9957462624adc9c2c94f56add3958"><span class="id" title="notation">,</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">_</span> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#c:20"><span class="id" title="variable">c</span></a>) (<a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:18"><span class="id" title="variable">a</span></a>) (<span class="id" title="keyword">fun</span> <a id="a':19" class="idref" href="#a':19"><span class="id" title="binder">a'</span></a> ⇒ <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.Eg"><span class="id" title="variable">Eg</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a':19"><span class="id" title="variable">a'</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#a:18"><span class="id" title="variable">a</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(25, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Definition</span> <a id="surjective_factor" class="idref" href="#surjective_factor"><span class="id" title="definition">surjective_factor</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.B"><span class="id" title="variable">B</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.C"><span class="id" title="variable">C</span></a><br>
+    := <span class="id" title="keyword">fun</span> <a id="b:22" class="idref" href="#b:22"><span class="id" title="binder">b</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.1'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor_aux"><span class="id" title="definition">surjective_factor_aux</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#b:22"><span class="id" title="variable">b</span></a><a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.1'"><span class="id" title="notation">).1</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(26, '0_3_7');
+      "><br>
+<br>
+  <span class="id" title="keyword">Lemma</span> <a id="surjective_factor_pr" class="idref" href="#surjective_factor_pr"><span class="id" title="lemma">surjective_factor_pr</span></a> : <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.f"><span class="id" title="variable">f</span></a> <a class="idref" href="HoTT.Basics.Overture.html#2596316c6f2ff161cb03e25fd8914390"><span class="id" title="notation">==</span></a> <a class="idref" href="HoTT.Basics.Overture.html#compose"><span class="id" title="abbreviation">compose</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor"><span class="id" title="definition">surjective_factor</span></a> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(27, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Proof</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(28, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">intros</span> <span class="id" title="var">a</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(29, '0_3_7');
+      "><br>
+    <span class="id" title="tactic">apply</span> <a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor_aux"><span class="id" title="definition">surjective_factor_aux</span></a> (<a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor.g"><span class="id" title="variable">g</span></a> <span class="id" title="var">a</span>)<a class="idref" href="HoTT.Basics.Overture.html#::fibration_scope:x_'.2'"><span class="id" title="notation">).2</span></a>. </span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(30, '0_3_7');
+      "><span class="id" title="tactic">trivial</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(31, '0_3_7');
+      "><br>
+  <span class="id" title="keyword">Qed</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(32, '0_3_7');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.HIT.surjective_factor.html#surjective_factor"><span class="id" title="section">surjective_factor</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_7');
+      " onmouseover="
+      mouseover(33, '0_3_7');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_7"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

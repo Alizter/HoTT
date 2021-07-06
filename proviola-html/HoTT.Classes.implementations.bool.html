@@ -1,0 +1,265 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "<infomsg>join_bool is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "<infomsg>meet_bool is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "<infomsg>bottom_bool is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "<infomsg>top_bool is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>solve_bool is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "1 subgoal (ID 5)	  	  ============================	  IsBoundedLattice Bool	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "No more subgoals.	";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 25;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 26;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 27;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 28;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Classes.implementations.bool</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span><br>
+  <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#"><span class="id" title="library">HoTT.Classes.interfaces.abstract_algebra</span></a><br>
+  <a class="idref" href="HoTT.Types.Bool.html#"><span class="id" title="library">HoTT.Types.Bool</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Global Instance</span> <a id="join_bool" class="idref" href="#join_bool"><span class="id" title="instance">join_bool</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Join"><span class="id" title="class">Join</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a> := <a class="idref" href="HoTT.Types.Bool.html#orb"><span class="id" title="definition">orb</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Global Instance</span> <a id="meet_bool" class="idref" href="#meet_bool"><span class="id" title="instance">meet_bool</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Meet"><span class="id" title="class">Meet</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a> := <a class="idref" href="HoTT.Types.Bool.html#andb"><span class="id" title="definition">andb</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Global Instance</span> <a id="bottom_bool" class="idref" href="#bottom_bool"><span class="id" title="instance">bottom_bool</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Bottom"><span class="id" title="class">Bottom</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a> := <a class="idref" href="HoTT.Types.Bool.html#false"><span class="id" title="constructor">false</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Global Instance</span> <a id="top_bool" class="idref" href="#top_bool"><span class="id" title="instance">top_bool</span></a> : <a class="idref" href="HoTT.Classes.interfaces.canonical_names.html#Top"><span class="id" title="class">Top</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a> := <a class="idref" href="HoTT.Types.Bool.html#true"><span class="id" title="constructor">true</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Section</span> <a id="contents" class="idref" href="#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Local Ltac</span> <span class="id" title="var">solve_bool</span> :=<br>
+    <span class="id" title="tactic">repeat</span> (<span class="id" title="tactic">intros</span> [|]); <span class="id" title="tactic">compute</span>; (<span class="id" title="var">contradiction</span> || <span class="id" title="tactic">auto</span>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+  <span class="id" title="keyword">Global Instance</span> <a id="lattice_bool" class="idref" href="#lattice_bool"><span class="id" title="instance">lattice_bool</span></a> : <a class="idref" href="HoTT.Classes.interfaces.abstract_algebra.html#IsBoundedLattice"><span class="id" title="class">IsBoundedLattice</span></a> <a class="idref" href="HoTT.Types.Bool.html#Bool"><span class="id" title="inductive">Bool</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+  <span class="id" title="keyword">Proof</span>. </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(15, '0_3_3');
+      "><span class="id" title="tactic">repeat</span> <span class="id" title="tactic">split</span>; (<span class="id" title="tactic">apply</span> <span class="id" title="var">_</span> || <span class="id" title="var">solve_bool</span>). </span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(16, '0_3_3');
+      "><span class="id" title="keyword">Defined</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(17, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">End</span> <a class="idref" href="HoTT.Classes.implementations.bool.html#contents"><span class="id" title="section">contents</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(18, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>

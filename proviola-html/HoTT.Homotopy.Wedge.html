@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="coqdoc.css" type="text/css" rel="stylesheet">
+<link href="proviola.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var responses = new Array();
+
+        function mouseover(id, scene) {
+          set_response(get_response(id), scene);
+        };
+
+        function mouseout(scene) {
+          set_response("", scene);
+        };
+
+        function set_array() {
+          
+
+            i = 0;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 1;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 2;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 3;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 4;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 5;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 6;
+            data = "<infomsg>[Loading ML file ltac_plugin.cmxs ... done]</infomsg>	<infomsg>[Loading ML file number_string_notation_plugin.cmxs ... done]	</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 7;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 8;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 9;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 10;
+            data = "<infomsg>Wedge is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 11;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 12;
+            data = "<infomsg>wglue is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 13;
+            data = "<infomsg>wedge_incl is defined</infomsg>	";
+            responses[i]=data;
+          
+
+            i = 14;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 15;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 16;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 17;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 18;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 19;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 20;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 21;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 22;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 23;
+            data = "";
+            responses[i]=data;
+          
+
+            i = 24;
+            data = "";
+            responses[i]=data;
+          
+        };
+        
+        function get_response(id) {
+          return responses[id];
+        };
+
+        function set_response(response, scene) {
+          goalId = "goal"+scene;
+          elById = document.getElementById(goalId);
+          if(elById){ 
+            goalSpan = elById.getElementsByTagName("span")[0];
+            goalSpan.innerHTML = response.replace(/	/g , '\n');
+          }
+        };
+      </script>
+</head>
+<body onload="set_array()"><div id="page" scenenumber="0" class="doc">
+<div id="header" scenenumber="1" class="doc">
+</div>
+<div id="main" scenenumber="3" class="doc">
+<h1 class="libtitle">Library HoTT.Homotopy.Wedge</h1>
+<div scenenumber="3" class="code">
+<span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(6, '0_3_3');
+      ">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Basics.html#"><span class="id" title="library">Basics</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(7, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Pointed.Core.html#"><span class="id" title="library">Pointed.Core</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(8, '0_3_3');
+      "><br>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="HoTT.Colimits.Pushout.html#"><span class="id" title="library">Colimits.Pushout</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(9, '0_3_3');
+      "><br>
+<br>
+<br>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">pointed_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(10, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="Wedge" class="idref" href="#Wedge"><span class="id" title="definition">Wedge</span></a> (<a id="X:1" class="idref" href="#X:1"><span class="id" title="binder">X</span></a> <a id="Y:2" class="idref" href="#Y:2"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>) : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a><br>
+  := <a class="idref" href="HoTT.Basics.Overture.html#Build_pType"><span class="id" title="constructor">Build_pType</span></a><br>
+    (<a class="idref" href="HoTT.Colimits.Pushout.html#Pushout"><span class="id" title="definition">Pushout</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> : <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:1"><span class="id" title="variable">X</span></a>) (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:2"><span class="id" title="variable">Y</span></a>))<br>
+    (<a class="idref" href="HoTT.Colimits.Pushout.html#pushl"><span class="id" title="definition">pushl</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:1"><span class="id" title="variable">X</span></a>)).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(11, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Notation</span> <a id="6573d6a1fd59dff41b7322fa2527a2bf" class="idref" href="#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">"</span></a>X \/ Y" := (<a class="idref" href="HoTT.Homotopy.Wedge.html#Wedge"><span class="id" title="definition">Wedge</span></a> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>) : <span class="id" title="var">pointed_scope</span>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(12, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="wglue" class="idref" href="#wglue"><span class="id" title="definition">wglue</span></a> {<a id="X:3" class="idref" href="#X:3"><span class="id" title="binder">X</span></a> <a id="Y:4" class="idref" href="#Y:4"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>}<br>
+  : <a class="idref" href="HoTT.Colimits.Pushout.html#pushl"><span class="id" title="definition">pushl</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:3"><span class="id" title="variable">X</span></a>) <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Colimits.Pushout.html#pushr"><span class="id" title="definition">pushr</span></a> (<a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:4"><span class="id" title="variable">Y</span></a>) : <a class="idref" href="HoTT.Homotopy.Wedge.html#X:3"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">∨</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:4"><span class="id" title="variable">Y</span></a><a class="idref" href="HoTT.Basics.Overture.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">)</span></a> := <a class="idref" href="HoTT.Colimits.Pushout.html#pglue"><span class="id" title="definition">pglue</span></a> <a class="idref" href="HoTT.Basics.Overture.html#tt"><span class="id" title="constructor">tt</span></a>.</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(13, '0_3_3');
+      "><br>
+<br>
+<span class="id" title="keyword">Definition</span> <a id="wedge_incl" class="idref" href="#wedge_incl"><span class="id" title="definition">wedge_incl</span></a> {<a id="X:5" class="idref" href="#X:5"><span class="id" title="binder">X</span></a> <a id="Y:6" class="idref" href="#Y:6"><span class="id" title="binder">Y</span></a> : <a class="idref" href="HoTT.Basics.Overture.html#pType"><span class="id" title="record">pType</span></a>} : <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#6573d6a1fd59dff41b7322fa2527a2bf"><span class="id" title="notation">∨</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a> <a class="idref" href="HoTT.Basics.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a> <a class="idref" href="HoTT.Pointed.Core.html#867ca46dea6d6884af1893325332ab7c"><span class="id" title="notation">×</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a> :=<br>
+ <a class="idref" href="HoTT.Colimits.Pushout.html#Pushout_rec"><span class="id" title="definition">Pushout_rec</span></a> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="x:8" class="idref" href="#x:8"><span class="id" title="binder">x</span></a> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Homotopy.Wedge.html#x:8"><span class="id" title="variable">x</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#Y:6"><span class="id" title="variable">Y</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">)</span></a>) (<span class="id" title="keyword">fun</span> <a id="y:7" class="idref" href="#y:7"><span class="id" title="binder">y</span></a> ⇒ <a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">(</span></a><a class="idref" href="HoTT.Basics.Overture.html#point"><span class="id" title="definition">point</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#X:5"><span class="id" title="variable">X</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">,</span></a> <a class="idref" href="HoTT.Homotopy.Wedge.html#y:7"><span class="id" title="variable">y</span></a><a class="idref" href="HoTT.Basics.Datatypes.html#e6756e10c36f149b18b4a8741ed83079"><span class="id" title="notation">)</span></a>) <br>
+  (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> : <a class="idref" href="HoTT.Basics.Overture.html#Unit"><span class="id" title="inductive">Unit</span></a> ⇒ <a class="idref" href="HoTT.Basics.Overture.html#idpath"><span class="id" title="constructor">idpath</span></a>).</span><span class="command" onmouseout="
+      mouseout('0_3_3');
+      " onmouseover="
+      mouseover(14, '0_3_3');
+      "><br>
+</span>
+</div>
+<div class="goal" id="goal0_3_3"><pre><span></span></pre></div>
+</div>
+<div id="footer" scenenumber="5" class="doc">
+<hr>
+<a href="index.html">Index</a><hr>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+</div></body>
+</html>
