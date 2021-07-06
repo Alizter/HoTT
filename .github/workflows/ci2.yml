@@ -251,8 +251,11 @@ jobs:
           mkdir -p dep-graphs
           mv HoTT.svg HoTTCore.svg dep-graphs/
 
+          
           ## Make file dependency graphs
+          opam install ocamlgraph -y
           ./etc/ci/make_dpd_graphs.sh
+
           make dpdgraph || exit $?
           make svg-file-dep-graphs -k || exit $?
           # `dot` hates file-dep-graphs/hott-all.dot, because it's too big, and
