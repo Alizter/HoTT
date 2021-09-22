@@ -540,3 +540,53 @@ Proof.
       exact (concat_Ap (pglue' f g) (eissect g a)) ).
   - intros c; reflexivity.
 Defined.
+
+Inductive Span := SpanSource | SpanTarget1 | SpanTarget2.
+Inductive SpanHom : Span -> Span -> Type :=
+| spanhom_s : SpanHom SpanSource SpanSource
+| spanhom_t1 : SpanHom SpanTarget1 SpanTarget1
+| spanhom_t2 : SpanHom SpanTarget2 SpanTarget2
+| spanhom_map1 : SpanHom SpanSource SpanTarget1
+| spanhom_map2 : SpanHom SpanSource SpanTarget2
+.
+
+Global Instance isgraph_span : IsGraph Span :=
+  Build_IsGraph Span SpanHom.
+
+(** Specific instances of having colimits for Type *)
+Global Instance hascolimits_pushout_type : HasColimit Type Span.
+Proof.
+  snrapply Build_HasColimit.
+  { snrapply Build_Fun11.
+    - intros D.
+      exact (Pushout (fmap D spanhom_map1) (fmap D spanhom_map2)).
+    - snrapply Build_Is0Functor.
+      intros D1 D2 [f n].
+      srapply functor_pushout.
+      1-3: exact (f _).
+      1,2: exact (n _ _ _).
+    - snrapply Build_Is1Functor.
+      + intros D1 D2 f g p.
+        srapply (functor_pushout_homotopic (p _) (p _) (p _)).
+        { intros x.
+          simpl.
+          Opaque ap concat.
+          cbv.
+          hnf in p.
+          cbv in p.
+          epos(p _ x)
+        
+        snrapply functor_coeq_homotopy.
+        1: exact (p _).
+        1: exact (functor_sum_homotopic (p _) (p _)).
+        { simpl.
+          intros x.
+          cbv in p.
+          
+          cbn.
+    
+      
+      
+
+
+
