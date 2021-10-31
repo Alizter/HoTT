@@ -3,6 +3,7 @@ name: Installation testing
 on:
   push:
     branches:
+    - installation-workflow
     - master
 
 # We set the supported coq-version from here. In order to use this environment variable correctly, look at how they are used in the following jobs.
