@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-      - os: [ ubuntu-latest , macos-latest , windows-latest ]
+        os: [ ubuntu-latest , macos-latest , windows-latest ]
     steps:
     - name: Setup OCaml 🐫 ${{ matrix.ocaml-compiler }}
       uses: ocaml/setup-ocaml@v2
@@ -29,14 +29,11 @@ jobs:
     - name: Install HoTT 🍩
       run: sudo make install
 
-
-
-jobs:
   install-opam:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-      - os: [ ubuntu-latest , macos-latest , windows-latest ]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
     - name: Setup OCaml 🐫 ${{ matrix.ocaml-compiler }}
       uses: ocaml/setup-ocaml@v2
