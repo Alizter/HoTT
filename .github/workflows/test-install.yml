@@ -1,0 +1,49 @@
+name: Installation testing
+
+on:
+  push:
+    branches:
+    - master
+
+# We set the supported coq-version from here. In order to use this environment variable correctly, look at how they are used in the following jobs.
+env:
+  coq-version-supported: '8.14'
+  ocaml-version: '4.11-flambda'
+
+
+jobs:
+  install-manual:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+      - os: [ ubuntu-latest , macos-latest , windows-latest ]
+    steps:
+    - name: Setup OCaml 🐫 ${{ matrix.ocaml-compiler }}
+      uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: ${{ env.ocaml-version }}
+    - name: Install Coq 🐔
+      run: opam update; opam install coq -y
+    - name: Build HoTT
+      run: make
+    - name: Install HoTT 🍩
+      run: sudo make install
+
+
+
+jobs:
+  install-opam:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+      - os: [ ubuntu-latest , macos-latest , windows-latest ]
+    steps:
+    - name: Setup OCaml 🐫 ${{ matrix.ocaml-compiler }}
+      uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: ${{ env.ocaml-version }}
+    - name: Install Coq 🐔
+      run: opam install -y coq
+    - name: Install HoTT 🍩
+      run: opam install -y .
+
