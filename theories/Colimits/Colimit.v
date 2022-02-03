@@ -3,7 +3,7 @@ Require Import Diagrams.Diagram.
 Require Import Diagrams.Graph.
 Require Import Diagrams.Cocone.
 Require Import Diagrams.ConstantDiagram.
-Require Import Colimits.Coeq.
+Require Import Colimits.GraphQuotient.
 
 Local Open Scope path_scope.
 Generalizable All Variables.
@@ -53,20 +53,23 @@ However we notice that the path type forms a contractible component, so we can u
 >>>
 {x : sig D & {j : G & G x.1 j}}
 <<< *)
-Definition Colimit {G : Graph} (D : Diagram G) : Type :=
-  @Coeq
-    {x : sig D & {j : G & G x.1 j}}
-    (sig D)
-    (fun t => t.1)
-    (fun t => (t.2.1; D _f t.2.2 t.1.2))
-  .
+
+(** A relation on [sig D] which we will quotient by to get the colimit. *)
+Inductive rel_colimit {G : Graph@{i j}} {D : Diagram@{i j k} G}
+  : sig@{i k} D -> sig@{i k} D -> Type :=
+| rel_colimit_link x y z (f : G x y)
+  :  rel_colimit (x;z) (y;D _f f z)
+.
+
+Definition Colimit {G : Graph@{i j}} (D : Diagram@{i j k} G) : Type
+  := GraphQuotient (@rel_colimit G D).
 
 Definition colim {G : Graph} {D : Diagram G} (i : G) (x : D i) : Colimit D :=
-  coeq (i ; x).
+  gq (i ; x).
 
 Definition colimp {G : Graph} {D : Diagram G} (i j : G) (f : G i j) (x : D i)
   : colim j (D _f f x) = colim i x
-  := (cglue ((i; x); j; f))^.
+  := (gqglue (rel_colimit_link i j x f))^.
 
 Definition Colimit_ind {G : Graph} {D : Diagram G} (P : Colimit D -> Type)
 (q : forall i x, P (colim i x))
@@ -74,11 +77,10 @@ Definition Colimit_ind {G : Graph} {D : Diagram G} (P : Colimit D -> Type)
   (@colimp G D i j g x) # (q j (D _f g x)) = q i x)
 : forall w, P w.
 Proof.
-  srapply Coeq_ind.
+  srapply GraphQuotient_ind.
   - intros [x i].
     exact (q x i).
-  - intros [[i x] [j f]].
-    cbn in f; cbn.
+  - intros a b [].
     apply moveR_transport_p.
     symmetry.
     exact (pp_q _ _ _ _).
@@ -94,7 +96,7 @@ Proof.
   refine (apD_V _ _ @ _).
   apply moveR_equiv_M.
   apply moveR_equiv_M.
-  refine (Coeq_ind_beta_cglue _ _ _ _ @ _).
+  refine (GraphQuotient_ind_beta_gqglue _ _ _ _ _ _ @ _).
   symmetry.
   apply moveL_transport_p_V.
 Defined.
