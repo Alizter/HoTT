@@ -58,11 +58,11 @@ However we notice that the path type forms a contractible component, so we can u
 Inductive rel_colimit {G : Graph@{i j}} {D : Diagram@{i j k} G}
   : sig@{i k} D -> sig@{i k} D -> Type :=
 | rel_colimit_link x y z (f : G x y)
-  :  rel_colimit (x;z) (y;D _f f z)
+  : rel_colimit (x; z) (y; D _f f z)
 .
 
-Definition Colimit {G : Graph@{i j}} (D : Diagram@{i j k} G) : Type
-  := GraphQuotient (@rel_colimit G D).
+Definition Colimit@{i j} {G : Graph@{i i}} (D : Diagram@{i i j} G) : Type@{j}
+  := GraphQuotient@{_ _ j} (@rel_colimit G D).
 
 Definition colim {G : Graph} {D : Diagram G} (i : G) (x : D i) : Colimit D :=
   gq (i ; x).
