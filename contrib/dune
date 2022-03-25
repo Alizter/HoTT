@@ -1,0 +1,5 @@
+(coq.theory
+ (name HoTT.Contrib)
+ (synopsis "The HoTT Coq library")
+ (libraries coq-core.plugins.ltac HoTT)
+ (flags -noinit -indices-matter -color on))

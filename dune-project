@@ -1,3 +1,3 @@
-(lang dune 2.9)
+(lang dune 3.0)
 (using coq 0.3)
 (name HoTT)
