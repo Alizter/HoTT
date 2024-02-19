@@ -31,6 +31,7 @@ Class HasEquivs (A : Type) `{Is1Cat A} :=
 Existing Class CatIsEquiv.
 Arguments CatIsEquiv {A _ _ _ _ _ a b} f.
 Global Existing Instance cate_isequiv.
+Arguments cate_isequiv {A _ _ _ _ _ a b} f.
 
 (** Since apparently a field of a record can't be the source of a coercion (Coq complains about the uniform inheritance condition, although as officially stated that condition appears to be satisfied), we redefine all the fields of [HasEquivs]. *)
 

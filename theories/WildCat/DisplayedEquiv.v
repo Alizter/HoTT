@@ -17,11 +17,11 @@ Class DHasEquivs {A : Type} `{HasEquivs A}
     DCatEquiv f a' b' -> DHom f a' b';
   dcate_isequiv : forall {a b} {f : a $<~> b} {a'} {b'}
     (f' : DCatEquiv f a' b'), DCatIsEquiv (dcate_fun f');
-  dcate_buildequiv : forall {a b} {f : a $-> b} `{!CatIsEquiv f} {a'} {b'}
+  dcate_buildequiv : forall {a b} {f : a $-> b} {fe : CatIsEquiv f} {a'} {b'}
     (f' : DHom f a' b') {fe' : DCatIsEquiv f'},
-    DCatEquiv (Build_CatEquiv f) a' b';
-  dcate_buildequiv_fun : forall {a b} {f : a $-> b} `{!CatIsEquiv f}
-    {a'} {b'} (f' : DHom f a' b') {fe' : DCatIsEquiv f'},
+    DCatEquiv (Build_CatEquiv (fe:=fe) f) a' b';
+  dcate_buildequiv_fun : forall {a b} {f : a $-> b} {fe : CatIsEquiv f}
+    {a'} {b'} (f' : DHom f a' b') {fe' : DCatIsEquiv (fe:=fe) f'},
     DGpdHom (cate_buildequiv_fun f)
     (dcate_fun (dcate_buildequiv f' (fe':=fe'))) f';
   dcate_inv' : forall {a b} {f : a $<~> b} {a'} {b'} (f' : DCatEquiv f a' b'),
@@ -44,8 +44,8 @@ Global Existing Instance dcate_isequiv.
 Coercion dcate_fun : DCatEquiv >-> DHom.
 
 Definition Build_DCatEquiv {A} {D : A -> Type} `{DHasEquivs A D}
-  {a b : A} {f : a $-> b} `{!CatIsEquiv f} {a' : D a} {b' : D b}
-  (f' : DHom f a' b') {fe' : DCatIsEquiv f'}
+  {a b : A} {f : a $-> b} {fe : CatIsEquiv f} {a' : D a} {b' : D b}
+  (f' : DHom f a' b') {fe' : DCatIsEquiv (fe:=fe) f'}
   : DCatEquiv (Build_CatEquiv f) a' b'
   := dcate_buildequiv f' (fe':=fe').
 
@@ -142,7 +142,7 @@ Proof.
   snrapply Build_HasEquivs.
   1:{ intros [a a'] [b b']. exact {f : a $<~> b & DCatEquiv f a' b'}. }
   all: intros aa' bb' [f f'].
-  - exact {fe : CatIsEquiv f & DCatIsEquiv f'}.
+  - exact {fe : CatIsEquiv f & DCatIsEquiv (fe:=fe) f'}.
   - exists f. exact f'.
   - exact (cate_isequiv f; dcate_isequiv f').
   - intros [fe fe'].
