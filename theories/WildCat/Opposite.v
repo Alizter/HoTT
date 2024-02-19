@@ -163,10 +163,10 @@ Proof.
   srapply Build_HasEquivs; intros a b; unfold op in *; cbn.
   - exact (b $<~> a).
   - apply CatIsEquiv.
-  - apply cate_fun'.
+  - apply cate_fun.
   - apply cate_isequiv.
-  - apply cate_buildequiv'.
-  - rapply cate_buildequiv_fun'.
+  - apply Build_CatEquiv.
+  - rapply cate_buildequiv_fun.
   - apply cate_inv'.
   - rapply cate_isretr'.
   - rapply cate_issect'.

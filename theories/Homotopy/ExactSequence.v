@@ -461,6 +461,7 @@ Definition connecting_map {F X Y}
   : loops Y ->* F
   := i_fiberseq (connect_fiberseq i f).
 
+Set Printing Coercions.
 Global Instance isexact_connect_R {F X Y}
   (i : F ->* X) (f : X ->* Y) `{IsExact purely F X Y i f}
   : IsExact purely (fmap loops f) (connecting_map i f).
@@ -472,6 +473,7 @@ Proof.
            (pequiv_pfiber _ _ (square_pequiv_pfiber _ _ (square_pfib_pequiv_cxfib i f))))^-1*)
           (((pfiber2_loops f) o*E (pequiv_pfiber _ _ (square_pfib_pequiv_cxfib i f)))^-1*)
           _ (pfib i)).
+(** @todo: this proof hangs on Defined when the method cate_fun is directly declared as a coercion CatEquiv >-> Hom *)
   refine (vinverse 
             ((loops_inv X) o*E
              (pfiber2_loops (pfib f)) o*E

@@ -12,30 +12,29 @@ Declare Scope wc_iso_scope.
 
 Class HasEquivs (A : Type) `{Is1Cat A} :=
 {
-  CatEquiv' : A -> A -> Type where "a $<~> b" := (CatEquiv' a b);
+  CatEquiv : A -> A -> Type where "a $<~> b" := (CatEquiv a b);
   CatIsEquiv : forall a b, (a $-> b) -> Type;
   cate_fun' : forall a b, (a $<~> b) -> (a $-> b);
   cate_isequiv : forall a b (f : a $<~> b), CatIsEquiv a b (cate_fun' a b f);
-  cate_buildequiv' : forall a b (f : a $-> b), CatIsEquiv a b f -> CatEquiv' a b;
-  cate_buildequiv_fun' : forall a b (f : a $-> b) (fe : CatIsEquiv a b f),
-      cate_fun' a b (cate_buildequiv' a b f fe) $== f;
+  cate_buildequiv : forall a b (f : a $-> b), CatIsEquiv a b f -> CatEquiv a b;
+  cate_buildequiv_fun : forall a b (f : a $-> b) (fe : CatIsEquiv a b f),
+      cate_fun' a b (cate_buildequiv a b f fe) $== f;
   cate_inv' : forall a b (f : a $<~> b), b $-> a;
   cate_issect' : forall a b (f : a $<~> b),
     cate_inv' _ _ f $o cate_fun' _ _ f $== Id a;
   cate_isretr' : forall a b (f : a $<~> b),
       cate_fun' _ _ f $o cate_inv' _ _ f $== Id b;
-  catie_adjointify' : forall a b (f : a $-> b) (g : b $-> a)
+  catie_adjointify : forall a b (f : a $-> b) (g : b $-> a)
     (r : f $o g $== Id b) (s : g $o f $== Id a), CatIsEquiv a b f;
 }.
 
-Existing Class CatIsEquiv.
 Arguments CatIsEquiv {A _ _ _ _ _ a b} f.
+Arguments cate_isequiv {A _ _ _ _ _ a b} f.
+Arguments cate_buildequiv_fun {A _ _ _ _ _ a b} f {fe}.
+Arguments catie_adjointify {A _ _ _ _ _ a b} f g r s.
+
+Existing Class CatIsEquiv.
 Global Existing Instance cate_isequiv.
-
-(** Since apparently a field of a record can't be the source of a coercion (Coq complains about the uniform inheritance condition, although as officially stated that condition appears to be satisfied), we redefine all the fields of [HasEquivs]. *)
-
-Definition CatEquiv {A} `{HasEquivs A} (a b : A)
-  := @CatEquiv' A _ _ _ _ _ a b.
 
 Notation "a $<~> b" := (CatEquiv a b).
 Infix "≅" := CatEquiv : wc_iso_scope.
@@ -45,23 +44,13 @@ Definition cate_fun {A} `{HasEquivs A} {a b : A} (f : a $<~> b)
   : a $-> b
   := @cate_fun' A _ _ _ _ _ a b f.
 
+Arguments cate_fun {A _ _ _ _ _ a b} f.
 Coercion cate_fun : CatEquiv >-> Hom.
 
 Definition Build_CatEquiv {A} `{HasEquivs A} {a b : A}
            (f : a $-> b) {fe : CatIsEquiv f}
   : a $<~> b
-  := cate_buildequiv' a b f fe.
-
-Definition cate_buildequiv_fun {A} `{HasEquivs A} {a b : A}
-           (f : a $-> b) {fe : CatIsEquiv f}
-  : cate_fun (Build_CatEquiv f) $== f
-  := cate_buildequiv_fun' a b f fe.
-
-Definition catie_adjointify {A} `{HasEquivs A} {a b : A}
-           (f : a $-> b) (g : b $-> a)
-           (r : f $o g $== Id b) (s : g $o f $== Id a)
-  : CatIsEquiv f
-  := catie_adjointify' a b f g r s.
+  := cate_buildequiv a b f fe.
 
 Definition cate_adjointify {A} `{HasEquivs A} {a b : A}
            (f : a $-> b) (g : b $-> a)
@@ -86,7 +75,7 @@ Definition cate_issect {A} `{HasEquivs A} {a b} (f : a $<~> b)
 Proof.
   refine (_ $@ cate_issect' a b f).
   refine (_ $@R f).
-  apply cate_buildequiv_fun'.
+  apply cate_buildequiv_fun.
 Defined.
 
 Definition cate_isretr {A} `{HasEquivs A} {a b} (f : a $<~> b)
@@ -94,7 +83,7 @@ Definition cate_isretr {A} `{HasEquivs A} {a b} (f : a $<~> b)
 Proof.
   refine (_ $@ cate_isretr' a b f).
   refine (f $@L _).
-  apply cate_buildequiv_fun'.
+  apply cate_buildequiv_fun.
 Defined.
 
 (** If [g] is a section of an equivalence, then it is the inverse. *)

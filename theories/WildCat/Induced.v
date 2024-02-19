@@ -81,12 +81,12 @@ Section Induced_category.
     + apply CatIsEquiv.
     + apply cate_fun.
     + apply cate_isequiv.
-    + apply cate_buildequiv'.
-    + nrapply cate_buildequiv_fun'.
+    + apply Build_CatEquiv.
+    + nrapply cate_buildequiv_fun.
     + apply cate_inv'.
     + nrapply cate_issect'.
     + nrapply cate_isretr'.
-    + nrapply catie_adjointify'.
+    + nrapply catie_adjointify.
   Defined.
 
 End Induced_category.
