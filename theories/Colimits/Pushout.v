@@ -168,6 +168,23 @@ Proof.
     apply ap, q.
 Defined.
 
+Lemma functor_pushout_beta_pglue
+  {A B C} {f : A -> B} {g : A -> C}
+  {A' B' C'} {f' : A' -> B'} {g' : A' -> C'}
+  (h : A -> A') (k : B -> B') (l : C -> C')
+  (p : k o f == f' o h) (q : l o g == g' o h) (a : A)
+  : ap (functor_pushout h k l p q) (pglue a)
+    = ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^.
+Proof.
+  lhs nrapply functor_coeq_beta_cglue.
+  f_ap; [f_ap|].
+  - exact (ap_compose inl _ (p a))^.
+  - lhs nrapply ap_V.
+    rhs nrapply (ap_V _ (q a)).
+    apply inverse2.
+    exact (ap_compose inr _ (q a))^.
+Defined.
+
 Lemma functor_pushout_homotopic 
   {A B C : Type} {f : A -> B} {g : A -> C}
   {A' B' C' : Type} {f' : A' -> B'} {g' : A' -> C'}

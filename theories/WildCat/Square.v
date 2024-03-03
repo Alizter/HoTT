@@ -1,4 +1,4 @@
-Require Import Basics.Overture.
+Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core.
 Require Import WildCat.Equiv.
 
@@ -61,6 +61,28 @@ Section Squares.
       $@ (_ $@L ((cat_assoc _ _ _)^$ $@ (s^$ $@R _) $@ cat_assoc _ _ _
       $@ (_ $@L cate_isretr f10) $@ cat_idr _)).
 
+  (** Alternatively if we are in a groupoid, we can flip the square horizontally. *)
+  Definition hinverse' `{!Is0Gpd A, !Is1Gpd A} (s : Square f01 f21 f10 f12)
+    : Square f21 f01 f10^$ f12^$.
+  Proof.
+    hnf.
+    apply gpd_moveR_hV.
+    refine ( _ $@ (cat_assoc _ _ _)^$).
+    apply gpd_moveL_Vh.
+    apply transpose.
+    exact s.
+  Defined.
+
+  Definition vinverse' `{!Is0Gpd A, !Is1Gpd A} (s : Square f01 f21 f10 f12)
+    : Square f01^$ f21^$ f12 f10.
+  Proof.
+    apply gpd_moveR_Vh.
+    nrefine ( _ $@ cat_assoc _ _ _).
+    apply gpd_moveL_hV.
+    apply transpose.
+    exact s.
+  Defined.
+
   (** The following four declarations modify one side of a Square using a 2-cell. The L or R indicate the side of the 2-cell. This can be thought of as rewriting the sides of a square using a homotopy. *)
 
   (** Rewriting the left edge. *)
@@ -100,6 +122,18 @@ Section Squares2.
   Definition vinverse (f01 : x00 $<~> x02) (f21 : x20 $<~> x22) (s : Square f01 f21 f10 f12)
     : Square (f01^-1$) (f21^-1$) f12 f10
     := transpose (hinverse _ _ (transpose s)).
+
+  (** Rewriting all four edges at once *)
+  Definition rewrite_square (s : Square f01 f21 f10 f12)
+    (p01 : f01' $== f01) (p21 : f21' $== f21) (p10 : f10' $== f10) (p12 : f12' $== f12)
+    : Square f01' f21' f10' f12'.
+  Proof.
+    nrefine (hconcatL p01 _).
+    nrefine (hconcatR _ p21).
+    nrefine (vconcatL p10 _).
+    nrefine (vconcatR _ p12).
+    exact s.
+  Defined.
 
   (** Whisker a map in one of the corners. For the bottom-left and top-right we have two choices. *)
 

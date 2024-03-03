@@ -487,7 +487,7 @@ Proof.
   exact (gpd_issect _)^$.
 Defined.
 
-(** 1-functors between 1-groupoids preserve identities *)
+(** 1-functors between 1-groupoids preserve inverses *)
 Definition gpd_1functor_V {A B} `{Is1Gpd A, Is1Gpd B}
            (F : A -> B) `{!Is0Functor F, !Is1Functor F}
            {a0 a1 : A} (f : a0 $== a1)
