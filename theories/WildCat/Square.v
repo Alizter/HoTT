@@ -8,10 +8,10 @@ Require Import WildCat.Equiv.
 
 (** A Square is a cubical 2-cell in a 1-category. The order of the arguments is left-right-top-bottom: [Square l r t b].  It is defined to be [r $o t $== b $o l]. *)
 
-Definition Square@{u v w} {A : Type@{u}} `{Is1Cat@{u w v} A} {x00 x20 x02 x22 : A}
+Definition Square@{u v w} {A : Type@{u}} `{Is01Cat@{u w} A, !Is2Graph@{u w v} A} {x00 x20 x02 x22 : A}
   (f01 : x00 $-> x02) (f21 : x20 $-> x22) (f10 : x00 $-> x20) (f12 : x02 $-> x22) 
   : Type@{w}
-  := f21 $o f10 $== f12 $o f01.
+  := f21 $o f10 $-> f12 $o f01.
 
 
 Section Squares.

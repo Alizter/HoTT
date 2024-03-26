@@ -162,3 +162,11 @@ Proof.
   - reflexivity.
   - reflexivity.
 Defined.
+
+Global Instance is4graph_type : Is4Graph Type.
+Proof.
+  intros A B f g p q.
+  apply Build_IsGraph.
+  intros h1 h2.
+  exact (h1 == h2).
+Defined.

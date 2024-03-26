@@ -1,4 +1,6 @@
-Require Import Basics Types WildCat Colimits.Pushout.
+Require Import Basics Types Colimits.Pushout.
+Require Import DPath PathSquare DPathSquare PathCube.
+From HoTT.WildCat Require Import Core Yoneda Universe NatTrans TwoOneCat Square ZeroGroupoid FunctorCat EquivGpd.
 
 Record PushoutRecData {A B C : Type} {f : A -> B} {g : A -> C} {P : Type} := {
   pl : B $-> P;
@@ -92,6 +94,7 @@ Proof.
     + exact (hpl h1 $@ hpl h2).
     + exact (hpr h1 $@ hpr h2).
     + snrapply vconcat.
+      * exact _.
       * exact (pg f2).
       * exact (hpg h1).
       * exact (hpg h2).
@@ -228,10 +231,10 @@ Section DoublePushoutRecData.
     a40 : A40 $-> P;
     a04 : A04 $-> P;
     a44 : A44 $-> P;
-    h20 : a00 $o f10 $== a40 $o f30;
-    h02 : a00 $o f01 $== a04 $o f03;
-    h24 : a04 $o f14 $== a44 $o f34;
-    h42 : a40 $o f41 $== a44 $o f43;
+    h20 : Square f30 a00 f10 a40;
+    h02 : Square f03 a00 f01 a04;
+    h24 : Square f34 a04 f14 a44;
+    h42 : Square f43 a40 f41 a44;
     dprd_coh
       : Square (A := Hom (A := Type) _ _)
         ((h02 $@R f12) $@ (a04 $@L H13))
@@ -384,6 +387,64 @@ Section DoublePushoutRecData.
     : DoublePushoutRecData P
     := doublepushoutrecdata_fun r doublepushoutrecdata_doublepushout.
 
+  (** Inlining this coherence can be a pain as the correct typeclasses are not being picked up. Therefore we explicitly state it here and reuse it for the next definition. It should look something like this, but Coq doesn't like that:
+  <<
+      dprd_coh_coh
+      : Square
+          (((ha44 $@R f43) $@R f32) $@L dprd_coh r)
+          (dprd_coh s $@R ((ha00 $@R f01) $@R f12))
+          ((transpose (bifunctor_coh_comp H11 ha00)
+            $@h fmap_square (cat_precomp P f21) hh20)
+            $@h (transpose (bifunctor_coh_comp H31^$ ha40)
+            $@h fmap_square (cat_precomp P f32) hh42))
+          ((fmap_square (cat_precomp P f12) hh02
+            $@h transpose (bifunctor_coh_comp H13 ha04))
+            $@h (fmap_square (cat_precomp P f23) hh24
+            $@h transpose (bifunctor_coh_comp H33^$ ha44)))
+  >>
+  *)
+  Definition dprd_coh_coh_type {P : Type} {r s : DoublePushoutRecData P}
+    {ha00 : a00 r $== a00 s}
+    {ha40 : a40 r $== a40 s}
+    {ha04 : a04 r $== a04 s}
+    {ha44 : a44 r $== a44 s}
+    (hh20 : Square (ha00 $@R f10) (ha40 $@R f30) (h20 r) (h20 s))
+    (hh02 : Square (ha00 $@R f01) (ha04 $@R f03) (h02 r) (h02 s))
+    (hh24 : Square (ha04 $@R f14) (ha44 $@R f34) (h24 r) (h24 s))
+    (hh42 : Square (ha40 $@R f41) (ha44 $@R f43) (h42 r) (h42 s))
+    : Type.
+  Proof. 
+    refine (Square
+          (((ha44 $@R f43) $@R f32) $@L dprd_coh r)
+          (dprd_coh s $@R ((ha00 $@R f01) $@R f12)) _ _).
+    - change (?w $o ?x $-> ?y $o ?z) with (Square z w x y).
+      change (Square ?x ?y (?w $o ?z) (?u $o ?v))
+        with (Square x y (z $@ w) (v $@ u)).
+      repeat srapply hconcat.
+      + exact ((ha40 $@R f30) $@R f21).
+      + exact ((ha00 $@R f10) $@R f21).
+      + apply transpose.
+        exact (bifunctor_coh_comp H11 ha00).
+      + exact (fmap_square (cat_precomp P f21) hh20).
+      + exact ((ha40 $@R f41) $@R f32).
+      + apply transpose.
+        exact (bifunctor_coh_comp H31^$ ha40).
+      + exact (fmap_square (cat_precomp P f32) hh42).
+    - change (?w $o ?x $-> ?y $o ?z) with (Square z w x y).
+      change (Square ?x ?y (?w $o ?z) (?u $o ?v))
+        with (Square x y (z $@ w) (v $@ u)).
+      repeat srapply hconcat.
+      + exact ((ha04 $@R f14) $@R f23).
+      + exact ((ha04 $@R f03) $@R f12).
+      + exact (fmap_square (cat_precomp P f12) hh02).
+      + apply transpose.
+        exact (bifunctor_coh_comp H13 ha04).
+      + exact ((ha44 $@R f34) $@R f23).
+      + exact (fmap_square (cat_precomp P f23) hh24).
+      + apply transpose.
+        exact (bifunctor_coh_comp H33^$ ha44).
+  Defined.
+
   Record DoublePushoutRecPath {P : Type} {r s : DoublePushoutRecData P} := {
     ha00 : a00 r $== a00 s;
     ha40 : a40 r $== a40 s;
@@ -393,7 +454,7 @@ Section DoublePushoutRecData.
     hh02 : Square (ha00 $@R f01) (ha04 $@R f03) (h02 r) (h02 s);
     hh24 : Square (ha04 $@R f14) (ha44 $@R f34) (h24 r) (h24 s);
     hh42 : Square (ha40 $@R f41) (ha44 $@R f43) (h42 r) (h42 s);
-    (* TODO: coh of coh *)
+    dprd_coh_coh : dprd_coh_coh_type hh20 hh02 hh24 hh42
   }.
 
   Global Arguments DoublePushoutRecPath {P} r s.
@@ -420,8 +481,30 @@ Section DoublePushoutRecData.
     snrapply Build_DoublePushoutRecPath.
     1-4: reflexivity.
     1-4: exact (fun _ => concat_p1_1p _).
+    simpl.
+    unfold dprd_coh_coh_type.
+    simpl.
+    intros x.
+    simpl.
+    unfold "$@R", "$@L".
+    simpl.
+    destruct (h x).
+    unfold transpose.
+    unfold fmap_square.
+    unfold fmap_comp.
+    unfold "$@h".
+    simpl.
+    clear.
+    generalize (dprd_coh' x); clear dprd_coh'; intros dprd_coh'.
+    generalize (h42' (f32 x)).
+    simpl.
+    clear.
+    
+    
+    set (r := H11 x) in *.
+    clear r.
     (* TODO: coh of coh *)
-  Defined.
+  Admitted.
 
   Ltac bundle_doublepushoutrecpath :=
     hnf;
@@ -453,9 +536,24 @@ Section DoublePushoutRecData.
       nrapply (Pushout_rec_beta_pglue
         (f:=functor_pushout f21 f01 f41 H11 H31)
         (g:=functor_pushout f23 f03 f43 H13 H33)).
+    - simpl.
+      unfold dprd_coh_coh_type.
+      simpl. cbn.
   Defined.
 
-  Require Import DPath PathSquare DPathSquare PathCube.
+  Definition Pushout_ind_FlFr {A B C : Type} {f : A -> B} {g : A -> C}
+    {P : Type} (r s : Pushout f g -> P)
+    (Hl : forall a, r (pushl a) = s (pushl a))
+    (Hr : forall a, r (pushr a) = s (pushr a))
+    (H : forall x, ap r (pglue x) @ Hr (g x) = Hl (f x) @ ap s (pglue x))
+    : r == s.
+  Proof.
+    apply isinj_pushout_rec_inv.
+    snrapply Build_PushoutRecPath.
+    - exact Hl.
+    - exact Hr.
+    - exact H.
+  Defined.
 
   (* TODO *)
   Definition isinj_doublepushout_rec_inv {P} {r s : DoublePushout -> P}
@@ -489,7 +587,30 @@ Section DoublePushoutRecData.
       + exact (fun _ => sq_path (hh02 h _)).
       + exact (fun _ => sq_path (hh42 h _)).
       + intros a22.
-        simpl.
+        apply dp_cu.
+        nrapply cu_ccccGG.
+        1,2: nrapply ap.
+        1,2: symmetry.
+        1,2: nrapply (dp_apD_compose (functor_pushout _ _ _ _ _)).
+        nrapply cu_ccccGG.
+        1,2: nrapply ap.
+        1,2: nrapply ap.
+        1,2: symmetry.
+        1,2: nrapply apD02.
+        1,2: rapply functor_pushout_beta_pglue.
+        rewrite ? dp_apD_pp.
+        rewrite dp_apD_compose.
+
+
+        nrapply cu_ccccGG.
+        1,2: nrapply ap.
+        1,2: symmetry.
+        1,2: apply whiskerL.
+        1,2: apply whiskerL.
+        1,2: simpl.
+
+        rewrite <- apD_compose.
+        rewrite (functor_pushout_beta_pglue f21 f01 f41 H11 H31 a22).
 
   Admitted.
 

@@ -542,6 +542,11 @@ Class Is3Graph (A : Type) `{Is2Graph A}
 Global Existing Instance isgraph_hom_hom | 30.
 #[global] Typeclasses Transparent Is3Graph.
 
+Class Is4Graph (A : Type) `{Is3Graph A}
+  := isgraph_hom_hom_hom : forall (a b : A), Is3Graph (a $-> b).
+Global Existing Instance isgraph_hom_hom_hom | 40.
+#[global] Typeclasses Transparent Is4Graph.
+
 (** *** Preservation of initial and terminal objects *)
 
 Class PreservesInitial {A B : Type} (F : A -> B)

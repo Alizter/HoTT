@@ -134,6 +134,13 @@ Proof.
   by destruct p.
 Defined. 
 
+Definition equiv_dp_G {A : Type} {P : A -> Type} {a0 a1 : A} {p q : a0 = a1}
+  (r : p = q) {x y}
+  : DPath P p x y <~> DPath P q x y.
+Proof.
+  by destruct r.
+Defined.
+
 Section DGroupoid.
 
   Context {A} {P : A -> Type} {a0 a1} {p : a0 = a1}
