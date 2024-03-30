@@ -26,7 +26,7 @@ Defined.
 Local Instance is2graph_paths (A : Type) : Is2Graph A := fun _ _ => _.
 Local Instance is3graph_paths (A : Type) : Is3Graph A := fun _ _ => _.
 
-Local Instance is1cat_paths {A : Type} : Is1Cat A.
+Local Instance is1cat_paths (A : Type) : Is1Cat A.
 Proof.
   snrapply Build_Is1Cat.
   - exact _.
@@ -47,7 +47,7 @@ Proof.
     exact (concat_1p p).
 Defined.
 
-Local Instance is1gpd_paths {A : Type} : Is1Gpd A.
+Local Instance is1gpd_paths (A : Type) : Is1Gpd A.
 Proof.
   snrapply Build_Is1Gpd.
   - intros x y p.
@@ -56,7 +56,7 @@ Proof.
     exact (concat_Vp p).
 Defined.
 
-Local Instance is21cat_paths {A : Type} : Is21Cat A.
+Local Instance is21cat_paths (A : Type) : Is21Cat A.
 Proof.
   snrapply Build_Is21Cat.
   - exact _.
