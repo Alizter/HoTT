@@ -707,7 +707,7 @@ Defined.
 Global Instance hasbinaryproducts_ptype : HasBinaryProducts pType.
 Proof.
   intros X Y.
-  snrapply Build_BinaryProduct.
+  snrapply Build_HasBinaryProduct.
   - exact (X * Y).
   - exact pfst.
   - exact psnd.
@@ -729,7 +729,7 @@ Defined.
 Global Instance hasallproducts_ptype `{Funext} : HasAllProducts pType.
 Proof.
   intros I x.
-  snrapply Build_Product.
+  snrapply Build_HasProduct.
   - exact (pproduct x).
   - exact pproduct_proj. 
   - exact (pproduct_corec x).

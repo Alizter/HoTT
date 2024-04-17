@@ -11,23 +11,23 @@ Definition cat_coprod_rec_inv {I A : Type} `{Is1Cat A}
   : yon_0gpd z coprod $-> prod_0gpd I (fun i => yon_0gpd z (x i))
   := cat_prod_corec_inv (coprod : A^op) x z inj.
 
-Class Coproduct (I : Type) {A : Type} `{Is1Cat A} (x : I -> A)
-  := prod_co_coprod :: Product (A:=A^op) I x.
+Class HasCoproduct (I : Type) {A : Type} `{Is1Cat A} (x : I -> A)
+  := prod_co_coprod :: HasProduct (A:=A^op) I x.
 
-Definition cat_coprod (I : Type) {A : Type} (x : I -> A) `{Coproduct I _ x} : A
+Definition cat_coprod (I : Type) {A : Type} (x : I -> A) `{HasCoproduct I _ x} : A
   := cat_prod (A:=A^op) I x.
 
-Definition cat_in {I : Type} {A : Type} {x : I -> A} `{Coproduct I _ x}
+Definition cat_in {I : Type} {A : Type} {x : I -> A} `{HasCoproduct I _ x}
   : forall (i : I), x i $-> cat_coprod I x
   := cat_pr (A:=A^op) (x:=x).
 
 Global Instance cat_isequiv_cat_coprod_rec_inv {I : Type} {A : Type}
-  {x : I -> A} `{Coproduct I _ x}
+  {x : I -> A} `{HasCoproduct I _ x}
   : forall (z : A), CatIsEquiv (cat_coprod_rec_inv (cat_coprod I x) x z cat_in)
   := cat_isequiv_cat_prod_corec_inv (A:=A^op) (x:=x).
 
 (** A convenience wrapper for building coproducts *)
-Definition Build_Coproduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
+Definition Build_HasCoproduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
   (cat_coprod : A) (cat_in : forall i : I, x i $-> cat_coprod)
   (cat_coprod_rec : forall z : A,
     (forall i : I, x i $-> z) -> (cat_coprod $-> z))
@@ -35,8 +35,8 @@ Definition Build_Coproduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
     cat_coprod_rec z f $o cat_in i $== f i)
   (cat_prod_eta_in : forall (z : A) (f g : cat_coprod $-> z),
     (forall i : I, f $o cat_in i $== g $o cat_in i) -> f $== g)
-  : Coproduct I x
-  := Build_Product I
+  : HasCoproduct I x
+  := Build_HasProduct I
       (cat_coprod : A^op)
       cat_in
       cat_coprod_rec
@@ -44,7 +44,7 @@ Definition Build_Coproduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
       cat_prod_eta_in.
 
 Section Lemmata.
-  Context (I : Type) {A : Type} {x : I -> A} `{Coproduct I _ x}.
+  Context (I : Type) {A : Type} {x : I -> A} `{HasCoproduct I _ x}.
 
   Definition cate_cat_coprod_rec_inv {z : A}
     : yon_0gpd z (cat_coprod I x) $<~> prod_0gpd I (fun i => yon_0gpd z (x i))
@@ -82,7 +82,8 @@ End Lemmata.
 
 (** *** Codiagonal / fold map *)
 
-Definition cat_coprod_fold {I : Type} {A : Type} (x : A) `{Coproduct I _ (fun _ => x)}
+Definition cat_coprod_fold {I : Type} {A : Type} (x : A)
+  `{HasCoproduct I _ (fun _ => x)}
   : cat_coprod I (fun _ => x) $-> x
   := cat_prod_diag (A:=A^op) x.
 
@@ -90,7 +91,7 @@ Definition cat_coprod_fold {I : Type} {A : Type} (x : A) `{Coproduct I _ (fun _ 
 
 (** [I]-indexed coproducts are unique no matter how they are constructed. *)
 Definition cate_cat_coprod {I J : Type} (ie : I <~> J) {A : Type} `{HasEquivs A}
-  (x : I -> A) `{!Coproduct I x} (y : J -> A) `{!Coproduct J y}
+  (x : I -> A) `{!HasCoproduct I x} (y : J -> A) `{!HasCoproduct J y}
   (e : forall (i : I), y (ie i) $<~> x i)
   : cat_coprod J y $<~> cat_coprod I x
   := cate_cat_prod (A:=A^op) ie x y e.
@@ -98,7 +99,7 @@ Definition cate_cat_coprod {I J : Type} (ie : I <~> J) {A : Type} `{HasEquivs A}
 (** *** Existence of coproducts *)
 
 Class HasCoproducts (I A : Type) `{Is1Cat A}
-  := has_coproducts :: forall x : I -> A, Coproduct I x.
+  := has_coproducts :: forall x : I -> A, HasCoproduct I x.
 
 Class HasAllCoproducts (A : Type) `{Is1Cat A}
   := has_all_coproducts :: forall I : Type, HasCoproducts I A.
@@ -130,7 +131,7 @@ Defined.
 (** *** Categories with specific kinds of coproducts *)
 
 Definition isinitial_coprodempty {A : Type} {z : A}
-  `{Coproduct Empty A (fun _ => z)}
+  `{HasCoproduct Empty A (fun _ => z)}
   : IsInitial (cat_coprod Empty (fun _ => z)).
 Proof.
   intros a.
@@ -139,23 +140,26 @@ Defined.
 
 (** *** Binary coproducts *)
 
-Class BinaryCoproduct {A : Type} `{Is1Cat A} (x y : A)
-  := prod_co_bincoprod :: BinaryProduct (x : A^op) (y : A^op).
+Class HasBinaryCoproduct {A : Type} `{Is1Cat A} (x y : A)
+  := prod_co_bincoprod :: HasBinaryProduct (x : A^op) (y : A^op).
 
-Definition cat_bincoprod {A : Type}  `{Is1Cat  A} (x y : A) `{!BinaryCoproduct x y} : A
+Definition cat_bincoprod {A : Type}  `{Is1Cat A}
+  (x y : A) `{!HasBinaryCoproduct x y} : A
   := cat_binprod (x : A^op) y.
 
-Definition cat_inl {A : Type} `{Is1Cat A} {x y : A} `{!BinaryCoproduct x y}
+Definition cat_inl {A : Type} `{Is1Cat A}
+  {x y : A} `{!HasBinaryCoproduct x y}
   : x $-> cat_bincoprod x y
   := cat_pr1 (A:=A^op) (x:=x) (y:=y).
 
-Definition cat_inr {A : Type} `{Is1Cat A} {x y : A} `{!BinaryCoproduct x y}
+Definition cat_inr {A : Type} `{Is1Cat A}
+  {x y : A} `{!HasBinaryCoproduct x y}
   : y $-> cat_bincoprod x y
   := cat_pr2 (A:=A^op) (x:=x) (y:=y).
 
 (** A category with binary coproducts is a category with a binary coproduct for each pair of objects. *)
 Class HasBinaryCoproducts (A : Type) `{Is1Cat A}
-  := binary_coproducts :: forall x y, BinaryCoproduct x y.
+  := binary_coproducts :: forall x y, HasBinaryCoproduct x y.
 
 Global Instance hasbinarycoproducts_hascoproductsbool {A : Type}
   `{HasCoproducts Bool A}
@@ -163,7 +167,7 @@ Global Instance hasbinarycoproducts_hascoproductsbool {A : Type}
   := fun x y => has_coproducts (fun b : Bool => if b then x else y).
 
 (** A convenience wrapper for building binary coproducts *)
-Definition Build_BinaryCoproduct {A : Type} `{Is1Cat A} {x y : A}
+Definition Build_HasBinaryCoproduct {A : Type} `{Is1Cat A} {x y : A}
   (cat_coprod : A) (cat_inl : x $-> cat_coprod) (cat_inr : y $-> cat_coprod)
   (cat_coprod_rec : forall z : A, (x $-> z) -> (y $-> z) -> cat_coprod $-> z)
   (cat_coprod_beta_inl : forall (z : A) (f : x $-> z) (g : y $-> z),
@@ -172,8 +176,8 @@ Definition Build_BinaryCoproduct {A : Type} `{Is1Cat A} {x y : A}
     cat_coprod_rec z f g $o cat_inr $== g)
   (cat_coprod_in_eta : forall (z : A) (f g : cat_coprod $-> z),
     f $o cat_inl $== g $o cat_inl -> f $o cat_inr $== g $o cat_inr -> f $== g)
-  : BinaryCoproduct x y
-  := Build_BinaryProduct
+  : HasBinaryCoproduct x y
+  := Build_HasBinaryProduct
       (cat_coprod : A^op)
       cat_inl
       cat_inr
@@ -183,7 +187,7 @@ Definition Build_BinaryCoproduct {A : Type} `{Is1Cat A} {x y : A}
       cat_coprod_in_eta.
 
 Section Lemmata.
-  Context {A : Type} {x y z : A} `{BinaryCoproduct _ x y}.
+  Context {A : Type} {x y z : A} `{HasBinaryCoproduct _ x y}.
 
   Definition cat_bincoprod_rec (f : x $-> z) (g : y $-> z)
     : cat_bincoprod x y $-> z
@@ -271,7 +275,7 @@ Defined.
 Global Instance hasallcoproducts_type : HasAllCoproducts Type.
 Proof.
   intros I x.
-  snrapply Build_Coproduct.
+  snrapply Build_HasCoproduct.
   - exact (sig (fun i : I => x i)).
   - exact (exist x).
   - intros A f [i xi].
@@ -290,7 +294,7 @@ Global Instance hasbinarycoproducts_type : HasBinaryCoproducts Type
 (** There is a canonical map from a coproduct to a product when the indexing set has decidable equality and the category is pointed. *)
 Definition cat_coprod_prod_incl {I : Type} `{DecidablePaths I} {A : Type}
   `{Is1Cat A, !IsPointedCat A}
-  (x : I -> A) `{!Coproduct I x, !Product I x}
+  (x : I -> A) `{!HasCoproduct I x, !HasProduct I x}
   : cat_coprod I x $-> cat_prod I x. 
 Proof.
   apply cat_coprod_rec.

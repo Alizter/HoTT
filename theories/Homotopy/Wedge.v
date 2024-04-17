@@ -122,7 +122,7 @@ Defined.
 Global Instance hasbinarycoproducts : HasBinaryCoproducts pType.
 Proof.
   intros X Y.
-  snrapply Build_BinaryCoproduct.
+  snrapply Build_HasBinaryCoproduct.
   - exact (X \/ Y).
   - exact wedge_inl.
   - exact wedge_inr.
@@ -221,7 +221,7 @@ Defined.
 Global Instance hasallcoproducts_ptype : HasAllCoproducts pType@{u}.
 Proof.
   intros I X.
-  snrapply Build_Coproduct.
+  snrapply Build_HasCoproduct.
   - exact (FamilyWedge I X).
   - exact (fwedge_in' I X).
   - exact (fwedge_rec I X).

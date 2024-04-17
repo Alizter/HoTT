@@ -16,18 +16,19 @@ Proof.
 Defined.
 
 (* A product of an [I]-indexed family of objects of a category is an object of the category with an [I]-indexed family of projections such that the induced map is an equivalence. *)
-Class Product (I : Type) {A : Type} `{Is1Cat A} {x : I -> A} := Build_Product' {
+Class HasProduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
+  := Build_HasProduct' {
   cat_prod : A;
   cat_pr : forall i : I, cat_prod $-> x i;
   cat_isequiv_cat_prod_corec_inv
     :: forall z : A, CatIsEquiv (cat_prod_corec_inv cat_prod x z cat_pr);
 }.
 
-Arguments Product I {A _ _ _ _} x.
+Arguments HasProduct I {A _ _ _ _} x.
 Arguments cat_prod I {A _ _ _ _} x {product} : rename.
 
 (** A convenience wrapper for building products *)
-Definition Build_Product (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
+Definition Build_HasProduct (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
   (cat_prod : A) (cat_pr : forall i : I, cat_prod $-> x i)
   (cat_prod_corec : forall z : A,
     (forall i : I, z $-> x i) -> (z $-> cat_prod))
@@ -35,9 +36,9 @@ Definition Build_Product (I : Type) {A : Type} `{Is1Cat A} {x : I -> A}
     cat_pr i $o cat_prod_corec z f $== f i)
   (cat_prod_eta_pr : forall (z : A) (f g : z $-> cat_prod),
     (forall i : I, cat_pr i $o f $== cat_pr i $o g) -> f $== g)
-  : Product I x.
+  : HasProduct I x.
 Proof.
-  snrapply (Build_Product' I A _ _ _ _ _ cat_prod cat_pr).
+  snrapply (Build_HasProduct' I A _ _ _ _ _ cat_prod cat_pr).
   intros z.
   apply isequiv_0gpd_issurjinj.
   snrapply Build_IsSurjInj.
@@ -52,7 +53,7 @@ Defined.
 
 Section Lemmata.
 
-  Context (I : Type) {A : Type} {x : I -> A} `{Product I _ x}.
+  Context (I : Type) {A : Type} {x : I -> A} `{HasProduct I _ x}.
 
   Definition cate_cat_prod_corec_inv {z : A}
     : (yon_0gpd (cat_prod I x) z) $<~> prod_0gpd I (fun i => yon_0gpd (x i) z)
@@ -143,14 +144,14 @@ End Lemmata.
 (** *** Diagonal map *)
 
 Definition cat_prod_diag {I : Type} {A : Type} (x : A)
-  `{Product I _ (fun _ => x)}
+  `{HasProduct I _ (fun _ => x)}
   : x $-> cat_prod I (fun _ => x)
   := cat_prod_corec I (fun _ => Id x).
 
 (** *** Uniqueness of products *)
 
 Definition cate_cat_prod {I J : Type} (ie : I <~> J) {A : Type} `{HasEquivs A}
-  (x : I -> A) `{!Product I x} (y : J -> A) `{!Product J y}
+  (x : I -> A) `{!HasProduct I x} (y : J -> A) `{!HasProduct J y}
   (e : forall i : I, x i $<~> y (ie i))
   : cat_prod I x $<~> cat_prod J y.
 Proof.
@@ -171,7 +172,7 @@ Defined.
 
 (** [I]-indexed products are unique no matter how they are constructed. *)
 Definition cat_prod_unique {I A : Type} `{HasEquivs A}
-  (x : I -> A) `{!Product I x} (y : I -> A) `{!Product I y}
+  (x : I -> A) `{!HasProduct I x} (y : I -> A) `{!HasProduct I y}
   (e : forall i : I, x i $<~> y i)
   : cat_prod I x $<~> cat_prod I y.
 Proof.
@@ -181,7 +182,7 @@ Defined.
 (** *** Existence of products *)
 
 Class HasProducts (I A : Type) `{Is1Cat A}
-  := has_products :: forall x : I -> A, Product I x.
+  := has_products :: forall x : I -> A, HasProduct I x.
 
 Class HasAllProducts (A : Type) `{Is1Cat A}
   := has_all_products :: forall I : Type, HasProducts I A.
@@ -220,7 +221,7 @@ Defined.
 (** *** Categories with specific kinds of products *)
 
 Definition isterminal_prodempty {A : Type} {z : A}
-  `{Product Empty A (fun _ => z)}
+  `{HasProduct Empty A (fun _ => z)}
   : IsTerminal (cat_prod Empty (fun _ => z)).
 Proof.
   intros a.
@@ -229,12 +230,12 @@ Defined.
 
 (** *** Binary products *)
 
-Class BinaryProduct {A : Type} `{Is1Cat A} (x y : A)
-  := binary_product :: Product Bool (fun b => if b then x else y).
+Class HasBinaryProduct {A : Type} `{Is1Cat A} (x y : A)
+  := binary_product :: HasProduct Bool (fun b => if b then x else y).
 
 (** A category with binary products is a category with a binary product for each pair of objects. *)
 Class HasBinaryProducts (A : Type) `{Is1Cat A}
-  := has_binary_products :: forall x y : A, BinaryProduct x y.
+  := has_binary_products :: forall x y : A, HasBinaryProduct x y.
 
 Global Instance hasbinaryproducts_hasproductsbool {A : Type} `{HasProducts Bool A}
   : HasBinaryProducts A
@@ -242,7 +243,7 @@ Global Instance hasbinaryproducts_hasproductsbool {A : Type} `{HasProducts Bool 
 
 Section BinaryProducts.
 
-  Context {A : Type} `{Is1Cat A} {x y : A} `{!BinaryProduct x y}.
+  Context {A : Type} `{Is1Cat A} {x y : A} `{!HasBinaryProduct x y}.
 
   Definition cat_binprod : A
     := cat_prod Bool (fun b : Bool => if b then x else y).
@@ -303,7 +304,7 @@ End BinaryProducts.
 Arguments cat_binprod {A _ _ _ _} x y {_}.
 
 (** A convenience wrapper for building binary products *)
-Definition Build_BinaryProduct {A : Type} `{Is1Cat A} {x y : A}
+Definition Build_HasBinaryProduct {A : Type} `{Is1Cat A} {x y : A}
   (cat_binprod : A) (cat_pr1 : cat_binprod $-> x) (cat_pr2 : cat_binprod $-> y)
   (cat_binprod_corec : forall z : A, z $-> x -> z $-> y -> z $-> cat_binprod)
   (cat_binprod_beta_pr1 : forall (z : A) (f : z $-> x) (g : z $-> y),
@@ -312,9 +313,9 @@ Definition Build_BinaryProduct {A : Type} `{Is1Cat A} {x y : A}
     cat_pr2 $o cat_binprod_corec z f g $== g)
   (cat_binprod_eta_pr : forall (z : A) (f g : z $-> cat_binprod),
     cat_pr1 $o f $== cat_pr1 $o g -> cat_pr2 $o f $== cat_pr2 $o g -> f $== g)
-  : Product Bool (fun b => if b then x else y).
+  : HasProduct Bool (fun b => if b then x else y).
 Proof.
-  snrapply (Build_Product _ cat_binprod).
+  snrapply (Build_HasProduct _ cat_binprod).
   - intros [|].
     + exact cat_pr1.
     + exact cat_pr2.
@@ -336,7 +337,7 @@ Definition hasproductsbool_hasbinaryproducts {A : Type} `{HasBinaryProducts A}
   : HasProducts Bool A.
 Proof.
   intros x.
-  snrapply Build_Product.
+  snrapply Build_HasProduct.
   - exact (cat_binprod (x true) (x false)).
   - intros [|].
     + exact cat_pr1.
@@ -358,10 +359,10 @@ Defined.
 
 Definition cat_prod_index_sum {I J : Type} {A : Type} `{HasBinaryProducts A}
   (x : I -> A) (y : J -> A)
-  : Product I x -> Product J y -> Product (I + J) (sum_rect _ x y).
+  : HasProduct I x -> HasProduct J y -> HasProduct (I + J) (sum_rect _ x y).
 Proof.
   intros p q.
-  snrapply Build_Product.
+  snrapply Build_HasProduct.
   - exact (cat_binprod (cat_prod I x) (cat_prod J y)).
   - intros [i | j].
     + exact (cat_pr _ $o cat_pr1).
@@ -541,7 +542,7 @@ Defined.
 Global Instance hasbinaryproducts_type : HasBinaryProducts Type.
 Proof.
   intros X Y.
-  snrapply Build_BinaryProduct.
+  snrapply Build_HasBinaryProduct.
   - exact (X * Y).
   - exact fst.
   - exact snd.
@@ -558,7 +559,7 @@ Defined.
 Global Instance hasallproducts_type `{Funext} : HasAllProducts Type.
 Proof.
   intros I x.
-  snrapply Build_Product.
+  snrapply Build_HasProduct.
   - exact (forall (i : I), x i).
   - intros i f. exact (f i).
   - intros A f a i. exact (f i a).

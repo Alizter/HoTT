@@ -447,7 +447,7 @@ Global Instance hasbinaryproducts_leftmodule {R : Ring}
   : HasBinaryProducts (LeftModule R).
 Proof.
   intros M N.
-  snrapply Build_BinaryProduct.
+  snrapply Build_HasBinaryProduct.
   - exact (lm_prod M N).
   - exact lm_prod_fst.
   - exact lm_prod_snd.

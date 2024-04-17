@@ -337,7 +337,7 @@ Defined.
 Global Instance hasbinaryproducts_ring : HasBinaryProducts Ring.
 Proof.
   intros R S.
-  snrapply Build_BinaryProduct.
+  snrapply Build_HasBinaryProduct.
   - exact (R × S).
   - exact ring_product_fst.
   - exact ring_product_snd.

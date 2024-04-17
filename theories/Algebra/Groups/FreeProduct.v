@@ -716,7 +716,7 @@ Defined.
 Global Instance hasbinarycoproducts : HasBinaryCoproducts Group.
 Proof.
   intros G H.
-  snrapply Build_BinaryCoproduct.
+  snrapply Build_HasBinaryCoproduct.
   - exact (FreeProduct G H).
   - exact freeproduct_inl.
   - exact freeproduct_inr.

@@ -755,7 +755,7 @@ Global Instance issurj_grp_prod_pr2 {G H : Group}
 Global Instance hasbinaryproducts_group : HasBinaryProducts Group.
 Proof.
   intros G H.
-  snrapply Build_BinaryProduct.
+  snrapply Build_HasBinaryProduct.
   - exact (grp_prod G H).
   - exact grp_prod_pr1.
   - exact grp_prod_pr2.
