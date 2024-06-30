@@ -1,0 +1,941 @@
+<html>
+<head>
+<title>MonoidObject.v</title>
+<style>
+.time {
+  background-color: #ffaaaa;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+}
+.code {
+  z-index: 0;
+  position: relative;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+}
+.code:hover {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+pre {
+  margin: 1px;
+}
+</style>
+</head>
+<body>
+<h1>Timings for MonoidObject.v</h1>
+
+<div class="code" title="File: MonoidObject.v
+Line: 1
+Time: 0.022s">
+<div class="time" style="width: 57.894736842105%"></div>
+<pre>Require Import Basics.Overture Basics.Tactics.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 1
+Time: 0.038s">
+<div class="time" style="width: 100%"></div>
+<pre>
+Require Import WildCat.Core WildCat.Equiv WildCat.Monoidal WildCat.Bifunctor
+  WildCat.NatTrans WildCat.Opposite WildCat.Products.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 3
+Time: 0.032s">
+<div class="time" style="width: 84.210526315789%"></div>
+<pre>
+Require Import abstract_algebra.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 4
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** * Monoids and Comonoids *)
+
+(** Here we define a monoid internal to a monoidal category. Note that we don't actually need the full monoidal structure so we assume only the parts we need. This allows us to keep the definitions general between various flavours of monoidal category.
+
+Many algebraic theories such as groups and rings may also be internalized, however these specifically require a cartesian monoidal structure. The theory of monoids however has no such requirement and can therefore be developed in much greater generality. This can be used to define a range of objects such as R-algebras, H-spaces, Hopf algebras and more. *)
+
+(** * Monoid objects *)
+
+</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 13
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Section MonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 13
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+  Context {A : Type} {tensor : A -&gt; A -&gt; A} {unit : A}
+    `{HasEquivs A, !Is0Bifunctor tensor, !Is1Bifunctor tensor}
+    `{!Associator tensor, !LeftUnitor tensor unit, !RightUnitor tensor unit}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 16
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** An object [x] of [A] is a monoid object if it comes with the following data: *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 19
+Time: 0.012s">
+<div class="time" style="width: 31.578947368421%"></div>
+<pre>Class IsMonoidObject (x : A) := {
+    (** A multiplication map from the tensor product of [x] with itself to [x]. *)
+    mo_mult : tensor x x $-&gt; x;
+    (** A unit of the multplication. *)
+    mo_unit : unit $-&gt; x;
+    (** The multiplication map is associative. *)
+    mo_assoc : mo_mult $o fmap10 tensor mo_mult x $o associator x x x
+        $== mo_mult $o fmap01 tensor x mo_mult;
+    (** The multiplication map is left unital. *)
+    mo_left_unit : mo_mult $o fmap10 tensor mo_unit x $== left_unitor x;
+    (** The multiplication map is right unital. *)
+    mo_right_unit : mo_mult $o fmap01 tensor x mo_unit $== right_unitor x;
+  }.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 31
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Context `{!Braiding tensor}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 33
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** An object [x] of [A] is a commutative monoid object if: *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 36
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>Class IsCommutativeMonoidObject (x : A) := {
+    (** It is a monoid object. *)
+    cmo_mo :: IsMonoidObject x;
+    (** The multiplication map is commutative. *)
+    cmo_comm : mo_mult $o braid x x $== mo_mult;
+  }.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 41
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+
+End MonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 43
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Arguments IsMonoidObject {A} tensor unit {_ _ _ _ _ _ _ _ _ _} x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 45
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+Arguments IsCommutativeMonoidObject {A} tensor unit {_ _ _ _ _ _ _ _ _ _ _} x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 46
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+Section ComonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 48
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+  Context {A : Type} (tensor : A -&gt; A -&gt; A) (unit : A)
+    `{HasEquivs A, !Is0Bifunctor tensor, !Is1Bifunctor tensor}
+    `{!Associator tensor, !LeftUnitor tensor unit, !RightUnitor tensor unit}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 51
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** A comonoid object is a monoid object in the opposite category. *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 54
+Time: 0.004s">
+<div class="time" style="width: 10.526315789474%"></div>
+<pre>Class IsComonoidObject (x : A)
+    := ismonoid_comonoid_op :: IsMonoidObject (A:=A^op) tensor unit x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 55
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** We can build comonoid objects from the following data: *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 58
+Time: 0.012s">
+<div class="time" style="width: 31.578947368421%"></div>
+<pre>Definition Build_IsComonoidObject (x : A)
+    (** A comultplication map. *)
+    (co_comult : x $-&gt; tensor x x)
+    (** A counit. *)
+    (co_counit : x $-&gt; unit)
+    (** The comultiplication is coassociative. *)
+    (co_coassoc : associator x x x $o fmap01 tensor x co_comult $o co_comult
+        $== fmap10 tensor co_comult x $o co_comult)
+    (** The comultiplication is left counital. *)
+    (co_left_counit : left_unitor x $o fmap10 tensor co_counit x $o co_comult $== Id x)
+    (** The comultiplication is right counital. *)
+    (co_right_counit : right_unitor x $o fmap01 tensor x co_counit $o co_comult $== Id x)
+    : IsComonoidObject x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 70
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 71
+Time: 0.004s">
+<div class="time" style="width: 10.526315789474%"></div>
+<pre>
+    snrapply Build_IsMonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 72
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 73
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact co_comult.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 73
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 74
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact co_counit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 74
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 75
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre> nrapply cate_moveR_eV.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 75
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      symmetry.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 76
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrefine (cat_assoc _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 77
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      rapply co_coassoc.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 78
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 79
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre> simpl; nrefine (_ $@ cat_idr _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 79
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrapply cate_moveL_Ve.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 80
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      nrefine (cat_assoc_opp _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 81
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      exact co_left_counit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 82
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 83
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre> simpl; nrefine (_ $@ cat_idr _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 83
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrapply cate_moveL_Ve.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 84
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      nrefine (cat_assoc_opp _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 85
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      exact co_right_counit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 86
+Time: 0.006s">
+<div class="time" style="width: 15.789473684211%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 87
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Comultiplication *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 90
+Time: 0.004s">
+<div class="time" style="width: 10.526315789474%"></div>
+<pre>Definition co_comult {x : A} `{!IsComonoidObject x} : x $-&gt; tensor x x
+   := mo_mult (A:=A^op) (tensor:=tensor) (unit:=unit) (x:=x).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 91
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** Counit *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 94
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>Definition co_counit {x : A} `{!IsComonoidObject x} : x $-&gt; unit
+    := mo_unit (A:=A^op) (tensor:=tensor) (unit:=unit) (x:=x).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 95
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Context `{!Braiding tensor}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 97
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** A cocommutative comonoid objects is a commutative monoid object in the opposite category. *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 100
+Time: 0.004s">
+<div class="time" style="width: 10.526315789474%"></div>
+<pre>Class IsCocommutativeComonoidObject (x : A)
+    := iscommuatativemonoid_cocomutativemonoid_op
+      :: IsCommutativeMonoidObject (A:=A^op) tensor unit x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 102
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  (** We can build cocommutative comonoid objects from the following data: *)
+ </pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 105
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>Definition Build_IsCocommutativeComonoidObject (x : A)
+    (** A comonoid. *)
+    `{!IsComonoidObject x}
+    (** Together with a proof of cocommutativity. *)
+    (cco_cocomm : braid x x $o co_comult $== co_comult)
+    : IsCocommutativeComonoidObject x.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 110
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 111
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+    snrapply Build_IsCommutativeMonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 112
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 113
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact _.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 113
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    -</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 114
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre> exact cco_cocomm.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 114
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 115
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+
+End ComonoidObject.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 117
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+(** ** Monoid enrichment *)
+
+(** A hom [x $-&gt; y] in a cartesian category where [y] is a monoid object has the structure of a monoid. Equivalently, a hom [x $-&gt; y] in a cartesian category where [x] is a comonoid object has the structure of a monoid. *)
+
+</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 122
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>Section MonoidEnriched.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 122
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+  Context {A : Type} `{HasEquivs A} `{!HasBinaryProducts A}
+    (unit : A) `{!IsTerminal unit} {x y : A}
+    `{!HasMorExt A} `{forall x y, IsHSet (x $-&gt; y)}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 125
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Section Monoid.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 127
+Time: 0.033s">
+<div class="time" style="width: 86.842105263158%"></div>
+<pre>
+    Context `{!IsMonoidObject _ _ y}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 128
+Time: 0.011s">
+<div class="time" style="width: 28.947368421053%"></div>
+<pre>
+
+    Local Instance sgop_hom : SgOp (x $-&gt; y)
+      := fun f g =&gt; mo_mult $o cat_binprod_corec f g.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 131
+Time: 0.01s">
+<div class="time" style="width: 26.315789473684%"></div>
+<pre>
+
+    Local Instance monunit_hom : MonUnit (x $-&gt; y) := mo_unit $o mor_terminal _ _.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 133
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+    Local Instance associative_hom : Associative sgop_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 135
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 136
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      intros f g h.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 137
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      unfold sgop_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 138
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      rapply path_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 139
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+      refine ((_ $@L cat_binprod_fmap01_corec _ _ _)^$ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 140
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      nrefine (cat_assoc_opp _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 141
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+      refine ((mo_assoc $@R _)^$ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 142
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrefine (_ $@ (_ $@L cat_binprod_fmap10_corec _ _ _)).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 143
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      refine (cat_assoc _ _ _ $@ (_ $@L _) $@ cat_assoc _ _ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 144
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+      nrapply cat_binprod_associator_corec.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 145
+Time: 0.01s">
+<div class="time" style="width: 26.315789473684%"></div>
+<pre>
+    Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 146
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+    Local Instance leftidentity_hom : LeftIdentity sgop_hom mon_unit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 148
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 149
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      intros f.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 150
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      unfold sgop_hom, mon_unit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 151
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      rapply path_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 152
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+      refine ((_ $@L (cat_binprod_fmap10_corec _ _ _)^$) $@ cat_assoc_opp _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 153
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrefine (((mo_left_unit $@ _) $@R _) $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 154
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+      1: nrapply cate_buildequiv_fun.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 155
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      unfold trans_nattrans.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 156
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrefine ((((_ $@R _) $@ _) $@R _) $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 157
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+      1: nrapply cate_buildequiv_fun.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 158
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      1: nrapply cat_binprod_beta_pr1.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 159
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      nrapply cat_binprod_beta_pr2.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 160
+Time: 0.021s">
+<div class="time" style="width: 55.263157894737%"></div>
+<pre>
+    Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 161
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+    Local Instance rightidentity_hom : RightIdentity sgop_hom mon_unit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 163
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 164
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      intros f.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 165
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      unfold sgop_hom, mon_unit.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 166
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      rapply path_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 167
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+      refine ((_ $@L (cat_binprod_fmap01_corec _ _ _)^$) $@ cat_assoc_opp _ _ _ $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 168
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+      nrefine (((mo_right_unit $@ _) $@R _) $@ _).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 169
+Time: 0.003s">
+<div class="time" style="width: 7.8947368421053%"></div>
+<pre>
+      1: nrapply cate_buildequiv_fun.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 170
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+      nrapply cat_binprod_beta_pr1.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 171
+Time: 0.005s">
+<div class="time" style="width: 13.157894736842%"></div>
+<pre>
+    Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 172
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+
+    Local Instance issemigroup_hom : IsSemiGroup (x $-&gt; y) := {}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 174
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    Local Instance ismonoid_hom : IsMonoid (x $-&gt; y) := {}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 175
+Time: 0.006s">
+<div class="time" style="width: 15.789473684211%"></div>
+<pre>
+
+  End Monoid.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 177
+Time: 0.009s">
+<div class="time" style="width: 23.684210526316%"></div>
+<pre>
+
+  Context `{!IsCommutativeMonoidObject _ _ y}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 179
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Local Existing Instances sgop_hom monunit_hom ismonoid_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 180
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+  Local Instance commutative_hom : Commutative sgop_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 182
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+  Proof.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 183
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    intros f g.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 184
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    unfold sgop_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 185
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    rapply path_hom.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 186
+Time: 0.002s">
+<div class="time" style="width: 5.2631578947368%"></div>
+<pre>
+    refine ((_ $@L _^$) $@ cat_assoc_opp _ _ _ $@ (cmo_comm $@R _)).</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 187
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+    nrapply cat_binprod_swap_corec.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 188
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre> 
+  Defined.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 189
+Time: 0.001s">
+<div class="time" style="width: 2.6315789473684%"></div>
+<pre>
+
+  Local Instance iscommutativemonoid_hom : IsCommutativeMonoid (x $-&gt; y) := {}.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 191
+Time: 0.013s">
+<div class="time" style="width: 34.210526315789%"></div>
+<pre>
+
+End MonoidEnriched.</pre>
+</div>
+<div class="code" title="File: MonoidObject.v
+Line: 194
+Time: 0s">
+<div class="time" style="width: 0%"></div>
+<pre>
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
+
