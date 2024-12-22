@@ -387,7 +387,7 @@ Theorem homotopic_isabelianization {G : Group} (A B : AbGroup)
   : eta2 == grp_homo_compose (groupiso_isabelianization A B eta1 eta2) eta1.
 Proof.
   intros x.
-  exact ((esssurj (group_precomp B eta1) eta2).2 x)^%path.
+  exact ((esssurj (group_precomp B eta1) eta2).2 x)^.
 Defined.
 
 (** Hence any abelianization is surjective. *)
