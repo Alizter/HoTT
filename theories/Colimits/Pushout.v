@@ -171,6 +171,31 @@ Definition functor_pushout_beta_pglue
     = ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^
   := Pushout_rec_beta_pglue _ _ _ _ _.
 
+Definition functor_pushout_is_functor_coeq
+  {A B C : Type} {f : A -> B} {g : A -> C}
+  {A' B' C' : Type} {f' : A' -> B'} {g' : A' -> C'}
+  (h : A -> A') (k : B -> B') (l : C -> C')
+  (p : k o f == f' o h) (q : l o g == g' o h)
+  : functor_pushout h k l p q
+    == functor_coeq (f:=inl o f) (g:=inr o g) h (functor_sum k l)
+      (fun x : A => ap inl (p x)) (fun x : A => ap inr (q x)).
+Proof.
+  snrapply Pushout_ind.
+  1,2: reflexivity.
+  intro a.
+  nrapply transport_paths_FlFr'.
+  nrapply equiv_p1_1q.
+  lhs nrapply functor_pushout_beta_pglue.
+  rhs nrapply functor_coeq_beta_cglue.
+  apply ap011.
+  - apply ap011.
+    + exact (ap_compose _ coeq (p a)).
+    + reflexivity.
+  - lhs nrapply (ap_compose _ coeq).
+    apply ap.
+    nrapply ap_V.
+Defined.
+
 Definition functor_pushout_homotopic
   {A B C : Type} {f : A -> B} {g : A -> C}
   {A' B' C' : Type} {f' : A' -> B'} {g' : A' -> C'}

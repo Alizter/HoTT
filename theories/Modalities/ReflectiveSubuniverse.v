@@ -1160,6 +1160,8 @@ Section Reflective_Subuniverse.
              `{O_inverts h} `{O_inverts k} `{O_inverts l}
         : O_inverts (functor_pushout h k l p q).
       Proof.
+        snrapply isequiv_homotopic.
+        3: symmetry; nrapply O_functor_homotopy; apply functor_pushout_is_functor_coeq.
         rapply O_inverts_functor_coeq; rapply O_inverts_functor_sum.
       Defined.
 
