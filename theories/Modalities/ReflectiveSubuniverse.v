@@ -1966,6 +1966,8 @@ Section ConnectedMaps.
     : IsConnMap O (functor_pushout h k l p q).
   Proof.
     apply conn_map_from_extension_elim; intros.
+    snrapply extension_homotopic.
+    2: apply functor_pushout_is_functor_coeq.
     apply extension_functor_coeq.
     - apply extendable_functor_sum; rapply ooextendable_conn_map_inO.
     - intros; rapply ooextendable_conn_map_inO.
@@ -2162,6 +2164,8 @@ Definition OO_inverts_functor_pushout
            `{IsConnMap O _ _ h} `{O_inverts O' k} `{O_inverts O' l}
   : O_inverts O' (functor_pushout h k l p q).
 Proof.
+  snrapply isequiv_homotopic.
+  3: nrapply O_functor_homotopy; symmetry; apply functor_pushout_is_functor_coeq.
   nrapply (OO_inverts_functor_coeq O O').
   1,3:exact _.
   rapply O_inverts_functor_sum.
@@ -2194,6 +2198,8 @@ Definition OO_conn_map_functor_pushout
   : IsConnMap O' (functor_pushout h k l p q).
 Proof.
   apply conn_map_from_extension_elim; intros.
+  snrapply extension_homotopic.
+  2: apply functor_pushout_is_functor_coeq.
   apply extension_functor_coeq.
   - apply extendable_functor_sum; rapply ooextendable_conn_map_inO.
   - pose (inO_leq O' (Sep O));

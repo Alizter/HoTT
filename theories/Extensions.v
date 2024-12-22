@@ -66,6 +66,18 @@ Section Extensions.
     refine (_ oE equiv_path_inverse _ _).
     symmetry; apply equiv_moveR_1M.
   Defined.
+  
+  Definition extension_homotopic {A B : Type} {f f' : A -> B}
+    {P : B -> Type} {d : forall x:A, P (f x)} (p : f == f')
+    : ExtensionAlong f' P (fun x => p x # d x) -> ExtensionAlong f P d.
+  Proof.
+    snrapply (functor_sigma idmap).
+    cbn beta; intros s r x.
+    specialize (r x); revert r.
+    generalize (p x); clear p; intros p r. 
+    destruct p.
+    exact r.
+  Defined.
 
   Definition path_extension `{Funext} {A B : Type} {f : A -> B}
              {P : B -> Type} {d : forall x:A, P (f x)}
