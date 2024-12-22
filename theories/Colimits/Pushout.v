@@ -175,7 +175,7 @@ Definition functor_pushout_beta_pglue
   {p : k o f == f' o h} {q : l o g == g' o h}
   (a : A)
   : ap (functor_pushout h k l p q) (pglue a)
-    = ap pushl (p a) @ (pglue (h a)) @ ap pushr (q a)^.
+    = ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^.
 Proof.
   lhs nrapply functor_coeq_beta_cglue.
   symmetry.
