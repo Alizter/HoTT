@@ -153,20 +153,13 @@ equiv_adjointify pushout_sym_map pushout_sym_map sect_pushout_sym_map sect_pusho
 (** ** Functoriality *)
 
 Definition functor_pushout
-  {A B C} {f : A -> B} {g : A -> C}
-  {A' B' C'} {f' : A' -> B'} {g' : A' -> C'}
+  {A B C : Type} {f : A -> B} {g : A -> C}
+  {A' B' C' : Type} {f' : A' -> B'} {g' : A' -> C'}
   (h : A -> A') (k : B -> B') (l : C -> C')
   (p : k o f == f' o h) (q : l o g == g' o h)
-  : Pushout f g -> Pushout f' g'.
-Proof.
-  unfold Pushout; srapply functor_coeq.
-  - exact h.
-  - exact (functor_sum k l).
-  - intros a; cbn.
-    apply ap, p.
-  - intros a; cbn.
-    apply ap, q.
-Defined.
+  : Pushout f g -> Pushout f' g'
+  := Pushout_rec _ (pushl o k) (pushr o l)
+    (fun a => ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^).
 
 Definition functor_pushout_beta_pglue
   {A B C} {f : A -> B} {g : A -> C}
@@ -175,21 +168,10 @@ Definition functor_pushout_beta_pglue
   {p : k o f == f' o h} {q : l o g == g' o h}
   (a : A)
   : ap (functor_pushout h k l p q) (pglue a)
-    = ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^.
-Proof.
-  lhs nrapply functor_coeq_beta_cglue.
-  symmetry.
-  snrapply ap011.
-  - apply whiskerR.
-    unfold pushl.
-    nrapply ap_compose.
-  - unfold pushr.
-    lhs nrapply ap_compose.
-    apply ap.
-    nrapply ap_V.
-Defined.
+    = ap pushl (p a) @ pglue (h a) @ ap pushr (q a)^
+  := Pushout_rec_beta_pglue _ _ _ _ _.
 
-Lemma functor_pushout_homotopic
+Definition functor_pushout_homotopic
   {A B C : Type} {f : A -> B} {g : A -> C}
   {A' B' C' : Type} {f' : A' -> B'} {g' : A' -> C'}
   {h h' : A -> A'} {k k' : B -> B'} {l l' : C -> C'}
@@ -200,14 +182,48 @@ Lemma functor_pushout_homotopic
   (j : forall a, q a @ (ap g') (t a) = v (g a) @ q' a)
   : functor_pushout h k l p q == functor_pushout h' k' l' p' q'.
 Proof.
-  srapply functor_coeq_homotopy.
-  1: exact t.
-  1: exact (functor_sum_homotopic u v).
-  1,2: intros b; simpl.
-  1,2: refine (_ @ ap_pp _ _ _ @ ap _ (ap_compose _ _ _)^).
-  1,2: refine ((ap_pp _ _ _)^ @ ap _ _^).
-  1: exact (i b).
-  exact (j b).
+  snrapply (Pushout_ind _ (fun x => ap pushl (u x)) (fun x => ap pushr (v x))).
+  intros x.
+  snrapply transport_paths_FlFr'.
+  lhs nrapply whiskerR.
+  1: apply functor_pushout_beta_pglue.
+  rhs nrapply whiskerL.
+  2: apply functor_pushout_beta_pglue.
+  lhs nrapply concat_pp_p.
+  lhs nrapply concat_pp_p.
+  rhs nrapply concat_p_pp.
+  apply moveR_Mp.
+  rhs nrapply concat_p_pp.
+  rhs nrapply whiskerL.
+  2: apply (ap_V _ (q' x)).
+  apply moveL_pV.
+  rhs nrapply concat_p_pp.
+  rhs nrapply concat_p_pp.
+  lhs nrapply concat_pp_p.
+  lhs_V nrapply whiskerL.
+  { rhs_V nrapply whiskerR.
+    1: apply (ap_pp pushr).
+    rapply ap_pp. }
+  lhs_V nrapply whiskerL.
+  { nrapply ap02.
+    rhs nrapply concat_pp_p.
+    apply moveL_Vp.
+    exact (j x). }
+  lhs_V nrapply whiskerL.
+  1: apply ap_compose.
+  rhs nrapply whiskerR.
+  2: { lhs_V nrapply whiskerR.
+    { rhs_V nrapply whiskerR.
+      2: apply (ap_V _ (p x)).
+      apply (ap_pp pushl (p x)^ (u (f x))). }
+    lhs_V nrapply ap_pp.
+    lhs_V nrapply ap.
+    { rhs nrapply concat_pp_p.
+      apply moveL_Vp.
+      exact (i x). }
+    exact (ap_compose _ _ _)^. }
+  symmetry.
+  rapply (concat_Ap _ (t x)).
 Defined.
 
 Definition functor_pushout_idmap {A B C : Type} {f : A -> B} {g : A -> C}
@@ -233,20 +249,36 @@ Definition functor_pushout_compose
     == functor_pushout u' v' w' p' q'
       o functor_pushout u v w p q.
 Proof.
-  intros a.
-  rhs_V nrapply functor_coeq_compose.
-  snrapply functor_coeq_homotopy.
-  1: reflexivity.
-  1: apply functor_sum_compose.
-  1,2: intros x; simpl.
-  1,2: apply equiv_1p_q1.
-  1,2: lhs_V nrapply whiskerR.
-  1,3: nrapply ap_compose.
-  1,2: simpl.
-  1,2: lhs nrapply whiskerR.
-  1,3: nrapply ap_compose.
-  1,2: symmetry.
-  1,2: apply ap_pp.
+  snrapply Pushout_ind.
+  1,2: reflexivity.
+  intros x.
+  nrapply (transport_paths_FlFFr' (g:=functor_pushout u' v' w' p' q')).
+  apply equiv_p1_1q.
+  lhs nrapply functor_pushout_beta_pglue.
+  rhs nrapply ap.
+  2: apply functor_pushout_beta_pglue.
+  rhs nrapply (ap_pp _ (ap pushl (p x) @ pglue (u x)) (ap pushr (q x)^)).
+  rhs nrapply whiskerR.
+  2: lhs nrapply ap_pp.
+  2: apply whiskerL, functor_pushout_beta_pglue.
+  rhs nrapply whiskerR.
+  2: apply concat_p_pp.
+  rhs nrapply concat_pp_p.
+  snrapply ap011.
+  - rhs nrapply concat_p_pp.
+    apply whiskerR.
+    lhs nrapply ap_pp.
+    apply whiskerR.
+    lhs_V nrapply ap_compose.
+    nrapply (ap_compose pushl (functor_pushout u' v' w' p' q') (p x)).
+  - lhs nrapply ap02.
+    1: apply inv_pp.
+    lhs nrapply ap_pp.
+    apply whiskerL.
+    lhs_V nrapply ap.
+    1: apply ap_V.
+    lhs_V nrapply ap_compose.
+    nrapply (ap_compose pushr (functor_pushout u' v' w' p' q') (q x)^).
 Defined.
 
 (** ** Equivalences *)
