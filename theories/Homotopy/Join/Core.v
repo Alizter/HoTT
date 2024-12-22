@@ -85,6 +85,19 @@ Section Join.
       nrapply transport_paths_FFlr'.
       apply Hglue.
   Defined.
+  
+  Definition Join_ind_FFlFr {A B C P : Type}
+    (f : Join A B -> C) (g : C -> P) (h : Join A B -> P)
+    (Hl : forall a, g (f (joinl a)) = h (joinl a))
+    (Hr : forall b, g (f (joinr b)) = h (joinr b))
+    (Hglue : forall a b, ap g (ap f (jglue a b)) @ Hr b = Hl a @ ap h (jglue a b))
+    : g o f == h.
+  Proof.
+    snrapply (Join_ind _ Hl Hr).
+    intros a b; cbn beta.
+    nrapply transport_paths_FFlFr'.
+    apply Hglue.
+  Defined.
 
   Definition Join_rec {A B P : Type} (P_A : A -> P) (P_B : B -> P)
     (P_g : forall a b, P_A a = P_B b) : Join A B -> P.
