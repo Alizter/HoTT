@@ -230,7 +230,8 @@ Definition functor_pushout_compose
   (p' : v' o f' == f'' o u') (q' : w' o g' == g'' o u')
   : functor_pushout (u' o u) (v' o v) (w' o w)
       (fun x => ap v' (p x) @ p' (u x)) (fun x => ap w' (q x) @ q' (u x))
-    == (functor_pushout u' v' w' p' q') o (functor_pushout u v w p q).
+    == functor_pushout u' v' w' p' q'
+      o functor_pushout u v w p q.
 Proof.
   intros a.
   rhs_V nrapply functor_coeq_compose.
