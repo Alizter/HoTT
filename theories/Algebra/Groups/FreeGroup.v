@@ -1,7 +1,7 @@
 Require Import Basics Types Group Subgroup
   WildCat.Core WildCat.Universe Colimits.Coeq
   Truncations.Core Truncations.SeparatedTrunc
-  Spaces.List.Core Spaces.List.Theory canonical_names.
+  Spaces.List.Core Spaces.List.Theory.
 
 Local Open Scope mc_scope.
 Local Open Scope mc_mult_scope.

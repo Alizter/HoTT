@@ -3,8 +3,12 @@ Require Export
   HoTT.Types
   HoTT.Truncations.Core.
 
-Declare Scope mc_scope.
-Delimit Scope mc_scope with mc.
+(** We group these declarations into a module, so that just this subset can be exported in some cases. *)
+Module Export MCScope.
+  Declare Scope mc_scope.
+  Delimit Scope mc_scope with mc.
+End MCScope.
+
 Open Scope mc_scope.
 
 Generalizable Variables A B f g x y.
