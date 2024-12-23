@@ -7,6 +7,7 @@ Require Import Modalities.ReflectiveSubuniverse.
 (** In this file we define what it means for a group homomorphism G -> H into an abelian group H to be an abelianization. We then construct an example of an abelianization. *)
 
 Local Open Scope mc_scope.
+Local Open Scope mc_mult_scope.
 Local Open Scope wc_iso_scope.
 
 (** Definition of Abelianization.
@@ -156,8 +157,8 @@ Local Ltac Abel_ind_hprop x := snrapply Abel_ind_hprop; [exact _ | intro x].
 
 (** We make sure that [G] is implicit in the arguments of [abel_in]
  and [abel_in_comm]. *)
-Arguments abel_in {_} g%_mc_scope.
-Arguments abel_in_comm {_} (a b c)%_mc_scope.
+Arguments abel_in {_} g%_mc_mult_scope.
+Arguments abel_in_comm {_} (a b c)%_mc_mult_scope.
 
 (** Now we can show that Abel G is in fact an abelian group. *)
 

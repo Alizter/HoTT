@@ -92,7 +92,6 @@ Definition sg_op_is_plus `{f : SgOp A} : Plus A := f.
 
 Global Instance mult_is_sg_op `{f : Mult A} : SgOp A := f.
 Definition sg_op_is_mult `{f : SgOp A} : Mult A := f.
-#[global] Hint Immediate sg_op_is_mult : typeclass_instances.
 
 Global Instance zero_is_mon_unit `{c : Zero A} : MonUnit A := c.
 Definition mon_unit_is_zero `{c : MonUnit A} : Zero A := c.
