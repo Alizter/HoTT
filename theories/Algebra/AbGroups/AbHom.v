@@ -3,7 +3,7 @@ Require Import WildCat HSet Truncations.Core Modalities.ReflectiveSubuniverse.
 Require Import Groups.QuotientGroup AbelianGroup Biproduct.
 
 Local Open Scope mc_scope.
-Local Open Scope path_scope.
+Local Open Scope mc_add_scope.
 
 (** * Homomorphisms from a group to an abelian group form an abelian group. *)
 
@@ -23,16 +23,12 @@ Global Instance negate_hom {A : Group} {B : AbGroup}
 (** For [A] and [B] groups, with [B] abelian, homomorphisms [A $-> B] form an abelian group. *)
 Definition grp_hom `{Funext} (A : Group) (B : AbGroup) : Group.
 Proof.
-  nrefine (Build_Group (GroupHomomorphism A B)
-             ab_homo_add grp_homo_const negate_hom _).
-  repeat split.
+  snrapply (Build_Group' (GroupHomomorphism A B) ab_homo_add grp_homo_const negate_hom).
   1: exact _.
   all: hnf; intros; apply equiv_path_grouphomomorphism; intro; cbn.
-  + apply associativity.
-  + apply left_identity.
-  + apply right_identity.
-  + apply left_inverse.
-  + apply right_inverse.
+  - apply associativity.
+  - apply left_identity.
+  - apply left_inverse.
 Defined.
 
 Definition ab_hom `{Funext} (A : Group) (B : AbGroup) : AbGroup.
