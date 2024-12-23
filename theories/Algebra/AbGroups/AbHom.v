@@ -70,7 +70,7 @@ Proof.
   destruct H as [a q].
   destruct q; simpl.
   lhs nrapply grp_homo_op.
-  lhs nrapply (ap (.* _)).
+  lhs nrapply (ap (+ _)).
   1: apply grp_homo_inv.
   apply grp_moveL_M1^-1.
   exact (p a)^.
