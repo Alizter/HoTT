@@ -5,7 +5,6 @@ Require Import AbGroups.AbelianGroup AbGroups.Biproduct.
 
 Local Open Scope mc_scope.
 Local Open Scope mc_add_scope.
-Local Open Scope path_scope.
 
 (** * Pushouts of abelian groups. *)
 
