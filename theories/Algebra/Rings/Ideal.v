@@ -747,14 +747,12 @@ Proof.
       * exact (y - z).
       * by apply ideal_in_plus_negate.
       * cbn.
-        refine (_ @ ap011 (fun x y => x - y) p q).
+        rhs_V nrapply (ap011 (fun x y => x - y) p q).
         lhs_V nrapply rng_plus_assoc.
         rhs_V nrapply rng_plus_assoc.
         f_ap.
         rewrite rng_negate_plus.
-        rewrite rng_plus_comm.
-        rewrite rng_plus_assoc.
-        lhs_V nrapply rng_plus_assoc.
+        rhs_V nrapply rng_plus_comm.
         rhs_V nrapply rng_plus_assoc.
         f_ap.
         apply commutativity.

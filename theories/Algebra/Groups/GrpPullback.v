@@ -174,7 +174,7 @@ Proof.
   1-2: apply eisretr.
   1-2: apply eissect.
 Defined.
-  
+
 (** Pulling back along some [g : Y $-> Z] and then [g' : Y' $-> Y] is the same as pulling back along [g $o g']. *)
 Definition equiv_grp_pullback_compose_r {X Z Y Y' : Group} (f : X $-> Z) (g' : Y' $-> Y) (g : Y $-> Z)
   : GroupIsomorphism (grp_pullback (grp_pullback_pr2 f g) g') (grp_pullback f (g $o g')).

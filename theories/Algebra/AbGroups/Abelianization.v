@@ -260,7 +260,7 @@ Section AbelGroup.
     change (abel_in z^ + abel_in y^ + abel_in x^
       = abel_in y^ + abel_in z^ + abel_in x^).
     nrapply (ap (+ _)).
-    rapply (commutativity (abel_in z^) (abel_in z^)).
+    rapply (commutativity (abel_in z^) (abel_in y^)).
   Defined.
 
   (** Again by Abel_ind_hprop and the corresponding laws for G we can prove the left and right inverse laws. *)

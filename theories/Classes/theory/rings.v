@@ -254,13 +254,13 @@ Section ring_props.
     lhs rapply groups.inverse_sg_op.
     f_ap.
     apply involutive.
-  Qed.
+  Defined.
 
   Lemma negate_swap_l x y : -x + y = -(x - y).
   Proof.
     rhs_V rapply negate_swap_r.
     apply commutativity.
-  Qed.
+  Defined.
 
   Global Instance isinj_ring_neg : IsInjective (-)
     := groups.isinj_group_inverse.
@@ -281,7 +281,7 @@ Section ring_props.
       rapply inverse_r.
     + apply ap011;try reflexivity.
       apply left_identity.
-  Qed.
+  Defined.
 
   Lemma negate_mult_r x : -x = x * -1.
   Proof.
@@ -420,7 +420,7 @@ Section ring_props.
     - intros r.
       apply U, equal_by_zero_sum, r.
     - exact _.
-    - lhs rapply (@distribute_r _ _ _ (.*.) (+)).
+    - lhs rapply ring_dist_right.
       rewrite <- negate_mult_distr_l.
       apply equal_by_zero_sum in p.
       exact p.

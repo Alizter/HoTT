@@ -54,8 +54,7 @@ Proof.
   apply qglue, tr; exists a.
   apply path_prod; simpl.
   - exact (right_identity _)^.
-  - change (@group_unit ?G) with (@mon_unit G _).
-    rewrite grp_inv_unit.
+  - rewrite grp_inv_unit.
     exact (left_identity _)^.
 Defined.
 

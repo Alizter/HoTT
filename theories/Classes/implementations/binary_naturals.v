@@ -346,7 +346,7 @@ Section naturals.
         apply nat_full; assumption.
     - intros m n. apply nat_full.
   Qed.
-  
+
   Global Instance binnat_naturals_to_semiring : NaturalsToSemiRing binnat:=
     fun _ _ _ _ _ _ => fix f (n: binnat) :=
       match n with
