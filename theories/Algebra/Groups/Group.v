@@ -819,7 +819,7 @@ Proof.
   snrapply Build_Equiv.
   { srapply (functor_hfiber (h := (.* a0^)) (k := (.* b^))).
     intro a; cbn; symmetry.
-    refine (_ @ ap (fun x => f a * x^)%mc p).
+    rhs_V nrapply (ap (fun x => f a * x^) p).
     exact (grp_homo_op f _ _ @ ap (f a *.) (grp_homo_inv f a0)). }
   srapply isequiv_functor_hfiber.
 Defined.
