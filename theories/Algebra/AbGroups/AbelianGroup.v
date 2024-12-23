@@ -103,7 +103,6 @@ Global Instance isnormal_ab_subgroup (G : AbGroup) (H : Subgroup G)
   : IsNormalSubgroup H.
 Proof.
   intros x y h.
-  change (H (y + x)).
   by rewrite ab_comm.
 Defined.
 
