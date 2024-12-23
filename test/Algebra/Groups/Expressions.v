@@ -12,7 +12,7 @@ Section Groups.
   Context {G : Group@{Set}} (x y : G).
 
   (** Without opening any scopes, the notation [x * y] will default to the one in [type_scope] which is the product type. In this case it will fail since Coq is expecting a type argument rather than [x : G]. *)
-  Fail Type ((x * y) : G).
+  Fail Type (x * y : G).
   
   (** [x^] will be interpreted as path inversion, therefore Coq will complain about its type. *)
   Fail Type (x^ * y : G).
@@ -21,14 +21,14 @@ Section Groups.
   Local Open Scope mc_scope.
 
   (** We fail saying that no [Mult] instance was found for [G] as expected. *)
-  Fail Type ((x * y) : G).
+  Fail Type (x * y : G).
   Fail Type (x^ * y : G).
 
   (** Finally, we can open [mc_mult_scope] which will mean [x * y] is [sg_op x y]. *)
   Local Open Scope mc_mult_scope.
 
   (** This gets correctly interpreted as the group operation. *)
-  Succeed Type ((x * y) : G).
+  Succeed Type (x * y : G).
   (** So does the group inverse. *)
   Succeed Type (x^ * y : G).
 
