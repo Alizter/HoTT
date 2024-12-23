@@ -6,8 +6,6 @@ Require Import
   HoTT.Classes.orders.semirings
   HoTT.Classes.theory.apartness.
 
-Local Open Scope path_scope.
-
 Local Set Universe Minimization ToSet.
 
 (* This should go away one Coq has universe cumulativity through inductives. *)
@@ -202,8 +200,6 @@ Proof.
 Qed.
 
 (* Add Ring nat: (rings.stdlib_semiring_theory nat). *)
-
-Local Open Scope nat_scope.
 
 Lemma O_nat_0 : O =N= 0.
 Proof. reflexivity. Qed.
@@ -601,8 +597,6 @@ Global Instance S_strict_embedding : StrictOrderEmbedding S.
 Proof.
 split;apply _.
 Qed.
-
-Local Open Scope mc_scope.
 
 Global Instance nat_naturals_to_semiring : NaturalsToSemiRing@{N i} nat :=
   fun _ _ _ _ _ _ => fix f (n: nat) := match n with 0%nat => 0 | 1%nat => 1 |
