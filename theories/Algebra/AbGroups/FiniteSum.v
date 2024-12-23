@@ -1,6 +1,6 @@
 Require Import Basics.Overture Basics.Tactics.
 Require Import Spaces.Nat.Core Spaces.Int.
-Require Export Classes.interfaces.canonical_names (Zero, zero, Plus).
+Require Export Classes.interfaces.canonical_names (Zero, zero, Plus, Commutative).
 Require Export Classes.interfaces.abstract_algebra (IsAbGroup(..), abgroup_group, abgroup_commutative).
 Require Import AbelianGroup.
 
@@ -51,8 +51,8 @@ Proof.
   1: by rewrite grp_unit_l.
   simpl.
   rewrite <- !grp_assoc; f_ap.
-  rewrite IHn, ab_comm, <- grp_assoc; f_ap.
-  by rewrite ab_comm.
+  rewrite IHn, abgroup_commutative, <- grp_assoc; f_ap.
+  by rewrite abgroup_commutative.
 Defined.
 
 (** Double finite sums commute. *)

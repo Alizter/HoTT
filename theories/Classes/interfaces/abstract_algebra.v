@@ -3,7 +3,6 @@ Require Import Spaces.Nat.Core.
 Require Export HoTT.Classes.interfaces.canonical_names.
 Require Import Modalities.ReflectiveSubuniverse.
 
-Local Open Scope mc_mult_scope.
 Local Set Polymorphic Inductive Cumulativity.
 
 Generalizable Variables A B C f g x y.
@@ -78,6 +77,8 @@ Section upper_classes.
   Universe i.
   Context (A : Type@{i}).
 
+  Local Open Scope mc_mult_scope.
+
   Class IsSemiGroup {Aop: SgOp A} :=
     { sg_set : IsHSet A
     ; sg_ass : Associative (.*.) }.
@@ -125,6 +126,8 @@ Section upper_classes.
   #[export] Existing Instances
     bounded_semilattice_mon
     bounded_semilattice_idempotent.
+  
+  Local Close Scope mc_mult_scope.
 
   Class IsAbGroup {Aop : Plus A} {Azero : Zero A} {Anegate : Negate A} :=
     { abgroup_group : @IsGroup plus_is_sg_op zero_is_mon_unit negate_is_inverse
@@ -284,6 +287,8 @@ Section morphism_classes.
   Section sgmorphism_classes.
   Context {A B : Type} {Aop : SgOp A} {Bop : SgOp B}
     {Aunit : MonUnit A} {Bunit : MonUnit B}.
+
+  Local Open Scope mc_mult_scope.
 
   Class IsSemiGroupPreserving (f : A -> B) :=
     preserves_sg_op : forall x y, f (x * y) = f x * f y.

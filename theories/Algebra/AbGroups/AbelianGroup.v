@@ -1,6 +1,6 @@
 Require Import Basics Types.
 Require Import Spaces.Nat.Core Spaces.Int.
-Require Export Classes.interfaces.canonical_names (Zero, zero, Plus, plus, Negate, negate, Involutive).
+Require Export Classes.interfaces.canonical_names (Zero, zero, Plus, plus, Negate, negate, Involutive, involutive).
 Require Export Classes.interfaces.abstract_algebra (IsAbGroup(..), abgroup_group, abgroup_commutative).
 Require Export Algebra.Groups.Group.
 Require Export Algebra.Groups.Subgroup.
@@ -18,7 +18,7 @@ Local Open Scope mc_add_scope.
 
 Record AbGroup := {
   abgroup_group : Group;
-  abgroup_commutative : Commutative (@group_sgop abgroup_group);
+  abgroup_commutative : @Commutative abgroup_group _ (+);
 }.
 
 Coercion abgroup_group : AbGroup >-> Group.
@@ -26,7 +26,7 @@ Global Existing Instance abgroup_commutative.
 
 Global Instance zero_abgroup (A : AbGroup) : Zero A := mon_unit.
 Global Instance negate_abgroup (A : AbGroup) : Negate A := inv.
-Global Instance plus_abgroup (A : AbGroup) : Plus A := sg_op.
+Global Instance plus_abgroup (A : AbGroup) : Plus A | 10 := sg_op.
 
 (** Abelian groups form a category *)
 Global Instance isabgroup_abgroup {A : AbGroup} : IsAbGroup A.
@@ -50,21 +50,11 @@ Defined.
 
 Definition issig_abgroup : _ <~> AbGroup := ltac:(issig).
 
-Definition ab_comm {A : AbGroup} (x y : A) : x + y = y + x
-  := commutativity x y.
-
 Definition ab_neg_op {A : AbGroup} (x y : A) : - (x + y) = -x - y.
 Proof.
   lhs nrapply grp_inv_op.
-  apply ab_comm.
+  apply commutativity.
 Defined.
-
-Definition ab_neg_zero {A : AbGroup} : -0 = 0 :> A := grp_inv_unit.
-Definition ab_neg_neg {A : AbGroup} : Involutive (-) := @grp_inv_inv A.
-
-Definition ab_homo_neg {A B : AbGroup} (f : GroupHomomorphism A B) (x : A)
-  : f (- x) = - f x
-  := grp_homo_inv f x.
 
 (** ** Paths between abelian groups *)
 
@@ -81,6 +71,8 @@ Definition equiv_path_abgroup_group `{Univalence} {A B : AbGroup}
   := equiv_path_group oE equiv_path_abgroup^-1.
 
 (** ** Subgroups of abelian groups *)
+
+Local Hint Immediate canonical_names.sg_op_is_plus : typeclass_instances.
 
 (** Subgroups of abelian groups are abelian *)
 Global Instance isabgroup_subgroup (G : AbGroup) (H : Subgroup G)
@@ -103,7 +95,7 @@ Global Instance isnormal_ab_subgroup (G : AbGroup) (H : Subgroup G)
   : IsNormalSubgroup H.
 Proof.
   intros x y h.
-  by rewrite ab_comm.
+  by rewrite commutativity.
 Defined.
 
 (** ** Quotients of abelian groups *)
@@ -257,7 +249,7 @@ Proof.
   snrapply Build_GroupHomomorphism.
   1: exact (fun a => grp_pow a n).
   intros a b.
-  apply grp_pow_mul, ab_comm.
+  apply grp_pow_mul, commutativity.
 Defined.
 
 (** [ab_mul n] is natural. *)

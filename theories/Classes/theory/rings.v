@@ -3,7 +3,7 @@ Require Import
   HoTT.Classes.theory.apartness.
 Require Import
   HoTT.Classes.interfaces.abstract_algebra.
-Export Classes.theory.groups ( preserves_negate ). 
+Export Classes.theory.groups ( preserves_negate ).
 
 Generalizable Variables R A B C f z.
 
@@ -48,7 +48,7 @@ End cancellation.
 Section strong_cancellation.
   Context `{IsApart A} (op : A -> A -> A).
 
-  Lemma strong_right_cancel_from_left `{!Commutative op} 
+  Lemma strong_right_cancel_from_left `{!Commutative op}
     `{!StrongLeftCancellation op z}
     : StrongRightCancellation op z.
   Proof.
@@ -192,7 +192,7 @@ Qed.
 *)
 Section cring_props.
   Context `{IsCRing R}.
-  
+
   Instance: LeftAbsorb (.*.) 0.
   Proof.
   intro.
@@ -214,7 +214,7 @@ End cring_props.
 
 Section ring_props.
   Context `{IsRing R}.
-  
+
   Global Instance mult_left_absorb : LeftAbsorb (.*.) 0.
   Proof.
     intro y.
@@ -239,7 +239,7 @@ Section ring_props.
   (* alias for convenience *)
 
   Global Instance plus_negate_r : RightInverse (+) (-) 0.
-  Proof. 
+  Proof.
     rapply inverse_r.
   Defined.
 
@@ -261,7 +261,7 @@ Section ring_props.
     rhs_V rapply negate_swap_r.
     apply commutativity.
   Qed.
-  
+
   Global Instance isinj_ring_neg : IsInjective (-)
     := groups.isinj_group_inverse.
 
@@ -377,7 +377,7 @@ Section ring_props.
     2: apply negate_zero_prod_l.
     split.
     - intros E.
-      lhs_V nrapply negate_mult_distr_l. 
+      lhs_V nrapply negate_mult_distr_l.
       lhs nrapply negate_mult_distr_r.
       exact E.
     - intros E.
@@ -447,7 +447,8 @@ Section integral_domain_props.
   Instance intdom_nontrivial_apart `{Apart R} `{!TrivialApart R} :
     PropHolds (1 ≶ 0).
   Proof.
-  apply apartness.ne_apart. solve_propholds.
+    apply apartness.ne_apart.
+    rapply intdom_nontrivial.
   Qed.
 End integral_domain_props.
 

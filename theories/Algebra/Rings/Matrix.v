@@ -1007,7 +1007,7 @@ Proof.
   unfold IsSkewSymmetric.
   rewrite matrix_transpose_plus.
   rhs nrapply (grp_inv_op (G:=abgroup_matrix R n n)).
-  rhs_V nrapply (AbelianGroup.ab_comm (A:=abgroup_matrix R n n)).
+  rhs_V rapply AbelianGroup.abgroup_commutative.
   f_ap.
 Defined.
 

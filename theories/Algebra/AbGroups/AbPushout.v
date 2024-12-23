@@ -4,6 +4,7 @@ Require Export Algebra.Groups.Image Algebra.Groups.QuotientGroup.
 Require Import AbGroups.AbelianGroup AbGroups.Biproduct.
 
 Local Open Scope mc_scope.
+Local Open Scope mc_add_scope.
 Local Open Scope path_scope.
 
 (** * Pushouts of abelian groups. *)
@@ -52,11 +53,10 @@ Proposition ab_pushout_commsq {A B C : AbGroup} {f : A $-> B} {g : A $-> C}
 Proof.
   intro a; simpl.
   apply qglue, tr; exists a.
-  change (@inv ?A) with (@negate A).
-  change (@group_unit ?G) with (@zero G _).
   apply path_prod; simpl.
   - exact (right_identity _)^.
-  - rewrite ab_neg_zero.
+  - change (@group_unit ?G) with (@mon_unit G _).
+    rewrite grp_inv_unit.
     exact (left_identity _)^.
 Defined.
 
@@ -145,7 +145,7 @@ Proof.
     exact (left_inverse mon_unit @ (grp_homo_unit g)^).
   - apply (grp_moveR_M1).
     refine (_ @ ap fst p); cbn; symmetry.
-    refine (_ @ ab_neg_zero).
+    refine (_ @ grp_inv_unit).
     refine (ap _ _).
     exact (ap f z @ grp_homo_unit f).
 Defined.

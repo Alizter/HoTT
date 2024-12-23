@@ -4,6 +4,8 @@ Require Import
 
 Generalizable Variables A B C K L f.
 
+Local Hint Immediate canonical_names.sg_op_is_plus : typeclass_instances.
+
 Global Instance bounded_sl_is_sl `{IsBoundedSemiLattice L} : IsSemiLattice L.
 Proof.
 repeat (split; try apply _).

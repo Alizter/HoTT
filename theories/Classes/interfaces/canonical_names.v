@@ -88,7 +88,7 @@ Definition NonPos R `{Zero R} `{Le R} := sig (fun y => le y zero).
 
 Global Instance plus_is_sg_op `{f : Plus A} : SgOp A := f.
 Definition sg_op_is_plus `{f : SgOp A} : Plus A := f.
-#[global] Hint Immediate sg_op_is_plus : typeclass_instances.
+(* #[global] Hint Immediate sg_op_is_plus : typeclass_instances. *)
 
 Global Instance mult_is_sg_op `{f : Mult A} : SgOp A := f.
 Definition sg_op_is_mult `{f : SgOp A} : Mult A := f.
@@ -100,9 +100,9 @@ Definition mon_unit_is_zero `{c : MonUnit A} : Zero A := c.
 Global Instance one_is_mon_unit `{c : One A} : MonUnit A := c.
 Definition mon_unit_is_one `{c : MonUnit A} : One A := c.
 
-Definition meet_is_sg_op `{f : Meet A} : SgOp A := f.
+Global Instance meet_is_sg_op `{f : Meet A} : SgOp A := f.
 
-Definition join_is_sg_op `{f : Join A} : SgOp A := f.
+Global Instance join_is_sg_op `{f : Join A} : SgOp A := f.
 
 Definition top_is_mon_unit `{s : Top A} : MonUnit A := s.
 
@@ -119,17 +119,42 @@ Hint Extern 4 (Apart (NonNeg _)) => apply @sig_apart : typeclass_instances.
 #[export]
 Hint Extern 4 (Apart (Pos _)) => apply @sig_apart : typeclass_instances.
 
+Module AdditiveNotations.
+
+  Declare Scope mc_add_scope.
+  Infix "+" := sg_op : mc_add_scope.
+  Notation "(+)" := sg_op (only parsing) : mc_add_scope.
+  Notation "( x +)" := (sg_op x) (only parsing) : mc_add_scope.
+  Notation "(+ x )" := (fun y => sg_op y x) (only parsing) : mc_add_scope.
+  
+  Notation "0" := mon_unit : mc_add_scope.
+
+  Notation "- x" := (inv x) : mc_add_scope.
+  Notation "(-)" := inv (only parsing) : mc_add_scope.
+  Notation "x - y" := (sg_op x (inv y)) : mc_add_scope.
+
+End AdditiveNotations.
+
+Module MultiplicativeNotations.
+
+  Declare Scope mc_mult_scope.
+  Infix "*" := sg_op : mc_mult_scope.
+  Notation "( x *.)" := (sg_op x) (only parsing) : mc_mult_scope.
+  Notation "(.*.)" := sg_op (only parsing) : mc_mult_scope.
+  Notation "(.* x )" := (fun y => sg_op y x) (only parsing) : mc_mult_scope.
+
+  Notation "1" := mon_unit : mc_mult_scope.
+
+  Notation "x ^" := (inv x) : mc_mult_scope.
+  Notation "(^)" := inv (only parsing) : mc_mult_scope.
+
+End MultiplicativeNotations.
+
 (** We group these notations into a module, so that just this subset can be exported in some cases. *)
 Module Export BinOpNotations.
 (* Notations: *)
-Declare Scope mc_add_scope.
-Infix "+" := sg_op : mc_add_scope.
 
-Declare Scope mc_mult_scope.
-Infix "*" := sg_op : mc_mult_scope.
-Notation "( x *.)" := (sg_op x) (only parsing) : mc_mult_scope.
-Notation "(.*.)" := sg_op (only parsing) : mc_mult_scope.
-Notation "(.* x )" := (fun y => sg_op y x) (only parsing) : mc_mult_scope.
+Export AdditiveNotations MultiplicativeNotations.
 
 Infix "+" := plus : mc_scope.
 Notation "(+)" := plus (only parsing) : mc_scope.
@@ -143,15 +168,13 @@ Notation "( x *.)" := (mult x) (only parsing) : mc_scope.
 Notation "(.*.)" := mult (only parsing) : mc_scope.
 Notation "(.* x )" := (fun y => y * x) (only parsing) : mc_scope.
 
-Notation "x ^" := (inv x) : mc_mult_scope.
-Notation "(^)" := inv (only parsing) : mc_mult_scope.
-
 Notation "- x" := (negate x) : mc_scope.
 Notation "(-)" := negate (only parsing) : mc_scope.
 Notation "x - y" := (x + negate y) : mc_scope.
 
 Notation "0" := zero : mc_scope.
 Notation "1" := one : mc_scope.
+
 Notation "2" := (1 + 1) : mc_scope.
 Notation "3" := (1 + (1 + 1)) : mc_scope.
 Notation "4" := (1 + (1 + (1 + 1))) : mc_scope.

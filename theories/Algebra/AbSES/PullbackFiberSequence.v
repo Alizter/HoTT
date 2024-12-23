@@ -6,8 +6,7 @@ Require Import AbSES.Core AbSES.Pullback.
 Require Import Modalities.Identity Modalities.Modality Truncations.Core.
 
 Local Open Scope pointed_scope.
-Local Open Scope mc_scope.
-Local Open Scope path_scope.
+Local Open Scope mc_add_scope.
 
 (** * The fiber sequence induced by pulling back along a short exact sequence *)
 
@@ -87,7 +86,7 @@ Proof.
            exact (grp_homo_inv _ _). }
     (* Using [q2], we conclude. *)
     pose proof (q3 := ap negate (fst ((equiv_path_prod _ _)^-1 q2))); cbn in q3.
-    exact ((inverse_involutive _)^ @ q3^ @ ab_neg_zero).
+    exact ((inverse_involutive _)^ @ q3^ @ grp_inv_unit).
   - apply (cancelR_conn_map (Tr (-1)) grp_quotient_map).
     1: exact _.
     simpl.

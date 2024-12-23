@@ -21,9 +21,6 @@ Section AbPullback.
     apply path_ishprop.
   Defined.
 
-  Global Instance isabgroup_ab_pullback
-    : IsAbGroup (grp_pullback f g) := {}.
-
   Definition ab_pullback
     : AbGroup := Build_AbGroup (grp_pullback f g) _.
 

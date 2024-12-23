@@ -6,7 +6,6 @@ Require Import AbSES.Core AbSES.DirectSum.
 
 Local Open Scope pointed_scope.
 Local Open Scope type_scope.
-Local Open Scope mc_scope.
 Local Open Scope path_scope.
 Local Open Scope mc_add_scope.
 
@@ -54,8 +53,7 @@ Proof.
       refine (tr (-a; _)).
       apply path_prod; cbn.
       * apply grp_moveL_Mg.
-        change (negate (-b)) with (--b).
-        by rewrite (ab_neg_neg b).
+        by rewrite involutive.
       * exact ((preserves_negate a) @ ap _ s @ (right_identity _)^).
 Defined.
 
@@ -208,7 +206,7 @@ Proof.
   refine (tr (0; _)).
   apply path_prod'; cbn.
   - refine (ap _ (grp_homo_unit _) @ _).
-    refine (ab_neg_zero @ _).
+    refine (grp_inv_unit @ _).
     apply grp_moveL_Vg.
     exact (right_identity _ @ right_identity _).
   - refine (grp_homo_unit _ @ _).
