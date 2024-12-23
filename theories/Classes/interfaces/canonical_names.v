@@ -3,11 +3,7 @@ Require Export
   HoTT.Types
   HoTT.Truncations.Core.
 
-(** We group these declarations into a module, so that just this subset can be exported in some cases. *)
-Module Export MCScope.
-  Declare Scope mc_scope.
-  Delimit Scope mc_scope with mc.
-End MCScope.
+Declare Scope mc_scope.
 
 Open Scope mc_scope.
 
@@ -25,7 +21,7 @@ apply Trunc_ind.
 - exact E.
 Qed.
 
-Notation " g ∘ f " := (Compose g f)%mc.
+Notation " g ∘ f " := (Compose g f).
 Notation "(∘)" := Compose (only parsing) : mc_scope.
 
 Definition id {A : Type} (a : A) := a.
@@ -156,7 +152,7 @@ Notation "(^)" := inv (only parsing) : mc_scope.
 
 Notation "- x" := (inv x) : mc_add_scope.
 Notation "(-)" := inv (only parsing) : mc_add_scope.
-Notation "x - y" := (sg_op x (inv y)) : mc_add_scope.
+Notation "x - y" := (x + inv y) : mc_add_scope.
 
 Notation "- x" := (negate x) : mc_scope.
 Notation "(-)" := negate (only parsing) : mc_scope.

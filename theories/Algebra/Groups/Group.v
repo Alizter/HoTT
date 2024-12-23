@@ -8,7 +8,6 @@ Require Export Classes.interfaces.canonical_names (SgOp, sg_op, MonUnit, mon_uni
     LeftIdentity, left_identity, RightIdentity, right_identity,
     Inverse, inv, Associative, simple_associativity, associativity,
     LeftInverse, left_inverse, RightInverse, right_inverse, Commutative, commutativity).
-Export canonical_names.MCScope.
 Export canonical_names.BinOpNotations.
 Require Export Classes.interfaces.abstract_algebra (IsGroup(..), group_monoid, inverse_l, inverse_r,
     IsSemiGroup(..), sg_set, sg_ass,
