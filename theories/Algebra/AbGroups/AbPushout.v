@@ -27,10 +27,10 @@ Proof.
   - exact (ab_biprod_rec b c).
   - intros [x y] q; strip_truncations; simpl.
     destruct q as [a q]. cbn in q.
-    lhs_V nrapply (ap (uncurry (fun x y => b x + c y)) q).
+    refine (ap (uncurry (fun x y => b x + c y)) q^ @ _).
     cbn.
-    lhs rapply (ap011 (+) (preserves_negate _) (p a)^).
-    apply left_inverse.
+    refine (ap011 sg_op (preserves_negate _) (p a)^ @ _).
+    exact (left_inverse _).
 Defined.
 
 Corollary ab_pushout_rec_uncurried {A B C : AbGroup}
