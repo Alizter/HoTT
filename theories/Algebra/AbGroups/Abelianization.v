@@ -7,9 +7,7 @@ Require Import Modalities.ReflectiveSubuniverse.
 (** In this file we define what it means for a group homomorphism G -> H into an abelian group H to be an abelianization. We then construct an example of an abelianization. *)
 
 Local Open Scope mc_scope.
-Local Open Scope mc_mult_scope.
 Local Open Scope wc_iso_scope.
-Local Open Scope path_scope.
 
 (** Definition of Abelianization.
 
@@ -386,7 +384,8 @@ Theorem homotopic_isabelianization {G : Group} (A B : AbGroup)
   : eta2 == grp_homo_compose (groupiso_isabelianization A B eta1 eta2) eta1.
 Proof.
   intros x.
-  exact ((esssurj (group_precomp B eta1) eta2).2 x)^.
+  symmetry.
+  exact ((esssurj (group_precomp B eta1) eta2).2 x).
 Defined.
 
 (** Hence any abelianization is surjective. *)
