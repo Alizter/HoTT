@@ -134,7 +134,7 @@ Section RingHomoLaws.
   Definition rng_homo_negate : f (-x) = -(f x) := preserves_negate x.
 
   Definition rng_homo_minus_one : f (-1) = -1
-    := preserves_negate 1%mc @ ap negate preserves_1.
+    := preserves_negate _ @ ap negate preserves_1.
 
 End RingHomoLaws.
 
