@@ -81,7 +81,7 @@ Section RingLaws.
 
   Context {A : Ring} (x y z : A).
 
-  Definition rng_dist_l : x * (y + z) = x * y + x * z := simple_distribute_l x y _.
+  Definition rng_dist_l : x * (y + z) = x * y + x * z := simple_distribute_l _ _ _.
   Definition rng_dist_r : (x + y) * z = x * z + y * z := simple_distribute_r _ _ _.
   Definition rng_plus_zero_l : 0 + x = x := left_identity _.
   Definition rng_plus_zero_r : x + 0 = x := right_identity _.
