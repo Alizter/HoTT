@@ -10,7 +10,6 @@ Require Import Homotopy.WhiteheadsPrinciple.
 
 Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
-Local Open Scope path_scope.
 
 (** * We define the Classifying space of a group to be the following HIT:
 

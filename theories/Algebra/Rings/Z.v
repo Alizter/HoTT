@@ -4,9 +4,6 @@ Require Import Algebra.Rings.CRing.
 Require Import Spaces.Int Spaces.Pos.
 Require Import WildCat.Core.
 
-Local Open Scope mc_scope.
-Local Open Scope mc_add_scope.
-
 (** * In this file we define the ring [cring_Z] of integers with underlying abelian group [abgroup_Z] defined in Algebra.AbGroups.Z. We also define multiplication by an integer in a general ring, and show that [cring_Z] is initial. *)
 
 (** The ring of integers *)

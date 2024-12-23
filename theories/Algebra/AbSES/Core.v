@@ -6,8 +6,6 @@ Require Import Homotopy.ExactSequence Pointed.
 Require Import Modalities.ReflectiveSubuniverse.
 
 Local Open Scope pointed_scope.
-Local Open Scope mc_scope.
-Local Open Scope path_scope.
 Local Open Scope type_scope.
 Local Open Scope mc_add_scope.
 

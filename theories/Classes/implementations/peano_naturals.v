@@ -6,8 +6,6 @@ Require Import
   HoTT.Classes.orders.semirings
   HoTT.Classes.theory.apartness.
 
-Local Open Scope nat_scope.
-Local Open Scope mc_scope.
 Local Open Scope path_scope.
 
 Local Set Universe Minimization ToSet.

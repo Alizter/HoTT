@@ -9,8 +9,6 @@ Require Import Modalities.ReflectiveSubuniverse.
 
 Set Universe Minimization ToSet.
 
-Local Open Scope mc_scope.
-
 (** * Matrices *)
 
 (** ** Definition *)
@@ -584,8 +582,6 @@ Defined.
 Definition skip (n : nat) : nat -> nat
   := fun i => if dec (i < n)%nat then i else i.+1%nat.
 
-Local Open Scope path_scope.
-
 Global Instance isinjective_skip n : IsInjective (skip n).
 Proof.
   hnf.
@@ -593,7 +589,7 @@ Proof.
   unfold skip in p.
   destruct (dec (x < n)%nat) as [H|H], (dec (y < n)%nat) as [H'|H'].
   - exact p.
-  - destruct p^.
+  - symmetry in p; destruct p.
     contradiction (H' (leq_trans _ H)).
   - destruct p.
     contradiction (H (leq_trans _ H')).

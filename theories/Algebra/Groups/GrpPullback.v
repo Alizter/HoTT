@@ -5,7 +5,6 @@ Require Import WildCat.Core.
 (** Pullbacks of groups are formalized by equipping the set-pullback with the desired group structure. The universal property in the category of groups is proved by saying that the corecursion principle (grp_pullback_corec) is an equivalence. *) 
 
 Local Open Scope mc_scope.
-Local Open Scope mc_mult_scope.
 
 Section GrpPullback.
 
@@ -175,8 +174,6 @@ Proof.
   1-2: apply eissect.
 Defined.
   
-Local Open Scope path_scope.
-
 (** Pulling back along some [g : Y $-> Z] and then [g' : Y' $-> Y] is the same as pulling back along [g $o g']. *)
 Definition equiv_grp_pullback_compose_r {X Z Y Y' : Group} (f : X $-> Z) (g' : Y' $-> Y) (g : Y $-> Z)
   : GroupIsomorphism (grp_pullback (grp_pullback_pr2 f g) g') (grp_pullback f (g $o g')).
@@ -201,7 +198,7 @@ Proof.
       2: reflexivity.
       srapply equiv_path_pullback_hset; split; cbn.
       1: reflexivity.
-      exact z1^.
+      symmetry; exact z1.
 Defined.
 
 Section IsEquivGrpPullbackCorec.

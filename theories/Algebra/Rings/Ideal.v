@@ -6,8 +6,6 @@ Require Import Algebra.Groups.Subgroup Algebra.Groups.Kernel.
 Require Import Algebra.AbGroups.AbelianGroup.
 Require Import WildCat.Core.
 
-Local Open Scope mc_scope.
-
 Declare Scope ideal_scope.
 Delimit Scope ideal_scope with ideal.
 Local Open Scope ideal_scope.

@@ -5,9 +5,7 @@ Require Import Algebra.Groups.Group.
 Require Import Colimits.Coeq.
 Require Import Algebra.Groups.FreeProduct.
 
-Local Open Scope mc_scope.
 Local Open Scope mc_mult_scope.
-Local Open Scope path_scope.
 
 (** Coequalizers of group homomorphisms *)
 
