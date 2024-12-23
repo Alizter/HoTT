@@ -130,32 +130,32 @@ Section upper_classes.
   Local Close Scope mc_mult_scope.
 
   Class IsAbGroup {Aop : Plus A} {Azero : Zero A} {Anegate : Negate A} :=
-    { abgroup_group : @IsGroup plus_is_sg_op zero_is_mon_unit negate_is_inverse
+    { abgroup_group : @IsGroup (+) 0 (-)
     ; abgroup_commutative : Commutative (+) }.
   #[export] Existing Instances abgroup_group abgroup_commutative.
 
   Context {Aplus : Plus A} {Amult : Mult A} {Azero : Zero A} {Aone : One A}.
 
   Class IsSemiCRing :=
-    { semiplus_monoid : @IsCommutativeMonoid plus_is_sg_op zero_is_mon_unit
-    ; semimult_monoid : @IsCommutativeMonoid mult_is_sg_op one_is_mon_unit
-    ; semiring_distr : LeftDistribute mult_is_sg_op plus_is_sg_op
-    ; semiring_left_absorb : LeftAbsorb mult_is_sg_op zero_is_mon_unit }.
+    { semiplus_monoid : @IsCommutativeMonoid (+) 0
+    ; semimult_monoid : @IsCommutativeMonoid (.*.) 1
+    ; semiring_distr : LeftDistribute (.*.) (+)
+    ; semiring_left_absorb : LeftAbsorb (.*.) 0 }.
   #[export] Existing Instances semiplus_monoid semimult_monoid semiring_distr semiring_left_absorb.
 
   Context {Anegate : Negate A}.
 
   Class IsRing :=
-    { ring_abgroup :: @IsAbGroup plus_is_sg_op zero_is_mon_unit negate_is_inverse
-    ; ring_monoid :: @IsMonoid mult_is_sg_op one_is_mon_unit
-    ; ring_dist_left :: LeftDistribute mult_is_sg_op plus_is_sg_op
-    ; ring_dist_right :: RightDistribute mult_is_sg_op plus_is_sg_op
+    { ring_abgroup :: @IsAbGroup (+) 0 (-)
+    ; ring_monoid :: @IsMonoid (.*.) 1
+    ; ring_dist_left :: LeftDistribute (.*.) (+)
+    ; ring_dist_right :: RightDistribute (.*.) (+)
   }.
 
   Class IsCRing :=
-    { cring_group : @IsAbGroup plus_is_sg_op zero_is_mon_unit negate_is_inverse
-    ; cring_monoid : @IsCommutativeMonoid mult_is_sg_op one_is_mon_unit
-    ; cring_dist : LeftDistribute mult_is_sg_op plus_is_sg_op }.
+    { cring_group : @IsAbGroup (+) 0 (-)
+    ; cring_monoid : @IsCommutativeMonoid (.*.) 1
+    ; cring_dist : LeftDistribute (.*.) (+) }.
 
   #[export] Existing Instances cring_group cring_monoid cring_dist.
 
@@ -309,9 +309,9 @@ Section morphism_classes.
 
   Class IsSemiRingPreserving (f : A -> B) :=
     { semiringmor_plus_mor : @IsMonoidPreserving A B
-        plus_is_sg_op plus_is_sg_op zero_is_mon_unit zero_is_mon_unit f
+        (+) (+) 0 0 f
     ; semiringmor_mult_mor : @IsMonoidPreserving A B
-        mult_is_sg_op mult_is_sg_op one_is_mon_unit one_is_mon_unit f }.
+        (.*.) (.*.) 1 1 f }.
   #[export] Existing Instances semiringmor_plus_mor semiringmor_mult_mor.
 
   Context {Aap : Apart A} {Bap : Apart B}.
