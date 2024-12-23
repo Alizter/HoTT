@@ -4,8 +4,6 @@ Require Import
 
 Generalizable Variables A B C K L f.
 
-Local Hint Immediate canonical_names.sg_op_is_plus : typeclass_instances.
-
 Global Instance bounded_sl_is_sl `{IsBoundedSemiLattice L} : IsSemiLattice L.
 Proof.
 repeat (split; try apply _).
@@ -126,6 +124,7 @@ Section lower_bounded_lattice.
 End lower_bounded_lattice.
 
 Section from_another_sl.
+  Local Open Scope mc_add_scope.
   Context `{IsSemiLattice A} `{IsHSet B}
    `{Bop : SgOp B} (f : B -> A) `{!IsInjective f}
    (op_correct : forall x y, f (x + y) = f x + f y).
@@ -140,6 +139,7 @@ Section from_another_sl.
 End from_another_sl.
 
 Section from_another_bounded_sl.
+  Local Open Scope mc_add_scope.
   Context `{IsBoundedSemiLattice A} `{IsHSet B}
    `{Bop : SgOp B} `{Bunit : MonUnit B} (f : B -> A) `{!IsInjective f}
    (op_correct : forall x y, f (x + y) = f x + f y)
