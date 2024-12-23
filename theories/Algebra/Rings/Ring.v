@@ -210,7 +210,7 @@ Definition Build_Ring (R : AbGroup)
   : Ring.
 Proof.
   rapply (Build_Ring' R).
-  2: exact (fun z y x => (associativity x y z)^%path).
+  2: exact (fun z y x => (associativity x y z)^).
   split; only 1,3,4: exact _.
   repeat split; exact _.
 Defined.
