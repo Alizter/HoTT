@@ -7,6 +7,7 @@ Require Import WildCat.Core.
 
 Local Open Scope mc_scope.
 Local Open Scope mc_mult_scope.
+Local Open Scope path_scope.
 
 Definition grp_kernel {A B : Group} (f : GroupHomomorphism A B) : NormalSubgroup A.
 Proof.
@@ -19,8 +20,8 @@ Proof.
   - intros x y; cbn; intros p.
     apply (grp_homo_moveL_1V _ _ _)^-1.
     lhs_V nrapply grp_inv_inv.
-    nrefine (ap (-) _^).
-    exact (grp_homo_moveL_1V f x y p).
+    apply (ap (-)).
+    exact (grp_homo_moveL_1V f x y p)^.
 Defined.
 
 (** ** Corecursion principle for group kernels *)
