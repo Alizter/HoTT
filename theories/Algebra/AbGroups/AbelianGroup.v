@@ -25,7 +25,7 @@ Coercion abgroup_group : AbGroup >-> Group.
 Global Existing Instance abgroup_commutative.
 
 Global Instance zero_abgroup (A : AbGroup) : Zero A := mon_unit.
-Global Instance negate_abgroup (A : AbGroup) : Negate A := (^).
+Global Instance negate_abgroup (A : AbGroup) : Negate A := inv.
 Global Instance plus_abgroup (A : AbGroup) : Plus A := sg_op.
 
 (** Abelian groups form a category *)

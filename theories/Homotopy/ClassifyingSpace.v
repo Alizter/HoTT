@@ -10,6 +10,7 @@ Require Import Homotopy.WhiteheadsPrinciple.
 
 Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
+Local Open Scope path_scope.
 
 (** * We define the Classifying space of a group to be the following HIT:
 
@@ -41,7 +42,7 @@ Module Export ClassifyingSpace.
 
   End ClassifyingSpace.
   
-  Arguments bloop {G} _%_mc_scope.
+  Arguments bloop {G} _%_mc_mult_scope.
 
   (** Now we can state the expected dependent elimination principle, and derive other versions of the elimination principle from it. *)
   Section ClassifyingSpace_ind.

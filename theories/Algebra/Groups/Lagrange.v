@@ -8,6 +8,7 @@ Require Import Spaces.Nat.Core.
 (** ** Lagrange's theorem *)
 
 Local Open Scope mc_scope.
+Local Open Scope mc_mult_scope.
 Local Open Scope nat_scope.
 
 Definition subgroup_index {U : Univalence} (G : Group) (H : Subgroup G)
