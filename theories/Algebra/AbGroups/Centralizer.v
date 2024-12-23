@@ -34,7 +34,7 @@ Proof.
   unfold centralizer in *.
   symmetry.
   refine ((grp_unit_r _)^ @ _ @ grp_unit_l _).
-  refine (ap ((h^%mc * g) *.) (grp_inv_r h)^ @ _ @ ap (.* (g * h^%mc)) (grp_inv_l h)).
+  refine (ap ((_ * g) *.) (grp_inv_r h)^ @ _ @ ap (.* (g * _)) (grp_inv_l h)).
   refine (grp_assoc _ _ _ @ _ @ (grp_assoc _ _ _)^).
   refine (ap (.* h^) _).
   refine ((grp_assoc _ _ _)^ @ _ @ grp_assoc _ _ _).
