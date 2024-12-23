@@ -62,6 +62,10 @@ Defined.
 Definition ab_neg_zero {A : AbGroup} : -0 = 0 :> A := grp_inv_unit.
 Definition ab_neg_neg {A : AbGroup} : Involutive (-) := @grp_inv_inv A.
 
+Definition ab_homo_neg {A B : AbGroup} (f : GroupHomomorphism A B) (x : A)
+  : f (- x) = - f x
+  := grp_homo_inv f x.
+
 (** ** Paths between abelian groups *)
 
 Definition equiv_path_abgroup `{Univalence} {A B : AbGroup@{u}}
@@ -99,6 +103,7 @@ Global Instance isnormal_ab_subgroup (G : AbGroup) (H : Subgroup G)
   : IsNormalSubgroup H.
 Proof.
   intros x y h.
+  change (H (y + x)).
   by rewrite ab_comm.
 Defined.
 

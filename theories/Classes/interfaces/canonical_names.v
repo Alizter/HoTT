@@ -150,10 +150,6 @@ Notation "(.* x )" := (fun y => y * x) (only parsing) : mc_scope.
 Notation "x ^" := (inv x) : mc_scope.
 Notation "(^)" := inv (only parsing) : mc_scope.
 
-Notation "- x" := (inv x) : mc_add_scope.
-Notation "(-)" := inv (only parsing) : mc_add_scope.
-Notation "x - y" := (x + inv y) : mc_add_scope.
-
 Notation "- x" := (negate x) : mc_scope.
 Notation "(-)" := negate (only parsing) : mc_scope.
 Notation "x - y" := (x + negate y) : mc_scope.

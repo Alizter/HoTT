@@ -6,7 +6,8 @@ Require Import AbSES.Core AbSES.Pullback.
 Require Import Modalities.Identity Modalities.Modality Truncations.Core.
 
 Local Open Scope pointed_scope.
-Local Open Scope mc_add_scope.
+Local Open Scope mc_scope.
+Local Open Scope path_scope.
 
 (** * The fiber sequence induced by pulling back along a short exact sequence *)
 

@@ -33,8 +33,6 @@ Proof.
   intros m n; apply grp_pow_add.
 Defined.
 
-Local Open Scope mc_add_scope.
-
 (** [ab_mul] (and [grp_pow]) give multiplication in [abgroup_Z]. *)
 Definition abgroup_Z_ab_mul (z z' : Int)
   : ab_mul (A:=abgroup_Z) z z' = z * z'.

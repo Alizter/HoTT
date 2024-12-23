@@ -6,6 +6,8 @@ Require Import Homotopy.ExactSequence Pointed.
 Require Import Modalities.ReflectiveSubuniverse.
 
 Local Open Scope pointed_scope.
+Local Open Scope mc_scope.
+Local Open Scope path_scope.
 Local Open Scope type_scope.
 Local Open Scope mc_add_scope.
 
@@ -158,7 +160,7 @@ Proof.
     1: apply center, issurjection_projection.
     strip_truncations.
     (** The difference [f - (phi e0.1)] is sent to [0] by [projection F], hence lies in [A]. *)
-    assert (a : Tr (-1) (hfiber (inclusion F) (f + (- phi e0.1)))).
+    assert (a : Tr (-1) (hfiber (inclusion F) (f - phi e0.1))).
     1: { refine (isexact_preimage (Tr (-1)) (inclusion F) (projection F) _ _).
          refine (grp_homo_op _ _ _ @ _).
          refine (ap _ (grp_homo_inv _ _) @ _).

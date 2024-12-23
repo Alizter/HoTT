@@ -215,9 +215,7 @@ Proof.
     + change (P (tensor_in (freegroup_in (a, b)) + tensor_in (freegroup_eta w))).
       apply Hop; trivial.
       apply Hin.
-    + change (P (tensor_in (- freegroup_in (a, b)) + tensor_in (freegroup_eta w))).
-      (* This [rewrite] is also reflexivity. *)
-      rewrite grp_homo_inv.
+    + change (P (-tensor_in (freegroup_in (a, b)) + tensor_in (freegroup_eta w))).
       apply Hop; trivial.
       rewrite <- tensor_neg_l.
       apply Hin.
