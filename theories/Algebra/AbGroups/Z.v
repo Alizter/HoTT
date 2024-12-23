@@ -4,17 +4,18 @@ Require Import Algebra.AbGroups.AbelianGroup.
 
 Local Set Universe Minimization ToSet.
 
+Local Open Scope int_scope.
+Local Open Scope mc_add_scope.
+
 (** * The group of integers *)
 
 (** See also Cyclic.v for a definition of the integers as the free group on one generator. *)
-
-Local Open Scope int_scope.
 
 Definition abgroup_Z@{} : AbGroup@{Set}.
 Proof.
   snrapply Build_AbGroup'.
   - exact Int.
-  - exact 0.
+  - exact 0%int.
   - exact int_neg.
   - exact int_add.
   - exact _.

@@ -4,8 +4,7 @@ Require Import HSet.
 Require Import AbelianGroup.
 Require Import Modalities.ReflectiveSubuniverse.
 
-Local Open Scope mc_scope.
-Local Open Scope path_scope.
+Local Open Scope mc_add_scope.
 
 (** * Biproducts of abelian groups *)
 
