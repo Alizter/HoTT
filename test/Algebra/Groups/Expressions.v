@@ -15,16 +15,19 @@ Section Groups.
   Fail Type (x * y : G).
   
   (** [x^] will be interpreted as path inversion, therefore Coq will complain about its type. *)
-  Fail Type (x^ * y : G).
+  Fail Type (x^ : G).
 
-  (** Opening [mc_scope] will mean notations such as [^] gain meaning whilst [_ * _] will specifically mean a multiplication. This means that for rings this notation has meaning, but for groups the meaning is still missing. *)
+  (** In [mc_scope], [_ * _] denotes an instance of [Mult], which groups do not have. It is useful for rings, see below. *)
   Local Open Scope mc_scope.
 
   (** We fail saying that no [Mult] instance was found for [G] as expected. *)
   Fail Type (x * y : G).
-  Fail Type (x^ * y : G).
+  (** Here [^] is still interpreted as path inversion. *)
+  Fail Type (x^ : G).
 
-  (** Finally, we can open [mc_mult_scope] which will mean [x * y] is [sg_op x y]. *)
+  Local Close Scope mc_scope.
+
+  (** The correct scope for a general group is [mc_mult_scope], where [x * y] is [sg_op x y] and [^] is [inv]. *)
   Local Open Scope mc_mult_scope.
 
   (** This gets correctly interpreted as the group operation. *)
@@ -55,13 +58,15 @@ Section AbGroups.
     - [x - y] is interpreted as [x + (- y)] for a [Negate] and [Plus]. *)
   Local Open Scope mc_scope.
 
-  (** Notably, even though these instances exist for [Ring]s, they do not in general for abelian groups as we treat those as groups with commutativity rather than a separate operation. This allows us to use group lemmas without deforming abelian group expressions. *)
+  (** Notably, even though these instances exist for [Ring]s, they do not in general for abelian groups as we treat those as groups with a commutative [sg_op] rather than a [plus] operation. This allows us to use group lemmas without deforming abelian group expressions. *)
   
   (** These fail due to a lack of [Plus]. *)
   Fail Type (x + y : A).
   Fail Type (x - y : A).
   (** This fails due to a lack of [Negate]. *)
   Fail Type (-x : A).
+
+  Local Close Scope mc_scope.
 
   (** Opening [mc_add_scope] will make writing expressions of abelian groups possible. *)
   Local Open Scope mc_add_scope.
@@ -73,32 +78,35 @@ Section AbGroups.
   
   Local Close Scope mc_add_scope.
   
-  (** We can also work with the abelian group with a multiplicative notation. As we would for any group. *)
+  (** We can also work with the abelian group with a multiplicative notation, as we would for any group. *)
   Local Open Scope mc_mult_scope.
   
   Succeed Type (x * y : A).
   Succeed Type (x^ : A).
   Succeed Type (x^ * y : A).
   
-  (** This can get confusing if we further allow for additive notations to also be shown. *)
+  (** This can get confusing if we further allow for additive notations to also be shown, so only one of [mc_add_scope] and [mc_mult_scope] should be used. *)
   
   Local Open Scope mc_add_scope.
 
   Succeed Type (-x * y + x^).
   Succeed Type (-x^ + --x^).
 
-  (** Now we close both scopes. *)
   Local Close Scope mc_add_scope.
   Local Close Scope mc_mult_scope.
 
-  (** Sometimes, as when working with rings, we don't want to disguise our group operation with [+] but treat it as if it really is a [+] instance. In this case, we include a module with said hints which can be imported. *)
+  (** Sometimes, as when working with rings, we want [+] to denote [plus] rather than [sg_op]. In this case, we include a module with hints which can be imported. *)
   
   Import AbelianGroup.AdditiveInstances.
   
+  Local Open Scope mc_scope.
+
   (** This allows us to write additive notations even though we don't have [mc_add_scope] or [mc_mult_scope] open. The disadvantage of working like this however, is that any group lemmas applied to abelian groups will have their [plus], [zero] and [negate] unfolded to the underlying group operations. *)
   Succeed Type (x + y : A).
   Succeed Type (-x : A).
   Succeed Type (-x + y : A).
   Succeed Type (x - y : A).
+
+  Local Close Scope mc_scope.
 
 End AbGroups.
