@@ -81,9 +81,7 @@ Definition equiv_path_abgroup_group `{Univalence} {A B : AbGroup}
 
 (** ** Subgroups of abelian groups *)
 
-Local Hint Immediate canonical_names.sg_op_is_plus : typeclass_instances.
 Local Hint Immediate canonical_names.inverse_is_negate : typeclass_instances.
-Local Hint Immediate canonical_names.mon_unit_is_zero : typeclass_instances.
 
 (** Subgroups of abelian groups are abelian *)
 Global Instance isabgroup_subgroup (G : AbGroup) (H : Subgroup G)
