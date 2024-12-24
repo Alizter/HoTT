@@ -219,11 +219,12 @@ Section from_another_group.
 End from_another_group.
 
 Section from_another_ab_group.
+  Local Open Scope mc_add_scope. 
 
   Context `{IsAbGroup A} `{IsHSet B}
-   `{Bop : Plus B} `{Bzero : Zero B} `{Bnegate : Negate B}
+   `{Bop : SgOp B} `{Bunit : MonUnit B} `{Bnegate : Negate B}
    (f : B -> A) `{!IsInjective f}
-   (op_correct : forall x y, f (x * y) = f x * f y)
+   (op_correct : forall x y, f (x + y) = f x + f y)
    (unit_correct : f 0 = 0)
    (negate_correct : forall x, f (-x) = -f x).
 

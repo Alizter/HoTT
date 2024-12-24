@@ -129,9 +129,9 @@ Section upper_classes.
   
   Local Close Scope mc_mult_scope.
 
-  Class IsAbGroup {Aop : Plus A} {Azero : Zero A} {Anegate : Negate A} :=
-    { abgroup_group : @IsGroup (+) 0 (-)
-    ; abgroup_commutative : Commutative (+) }.
+  Class IsAbGroup {Aop : SgOp A} {Azero : MonUnit A} {Anegate : Negate A} :=
+    { abgroup_group : @IsGroup Aop Azero negate_is_inverse
+    ; abgroup_commutative : Commutative Aop }.
   #[export] Existing Instances abgroup_group abgroup_commutative.
 
   Context {Aplus : Plus A} {Amult : Mult A} {Azero : Zero A} {Aone : One A}.
