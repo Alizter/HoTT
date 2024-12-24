@@ -77,9 +77,8 @@ Section AbGroups.
   Local Open Scope mc_mult_scope.
   
   Succeed Type (x * y : A).
-  Succeed Type (-x : A).
   Succeed Type (x^ : A).
-  Succeed Type (x^ * -y : A).
+  Succeed Type (x^ * y : A).
   
   (** This can get confusing if we further allow for additive notations to also be shown. *)
   
@@ -87,5 +86,19 @@ Section AbGroups.
 
   Succeed Type (-x * y + x^).
   Succeed Type (-x^ + --x^).
+
+  (** Now we close both scopes. *)
+  Local Close Scope mc_add_scope.
+  Local Close Scope mc_mult_scope.
+
+  (** Sometimes, as when working with rings, we don't want to disguise our group operation with [+] but treat it as if it really is a [+] instance. In this case, we include a module with said hints which can be imported. *)
+  
+  Import AbelianGroup.AdditiveInstances.
+  
+  (** This allows us to write additive notations even though we don't have [mc_add_scope] or [mc_mult_scope] open. The disadvantage of working like this however, is that any group lemmas applied to abelian groups will have their [plus], [zero] and [negate] unfolded to the underlying group operations. *)
+  Succeed Type (x + y : A).
+  Succeed Type (-x : A).
+  Succeed Type (-x + y : A).
+  Succeed Type (x - y : A).
 
 End AbGroups.
