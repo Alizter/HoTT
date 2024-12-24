@@ -88,7 +88,6 @@ Definition NonPos R `{Zero R} `{Le R} := sig (fun y => le y zero).
 
 Global Instance plus_is_sg_op `{f : Plus A} : SgOp A := f.
 Definition sg_op_is_plus `{f : SgOp A} : Plus A := f.
-(* #[global] Hint Immediate sg_op_is_plus : typeclass_instances. *)
 
 Global Instance mult_is_sg_op `{f : Mult A} : SgOp A := f.
 Definition sg_op_is_mult `{f : SgOp A} : Mult A := f.
