@@ -155,38 +155,35 @@ End MultiplicativeNotations.
 
 (** We group these notations into a module, so that just this subset can be exported in some cases. *)
 Module Export BinOpNotations.
-(* Notations: *)
+  Export AdditiveNotations MultiplicativeNotations.
 
-Export AdditiveNotations MultiplicativeNotations.
+  Infix "+" := plus : mc_scope.
+  Notation "(+)" := plus (only parsing) : mc_scope.
+  Notation "( x +)" := (plus x) (only parsing) : mc_scope.
+  Notation "(+ x )" := (fun y => y + x) (only parsing) : mc_scope.
 
-Infix "+" := plus : mc_scope.
-Notation "(+)" := plus (only parsing) : mc_scope.
-Notation "( x +)" := (plus x) (only parsing) : mc_scope.
-Notation "(+ x )" := (fun y => y + x) (only parsing) : mc_scope.
+  Infix "*" := mult : mc_scope.
+  (* We don't add "( * )", "( * x )" and "( x * )" notations because they conflict with comments. *)
+  Notation "( x *.)" := (mult x) (only parsing) : mc_scope.
+  Notation "(.*.)" := mult (only parsing) : mc_scope.
+  Notation "(.* x )" := (fun y => y * x) (only parsing) : mc_scope.
 
-Infix "*" := mult : mc_scope.
-(* We don't add "( * )", "( * x )" and "( x * )" notations
-   because they conflict with comments. *)
-Notation "( x *.)" := (mult x) (only parsing) : mc_scope.
-Notation "(.*.)" := mult (only parsing) : mc_scope.
-Notation "(.* x )" := (fun y => y * x) (only parsing) : mc_scope.
+  Notation "- x" := (negate x) : mc_scope.
+  Notation "(-)" := negate (only parsing) : mc_scope.
+  Notation "x - y" := (x + negate y) : mc_scope.
 
-Notation "- x" := (negate x) : mc_scope.
-Notation "(-)" := negate (only parsing) : mc_scope.
-Notation "x - y" := (x + negate y) : mc_scope.
+  Notation "0" := zero : mc_scope.
+  Notation "1" := one : mc_scope.
 
-Notation "0" := zero : mc_scope.
-Notation "1" := one : mc_scope.
-
-Notation "2" := (1 + 1) : mc_scope.
-Notation "3" := (1 + (1 + 1)) : mc_scope.
-Notation "4" := (1 + (1 + (1 + 1))) : mc_scope.
-Notation "5" := (1 + (1 + (1 + (1 + 1)))) : mc_scope.
-Notation "6" := (1 + (1 + (1 + (1 + (1 + 1))))) : mc_scope.
-Notation "- 1" := (-(1)) : mc_scope.
-Notation "- 2" := (-(2)) : mc_scope.
-Notation "- 3" := (-(3)) : mc_scope.
-Notation "- 4" := (-(4)) : mc_scope.
+  Notation "2" := (1 + 1) : mc_scope.
+  Notation "3" := (1 + (1 + 1)) : mc_scope.
+  Notation "4" := (1 + (1 + (1 + 1))) : mc_scope.
+  Notation "5" := (1 + (1 + (1 + (1 + 1)))) : mc_scope.
+  Notation "6" := (1 + (1 + (1 + (1 + (1 + 1))))) : mc_scope.
+  Notation "- 1" := (-(1)) : mc_scope.
+  Notation "- 2" := (-(2)) : mc_scope.
+  Notation "- 3" := (-(3)) : mc_scope.
+  Notation "- 4" := (-(4)) : mc_scope.
 End BinOpNotations.
 
 Notation "/ x" := (dec_recip x) : mc_scope.
