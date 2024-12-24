@@ -109,7 +109,6 @@ Definition bottom_is_mon_unit `{s : Bottom A} : MonUnit A := s.
 
 Global Instance negate_is_inverse `{i : Negate A} : Inverse A := i.
 Definition inverse_is_negate `{i : Inverse A} : Negate A := i.
-#[global] Hint Immediate inverse_is_negate : typeclass_instances.
 
 #[export]
 Hint Extern 4 (Apart (ApartZero _)) => apply @sig_apart : typeclass_instances.
