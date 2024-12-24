@@ -1,4 +1,4 @@
-From HoTT Require Import Basics.Overture Algebra.Groups.Group.
+From HoTT Require Import Basics.Overture Groups.Group AbGroups.AbelianGroup.
 
 Set Universe Minimization ToSet.
 
@@ -33,3 +33,60 @@ Section Groups.
   Succeed Type (x^ * y : G).
 
 End Groups.
+
+Section AbGroups.
+
+  Context {A : AbGroup@{Set}} (x y : A).
+
+  (** Working with abelian groups can be confusing if the correct scopes are not open. We document the correct usage here. *)
+  
+  (** Similar to [*], without any scopes open, the following expression fails since Coq interprets it as the sum type. *)
+  Fail Type (x + y : A).
+
+  (** The [- _] notation doesn't have any meaning when the correct scope is not open. *)
+  Fail Type (-x : A).
+
+  (** Nor does the subtraction notation. *)
+  Fail Type (x - y : A).
+
+  (** Opening [mc_scope] will mean that:
+    - [+] becomes the operation of a [Plus].
+    - [- x] becomes a [Negate] operation.
+    - [x - y] is interpreted as [x + (- y)] for a [Negate] and [Plus]. *)
+  Local Open Scope mc_scope.
+
+  (** Notably, even though these instances exist for [Ring]s, they do not in general for abelian groups as we treat those as groups with commutativity rather than a separate operation. This allows us to use group lemmas without deforming abelian group expressions. *)
+  
+  (** These fail due to a lack of [Plus]. *)
+  Fail Type (x + y : A).
+  Fail Type (x - y : A).
+
+  (** However note that this does not fail since [Negation] is inferrable from [Inverse]. *)
+  Succeed Type (-x : A).
+
+  (** Opening [mc_add_scope] will make writing expressions of abelian groups possible. *)
+  Local Open Scope mc_add_scope.
+
+  Succeed Type (x + y : A).
+  Succeed Type (-x : A).
+  Succeed Type (-x + y : A).
+  Succeed Type (x - y : A).
+  
+  Local Close Scope mc_add_scope.
+  
+  (** We can also work with the abelian group with a multiplicative notation. As we would for any group. *)
+  Local Open Scope mc_mult_scope.
+  
+  Succeed Type (x * y : A).
+  Succeed Type (-x : A).
+  Succeed Type (x^ : A).
+  Succeed Type (x^ * -y : A).
+  
+  (** This can get confusing if we further allow for additive notations to also be shown. *)
+  
+  Local Open Scope mc_add_scope.
+
+  Succeed Type (-x * y + x^).
+  Succeed Type (-x^ + --x^).
+
+End AbGroups.
