@@ -252,15 +252,20 @@ Section AbelGroup.
       there is no obvious way to do this, but we note that [abel_in (x * y)] is exactly the definition of [abel_in x + abel_in y]! Hence by commutativity we can show this. *)
   Global Instance abel_negate : Negate (Abel G).
   Proof.
-    srapply Abel_rec.
-    { intro g.
-      exact (abel_in g^). }
-    intros x y z; cbn.
-    rewrite ?inverse_sg_op.
-    change (abel_in z^ + abel_in y^ + abel_in x^
-      = abel_in y^ + abel_in z^ + abel_in x^).
-    nrapply (ap (+ _)).
-    rapply (commutativity (abel_in z^) (abel_in y^)).
+    srapply (Abel_rec _ _ (abel_in o inv)).
+    intros x y z; cbn beta.
+    transparent assert (p : (forall a b c : G, (a * (b * c))^ = c^ * b^ * a^)).
+    { intros a b c.
+      lhs rapply inverse_sg_op.
+      nrapply (ap (.* _)).
+      1: apply inverse_sg_op. }
+    lhs nrapply ap.
+    1: apply p.
+    rhs nrapply ap.
+    2: apply p.
+    do 2 change (abel_in (?x * ?y)) with (abel_in x + abel_in y).
+    apply (ap (+ _)).
+    exact (commutativity (abel_in z^) (abel_in y^)).
   Defined.
 
   (** Again by Abel_ind_hprop and the corresponding laws for G we can prove the left and right inverse laws. *)
