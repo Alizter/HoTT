@@ -254,16 +254,20 @@ Section AbelGroup.
   Proof.
     srapply (Abel_rec _ _ (abel_in o inv)).
     intros x y z; cbn beta.
+    (** First we prove a small lemma about inverting a triple. *)
     transparent assert (p : (forall a b c : G, (a * (b * c))^ = c^ * b^ * a^)).
     { intros a b c.
       lhs rapply inverse_sg_op.
       nrapply (ap (.* _)).
       1: apply inverse_sg_op. }
+    (** We can now invert the triple product in [G] on both sides. *) 
     lhs nrapply ap.
     1: apply p.
     rhs nrapply ap.
     2: apply p.
+    (** We know that [abel_in] distributes over the group operation by definition, so we can rewrite it definitionally. *)
     do 2 change (abel_in (?x * ?y)) with (abel_in x + abel_in y).
+    (** From here it is clear that these two are equal by commutativity. *)
     apply (ap (+ _)).
     exact (commutativity (abel_in z^) (abel_in y^)).
   Defined.
