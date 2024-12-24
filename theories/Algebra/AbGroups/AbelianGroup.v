@@ -24,9 +24,18 @@ Record AbGroup := {
 Coercion abgroup_group : AbGroup >-> Group.
 Global Existing Instance abgroup_commutative.
 
-Global Instance zero_abgroup (A : AbGroup) : Zero A := mon_unit.
-Global Instance negate_abgroup (A : AbGroup) : Negate A := inv.
-Global Instance plus_abgroup (A : AbGroup) : Plus A | 10 := sg_op.
+Definition zero_abgroup (A : AbGroup) : Zero A := mon_unit.
+Definition negate_abgroup (A : AbGroup) : Negate A := inv.
+Definition plus_abgroup (A : AbGroup) : Plus A := sg_op.
+
+(** Sometimes we want an abelian group to act as if it has a [Plus], [Zero] and [Negate] operation. For example, when working with rings. We therefore make this module of hints available for import so that consumers can control the way the abelian group operation is treated.
+
+Files about abelian groups (apart from this one) typically don't have these instances available, whereas files about rings do. *)
+Module Import AdditiveInstances.
+  #[export] Hint Immediate zero_abgroup : typeclass_instances.
+  #[export] Hint Immediate negate_abgroup : typeclass_instances.
+  #[export] Hint Immediate plus_abgroup : typeclass_instances.
+End AdditiveInstances.
 
 (** Abelian groups form a category *)
 Global Instance isabgroup_abgroup {A : AbGroup} : IsAbGroup A.

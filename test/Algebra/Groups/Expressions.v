@@ -60,9 +60,8 @@ Section AbGroups.
   (** These fail due to a lack of [Plus]. *)
   Fail Type (x + y : A).
   Fail Type (x - y : A).
-
-  (** However note that this does not fail since [Negation] is inferrable from [Inverse]. *)
-  Succeed Type (-x : A).
+  (** This fails due to a lack of [Negate]. *)
+  Fail Type (-x : A).
 
   (** Opening [mc_add_scope] will make writing expressions of abelian groups possible. *)
   Local Open Scope mc_add_scope.

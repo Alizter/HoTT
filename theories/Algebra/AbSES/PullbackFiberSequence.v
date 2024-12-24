@@ -85,7 +85,7 @@ Proof.
            refine (ap (grp_pullback_pr1 _ _) (fst p^$.2 (-a)) @ _).
            exact (grp_homo_inv _ _). }
     (* Using [q2], we conclude. *)
-    pose proof (q3 := ap negate (fst ((equiv_path_prod _ _)^-1 q2))); cbn in q3.
+    pose proof (q3 := ap (-) (fst ((equiv_path_prod _ _)^-1 q2))); cbn in q3.
     exact ((inverse_involutive _)^ @ q3^ @ grp_inv_unit).
   - apply (cancelR_conn_map (Tr (-1)) grp_quotient_map).
     1: exact _.

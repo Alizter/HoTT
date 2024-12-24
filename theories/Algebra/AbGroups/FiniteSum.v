@@ -13,7 +13,7 @@ Local Open Scope mc_add_scope.
 Definition ab_sum {A : AbGroup} (n : nat) (f : forall k, (k < n)%nat -> A) : A.
 Proof.
   induction n as [|n IHn].
-  - exact zero.
+  - exact 0.
   - refine (f n _ + IHn _).
     intros k Hk.
     exact (f k _).

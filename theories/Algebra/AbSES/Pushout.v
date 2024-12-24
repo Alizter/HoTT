@@ -54,7 +54,7 @@ Proof.
       apply path_prod; cbn.
       * apply grp_moveL_Mg.
         by rewrite involutive.
-      * exact ((preserves_negate a) @ ap _ s @ (right_identity _)^).
+      * exact ((preserves_inverse a) @ ap _ s @ (right_identity _)^).
 Defined.
 
 (** ** The universal property of [abses_pushout_morphism] *)

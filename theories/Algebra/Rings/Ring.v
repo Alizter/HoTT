@@ -8,6 +8,9 @@ Require Export Algebra.AbGroups.AbelianGroup Algebra.AbGroups.Biproduct Algebra.
 Require Export Classes.theory.rings.
 Require Import Modalities.ReflectiveSubuniverse.
 
+(** We make sure to treat [AbGroup] as if it has a [Plus], [Zero], and [Negate] operation from now on. *)
+Export AbelianGroup.AdditiveInstances.
+
 (** * Rings *)
 
 Declare Scope ring_scope.
