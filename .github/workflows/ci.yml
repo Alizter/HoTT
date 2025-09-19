@@ -1,16 +1,24 @@
 name: CI
 
-on: [ push , pull_request , merge_group ]
+on: [push, pull_request, merge_group]
 
+# This makes sure that we cancel previous runs in the same PR
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
   cancel-in-progress: true
 
-# We set the supported coq-version from here. In order to use this environment variable correctly, look at how they are used in the following jobs.
+# Environment variables used throughout the workflow
 env:
-  coq-version-supported: '8.19'
-  ocaml-version: '4.14-flambda'
-  deployment-branch: 'gh-pages'
+  coq-version-supported: "8.20"
+  coq-version-9-0: "9.0"
+  coq-version-9-1: "9.1"
+  coq-version-dev: "dev"
+  ocaml-version: "4.14-flambda"
+  deployment-branch: "gh-pages"
+  docker-coq-action-version: "v1.5.1"
+  actions-checkout-version: "v4"
+  actions-upload-artifact-version: "v4"
+  actions-download-artifact-version: "v4"
 
 # Our jobs come in 3 stages, the latter stages depending on the former:
 # - Stage 1: Build jobs
@@ -19,47 +27,45 @@ env:
 # - Stage 4: Clean-up job
 
 jobs:
+  #
+  #  Stage 1:
+  #
 
-#
-#  Stage 1:
-#
+  # Here we define the build jobs:
+  # - opam-build: Building the library using opam
+  # - quick-build: Building the library quickly using make
+  # - build: Building with timing information for use in doc jobs
+  # - nix: Building using Nix package manager
 
-# Here we define the build jobs:
-# - opam-build: Building the library using opam
-# - quick-build: Building the library quickly using make
-# - build: Building with timeing information for use in doc jobs
-
-  # Building the library using opam
+  # Building the library and running the tests using dune via opam
   opam-build:
     strategy:
       fail-fast: false
       matrix:
         coq-version-dummy:
-        - 'supported'
-        - 'latest'
-        - 'dev'
+          - "supported"
+          - "9.0"
+          - "9.1"
+          - "dev"
         os:
           - ubuntu-latest
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}
     runs-on: ${{ matrix.os }}
     steps:
-    # Github actions doesn't let us set workflow level environment variables inside the strategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment variable env.coq-version, which uses the globally set coq-version-supported when running the 'supported' case.
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-
-    - name: Checkout repo
-      uses: actions/checkout@v4
-    - name: Build HoTT
-      uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        opam_file: 'coq-hott.opam'
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        export: 'OPAMWITHTEST'
-      env:
-        OPAMWITHTEST: 'true'
+      - name: Checkout repo
+        uses: actions/checkout@${{ env.actions-checkout-version }}
+      - name: Set coq version
+        uses: ./.github/actions/set-coq-version
+        with:
+          coq-version-dummy: ${{ matrix.coq-version-dummy }}
+      - name: Build HoTT
+        uses: ./.github/actions/coq-docker-build
+        with:
+          opam_file: "coq-hott.opam"
+          coq_version: ${{ env.COQ_VERSION }}
+          export: "OPAMWITHTEST"
+          custom_script: ""
+        env:
+          OPAMWITHTEST: "true"
 
   # Quick build
   quick-build:
@@ -67,532 +73,318 @@ jobs:
       fail-fast: false
       matrix:
         coq-version-dummy:
-        - 'supported'
-        - 'latest'
-        - 'dev'
+          - "supported"
+          - "9.0"
+          - "9.1"
+          - "dev"
         os:
-        - ubuntu-latest
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-    # Github actions doesn't let us set workflow level environment variables inside the strategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment variable env.coq-version, which uses the globally set coq-version-supported when running the 'supported' case.
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    - name: Checkout repo
-      uses: actions/checkout@v4
-    - name: Build HoTT
-      uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-          sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          make -j2
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
+      - name: Checkout repo
+        uses: actions/checkout@${{ env.actions-checkout-version }}
+      - name: Set coq version
+        uses: ./.github/actions/set-coq-version
+        with:
+          coq-version-dummy: ${{ matrix.coq-version-dummy }}
+      - name: Build HoTT
+        uses: ./.github/actions/coq-docker-build
+        with:
+          coq_version: ${{ env.COQ_VERSION }}
+          custom_script: make -j2
 
   # Main build which docs will run off
   build:
     strategy:
       fail-fast: false
       matrix:
-        # We build on our supported version of coq and the master version
+        # We build on our supported version of coq and the newer versions
         coq-version-dummy:
-        - 'supported'
-        - 'latest'
+          - "supported"
+          - "9.0"
         include:
-        - coq-version-dummy: 'dev'
-          extra-gh-reportify: '--warnings'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}
+          - coq-version-dummy: "dev"
+            extra-gh-reportify: "--warnings"
     runs-on: ubuntu-latest
     steps:
-    # Github actions doesn't let us set workflow level environment variables inside the strategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment variable env.coq-version, which uses the globally set coq-version-supported when running the 'supported' case.
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          sudo apt-get -o Acquire::Retries=30 update -q
-          sudo apt-get -o Acquire::Retries=30 install python3 python-is-python3 -y --allow-unauthenticated
-          etc/coq-scripts/github/reportify-coq.sh --errors ${{ matrix.extra-gh-reportify }} make TIMED=1 -j2 --output-sync
-
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-    # Tar workspace files
-    - name: 'Tar .vo files'
-      run: tar -cf workspace.tar .
-    # We upload build artifacts for use by documentation
-    - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version }}
-        path: workspace.tar
+      # Checkout branch
+      - uses: actions/checkout@${{ env.actions-checkout-version }}
+        with:
+          submodules: recursive
+      - name: Set coq version
+        uses: ./.github/actions/set-coq-version
+        with:
+          coq-version-dummy: ${{ matrix.coq-version-dummy }}
+      # We use the coq docker so we don't have to build coq
+      - name: Build with timing
+        uses: ./.github/actions/coq-docker-build
+        with:
+          coq_version: ${{ env.COQ_VERSION }}
+          custom_script: |
+            sudo apt-get -o Acquire::Retries=30 update -q
+            sudo apt-get -o Acquire::Retries=30 install python3 python-is-python3 -y --allow-unauthenticated
+            etc/coq-scripts/github/reportify-coq.sh --errors ${{ matrix.extra-gh-reportify }} make TIMED=1 -j2 --output-sync
+      # Upload workspace artifact for documentation jobs
+      - name: Upload workspace
+        uses: ./.github/actions/workspace-artifact
+        with:
+          action: upload
+          coq_version: ${{ env.COQ_VERSION }}
 
   # Nix build
   nix:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v20
-      with:
-        name: coq-hott
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        extraPullNames: coq-hott
-    - run: nix build
+      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: cachix/install-nix-action@v20
+        with:
+          name: coq-hott
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: coq-hott
+      - run: nix build
 
+  #
+  #  Stage 2:
+  #
 
-#
-#  Stage 2:
-#
+  # Here we define the documentation and validation jobs:
+  # - docs: Matrix-driven job that builds all documentation types (alectryon, dependency graphs, coqdoc, timing)
+  # - validation: Matrix-driven job that runs validation tests (coqchk, install)
 
-# Here we define the documentation and validation jobs:
-# - doc-alectryon: Builds the alectryon documentation
-# - doc-dep-graph: Builds dependency graphs
-# - doc-coqdoc: Builds the coqdoc documentation
-# - doc-timing: Builds the timing documentation
-# - coqchk: Runs coqchk
-# - install: Tests install target
-
-   # alectryon job
-  doc-alectryon:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version-supported }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    - name: add problem matchers
-      run: |
-        #echo "::add-matcher::etc/coq-scripts/github/coq-oneline-error.json" # now via a script
-        #echo "::add-matcher::etc/coq-scripts/github/coqdoc.json" # disabled for now, since they don't have file names
-        echo "::add-matcher::etc/coq-scripts/github/alectryon-error.json"
-        #echo "::add-matcher::etc/coq-scripts/github/alectryon-warning.json" # too noisy right now, cf https://github.com/cpitclaudel/alectryon/issues/34 and https://github.com/cpitclaudel/alectryon/issues/33
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version-supported }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          opam install -y coq-serapi
-          sudo apt-get -o Acquire::Retries=30 update -q
-          sudo apt-get -o Acquire::Retries=30 install python3-pip python3-venv autoconf -y --allow-unauthenticated
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          # Create and activate a virtual environment
-          python3 -m venv myenv
-          source myenv/bin/activate
-          # Install the required Python packages in the virtual environment
-          python -m pip install --upgrade pip
-          python -m pip install pygments dominate beautifulsoup4 docutils==0.17.1
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          make alectryon ALECTRYON_EXTRAFLAGS=--traceback
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-    - name: tar alectryon artifact
-      run: tar -cf alectryon-html.tar alectryon-html
-    - name: upload alectryon artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: alectryon-html
-        path: alectryon-html.tar
-
-
-  # dependency graph doc job
-  doc-dep-graphs:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version-supported }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version-supported }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          sudo apt-get update
-          sudo apt-get install -y ghc
-          sudo apt-get install -y --allow-unauthenticated \
-          libssl-dev aspcud \
-          graphviz xsltproc python3-lxml python-pexpect-doc \
-          libxml2-dev libxslt1-dev time lua5.1 unzip npm
-          # libnode-dev node-gyp
-
-          # Installing cabal using ghcup rather than installing cabal-install via apt fixes the error:
-          # <repo>/root.json does not have enough signatures signed with the appropriate keys
-          curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 sh
-          source ~/.ghcup/env
-          ghcup install cabal
-          cabal update
-          cabal install --lib graphviz text fgl
-          sudo -E npm config set strict-ssl false
-          #sudo -E npm i -g npm
-          sudo -E npm install -g doctoc
-
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          ## Make dependency graph
-          make HoTT.deps HoTTCore.deps
-          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/Coq-HoTT/alectryon-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot
-          runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/Coq-HoTT/alectryon-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot
-          dot -Tsvg HoTT.dot -o HoTT.svg
-          dot -Tsvg HoTTCore.dot -o HoTTCore.svg
-          rm -rf dep-graphs
-          mkdir -p dep-graphs
-          mv HoTT.svg HoTTCore.svg dep-graphs/
-
-          ## Install coq-dpdgraph
-          opam install coq-dpdgraph.1.0+8.19 -y
-
-          # For some reason, we get a stackoverflow. So we are lax
-          # with making these.
-          ulimit -s unlimited
-          make svg-file-dep-graphs -k || true
-          ## Try to make again to see errors
-          make svg-file-dep-graphs -k || true
-          # `dot` hates file-dep-graphs/hott-all.dot, because it's too big, and
-          # makes `dot` spin for over a dozen minutes.  So disable it for now.
-          #make svg-aggregate-dep-graphs -k || exit $?
-
-          # We try to make the index.html but there might be some dead
-          # links if the previous didn't succeed.
-          make file-dep-graphs/index.html -k || true
-
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-    # Tar dependency graph files
-    - name: 'Tar .svg files'
-      run: |
-        tar -cf dep-graphs.tar dep-graphs
-        tar -cf file-dep-graphs.tar file-dep-graphs
-    # We upload the artifacts
-    - name: 'Upload Artifact dep-graphs.tar'
-      uses: actions/upload-artifact@v4
-      with:
-        name: dep-graphs
-        path: dep-graphs.tar
-    - name: 'Upload Artifact file-dep-graphs.tar'
-      uses: actions/upload-artifact@v4
-      with:
-        name: file-dep-graphs
-        path: file-dep-graphs.tar
-
-  # doc-coqdoc job
-  # This builds coqdoc and timing docs and uploads their artifacts
-  doc-coqdoc:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version-supported }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version-supported }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          ## Make HTML doc
-          make -j2 html
-          mv html coqdoc-html
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-    # Tar html files
-    - name: 'Tar doc files'
-      run: tar -cf coqdoc-html.tar coqdoc-html
-    # Upload coqdoc-html artifact
-    - name: 'Upload coqdoc-html Artifact'
-      uses: actions/upload-artifact@v4
-      with:
-        name: coqdoc-html
-        path: coqdoc-html.tar
-
-  # doc-timing job
-  # This builds coqdoc and timing docs and uploads their artifacts
-  doc-timing:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version-supported }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version-supported }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          sudo apt-get update
-          sudo apt-get install -y time python3 python-is-python3 lua5.1
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          ## Make timing doc
-          make -j2 timing-html
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-    # Tar html files
-    - name: 'Tar doc files'
-      run: tar -cf timing-html.tar timing-html
-    # Upload timing-html artifact
-    - name: 'Upload timing-html Artifact'
-      uses: actions/upload-artifact@v4
-      with:
-        name: timing-html
-        path: timing-html.tar
-
-  # The coqchk job
-  coqchk:
+  # Matrix-driven documentation jobs
+  # Builds alectryon, dependency graphs, coqdoc, and timing documentation
+  # NOTE: Documentation is only built using the supported Coq version
+  docs:
     needs: build
     strategy:
       fail-fast: false
       matrix:
-        # We build on our supported version of coq and the master version
-        coq-version-dummy:
-        - 'supported'
-        - 'latest'
-        - 'dev'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}
+        # Each doc-type defines setup, build commands, and artifact handling for a specific documentation format
+        doc-type:
+          - name: alectryon
+            problem-matcher: |
+              echo "::add-matcher::etc/coq-scripts/github/alectryon-error.json"
+            setup: |
+              opam install -y coq-serapi
+              sudo apt-get -o Acquire::Retries=30 update -q
+              sudo apt-get -o Acquire::Retries=30 install python3-pip python3-venv autoconf -y --allow-unauthenticated
+              python3 -m venv myenv
+              source myenv/bin/activate
+              python -m pip install --upgrade pip
+              python -m pip install pygments dominate beautifulsoup4 docutils==0.17.1
+            build: make alectryon ALECTRYON_EXTRAFLAGS=--traceback
+            artifact: alectryon-html
+            package: tar -cf alectryon-html.tar alectryon-html
+          - name: dep-graphs
+            problem-matcher: ""
+            setup: |
+              sudo apt-get update
+              sudo apt-get install -y ghc
+              sudo apt-get install -y --allow-unauthenticated libssl-dev aspcud graphviz xsltproc python3-lxml python-pexpect-doc libxml2-dev libxslt1-dev time lua5.1 unzip npm
+              curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 sh
+              source ~/.ghcup/env
+              ghcup install cabal
+              cabal update
+              cabal install --lib graphviz text fgl
+              sudo -E npm config set strict-ssl false
+              sudo -E npm install -g doctoc
+              opam install coq-dpdgraph.1.0+8.20 -y
+            build: |
+              make HoTT.deps HoTTCore.deps
+              runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/Coq-HoTT/alectryon-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot
+              runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/Coq-HoTT/alectryon-html/" --title="HoTT Core Library Dependency Graph" < HoTTCore.deps > HoTTCore.dot
+              dot -Tsvg HoTT.dot -o HoTT.svg
+              dot -Tsvg HoTTCore.dot -o HoTTCore.svg
+              rm -rf dep-graphs
+              mkdir -p dep-graphs
+              mv HoTT.svg HoTTCore.svg dep-graphs/
+              ulimit -s unlimited
+              make svg-file-dep-graphs -k || true
+              make svg-file-dep-graphs -k || true
+              make file-dep-graphs/index.html -k || true
+            artifact: dep-graphs,file-dep-graphs
+            package: |
+              tar -cf dep-graphs.tar dep-graphs
+              tar -cf file-dep-graphs.tar file-dep-graphs
+          - name: coqdoc
+            problem-matcher: ""
+            setup: ""
+            build: |
+              make -j2 html
+              mv html coqdoc-html
+            artifact: coqdoc-html
+            package: tar -cf coqdoc-html.tar coqdoc-html
+          - name: timing
+            problem-matcher: ""
+            setup: sudo apt-get update && sudo apt-get install -y time python3 python-is-python3 lua5.1
+            build: make -j2 timing-html
+            artifact: timing-html
+            package: tar -cf timing-html.tar timing-html
     runs-on: ubuntu-latest
     steps:
-    # Github actions doesn't let us set workflow level environment variables inside the strategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment variable env.coq-version, which uses the globally set coq-version-supported when running the 'supported' case.
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          make validate
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
+      - uses: actions/checkout@${{ env.actions-checkout-version }}
+        with:
+          submodules: recursive
+      - name: Download workspace
+        uses: ./.github/actions/workspace-artifact
+        with:
+          action: download
+          coq_version: ${{ env.coq-version-supported }}
+      - name: Add problem matchers
+        if: matrix.doc-type.problem-matcher != ''
+        run: ${{ matrix.doc-type.problem-matcher }}
+      - name: Build documentation
+        uses: ./.github/actions/coq-docker-build
+        with:
+          coq_version: ${{ env.coq-version-supported }}
+          custom_script: |
+            ${{ matrix.doc-type.setup }}
+            ${{ matrix.doc-type.build }}
+      - name: Package artifacts
+        run: ${{ matrix.doc-type.package }}
+      - name: Upload primary artifact
+        uses: actions/upload-artifact@${{ env.actions-upload-artifact-version }}
+        with:
+          name: ${{ matrix.doc-type.name == 'dep-graphs' && 'dep-graphs' || matrix.doc-type.artifact }}
+          path: ${{ matrix.doc-type.name == 'dep-graphs' && 'dep-graphs.tar' || format('{0}.tar', matrix.doc-type.artifact) }}
+      - name: Upload secondary artifact
+        if: matrix.doc-type.name == 'dep-graphs'
+        uses: actions/upload-artifact@${{ env.actions-upload-artifact-version }}
+        with:
+          name: file-dep-graphs
+          path: file-dep-graphs.tar
 
-  # Test install target
-  install:
+  # Matrix-driven validation jobs
+  # Runs coqchk validation and install tests across multiple Coq versions
+  validation:
     needs: build
     strategy:
       fail-fast: false
       matrix:
-        # We build on our supported version of coq and the master version
         coq-version-dummy:
-        - 'supported'
-        - 'latest'
-        - 'dev'
-    env:
-      coq-version: ${{ matrix.coq-version-dummy }}
+          - "supported"
+          - "9.0"
+          - "9.1"
+          - "dev"
+        validation-type:
+          - name: coqchk
+            command: make validate
+          - name: install
+            command: |
+              make install
+              echo 'Require Import HoTT.HoTT.' | coqtop -q
     runs-on: ubuntu-latest
     steps:
-    # Github actions doesn't let us set workflow level environment variables inside the strategy of a job. Therefore we use the dummy variable coq-version in the matrix to set an environment variable env.coq-version, which uses the globally set coq-version-supported when running the 'supported' case.
-    - name: Set supported coq-version
-      if: matrix.coq-version-dummy == 'supported'
-      run: echo "coq-version=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    # Checkout branch
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    # Download artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: workspace-${{ env.coq-version }}
-    # Unpack Tar
-    - run: tar -xf workspace.tar
-    # We use the coq docker so we don't have to build coq
-    - uses: coq-community/docker-coq-action@v1.5.1
-      with:
-        coq_version: ${{ env.coq-version }}
-        ocaml_version: ${{ env.ocaml-version }}
-        custom_script: |
-          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
-            sudo chown -R 1000:1000 .
-          endGroup
-          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
-          ## Test install target
-          make install
-          echo 'Require Import HoTT.HoTT.' | coqtop -q
+      - uses: actions/checkout@${{ env.actions-checkout-version }}
+        with:
+          submodules: recursive
+      - name: Set coq version
+        uses: ./.github/actions/set-coq-version
+        with:
+          coq-version-dummy: ${{ matrix.coq-version-dummy }}
+      - name: Download workspace
+        uses: ./.github/actions/workspace-artifact
+        with:
+          action: download
+          coq_version: ${{ env.COQ_VERSION }}
+      - name: Run validation
+        uses: ./.github/actions/coq-docker-build
+        with:
+          coq_version: ${{ env.COQ_VERSION }}
+          custom_script: ${{ matrix.validation-type.command }}
 
-    - name: Revert permissions
-      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
-      if: ${{ always() }}
-      run: sudo chown -R 1001:116 .
-
-#
-#  Stage 3
-#
+  #
+  #  Stage 3
+  #
 
   deploy-doc:
     # We only deploy when the reference is the master branch
     if: ${{ github.ref == 'refs/heads/master' }}
-    # This job relies on the documentation jobs having finished. Technically we don't need to rely on coqchk and install, but it is simpler this way.
+    # This job relies on the documentation and validation jobs having finished.
     needs:
-    - coqchk
-    - install
-    - doc-alectryon
-    - doc-dep-graphs
-    - doc-coqdoc
-    - doc-timing
+      - validation
+      - docs
     runs-on: ubuntu-latest
     steps:
-    # Checkout branch
-    - uses: actions/checkout@v4
-    # Download alectryon artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: alectryon-html
-    # Download dependency graph artifacts
-    - uses: actions/download-artifact@v4
-      with:
-        name: dep-graphs
-    # Download file dependency graph artifacts
-    - uses: actions/download-artifact@v4
-      with:
-        name: file-dep-graphs
-    # Download coqdoc artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: coqdoc-html
-    # Download timing artifact
-    - uses: actions/download-artifact@v4
-      with:
-        name: timing-html
-    # Unpack Tar files
-    - run: |
-        mkdir doc
-        tar -xf alectryon-html.tar  -C doc
-        tar -xf dep-graphs.tar      -C doc
-        tar -xf file-dep-graphs.tar -C doc
-        tar -xf coqdoc-html.tar     -C doc
-        tar -xf timing-html.tar     -C doc
+      # Checkout branch
+      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      # Download alectryon artifact
+      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+        with:
+          name: alectryon-html
+      # Download dependency graph artifacts
+      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+        with:
+          name: dep-graphs
+      # Download file dependency graph artifacts
+      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+        with:
+          name: file-dep-graphs
+      # Download coqdoc artifact
+      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+        with:
+          name: coqdoc-html
+      # Download timing artifact
+      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+        with:
+          name: timing-html
+      # Unpack Tar files
+      - run: |
+          mkdir doc
+          tar -xf alectryon-html.tar  -C doc
+          tar -xf dep-graphs.tar      -C doc
+          tar -xf file-dep-graphs.tar -C doc
+          tar -xf coqdoc-html.tar     -C doc
+          tar -xf timing-html.tar     -C doc
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.1.8
-      with:
-        branch: ${{ env.deployment-branch }}
-        folder: doc
-        single-commit: true
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: ${{ env.deployment-branch }}
+          folder: doc
+          single-commit: true
 
+  #
+  #  Stage 4
+  #
 
-#
-#  Stage 4
-#
-
-# Here we define the cleanup job:
-# - delete-artifacts: We delete the artifacts from the previous jobs
+  # Here we define the cleanup job:
+  # - delete-artifacts: We delete the artifacts from the previous jobs
 
   delete-artifacts:
     # We always want to run this job even if we cancel
     if: ${{ always() }}
     # We depend on the stage 3 jobs
     needs:
-    - deploy-doc
+      - deploy-doc
     runs-on: ubuntu-latest
     steps:
-    # Delete workspace artifacts
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: workspace-${{ env.coq-version-supported }}
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: workspace-latest
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: workspace-dev
-    # Delete documentation artifacts
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: dep-graphs
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: file-dep-graphs
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: alectryon-html
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: coqdoc-html
-    - uses: geekyeggo/delete-artifact@v5
-      with:
-        name: timing-html
+      # Delete workspace artifacts
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: workspace-${{ env.coq-version-supported }}
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: workspace-${{ env.coq-version-9-0 }}
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: workspace-${{ env.coq-version-9-1 }}
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: workspace-${{ env.coq-version-dev }}
+      # Delete documentation artifacts
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: dep-graphs
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: file-dep-graphs
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: alectryon-html
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: coqdoc-html
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: timing-html

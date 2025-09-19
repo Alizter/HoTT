@@ -1,0 +1,25 @@
+name: 'Set Coq Version'
+description: 'Set the COQ_VERSION environment variable based on the matrix value'
+inputs:
+  coq-version-dummy:
+    description: 'The dummy coq version from matrix (supported, 9.0, 9.1, dev)'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Set supported coq-version
+      if: inputs.coq-version-dummy == 'supported'
+      shell: bash
+      run: echo "COQ_VERSION=${{ env.coq-version-supported }}" >> $GITHUB_ENV
+    - name: Set 9.0 coq-version
+      if: inputs.coq-version-dummy == '9.0'
+      shell: bash
+      run: echo "COQ_VERSION=${{ env.coq-version-9-0 }}" >> $GITHUB_ENV
+    - name: Set 9.1 coq-version
+      if: inputs.coq-version-dummy == '9.1'
+      shell: bash
+      run: echo "COQ_VERSION=${{ env.coq-version-9-1 }}" >> $GITHUB_ENV
+    - name: Set dev coq-version
+      if: inputs.coq-version-dummy == 'dev'
+      shell: bash
+      run: echo "COQ_VERSION=${{ env.coq-version-dev }}" >> $GITHUB_ENV

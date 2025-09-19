@@ -1,0 +1,14 @@
+name: 'Checkout HoTT'
+description: 'Standard checkout for HoTT repository with submodules'
+inputs:
+  submodules:
+    description: 'Whether to checkout submodules'
+    required: false
+    default: 'true'
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: ${{ inputs.submodules == 'true' && 'recursive' || 'false' }}
