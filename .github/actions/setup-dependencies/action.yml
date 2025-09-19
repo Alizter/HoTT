@@ -1,0 +1,20 @@
+name: 'Setup Dependencies'
+description: 'Install common dependencies with standardized apt-get options'
+inputs:
+  packages:
+    description: 'Space-separated list of packages to install'
+    required: true
+  update:
+    description: 'Whether to run apt-get update first'
+    required: false
+    default: 'true'
+runs:
+  using: 'composite'
+  steps:
+    - name: Update package list
+      if: inputs.update == 'true'
+      shell: bash
+      run: sudo apt-get -o Acquire::Retries=30 update -q
+    - name: Install packages
+      shell: bash
+      run: sudo apt-get -o Acquire::Retries=30 install ${{ inputs.packages }} -y --allow-unauthenticated

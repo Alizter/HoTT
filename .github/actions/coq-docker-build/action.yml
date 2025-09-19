@@ -1,0 +1,56 @@
+name: 'Coq Docker Build'
+description: 'Standardized Coq build using docker-coq-action with permission handling'
+inputs:
+  custom_script:
+    description: 'Custom script to run in the Docker container'
+    required: true
+  coq_version:
+    description: 'Coq version to use'
+    required: true
+  opam_file:
+    description: 'OPAM file to use (optional)'
+    required: false
+  export:
+    description: 'Environment variable to export'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Build with Coq Docker
+      uses: coq-community/docker-coq-action@v1.5.1
+      with:
+        opam_file: ${{ inputs.opam_file }}
+        coq_version: ${{ inputs.coq_version }}
+        ocaml_version: ${{ env.ocaml-version }}
+        custom_script: |
+          startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
+            sudo chown -R 1000:1000 .
+          endGroup
+          echo "::remove-matcher owner=coq-problem-matcher::" # remove problem matcher installed by Coq docker action, so we don't get duplicate warning annotations
+          # Workaround for Rocq 9.0 naming transition
+          if ! command -v coq_makefile >/dev/null 2>&1 && command -v rocq >/dev/null 2>&1; then
+            # Try installing compatibility packages first
+            opam install coq-core coq-stdlib coq -y >/dev/null 2>&1 || true
+            
+            # Create manual wrappers if compatibility packages didn't work
+            if ! command -v coq_makefile >/dev/null 2>&1; then
+              echo '#!/bin/bash' > /tmp/coq_makefile
+              echo 'exec rocq makefile "$@"' >> /tmp/coq_makefile
+              chmod +x /tmp/coq_makefile
+              sudo mv /tmp/coq_makefile /usr/local/bin/coq_makefile
+            fi
+            
+            if ! command -v coqtop >/dev/null 2>&1; then
+              echo '#!/bin/bash' > /tmp/coqtop
+              echo 'exec rocq "$@"' >> /tmp/coqtop
+              chmod +x /tmp/coqtop
+              sudo mv /tmp/coqtop /usr/local/bin/coqtop
+            fi
+          fi
+          ${{ inputs.custom_script }}
+        export: ${{ inputs.export }}
+    - name: Revert permissions
+      # to avoid a warning at cleanup time - https://github.com/coq-community/docker-coq-action#permissions
+      if: ${{ always() }}
+      shell: bash
+      run: sudo chown -R 1001:116 .
