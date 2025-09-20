@@ -1,0 +1,6 @@
+(version 0)
+
+(build
+ (progn
+  (run sh -exc "echo '#include <linux/stddef.h>' > test.c")
+  (run cc -E test.c)))

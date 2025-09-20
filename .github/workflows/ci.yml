@@ -7,18 +7,21 @@ concurrency:
   group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
   cancel-in-progress: true
 
+# MAINTENANCE NOTE: When adding/removing Coq versions, update the coq-config JSON object below:
+# - "test": versions used for comprehensive testing (opam-build, quick-build)
+# - "build-with-workspace": versions that create workspace artifacts for validation/docs
+# - "docs": versions used for documentation generation (usually just one stable version)
+
 # Environment variables used throughout the workflow
 env:
-  coq-version-supported: "8.20"
-  coq-version-9-0: "9.0"
-  coq-version-9-1: "9.1"
-  coq-version-dev: "dev"
-  ocaml-version: "4.14-flambda"
+  # Single source of truth for all Coq versions and their usage
+  coq-config: >-
+    {
+      "test": ["8.20", "9.0", "9.1", "dev"],
+      "build-with-workspace": ["8.20", "9.0"],
+      "docs": ["8.20"]
+    }
   deployment-branch: "gh-pages"
-  docker-coq-action-version: "v1.5.1"
-  actions-checkout-version: "v4"
-  actions-upload-artifact-version: "v4"
-  actions-download-artifact-version: "v4"
 
 # Our jobs come in 3 stages, the latter stages depending on the former:
 # - Stage 1: Build jobs
@@ -27,6 +30,24 @@ env:
 # - Stage 4: Clean-up job
 
 jobs:
+  # Generate matrices from configuration
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      test-matrix: ${{ steps.generate.outputs.test-matrix }}
+      build-matrix: ${{ steps.generate.outputs.build-matrix }}
+      validation-matrix: ${{ steps.generate.outputs.validation-matrix }}
+      docs-version: ${{ steps.generate.outputs.docs-version }}
+    steps:
+      - name: Generate dynamic matrices from config
+        id: generate
+        run: |
+          config='${{ env.coq-config }}'
+          echo "test-matrix=$(echo "$config" | jq -c '.test')" >> $GITHUB_OUTPUT
+          echo "build-matrix=$(echo "$config" | jq -c '.["build-with-workspace"]')" >> $GITHUB_OUTPUT  
+          echo "validation-matrix=$(echo "$config" | jq -c '.["build-with-workspace"] + ["dev"]')" >> $GITHUB_OUTPUT
+          echo "docs-version=$(echo "$config" | jq -r '.docs[0]')" >> $GITHUB_OUTPUT
+
   #
   #  Stage 1:
   #
@@ -39,24 +60,22 @@ jobs:
 
   # Building the library and running the tests using dune via opam
   opam-build:
+    needs: setup
     strategy:
       fail-fast: false
       matrix:
-        coq-version-dummy:
-          - "supported"
-          - "9.0"
-          - "9.1"
-          - "dev"
+        coq-version-dummy: ${{ fromJSON(needs.setup.outputs.test-matrix) }}
         os:
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@${{ env.actions-checkout-version }}
+        uses: actions/checkout@v4
       - name: Set coq version
         uses: ./.github/actions/set-coq-version
         with:
           coq-version-dummy: ${{ matrix.coq-version-dummy }}
+          coq-versions-json: ${{ env.coq-config }}
       - name: Build HoTT
         uses: ./.github/actions/coq-docker-build
         with:
@@ -69,24 +88,22 @@ jobs:
 
   # Quick build
   quick-build:
+    needs: setup
     strategy:
       fail-fast: false
       matrix:
-        coq-version-dummy:
-          - "supported"
-          - "9.0"
-          - "9.1"
-          - "dev"
+        coq-version-dummy: ${{ fromJSON(needs.setup.outputs.test-matrix) }}
         os:
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@${{ env.actions-checkout-version }}
+        uses: actions/checkout@v4
       - name: Set coq version
         uses: ./.github/actions/set-coq-version
         with:
           coq-version-dummy: ${{ matrix.coq-version-dummy }}
+          coq-versions-json: ${{ env.coq-config }}
       - name: Build HoTT
         uses: ./.github/actions/coq-docker-build
         with:
@@ -95,26 +112,26 @@ jobs:
 
   # Main build which docs will run off
   build:
+    needs: setup
     strategy:
       fail-fast: false
       matrix:
-        # We build on our supported version of coq and the newer versions
-        coq-version-dummy:
-          - "supported"
-          - "9.0"
+        # We build versions needed for documentation and validation  
+        coq-version-dummy: ${{ fromJSON(needs.setup.outputs.build-matrix) }}
         include:
           - coq-version-dummy: "dev"
             extra-gh-reportify: "--warnings"
     runs-on: ubuntu-latest
     steps:
       # Checkout branch
-      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Set coq version
         uses: ./.github/actions/set-coq-version
         with:
           coq-version-dummy: ${{ matrix.coq-version-dummy }}
+          coq-versions-json: ${{ env.coq-config }}
       # We use the coq docker so we don't have to build coq
       - name: Build with timing
         uses: ./.github/actions/coq-docker-build
@@ -135,7 +152,7 @@ jobs:
   nix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v20
         with:
           name: coq-hott
@@ -155,7 +172,7 @@ jobs:
   # Builds alectryon, dependency graphs, coqdoc, and timing documentation
   # NOTE: Documentation is only built using the supported Coq version
   docs:
-    needs: build
+    needs: [setup, build]
     strategy:
       fail-fast: false
       matrix:
@@ -188,7 +205,7 @@ jobs:
               cabal install --lib graphviz text fgl
               sudo -E npm config set strict-ssl false
               sudo -E npm install -g doctoc
-              opam install coq-dpdgraph.1.0+8.20 -y
+              opam install coq-dpdgraph -y
             build: |
               make HoTT.deps HoTTCore.deps
               runhaskell etc/DepsToDot.hs --coqdocbase="http://hott.github.io/Coq-HoTT/alectryon-html/" --title="HoTT Library Dependency Graph" < HoTT.deps > HoTT.dot
@@ -222,34 +239,34 @@ jobs:
             package: tar -cf timing-html.tar timing-html
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Download workspace
         uses: ./.github/actions/workspace-artifact
         with:
           action: download
-          coq_version: ${{ env.coq-version-supported }}
+          coq_version: ${{ needs.setup.outputs.docs-version }}
       - name: Add problem matchers
         if: matrix.doc-type.problem-matcher != ''
         run: ${{ matrix.doc-type.problem-matcher }}
       - name: Build documentation
         uses: ./.github/actions/coq-docker-build
         with:
-          coq_version: ${{ env.coq-version-supported }}
+          coq_version: ${{ needs.setup.outputs.docs-version }}
           custom_script: |
             ${{ matrix.doc-type.setup }}
             ${{ matrix.doc-type.build }}
       - name: Package artifacts
         run: ${{ matrix.doc-type.package }}
       - name: Upload primary artifact
-        uses: actions/upload-artifact@${{ env.actions-upload-artifact-version }}
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.doc-type.name == 'dep-graphs' && 'dep-graphs' || matrix.doc-type.artifact }}
           path: ${{ matrix.doc-type.name == 'dep-graphs' && 'dep-graphs.tar' || format('{0}.tar', matrix.doc-type.artifact) }}
       - name: Upload secondary artifact
         if: matrix.doc-type.name == 'dep-graphs'
-        uses: actions/upload-artifact@${{ env.actions-upload-artifact-version }}
+        uses: actions/upload-artifact@v4
         with:
           name: file-dep-graphs
           path: file-dep-graphs.tar
@@ -257,15 +274,12 @@ jobs:
   # Matrix-driven validation jobs
   # Runs coqchk validation and install tests across multiple Coq versions
   validation:
-    needs: build
+    needs: [setup, build]
     strategy:
       fail-fast: false
       matrix:
-        coq-version-dummy:
-          - "supported"
-          - "9.0"
-          - "9.1"
-          - "dev"
+        # Only validate versions that have workspace artifacts (from build job)
+        coq-version-dummy: ${{ fromJSON(needs.setup.outputs.validation-matrix) }}
         validation-type:
           - name: coqchk
             command: make validate
@@ -275,13 +289,14 @@ jobs:
               echo 'Require Import HoTT.HoTT.' | coqtop -q
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Set coq version
         uses: ./.github/actions/set-coq-version
         with:
           coq-version-dummy: ${{ matrix.coq-version-dummy }}
+          coq-versions-json: ${{ env.coq-config }}
       - name: Download workspace
         uses: ./.github/actions/workspace-artifact
         with:
@@ -307,25 +322,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout branch
-      - uses: actions/checkout@${{ env.actions-checkout-version }}
+      - uses: actions/checkout@v4
       # Download alectryon artifact
-      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+      - uses: actions/download-artifact@v4
         with:
           name: alectryon-html
       # Download dependency graph artifacts
-      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+      - uses: actions/download-artifact@v4
         with:
           name: dep-graphs
       # Download file dependency graph artifacts
-      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+      - uses: actions/download-artifact@v4
         with:
           name: file-dep-graphs
       # Download coqdoc artifact
-      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+      - uses: actions/download-artifact@v4
         with:
           name: coqdoc-html
       # Download timing artifact
-      - uses: actions/download-artifact@${{ env.actions-download-artifact-version }}
+      - uses: actions/download-artifact@v4
         with:
           name: timing-html
       # Unpack Tar files
@@ -359,19 +374,10 @@ jobs:
       - deploy-doc
     runs-on: ubuntu-latest
     steps:
-      # Delete workspace artifacts
+      # Delete workspace artifacts for all versions (pattern-based cleanup)
       - uses: geekyeggo/delete-artifact@v5
         with:
-          name: workspace-${{ env.coq-version-supported }}
-      - uses: geekyeggo/delete-artifact@v5
-        with:
-          name: workspace-${{ env.coq-version-9-0 }}
-      - uses: geekyeggo/delete-artifact@v5
-        with:
-          name: workspace-${{ env.coq-version-9-1 }}
-      - uses: geekyeggo/delete-artifact@v5
-        with:
-          name: workspace-${{ env.coq-version-dev }}
+          name: workspace-*
       # Delete documentation artifacts
       - uses: geekyeggo/delete-artifact@v5
         with:

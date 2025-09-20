@@ -17,11 +17,11 @@ runs:
   using: 'composite'
   steps:
     - name: Build with Coq Docker
-      uses: coq-community/docker-coq-action@${{ env.docker-coq-action-version }}
+      uses: coq-community/docker-coq-action@v1.5.1
       with:
         opam_file: ${{ inputs.opam_file }}
         coq_version: ${{ inputs.coq_version }}
-        ocaml_version: ${{ env.ocaml-version }}
+        ocaml_version: "4.14-flambda"
         custom_script: |
           startGroup "Workaround permission issue" # https://github.com/coq-community/docker-coq-action#permissions
             sudo chown -R 1000:1000 .

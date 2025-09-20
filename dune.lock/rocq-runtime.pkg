@@ -1,0 +1,48 @@
+(version 9.0.0)
+
+(build
+ (progn
+  (when
+   %{pkg-self:dev}
+   (run dune subst))
+  (run
+   ./configure
+   -release
+   -prefix
+   %{prefix}
+   -mandir
+   %{man}
+   -libdir
+   %{lib}/coq
+   -native-compiler
+   (when
+    (catch_undefined_var %{pkg:rocq-native:installed} false)
+    yes)
+   (when
+    (catch_undefined_var
+     (not %{pkg:rocq-native:installed})
+     false)
+    no))
+  (run
+   dune
+   build
+   -p
+   %{pkg-self:name}
+   -j
+   %{jobs}
+   --promote-install-files=false
+   @install)
+  (run
+   dune
+   install
+   -p
+   %{pkg-self:name}
+   --create-install-files
+   %{pkg-self:name})))
+
+(depends dune ocaml ocamlfind zarith conf-linux-libc-dev)
+
+(source
+ (fetch
+  (url https://github.com/coq/coq/releases/download/V9.0.0/rocq-9.0.0.tar.gz)
+  (checksum md5=8d522602d23e7a665631826dab9aa92b)))

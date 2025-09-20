@@ -1,0 +1,16 @@
+(version 9.0.0)
+
+(install
+ (run %{make} install))
+
+(build
+ (run %{make} -j %{jobs}))
+
+(depends rocq-runtime rocq-core)
+
+(source
+ (fetch
+  (url
+   https://github.com/coq/stdlib/releases/download/V9.0.0/stdlib-9.0.0.tar.gz)
+  (checksum
+   sha512=97faa80d63a398c2c6872e043d65b1b907bb01ec3ea42f35cf757b3457b8fa2b64475d1577000ce2dea2c3f93e59e36cc5af9864adacf47f92db96ecbe307a45)))

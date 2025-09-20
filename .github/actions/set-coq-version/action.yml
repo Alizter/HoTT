@@ -1,25 +1,32 @@
 name: 'Set Coq Version'
-description: 'Set the COQ_VERSION environment variable based on the matrix value'
+description: 'Set the COQ_VERSION environment variable from JSON configuration'
 inputs:
   coq-version-dummy:
-    description: 'The dummy coq version from matrix (supported, 9.0, 9.1, dev)'
+    description: 'The coq version identifier (e.g., 8.20, 9.0, 9.1, dev)'
+    required: true
+  coq-versions-json:
+    description: 'JSON object containing coq version configuration with test/build-with-workspace/docs categories'
     required: true
 runs:
   using: 'composite'
   steps:
-    - name: Set supported coq-version
-      if: inputs.coq-version-dummy == 'supported'
+    - name: Parse Coq version from JSON
       shell: bash
-      run: echo "COQ_VERSION=${{ env.coq-version-supported }}" >> $GITHUB_ENV
-    - name: Set 9.0 coq-version
-      if: inputs.coq-version-dummy == '9.0'
-      shell: bash
-      run: echo "COQ_VERSION=${{ env.coq-version-9-0 }}" >> $GITHUB_ENV
-    - name: Set 9.1 coq-version
-      if: inputs.coq-version-dummy == '9.1'
-      shell: bash
-      run: echo "COQ_VERSION=${{ env.coq-version-9-1 }}" >> $GITHUB_ENV
-    - name: Set dev coq-version
-      if: inputs.coq-version-dummy == 'dev'
-      shell: bash
-      run: echo "COQ_VERSION=${{ env.coq-version-dev }}" >> $GITHUB_ENV
+      run: |
+        # The dummy is now the actual version, just validate it exists in our config
+        version="${{ inputs.coq-version-dummy }}"
+        
+        # Validate the version exists in our configuration
+        found=$(echo '${{ inputs.coq-versions-json }}' | jq -r --arg v "$version" '
+          [.test[], .["build-with-workspace"][], .docs[]] | 
+          if any(. == $v) then "true" else "false" end
+        ')
+        
+        if [ "$found" != "true" ]; then
+          echo "ERROR: Version $version not found in configuration"
+          echo "Available versions: $(echo '${{ inputs.coq-versions-json }}' | jq -r '[.test[], .["build-with-workspace"][], .docs[]] | join(", ")')"
+          exit 1
+        fi
+        
+        echo "COQ_VERSION=$version" >> $GITHUB_ENV
+        echo "Set COQ_VERSION to: $version"
