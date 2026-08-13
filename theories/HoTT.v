@@ -171,7 +171,7 @@ Require Export HoTT.Homotopy.Hopf.
 Require Export HoTT.Homotopy.IdentitySystems.
 Require Export HoTT.Homotopy.NullHomotopy.
 
-Require Export HoTT.Spectra.Spectrum.
+Require Export HoTT.Spectra.
 
 Require Export HoTT.Tactics.
 Require Export HoTT.Tactics.BinderApply.
