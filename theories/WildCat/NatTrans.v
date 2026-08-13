@@ -99,10 +99,8 @@ Instance is1natural_comp {A B : Type} `{IsGraph A} `{Is1Cat B}
   : Is1Natural F K (trans_comp gamma alpha).
 Proof.
   snapply Build_Is1Natural.
-  intros a b f; unfold trans_comp; cbn.
-  refine (cat_assoc _ _ _ $@ (_ $@L isnat alpha f) $@ _).
-  refine (cat_assoc_opp _ _ _ $@ (isnat gamma f $@R _) $@ _).
-  apply cat_assoc.
+  intros a b f.
+  exact (isnat alpha f $@v isnat gamma f).
 Defined.
 
 (** Prewhiskering a transformation preserves naturality. *)
@@ -205,6 +203,21 @@ Definition nattrans_op {A B : Type} `{Is01Cat A} `{Is1Cat B}
   : NatTrans F G
     -> NatTrans (A:=A^op) (B:=B^op) (G : A^op -> B^op) (F : A^op -> B^op)
   := fun alpha => Build_NatTrans (trans_op F G alpha) _.
+
+(** Natural transformations valued in a 1-groupoid can be inverted
+    pointwise.  Naturality of the inverse is the vertical inverse of
+    the original naturality square. *)
+Definition nattrans_inverse_gpd {A B : Type} `{IsGraph A} `{Is1Gpd B}
+  {F G : A -> B} `{!Is0Functor F, !Is0Functor G}
+  : NatTrans F G -> NatTrans G F.
+Proof.
+  intros alpha.
+  snapply Build_NatTrans.
+  1: exact (fun a => (alpha a)^$).
+  snapply Build_Is1Natural.
+  intros a b f.
+  exact (vinverse_square_gpd (isnat alpha f)).
+Defined.
 
 (** ** Natural equivalences *)
 
@@ -371,5 +384,4 @@ Notation "h $@* k" := (ptransformation_compose h k) (at level 40).
 
 (* TODO: *)
 (* Morphisms of natural transformations - Modifications *)
-(* Since [Transformation] is dependent, we can define a modification to be a transformation together with a cylinder condition. This doesn't seem to be too useful as of yet however. We would also need better ways to write down cylinders. *)
-
+(* Since [Transformation] is dependent, we can define a modification to be a transformation together with a cylinder condition.  The generic cylinder and its basic operations are developed in [Cylinder.v]. *)

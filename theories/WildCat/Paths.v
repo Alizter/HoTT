@@ -118,6 +118,8 @@ Proof.
     apply moveL_Mp.
     lhs rapply concat_p_pp.
     exact (whiskerL_1p h).
+  - intros a b c d p q r.
+    destruct p, q, r; reflexivity.
   - intros a b c d e p q r s.
     lhs napply concat_p_pp.
     exact (pentagon p q r s).

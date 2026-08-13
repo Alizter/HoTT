@@ -1,4 +1,4 @@
-Require Import Basics.Overture.
+Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core.
 Require Import WildCat.Equiv.
 
@@ -39,8 +39,10 @@ Section Squares.
     := cat_idl f $@ p $@ (cat_idr f')^$.
 
   (** Squares degenerate in two sides given by the identity 2-morphism at some morphism. *)
-  Definition hrefl (f : x $-> x') : Square f f (Id x) (Id x') := hdeg_square (Id f).
-  Definition vrefl (f : x $-> x') : Square (Id x) (Id x') f f := vdeg_square (Id f).
+  Definition hrefl (f : x $-> x') : Square f f (Id x) (Id x')
+    := cat_idr f $@ (cat_idl f)^$.
+  Definition vrefl (f : x $-> x') : Square (Id x) (Id x') f f
+    := cat_idl f $@ (cat_idr f)^$.
 
   (** The transpose of a square *)
   Definition transpose (s : Square f01 f21 f10 f12) : Square f10 f12 f01 f21 := s^$.
@@ -51,7 +53,9 @@ Section Squares.
     := (cat_assoc _ _ _)^$ $@ (t $@R f10) $@ cat_assoc _ _ _ $@ (f32 $@L s) $@ (cat_assoc _ _ _)^$.
   Definition vconcat (s : Square f01 f21 f10 f12) (t : Square f03 f23 f12 f14)
     : Square (f03 $o f01) (f23 $o f21) f10 f14
-  := cat_assoc _ _ _ $@ (f23 $@L s) $@ (cat_assoc _ _ _)^$ $@ (t $@R f01) $@ cat_assoc _ _ _.
+  := (cat_assoc _ _ _ $@ (f23 $@L s))
+    $@ ((cat_assoc_opp _ _ _ $@ (t $@R f01))
+      $@ cat_assoc _ _ _).
 
   (** If the horizontal morphisms in a square are equivalences then we can flip the square by inverting them. *)
   Definition hinverse {HE : HasEquivs A} (f10 : x00 $<~> x20) (f12 : x02 $<~> x22) (s : Square f01 f21 f10 f12)
@@ -83,6 +87,73 @@ Section Squares.
     := s $@ (p^$ $@R f01).
 
 End Squares.
+
+(** Reversing a square in a 1-groupoid reverses its two vertical
+    edges and exchanges its top and bottom. *)
+Definition vinverse_square_gpd
+  {A : Type} `{Is1Gpd A}
+  {x00 x20 x02 x22 : A}
+  {f01 : x00 $-> x02} {f21 : x20 $-> x22}
+  {f10 : x00 $-> x20} {f12 : x02 $-> x22}
+  (s : Square f01 f21 f10 f12)
+  : Square f01^$ f21^$ f12 f10.
+Proof.
+  apply gpd_moveR_Vh.
+  rapply (_ $@ cat_assoc _ _ _).
+  apply gpd_moveL_hV.
+  exact (transpose s).
+Defined.
+
+(** Reversing the horizontal edges is obtained by transposing,
+    reversing the vertical edges, and transposing back. *)
+Definition hinverse_square_gpd
+  {A : Type} `{Is1Gpd A}
+  {x00 x20 x02 x22 : A}
+  {f01 : x00 $-> x02} {f21 : x20 $-> x22}
+  {f10 : x00 $-> x20} {f12 : x02 $-> x22}
+  (s : Square f01 f21 f10 f12)
+  : Square f21 f01 f10^$ f12^$
+  := transpose (vinverse_square_gpd (transpose s)).
+
+(** Rotate a square after exposing one factor at each end of its
+    horizontal boundary. *)
+Definition square_rotate_composites
+  {A : Type} `{Is1Gpd A}
+  {x0 x1 x2 x3 x4 x5 : A}
+  {l : x0 $-> x1} {r : x2 $-> x3}
+  {t0 : x0 $-> x4} {t1 : x4 $-> x2}
+  {b0 : x1 $-> x5} {b1 : x5 $-> x3}
+  (s : Square l r (t1 $o t0) (b1 $o b0))
+  : Square t1 b0 (l $o t0^$) (b1^$ $o r).
+Proof.
+  unfold Square in *.
+  rhs' exact (cat_assoc t1 r b1^$).
+  apply gpd_moveL_Vh.
+  lhs' exact (cat_assoc_opp (l $o t0^$) b0 b1).
+  lhs' exact (cat_assoc_opp t0^$ l (b1 $o b0)).
+  apply gpd_moveR_hV.
+  exact (s^$ $@ cat_assoc_opp t0 t1 r).
+Defined.
+
+(** Whiskering a corner of a square by an invertible morphism in a
+    1-groupoid. *)
+Definition whiskerTR_gpd
+  {A : Type} `{Is1Gpd A}
+  {x x00 x20 x02 x22 : A}
+  {t : x00 $-> x20} {b : x02 $-> x22}
+  {l : x00 $-> x02} {r : x20 $-> x22}
+  (f : x20 $-> x) (s : Square l r t b)
+  : Square l (r $o f^$) (f $o t) b
+  := cat_assoc _ _ _ $@ (r $@L gpd_V_hh f t) $@ s.
+
+Definition whiskerBL_gpd
+  {A : Type} `{Is1Gpd A}
+  {x x00 x20 x02 x22 : A}
+  {t : x00 $-> x20} {b : x02 $-> x22}
+  {l : x00 $-> x02} {r : x20 $-> x22}
+  (f : x $-> x02) (s : Square l r t b)
+  : Square (f^$ $o l) r t (b $o f)
+  := s $@ ((gpd_hh_V b f)^$ $@R l) $@ cat_assoc _ _ _.
 
 Section Squares2.
 

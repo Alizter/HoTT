@@ -576,6 +576,14 @@ Definition gpd_moveL_Vh {A : Type} `{Is1Gpd A} {x y z : A} {p : y $-> z}
   : q $== p^$ $o r
   := (gpd_moveR_Vh s^$)^$.
 
+Definition gpd_cancelR {A : Type} `{Is1Gpd A} {x y z : A}
+  (p q : y $-> z) (r : x $-> y)
+  : p $o r $== q $o r -> p $== q.
+Proof.
+  intro s.
+  exact ((gpd_hh_V p r)^$ $@ (s $@R r^$) $@ gpd_hh_V q r).
+Defined.
+
 Definition gpd_rev2 {A : Type} `{Is1Gpd A} {x y : A} {p q : x $-> y}
   (r : p $== q) : p^$ $== q^$.
 Proof.
@@ -720,4 +728,3 @@ Proof.
 Defined.
 
 Notation "G $o* F" := (basepointpreservingfunctor_compose F G) (at level 40).
-

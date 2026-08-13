@@ -1,6 +1,7 @@
 Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core.
 Require Import WildCat.Equiv.
+Require Import WildCat.TwoOneCat.
 
 (** * Induced wild categories *)
 
@@ -47,6 +48,11 @@ Section Induced_category.
     constructor; cbn. apply isgraph_hom.
   Defined.
 
+  Local Instance is3graph_induced `{Is3Graph B} : Is3Graph A.
+  Proof.
+    constructor; cbn. apply isgraph_hom_hom.
+  Defined.
+
   Local Instance is1cat_induced `{Is1Cat B} : Is1Cat A.
   Proof.
     snapply Build_Is1Cat; intros_of_type A; cbn.
@@ -66,6 +72,36 @@ Section Induced_category.
     + intros g h. exact idmap.
     + exact (Id _).
     + intros g h. exact (Id _).
+  Defined.
+
+  Definition is21cat_induced `{Is21Cat B} : Is21Cat A.
+  Proof.
+    snapply Build_Is21Cat; intros_of_type A; cbn.
+    + rapply is1cat_hom.
+    + rapply is1gpd_hom.
+    + rapply is1functor_postcomp.
+    + rapply is1functor_precomp.
+    + intros f0 f' g g' p p'.
+      exact (bifunctor_coh_comp p p').
+    + intros f0 g.
+      exact (is1natural_cat_assoc_l
+        (f a) (f b) (f c) (f d) f0 g).
+    + intros f0 h.
+      exact (is1natural_cat_assoc_m
+        (f a) (f b) (f c) (f d) f0 h).
+    + intros g h.
+      exact (is1natural_cat_assoc_r
+        (f a) (f b) (f c) (f d) g h).
+    + exact (is1natural_cat_idl (f a) (f b)).
+    + exact (is1natural_cat_idr (f a) (f b)).
+    + intros f0 g h.
+      exact (cat_assoc_opp_is_rev
+        (f a) (f b) (f c) (f d) f0 g h).
+    + intros f0 g h k.
+      exact (cat_pentagon
+        (f a) (f b) (f c) (f d) (f e) f0 g h k).
+    + intros f0 g.
+      exact (cat_tril (f a) (f b) (f c) f0 g).
   Defined.
 
   Instance hasmorext_induced `{HasMorExt B} : HasMorExt A.

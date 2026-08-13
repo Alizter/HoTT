@@ -87,7 +87,7 @@ Defined.
 
 (** It also inherits a notion of equivalence, namely a natural transformation that is a pointwise equivalence.  Note that this is not a "fully coherent" notion of equivalence, since the functors and transformations are not themselves fully coherent. *)
 
-Instance hasequivs_fun01 (A B : Type) `{Is01Cat A} `{HasEquivs B}
+Instance hasequivs_fun01 (A B : Type) `{IsGraph A} `{HasEquivs B}
   : HasEquivs (Fun01 A B).
 Proof.
   srapply Build_HasEquivs.
@@ -151,6 +151,24 @@ Instance is2graph_fun11 {A B : Type} `{Is1Cat A, Is1Cat B}
 Instance is1cat_fun11 {A B :Type} `{Is1Cat A} `{Is1Cat B}
   : Is1Cat (Fun11 A B)
   := is1cat_induced fun01_fun11.
+
+Instance is0gpd_fun11 {A B : Type} `{Is1Cat A} `{Is1Gpd B}
+  : Is0Gpd (Fun11 A B).
+Proof.
+  snapply Build_Is0Gpd.
+  intros F G alpha.
+  exact (nattrans_inverse_gpd alpha).
+Defined.
+
+Instance is1gpd_fun11 {A B : Type} `{Is1Cat A} `{Is1Gpd B}
+  : Is1Gpd (Fun11 A B).
+Proof.
+  snapply Build_Is1Gpd.
+  - intros F G alpha a.
+    exact (gpd_issect (alpha a)).
+  - intros F G alpha a.
+    exact (gpd_isretr (alpha a)).
+Defined.
 
 Instance hasequivs_fun11 {A B : Type} `{Is1Cat A} `{HasEquivs B}
   : HasEquivs (Fun11 A B)

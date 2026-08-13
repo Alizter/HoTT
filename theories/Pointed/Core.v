@@ -692,6 +692,10 @@ Proof.
     srapply Build_pHomotopy.
     1: exact (fun _ => concat_p1 _ @ (concat_1p _)^).
     simpl; by pelim s1 r1 r2.
+  - intros A B C D f g h.
+    srapply Build_pHomotopy.
+    1: reflexivity.
+    by pelim f g h.
   - intros A B C D E f g h j.
     srapply Build_pHomotopy.
     1: reflexivity.
