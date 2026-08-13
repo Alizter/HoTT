@@ -157,6 +157,34 @@ Proof.
   + exact (concat_p1 _ @ concat_1p _)^.
 Defined.
 
+(** The functorial action of [ppForall] on a fiberwise pointed map. *)
+Definition functor_ppforall `{Funext}
+  {A : pType} {B B' : A -> pType}
+  (g : forall a, B a ->* B' a)
+  : (ppforall a : A, B a) ->* (ppforall a : A, B' a).
+Proof.
+  snapply Build_pMap.
+  - napply pmap_compose_ppforall; exact g.
+  - apply path_pforall.
+    napply pmap_compose_ppforall_point; exact g.
+Defined.
+
+(** Fiberwise pointed equivalences induce an equivalence of pointed dependent products. *)
+Definition equiv_functor_ppforall `{Funext}
+  {A : pType} {B B' : A -> pType}
+  (g : forall a, B a <~>* B' a)
+  : (ppforall a : A, B a) <~>* (ppforall a : A, B' a).
+Proof.
+  snapply Build_pEquiv.
+  - napply functor_ppforall; exact g.
+  - change (IsEquiv
+      (@equiv_functor_pforall_id _ A
+        (pointed_fam B) (pointed_fam B')
+        (fun a => pointed_equiv_equiv (g a))
+        (point_eq (g (point A))))).
+    exact _.
+Defined.
+
 Definition pmap_compose_ppforall_compose {A : pType} {P Q R : A -> pType}
   (h : forall (a : A), Q a ->* R a) (g : forall (a : A), P a ->* Q a)
   (f : ppforall a, P a)
