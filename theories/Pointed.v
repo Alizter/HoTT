@@ -3,6 +3,7 @@ Require Export Pointed.Loops.
 Require Export Pointed.pMap.
 Require Export Pointed.pFiber.
 Require Export Pointed.pEquiv.
+Require Export Pointed.pPullback.
 Require Export Pointed.pTrunc.
 Require Export Pointed.pModality.
 Require Export Pointed.pSusp.
