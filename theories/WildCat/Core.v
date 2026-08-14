@@ -584,6 +584,14 @@ Proof.
   exact ((gpd_hh_V p r)^$ $@ (s $@R r^$) $@ gpd_hh_V q r).
 Defined.
 
+Definition gpd_cancelL {A : Type} `{Is1Gpd A} {x y z : A}
+  (r : y $-> z) (p q : x $-> y)
+  : r $o p $== r $o q -> p $== q.
+Proof.
+  intro s.
+  exact (gpd_moveL_Vh s $@ gpd_V_hh r q).
+Defined.
+
 Definition gpd_rev2 {A : Type} `{Is1Gpd A} {x y : A} {p q : x $-> y}
   (r : p $== q) : p^$ $== q^$.
 Proof.

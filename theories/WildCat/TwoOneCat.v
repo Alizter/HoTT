@@ -281,6 +281,29 @@ Proof.
     (A := A) a a a b c (Id a) (Id a) k h).
 Defined.
 
+(** The left and right unitors agree at an identity morphism. *)
+Definition cat_idl_idr_id {A : Type} `{Is21Cat A} (a : A)
+  : cat_idl (Id a) $== cat_idr (Id a).
+Proof.
+  pose (I := Id a).
+  pose (l := cat_idl I).
+  pose (r := cat_idr I).
+  pose (l2 := cat_idl (I $o I)).
+  pose (r2 := cat_idr (I $o I)).
+  pose (assoc := cat_assoc I I I).
+  assert (El : I $@L l $== l2).
+  { apply (gpd_cancelL l (I $@L l) l2).
+    exact (cat_idl_natural l). }
+  assert (Ew : l $@R I $== r $@R I).
+  { lhs' exact (cat_idl_assoc I I).
+    lhs' exact (El^$ $@R assoc).
+    exact (cat_tril (A := A) a a a I I). }
+  apply (gpd_cancelR l r r2).
+  exact ((cat_idr_natural l)^$
+    $@ (r $@L Ew)
+    $@ cat_idr_natural r).
+Defined.
+
 (** *** Exchange law *)
 
 Definition cat_exchange {A : Type} `{Is21Cat A} {a b c : A}

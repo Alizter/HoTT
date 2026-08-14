@@ -619,6 +619,275 @@ Section Diagonal02.
     exact (cylinder_hrefl p).
   Defined.
 
+  Definition natmod_diagonal02_id
+    (a : A)
+    : NatModification
+        (F := diagonal02 a)
+        (G := diagonal02 a)
+        (fmap diagonal02 (Id a))
+        (nattrans_id (diagonal02 a)).
+  Proof.
+    snapply Build_NatModification.
+    { exact (fun _ => Id _). }
+    intros i j f.
+    cbn.
+    unfold Cylinder.
+    rapply (hconcatL
+      (fmap_id (cat_precomp a (Id a)) (Id a)) _).
+    rapply (hconcatR _
+      (fmap_id (cat_postcomp a (Id a)) (Id a))).
+    unfold hrefl, vrefl.
+    napply Build_Square.
+    lhs' rapply cat_idl.
+    rhs' rapply cat_idr.
+    exact (((cat_idl (Id a))^$ $@L (cat_idl_idr_id a)^$)
+      $@ (gpd_rev2 (cat_idl_idr_id a) $@R cat_idl (Id a))).
+  Defined.
+
+
+  Local Definition hrefl_vconcat_head
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : cat_assoc (Id a) f g $@
+        (g $@L cat_idr f)
+      $== cat_idr (g $o f).
+  Proof.
+    lhs' exact (cat_idr_assoc f g $@R
+      cat_assoc (Id a) f g).
+    lhs' exact (cat_assoc
+      (cat_assoc (Id a) f g)
+      (cat_assoc_opp (Id a) f g)
+      (cat_idr (g $o f))).
+    lhs' exact (cat_idr (g $o f) $@L
+      (cat_assoc_opp_is_rev a a b c (Id a) f g
+        $@R cat_assoc (Id a) f g)).
+    lhs' exact (cat_idr (g $o f) $@L
+      gpd_issect (cat_assoc (Id a) f g)).
+    exact (cat_idr (cat_idr (g $o f))).
+  Defined.
+
+  Local Definition hrefl_vconcat_tail
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : (cat_idl g $@R f)^$ $@
+        cat_assoc f g (Id c)
+      $== (cat_idl (g $o f))^$.
+  Proof.
+    lhs' exact (cat_assoc f g (Id c) $@L
+      gpd_rev2 (cat_idl_assoc f g)).
+    lhs' exact (cat_assoc f g (Id c) $@L
+      gpd_rev_pp (cat_idl (g $o f))
+        (cat_assoc f g (Id c))).
+    lhs' exact (cat_assoc
+      (cat_idl (g $o f))^$
+      (cat_assoc f g (Id c))^$
+      (cat_assoc f g (Id c)))^$.
+    lhs' exact (gpd_isretr (cat_assoc f g (Id c))
+      $@R (cat_idl (g $o f))^$).
+    exact (cat_idl (cat_idl (g $o f))^$).
+  Defined.
+
+  Local Definition hrefl_vconcat_triangle
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : cat_assoc_opp f (Id b) g $@
+        (cat_idr g $@R f)
+      $== g $@L cat_idl f.
+  Proof.
+    lhs' exact ((cat_idr g $@R f) $@L
+      cat_assoc_opp_is_rev a b b c f (Id b) g).
+    exact (gpd_moveL_hV
+      (cat_tril (A := A) a b c f g))^$.
+  Defined.
+
+  Local Definition hrefl_vconcat_middle
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : (g $@L cat_idl f)^$ $@
+        (cat_assoc_opp f (Id b) g $@
+          (cat_idr g $@R f))
+      $== Id _.
+  Proof.
+    lhs' exact (hrefl_vconcat_triangle f g
+      $@R (g $@L cat_idl f)^$).
+    exact (gpd_isretr (g $@L cat_idl f)).
+  Defined.
+
+  Local Definition hrefl_vconcat_expanded
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : (cat_assoc (Id a) f g $@
+        ((g $@L cat_idr f) $@
+          (g $@L cat_idl f)^$)) $@
+      ((cat_assoc_opp f (Id b) g $@
+        ((cat_idr g $@R f) $@
+          (cat_idl g $@R f)^$)) $@
+        cat_assoc f g (Id c))
+      $== cat_idr (g $o f) $@
+        (cat_idl (g $o f))^$.
+  Proof.
+    pose (aa := cat_assoc (Id a) f g).
+    pose (rf := g $@L cat_idr f).
+    pose (lf := (g $@L cat_idl f)^$).
+    pose (am := cat_assoc_opp f (Id b) g).
+    pose (rg := cat_idr g $@R f).
+    pose (lg := (cat_idl g $@R f)^$).
+    pose (al := cat_assoc f g (Id c)).
+    pose (rr := cat_idr (g $o f)).
+    pose (ll := (cat_idl (g $o f))^$).
+    change ((aa $@ (rf $@ lf)) $@
+      ((am $@ (rg $@ lg)) $@ al) $== rr $@ ll).
+    lhs' exact (((am $@ (rg $@ lg)) $@ al) $@L
+      cat_assoc aa rf lf).
+    lhs' exact (cat_assoc (aa $@ rf) lf
+      ((am $@ (rg $@ lg)) $@ al))^$.
+    lhs' exact (cat_assoc lf (am $@ (rg $@ lg)) al
+      $@R (aa $@ rf)).
+    lhs' exact ((al $@L
+      (cat_assoc am rg lg $@R lf))
+      $@R (aa $@ rf)).
+    lhs' exact ((al $@L
+      cat_assoc lf (am $@ rg) lg)
+      $@R (aa $@ rf)).
+    lhs' exact ((cat_assoc (lf $@ (am $@ rg)) lg al)^$
+      $@R (aa $@ rf)).
+    lhs' exact (((lf $@ (am $@ rg)) $@ (lg $@ al)) $@L
+      hrefl_vconcat_head f g).
+    lhs' exact (((lg $@ al) $@L
+      hrefl_vconcat_middle f g) $@R rr).
+    lhs' exact (cat_idr (lg $@ al) $@R rr).
+    exact (hrefl_vconcat_tail f g $@R rr).
+  Defined.
+
+  Local Definition postwhisker_hrefl_components
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : g $@L (cat_idr f $@ (cat_idl f)^$)
+      $== (g $@L cat_idr f) $@
+        (g $@L cat_idl f)^$.
+  Proof.
+    lhs' exact (cat_postwhisker_pp g
+      (cat_idr f) (cat_idl f)^$).
+    exact (gpd_1functor_V (cat_postcomp a g) (cat_idl f)
+      $@R (g $@L cat_idr f)).
+  Defined.
+
+  Local Definition prewhisker_hrefl_components
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : (cat_idr g $@ (cat_idl g)^$) $@R f
+      $== (cat_idr g $@R f) $@
+        (cat_idl g $@R f)^$.
+  Proof.
+    lhs' exact (cat_prewhisker_pp f
+      (cat_idr g) (cat_idl g)^$).
+    exact (gpd_1functor_V (cat_precomp c f) (cat_idl g)
+      $@R (cat_idr g $@R f)).
+  Defined.
+
+  Definition natmod_diagonal02_comp
+    {a b c : A} (f : a $-> b) (g : b $-> c)
+    : NatModification
+        (F := diagonal02 a)
+        (G := diagonal02 c)
+        (fmap diagonal02 (g $o f))
+        (nattrans_comp (fmap diagonal02 g) (fmap diagonal02 f)).
+  Proof.
+    snapply Build_NatModification.
+    { exact (fun _ => Id _). }
+    intros i j h.
+    cbn.
+    unfold Cylinder.
+    rapply (hconcatL
+      (fmap_id (cat_precomp c (Id a)) (g $o f)) _).
+    rapply (hconcatR _
+      (fmap_id (cat_postcomp a (Id c)) (g $o f))).
+    napply Build_Square.
+    lhs' rapply cat_idl.
+    rhs' rapply cat_idr.
+    unfold hrefl, vconcat.
+    symmetry.
+    lhs' exact
+      (((cat_assoc_opp f (Id b) g $@
+          ((cat_idr g $@ (cat_idl g)^$) $@R f)) $@
+        cat_assoc f g (Id c)) $@L
+      (postwhisker_hrefl_components f g $@R
+        cat_assoc (Id a) f g)).
+    lhs' exact
+      ((cat_assoc f g (Id c) $@L
+        (prewhisker_hrefl_components f g $@R
+          cat_assoc_opp f (Id b) g)) $@R
+      (cat_assoc (Id a) f g $@
+        ((g $@L cat_idr f) $@
+          (g $@L cat_idl f)^$))).
+    exact (hrefl_vconcat_expanded f g).
+  Defined.
+
+  Definition is1functor_diagonal02_generic
+    : Is1Functor diagonal02.
+  Proof.
+    snapply Build_Is1Functor.
+    - intros a b f g p.
+      exact (natmod_diagonal02 p).
+    - exact natmod_diagonal02_id.
+    - intros a b c f g.
+      exact (natmod_diagonal02_comp f g).
+  Defined.
+
+  Local Existing Instance is1functor_diagonal02_generic.
+
+  Definition is1functor_fmap_diagonal02_generic
+    (a b : A)
+    : Is1Functor (@fmap A (Fun02 J A) _ _
+        diagonal02 _ a b).
+  Proof.
+    snapply Build_Is1Functor.
+    - intros f g p q h j.
+      exact h.
+    - intros f j.
+      exact (Id _).
+    - intros f g h p q j.
+      exact (Id _).
+  Defined.
+
+  Definition is2functor_diagonal02_generic
+    : Is2Functor diagonal02.
+  Proof.
+    snapply Build_Is2Functor.
+    - exact is1functor_fmap_diagonal02_generic.
+    - intros a b c f f' g g' p q j.
+      cbn.
+      unfold "$@@".
+      lhs' rapply cat_idl.
+      rhs' rapply cat_idr.
+      exact (Id _).
+    - intros a b c d f g h j.
+      cbn.
+      lhs' exact ((h $@L Id (g $o f)) $@L
+        cat_idl (cat_assoc f g h)).
+      lhs' exact (fmap_id (cat_postcomp a h) (g $o f)
+        $@R cat_assoc f g h).
+      lhs' exact (cat_idl (cat_assoc f g h)).
+      rhs' exact (cat_assoc f g h $@L
+        (fmap_id (cat_precomp d f) (h $o g)
+          $@R Id (h $o g $o f))).
+      rhs' exact (cat_assoc f g h $@L
+        cat_idl (Id ((h $o g) $o f))).
+      rhs' exact (cat_idr (cat_assoc f g h)).
+      exact (Id _).
+    - intros a b f j.
+      cbn.
+      rhs' exact (cat_idl f $@L
+        (fmap_id (cat_precomp b f) (Id b)
+          $@R Id (Id b $o f))).
+      rhs' exact (cat_idl f $@L
+        cat_idl (Id (Id b $o f))).
+      rhs' exact (cat_idr (cat_idl f)).
+      exact (Id _).
+    - intros a b f j.
+      cbn.
+      rhs' exact (cat_idr f $@L
+        (fmap_id (cat_postcomp a f) (Id a)
+          $@R Id (f $o Id a))).
+      rhs' exact (cat_idr f $@L
+        cat_idl (Id (f $o Id a))).
+      rhs' exact (cat_idr (cat_idr f)).
+      exact (Id _).
+  Defined.
+
   Definition fun02_diagonal : Fun02 A (Fun02 J A)
     := Build_Fun02 diagonal02.
 
@@ -626,6 +895,14 @@ Section Diagonal02.
     is1functor_diagonal02 :: Is1Functor diagonal02;
     is2functor_diagonal02 :: Is2Functor diagonal02;
   }.
+
+  Global Instance iscoherent_diagonal02_generic
+    : IsCoherentDiagonal02.
+  Proof.
+    snapply Build_IsCoherentDiagonal02.
+    - exact is1functor_diagonal02_generic.
+    - exact is2functor_diagonal02_generic.
+  Defined.
 
   Definition fun22_diagonal02 `{!IsCoherentDiagonal02}
     : Fun22 A (Fun02 J A)
@@ -1628,43 +1905,6 @@ Section DoubleCocones.
   Defined.
 End DoubleCocones.
 
-(** A pointwise colimit witness consists of a coherent family of
-    cocones together with the colimit universal property at every
-    component.  It does not choose colimits globally and makes no
-    reference to a particular category or diagram shape. *)
-Section PointwiseColimitCocone02.
-  Context (A I J : Type)
-    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
-  Context `{!IsCoherentDiagonal02 A I,
-    !IsCoherentDiagonal02 A J}.
-
-  Definition pointwise_cocone_target02
-    (P : Fun02 J A) : Fun02 J (Fun02 I A)
-    := fun02_postcomp
-      (A := J) (fun12_fun22 (fun22_diagonal02 A I)) P.
-
-  Record IsPointwiseColimitCocone02
-    (X : Fun02 J (Fun02 I A)) (P : Fun02 J A) := {
-    pointwise_colimit_cocone02
-      : X $-> pointwise_cocone_target02 P;
-    pointwise_colimit_cocone02_iscolimit
-      : forall j,
-        IsColimitCocone (X j) (P j)
-          (pointwise_colimit_cocone02 j);
-  }.
-
-  (** Composing a pointwise colimit with an outer colimit gives the
-      corresponding two-variable colimit.  The proof is abstract:
-      componentwise colimit uniqueness assembles the universal maps
-      and their coherences. *)
-  Definition isdoublecolimitcolumns_of_pointwise_colimit
-    (X : Fun02 J (Fun02 I A)) (P : Fun02 J A)
-    (hp : IsPointwiseColimitCocone02 X P)
-    (c : A) (hc : IsColimit P c)
-    : IsDoubleColimitColumns A I J X c.
-  Proof.
-  Admitted.
-End PointwiseColimitCocone02.
 
 
 Section DiagonalInterchange02.
@@ -1704,24 +1944,6 @@ Section DiagonalInterchange02.
   Defined.
 End DiagonalInterchange02.
 
-Section PointwiseColimitCoconeRows02.
-  Context (A I J : Type)
-    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
-  Context `{!IsCoherentDiagonal02 A I,
-    !IsCoherentDiagonal02 A J,
-    !HasDiagonalInterchange02 A I J}.
-
-  Definition isdoublecolimitrows_of_pointwise_colimit
-    (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
-    (hp : IsPointwiseColimitCocone02 A J I
-      (swap_fun02 J I A X) P)
-    (c : A) (hc : IsColimit P c)
-    : IsDoubleColimitRows A I J X c
-    := natequiv_compose
-      (natequiv_double_cocone_diagonal_interchange A I J X)
-      (isdoublecolimitcolumns_of_pointwise_colimit
-        A J I (swap_fun02 J I A X) P hp c hc).
-End PointwiseColimitCoconeRows02.
 
 (** ** Pointwise coherent limit and colimit candidates *)
 
@@ -1775,6 +1997,29 @@ Section PointwiseColimit02.
   Defined.
 End PointwiseColimit02.
 
+
+Section PointwiseDiagonalComparison02.
+  Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
+
+  Definition natequiv_pointwise_diagonal02_generic
+    : NatEquiv
+        (fun12_pointwise_diagonal A B J)
+        (fun22_diagonal02 (Fun02 A B) J).
+  Proof.
+    snapply Build_NatEquiv.
+    - intro F.
+      exact (id_cate _).
+    - snapply Build_Is1Natural.
+      intros F G alpha.
+      snapply Build_NatModification.
+      { intro j.
+        exact (Id (alpha j)). }
+      intros j j' g.
+      cbn.
+      Show.
+  Admitted.
+End PointwiseDiagonalComparison02.
+
 (** The pointwise diagonal and the literal constant-diagram functor have the same components, but identifying their naturality data requires a coherent comparison.  Isolating that comparison keeps the pointwise colimit theorem independent of its construction. *)
 Class HasPointwiseDiagonalComparison02
   (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J,
@@ -1786,22 +2031,55 @@ Class HasPointwiseDiagonalComparison02
         (fun22_diagonal02 (Fun02 A B) J);
 }.
 
-Global Instance hascolimit02_fun02
-  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J,
-    !IsCoherentDiagonal02 B J, !HasColimit22 B J,
+Section PointwiseColimitFunctorCategory02.
+  Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 B J, !HasColimit22 B J,
     !IsCoherentDiagonal02 (Fun02 A B) J,
-    !HasPointwiseDiagonalComparison02 A B J}
-  : HasColimit02 (Fun02 A B) J.
-Proof.
-  snapply Build_HasColimit02.
-  - exact (fun12_pointwise_colimit A B J).
-  - rapply (gpd_adjunction_natequiv_right
+    !HasPointwiseDiagonalComparison02 A B J}.
+
+  Definition gpd_adjunction_pointwise_colimit_fun02
+    : GpdAdjunction
+        (fun11_fun12 (fun12_pointwise_colimit A B J))
+        (fun11_fun22 (fun22_diagonal02 (Fun02 A B) J)).
+  Proof.
+    rapply (gpd_adjunction_natequiv_right
       (fun11_fun12 (fun12_pointwise_colimit A B J))
       (fun11_fun12 (fun12_pointwise_diagonal A B J))
       (fun11_fun22 (fun22_diagonal02 (Fun02 A B) J))
       natequiv_pointwise_diagonal02).
     exact (gpd_adjunction_pointwise_colimit A B J).
-Defined.
+  Defined.
+
+  (** The objectwise colimit is a full coherent colimit in the functor
+      category, not merely a family of colimit objects. *)
+  Definition pointwise_colimit02_iscolimit
+    (X : Fun02 J (Fun02 A B))
+    : IsColimit X (fun12_pointwise_colimit A B J X)
+    := natequiv_gpd_adjunction_r
+      gpd_adjunction_pointwise_colimit_fun02 X.
+
+  Definition pointwise_colimit02_cocone
+    (X : Fun02 J (Fun02 A B))
+    : X $-> diagonal02 (Fun02 A B) J
+        (fun12_pointwise_colimit A B J X)
+    := colimit_cocone_of_iscolimit
+      (pointwise_colimit02_iscolimit X).
+
+  Definition pointwise_colimit02_cocone_iscolimit
+    (X : Fun02 J (Fun02 A B))
+    : IsColimitCocone X (fun12_pointwise_colimit A B J X)
+        (pointwise_colimit02_cocone X)
+    := iscolimitcocone_of_iscolimit
+      (pointwise_colimit02_iscolimit X).
+
+  Global Instance hascolimit02_fun02
+    : HasColimit02 (Fun02 A B) J.
+  Proof.
+    snapply Build_HasColimit02.
+    - exact (fun12_pointwise_colimit A B J).
+    - exact gpd_adjunction_pointwise_colimit_fun02.
+  Defined.
+End PointwiseColimitFunctorCategory02.
 
 (** ** Iterated coherent colimits *)
 

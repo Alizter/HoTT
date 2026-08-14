@@ -86,9 +86,9 @@ Current work is in `theories/WildCat/LimitsScratch.v`.
 - [x] Promote coherent postcomposition to a `Fun12` for a `Fun22` codomain functor.
 - [x] Prove the conditional pointwise limits/colimits and Fubini equivalence through the coherent diagram category.
 - [x] Prove the specialized pointwise walking-span pushout mate equivalence needed for `Type`, without requiring the stronger global `HasColimit22 Type WalkingSpan` interface.
-- [x] Package the coherent pointwise construction as the conditional theorem that `[C,D]` inherits `J`-colimits from `D` once the pointwise diagonal is coherently compared with the literal constant-diagram functor.
+- [x] Package the coherent pointwise construction as `gpd_adjunction_pointwise_colimit_fun02`, prove the full universal properties `pointwise_colimit02_iscolimit` and `pointwise_colimit02_cocone_iscolimit`, and register the conditional instance `hascolimit02_fun02`.
 - [ ] Construct `IsCoherentDiagonal02 (Fun02 A B) J` and `HasPointwiseDiagonalComparison02` generically, including the cylinder relating the two identity-like naturality squares.
-- [ ] Determine whether the packaged functor-category colimit can be made definitionally pointwise, or whether the diagonal comparison is an unavoidable part of the interface.
+- [x] Determine whether the packaged functor-category colimit can be made definitionally pointwise: under the current `IsCoherentDiagonal02` interface the diagonal comparison is necessary, since that class does not constrain the chosen action on 2-cells to be the componentwise one.
 - [ ] Replace remaining costly elaboration (`refine` and inferred functors) with explicit functors and `nrefine`/`napply` where the goal determines the data.
 - [ ] Reduce `Typeclasses Depth 4` in `LimitsScratch.v` if the coherent interface permits it.
 
@@ -215,26 +215,25 @@ The immediate objective is to finish the coherent pushout route and leave the sc
 
 - `LimitsScratch.v` defines `colimit_cocone_map`, `IsColimitCocone`, invariance under homotopic cocones, and the chosen cocone extracted from `HasColimit02`.
 - `LimitsScratch.v` defines `pushout_square_cocone` and `IsPushoutSquare` for a specified square in any wild `(2,1)`-category.
-- `LimitsScratch.v` defines `HasPointwiseDiagonalComparison02` and the conditional instance `hascolimit02_fun02`; the missing field is the coherent comparison between `fun12_pointwise_diagonal` and `fun22_diagonal02 (Fun02 A B) J`.
+- `LimitsScratch.v` defines `HasPointwiseDiagonalComparison02`, the transported adjunction `gpd_adjunction_pointwise_colimit_fun02`, the full universal properties `pointwise_colimit02_iscolimit` and `pointwise_colimit02_cocone_iscolimit`, and the conditional instance `hascolimit02_fun02`.
 - `LimitsScratch.v` defines `equiv_coherent_span_colimit_3_by_3` as the `WalkingSpan` specialization of coherent Fubini.
 - `PushoutScratch.v` defines `span_pushout_unit_iscolimit` from `gpd_adjunction_span_pushout`, and `ispushoutsquare_pushout` proves the ordinary `pushl`/`pushr`/`pglue` square satisfies `IsPushoutSquare`.
 
 The remaining technical work is:
 
 1. Construct `IsCoherentDiagonal02 (Fun02 A B) J` and the field `natequiv_pointwise_diagonal02`. The object and arrow components are identity-like, but their naturality squares differ by the swap/composition coherence; use the cylinder/square lemmas rather than unfolding the whole functor-category records.
-2. Once that comparison is available, remove the extra comparison hypothesis from the pointwise colimit theorem and specialize it to `WalkingSpan`.
-3. Replace the Type-specific mate/unmate route in `PushoutScratch.v` with the abstract pointwise result, then expose the concrete `pushout_3_by_3` as the abstract Fubini specialization.
-4. Repair the current `PushoutScratch.v` build before broad validation. The latest focused build reaches `cylinder_span_pushout_unmate_naturality` around line 1800; its two point-constructor goals differ from `c` by expanded Type associator/unitors. The attempted proof currently uses explicit `Type` whiskering and unfolds several Type-category operations. Either finish those two reductions with targeted path rewrites or simplify/restructure that lemma while preserving the existing mate/unmate API.
+2. Specialize the conditional pointwise theorem to `WalkingSpan`, supplying the diagonal comparison for the chosen pushout-like codomain.
+3. Replace the commented-out Type-specific mate/unmate route in `PushoutScratch.v` with the abstract pointwise result, then expose the concrete `pushout_3_by_3` as the abstract Fubini specialization.
 
-Useful validation commands (all with a 60-second timeout):
+Useful validation commands:
 
 ```text
-timeout --kill-after=5s 60s dune build theories/WildCat/LimitsScratch.vo
-timeout --kill-after=5s 60s dune build theories/WildCat/PushoutScratch.vo
+nix develop -c dune build theories/WildCat/LimitsScratch.vo
+nix develop -c dune build theories/WildCat/PushoutComparisonScratch.vo theories/WildCat/PushoutScratch.vo
 git diff --check
 ```
 
-`LimitsScratch.vo` last built successfully. `PushoutScratch.vo` does not currently build. No new `Admitted` or axioms were introduced by the abstract API changes.
+`LimitsScratch.vo`, `PushoutComparisonScratch.vo`, and `PushoutScratch.vo` last built successfully. The obsolete specialized mate/unmate block remains commented out; no `Admitted` or axioms remain in `LimitsScratch.v`.
 
 ## Structured-object investigation
 
@@ -270,7 +269,7 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] `Cylinder.v` builds.
 - [x] `TwoFunctor.v` builds after introducing cylinders and the forgetful lower structures.
 - [x] Rebuild `LimitsScratch.v` after the coherent-functor refactor.
-- [ ] Rebuild `PushoutScratch.v` after replacing the specialized pointwise construction by the abstract pushout route; the current failure is in `cylinder_span_pushout_unmate_naturality` around line 1800.
+- [x] Rebuild `PushoutComparisonScratch.v` and `PushoutScratch.v` after packaging the full conditional pointwise-colimit theorem.
 - [x] `git diff --check` currently passes.
 - [ ] Eliminate any temporary skeleton gaps after the abstract statements and interfaces have stabilized.
 - [ ] Rerun `dune build test/` after the current abstract pushout edits.

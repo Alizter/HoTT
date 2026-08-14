@@ -27,44 +27,13 @@ Section ManualPushoutThreeByThree.
     (H33 : Square f32 f34 f23 f43).
 
 
-  Definition pointwise_columns_three_by_three
-    : IsPointwiseColimitCocone02
-        Type WalkingSpan WalkingSpan
-        (grid_diagram H11 H13 H31 H33)
-        (pointwise_span_pushout
-          (grid_diagram H11 H13 H31 H33)).
-  Proof.
-  Admitted.
-
-  Definition pointwise_rows_three_by_three
-    : IsPointwiseColimitCocone02
-        Type WalkingSpan WalkingSpan
-        (swap_fun02 WalkingSpan WalkingSpan Type
-          (grid_diagram H11 H13 H31 H33))
-        (pointwise_span_pushout
-          (swap_fun02 WalkingSpan WalkingSpan Type
-            (grid_diagram H11 H13 H31 H33))).
-  Proof.
-  Admitted.
-
   Definition isdoublecols_three_by_three
     : IsDoubleColimitColumns Type WalkingSpan WalkingSpan
         (grid_diagram H11 H13 H31 H33)
         (iterated_span_pushout
           (grid_diagram H11 H13 H31 H33)).
   Proof.
-    exact (isdoublecolimitcolumns_of_pointwise_colimit
-      Type WalkingSpan WalkingSpan
-      (grid_diagram H11 H13 H31 H33)
-      (pointwise_span_pushout
-        (grid_diagram H11 H13 H31 H33))
-      pointwise_columns_three_by_three
-      (iterated_span_pushout
-        (grid_diagram H11 H13 H31 H33))
-      (span_pushout_iscolimit
-        (pointwise_span_pushout
-          (grid_diagram H11 H13 H31 H33)))).
-  Defined.
+  Admitted.
 
   Definition isdoublerows_three_by_three
     : IsDoubleColimitRows Type WalkingSpan WalkingSpan
@@ -72,20 +41,7 @@ Section ManualPushoutThreeByThree.
         (iterated_span_pushout_swapped
           (grid_diagram H11 H13 H31 H33)).
   Proof.
-    exact (isdoublecolimitrows_of_pointwise_colimit
-      Type WalkingSpan WalkingSpan
-      (grid_diagram H11 H13 H31 H33)
-      (pointwise_span_pushout
-        (swap_fun02 WalkingSpan WalkingSpan Type
-          (grid_diagram H11 H13 H31 H33)))
-      pointwise_rows_three_by_three
-      (iterated_span_pushout_swapped
-        (grid_diagram H11 H13 H31 H33))
-      (span_pushout_iscolimit
-        (pointwise_span_pushout
-          (swap_fun02 WalkingSpan WalkingSpan Type
-            (grid_diagram H11 H13 H31 H33))))).
-  Defined.
+  Admitted.
 
 
   Definition three_by_three
