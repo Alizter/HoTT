@@ -210,6 +210,7 @@ Proof.
   exact (j b).
 Defined.
 
+
 Definition functor_pushout_idmap {A B C : Type} {f : A -> B} {g : A -> C}
   : functor_pushout (f:=f) (g:=g) idmap idmap idmap (fun _ => 1) (fun _ => 1) == idmap.
 Proof.

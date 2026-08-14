@@ -133,6 +133,145 @@ Section BuildGpdAdjunction.
   Defined.
 End BuildGpdAdjunction.
 
+(** A cubical adjunction stores exactly the higher naturality needed
+    to lift its unit and counit through coherent graph-indexed
+    functor categories. *)
+Record CubicalAdjunction
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) (G : Fun22 B A) := {
+  cubical_adjunction_counit
+    : CubicalNatTrans12
+        (fun12_compose (fun12_fun22 F) (fun12_fun22 G))
+        fun12_id;
+  cubical_adjunction_unit
+    : CubicalNatTrans12
+        fun12_id
+        (fun12_compose (fun12_fun22 G) (fun12_fun22 F));
+  cubical_adjunction_triangle_l
+    : NatModification
+        (nattrans_comp
+          (nattrans_prewhisker cubical_adjunction_counit F)
+          (nattrans_postwhisker F cubical_adjunction_unit))
+        (nattrans_id F);
+  cubical_adjunction_triangle_r
+    : NatModification
+        (nattrans_comp
+          (nattrans_postwhisker G cubical_adjunction_counit)
+          (nattrans_prewhisker cubical_adjunction_unit G))
+        (nattrans_id G);
+}.
+
+Definition gpd_adjunction_cubical
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) (G : Fun22 B A)
+  (adj : CubicalAdjunction F G)
+  : GpdAdjunction F G.
+Proof.
+  napply (Build_GpdAdjunction_unit_counit F G
+    (cubical_adjunction_counit F G adj)
+    (cubical_adjunction_unit F G adj)).
+  - intro a.
+    exact (natmod_component _ _
+      (cubical_adjunction_triangle_l F G adj) a).
+  - intro b.
+    exact (natmod_component _ _
+      (cubical_adjunction_triangle_r F G adj) b).
+Defined.
+
+Section CubicalAdjunctionPostcomp.
+  Context (A B J : Type)
+    `{Is21Cat A, Is21Cat B, IsGraph J}
+    (F : Fun22 A B) (G : Fun22 B A)
+    (adj : CubicalAdjunction F G).
+
+  Definition nattrans_cubical_adjunction_counit_postcomp
+    : NatTrans
+        (fun02_postcomp (A := J) (fun12_fun22 F) o
+          fun02_postcomp (A := J) (fun12_fun22 G))
+        idmap.
+  Proof.
+    snapply Build_NatTrans.
+    - intro X.
+      exact (nattrans_prewhisker
+        (cubical_adjunction_counit F G adj) X).
+    - snapply Build_Is1Natural.
+      intros X Y alpha.
+      snapply Build_NatModification.
+      { exact (fun j => isnat
+          (cubical_adjunction_counit F G adj) (alpha j)). }
+      intros j j' f.
+      unfold nattrans_prewhisker, trans_prewhisker.
+      unfold nattrans_postwhisker, trans_postwhisker.
+      unfold is1natural_comp, is1natural_prewhisker.
+      unfold is1natural_postwhisker.
+      cbn.
+      rapply cylinder_rewrite_front.
+      { exact (square_vconcat_natural_above
+          (fmap_square_compose G F (isnat alpha f))
+          (isnat (cubical_adjunction_counit F G adj) (fmap Y f))). }
+      rapply cylinder_rewrite_back.
+      { exact (square_vconcat_natural_below
+          (isnat (cubical_adjunction_counit F G adj) (fmap X f))
+          (fmap_square_id (isnat alpha f))^$). }
+      exact (cubical12_naturality
+        (cubical_adjunction_counit F G adj) (isnat alpha f)).
+  Defined.
+
+  Definition nattrans_cubical_adjunction_unit_postcomp
+    : NatTrans
+        idmap
+        (fun02_postcomp (A := J) (fun12_fun22 G) o
+          fun02_postcomp (A := J) (fun12_fun22 F)).
+  Proof.
+    snapply Build_NatTrans.
+    - intro X.
+      exact (nattrans_prewhisker
+        (cubical_adjunction_unit F G adj) X).
+    - snapply Build_Is1Natural.
+      intros X Y alpha.
+      snapply Build_NatModification.
+      { exact (fun j => isnat
+          (cubical_adjunction_unit F G adj) (alpha j)). }
+      intros j j' f.
+      unfold nattrans_prewhisker, trans_prewhisker.
+      unfold nattrans_postwhisker, trans_postwhisker.
+      unfold is1natural_comp, is1natural_prewhisker.
+      unfold is1natural_postwhisker.
+      cbn.
+      rapply cylinder_rewrite_front.
+      { exact (square_vconcat_natural_above
+          (fmap_square_id (isnat alpha f))^$
+          (isnat (cubical_adjunction_unit F G adj) (fmap Y f))). }
+      rapply cylinder_rewrite_back.
+      { exact (square_vconcat_natural_below
+          (isnat (cubical_adjunction_unit F G adj) (fmap X f))
+          (fmap_square_compose F G (isnat alpha f))). }
+      exact (cubical12_naturality
+        (cubical_adjunction_unit F G adj) (isnat alpha f)).
+  Defined.
+
+  Definition gpd_adjunction_fun02_postcomp_cubical
+    : GpdAdjunction
+        (fun12_fun02_postcomp (A := J) F)
+        (fun12_fun02_postcomp (A := J) G).
+  Proof.
+    napply (Build_GpdAdjunction_unit_counit
+      (fun12_fun02_postcomp (A := J) F)
+      (fun12_fun02_postcomp (A := J) G)
+      nattrans_cubical_adjunction_counit_postcomp
+      nattrans_cubical_adjunction_unit_postcomp).
+    - intro X.
+      exact (natmod_prewhisker
+        (cubical_adjunction_triangle_l F G adj) X).
+    - intro X.
+      exact (natmod_prewhisker
+        (cubical_adjunction_triangle_r F G adj) X).
+    Unshelve.
+    { exact (is1functor_fun02_postcomp (A := J) F). }
+    exact (is1functor_fun02_postcomp (A := J) G).
+  Defined.
+End CubicalAdjunctionPostcomp.
+
 Section GpdAdjunctionData.
   Context {A B : Type} {F : A -> B} {G : B -> A}
     `{Is1Cat A, Is1Cat B,
@@ -470,8 +609,27 @@ Section Diagonal02.
     exact (hrefl f).
   Defined.
 
+  Definition natmod_diagonal02
+    {a b : A} {f g : a $-> b} (p : f $== g)
+    : fmap diagonal02 f $== fmap diagonal02 g.
+  Proof.
+    snapply Build_NatModification.
+    { exact (fun _ => p). }
+    intros i j h.
+    exact (cylinder_hrefl p).
+  Defined.
+
   Definition fun02_diagonal : Fun02 A (Fun02 J A)
     := Build_Fun02 diagonal02.
+
+  Class IsCoherentDiagonal02 := {
+    is1functor_diagonal02 :: Is1Functor diagonal02;
+    is2functor_diagonal02 :: Is2Functor diagonal02;
+  }.
+
+  Definition fun22_diagonal02 `{!IsCoherentDiagonal02}
+    : Fun22 A (Fun02 J A)
+    := Build_Fun22 diagonal02.
 
   Class HasLimit02 := {
     cat_limit02 : Fun12 (Fun02 J A) A;
@@ -484,7 +642,43 @@ Section Diagonal02.
     adjunction_cat_colimit02
       : GpdAdjunction cat_colimit02 fun02_diagonal;
   }.
+
+  Class HasLimit22 `{!IsCoherentDiagonal02} := {
+    cat_limit22 : Fun22 (Fun02 J A) A;
+    cubical_adjunction_cat_limit22
+      : CubicalAdjunction fun22_diagonal02 cat_limit22;
+  }.
+
+  Class HasColimit22 `{!IsCoherentDiagonal02} := {
+    cat_colimit22 : Fun22 (Fun02 J A) A;
+    cubical_adjunction_cat_colimit22
+      : CubicalAdjunction cat_colimit22 fun22_diagonal02;
+  }.
 End Diagonal02.
+
+Global Instance haslimit02_haslimit22
+  (A J : Type) `{Is21Cat A, IsGraph J,
+    !IsCoherentDiagonal02 A J, !HasLimit22 A J}
+  : HasLimit02 A J.
+Proof.
+  snapply Build_HasLimit02.
+  - exact (fun12_fun22 (cat_limit22 A J)).
+  - exact (gpd_adjunction_cubical
+      (fun22_diagonal02 A J) (cat_limit22 A J)
+      (cubical_adjunction_cat_limit22 A J)).
+Defined.
+
+Global Instance hascolimit02_hascolimit22
+  (A J : Type) `{Is21Cat A, IsGraph J,
+    !IsCoherentDiagonal02 A J, !HasColimit22 A J}
+  : HasColimit02 A J.
+Proof.
+  snapply Build_HasColimit02.
+  - exact (fun12_fun22 (cat_colimit22 A J)).
+  - exact (gpd_adjunction_cubical
+      (cat_colimit22 A J) (fun22_diagonal02 A J)
+      (cubical_adjunction_cat_colimit22 A J)).
+Defined.
 
 (** Evaluation retains modifications, so it is a coherent
     1-functor without any further diagram-shape assumptions. *)
@@ -1238,29 +1432,506 @@ Section Swap02Adjunction.
 
 End Swap02Adjunction.
 
+(** ** Colimits through coherent diagram categories *)
+
+(** A colimit corepresents the 0-groupoid of coherent cocones.  In
+    particular, the diagram category here is [Fun02]: its 2-cells are
+    modifications satisfying their cylinder condition. *)
+Definition cocone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (a : A) : ZeroGpd
+  := opyon_0gpd X (diagonal02 A J a).
+
+Global Instance is0functor_cocone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A)
+  : Is0Functor (cocone02 X)
+  := is0functor_compose (diagonal02 A J) (opyon_0gpd X).
+
+Definition IsColimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (c : A) : Type
+  := NatEquiv (opyon_0gpd c) (cocone02 X).
+
+(** The universal map belonging to a specified cocone.  Its value at [k : c $-> a] is the composite of the cocone with the constant natural transformation determined by [k]. *)
+Definition colimit_cocone_map
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (c : A)
+  (alpha : X $-> diagonal02 A J c) (a : A)
+  : opyon_0gpd c a $-> cocone02 X a.
+Proof.
+  snapply Build_Fun01'.
+  - intro k.
+    exact (nattrans_comp (fmap (diagonal02 A J) k) alpha).
+  - intros k l p.
+    exact (natmod_precompose alpha (natmod_diagonal02 A J p)).
+Defined.
+
+(** Unlike [IsColimit], this formulation remembers which cocone exhibits the universal property. *)
+Definition IsColimitCocone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (c : A)
+  (alpha : X $-> diagonal02 A J c) : Type
+  := forall a : A, CatIsEquiv (colimit_cocone_map X c alpha a).
+
+Definition colimit_cocone_map_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {c : A}
+  {alpha beta : X $-> diagonal02 A J c}
+  (h : alpha $== beta) (a : A)
+  : colimit_cocone_map X c alpha a
+    $== colimit_cocone_map X c beta a.
+Proof.
+  intro k.
+  exact (natmod_postcompose (fmap (diagonal02 A J) k) h).
+Defined.
+
+Definition iscolimitcocone_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {c : A}
+  {alpha beta : X $-> diagonal02 A J c}
+  (h : alpha $== beta) (Halpha : IsColimitCocone X c alpha)
+  : IsColimitCocone X c beta.
+Proof.
+  intro a.
+  napply (catie_homotopic (colimit_cocone_map X c alpha a)).
+  { exact (Halpha a). }
+  exact (colimit_cocone_map_homotopic h a).
+Defined.
+
+Definition colimit_cocone_of_iscolimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {c : A} (e : IsColimit X c)
+  : X $-> diagonal02 A J c
+  := equiv_fun_0gpd (e c) (Id c).
+
+Definition colimit_cocone_map_of_iscolimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {c : A} (e : IsColimit X c) (a : A)
+  : cate_fun (e a)
+    $== colimit_cocone_map X c
+      (colimit_cocone_of_iscolimit e) a.
+Proof.
+  intro k.
+  unfold colimit_cocone_map, colimit_cocone_of_iscolimit.
+  cbn beta.
+  exact (fmap (equiv_fun_0gpd (e a)) (cat_idr k)^$
+    $@ isnat_natequiv e k (Id c)).
+Defined.
+
+Definition iscolimitcocone_of_iscolimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {c : A} (e : IsColimit X c)
+  : IsColimitCocone X c (colimit_cocone_of_iscolimit e).
+Proof.
+  intro a.
+  napply (catie_homotopic (cate_fun (e a))).
+  { exact _. }
+  exact (colimit_cocone_map_of_iscolimit e a).
+Defined.
+
+Section ChosenColimit02.
+  Context (A J : Type) `{Is21Cat A, IsGraph J, !HasColimit02 A J}.
+
+  Definition cat_colimit02_iscolimit (X : Fun02 J A)
+    : IsColimit X (cat_colimit02 A J X)
+    := natequiv_gpd_adjunction_r
+      (adjunction_cat_colimit02 A J) X.
+
+  Definition cat_colimit02_cocone (X : Fun02 J A)
+    : X $-> diagonal02 A J (cat_colimit02 A J X)
+    := colimit_cocone_of_iscolimit
+      (cat_colimit02_iscolimit X).
+
+  Definition cat_colimit02_cocone_iscolimit (X : Fun02 J A)
+    : IsColimitCocone X (cat_colimit02 A J X)
+        (cat_colimit02_cocone X)
+    := iscolimitcocone_of_iscolimit
+      (cat_colimit02_iscolimit X).
+End ChosenColimit02.
+
+Definition Colimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) : Type
+  := {c : A & IsColimit X c}.
+
+(** For a two-variable diagram, the two presentations below are the
+    cocone functors obtained before and after swapping the variables.
+    Keeping the target of the first presentation literally as a
+    swapped double diagonal lets the swap adjunction apply without a
+    separate coherence comparison between constant diagrams. *)
+Section DoubleCocones.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J}.
+
+  Definition double_diagonal02
+    : A -> Fun02 I (Fun02 J A)
+    := fun a => fun02_postcomp
+      (A := I) (fun12_fun22 (fun22_diagonal02 A J))
+      (diagonal02 A I a).
+
+  Global Instance is0functor_double_diagonal02
+    : Is0Functor double_diagonal02
+    := is0functor_compose
+      (diagonal02 A I)
+      (fun02_postcomp
+        (A := I) (fun12_fun22 (fun22_diagonal02 A J))).
+
+  Definition double_cocone_rows
+    (X : Fun02 J (Fun02 I A)) (a : A) : ZeroGpd
+    := opyon_0gpd (swap_fun02 J I A X) (double_diagonal02 a).
+
+  Global Instance is0functor_double_cocone_rows
+    (X : Fun02 J (Fun02 I A))
+    : Is0Functor (double_cocone_rows X)
+    := is0functor_compose double_diagonal02
+      (opyon_0gpd (swap_fun02 J I A X)).
+
+  Definition double_cocone_columns
+    (X : Fun02 J (Fun02 I A)) (a : A) : ZeroGpd
+    := opyon_0gpd X (swap_fun02 I J A (double_diagonal02 a)).
+
+  Global Instance is0functor_double_cocone_columns
+    (X : Fun02 J (Fun02 I A))
+    : Is0Functor (double_cocone_columns X)
+    := is0functor_compose double_diagonal02
+      (opyon_0gpd X o swap_fun02 I J A).
+
+  Definition natequiv_double_cocone_swap
+    (X : Fun02 J (Fun02 I A))
+    : NatEquiv (double_cocone_rows X) (double_cocone_columns X)
+    := natequiv_prewhisker
+      (natequiv_swap_fun02_hom_r J I A X) double_diagonal02.
+
+  Definition IsDoubleColimitRows
+    (X : Fun02 J (Fun02 I A)) (c : A) : Type
+    := NatEquiv (opyon_0gpd c) (double_cocone_rows X).
+
+  Definition IsDoubleColimitColumns
+    (X : Fun02 J (Fun02 I A)) (c : A) : Type
+    := NatEquiv (opyon_0gpd c) (double_cocone_columns X).
+
+  (** Fubini is uniqueness of a corepresenting object, after the swap
+      equivalence identifies row-first and column-first cocones. *)
+  Definition equiv_colimit_fubini
+    {r c : A} (X : Fun02 J (Fun02 I A))
+    (hr : IsDoubleColimitRows X r)
+    (hc : IsDoubleColimitColumns X c)
+    : c $<~> r.
+  Proof.
+    napply opyon_equiv_0gpd.
+    exact (natequiv_compose (natequiv_inverse hc)
+      (natequiv_compose
+        (natequiv_double_cocone_swap X) hr)).
+  Defined.
+End DoubleCocones.
+
+(** A pointwise colimit witness consists of a coherent family of
+    cocones together with the colimit universal property at every
+    component.  It does not choose colimits globally and makes no
+    reference to a particular category or diagram shape. *)
+Section PointwiseColimitCocone02.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J}.
+
+  Definition pointwise_cocone_target02
+    (P : Fun02 J A) : Fun02 J (Fun02 I A)
+    := fun02_postcomp
+      (A := J) (fun12_fun22 (fun22_diagonal02 A I)) P.
+
+  Record IsPointwiseColimitCocone02
+    (X : Fun02 J (Fun02 I A)) (P : Fun02 J A) := {
+    pointwise_colimit_cocone02
+      : X $-> pointwise_cocone_target02 P;
+    pointwise_colimit_cocone02_iscolimit
+      : forall j,
+        IsColimitCocone (X j) (P j)
+          (pointwise_colimit_cocone02 j);
+  }.
+
+  (** Composing a pointwise colimit with an outer colimit gives the
+      corresponding two-variable colimit.  The proof is abstract:
+      componentwise colimit uniqueness assembles the universal maps
+      and their coherences. *)
+  Definition isdoublecolimitcolumns_of_pointwise_colimit
+    (X : Fun02 J (Fun02 I A)) (P : Fun02 J A)
+    (hp : IsPointwiseColimitCocone02 X P)
+    (c : A) (hc : IsColimit P c)
+    : IsDoubleColimitColumns A I J X c.
+  Proof.
+  Admitted.
+End PointwiseColimitCocone02.
+
+
+Section DiagonalInterchange02.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J}.
+
+  Definition swapped_double_diagonal02
+    : A -> Fun02 I (Fun02 J A)
+    := fun a => swap_fun02 J I A (double_diagonal02 A J I a).
+
+  Global Instance is0functor_swapped_double_diagonal02
+    : Is0Functor swapped_double_diagonal02
+    := is0functor_compose
+      (double_diagonal02 A J I) (swap_fun02 J I A).
+
+  Class HasDiagonalInterchange02 := {
+    natequiv_diagonal_interchange02
+      : NatEquiv swapped_double_diagonal02
+          (double_diagonal02 A I J);
+  }.
+
+  Definition natequiv_double_cocone_diagonal_interchange
+    `{!HasDiagonalInterchange02}
+    (X : Fun02 J (Fun02 I A))
+    : NatEquiv
+        (double_cocone_columns A J I (swap_fun02 J I A X))
+        (double_cocone_rows A I J X).
+  Proof.
+    exact (natequiv_postwhisker
+      (A := A) (B := Fun02 I (Fun02 J A)) (C := ZeroGpd)
+      (F := swapped_double_diagonal02)
+      (G := double_diagonal02 A I J)
+      (opyon_0gpd (swap_fun02 J I A X))
+      natequiv_diagonal_interchange02).
+  Defined.
+End DiagonalInterchange02.
+
+Section PointwiseColimitCoconeRows02.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J,
+    !HasDiagonalInterchange02 A I J}.
+
+  Definition isdoublecolimitrows_of_pointwise_colimit
+    (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
+    (hp : IsPointwiseColimitCocone02 A J I
+      (swap_fun02 J I A X) P)
+    (c : A) (hc : IsColimit P c)
+    : IsDoubleColimitRows A I J X c
+    := natequiv_compose
+      (natequiv_double_cocone_diagonal_interchange A I J X)
+      (isdoublecolimitcolumns_of_pointwise_colimit
+        A J I (swap_fun02 J I A X) P hp c hc).
+End PointwiseColimitCoconeRows02.
+
 (** ** Pointwise coherent limit and colimit candidates *)
 
 Section PointwiseLimit02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
-  Context `{!HasLimit02 B J}.
+  Context `{!IsCoherentDiagonal02 B J, !HasLimit22 B J}.
 
-  Definition fun02_pointwise_limit
-    : Fun02 (Fun02 J (Fun02 A B)) (Fun02 A B)
-    := fun02_compose
-      (fun02_fun02_postcomp (A := A) (cat_limit02 B J))
-      (fun02_swap_fun02 J A B).
+  Definition fun12_pointwise_limit
+    : Fun12 (Fun02 J (Fun02 A B)) (Fun02 A B)
+    := fun12_compose
+      (fun12_fun02_postcomp (A := A) (cat_limit22 B J))
+      (fun12_swap_fun02 J A B).
 End PointwiseLimit02.
 
 Section PointwiseColimit02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
-  Context `{!HasColimit02 B J}.
+  Context `{!IsCoherentDiagonal02 B J, !HasColimit22 B J}.
 
-  Definition fun02_pointwise_colimit
-    : Fun02 (Fun02 J (Fun02 A B)) (Fun02 A B)
-    := fun02_compose
-      (fun02_fun02_postcomp (A := A) (cat_colimit02 B J))
-      (fun02_swap_fun02 J A B).
+  Definition fun12_pointwise_colimit
+    : Fun12 (Fun02 J (Fun02 A B)) (Fun02 A B)
+    := fun12_compose
+      (fun12_fun02_postcomp (A := A) (cat_colimit22 B J))
+      (fun12_swap_fun02 J A B).
+
+  Definition fun12_pointwise_diagonal
+    : Fun12 (Fun02 A B) (Fun02 J (Fun02 A B))
+    := fun12_compose
+      (fun12_swap_fun02 A J B)
+      (fun12_fun02_postcomp (A := A) (fun22_diagonal02 B J)).
+
+  Definition gpd_adjunction_pointwise_colimit
+    : GpdAdjunction
+        fun12_pointwise_colimit
+        fun12_pointwise_diagonal.
+  Proof.
+    exact (gpd_adjunction_compose
+      (Fun02 J (Fun02 A B))
+      (Fun02 A (Fun02 J B))
+      (Fun02 A B)
+      (fun11_fun12 (fun12_swap_fun02 J A B))
+      (fun11_fun12 (fun12_swap_fun02 A J B))
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := A) (cat_colimit22 B J)))
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := A) (fun22_diagonal02 B J)))
+      (gpd_adjunction_swap_fun02 J A B)
+      (gpd_adjunction_fun02_postcomp_cubical
+        (Fun02 J B) B A
+        (cat_colimit22 B J) (fun22_diagonal02 B J)
+        (cubical_adjunction_cat_colimit22 B J))).
+  Defined.
 End PointwiseColimit02.
+
+(** The pointwise diagonal and the literal constant-diagram functor have the same components, but identifying their naturality data requires a coherent comparison.  Isolating that comparison keeps the pointwise colimit theorem independent of its construction. *)
+Class HasPointwiseDiagonalComparison02
+  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J,
+    !IsCoherentDiagonal02 B J,
+    !IsCoherentDiagonal02 (Fun02 A B) J} := {
+  natequiv_pointwise_diagonal02
+    : NatEquiv
+        (fun12_pointwise_diagonal A B J)
+        (fun22_diagonal02 (Fun02 A B) J);
+}.
+
+Global Instance hascolimit02_fun02
+  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J,
+    !IsCoherentDiagonal02 B J, !HasColimit22 B J,
+    !IsCoherentDiagonal02 (Fun02 A B) J,
+    !HasPointwiseDiagonalComparison02 A B J}
+  : HasColimit02 (Fun02 A B) J.
+Proof.
+  snapply Build_HasColimit02.
+  - exact (fun12_pointwise_colimit A B J).
+  - rapply (gpd_adjunction_natequiv_right
+      (fun11_fun12 (fun12_pointwise_colimit A B J))
+      (fun11_fun12 (fun12_pointwise_diagonal A B J))
+      (fun11_fun22 (fun22_diagonal02 (Fun02 A B) J))
+      natequiv_pointwise_diagonal02).
+    exact (gpd_adjunction_pointwise_colimit A B J).
+Defined.
+
+(** ** Iterated coherent colimits *)
+
+Section IteratedColimit02.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J,
+    !HasColimit22 A I, !HasColimit22 A J}.
+
+  Definition fun12_iterated_colimit_columns
+    : Fun12 (Fun02 J (Fun02 I A)) A
+    := fun12_compose
+      (fun12_fun22 (cat_colimit22 A I))
+      (fun12_pointwise_colimit I A J).
+
+  Definition fun12_iterated_diagonal_columns
+    : Fun12 A (Fun02 J (Fun02 I A))
+    := fun12_compose
+      (fun12_pointwise_diagonal I A J)
+      (fun12_fun22 (fun22_diagonal02 A I)).
+
+  Definition gpd_adjunction_iterated_colimit_columns
+    : GpdAdjunction
+        fun12_iterated_colimit_columns
+        fun12_iterated_diagonal_columns.
+  Proof.
+    exact (gpd_adjunction_compose
+      (Fun02 J (Fun02 I A))
+      (Fun02 I A)
+      A
+      (fun11_fun12 (fun12_pointwise_colimit I A J))
+      (fun11_fun12 (fun12_pointwise_diagonal I A J))
+      (fun11_fun22 (cat_colimit22 A I))
+      (fun11_fun22 (fun22_diagonal02 A I))
+      (gpd_adjunction_pointwise_colimit I A J)
+      (gpd_adjunction_cubical
+        (cat_colimit22 A I) (fun22_diagonal02 A I)
+        (cubical_adjunction_cat_colimit22 A I))).
+  Defined.
+
+  Definition iterated_colimit_columns
+    (X : Fun02 J (Fun02 I A)) : A
+    := fun12_iterated_colimit_columns X.
+
+  Definition iterated_colimit_columns_isdouble
+    (X : Fun02 J (Fun02 I A))
+    : IsDoubleColimitColumns A I J X
+        (iterated_colimit_columns X).
+  Proof.
+    exact (natequiv_gpd_adjunction_r
+      gpd_adjunction_iterated_colimit_columns X).
+  Defined.
+
+  Definition fun12_iterated_colimit_rows
+    : Fun12 (Fun02 J (Fun02 I A)) A
+    := fun12_compose
+      (fun12_fun22 (cat_colimit22 A J))
+      (fun12_fun02_postcomp (A := J) (cat_colimit22 A I)).
+
+  Definition fun12_iterated_diagonal_rows
+    : Fun12 A (Fun02 J (Fun02 I A))
+    := fun12_compose
+      (fun12_fun02_postcomp (A := J) (fun22_diagonal02 A I))
+      (fun12_fun22 (fun22_diagonal02 A J)).
+
+  Definition gpd_adjunction_iterated_colimit_rows
+    : GpdAdjunction
+        fun12_iterated_colimit_rows
+        fun12_iterated_diagonal_rows.
+  Proof.
+    exact (gpd_adjunction_compose
+      (Fun02 J (Fun02 I A))
+      (Fun02 J A)
+      A
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := J) (cat_colimit22 A I)))
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := J) (fun22_diagonal02 A I)))
+      (fun11_fun22 (cat_colimit22 A J))
+      (fun11_fun22 (fun22_diagonal02 A J))
+      (gpd_adjunction_fun02_postcomp_cubical
+        (Fun02 I A) A J
+        (cat_colimit22 A I) (fun22_diagonal02 A I)
+        (cubical_adjunction_cat_colimit22 A I))
+      (gpd_adjunction_cubical
+        (cat_colimit22 A J) (fun22_diagonal02 A J)
+        (cubical_adjunction_cat_colimit22 A J))).
+  Defined.
+
+  Definition iterated_colimit_rows
+    (X : Fun02 J (Fun02 I A)) : A
+    := fun12_iterated_colimit_rows X.
+
+End IteratedColimit02.
+
+Section IteratedColimitFubini02.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J,
+    !HasColimit22 A I, !HasColimit22 A J,
+    !HasDiagonalInterchange02 A I J}.
+
+  Definition iterated_colimit_swapped
+    (X : Fun02 J (Fun02 I A)) : A
+    := iterated_colimit_columns A J I
+      (swap_fun02 J I A X).
+
+  Definition iterated_colimit_swapped_isdouble
+    (X : Fun02 J (Fun02 I A))
+    : IsDoubleColimitRows A I J X
+        (iterated_colimit_swapped X).
+  Proof.
+    exact (natequiv_compose
+      (natequiv_double_cocone_diagonal_interchange A I J X)
+      (iterated_colimit_columns_isdouble A J I
+        (swap_fun02 J I A X))).
+  Defined.
+
+  Definition equiv_iterated_colimit_fubini
+    (X : Fun02 J (Fun02 I A))
+    : iterated_colimit_columns A I J X
+      $<~> iterated_colimit_swapped X.
+  Proof.
+    exact (equiv_colimit_fubini A I J X
+      (iterated_colimit_swapped_isdouble X)
+      (iterated_colimit_columns_isdouble A I J X)).
+  Defined.
+End IteratedColimitFubini02.
 
 (** ** Preservation by adjoints *)
 
@@ -1701,6 +2372,74 @@ Definition walking_span_hom (i j : WalkingSpan) : Type
 
 Global Instance isgraph_walking_span : IsGraph WalkingSpan
   := Build_IsGraph WalkingSpan walking_span_hom.
+
+Definition fun02_walking_span
+  {A : Type} `{IsGraph A}
+  (left center right : A)
+  (to_left : center $-> left) (to_right : center $-> right)
+  : Fun02 WalkingSpan A.
+Proof.
+  snapply Build_Fun02.
+  { intro i.
+    destruct i.
+    - exact left.
+    - exact center.
+    - exact right. }
+  snapply Build_Is0Functor.
+  intros i j f.
+  destruct i, j; destruct f.
+  - exact to_left.
+  - exact to_right.
+Defined.
+
+(** ** Pushout squares *)
+
+Section PushoutSquare.
+  Context {A : Type} `{Is21Cat A}.
+  Context {a b c p : A}
+    (f : a $-> b) (g : a $-> c)
+    (i : b $-> p) (j : c $-> p).
+
+  (** The centre component is chosen to be [i $o f].  The left naturality square is consequently degenerate, while the right one is supplied by the face of the square. *)
+  Definition pushout_square_cocone
+    (s : Square g i f j)
+    : fun02_walking_span b a c f g
+      $-> diagonal02 A WalkingSpan p.
+  Proof.
+    snapply Build_NatTrans.
+    { intro x.
+      destruct x.
+      - exact i.
+      - exact (i $o f).
+      - exact j. }
+    snapply Build_Is1Natural.
+    intros x y h.
+    destruct x, y; destruct h.
+    - exact (cat_idl _)^$.
+    - exact (s^$ $@ (cat_idl _)^$).
+  Defined.
+
+  (** A pushout square is a specified square whose associated coherent cocone has the colimit universal property. *)
+  Definition IsPushoutSquare (s : Square g i f j) : Type
+    := IsColimitCocone
+      (fun02_walking_span b a c f g) p
+      (pushout_square_cocone s).
+End PushoutSquare.
+
+Section CoherentSpanColimitThreeByThree.
+  Context (A : Type) `{Is21Cat A, !HasEquivs A}.
+  Context `{!IsCoherentDiagonal02 A WalkingSpan,
+    !HasColimit22 A WalkingSpan,
+    !HasDiagonalInterchange02 A WalkingSpan WalkingSpan}.
+
+  Definition equiv_coherent_span_colimit_3_by_3
+    (X : Fun02 WalkingSpan (Fun02 WalkingSpan A))
+    : iterated_colimit_columns A WalkingSpan WalkingSpan X
+      $<~> iterated_colimit_swapped A WalkingSpan WalkingSpan X.
+  Proof.
+    rapply equiv_iterated_colimit_fubini.
+  Defined.
+End CoherentSpanColimitThreeByThree.
 
 (** ** The span-colimit 3-by-3 lemma *)
 

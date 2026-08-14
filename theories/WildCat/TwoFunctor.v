@@ -400,6 +400,33 @@ Definition fun12_fun22 {A B : Type} `{Is21Cat A} `{Is21Cat B}
   (F : Fun22 A B) : Fun12 A B
   := Build_Fun12 F.
 
+(** A cubical transformation retains precisely the naturality cube
+    needed when postcomposition acts on coherent graph-indexed
+    diagrams.  Its endpoints only need their [Fun12] structure. *)
+Record CubicalNatTrans12
+  {A B : Type} `{Is21Cat A} `{Is21Cat B}
+  (F G : Fun12 A B) := {
+  nattrans_cubical12 :> NatTrans F G;
+  cubical12_naturality : forall
+      {x00 x20 x02 x22 : A}
+      {f : x00 $-> x20} {g : x02 $-> x22}
+      {u : x00 $-> x02} {v : x20 $-> x22}
+      (s : Square u v f g),
+    Cylinder
+      (isnat nattrans_cubical12 u)
+      (isnat nattrans_cubical12 v)
+      (fmap_square F s $@v isnat nattrans_cubical12 g)
+      (isnat nattrans_cubical12 f $@v fmap_square G s);
+}.
+
+Arguments CubicalNatTrans12
+  {A B _ _ _ _ _ _ _ _ _ _ _ _} F G.
+Arguments nattrans_cubical12
+  {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} p : rename.
+Arguments cubical12_naturality
+  {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} alpha
+  {x00 x20 x02 x22 f g u v} s : rename.
+
 (** ** Coherent 2-cells between graph-indexed diagrams *)
 
 (** For a graph-shaped diagram no coherence is required of its action on
@@ -443,6 +470,15 @@ Proof.
       (natmod_isnatural beta gamma q f)).
 Defined.
 
+Instance transitive_natmodification
+  {A B : Type} `{IsGraph A} `{Is21Cat B}
+  {F G : A -> B} `{!Is0Functor F, !Is0Functor G}
+  : Transitive (NatModification (F := F) (G := G)).
+Proof.
+  intros alpha beta gamma p q.
+  exact (natmod_comp q p).
+Defined.
+
 Definition natmod_inverse {A B : Type} `{IsGraph A} `{Is21Cat B}
   {F G : A -> B} `{!Is0Functor F, !Is0Functor G}
   {alpha beta : NatTrans F G}
@@ -455,6 +491,21 @@ Proof.
   - intros a b f.
     exact (cylinder_inverse
       (natmod_isnatural alpha beta p f)).
+Defined.
+
+Definition natmod_prewhisker
+  {A B C : Type} `{IsGraph A, Is1Cat B, Is21Cat C}
+  {F G : B -> C} `{!Is0Functor F, !Is0Functor G}
+  {alpha beta : NatTrans F G} (p : NatModification alpha beta)
+  (K : Fun02 A B)
+  : NatModification
+      (nattrans_prewhisker alpha K)
+      (nattrans_prewhisker beta K).
+Proof.
+  snapply Build_NatModification.
+  { exact (fun a => natmod_component alpha beta p (K a)). }
+  intros a b f.
+  exact (natmod_isnatural alpha beta p (fmap K f)).
 Defined.
 
 Definition natmod_postcompose {A B : Type} `{IsGraph A} `{Is21Cat B}
@@ -774,6 +825,11 @@ Proof.
     exact (natmod_idr_from_cylinder alpha).
 Defined.
 
+Instance hasequivs_fun02
+  (A B : Type) `{IsGraph A} `{Is21Cat B}
+  : HasEquivs (Fun02 A B)
+  := cat_hasequivs (Fun02 A B).
+
 (** All remaining coherences are checked pointwise in the codomain. *)
 Instance is21cat_fun02
   (A B : Type) `{IsGraph A} `{Is21Cat B}
@@ -938,6 +994,432 @@ Proof.
   exact (fmap_cylinder F (natmod_isnatural alpha beta p f)).
 Defined.
 
+Definition fmap_vrefl
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) {a b : A} (f : a $-> b)
+  : fmap2 F (vrefl f)
+    $== fmap2 F (cat_idl f) $@ (fmap2 F (cat_idr f))^$.
+Proof.
+  unfold vrefl.
+  lhs' exact (fmap_comp (@fmap _ _ _ _ F _ a b)
+    (cat_idl f) (cat_idr f)^$).
+  exact (gpd_1functor_V (@fmap _ _ _ _ F _ a b) (cat_idr f)
+    $@R fmap2 F (cat_idl f)).
+Defined.
+
+Local Definition fmap_idl_cancel
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) {a b : A} (f : a $-> b)
+  : (fmap_comp F f (Id b))^$ $@ fmap2 F (cat_idl f)
+    $== (fmap_id F b $@R fmap F f) $@
+      cat_idl (fmap F f).
+Proof.
+  rapply gpd_moveR_hV.
+  exact (fmap_idl (F := F) f $@
+    cat_assoc_opp
+      (fmap_comp F f (Id b))
+      (fmap_id F b $@R fmap F f)
+      (cat_idl (fmap F f))).
+Defined.
+
+Local Definition fmap_idr_cancel
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) {a b : A} (f : a $-> b)
+  : (fmap2 F (cat_idr f))^$ $@
+      fmap_comp F (Id a) f $@
+      (fmap F f $@L fmap_id F a)
+    $== (cat_idr (fmap F f))^$.
+Proof.
+  lhs' exact (cat_assoc_opp
+    (fmap2 F (cat_idr f))^$
+    (fmap_comp F (Id a) f)
+    (fmap F f $@L fmap_id F a)).
+  rapply gpd_moveR_hV.
+  rapply gpd_moveL_Vh.
+  exact (fmap_idr (F := F) f)^$.
+Defined.
+
+Definition fmap_id_cylinder
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) {a b : A} (f : a $-> b)
+  : Cylinder
+      (fmap_id F a) (fmap_id F b)
+      ((fmap_comp F f (Id b))^$
+        $@ fmap2 F (vrefl f)
+        $@ fmap_comp F (Id a) f)
+      (vrefl (fmap F f)).
+Proof.
+  napply Build_Cylinder.
+  unfold vrefl.
+  lhs' exact (cat_assoc_opp
+    ((fmap_comp F f (Id b))^$ $@ fmap2 F
+      (cat_idl f $@ (cat_idr f)^$))
+    (fmap_comp F (Id a) f)
+    (fmap F f $@L fmap_id F a)).
+  lhs' exact (cat_assoc_opp
+    (fmap_comp F f (Id b))^$
+    (fmap2 F (cat_idl f $@ (cat_idr f)^$))
+    (fmap_comp F (Id a) f $@
+      (fmap F f $@L fmap_id F a))).
+  lhs' exact (((fmap_comp F (Id a) f $@
+      (fmap F f $@L fmap_id F a)) $@L fmap_vrefl F f)
+    $@R (fmap_comp F f (Id b))^$).
+  lhs' exact (cat_assoc_opp
+    (fmap2 F (cat_idl f))
+    (fmap2 F (cat_idr f))^$
+    (fmap_comp F (Id a) f $@
+      (fmap F f $@L fmap_id F a))
+    $@R (fmap_comp F f (Id b))^$).
+  lhs' exact (cat_assoc
+    (fmap_comp F f (Id b))^$
+    (fmap2 F (cat_idl f))
+    ((fmap2 F (cat_idr f))^$ $@
+      (fmap_comp F (Id a) f $@
+        (fmap F f $@L fmap_id F a)))).
+  lhs' exact (cat_assoc
+    (fmap2 F (cat_idr f))^$
+    (fmap_comp F (Id a) f)
+    (fmap F f $@L fmap_id F a)
+    $@R ((fmap_comp F f (Id b))^$ $@
+      fmap2 F (cat_idl f))).
+  lhs' exact (fmap_idl_cancel F f $@@ fmap_idr_cancel F f).
+  exact (cat_assoc_opp
+    (fmap_id F b $@R fmap F f)
+    (cat_idl (fmap F f))
+    (cat_idr (fmap F f))^$).
+Defined.
+
+Definition natmod_fun02_postcomp_id
+  {A B C : Type} `{IsGraph A, Is21Cat B, Is21Cat C}
+  (F : Fun22 B C) (X : Fun02 A B)
+  : NatModification
+      (nattrans_postwhisker (fun12_fun22 F) (nattrans_id X))
+      (nattrans_id (fun02_postcomp (A := A) (fun12_fun22 F) X)).
+Proof.
+  snapply Build_NatModification.
+  { exact (fun a => fmap_id F (X a)). }
+  intros a b f.
+  unfold nattrans_postwhisker, trans_postwhisker.
+  cbn beta.
+  nrefine (fmap_id_cylinder F (fmap X f)).
+Defined.
+
+Definition fmap_assoc_opp
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c d : A} (f : a $-> b) (g : b $-> c) (h : c $-> d)
+  : fmap2 F (cat_assoc_opp f g h)
+      $@ fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f)
+      $@ cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $== fmap_comp F (g $o f) h
+      $@ (fmap F h $@L fmap_comp F f g).
+Proof.
+  lhs' exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L cat_assoc_opp
+      (fmap2 F (cat_assoc_opp f g h))
+      (fmap_comp F f (h $o g))
+      (fmap_comp F g h $@R fmap F f)).
+  lhs' exact (cat_assoc_opp
+    (fmap2 F (cat_assoc_opp f g h))
+    (fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f))
+    (cat_assoc (fmap F f) (fmap F g) (fmap F h))).
+  lhs' exact ((fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f)
+      $@ cat_assoc (fmap F f) (fmap F g) (fmap F h))
+    $@L fmap3 F (cat_assoc_opp_is_rev a b c d f g h)).
+  lhs' exact ((fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f)
+      $@ cat_assoc (fmap F f) (fmap F g) (fmap F h))
+    $@L gpd_1functor_V
+      (@fmap _ _ _ _ F _ a d) (cat_assoc f g h)).
+  lhs' exact ((fmap_assoc (F := F) f g h)^$
+    $@R (fmap2 F (cat_assoc f g h))^$).
+  lhs' exact (cat_assoc_opp
+    (fmap2 F (cat_assoc f g h))
+    (fmap_comp F (g $o f) h)
+    (fmap F h $@L fmap_comp F f g)
+    $@R (fmap2 F (cat_assoc f g h))^$).
+  exact (gpd_hh_V
+    (fmap_comp F (g $o f) h
+      $@ (fmap F h $@L fmap_comp F f g))
+    (fmap2 F (cat_assoc f g h))).
+Defined.
+
+Definition fmap_assoc_pasting
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c d : A} (f : a $-> b) (g : b $-> c) (h : c $-> d)
+  : (fmap_comp F f (h $o g))^$
+      $@ fmap2 F (cat_assoc f g h)
+    $== (fmap_comp F g h $@R fmap F f)
+      $@ cat_assoc (fmap F f) (fmap F g) (fmap F h)
+      $@ (fmap F h $@L fmap_comp F f g)^$
+      $@ (fmap_comp F (g $o f) h)^$.
+Proof.
+  rapply gpd_moveL_Vh.
+  rapply gpd_moveL_Vh.
+  lhs' exact ((fmap F h $@L fmap_comp F f g)
+    $@L cat_assoc_opp
+      (fmap_comp F f (h $o g))^$
+      (fmap2 F (cat_assoc f g h))
+      (fmap_comp F (g $o f) h)).
+  lhs' exact (cat_assoc_opp
+    (fmap_comp F f (h $o g))^$
+    (fmap2 F (cat_assoc f g h)
+      $@ fmap_comp F (g $o f) h)
+    (fmap F h $@L fmap_comp F f g)).
+  lhs' exact (fmap_assoc (F := F) f g h
+    $@R (fmap_comp F f (h $o g))^$).
+  lhs' exact (cat_assoc
+    (fmap_comp F f (h $o g))^$
+    (fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f))
+    (cat_assoc (fmap F f) (fmap F g) (fmap F h))).
+  lhs' exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L cat_assoc
+      (fmap_comp F f (h $o g))^$
+      (fmap_comp F f (h $o g))
+      (fmap_comp F g h $@R fmap F f)).
+  lhs' exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L ((fmap_comp F g h $@R fmap F f)
+      $@L gpd_isretr (fmap_comp F f (h $o g)))).
+  exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L cat_idr (fmap_comp F g h $@R fmap F f)).
+Defined.
+
+Definition fmap2_postwhisker_pasting
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c : A} {f f' : a $-> b} (p : f $== f') (g : b $-> c)
+  : (fmap_comp F f g)^$ $@ fmap2 F (g $@L p)
+    $== (fmap F g $@L fmap2 F p) $@ (fmap_comp F f' g)^$.
+Proof.
+  rapply gpd_moveL_Vh.
+  lhs' exact (cat_assoc_opp
+    (fmap_comp F f g)^$
+    (fmap2 F (g $@L p))
+    (fmap_comp F f' g)).
+  lhs' exact ((fmap2_postwhisker F p g)^$
+    $@R (fmap_comp F f g)^$).
+  exact (gpd_hh_V
+    (fmap F g $@L fmap2 F p)
+    (fmap_comp F f g)).
+Defined.
+
+Definition fmap2_prewhisker_pasting
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c : A} (f : a $-> b) {g g' : b $-> c} (q : g $== g')
+  : (fmap_comp F f g)^$ $@ fmap2 F (q $@R f)
+    $== (fmap2 F q $@R fmap F f) $@ (fmap_comp F f g')^$.
+Proof.
+  rapply gpd_moveL_Vh.
+  lhs' exact (cat_assoc_opp
+    (fmap_comp F f g)^$
+    (fmap2 F (q $@R f))
+    (fmap_comp F f g')).
+  lhs' exact ((fmap2_prewhisker F f q)^$
+    $@R (fmap_comp F f g)^$).
+  exact (gpd_hh_V
+    (fmap2 F q $@R fmap F f)
+    (fmap_comp F f g)).
+Defined.
+
+Definition fmap_assoc_opp_pasting
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c d : A} (f : a $-> b) (g : b $-> c) (h : c $-> d)
+  : (fmap_comp F (g $o f) h)^$
+      $@ fmap2 F (cat_assoc_opp f g h)
+    $== (fmap F h $@L fmap_comp F f g)
+      $@ (cat_assoc (fmap F f) (fmap F g) (fmap F h))^$
+      $@ (fmap_comp F g h $@R fmap F f)^$
+      $@ (fmap_comp F f (h $o g))^$.
+Proof.
+  rapply gpd_moveL_Vh.
+  rapply gpd_moveL_Vh.
+  rapply gpd_moveL_Vh.
+  lhs' exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L ((fmap_comp F g h $@R fmap F f)
+      $@L cat_assoc_opp
+        (fmap_comp F (g $o f) h)^$
+        (fmap2 F (cat_assoc_opp f g h))
+        (fmap_comp F f (h $o g)))).
+  lhs' exact (cat_assoc (fmap F f) (fmap F g) (fmap F h)
+    $@L cat_assoc_opp
+      (fmap_comp F (g $o f) h)^$
+      (fmap2 F (cat_assoc_opp f g h)
+        $@ fmap_comp F f (h $o g))
+      (fmap_comp F g h $@R fmap F f)).
+  lhs' exact (cat_assoc_opp
+    (fmap_comp F (g $o f) h)^$
+    (fmap2 F (cat_assoc_opp f g h)
+      $@ fmap_comp F f (h $o g)
+      $@ (fmap_comp F g h $@R fmap F f))
+    (cat_assoc (fmap F f) (fmap F g) (fmap F h))).
+  lhs' exact (fmap_assoc_opp F f g h
+    $@R (fmap_comp F (g $o f) h)^$).
+  exact (gpd_hh_V
+    (fmap F h $@L fmap_comp F f g)
+    (fmap_comp F (g $o f) h)).
+Defined.
+
+Definition fmap_vconcat_cylinder
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {x00 x20 x02 x22 x04 x24 : A}
+  {f0 : x00 $-> x20} {f1 : x02 $-> x22} {f2 : x04 $-> x24}
+  {u0 : x00 $-> x02} {v0 : x20 $-> x22}
+  (s0 : Square u0 v0 f0 f1)
+  {u1 : x02 $-> x04} {v1 : x22 $-> x24}
+  (s1 : Square u1 v1 f1 f2)
+  : Cylinder
+      (fmap_comp F u0 u1) (fmap_comp F v0 v1)
+      (fmap_square F (s0 $@v s1))
+      (fmap_square F s0 $@v fmap_square F s1).
+Proof.
+  napply Build_Cylinder.
+  unfold fmap_square, vconcat.
+  lhs' exact (cat_assoc_opp
+    ((fmap_comp F f0 (v1 $o v0))^$ $@
+      fmap2 F
+        ((cat_assoc f0 v0 v1 $@ (v1 $@L s0)) $@
+          ((cat_assoc_opp u0 f1 v1 $@ (s1 $@R u0)) $@
+            cat_assoc u0 u1 f2)))
+    (fmap_comp F (u1 $o u0) f2)
+    (fmap F f2 $@L fmap_comp F u0 u1)).
+  lhs' napply (fun h =>
+    (fmap_comp F (u1 $o u0) f2
+      $@ (fmap F f2 $@L fmap_comp F u0 u1))
+    $@L (h $@R (fmap_comp F f0 (v1 $o v0))^$)).
+  { exact (fmap_vconcat_composite
+      (@fmap _ _ _ _ F _ x00 x24)
+      (cat_assoc f0 v0 v1) (v1 $@L s0)
+      (cat_assoc_opp u0 f1 v1) (s1 $@R u0)
+      (cat_assoc u0 u1 f2)). }
+  lhs' exact (cat_assoc _ _ _).
+  lhs' exact (_ $@L (_ $@L cat_assoc _ _ _)).
+  lhs' exact (_ $@L (_ $@L (_ $@L cat_assoc _ _ _))).
+  lhs' exact (_ $@L (_ $@L cat_assoc _ _ _)).
+  lhs' exact (_ $@L (_ $@L (_ $@L cat_assoc _ _ _))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L
+    fmap_assoc_pasting F f0 v0 v1)))))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L
+    cat_assoc_opp _ _ _))))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L
+    (fmap2_postwhisker_pasting F s0 v1 $@R _)))))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L
+    cat_assoc _ _ _))))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L
+    cat_assoc_opp _ _ _)))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L
+    (fmap_assoc_opp_pasting F u0 f1 v1 $@R _))))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L
+    cat_assoc _ _ _)))).
+  lhs' exact (_ $@L (_ $@L (_ $@L
+    cat_assoc_opp _ _ _))).
+  lhs' exact (_ $@L (_ $@L (_ $@L
+    (fmap2_prewhisker_pasting F u0 s1 $@R _)))).
+  lhs' exact (_ $@L (_ $@L (_ $@L
+    cat_assoc _ _ _))).
+  lhs' exact (_ $@L (_ $@L
+    cat_assoc_opp _ _ _)).
+  lhs' exact (_ $@L (_ $@L
+    (fmap_assoc_pasting F u0 u1 f2 $@R _))).
+  lhs' exact (_ $@L (_ $@L cat_assoc _ _ _)).
+  lhs' exact (_ $@L (_ $@L (_ $@L cat_assoc _ _ _))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L cat_assoc _ _ _)))).
+  lhs' exact (_ $@L gpd_h_Vh _ _).
+  lhs' exact (gpd_h_Vh _ _).
+  lhs' exact (_ $@L (_ $@L (_ $@L cat_assoc _ _ _))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L cat_assoc _ _ _)))).
+  lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L
+    ((cat_assoc_opp_is_rev _ _ _ _
+      (fmap F u0) (fmap F f1) (fmap F v1))^$ $@R _))))).
+  rhs' exact (cat_assoc _ _ _).
+  rhs' exact (_ $@L cat_assoc _ _ _).
+  rhs' exact (cat_assoc _ _ _).
+  rhs' exact (_ $@L cat_assoc _ _ _).
+  rhs' exact (_ $@L (_ $@L (_ $@L
+    (fmap_Vpp (cat_postcomp _ (fmap F v1))
+      (fmap_comp F f0 v0) (fmap2 F s0) (fmap_comp F u0 f1)
+      $@R _)))).
+  rhs' exact (_ $@L (_ $@L (_ $@L cat_assoc _ _ _))).
+  rhs' exact (_ $@L (_ $@L (_ $@L (_ $@L cat_assoc _ _ _)))).
+  rhs' exact (_ $@L
+    (fmap_Vpp (cat_precomp _ (fmap F u0))
+      (fmap_comp F f1 v1) (fmap2 F s1) (fmap_comp F u1 f2)
+      $@R _)).
+  rhs' exact (_ $@L cat_assoc _ _ _).
+  rhs' exact (_ $@L (_ $@L cat_assoc _ _ _)).
+  exact (Id _).
+Defined.
+
+Definition natmod_fun02_postcomp_comp
+  {A B C : Type} `{IsGraph A, Is21Cat B, Is21Cat C}
+  (F : Fun22 B C)
+  {X Y Z : Fun02 A B} (alpha : X $-> Y) (beta : Y $-> Z)
+  : NatModification
+      (nattrans_postwhisker (fun12_fun22 F)
+        (nattrans_comp beta alpha))
+      (nattrans_comp
+        (nattrans_postwhisker (fun12_fun22 F) beta)
+        (nattrans_postwhisker (fun12_fun22 F) alpha)).
+Proof.
+  snapply Build_NatModification.
+  { exact (fun a => fmap_comp F (alpha a) (beta a)). }
+  intros a b f.
+  unfold nattrans_postwhisker, trans_postwhisker.
+  cbn beta.
+  nrefine (fmap_vconcat_cylinder F (isnat alpha f) (isnat beta f)).
+Defined.
+
+Global Instance is1functor_fun02_postcomp
+  {A B C : Type} `{IsGraph A, Is21Cat B, Is21Cat C}
+  (F : Fun22 B C)
+  : Is1Functor (fun02_postcomp (A := A) (fun12_fun22 F)).
+Proof.
+  snapply Build_Is1Functor.
+  { intros X Y alpha beta p.
+    exact (natmod_fun02_postcomp F p). }
+  { intro X.
+    exact (natmod_fun02_postcomp_id F X). }
+  intros X Y Z alpha beta.
+  exact (natmod_fun02_postcomp_comp F alpha beta).
+Defined.
+
+Definition fun12_fun02_postcomp
+  {A B C : Type} `{IsGraph A, Is21Cat B, Is21Cat C}
+  (F : Fun22 B C)
+  : Fun12 (Fun02 A B) (Fun02 A C)
+  := Build_Fun12 (fun02_postcomp (A := A) (fun12_fun22 F)).
+
+Definition nattrans_fun02_postcomp_cubical12
+  {A B C : Type} `{IsGraph A, Is21Cat B, Is21Cat C}
+  (F G : Fun12 B C)
+  (alpha : CubicalNatTrans12 F G)
+  : NatTrans
+      (fun02_postcomp (A := A) F)
+      (fun02_postcomp (A := A) G).
+Proof.
+  snapply Build_NatTrans.
+  - intro X.
+    exact (nattrans_prewhisker alpha X).
+  - snapply Build_Is1Natural.
+    intros X Y theta.
+    snapply Build_NatModification.
+    { exact (fun a => isnat alpha (theta a)). }
+    intros a b f.
+    unfold nattrans_prewhisker, trans_prewhisker.
+    unfold nattrans_postwhisker, trans_postwhisker.
+    unfold is1natural_comp, is1natural_prewhisker.
+    unfold is1natural_postwhisker.
+    cbn.
+    exact (cubical12_naturality alpha (isnat theta f)).
+Defined.
+
 Definition fun12_compose
   {A B C : Type} `{Is1Cat A, Is1Cat B, Is1Cat C}
   : Fun12 B C -> Fun12 A B -> Fun12 A C.
@@ -945,4 +1427,62 @@ Proof.
   intros F G.
   napply Build_Fun12.
   exact (is1functor_compose G F).
+Defined.
+
+Definition fun12_id
+  {A : Type} `{Is1Cat A}
+  : Fun12 A A
+  := Build_Fun12 idmap.
+
+Definition fmap_square_compose
+  {A B C : Type} `{Is21Cat A, Is21Cat B, Is21Cat C}
+  (F : Fun22 A B) (G : Fun22 B C)
+  {x00 x20 x02 x22 : A}
+  {f : x00 $-> x20} {g : x02 $-> x22}
+  {u : x00 $-> x02} {v : x20 $-> x22}
+  (s : Square u v f g)
+  : fmap_square G (fmap_square F s)
+    $== fmap_square
+      (fun12_compose (fun12_fun22 G) (fun12_fun22 F)) s.
+Proof.
+  unfold fmap_square, fun12_compose.
+  cbn.
+  lhs' exact (fmap_comp G (fmap F u) (fmap F g) $@L
+    (fmap_Vpp (@fmap _ _ _ _ G _ _ _)
+      (fmap_comp F f v) (fmap2 F s) (fmap_comp F u g)
+    $@R (fmap_comp G (fmap F f) (fmap F v))^$)).
+  rhs' exact
+    ((fmap2 G (fmap_comp F u g) $@
+        fmap_comp G (fmap F u) (fmap F g)) $@L
+      (fmap2 G (fmap2 F s) $@L
+        gpd_rev_pp
+          (fmap_comp G (fmap F f) (fmap F v))
+          (fmap2 G (fmap_comp F f v)))).
+  lhs' exact (fmap_comp G (fmap F u) (fmap F g) $@L
+    cat_assoc
+      (fmap_comp G (fmap F f) (fmap F v))^$
+      ((fmap2 G (fmap_comp F f v))^$ $@ fmap2 G (fmap2 F s))
+      (fmap2 G (fmap_comp F u g))).
+  lhs' exact (fmap_comp G (fmap F u) (fmap F g) $@L
+    (fmap2 G (fmap_comp F u g) $@L
+      cat_assoc
+        (fmap_comp G (fmap F f) (fmap F v))^$
+        (fmap2 G (fmap_comp F f v))^$
+        (fmap2 G (fmap2 F s)))).
+  exact (cat_assoc_opp _ _ _).
+Defined.
+
+Definition fmap_square_id
+  {A : Type} `{Is21Cat A}
+  {x00 x20 x02 x22 : A}
+  {f : x00 $-> x20} {g : x02 $-> x22}
+  {u : x00 $-> x02} {v : x20 $-> x22}
+  (s : Square u v f g)
+  : fmap_square (@fun12_id A _ _ _ _) s $== s.
+Proof.
+  unfold fmap_square, fun12_id.
+  cbn.
+  lhs' exact (Id _ $@L (s $@L gpd_rev_1)).
+  lhs' exact (Id _ $@L cat_idr s).
+  exact (cat_idl s).
 Defined.

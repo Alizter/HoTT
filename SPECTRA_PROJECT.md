@@ -8,7 +8,7 @@ Construct spectrification of prespectra and use it to turn the existing suspensi
 
 There is a parallel categorical track developing wild limits and colimits. Its immediate test case is that colimits commute with colimits and hence give the pushout 3-by-3 lemma. This infrastructure is useful, but it should not unnecessarily block the direct construction of spectrification.
 
-The current focus is the pushout 3-by-3 smoke test. The categorical structures on `Fun02` and `Fun12` are now assembled. Alongside the direct refactoring of the limits-and-colimits interface, `theories/WildCat/KanScratch.v` now tests a local Kan-extension formulation. The immediate question is whether Kan-extension pasting and uniqueness yield 3-by-3 with less global pseudofunctor infrastructure. The associativity-cylinder cleanup and the two unit-cylinder proofs remain deliberately deferred.
+The pushout 3-by-3 smoke test has a specialized proof through coherent Fubini, but its current implementation constructs a large `Type`-specific pointwise mate/unmate equivalence. The replacement direction is to develop pushouts abstractly as walking-span colimits, prove once that coherent functor categories inherit pointwise colimits, specialize that theorem to pushouts, and obtain abstract pushout 3-by-3 from colimits commuting with colimits. The ordinary HIT pushout theorem should then follow only by identifying the chosen pushout in `Type` with this generic construction. The Kan-extension file remains a useful comparison experiment, but it is not on this immediate route.
 
 ## Established spectrum infrastructure
 
@@ -77,14 +77,18 @@ Current work is in `theories/WildCat/LimitsScratch.v`.
 - [x] Construct provisional pointwise limits and colimits in `Fun01` categories.
 - [x] Prove the provisional abstract Fubini equivalence `equiv_colimit_colimit`.
 - [x] Define the walking span and state the provisional abstract span-colimit 3-by-3 equivalence.
-- [ ] Refactor `diagonal`, `HasLimit`, and `HasColimit` so that the category of graph-indexed diagrams is `Fun02`, not `Fun01` with arbitrary pointwise 2-cells.
+- [x] Define the coherent `Fun02` versions of diagonals, limits, colimits, and double cocones without relying on the arbitrary pointwise 2-cells of `Fun01`.
 - [x] Define coherent evaluation and argument swap, including the hom 0-groupoid equivalence for swapping arguments.
 - [x] Prove the two naturality laws for the swap hom equivalence and package argument swap as a `GpdAdjunction`.
 - [x] Define the underlying coherent postcomposition map on `Fun02` objects and natural transformations.
 - [x] Determine the minimum coherence required of postcomposition: a `Fun12` suffices through natural transformations, while mapping modifications requires a `Fun22` action on cylinders.
 - [x] Define the underlying pointwise coherent limit and colimit candidates by composing argument swap with coherent postcomposition.
-- [ ] Promote coherent postcomposition to a `Fun12` for a `Fun22` codomain functor.
-- [ ] Reprove pointwise limits and colimits and the Fubini equivalence through the coherent diagram category.
+- [x] Promote coherent postcomposition to a `Fun12` for a `Fun22` codomain functor.
+- [x] Prove the conditional pointwise limits/colimits and Fubini equivalence through the coherent diagram category.
+- [x] Prove the specialized pointwise walking-span pushout mate equivalence needed for `Type`, without requiring the stronger global `HasColimit22 Type WalkingSpan` interface.
+- [x] Package the coherent pointwise construction as the conditional theorem that `[C,D]` inherits `J`-colimits from `D` once the pointwise diagonal is coherently compared with the literal constant-diagram functor.
+- [ ] Construct `IsCoherentDiagonal02 (Fun02 A B) J` and `HasPointwiseDiagonalComparison02` generically, including the cylinder relating the two identity-like naturality squares.
+- [ ] Determine whether the packaged functor-category colimit can be made definitionally pointwise, or whether the diagonal comparison is an unavoidable part of the interface.
 - [ ] Replace remaining costly elaboration (`refine` and inferred functors) with explicit functors and `nrefine`/`napply` where the goal determines the data.
 - [ ] Reduce `Typeclasses Depth 4` in `LimitsScratch.v` if the coherent interface permits it.
 
@@ -122,7 +126,7 @@ Current work is in `theories/WildCat/Cylinder.v` and `theories/WildCat/TwoFuncto
 - [x] Finish the easy pointwise fields of `Is21Cat (Fun02 A B)` and install the instance.
 - [x] Induce the corresponding coherent structure on `Fun12` from `Fun02`.
 - [ ] Replace the current `Fun02`, `Fun12`, and `Fun22` records by the intended nested sigma presentation.
-- [ ] Connect the pointwise colimit construction in `LimitsScratch.v` to `Fun02` as the graph-indexed diagram category.
+- [x] Connect the pointwise colimit construction in `LimitsScratch.v` to `Fun02` as the graph-indexed diagram category.
 - [x] Remove the former raw/wrapper indirection from the above/below cylinder pastings; the public lemmas are the direct calculations.
 - [ ] Decide precisely which lower structures, if any, `Fun22 -> Fun12` can induce once pseudonatural transformations are chosen as its 1-cells.
 - [ ] If coherent postcomposition requires `Is2Functor`, move the necessary `Fun22` identity/composition infrastructure onto the smoke-test critical path.
@@ -166,32 +170,71 @@ Current work is in `theories/WildCat/KanScratch.v`.
 
 Current work is in `theories/WildCat/PushoutScratch.v`.
 
+The new primary route is abstract. Pushouts are walking-span colimits in an arbitrary wild `(2,1)`-category; pointwise pushouts in `[C,D]` come from the general pointwise-colimit theorem; and pushout 3-by-3 is the walking-span instance of colimits commuting with colimits. The existing `Type`-specific mate/unmate development is retained only until the abstract route subsumes it.
+
 - [x] Define pushout recursion data and its coherent morphisms.
 - [x] Give this recursion data its 0-groupoid structure.
 - [x] Prove the 0-groupoid-valued universal property of the ordinary pushout.
 - [x] Repackage that universal property as corepresentability of the span-cocone functor in `KanScratch.v`.
 - [x] State the concrete pushout 3-by-3 equivalence.
 - [x] Reduce the concrete statement, via Yoneda, to a natural equivalence between the two pushout-recursion-data functors.
-- [ ] Identify natural transformations out of a walking-span diagram with `PushoutRecData`.
-- [ ] Instantiate `HasColimit Type WalkingSpan` with the ordinary pushout.
-- [ ] Instantiate pointwise walking-span colimits in the relevant functor category.
-- [ ] Obtain the concrete pushout 3-by-3 lemma from `equiv_span_colimit_3_by_3`.
-- [ ] Compare that proof with the direct recursion-data computation and retain only the reusable supporting lemmas.
+- [x] Identify coherent natural transformations out of a walking-span diagram with `PushoutRecData`.
+- [x] Instantiate `HasColimit02 Type WalkingSpan` with the ordinary pushout.
+- [x] Construct the specialized pointwise walking-span pushout equivalence in the coherent diagram category.
+- [x] Prove that the two iterated pushouts corepresent the row and column double-cocone functors.
+- [x] Obtain the concrete `pushout_3_by_3` equivalence from `equiv_colimit_fubini`.
+- [x] Define coherent specified colimits, `pushout_square_cocone`, and `IsPushoutSquare` so that the face of a square is part of its universal cocone.
+- [x] Derive the specified universal cocone of every chosen coherent colimit from its adjunction.
+- [ ] Define the abstract chosen pushout object and normalize its canonical colimit cocone to the `IsPushoutSquare` presentation.
+- [ ] Derive the usual map-out and uniqueness operations from `IsColimitCocone`.
+- [ ] Prove that `[C,D]` has pointwise pushouts whenever `D` has pushouts, as a specialization of pointwise colimits.
+- [x] State the coherent walking-span 3-by-3 equivalence and derive it from abstract Fubini.
+- [x] Prove directly from the existing pushout adjunction that the ordinary `pushl`/`pushr`/`pglue` square satisfies `IsPushoutSquare`.
+- [ ] Prove that the generic pointwise construction in `Type` agrees with the existing `functor_pushout` construction.
+- [ ] Replace the specialized pointwise mate/unmate proof by the generic functor-category theorem.
+- [ ] Remove or relocate the now-obsolete unfinished direct inverse computation after deciding which of its beta lemmas remain useful.
 
 The pushout work should remain in its separate scratch file while it is experimental; it imports the general limits scratch file.
 
-### Immediate route to the smoke test
+### Immediate abstract route to the smoke test
 
 - [x] Assemble the `Is21Cat` structure on `Fun02` and induce it on `Fun12`; the two unitors currently depend on the explicitly deferred cylinder placeholders.
 - [x] Write down the local Kan-extension universal property and prove its basic pasting theorem.
 - [x] Verify that the ordinary pushout satisfies the corresponding corepresentability statement for concrete span-cocone data.
-- [ ] Prove local Kan-extension uniqueness and settle the terminal/walking-span indexing shapes.
-- [ ] Test whether the pushout constructions give the required projection Kan extensions without first building global coherent postcomposition.
-- [ ] If that test fails, return to the coherent diagonal, evaluation, argument-swap, and postcomposition route and build only the required part of `Fun22`.
-- [ ] Express natural transformations from a `WalkingSpan` diagram to a constant diagram as `PushoutRecData`, including the coherent 2-cells.
-- [ ] Use `pushout_rec_natequiv` to instantiate the ordinary pushout as `HasColimit Type WalkingSpan`.
-- [ ] Instantiate the pointwise `WalkingSpan` colimit in the coherent diagram category.
-- [ ] Obtain `pushout_3_by_3_statement` either from Kan-extension pasting and uniqueness or from the refactored coherent Fubini theorem.
+- [ ] Prove local Kan-extension uniqueness and settle the terminal/walking-span indexing shapes if the Kan formulation is resumed.
+- [x] Introduce the abstract pushout/pushout-square vocabulary as the `WalkingSpan` specialization of the existing coherent colimit machinery.
+- [ ] Finish the pointwise-diagonal comparison needed to remove the remaining hypothesis from the functor-category colimit theorem.
+- [ ] Specialize pointwise colimits to pointwise pushouts and expose the componentwise pushout square.
+- [x] Apply abstract Fubini to obtain the coherent walking-span 3-by-3 equivalence.
+- [x] Register the ordinary `Type` pushout square through its adjunction, without a separate path calculation.
+- [ ] Rewrite the concrete `Type` 3-by-3 statement as the direct specialization of the abstract theorem and remove the obsolete calculation.
+
+## Handoff to the next model
+
+The immediate objective is to finish the coherent pushout route and leave the scratch files building. The key definitions already present are:
+
+- `LimitsScratch.v` defines `colimit_cocone_map`, `IsColimitCocone`, invariance under homotopic cocones, and the chosen cocone extracted from `HasColimit02`.
+- `LimitsScratch.v` defines `pushout_square_cocone` and `IsPushoutSquare` for a specified square in any wild `(2,1)`-category.
+- `LimitsScratch.v` defines `HasPointwiseDiagonalComparison02` and the conditional instance `hascolimit02_fun02`; the missing field is the coherent comparison between `fun12_pointwise_diagonal` and `fun22_diagonal02 (Fun02 A B) J`.
+- `LimitsScratch.v` defines `equiv_coherent_span_colimit_3_by_3` as the `WalkingSpan` specialization of coherent Fubini.
+- `PushoutScratch.v` defines `span_pushout_unit_iscolimit` from `gpd_adjunction_span_pushout`, and `ispushoutsquare_pushout` proves the ordinary `pushl`/`pushr`/`pglue` square satisfies `IsPushoutSquare`.
+
+The remaining technical work is:
+
+1. Construct `IsCoherentDiagonal02 (Fun02 A B) J` and the field `natequiv_pointwise_diagonal02`. The object and arrow components are identity-like, but their naturality squares differ by the swap/composition coherence; use the cylinder/square lemmas rather than unfolding the whole functor-category records.
+2. Once that comparison is available, remove the extra comparison hypothesis from the pointwise colimit theorem and specialize it to `WalkingSpan`.
+3. Replace the Type-specific mate/unmate route in `PushoutScratch.v` with the abstract pointwise result, then expose the concrete `pushout_3_by_3` as the abstract Fubini specialization.
+4. Repair the current `PushoutScratch.v` build before broad validation. The latest focused build reaches `cylinder_span_pushout_unmate_naturality` around line 1800; its two point-constructor goals differ from `c` by expanded Type associator/unitors. The attempted proof currently uses explicit `Type` whiskering and unfolds several Type-category operations. Either finish those two reductions with targeted path rewrites or simplify/restructure that lemma while preserving the existing mate/unmate API.
+
+Useful validation commands (all with a 60-second timeout):
+
+```text
+timeout --kill-after=5s 60s dune build theories/WildCat/LimitsScratch.vo
+timeout --kill-after=5s 60s dune build theories/WildCat/PushoutScratch.vo
+git diff --check
+```
+
+`LimitsScratch.vo` last built successfully. `PushoutScratch.vo` does not currently build. No new `Admitted` or axioms were introduced by the abstract API changes.
 
 ## Structured-object investigation
 
@@ -227,7 +270,8 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] `Cylinder.v` builds.
 - [x] `TwoFunctor.v` builds after introducing cylinders and the forgetful lower structures.
 - [x] Rebuild `LimitsScratch.v` after the coherent-functor refactor.
-- [x] Rebuild `PushoutScratch.v` after the coherent-functor refactor.
+- [ ] Rebuild `PushoutScratch.v` after replacing the specialized pointwise construction by the abstract pushout route; the current failure is in `cylinder_span_pushout_unmate_naturality` around line 1800.
 - [x] `git diff --check` currently passes.
-- [ ] Run `dune build test/` before the next commit.
-- [ ] Run the full `dune test` validation once the current development is ready to leave scratch status.
+- [ ] Eliminate any temporary skeleton gaps after the abstract statements and interfaces have stabilized.
+- [ ] Rerun `dune build test/` after the current abstract pushout edits.
+- [ ] Rerun the full `dune test` validation after `PushoutScratch.v` builds.

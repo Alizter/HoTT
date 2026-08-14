@@ -135,9 +135,12 @@ Definition cylinder_hrefl
   {A : Type} `{Is21Cat A}
   {a b : A} {f g : a $-> b} (p : f $== g)
   : Cylinder p p (hrefl f) (hrefl g).
-(** TODO: Prove this by pasting the naturality squares of the two
-    unitors. *)
-Admitted.
+Proof.
+  unfold Cylinder, hrefl.
+  exact (hconcat
+    (transpose (cat_idr_natural p))
+    (hinverse_square_gpd (transpose (cat_idl_natural p)))).
+Defined.
 
 Definition cylinder_inverse
   {A : Type} `{Is21Cat A}
@@ -448,6 +451,46 @@ Proof.
   exact (cat_assoc_opp_is_rev a b c d f g h').
 Defined.
 
+(** Vertical pasting is natural in its upper square. *)
+Definition square_vconcat_natural_above
+  {A : Type} `{Is21Cat A}
+  {x00 x20 x02 x22 x04 x24 : A}
+  {f0 : x00 $-> x20} {f1 : x02 $-> x22}
+  {f2 : x04 $-> x24}
+  {u0 : x00 $-> x02} {v0 : x20 $-> x22}
+  {s0 s0' : Square u0 v0 f0 f1}
+  (p : s0 $== s0')
+  {u1 : x02 $-> x04} {v1 : x22 $-> x24}
+  (s1 : Square u1 v1 f1 f2)
+  : s0 $@v s1 $== s0' $@v s1.
+Proof.
+  unfold vconcat.
+  exact (((cat_assoc_opp u0 f1 v1 $@ (s1 $@R u0)) $@
+      cat_assoc u0 u1 f2) $@L
+    (fmap2 (cat_postcomp x00 v1) p $@R
+      cat_assoc f0 v0 v1)).
+Defined.
+
+(** Vertical pasting is natural in its lower square. *)
+Definition square_vconcat_natural_below
+  {A : Type} `{Is21Cat A}
+  {x00 x20 x02 x22 x04 x24 : A}
+  {f0 : x00 $-> x20} {f1 : x02 $-> x22}
+  {f2 : x04 $-> x24}
+  {u0 : x00 $-> x02} {v0 : x20 $-> x22}
+  (s0 : Square u0 v0 f0 f1)
+  {u1 : x02 $-> x04} {v1 : x22 $-> x24}
+  {s1 s1' : Square u1 v1 f1 f2}
+  (p : s1 $== s1')
+  : s0 $@v s1 $== s0 $@v s1'.
+Proof.
+  unfold vconcat.
+  exact ((cat_assoc u0 u1 f2 $@L
+      (fmap2 (cat_precomp x24 u0) p $@R
+        cat_assoc_opp u0 f1 v1)) $@R
+    (cat_assoc f0 v0 v1 $@ (v1 $@L s0))).
+Defined.
+
 (** ** Vertical concatenation of cylinders *)
 
 (** Pasting the same square below both faces of a cylinder:
@@ -736,7 +779,7 @@ Defined.
 (** Functoriality for the fivefold composite occurring in vertical
     concatenation.  Keeping its original bracketing makes it possible to
     distribute a whiskering without exposing the definition of a square. *)
-Local Lemma fmap_vconcat_composite
+Lemma fmap_vconcat_composite
   {A B : Type} `{Is1Cat A, Is1Cat B}
   (F : A -> B) `{!Is0Functor F, !Is1Functor F}
   {a0 a1 a2 a3 a4 a5 : A}
@@ -753,6 +796,20 @@ Proof.
     $@R (fmap F p1 $o fmap F p0)).
   exact ((fmap F p4 $@L fmap_comp F p2 p3)
     $@R (fmap F p1 $o fmap F p0)).
+Defined.
+
+Lemma fmap_Vpp
+  {A B : Type} `{Is1Gpd A, Is1Gpd B}
+  (F : A -> B) `{!Is0Functor F, !Is1Functor F}
+  {x0 x1 x2 x3 : A}
+  (p : x1 $-> x0) (q : x1 $-> x2) (r : x2 $-> x3)
+  : fmap F (p^$ $@ q $@ r)
+    $== (fmap F p)^$ $@ fmap F q $@ fmap F r.
+Proof.
+  lhs' exact (fmap_comp F (p^$ $@ q) r).
+  lhs' exact (fmap F r $@L fmap_comp F p^$ q).
+  exact (fmap F r $@L
+    (fmap F q $@L gpd_1functor_V F p)).
 Defined.
 
 (** Whiskering distributes over the five constituent 2-cells of a
@@ -937,8 +994,6 @@ Section SquareVconcatAssoc.
     napply reassociate_vconcat_postwhisker.
   Defined.
 
-  (** TODO: Streamline the two boundary-reassociation calculations in
-      this proof. *)
   Definition square_vconcat_assoc
     : Cylinder
       (cat_assoc u0 u1 u2)
@@ -954,8 +1009,57 @@ Section SquareVconcatAssoc.
 
 End SquareVconcatAssoc.
 
-(** TODO: Prove the two unit cylinders from unitor naturality and the
-    triangle identity, using square-shaped lemmas as above. *)
+Local Lemma square_vconcat_idl_tail
+  {A : Type} `{Is21Cat A}
+  {a b c : A} (u : a $-> b) (g : b $-> c)
+  : ((cat_assoc_opp u g (Id c) $@ (vrefl g $@R u))
+      $@ cat_assoc u (Id b) g)
+      $@ (g $@L cat_idl u)
+    $== cat_idl (g $o u).
+Proof.
+  lhs' exact (cat_assoc_opp
+    (cat_assoc_opp u g (Id c) $@ (vrefl g $@R u))
+    (cat_assoc u (Id b) g)
+    (g $@L cat_idl u)).
+  lhs' exact (cat_prewhisker (A := a $-> c)
+    (cat_tril (A := A) a b c u g)
+    (cat_assoc_opp u g (Id c) $@ (vrefl g $@R u))).
+  unfold vrefl.
+  lhs' exact (cat_assoc_opp
+    (cat_assoc_opp u g (Id c))
+    ((cat_idl g $@ (cat_idr g)^$) $@R u)
+    (cat_idr g $@R u)).
+  lhs' exact (((cat_idr g $@R u) $@L
+    cat_prewhisker_pp u (cat_idl g) (cat_idr g)^$)
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact (cat_assoc_opp
+      (cat_idl g $@R u)
+      ((cat_idr g)^$ $@R u)
+      (cat_idr g $@R u)
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact ((((cat_idr g $@R u) $@L
+      gpd_1functor_V (cat_precomp c u) (cat_idr g))
+      $@R (cat_idl g $@R u))
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact ((gpd_isretr (cat_idr g $@R u)
+      $@R (cat_idl g $@R u))
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact (cat_idl (cat_idl g $@R u)
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact (cat_idl_assoc u g
+    $@R cat_assoc_opp u g (Id c)).
+  lhs' exact (cat_assoc
+    (cat_assoc_opp u g (Id c))
+    (cat_assoc u g (Id c))
+    (cat_idl (g $o u))).
+  lhs' exact (cat_idl (g $o u) $@L
+    (cat_assoc u g (Id c) $@L
+      cat_assoc_opp_is_rev a b c c u g (Id c))).
+  lhs' exact (cat_idl (g $o u) $@L
+    gpd_isretr (cat_assoc u g (Id c))).
+  exact (cat_idr (cat_idl (g $o u))).
+Defined.
+
 Definition square_vconcat_idl
   {A : Type} `{Is21Cat A}
   {x00 x20 x02 x22 : A}
@@ -965,7 +1069,97 @@ Definition square_vconcat_idl
   : Cylinder
     (cat_idl u) (cat_idl v)
     (s $@v vrefl g) s.
-Admitted.
+Proof.
+  unfold Cylinder.
+  napply Build_Square.
+  unfold vconcat.
+  lhs' exact (cat_assoc_opp
+    (cat_assoc f v (Id x22) $@ ((Id x22) $@L s))
+    ((cat_assoc_opp u g (Id x22) $@ (vrefl g $@R u))
+      $@ cat_assoc u (Id x02) g)
+    (g $@L cat_idl u)).
+  lhs' exact (square_vconcat_idl_tail u g
+    $@R (cat_assoc f v (Id x22) $@ ((Id x22) $@L s))).
+  lhs' exact (cat_assoc_opp
+    (cat_assoc f v (Id x22))
+    ((Id x22) $@L s)
+    (cat_idl (g $o u))).
+  lhs' exact (cat_idl_natural s
+    $@R cat_assoc f v (Id x22)).
+  lhs' exact (cat_assoc
+    (cat_assoc f v (Id x22))
+    (cat_idl (v $o f)) s).
+  exact (s $@L (cat_idl_assoc f v)^$).
+Defined.
+
+Local Lemma square_vconcat_idr_tail
+  {A : Type} `{Is21Cat A}
+  {a b c : A} (u : a $-> b) (g : b $-> c)
+  : cat_assoc (Id a) u g $@ (g $@L cat_idr u)
+    $== cat_idr (g $o u).
+Proof.
+  lhs' exact (cat_idr_assoc u g
+    $@R cat_assoc (Id a) u g).
+  lhs' exact (cat_assoc
+    (cat_assoc (Id a) u g)
+    (cat_assoc_opp (Id a) u g)
+    (cat_idr (g $o u))).
+  lhs' exact (cat_idr (g $o u) $@L
+    (cat_assoc_opp_is_rev a a b c (Id a) u g
+      $@R cat_assoc (Id a) u g)).
+  lhs' exact (cat_idr (g $o u) $@L
+    gpd_issect (cat_assoc (Id a) u g)).
+  exact (cat_idr (cat_idr (g $o u))).
+Defined.
+
+Local Lemma square_vconcat_idr_head
+  {A : Type} `{Is21Cat A}
+  {a b c : A} (f : a $-> b) (v : b $-> c)
+  : ((cat_assoc f (Id b) v $@ (v $@L vrefl f))
+      $@ cat_assoc_opp (Id a) f v)
+      $@ cat_idr (v $o f)
+    $== cat_idr v $@R f.
+Proof.
+  unfold vrefl.
+  lhs' exact (cat_idr (v $o f) $@L
+    (cat_assoc_opp (Id a) f v $@L
+      ((cat_postwhisker_pp v (cat_idl f) (cat_idr f)^$)
+        $@R cat_assoc f (Id b) v))).
+  lhs' exact (cat_idr (v $o f) $@L
+    (cat_assoc_opp (Id a) f v $@L
+      cat_assoc
+        (cat_assoc f (Id b) v)
+        (v $@L cat_idl f)
+        (v $@L (cat_idr f)^$))).
+  lhs' exact (cat_idr (v $o f) $@L
+    (cat_assoc_opp (Id a) f v $@L
+      ((v $@L (cat_idr f)^$) $@L
+        cat_tril (A := A) a b c f v))).
+  lhs' exact (cat_assoc_opp
+    ((cat_idr v $@R f) $@ (v $@L (cat_idr f)^$))
+    (cat_assoc_opp (Id a) f v)
+    (cat_idr (v $o f))).
+  lhs' exact ((cat_idr_assoc f v)^$
+    $@R ((cat_idr v $@R f) $@ (v $@L (cat_idr f)^$))).
+  lhs' exact (cat_assoc_opp
+    (cat_idr v $@R f)
+    (v $@L (cat_idr f)^$)
+    (v $@L cat_idr f)).
+  lhs' exact (cat_assoc
+    (cat_idr v $@R f)
+    (v $@L (cat_idr f)^$)
+    (v $@L cat_idr f)).
+  lhs' exact ((v $@L cat_idr f) $@L
+    ((gpd_1functor_V (cat_postcomp a v) (cat_idr f))
+      $@R (cat_idr v $@R f))).
+  lhs' exact (cat_assoc_opp
+    (cat_idr v $@R f)
+    (v $@L cat_idr f)^$
+    (v $@L cat_idr f)).
+  lhs' exact (gpd_isretr (v $@L cat_idr f)
+    $@R (cat_idr v $@R f)).
+  exact (cat_idl (cat_idr v $@R f)).
+Defined.
 
 Definition square_vconcat_idr
   {A : Type} `{Is21Cat A}
@@ -976,4 +1170,43 @@ Definition square_vconcat_idr
   : Cylinder
     (cat_idr u) (cat_idr v)
     (vrefl f $@v s) s.
-Admitted.
+Proof.
+  unfold Cylinder.
+  napply Build_Square.
+  unfold vconcat.
+  lhs' exact (cat_assoc_opp
+    (cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+    ((cat_assoc_opp (Id x00) f v $@ (s $@R Id x00))
+      $@ cat_assoc (Id x00) u g)
+    (g $@L cat_idr u)).
+  lhs' exact (cat_assoc_opp
+    (cat_assoc_opp (Id x00) f v $@ (s $@R Id x00))
+    (cat_assoc (Id x00) u g)
+    (g $@L cat_idr u)
+    $@R (cat_assoc f (Id x20) v $@ (v $@L vrefl f))).
+  lhs' exact (cat_assoc
+    (cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+    ((cat_assoc_opp (Id x00) f v) $@ (s $@R Id x00))
+    ((cat_assoc (Id x00) u g) $@ (g $@L cat_idr u))).
+  lhs' exact (square_vconcat_idr_tail u g
+    $@R ((cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+      $@ (cat_assoc_opp (Id x00) f v $@ (s $@R Id x00)))).
+  lhs' exact (cat_idr (g $o u) $@L
+    cat_assoc
+      (cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+      (cat_assoc_opp (Id x00) f v)
+      (s $@R Id x00)).
+  lhs' exact (cat_assoc_opp
+    ((cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+      $@ cat_assoc_opp (Id x00) f v)
+    (s $@R Id x00)
+    (cat_idr (g $o u))).
+  lhs' exact (cat_idr_natural s
+    $@R ((cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+      $@ cat_assoc_opp (Id x00) f v)).
+  lhs' exact (cat_assoc
+    ((cat_assoc f (Id x20) v $@ (v $@L vrefl f))
+      $@ cat_assoc_opp (Id x00) f v)
+    (cat_idr (v $o f)) s).
+  exact (s $@L square_vconcat_idr_head f v).
+Defined.
