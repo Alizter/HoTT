@@ -12,95 +12,6 @@ Set Typeclasses Depth 4.
 
 (** * Scratch work on pushouts in [Type] *)
 
-Section TypeDiagonal.
-
-  Context (J : Type) `{IsGraph J}.
-
-Definition natmod_diagonal02_type_id
-  (A : Type)
-  : NatModification
-      (F := diagonal02 Type J A)
-      (G := diagonal02 Type J A)
-      (fmap (diagonal02 Type J) (Id A))
-      (nattrans_id (diagonal02 Type J A)).
-Proof.
-  snapply Build_NatModification.
-  { exact (fun _ _ => 1). }
-  intros i j f x.
-  reflexivity.
-Defined.
-
-Definition natmod_diagonal02_type_comp
-  {A B C : Type} (f : A -> B) (g : B -> C)
-  : NatModification
-      (F := diagonal02 Type J A)
-      (G := diagonal02 Type J C)
-      (fmap (diagonal02 Type J)
-        (@cat_comp Type isgraph_type is01cat_type A B C g f))
-      (nattrans_comp
-        (F := diagonal02 Type J A)
-        (G := diagonal02 Type J B)
-        (K := diagonal02 Type J C)
-        (fmap (diagonal02 Type J) g)
-        (fmap (diagonal02 Type J) f)).
-Proof.
-  snapply Build_NatModification.
-  { exact (fun _ _ => 1). }
-  intros i j h x.
-  reflexivity.
-Defined.
-
-Global Instance is1functor_diagonal02_type
-  : Is1Functor (diagonal02 Type J).
-Proof.
-  snapply Build_Is1Functor.
-  - intros A B f g p.
-    exact (natmod_diagonal02 Type J p).
-  - exact natmod_diagonal02_type_id.
-  - intros A B C f g.
-    exact (natmod_diagonal02_type_comp f g).
-Defined.
-
-Definition is1functor_fmap_diagonal02_type
-  (A B : Type)
-  : Is1Functor
-      (@fmap Type (Fun02 J Type) _ _
-        (diagonal02 Type J) _ A B).
-Proof.
-  snapply Build_Is1Functor.
-  - intros f g p q h j x.
-    exact (h x).
-  - intros f j x.
-    reflexivity.
-  - intros f g h p q j x.
-    reflexivity.
-Defined.
-
-Global Instance is2functor_diagonal02_type
-  : Is2Functor (diagonal02 Type J).
-Proof.
-  snapply Build_Is2Functor.
-  - exact is1functor_fmap_diagonal02_type.
-  - intros A B C f f' g g' p q j x.
-    cbn.
-    exact (concat_p1 _ @ (concat_1p _)^).
-  - intros A B C D f g h j x.
-    reflexivity.
-  - intros A B f j x.
-    reflexivity.
-  - intros A B f j x.
-    reflexivity.
-Defined.
-
-Global Instance iscoherent_diagonal02_type
-  : IsCoherentDiagonal02 Type J.
-Proof.
-  snapply Build_IsCoherentDiagonal02.
-  - exact is1functor_diagonal02_type.
-  - exact is2functor_diagonal02_type.
-Defined.
-
-End TypeDiagonal.
 
 
 Section TypeDiagonalInterchange.
@@ -1202,7 +1113,7 @@ Definition natmod_span_pushout_mate_naturality_left_compositor
       (F := diagonal02 Type WalkingSpan (span_pushout X))
       (G := diagonal02 Type WalkingSpan Q)
       (span_pushout_unit_component X)
-      (natmod_inverse (natmod_diagonal02_type_comp WalkingSpan
+      (natmod_inverse (natmod_diagonal02_comp (A := Type) (J := WalkingSpan)
         (span_pushout_map u) b)).
 
 Definition natmod_span_pushout_mate_naturality_left_raw
@@ -1326,7 +1237,7 @@ Definition natmod_span_pushout_mate_naturality_right_compositor
       (F := diagonal02 Type WalkingSpan (span_pushout X))
       (G := diagonal02 Type WalkingSpan Q)
       (span_pushout_unit_component X)
-      (natmod_diagonal02_type_comp WalkingSpan a k).
+      (natmod_diagonal02_comp (A := Type) (J := WalkingSpan) a k).
 
 Definition natmod_span_pushout_mate_naturality_right_assoc
   {X : Fun02 WalkingSpan Type}
@@ -1963,7 +1874,7 @@ Proof.
   - exact span_pushout_triangle_r.
   Unshelve.
   { exact is1functor_span_pushout. }
-  exact (is1functor_diagonal02_type WalkingSpan).
+  exact (is1functor_diagonal02_generic (A := Type) (J := WalkingSpan)).
 Defined.
 
 Global Instance hascolimit02_type_walking_span
@@ -2071,7 +1982,7 @@ Proof.
     (F := diagonal02 Type WalkingSpan (span_pushout X))
     (G := diagonal02 Type WalkingSpan P)
     (span_pushout_unit_component X)
-    (natmod_diagonal02_type_comp WalkingSpan
+    (natmod_diagonal02_comp (A := Type) (J := WalkingSpan)
       (span_pushout_map a) (span_pushout_counit_component P))).
   lhs' exact (cat_assoc
     (span_pushout_unit_component X)
@@ -2172,7 +2083,7 @@ Proof.
     (F := diagonal02 Type WalkingSpan (span_pushout X))
     (G := diagonal02 Type WalkingSpan Q)
     (span_pushout_unit_component X)
-    (natmod_diagonal02_type_comp WalkingSpan a k)).
+    (natmod_diagonal02_comp (A := Type) (J := WalkingSpan) a k)).
   exact (cat_assoc
     (span_pushout_unit_component X)
     (fmap (diagonal02 Type WalkingSpan) a)

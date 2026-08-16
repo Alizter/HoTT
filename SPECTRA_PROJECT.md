@@ -6,9 +6,9 @@ This file records the direction of the current development. It is a working chec
 
 Construct spectrification of prespectra and use it to turn the existing suspension prespectrum into the suspension spectrum. The critical mathematical input is the interaction between loops and sequential colimits of pointed types.
 
-There is a parallel categorical track developing wild limits and colimits. Its immediate test case is that colimits commute with colimits and hence give the pushout 3-by-3 lemma. This infrastructure is useful, but it should not unnecessarily block the direct construction of spectrification.
+There is a parallel categorical track developing wild limits. Its final smoke test is an abstract pullback 3-by-3 theorem obtained from pointwise limits in functor categories and limit Fubini. The entire colimit theory, including pushouts and pushout 3-by-3, is then derived by applying the limit theory to opposite categories and opposite diagrams. This infrastructure is useful, but it should not unnecessarily block the direct construction of spectrification.
 
-The pushout 3-by-3 smoke test has a specialized proof through coherent Fubini, but its current implementation constructs a large `Type`-specific pointwise mate/unmate equivalence. The replacement direction is to develop pushouts abstractly as walking-span colimits, prove once that coherent functor categories inherit pointwise colimits, specialize that theorem to pushouts, and obtain abstract pushout 3-by-3 from colimits commuting with colimits. The ordinary HIT pushout theorem should then follow only by identifying the chosen pushout in `Type` with this generic construction. The Kan-extension file remains a useful comparison experiment, but it is not on this immediate route.
+The existing coherent-colimit and `Type`-specific pushout work is a prototype and regression target, not the permanent architecture. The replacement direction is to make specified universal cones primitive, derive chosen limit operations and their adjunctions, construct functor-category limits pointwise, prove abstract limit Fubini, and specialize it to walking-cospan limits in an arbitrary category. Pushout results should contain no duplicated cocone theory or mate/unmate calculation: they should be thin dual consequences, following the relation between `Coproducts.v` and `Products.v`.
 
 ## Established spectrum infrastructure
 
@@ -63,11 +63,16 @@ colim_k Omega^k X_(n+k).
 - [ ] Define the suspension spectrum by spectrifying `suspension_prespectrum`.
 - [ ] Define the sphere spectrum as the corresponding suspension spectrum of the pointed zero-sphere.
 
-## Wild limits and colimits track
+## Wild limits track and dual colimits
 
 ### General machinery
 
 Current work is in `theories/WildCat/LimitsScratch.v`.
+
+The checked entries below record useful scratch prototypes. They do not fix the
+permanent dependency direction. `WILDCAT_LIMITS_DESIGN.md` is authoritative:
+universal cones and limits are primitive; every colimit construction is
+obtained through opposite-category duality.
 
 - [x] Define adjunctions enriched in 0-groupoids (`GpdAdjunction`).
 - [x] Construct them from unit/counit data and prove composition and transport along natural equivalences.
@@ -87,7 +92,7 @@ Current work is in `theories/WildCat/LimitsScratch.v`.
 - [x] Prove the conditional pointwise limits/colimits and Fubini equivalence through the coherent diagram category.
 - [x] Prove the specialized pointwise walking-span pushout mate equivalence needed for `Type`, without requiring the stronger global `HasColimit22 Type WalkingSpan` interface.
 - [x] Package the coherent pointwise construction as `gpd_adjunction_pointwise_colimit_fun02`, prove the full universal properties `pointwise_colimit02_iscolimit` and `pointwise_colimit02_cocone_iscolimit`, and register the conditional instance `hascolimit02_fun02`.
-- [ ] Construct `IsCoherentDiagonal02 (Fun02 A B) J` and `HasPointwiseDiagonalComparison02` generically, including the cylinder relating the two identity-like naturality squares.
+- [x] Construct `IsCoherentDiagonal02 (Fun02 A B) J` and `HasPointwiseDiagonalComparison02` generically, including the cylinder relating the two identity-like naturality squares.
 - [x] Determine whether the packaged functor-category colimit can be made definitionally pointwise: under the current `IsCoherentDiagonal02` interface the diagonal comparison is necessary, since that class does not constrain the chosen action on 2-cells to be the componentwise one.
 - [ ] Replace remaining costly elaboration (`refine` and inferred functors) with explicit functors and `nrefine`/`napply` where the goal determines the data.
 - [ ] Reduce `Typeclasses Depth 4` in `LimitsScratch.v` if the coherent interface permits it.
@@ -152,6 +157,10 @@ Performance note: `TwoFunctor.v` currently uses `Typeclasses Depth 3`; depth 2 c
 
 Current work is in `theories/WildCat/KanScratch.v`.
 
+This experiment is deferred. The universal-cone limit route is the selected
+permanent architecture; do not advance the Kan construction unless a later
+application needs it independently.
+
 - [x] Define a local left Kan extension relative to a restriction functor by requiring its canonical map on hom 0-groupoids to be an equivalence.
 - [x] Package local left Kan extensions and their global existence using sigma types.
 - [x] Isolate corepresentability of a 0-groupoid-valued cocone functor and identify the local Kan-extension property with this corepresentability condition.
@@ -164,13 +173,15 @@ Current work is in `theories/WildCat/KanScratch.v`.
 - [ ] Define the walking-span product shape and its two projections in that indexing language.
 - [ ] Show that the three row or column pushouts assemble into the corresponding local left Kan extension along a projection.
 - [ ] Apply pasting along each projection followed by the terminal map, identify the two composite restrictions, and then use uniqueness to obtain pushout 3-by-3.
-- [ ] Compare the resulting proof and required infrastructure with the direct coherent-colimit route before choosing the permanent definition.
+- [ ] If resumed, compare its derived pushout theorem with the
+      opposite-category consequence of limit Fubini; do not use it as a second
+      permanent colimit implementation.
 
-### Pushouts and the 3-by-3 test
+### Existing pushout prototype
 
 Current work is in `theories/WildCat/PushoutScratch.v`.
 
-The new primary route is abstract. Pushouts are walking-span colimits in an arbitrary wild `(2,1)`-category; pointwise pushouts in `[C,D]` come from the general pointwise-colimit theorem; and pushout 3-by-3 is the walking-span instance of colimits commuting with colimits. The existing `Type`-specific mate/unmate development is retained only until the abstract route subsumes it.
+This file records the existing colimit-first experiment. Its coherent diagonals, argument swap, and Fubini calculations are reusable evidence, but the pointwise pushout mate/unmate construction is not the permanent route. The permanent theorem first proves pullback 3-by-3 from limits in an arbitrary category and then obtains this pushout theorem by applying that result to the opposite category.
 
 - [x] Define pushout recursion data and its coherent morphisms.
 - [x] Give this recursion data its 0-groupoid structure.
@@ -185,55 +196,65 @@ The new primary route is abstract. Pushouts are walking-span colimits in an arbi
 - [x] Obtain the concrete `pushout_3_by_3` equivalence from `equiv_colimit_fubini`.
 - [x] Define coherent specified colimits, `pushout_square_cocone`, and `IsPushoutSquare` so that the face of a square is part of its universal cocone.
 - [x] Derive the specified universal cocone of every chosen coherent colimit from its adjunction.
-- [ ] Define the abstract chosen pushout object and normalize its canonical colimit cocone to the `IsPushoutSquare` presentation.
-- [ ] Derive the usual map-out and uniqueness operations from `IsColimitCocone`.
-- [ ] Prove that `[C,D]` has pointwise pushouts whenever `D` has pushouts, as a specialization of pointwise colimits.
 - [x] State the coherent walking-span 3-by-3 equivalence and derive it from abstract Fubini.
 - [x] Prove directly from the existing pushout adjunction that the ordinary `pushl`/`pushr`/`pglue` square satisfies `IsPushoutSquare`.
-- [ ] Prove that the generic pointwise construction in `Type` agrees with the existing `functor_pushout` construction.
-- [ ] Replace the specialized pointwise mate/unmate proof by the generic functor-category theorem.
-- [ ] Remove or relocate the now-obsolete unfinished direct inverse computation after deciding which of its beta lemmas remain useful.
+- [ ] Retain the generic `Type` comparison only as a regression test for the
+  opposite-category specialization.
+- [ ] Remove or relocate the obsolete specialized mate/unmate and direct
+  inverse computations once the dual limit route subsumes them.
 
-The pushout work should remain in its separate scratch file while it is experimental; it imports the general limits scratch file.
+The pushout work remains in its separate scratch file as a regression and
+design reference; permanent limit modules must not import it.
 
-### Immediate abstract route to the smoke test
+### Permanent universal-cone route to the smoke test
 
-- [x] Assemble the `Is21Cat` structure on `Fun02` and induce it on `Fun12`; the two unitors currently depend on the explicitly deferred cylinder placeholders.
-- [x] Write down the local Kan-extension universal property and prove its basic pasting theorem.
-- [x] Verify that the ordinary pushout satisfies the corresponding corepresentability statement for concrete span-cocone data.
-- [ ] Prove local Kan-extension uniqueness and settle the terminal/walking-span indexing shapes if the Kan formulation is resumed.
-- [x] Introduce the abstract pushout/pushout-square vocabulary as the `WalkingSpan` specialization of the existing coherent colimit machinery.
-- [ ] Finish the pointwise-diagonal comparison needed to remove the remaining hypothesis from the functor-category colimit theorem.
-- [ ] Specialize pointwise colimits to pointwise pushouts and expose the componentwise pushout square.
-- [x] Apply abstract Fubini to obtain the coherent walking-span 3-by-3 equivalence.
-- [x] Register the ordinary `Type` pushout square through its adjunction, without a separate path calculation.
-- [ ] Rewrite the concrete `Type` 3-by-3 statement as the direct specialization of the abstract theorem and remove the obsolete calculation.
+- [ ] Move the required coherent `OneGpd` Yoneda constructions into a
+      permanent module.
+- [ ] Define `IsLimitCone` and `Limit` from a specified cone whose induced map
+      on mapping `OneGpd`s is a categorical equivalence.
+- [ ] Derive corecursion, beta, eta, higher-cell action, transport, and
+      categorical unicity from that universal cone.
+- [ ] Define `HasLimits` as a choice of universal cone and derive the limit
+      functor and its adjunction with the diagonal.
+- [ ] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
+      including the coherence on transformations and modifications.
+- [ ] Prove abstract limit Fubini by showing the row-first and column-first
+      iterated limits represent coherently equivalent double-cone objects.
+- [ ] Specialize both shapes to the walking cospan and derive pullback 3-by-3
+      in an arbitrary category with the required chosen pullbacks. This is the
+      final smoke test.
+- [ ] Construct coherent opposite diagrams and expose `Colimit`,
+      `HasColimits`, their adjunction, pointwise colimits, and colimit Fubini
+      only as wrappers around the corresponding limit results.
+- [ ] Obtain pushout 3-by-3 by opposite-category duality and use the existing
+      `Type` theorem only to check the specialization.
 
 ## Handoff to the next model
 
-The immediate objective is to finish the coherent pushout route and leave the scratch files building. The key definitions already present are:
+The immediate categorical objective is the universal-cone limit route in
+`WILDCAT_LIMITS_DESIGN.md`, not further development of the specialized
+pushout mate/unmate machinery.
 
-- `LimitsScratch.v` defines `colimit_cocone_map`, `IsColimitCocone`, invariance under homotopic cocones, and the chosen cocone extracted from `HasColimit02`.
-- `LimitsScratch.v` defines `pushout_square_cocone` and `IsPushoutSquare` for a specified square in any wild `(2,1)`-category.
-- `LimitsScratch.v` defines `HasPointwiseDiagonalComparison02`, the transported adjunction `gpd_adjunction_pointwise_colimit_fun02`, the full universal properties `pointwise_colimit02_iscolimit` and `pointwise_colimit02_cocone_iscolimit`, and the conditional instance `hascolimit02_fun02`.
-- `LimitsScratch.v` defines `equiv_coherent_span_colimit_3_by_3` as the `WalkingSpan` specialization of coherent Fubini.
-- `PushoutScratch.v` defines `span_pushout_unit_iscolimit` from `gpd_adjunction_span_pushout`, and `ispushoutsquare_pushout` proves the ordinary `pushl`/`pushr`/`pglue` square satisfies `IsPushoutSquare`.
+Reusable prototypes already present:
 
-The remaining technical work is:
+- `CohYonedaScratch.v` contains the coherent `OneGpd` Yoneda constructions
+  needed to state the universal property.
+- `LimitsScratch.v` contains coherent diagonals, argument swap, pointwise
+  machinery, and Fubini calculations to inspect while deriving the permanent
+  limit-first interfaces.
+- `PushoutScratch.v` and `PushoutComparisonScratch.v` provide regression
+  statements for the eventual opposite-category specialization.
 
-1. Construct `IsCoherentDiagonal02 (Fun02 A B) J` and the field `natequiv_pointwise_diagonal02`. The object and arrow components are identity-like, but their naturality squares differ by the swap/composition coherence; use the cylinder/square lemmas rather than unfolding the whole functor-category records.
-2. Specialize the conditional pointwise theorem to `WalkingSpan`, supplying the diagonal comparison for the chosen pushout-like codomain.
-3. Replace the commented-out Type-specific mate/unmate route in `PushoutScratch.v` with the abstract pointwise result, then expose the concrete `pushout_3_by_3` as the abstract Fubini specialization.
+The next implementation increment is:
 
-Useful validation commands:
+1. extract the minimum coherent-Yoneda foundation into permanent code;
+2. define the specified universal-cone interface and derive its local API;
+3. derive chosen limits and pointwise limits;
+4. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
+5. only then expose the colimit and pushout APIs by duality.
 
-```text
-nix develop -c dune build theories/WildCat/LimitsScratch.vo
-nix develop -c dune build theories/WildCat/PushoutComparisonScratch.vo theories/WildCat/PushoutScratch.vo
-git diff --check
-```
-
-`LimitsScratch.vo`, `PushoutComparisonScratch.vo`, and `PushoutScratch.vo` last built successfully. The obsolete specialized mate/unmate block remains commented out; no `Admitted` or axioms remain in `LimitsScratch.v`.
+The scratch files last built successfully. Keep them building as reference
+material, but do not make permanent modules depend on them.
 
 ## Structured-object investigation
 
@@ -271,6 +292,8 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] Rebuild `LimitsScratch.v` after the coherent-functor refactor.
 - [x] Rebuild `PushoutComparisonScratch.v` and `PushoutScratch.v` after packaging the full conditional pointwise-colimit theorem.
 - [x] `git diff --check` currently passes.
-- [ ] Eliminate any temporary skeleton gaps after the abstract statements and interfaces have stabilized.
-- [ ] Rerun `dune build test/` after the current abstract pushout edits.
-- [ ] Rerun the full `dune test` validation after `PushoutScratch.v` builds.
+- [ ] Build and assumption-audit each permanent coherent-Yoneda and limit
+      module as it is introduced.
+- [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
+- [ ] Rerun the full `dune test` validation after the permanent limit-first
+      route is integrated.

@@ -1827,6 +1827,140 @@ Section ChosenColimit02.
       (cat_colimit02_iscolimit X).
 End ChosenColimit02.
 
+(** ** Limits through coherent diagram categories *)
+
+(** A limit represents the 0-groupoid of coherent cones.  Although the
+    indexing shape is only a graph, morphisms between cones are
+    cylinder-coherent modifications in [Fun02]. *)
+Definition cone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (a : A) : ZeroGpd
+  := yon_0gpd X (diagonal02 A J a).
+
+Global Instance is0functor_cone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A)
+  : Is0Functor (A := A^op) (cone02 X)
+  := is0functor_compose
+      (A := A^op) (B := (Fun02 J A)^op) (C := ZeroGpd)
+      (diagonal02 A J) (yon_0gpd X).
+
+Global Instance is1functor_cone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A)
+  : Is1Functor (A := A^op) (cone02 X)
+  := is1functor_compose
+      (A := A^op) (B := (Fun02 J A)^op) (C := ZeroGpd)
+      (diagonal02 A J) (yon_0gpd X).
+
+Definition IsLimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A) : Type
+  := NatEquiv (yon_0gpd l) (cone02 X).
+
+(** The comparison induced by a specified cone. *)
+Definition limit_cone_map
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A)
+  (alpha : diagonal02 A J l $-> X) (a : A)
+  : yon_0gpd l a $-> cone02 X a.
+Proof.
+  snapply Build_Fun01'.
+  - intro k.
+    change (a $-> l) in k.
+    exact (nattrans_comp alpha (fmap (diagonal02 A J) k)).
+  - intros k k' p.
+    change (a $-> l) in k, k'.
+    change (k $== k') in p.
+    exact (natmod_postcompose alpha (natmod_diagonal02 A J p)).
+Defined.
+
+(** Unlike [IsLimit], this formulation remembers the chosen universal cone. *)
+Definition IsLimitCone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A)
+  (alpha : diagonal02 A J l $-> X) : Type
+  := forall a : A, CatIsEquiv (limit_cone_map X l alpha a).
+
+Definition limit_cone_map_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (a : A)
+  : limit_cone_map X l alpha a
+    $== limit_cone_map X l beta a.
+Proof.
+  intro k.
+  change (a $-> l) in k.
+  exact (natmod_precompose (fmap (diagonal02 A J) k) h).
+Defined.
+
+Definition islimitcone_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (Halpha : IsLimitCone X l alpha)
+  : IsLimitCone X l beta.
+Proof.
+  intro a.
+  napply (catie_homotopic (limit_cone_map X l alpha a)).
+  { exact (Halpha a). }
+  exact (limit_cone_map_homotopic h a).
+Defined.
+
+Definition limit_cone_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit X l)
+  : diagonal02 A J l $-> X
+  := equiv_fun_0gpd (e l) (@Id A IsGraph0 Is01Cat0 l).
+
+Definition limit_cone_map_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit X l) (a : A)
+  : cate_fun (e a)
+    $== limit_cone_map X l (limit_cone_of_islimit e) a.
+Proof.
+  pose (alnat := is1natural_natequiv e).
+  change (cate_fun (e a) $== yoneda_0gpd l (cone02 X)
+    (un_yoneda_0gpd l (cone02 X) e) a).
+  exact (yoneda_isretr_0gpd l (cone02 X) e a)^$.
+Defined.
+
+Definition islimitcone_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit X l)
+  : IsLimitCone X l (limit_cone_of_islimit e).
+Proof.
+  intro a.
+  napply (catie_homotopic (cate_fun (e a))).
+  { exact _. }
+  exact (limit_cone_map_of_islimit e a).
+Defined.
+
+Definition Limit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) : Type
+  := {l : A & IsLimit X l}.
+
+Section ChosenLimit02.
+  Context (A J : Type) `{Is21Cat A, IsGraph J, !HasLimit02 A J}.
+
+  Definition cat_limit02_islimit (X : Fun02 J A)
+    : IsLimit X (cat_limit02 A J X)
+    := natequiv_inverse
+      (natequiv_gpd_adjunction_l
+        (adjunction_cat_limit02 A J) X).
+
+  Definition cat_limit02_cone (X : Fun02 J A)
+    : diagonal02 A J (cat_limit02 A J X) $-> X
+    := limit_cone_of_islimit (cat_limit02_islimit X).
+
+  Definition cat_limit02_cone_islimit (X : Fun02 J A)
+    : IsLimitCone X (cat_limit02 A J X)
+        (cat_limit02_cone X)
+    := islimitcone_of_islimit (cat_limit02_islimit X).
+End ChosenLimit02.
+
 Definition Colimit
   {A J : Type} `{Is21Cat A, IsGraph J}
   (X : Fun02 J A) : Type
@@ -1904,6 +2038,94 @@ Section DoubleCocones.
         (natequiv_double_cocone_swap X) hr)).
   Defined.
 End DoubleCocones.
+
+(** ** Double cones and limit Fubini *)
+
+(** The two functors below present a coherent cone over a two-variable
+    diagram before and after transposing its variables. *)
+Section DoubleCones.
+  Context (A I J : Type)
+    `{Is21Cat A, !HasEquivs A, IsGraph I, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 A I,
+    !IsCoherentDiagonal02 A J}.
+
+  Local Definition double_diagonal02_op
+    : A^op -> (Fun02 I (Fun02 J A))^op
+    := double_diagonal02 A I J.
+
+  Local Instance is0functor_double_diagonal02_op
+    : Is0Functor double_diagonal02_op
+    := is0functor_op A (Fun02 I (Fun02 J A))
+      (double_diagonal02 A I J).
+
+  Definition double_cone_rows
+    (X : Fun02 J (Fun02 I A)) (a : A) : ZeroGpd
+    := yon_0gpd (swap_fun02 J I A X)
+        (double_diagonal02 A I J a).
+
+  Global Instance is0functor_double_cone_rows
+    (X : Fun02 J (Fun02 I A))
+    : Is0Functor (A := A^op) (double_cone_rows X)
+    := is0functor_compose
+      (A := A^op)
+      (B := (Fun02 I (Fun02 J A))^op)
+      (C := ZeroGpd)
+      (double_diagonal02 A I J)
+      (yon_0gpd (swap_fun02 J I A X)).
+
+  Definition double_diagonal02_columns
+    : A -> Fun02 J (Fun02 I A)
+    := fun a =>
+      swap_fun02 I J A (double_diagonal02 A I J a).
+
+  Global Instance is0functor_double_diagonal02_columns
+    : Is0Functor double_diagonal02_columns
+    := is0functor_compose
+      (double_diagonal02 A I J) (swap_fun02 I J A).
+
+  Definition double_cone_columns
+    (X : Fun02 J (Fun02 I A)) (a : A) : ZeroGpd
+    := yon_0gpd X (double_diagonal02_columns a).
+
+  Global Instance is0functor_double_cone_columns
+    (X : Fun02 J (Fun02 I A))
+    : Is0Functor (A := A^op) (double_cone_columns X)
+    := is0functor_compose
+      (A := A^op)
+      (B := (Fun02 J (Fun02 I A))^op)
+      (C := ZeroGpd)
+      double_diagonal02_columns (yon_0gpd X).
+
+  Definition natequiv_double_cone_swap
+    (X : Fun02 J (Fun02 I A))
+    : NatEquiv (A := A^op)
+        (double_cone_columns X) (double_cone_rows X)
+    := natequiv_prewhisker
+      (natequiv_swap_fun02_hom_l I J A X)
+      double_diagonal02_op.
+
+  Definition IsDoubleLimitRows
+    (X : Fun02 J (Fun02 I A)) (l : A) : Type
+    := NatEquiv (A := A^op) (yon_0gpd l) (double_cone_rows X).
+
+  Definition IsDoubleLimitColumns
+    (X : Fun02 J (Fun02 I A)) (l : A) : Type
+    := NatEquiv (A := A^op) (yon_0gpd l) (double_cone_columns X).
+
+  (** Fubini is categorical unicity of representing objects, after
+      argument swap identifies the two double-cone presentations. *)
+  Definition equiv_limit_fubini
+    {r c : A} (X : Fun02 J (Fun02 I A))
+    (hr : IsDoubleLimitRows X r)
+    (hc : IsDoubleLimitColumns X c)
+    : r $<~> c.
+  Proof.
+    napply yon_equiv_0gpd.
+    exact (natequiv_compose (natequiv_inverse hc)
+      (natequiv_compose
+        (natequiv_inverse (natequiv_double_cone_swap X)) hr)).
+  Defined.
+End DoubleCones.
 
 
 
@@ -2001,41 +2223,269 @@ End PointwiseColimit02.
 Section PointwiseDiagonalComparison02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
 
+  (** The transpose of the horizontally degenerate square is the
+      vertically degenerate square. *)
+  Local Definition transpose_hrefl_vrefl
+    {a b : B} (h : a $-> b)
+    : transpose (hrefl h) $== vrefl h.
+  Proof.
+    cbv [transpose hrefl vrefl].
+    exact (gpd_rev_pp ((cat_idl h)^$) (cat_idr h)
+      $@ ((cat_idr h)^$ $@L gpd_rev_rev (cat_idl h))).
+  Defined.
+  Definition pd_diag_component (F : Fun02 A B)
+    : fun12_pointwise_diagonal A B J F
+      $-> fun22_diagonal02 (Fun02 A B) J F.
+  Proof.
+    snapply Build_NatTrans.
+    { intro j. exact (Id F). }
+    snapply Build_Is1Natural.
+    intros j j' g.
+    snapply Build_NatModification.
+    { intro a. exact (Id _). }
+    intros a a' f.
+    cbn.
+    exact (cylinder_rewrite_front
+      (s0' := transpose (hrefl (fmap F f)) $@v vrefl (fmap F f))
+      (square_vconcat_natural_above
+        (transpose_hrefl_vrefl (fmap F f))
+        (vrefl (fmap F f)))
+      (cylinder_refl (vrefl (fmap F f) $@v vrefl (fmap F f)))).
+  Defined.
+
+
+
+  Local Definition swap_diag_hrefl_vrefl_inv {x y : B} (p : x $-> y)
+    : hrefl p $== (vrefl p)^$.
+  Proof.
+    cbv [hrefl vrefl].
+    symmetry.
+    exact (gpd_rev_pp ((cat_idr p)^$) (cat_idl p)
+      $@ ((cat_idl p)^$ $@L gpd_rev_rev (cat_idr p))).
+  Defined.
+
+  Local Definition pd_diag_outer_coherence {x y : B} (p : x $-> y)
+    : ((cat_assoc (Id x) p (Id y) $@ (Id y $@L hrefl p))
+        $@ (((cat_assoc p (Id y) (Id y))^$ $@ (Id (Id y $o Id y) $@R p))
+          $@ cat_assoc p (Id y) (Id y)))
+        $@ (Id y $@L (cat_idl p $@ (cat_idr p)^$))
+      $== ((cat_idl p $@ (cat_idr p)^$) $@R Id x)
+        $@ ((cat_assoc (Id x) (Id x) p $@ (p $@L Id (Id x $o Id x)))
+          $@ (((cat_assoc (Id x) (Id x) p)^$ $@ ((cat_idr p $@ (cat_idl p)^$) $@R Id x))
+            $@ cat_assoc (Id x) p (Id y))).
+  Proof.
+    cbv [hrefl].
+    transitivity (cat_assoc (Id x) p (Id y)).
+    - pose (PA := cat_assoc (Id x) p (Id y)).
+      pose (PH := Id y $@L (cat_idr p $@ (cat_idl p)^$)).
+      pose (PC1 := cat_assoc p (Id y) (Id y)).
+      pose (PD := Id (Id y $o Id y) $@R p).
+      pose (PU := Id y $@L (cat_idl p $@ (cat_idr p)^$)).
+      pose (PX := (PC1^$ $@ PD) $@ PC1).
+      change (((PA $@ PH) $@ PX) $@ PU $== PA).
+      lhs' exact (PU $@L cat_assoc_opp PA PH PX).
+      lhs' exact (cat_assoc_opp PA (PH $@ PX) PU).
+      assert (xz : PX $== Id (Id y $o (Id y $o p))).
+      { exact ((PC1 $@L ((fmap_id (cat_precomp y p) (Id y $o Id y)) $@R PC1^$ $@ cat_idl PC1^$)) $@ gpd_isretr PC1). }
+      assert (uh : PU $o PH $== Id (Id y $o (p $o Id x))).
+      { refine ((PU $@L (_ $@ _)) $@ gpd_isretr PU).
+        - exact (fmap2 (cat_postcomp x (Id y)) (swap_diag_hrefl_vrefl_inv p)).
+        - exact (gpd_1functor_V (cat_postcomp x (Id y)) (vrefl p)). }
+      assert (z : ((PH $@ PX) $@ PU) $== Id (Id y $o (p $o Id x))).
+      { exact ((PU $@L (xz $@R PH)) $@ (PU $@L cat_idl PH) $@ uh). }
+      lhs' exact (z $@R PA).
+      exact (cat_idl PA).
+    - pose (PA := cat_assoc (Id x) p (Id y)).
+      pose (PR1 := (cat_idr p $@ (cat_idl p)^$) $@R Id x).
+      pose (PA' := cat_assoc (Id x) (Id x) p).
+      pose (PE := p $@L Id (Id x $o Id x)).
+      pose (PR0 := (cat_idl p $@ (cat_idr p)^$) $@R Id x).
+      change (PA $== PR0 $@ ((PA' $@ PE) $@ ((PA'^$ $@ PR1) $@ PA))).
+      rhs' exact ((cat_assoc_opp PR0 (PA' $@ PE) ((PA'^$ $@ PR1) $@ PA))^$).
+      rhs' exact ((cat_assoc_opp (PR0 $@ (PA' $@ PE)) (PA'^$ $@ PR1) PA)^$).
+      assert (mid : PA'^$ $o (PE $o PA') $== Id ((p $o Id x) $o Id x)).
+      { exact ((PA'^$ $@L ((fmap_id (cat_postcomp x p) (Id x $o Id x)) $@R PA' $@ cat_idl PA')) $@ gpd_issect PA'). }
+      assert (rr : PR1 $o PR0 $== Id ((Id y $o p) $o Id x)).
+      { exact (((fmap2 (cat_precomp y (Id x)) (swap_diag_hrefl_vrefl_inv p) $@ gpd_1functor_V (cat_precomp y (Id x)) (vrefl p)) $@R PR0) $@ gpd_issect PR0). }
+      assert (pm : ((PR0 $@ (PA' $@ PE)) $@ (PA'^$ $@ PR1)) $== Id ((Id y $o p) $o Id x)).
+      { lhs' exact (cat_assoc ((PE $o PA') $o PR0) PA'^$ PR1).
+        lhs' exact (PR1 $@L cat_assoc_opp PR0 (PE $o PA') PA'^$).
+        lhs' exact (cat_assoc_opp PR0 (PA'^$ $o (PE $o PA')) PR1).
+        lhs' exact ((PR1 $@L mid) $@R PR0).
+        lhs' exact ((cat_idr PR1) $@R PR0).
+        exact rr. }
+      rhs' exact ((PA $@L pm) $@ cat_idr PA).
+      reflexivity.
+  Defined.
+
+  Local Definition pd_diag_triangle (a : B)
+    : ((cat_assoc (Id a) (Id a) (Id a) $@ ((Id a) $@L Id ((Id a) $o (Id a))))
+        $@ (((cat_assoc (Id a) (Id a) (Id a))^$ $@ (Id ((Id a) $o (Id a)) $@R (Id a)))
+          $@ cat_assoc (Id a) (Id a) (Id a))) $@
+      ((Id a) $@L cat_idl (Id a))
+      $== (cat_idl (Id a) $@R (Id a)) $@ (cat_idl (Id a) $@ (cat_idr (Id a))^$).
+  Proof.
+    pose (I := Id a).
+    pose (TA := cat_assoc I I I).
+    pose (TE := I $@L Id (I $o I)).
+    pose (TD := Id (I $o I) $@R I).
+    pose (TU := I $@L cat_idl I).
+    pose (TX := (TA^$ $@ TD) $@ TA).
+    change (((TA $@ TE) $@ TX) $@ TU $== (cat_idl I $@R I) $@ (cat_idl I $@ (cat_idr I)^$)).
+    transitivity (cat_idr I $@R I).
+    - lhs' exact (TU $@L cat_assoc_opp TA TE TX).
+      lhs' exact (cat_assoc_opp TA (TE $@ TX) TU).
+      assert (mid1 : TX $== Id (I $o (I $o I))).
+      { exact ((TA $@L ((fmap_id (cat_precomp a I) (I $o I)) $@R TA^$ $@ cat_idl TA^$)) $@ gpd_isretr TA). }
+      assert (xz2 : (TX $o TE) $== Id (I $o (I $o I))).
+      { exact ((mid1 $@R TE) $@ cat_idl TE $@ fmap_id (cat_postcomp a I) (I $o I)). }
+      lhs' exact ((TU $@L xz2) $@R TA).
+      lhs' exact ((cat_idr TU) $@R TA).
+      exact (cat_tril (A := B) a a a I I).
+    - rhs' exact ((((cat_idr I)^$ $@L cat_idl_idr_id a) $@ gpd_issect (cat_idr I)) $@R (cat_idl I $@R I)).
+      rhs' exact (cat_idl (cat_idl I $@R I)).
+      exact ((fmap2 (cat_precomp a I) (cat_idl_idr_id a))^$).
+  Defined.
+
+  Local Definition pd_diag_triangle_symm (a : B)
+    : ((cat_assoc (Id a) (Id a) (Id a) $@ ((Id a) $@L Id ((Id a) $o (Id a))))
+        $@ (((cat_assoc (Id a) (Id a) (Id a))^$ $@ (Id ((Id a) $o (Id a)) $@R (Id a)))
+          $@ cat_assoc (Id a) (Id a) (Id a))) $@
+      ((Id a) $@L cat_idr (Id a))
+      $== (cat_idr (Id a) $@R (Id a)) $@ (cat_idl (Id a) $@ (cat_idr (Id a))^$).
+  Proof.
+    pose (I := Id a).
+    pose (TA := cat_assoc I I I).
+    pose (TE := I $@L Id (I $o I)).
+    pose (TD := Id (I $o I) $@R I).
+    pose (TU := I $@L cat_idr I).
+    pose (TX := (TA^$ $@ TD) $@ TA).
+    change (((TA $@ TE) $@ TX) $@ TU $== (cat_idr I $@R I) $@ (cat_idl I $@ (cat_idr I)^$)).
+    transitivity (cat_idl I $@R I).
+    - lhs' exact (TU $@L cat_assoc_opp TA TE TX).
+      lhs' exact (cat_assoc_opp TA (TE $@ TX) TU).
+      assert (mid1 : TX $== Id (I $o (I $o I))).
+      { exact ((TA $@L ((fmap_id (cat_precomp a I) (I $o I)) $@R TA^$ $@ cat_idl TA^$)) $@ gpd_isretr TA). }
+      assert (xz2 : (TX $o TE) $== Id (I $o (I $o I))).
+      { exact ((mid1 $@R TE) $@ cat_idl TE $@ fmap_id (cat_postcomp a I) (I $o I)). }
+      lhs' exact ((TU $@L xz2) $@R TA).
+      lhs' exact ((cat_idr TU) $@R TA).
+      lhs' exact (((fmap2 (cat_postcomp a I) (cat_idl_idr_id a))^$) $@R TA).
+      lhs' exact (cat_tril (A := B) a a a I I).
+      exact ((fmap2 (cat_precomp a I) (cat_idl_idr_id a))^$).
+    - rhs' exact ((((cat_idr I)^$ $@L cat_idl_idr_id a) $@ gpd_issect (cat_idr I)) $@R (cat_idr I $@R I)).
+      rhs' exact (cat_idl (cat_idr I $@R I)).
+      exact (fmap2 (cat_precomp a I) (cat_idl_idr_id a)).
+  Defined.
+
+  Definition nattrans_swap_fun02_diagonal
+    : NatTrans
+        (fun12_pointwise_diagonal A B J)
+        (fun22_diagonal02 (Fun02 A B) J).
+  Proof.
+    snapply Build_NatTrans.
+    - intro F. exact (pd_diag_component F).
+    - snapply Build_Is1Natural.
+      intros F G alpha.
+      snapply Build_NatModification.
+      { intro j.
+        snapply Build_NatModification.
+        { intro a. cbn. exact (cat_idl (alpha a) $@ (cat_idr (alpha a))^$). }
+        intros a a' f.
+        cbn.
+        exact (cylinder_rewrite_front
+          (s0' := (((Id (alpha a' $o fmap F f))^$ $@ is1natural_nattrans alpha a a' f) $@ Id (fmap G f $o alpha a)) $@v (cat_idl (fmap G f) $@ (cat_idr (fmap G f))^$))
+          (square_vconcat_natural_above
+            (cat_idl (is1natural_nattrans alpha a a' f $o (Id (alpha a' $o fmap F f))^$)
+              $@ (is1natural_nattrans alpha a a' f $@L gpd_rev_1)
+              $@ cat_idr (is1natural_nattrans alpha a a' f))
+            (cat_idl (fmap G f) $@ (cat_idr (fmap G f))^$))
+          (cylinder_comp
+            (square_vconcat_idl (is1natural_nattrans alpha a a' f))
+            (cylinder_inverse (square_vconcat_idr (is1natural_nattrans alpha a a' f))))). }
+      intros j j' g.
+      cbn.
+      intro a.
+      exact (pd_diag_outer_coherence (alpha a)).
+  Defined.
+
+  Local Definition pd_diag_component_inv (F : Fun02 A B)
+    : fun22_diagonal02 (Fun02 A B) J F $-> fun12_pointwise_diagonal A B J F.
+  Proof.
+    snapply Build_NatTrans.
+    { intro j. exact (Id F). }
+    snapply Build_Is1Natural.
+    intros j j' g.
+    snapply Build_NatModification.
+    { intro a. exact (Id _). }
+    intros a a' f.
+    cbn.
+    exact (cylinder_rewrite_back
+      (s1' := vrefl (fmap F f) $@v transpose (hrefl (fmap F f)))
+      (square_vconcat_natural_below (vrefl (fmap F f)) (transpose_hrefl_vrefl (fmap F f)))
+      (cylinder_refl (vrefl (fmap F f) $@v vrefl (fmap F f)))).
+  Defined.
+
+  Local Definition pd_diag_retr (F : Fun02 A B)
+    : NatModification
+        (nattrans_comp (pd_diag_component F) (pd_diag_component_inv F))
+        (nattrans_id (fun22_diagonal02 (Fun02 A B) J F)).
+  Proof.
+    snapply Build_NatModification.
+    { intro j. cbn. exact (cat_idl (Id F)). }
+    intros j j' g.
+    cbn.
+    intro a.
+    exact (pd_diag_triangle (F a)).
+  Defined.
+
+  Local Definition pd_diag_sect (F : Fun02 A B)
+    : NatModification
+        (nattrans_comp (pd_diag_component_inv F) (pd_diag_component F))
+        (nattrans_id (fun12_pointwise_diagonal A B J F)).
+  Proof.
+    snapply Build_NatModification.
+    { intro j. cbn. exact (cat_idr (Id F)). }
+    intros j j' g.
+    cbn.
+    intro a.
+    exact (pd_diag_triangle_symm (F a)).
+  Defined.
+
   Definition natequiv_pointwise_diagonal02_generic
     : NatEquiv
         (fun12_pointwise_diagonal A B J)
         (fun22_diagonal02 (Fun02 A B) J).
   Proof.
-    snapply Build_NatEquiv.
+    snapply Build_NatEquiv'.
+    - exact nattrans_swap_fun02_diagonal.
     - intro F.
-      exact (id_cate _).
-    - snapply Build_Is1Natural.
-      intros F G alpha.
-      snapply Build_NatModification.
-      { intro j.
-        exact (Id (alpha j)). }
-      intros j j' g.
-      cbn.
-      Show.
-  Admitted.
+      snapply catie_adjointify.
+      + exact (pd_diag_component_inv F).
+      + exact (pd_diag_retr F).
+      + exact (pd_diag_sect F).
+  Defined.
 End PointwiseDiagonalComparison02.
 
-(** The pointwise diagonal and the literal constant-diagram functor have the same components, but identifying their naturality data requires a coherent comparison.  Isolating that comparison keeps the pointwise colimit theorem independent of its construction. *)
 Class HasPointwiseDiagonalComparison02
-  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J,
-    !IsCoherentDiagonal02 B J,
-    !IsCoherentDiagonal02 (Fun02 A B) J} := {
+  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J} := {
   natequiv_pointwise_diagonal02
     : NatEquiv
         (fun12_pointwise_diagonal A B J)
         (fun22_diagonal02 (Fun02 A B) J);
 }.
 
+Global Instance has_pointwise_diagonal_comparison02_generic
+  (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}
+  : HasPointwiseDiagonalComparison02 A B J.
+Proof.
+  snapply Build_HasPointwiseDiagonalComparison02.
+  exact (natequiv_pointwise_diagonal02_generic A B J).
+Defined.
+
 Section PointwiseColimitFunctorCategory02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
-  Context `{!IsCoherentDiagonal02 B J, !HasColimit22 B J,
-    !IsCoherentDiagonal02 (Fun02 A B) J,
-    !HasPointwiseDiagonalComparison02 A B J}.
+  Context `{!HasColimit22 B J}.
 
   Definition gpd_adjunction_pointwise_colimit_fun02
     : GpdAdjunction
