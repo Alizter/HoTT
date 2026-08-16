@@ -281,6 +281,26 @@ Proof.
     (A := A) a a a b c (Id a) (Id a) k h).
 Defined.
 
+(** Cancelling the associator against right-unitor coherence. *)
+Lemma cat_assoc_idr {A : Type} `{Is21Cat A}
+  {a b c : A} (k : a $-> b) (h : b $-> c)
+  : cat_assoc (Id a) k h $@ (h $@L cat_idr k)
+    $== cat_idr (h $o k).
+Proof.
+  lhs' exact (cat_idr_assoc k h
+    $@R cat_assoc (Id a) k h).
+  lhs' exact (cat_assoc
+    (cat_assoc (Id a) k h)
+    (cat_assoc_opp (Id a) k h)
+    (cat_idr (h $o k))).
+  lhs' exact (cat_idr (h $o k) $@L
+    (cat_assoc_opp_is_rev a a b c (Id a) k h
+      $@R cat_assoc (Id a) k h)).
+  lhs' exact (cat_idr (h $o k) $@L
+    gpd_issect (cat_assoc (Id a) k h)).
+  exact (cat_idr (cat_idr (h $o k))).
+Defined.
+
 (** The left and right unitors agree at an identity morphism. *)
 Definition cat_idl_idr_id {A : Type} `{Is21Cat A} (a : A)
   : cat_idl (Id a) $== cat_idr (Id a).

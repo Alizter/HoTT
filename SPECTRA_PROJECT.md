@@ -208,8 +208,8 @@ design reference; permanent limit modules must not import it.
 
 ### Permanent universal-cone route to the smoke test
 
-- [ ] Move the required coherent `OneGpd` Yoneda constructions into a
-      permanent module.
+- [x] Move the required coherent `OneGpd` Yoneda constructions into the
+      permanent `theories/WildCat/TwoYoneda.v` module.
 - [ ] Define `IsLimitCone` and `Limit` from a specified cone whose induced map
       on mapping `OneGpd`s is a categorical equivalence.
 - [ ] Derive corecursion, beta, eta, higher-cell action, transport, and
@@ -237,8 +237,8 @@ pushout mate/unmate machinery.
 
 Reusable prototypes already present:
 
-- `CohYonedaScratch.v` contains the coherent `OneGpd` Yoneda constructions
-  needed to state the universal property.
+- `TwoYoneda.v` now contains the permanent coherent `OneGpd` Yoneda
+  constructions needed to state the universal property.
 - `LimitsScratch.v` contains coherent diagonals, argument swap, pointwise
   machinery, and Fubini calculations to inspect while deriving the permanent
   limit-first interfaces.
@@ -292,8 +292,9 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] Rebuild `LimitsScratch.v` after the coherent-functor refactor.
 - [x] Rebuild `PushoutComparisonScratch.v` and `PushoutScratch.v` after packaging the full conditional pointwise-colimit theorem.
 - [x] `git diff --check` currently passes.
-- [ ] Build and assumption-audit each permanent coherent-Yoneda and limit
-      module as it is introduced.
+- [x] Build and assumption-audit the permanent coherent-Yoneda module;
+      `opyoneda_equiv_1gpd` is closed under the global context.
+- [ ] Build and assumption-audit each permanent limit module as it is introduced.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.

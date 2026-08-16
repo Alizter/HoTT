@@ -1,6 +1,6 @@
 Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core WildCat.Equiv WildCat.NatTrans WildCat.FunctorCat
-  WildCat.TwoOneCat.
+  WildCat.Square WildCat.TwoOneCat.
 
 (** * The wild (2,1)-category of 1-groupoids *)
 
@@ -18,6 +18,194 @@ Record OneGpd := {
     transformations, and 3-morphisms are pointwise 2-morphisms. *)
 Instance isgraph_1gpd : IsGraph OneGpd
   := {| Hom A B := Fun11 (onegpd_carrier A) (onegpd_carrier B) |}.
+
+(** Action of a morphism of 1-groupoids on a morphism. *)
+Definition onegpd_fmap
+  {A B : OneGpd} (F : A $-> B)
+  {a b : A} (f : a $-> b)
+  : F a $-> F b
+  := fun11_fmap F f.
+
+(** Inverse of a 2-cell in a 1-groupoid. *)
+Definition onegpd_rev
+  {A : OneGpd} {a b : A} (p : a $== b)
+  : b $== a
+  := p^$.
+
+
+(** Vertical composition of 2-cells in a 1-groupoid. *)
+Definition onegpd_comp
+  {A : OneGpd} {a b c : A}
+  (p : a $== b) (q : b $== c)
+  : a $== c
+  := p $@ q.
+
+(** A 3-cell in a 1-groupoid. *)
+Definition OneGpdHom
+  {A : OneGpd} {a b : A} (p q : a $== b)
+  : Type
+  := p $== q.
+
+Definition onegpd_hom_id
+  {A : OneGpd} {a b : A} (p : a $== b)
+  : OneGpdHom p p
+  := Id p.
+
+Definition onegpd_hom_comp
+  {A : OneGpd} {a b : A} {p q r : a $== b}
+  (h : OneGpdHom p q) (k : OneGpdHom q r)
+  : OneGpdHom p r
+  := h $@ k.
+
+Definition onegpd_hom_rev
+  {A : OneGpd} {a b : A} {p q : a $== b}
+  (h : OneGpdHom p q)
+  : OneGpdHom q p
+  := h^$.
+
+Definition onegpd_hom_prewhisker
+  {A : OneGpd} {a b c : A}
+  {p q : b $== c} (h : OneGpdHom p q) (k : a $== b)
+  : OneGpdHom (onegpd_comp k p) (onegpd_comp k q)
+  := h $@R k.
+
+Definition onegpd_hom_postwhisker
+  {A : OneGpd} {a b c : A}
+  (k : b $== c) {p q : a $== b} (h : OneGpdHom p q)
+  : OneGpdHom (onegpd_comp p k) (onegpd_comp q k)
+  := k $@L h.
+
+Definition onegpd_solve_inverse_left
+  {A : OneGpd} {x y z : A}
+  {p : x $== z} {q : z $== y} {r : x $== y}
+  (h : OneGpdHom p (onegpd_comp r (onegpd_rev q)))
+  : OneGpdHom q (onegpd_comp (onegpd_rev p) r)
+  := gpd_solve_inverse_left h.
+
+Definition onegpd_hom_assoc
+  {A : OneGpd} {a b c d : A}
+  (p : a $== b) (q : b $== c) (r : c $== d)
+  : OneGpdHom
+      (onegpd_comp (onegpd_comp p q) r)
+      (onegpd_comp p (onegpd_comp q r)).
+Proof.
+  unfold OneGpdHom, onegpd_comp, gpd_comp.
+  exact (cat_assoc_opp p q r).
+Defined.
+
+Definition onegpd_hom_assoc_opp
+  {A : OneGpd} {a b c d : A}
+  (p : a $== b) (q : b $== c) (r : c $== d)
+  : OneGpdHom
+      (onegpd_comp p (onegpd_comp q r))
+      (onegpd_comp (onegpd_comp p q) r).
+Proof.
+  unfold OneGpdHom, onegpd_comp, gpd_comp.
+  exact (cat_assoc p q r).
+Defined.
+
+Definition onegpd_hom_V_hh
+  {A : OneGpd} {a b c : A}
+  (f : b $== c) (g : a $== b)
+  : OneGpdHom
+      (onegpd_comp (onegpd_comp g f) (onegpd_rev f))
+      g.
+Proof.
+  unfold OneGpdHom, onegpd_comp, onegpd_rev, gpd_comp.
+  exact (gpd_V_hh f g).
+Defined.
+
+Global Instance reflexive_onegpdhom
+  {A : OneGpd} {a b : A}
+  : Reflexive (@OneGpdHom A a b)
+  := onegpd_hom_id.
+
+Global Instance transitive_onegpdhom
+  {A : OneGpd} {a b : A}
+  : Transitive (@OneGpdHom A a b)
+  := @onegpd_hom_comp A a b.
+
+Global Instance symmetric_onegpdhom
+  {A : OneGpd} {a b : A}
+  : Symmetric (@OneGpdHom A a b)
+  := @onegpd_hom_rev A a b.
+
+(** A morphism of 1-groupoids preserves squares. *)
+Definition onegpd_fmap_square
+  {A B : OneGpd} (F : A $-> B)
+  {x00 x20 x02 x22 : A}
+  {f : x00 $-> x20} {g : x02 $-> x22}
+  {u : x00 $-> x02} {v : x20 $-> x22}
+  (s : Square u v f g)
+  : Square
+      (onegpd_fmap F u) (onegpd_fmap F v)
+      (onegpd_fmap F f) (onegpd_fmap F g)
+  := fmap_square F s.
+
+(** Action and coherence of a morphism of 1-groupoids on 2-cells. *)
+Definition onegpd_fmap2
+  {A B : OneGpd} (F : A $-> B)
+  {a b : A} {f g : a $-> b} (p : f $== g)
+  : OneGpdHom
+      (onegpd_fmap F f)
+      (onegpd_fmap F g).
+Proof.
+  exact (fmap2 F p).
+Defined.
+
+Definition onegpd_fmap_id
+  {A B : OneGpd} (F : A $-> B) (a : A)
+  : OneGpdHom
+      (onegpd_fmap F (Id a))
+      (Id (F a)).
+Proof.
+  exact (fmap_id F a).
+Defined.
+
+Definition onegpd_fmap_comp
+  {A B : OneGpd} (F : A $-> B)
+  {a b c : A} (f : a $-> b) (g : b $-> c)
+  : OneGpdHom
+      (onegpd_fmap F (g $o f))
+      (onegpd_comp
+        (onegpd_fmap F f)
+        (onegpd_fmap F g)).
+Proof.
+  unfold OneGpdHom, onegpd_comp, gpd_comp.
+  exact (fmap_comp F f g).
+Defined.
+
+Definition onegpd_fmap_rev
+  {A B : OneGpd} (F : A $-> B)
+  {a b : A} (p : a $== b)
+  : OneGpdHom
+      (onegpd_fmap F (onegpd_rev p))
+      (onegpd_rev (onegpd_fmap F p))
+  := gpd_1functor_V F p.
+
+(** Naturality of a 2-cell between morphisms of 1-groupoids, exposed
+    without unfolding the functor-category representation. *)
+Definition onegpd_isnat
+  {A B : OneGpd} {F G : A $-> B}
+  (alpha : F $== G) {a b : A} (f : a $-> b)
+  : OneGpdHom
+      (onegpd_comp (onegpd_fmap F f) (alpha b))
+      (onegpd_comp (alpha a) (onegpd_fmap G f)).
+Proof.
+  unfold OneGpdHom, onegpd_comp, gpd_comp.
+  exact (isnat alpha f).
+Defined.
+
+Definition onegpd_isnat_tr
+  {A B : OneGpd} {F G : A $-> B}
+  (alpha : F $== G) {a b : A} (f : a $-> b)
+  : OneGpdHom
+      (onegpd_comp (alpha a) (onegpd_fmap G f))
+      (onegpd_comp (onegpd_fmap F f) (alpha b)).
+Proof.
+  unfold OneGpdHom, onegpd_comp, gpd_comp.
+  exact (isnat_tr alpha f).
+Defined.
 
 Instance is2graph_1gpd : Is2Graph OneGpd
   := fun A B => isgraph_fun11.

@@ -2,7 +2,7 @@ Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core WildCat.Equiv WildCat.FunctorCat WildCat.Induced
   WildCat.NatTrans.
 Require Import WildCat.Cylinder WildCat.Square WildCat.TwoOneCat
-  WildCat.Universe.
+  WildCat.Universe WildCat.OneGroupoid.
 
 Set Typeclasses Depth 3.
 
@@ -91,6 +91,17 @@ Proof.
   exact (fmap_id (@fmap _ _ _ _ F _ b c) g).
 Defined.
 
+(** The opposite orientation of compositor naturality, convenient when
+    the compositor is the naturality cell of a pseudonatural
+    transformation. *)
+Definition fmap2_postwhisker_opp
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : A -> B) `{!Is0Functor F, !Is1Functor F, !Is2Functor F}
+  {a b c : A} {f f' : a $-> b} (p : f $== f') (g : b $-> c)
+  : fmap2 F (g $@L p) $@ fmap_comp F f' g
+    $== fmap_comp F f g $@ (fmap F g $@L fmap2 F p)
+  := (fmap2_postwhisker F p g)^$.
+
 (** Naturality of a pseudofunctor compositor when only the second
     morphism varies. *)
 Definition fmap2_prewhisker
@@ -108,6 +119,15 @@ Proof.
   napply cat_comp2_homotopic_idl.
   exact (fmap_id (@fmap _ _ _ _ F _ a b) f).
 Defined.
+
+(** The opposite orientation of [fmap2_prewhisker]. *)
+Definition fmap2_prewhisker_opp
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : A -> B) `{!Is0Functor F, !Is1Functor F, !Is2Functor F}
+  {a b c : A} (f : a $-> b) {g g' : b $-> c} (q : g $== g')
+  : fmap2 F (q $@R f) $@ fmap_comp F f g'
+    $== fmap_comp F f g $@ (fmap2 F q $@R fmap F f)
+  := (fmap2_prewhisker F f q)^$.
 
 Definition fmap_cylinder
   {A B : Type} `{Is21Cat A, Is21Cat B}
@@ -204,6 +224,62 @@ Arguments nattrans_pseudonat
   {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} p : rename.
 Arguments pseudonat_2cell
   {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} p {a b f g} q : rename.
+Arguments pseudonat_id
+  {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} p a : rename.
+Arguments pseudonat_comp
+  {A B _ _ _ _ _ _ _ _ _ _ _ _ F G} p {a b c} f g : rename.
+
+Definition pseudonat_comp_component_1gpd
+  {A : Type} `{Is21Cat A}
+  {F G : Fun22 A OneGpd} (alpha : PseudoNatTrans F G)
+  {a b c : A} (f : a $-> b) (g : b $-> c) (x : F a)
+  : OneGpdHom
+      (isnat alpha (g $o f) x)
+      (onegpd_comp
+        (onegpd_comp
+          (onegpd_comp
+            (onegpd_fmap (alpha c) (fmap_comp F f g x))
+            (isnat alpha g (fmap F f x)))
+          (onegpd_fmap (fmap G g) (isnat alpha f x)))
+        (onegpd_rev (fmap_comp G f g (alpha a x)))).
+Proof.
+  rapply onegpd_hom_comp.
+  - exact ((pseudonat_comp alpha f g) x).
+  - cbn.
+    lhs' exact (_ $@L (_ $@L (_ $@L (_ $@L (_ $@L
+      ((gpd_rev_1 $@R _) $@ cat_idl _)))))).
+    lhs' exact (_ $@L (_ $@L (_ $@L cat_idl _))).
+    lhs' exact (_ $@L ((gpd_rev_1 $@R _) $@ cat_idl _)).
+    rapply onegpd_hom_id.
+Defined.
+
+(** Solving the compositor law for the target compositor gives the
+    form used when a pseudonatural transformation is evaluated at an
+    identity morphism. *)
+Definition pseudonat_comp_cancel_component_1gpd
+  {A : Type} `{Is21Cat A}
+  {F G : Fun22 A OneGpd} (alpha : PseudoNatTrans F G)
+  {a b c : A} (f : a $-> b) (g : b $-> c) (x : F a)
+  : OneGpdHom
+      (onegpd_comp
+        (fmap_comp G f g (alpha a x))
+        (onegpd_fmap (fmap G g)
+          (onegpd_rev (isnat alpha f x))))
+      (onegpd_comp
+        (onegpd_comp
+          (onegpd_rev (isnat alpha (g $o f) x))
+          (onegpd_fmap (alpha c) (fmap_comp F f g x)))
+        (isnat alpha g (fmap F f x))).
+Proof.
+  lhs' exact (onegpd_hom_prewhisker
+    (onegpd_fmap_rev (fmap G g) (isnat alpha f x)) _).
+  pose (coh := pseudonat_comp_component_1gpd alpha f g x).
+  pose (move := onegpd_solve_inverse_left coh).
+  lhs' exact (onegpd_hom_postwhisker _ move).
+  lhs' exact (onegpd_hom_assoc _ _ _).
+  lhs' exact (onegpd_hom_prewhisker (onegpd_hom_V_hh _ _) _).
+  exact (onegpd_hom_assoc_opp _ _ _).
+Defined.
 
 (** A modification is a pointwise 2-cell satisfying the cylinder condition between the naturality 2-cells. *)
 Record Modification {A B : Type} `{Is21Cat A} `{Is21Cat B}
@@ -222,6 +298,26 @@ Arguments modification_component
   {A B _ _ _ _ _ _ _ _ _ _ _ _ F G alpha beta} m a : rename.
 Arguments modification_isnatural
   {A B _ _ _ _ _ _ _ _ _ _ _ _ F G alpha beta} m {a b} f : rename.
+
+(** Solving a modification cylinder for the inverse of the lower
+    naturality cell. *)
+Definition modification_isnatural_cancel_component_1gpd
+  {A : Type} `{Is21Cat A}
+  {F G : Fun22 A OneGpd}
+  {alpha beta : PseudoNatTrans F G}
+  (p : Modification alpha beta)
+  {a b : A} (f : a $-> b) (x : F a)
+  : OneGpdHom
+      (onegpd_comp
+        (onegpd_fmap (fmap G f) (modification_component p a x))
+        (onegpd_rev (isnat beta f x)))
+      (onegpd_comp
+        (onegpd_rev (isnat alpha f x))
+        (modification_component p b (fmap F f x))).
+Proof.
+  exact (onegpd_hom_rev
+    ((hinverse_square_gpd (modification_isnatural p f)) x)).
+Defined.
 
 Definition modification_id
   {A B : Type} `{Is21Cat A} `{Is21Cat B}
@@ -352,6 +448,18 @@ Proof.
     exact (gpd_issect (modification_component p a)). }
   intros alpha beta p a.
   exact (gpd_isretr (modification_component p a)).
+Defined.
+
+(** The hom 1-groupoid between coherent functors.  Its objects are
+    pseudonatural transformations, its morphisms are modifications, and
+    its higher morphisms are pointwise 3-cells. *)
+Definition pseudonat_1gpd
+  {A B : Type} `{Is21Cat A} `{Is21Cat B}
+  (F G : Fun22 A B)
+  : OneGpd.
+Proof.
+  napply (Build_OneGpd (PseudoNatTrans F G)).
+  all: exact _.
 Defined.
 
 (** ** The coherent-functor hierarchy *)

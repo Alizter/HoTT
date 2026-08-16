@@ -124,6 +124,15 @@ Record Fun11 (A B : Type) `{Is1Cat A} `{Is1Cat B} :=
 
 Coercion fun11_fun : Fun11 >-> Funclass.
 
+(** Action of a bundled 1-functor on a morphism.  This keeps callers
+    independent of the representation of morphisms in a functor
+    category. *)
+Definition fun11_fmap
+  {A B : Type} `{Is1Cat A, Is1Cat B}
+  (F : Fun11 A B) {a b : A} (f : a $-> b)
+  : F a $-> F b
+  := fmap F f.
+
 Arguments Build_Fun11 A B
   {isgraph_A is2graph_A is01cat_A is1cat_A
    isgraph_B is2graph_B is01cat_B is1cat_B}

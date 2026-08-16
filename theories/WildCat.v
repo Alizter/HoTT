@@ -42,3 +42,5 @@ Require Export WildCat.TwoOneCat.
 Require Export WildCat.OneGroupoid.
 Require Export WildCat.Cylinder.
 Require Export WildCat.TwoFunctor.
+
+Require Export WildCat.TwoYoneda.

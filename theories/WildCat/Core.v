@@ -576,6 +576,15 @@ Definition gpd_moveL_Vh {A : Type} `{Is1Gpd A} {x y z : A} {p : y $-> z}
   : q $== p^$ $o r
   := (gpd_moveR_Vh s^$)^$.
 
+(** Solve an equation whose right-hand side begins with an inverse:
+    from [p = q^-1 o r], obtain [q = r o p^-1]. *)
+Definition gpd_solve_inverse_left
+  {A : Type} `{Is1Gpd A}
+  {x y z : A} {p : x $-> z} {q : z $-> y} {r : x $-> y}
+  (h : p $== q^$ $o r)
+  : q $== r $o p^$
+  := gpd_moveL_hV ((q $@L h) $@ gpd_h_Vh q r).
+
 Definition gpd_cancelR {A : Type} `{Is1Gpd A} {x y z : A}
   (p q : y $-> z) (r : x $-> y)
   : p $o r $== q $o r -> p $== q.
