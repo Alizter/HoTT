@@ -1,7 +1,7 @@
 Require Import Basics.Overture Basics.Tactics.
 Require Import WildCat.Core WildCat.NatTrans WildCat.FunctorCat WildCat.TwoOneCat
-  WildCat.Cylinder WildCat.Equiv WildCat.OneGroupoid WildCat.Square
-  WildCat.TwoFunctor.
+  WildCat.Cylinder WildCat.Equiv WildCat.OneGroupoid WildCat.Opposite
+  WildCat.Square WildCat.TwoFunctor.
 
 Set Typeclasses Depth 3.
 
@@ -69,6 +69,79 @@ Definition opyon1_1gpd
   {A : Type} `{Is21Cat A} (a : A)
   : Fun12 A OneGpd
   := Build_Fun12 (opyon_1gpd a).
+
+(** The contravariant hom functor is defined directly rather than by applying
+    [opyon_1gpd] to [A^op], since the library deliberately does not install a
+    global [(2,1)]-category instance on opposite categories. *)
+Definition yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A) (b : A^op) : OneGpd
+  := hom_1gpd (A := A) b a.
+
+Global Instance is0functor_yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A)
+  : Is0Functor (A := A^op) (yon_1gpd a).
+Proof.
+  snapply Build_Is0Functor.
+  intros b c f.
+  unfold op in b, c.
+  change (c $-> b) in f.
+  change (Fun11 (b $-> a) (c $-> a)).
+  exact (Build_Fun11 _ _ (cat_precomp a f)).
+Defined.
+
+Definition fmap2_yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A)
+  {b c : A^op} {f g : b $-> c} (p : f $== g)
+  : fmap (yon_1gpd a) f $== fmap (yon_1gpd a) g.
+Proof.
+  unfold op in b, c.
+  change (c $-> b) in f, g.
+  change (f $== g) in p.
+  snapply Build_NatTrans.
+  - exact (fun h => h $@L p).
+  - snapply Build_Is1Natural.
+    intros h h' q.
+    exact (bifunctor_coh_comp p q).
+Defined.
+
+Definition fmap_id_yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A) (b : A^op)
+  : fmap (yon_1gpd a) (Id b) $== Id (yon_1gpd a b).
+Proof.
+  unfold op in b.
+  snapply Build_NatTrans.
+  - exact cat_idr.
+  - exact (is1natural_cat_idr b a).
+Defined.
+
+Definition fmap_comp_yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A)
+  {b c d : A^op} (f : b $-> c) (g : c $-> d)
+  : fmap (yon_1gpd a) (g $o f)
+    $== fmap (yon_1gpd a) g $o fmap (yon_1gpd a) f.
+Proof.
+  unfold op in b, c, d.
+  change (c $-> b) in f.
+  change (d $-> c) in g.
+  exact (nattrans_inverse_gpd
+    (Build_NatTrans (fun h => cat_assoc g f h)
+      (is1natural_cat_assoc_l d c b a g f))).
+Defined.
+
+Global Instance is1functor_yon_1gpd
+  {A : Type} `{Is21Cat A} (a : A)
+  : Is1Functor (A := A^op) (yon_1gpd a).
+Proof.
+  snapply Build_Is1Functor.
+  - exact (fun b c f g => fmap2_yon_1gpd a).
+  - exact (fmap_id_yon_1gpd a).
+  - exact (fun b c d => fmap_comp_yon_1gpd a).
+Defined.
+
+Definition yon1_1gpd
+  {A : Type} `{Is21Cat A} (a : A)
+  : Fun12 A^op OneGpd
+  := Build_Fun12 (yon_1gpd a).
 
 Definition is1functor_fmap_opyon_1gpd
   {A : Type} `{Is21Cat A} (a b c : A)

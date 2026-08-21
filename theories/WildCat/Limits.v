@@ -1,7 +1,7 @@
 Require Import Basics.Overture Basics.PathGroupoids Basics.Tactics.
-Require Import WildCat.Core WildCat.Cylinder WildCat.Equiv
-  WildCat.FunctorCat WildCat.NatTrans WildCat.OneGroupoid WildCat.Square
-  WildCat.TwoFunctor WildCat.TwoOneCat WildCat.TwoYoneda.
+Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
+  WildCat.FunctorCat WildCat.NatTrans WildCat.OneGroupoid WildCat.Opposite
+  WildCat.Square WildCat.TwoFunctor WildCat.TwoOneCat WildCat.TwoYoneda.
 
 Set Typeclasses Depth 3.
 
@@ -319,6 +319,19 @@ Definition cone_1gpd
   (X : Fun02 J A) (a : A) : OneGpd
   := hom_1gpd (diagonal02 A J a) X.
 
+(** In the apex variable, cones form the composite contravariant functor
+    [A^op -> (Fun02 J A)^op -> OneGpd] given by the opposite diagonal followed
+    by the representable hom functor. *)
+Definition fun12_diagonal02_op
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  : Fun12 A^op (Fun02 J A)^op
+  := Build_Fun12 (diagonal02 A J : A^op -> (Fun02 J A)^op).
+
+Definition fun12_cone_1gpd
+  {A J : Type} `{Is21Cat A, IsGraph J} (X : Fun02 J A)
+  : Fun12 A^op OneGpd
+  := fun12_compose (yon1_1gpd X) fun12_diagonal02_op.
+
 (** Composition with a specified cone. *)
 Definition limit_cone_map
   {A J : Type} `{Is21Cat A, IsGraph J}
@@ -404,6 +417,11 @@ Class Limit
 Arguments cat_limit J {A _ _ _ _ _ _ _} X {limit} : rename.
 Arguments cat_limit_cone J {A _ _ _ _ _ _ _} X {limit} : rename.
 Arguments cat_islimit_cone J {A _ _ _ _ _ _ _} X {limit} : rename.
+
+(** A coherent choice of a universal cone for every diagram of shape [J]. *)
+Class HasLimits
+  (J A : Type) `{IsGraph J, Is21Cat A}
+  := has_limits :: forall X : Fun02 J A, Limit J X.
 
 (** ** Local universal-cone API *)
 
@@ -605,4 +623,239 @@ Proof.
       (cate_buildequiv_fun
         (limit_apex_map lambda mu Hmu))
     $@ limit_apex_map_beta lambda mu Hmu).
+Defined.
+
+(** ** Chosen limit functor *)
+
+(** A transformation of diagrams induces the unique map between their chosen
+    limit apexes whose composite with the target cone is the transformed source
+    cone. *)
+Definition cat_limit_map
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {X Y : Fun02 J A} (f : X $-> Y)
+  : cat_limit J X $-> cat_limit J Y
+  := limit_corec Y (f $o cat_limit_cone J X).
+
+Definition cat_limit_map_beta
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {X Y : Fun02 J A} (f : X $-> Y)
+  : limit_cone_map Y (cat_limit J Y) (cat_limit_cone J Y)
+      (cat_limit J X) (cat_limit_map f)
+    $== f $o cat_limit_cone J X
+  := limit_beta Y (f $o cat_limit_cone J X).
+
+(** The higher-cell action is inherited from the inverse of the cone-mapping
+    equivalence, rather than chosen independently. *)
+Definition cat_limit_map_modification
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {X Y : Fun02 J A} {f g : X $-> Y} (p : f $== g)
+  : cat_limit_map f $== cat_limit_map g
+  := limit_corec_modification Y (p $@R cat_limit_cone J X).
+
+Definition cat_limit_map_3cell
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {X Y : Fun02 J A} {f g : X $-> Y}
+  {p q : f $== g} (h : p $== q)
+  : cat_limit_map_modification p
+    $== cat_limit_map_modification q
+  := limit_corec_3cell Y
+      (fmap2 (cat_precomp Y (cat_limit_cone J X)) h).
+
+(** Identity and composition coherence are forced by uniqueness of maps into
+    the chosen universal cones. *)
+Definition cat_limit_map_id
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  (X : Fun02 J A)
+  : cat_limit_map (Id X) $== Id (cat_limit J X).
+Proof.
+  exact ((limit_corec_unique X
+    (Id X $o cat_limit_cone J X)
+    (Id (cat_limit J X))
+    (limit_cone_map_id (cat_limit_cone J X)
+      $@ (cat_idl (cat_limit_cone J X))^$))^$).
+Defined.
+
+Definition cat_limit_map_comp
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {X Y Z : Fun02 J A} (f : X $-> Y) (g : Y $-> Z)
+  : cat_limit_map (g $o f)
+    $== cat_limit_map g $o cat_limit_map f.
+Proof.
+  pose (lf := cat_limit_map f).
+  pose (lg := cat_limit_map g).
+  exact ((limit_corec_unique Z
+    ((g $o f) $o cat_limit_cone J X) (lg $o lf)
+    ((cat_limit_cone J Z $@L fmap_comp (diagonal02 A J) lf lg)
+      $@ cat_assoc_opp
+        (fmap (diagonal02 A J) lf)
+        (fmap (diagonal02 A J) lg)
+        (cat_limit_cone J Z)
+      $@ (cat_limit_map_beta g $@R fmap (diagonal02 A J) lf)
+      $@ cat_assoc
+        (fmap (diagonal02 A J) lf)
+        (cat_limit_cone J Y) g
+      $@ (g $@L cat_limit_map_beta f)
+      $@ cat_assoc_opp (cat_limit_cone J X) f g))^$).
+Defined.
+
+Global Instance is0functor_cat_limit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : Is0Functor (fun X : Fun02 J A => cat_limit J X)
+  := Build_Is0Functor _ (fun _ _ => cat_limit_map).
+
+Global Instance is1functor_cat_limit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : Is1Functor (fun X : Fun02 J A => cat_limit J X).
+Proof.
+  snapply Build_Is1Functor.
+  - exact (fun X Y f g => cat_limit_map_modification).
+  - exact cat_limit_map_id.
+  - exact (fun X Y Z => cat_limit_map_comp).
+Defined.
+
+Definition fun12_cat_limit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : Fun12 (Fun02 J A) A
+  := Build_Fun12 (fun X => cat_limit J X).
+
+(** ** The diagonal-limit adjunction *)
+
+(** The chosen cones assemble into the counit. *)
+Definition cat_limit_counit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : NatTrans
+      (fun12_compose (fun12_fun22 (fun22_diagonal02 A J))
+        fun12_cat_limit)
+      fun12_id.
+Proof.
+  snapply Build_NatTrans.
+  - exact (fun X => cat_limit_cone J X).
+  - snapply Build_Is1Natural.
+    intros X Y f.
+    exact (cat_limit_map_beta f).
+Defined.
+
+(** The unit is the map induced by the identity cone on a constant diagram. *)
+Definition cat_limit_unit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  (a : A)
+  : a $-> cat_limit J (diagonal02 A J a)
+  := limit_corec (diagonal02 A J a) (Id (diagonal02 A J a)).
+
+Definition cat_limit_unit_beta
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  (a : A)
+  : limit_cone_map
+      (diagonal02 A J a)
+      (cat_limit J (diagonal02 A J a))
+      (cat_limit_cone J (diagonal02 A J a))
+      a (cat_limit_unit (J := J) a)
+    $== Id (diagonal02 A J a)
+  := limit_beta (diagonal02 A J a) (Id (diagonal02 A J a)).
+
+Definition cat_limit_unit_naturality
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  {a b : A} (f : a $-> b)
+  : cat_limit_unit (J := J) b $o f
+    $== cat_limit_map (fmap (diagonal02 A J) f)
+      $o cat_limit_unit (J := J) a.
+Proof.
+  pose (df := fmap (diagonal02 A J) f).
+  pose (ua := cat_limit_unit (J := J) a).
+  pose (ub := cat_limit_unit (J := J) b).
+  pose (lf := cat_limit_map df).
+  change (ub $o f $== lf $o ua).
+  napply (limit_cone_map_reflects
+    (cat_limit_cone J (diagonal02 A J b))
+    (cat_islimit_cone J (diagonal02 A J b))).
+  exact (
+    (cat_limit_cone J (diagonal02 A J b)
+      $@L fmap_comp (diagonal02 A J) f ub)
+    $@ cat_assoc_opp
+      (fmap (diagonal02 A J) f)
+      (fmap (diagonal02 A J) ub)
+      (cat_limit_cone J (diagonal02 A J b))
+    $@ (cat_limit_unit_beta (J := J) b
+      $@R fmap (diagonal02 A J) f)
+    $@ cat_idl (fmap (diagonal02 A J) f)
+    $@ (
+      (cat_limit_cone J (diagonal02 A J b)
+        $@L fmap_comp (diagonal02 A J) ua lf)
+      $@ cat_assoc_opp
+        (fmap (diagonal02 A J) ua)
+        (fmap (diagonal02 A J) lf)
+        (cat_limit_cone J (diagonal02 A J b))
+      $@ (cat_limit_map_beta df
+        $@R fmap (diagonal02 A J) ua)
+      $@ cat_assoc
+        (fmap (diagonal02 A J) ua)
+        (cat_limit_cone J (diagonal02 A J a)) df
+      $@ (df $@L cat_limit_unit_beta (J := J) a)
+      $@ cat_idr df)^$).
+Defined.
+
+Definition cat_limit_unit_nattrans
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : NatTrans fun12_id
+      (fun12_compose fun12_cat_limit
+        (fun12_fun22 (fun22_diagonal02 A J))).
+Proof.
+  snapply Build_NatTrans.
+  - exact (fun a => cat_limit_unit (J := J) a).
+  - snapply Build_Is1Natural.
+    exact (fun a b => cat_limit_unit_naturality (J := J)).
+Defined.
+
+Definition cat_limit_triangle_l
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  (a : A)
+  : (cat_limit_counit (J := J)) (diagonal02 A J a)
+      $o fmap (diagonal02 A J) (cat_limit_unit (J := J) a)
+    $== Id (diagonal02 A J a)
+  := cat_limit_unit_beta (J := J) a.
+
+Definition cat_limit_triangle_r
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  (X : Fun02 J A)
+  : cat_limit_map (cat_limit_cone J X)
+      $o cat_limit_unit (J := J) (cat_limit J X)
+    $== Id (cat_limit J X).
+Proof.
+  pose (c := cat_limit_cone J X).
+  pose (u := cat_limit_unit (J := J) (cat_limit J X)).
+  pose (lc := cat_limit_map c).
+  change (lc $o u $== Id (cat_limit J X)).
+  napply (limit_cone_map_reflects c (cat_islimit_cone J X)).
+  exact (
+    (c $@L fmap_comp (diagonal02 A J) u lc)
+    $@ cat_assoc_opp
+      (fmap (diagonal02 A J) u)
+      (fmap (diagonal02 A J) lc) c
+    $@ (cat_limit_map_beta c $@R fmap (diagonal02 A J) u)
+    $@ cat_assoc
+      (fmap (diagonal02 A J) u)
+      (cat_limit_cone J (diagonal02 A J (cat_limit J X))) c
+    $@ (c $@L cat_limit_unit_beta (J := J) (cat_limit J X))
+    $@ cat_idr c
+    $@ (limit_cone_map_id c)^$).
+Defined.
+
+(** A coherent choice of local universal cones therefore determines the
+    diagonal-limit adjunction; the adjunction is derived data, not an
+    additional field of [HasLimits]. *)
+Definition gpd_adjunction_cat_limit
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
+  : GpdAdjunction
+      (fun12_fun22 (fun22_diagonal02 A J))
+      (fun12_cat_limit (J := J)).
+Proof.
+  napply (Build_GpdAdjunction_unit_counit
+    (fun12_fun22 (fun22_diagonal02 A J))
+    (fun12_cat_limit (J := J))
+    (cat_limit_counit (J := J))
+    (cat_limit_unit_nattrans (J := J))).
+  - exact (cat_limit_triangle_l (J := J)).
+  - exact (cat_limit_triangle_r (J := J)).
+  Unshelve.
+  all: exact _.
 Defined.

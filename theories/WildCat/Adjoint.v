@@ -4,7 +4,7 @@ Require Import WildCat.NatTrans.
 Require Import WildCat.Equiv.
 Require Import WildCat.Prod.
 Require Import WildCat.Opposite.
-Require Import WildCat.Yoneda.
+Require Import WildCat.Yoneda WildCat.ZeroGroupoid.
 Require Import WildCat.FunctorCat.
 Require Import WildCat.Universe.
 Require Import Types.Prod.
@@ -58,6 +58,129 @@ Arguments is1natural_equiv_adjunction_r {C D F G
   is0functor_F is0functor_G} adj x : rename.
 
 Notation "F ⊣ G" := (Adjunction F G).
+
+(** ** Adjunctions enriched in 0-groupoids *)
+
+(** This form retains homotopies between morphisms and does not require
+    morphism extensionality. *)
+Record GpdAdjunction {A B : Type} (F : A -> B) (G : B -> A)
+  `{Is1Cat A, Is1Cat B, !Is0Functor F, !Is0Functor G} := {
+  equiv_gpd_adjunction (x : A) (y : B)
+    : opyon_0gpd (F x) y $<~> opyon_0gpd x (G y);
+  is1natural_equiv_gpd_adjunction_l (y : B)
+    :: Is1Natural (A := A^op)
+         (isgraph_A := isgraph_op)
+         (is0functor_F := is0functor_compose
+           (A := A^op) (B := B^op) (C := ZeroGpd)
+           F (yon_0gpd y))
+         (is0functor_G := is0functor_yon_0gpd (G y))
+         (yon_0gpd y o F) (yon_0gpd (G y))
+         (fun x => cate_fun (equiv_gpd_adjunction x y));
+  is1natural_equiv_gpd_adjunction_r (x : A)
+    :: Is1Natural
+         (is0functor_F := is0functor_opyon_0gpd (F x))
+         (is0functor_G := is0functor_compose
+           (A := B) (B := A) (C := ZeroGpd)
+           G (opyon_0gpd x))
+         (opyon_0gpd (F x)) (opyon_0gpd x o G)
+         (fun y => cate_fun (equiv_gpd_adjunction x y));
+}.
+
+Section BuildGpdAdjunction.
+  Context {A B : Type} (F : A -> B) (G : B -> A)
+    `{Is1Cat A, Is1Cat B,
+      !Is0Functor F, !Is1Functor F,
+      !Is0Functor G, !Is1Functor G}
+    (epsilon : NatTrans (F o G) idmap)
+    (eta : NatTrans idmap (G o F))
+    (triangle1 : Transformation
+      (nattrans_comp
+        (nattrans_prewhisker epsilon F)
+        (nattrans_postwhisker F eta))
+      (nattrans_id F))
+    (triangle2 : Transformation
+      (nattrans_comp
+        (nattrans_postwhisker G epsilon)
+        (nattrans_prewhisker eta G))
+      (nattrans_id G)).
+
+  Local Definition gpd_adjunction_hom (x : A) (y : B)
+    : opyon_0gpd (F x) y $<~> opyon_0gpd x (G y).
+  Proof.
+    snapply cate_adjointify.
+    - snapply Build_Fun01'.
+      + exact (fun f => fmap G f $o eta x).
+      + intros f g p.
+        exact (fmap2 G p $@R eta x).
+    - snapply Build_Fun01'.
+      + exact (fun g => epsilon y $o fmap F g).
+      + intros f g p.
+        exact (epsilon y $@L fmap2 F p).
+    - intro f.
+      lhs' exact (fmap_comp G _ _ $@R _).
+      lhs' exact (cat_assoc _ _ _).
+      lhs' exact (_ $@L (isnat eta f)^$).
+      lhs' exact (cat_assoc_opp _ _ _).
+      lhs' exact (triangle2 y $@R _).
+      exact (cat_idl _).
+    - intro g.
+      lhs' exact (_ $@L fmap_comp F _ _).
+      lhs' exact (cat_assoc_opp _ _ _).
+      lhs' exact (isnat epsilon g $@R _).
+      lhs' exact (cat_assoc _ _ _).
+      lhs' exact (_ $@L triangle1 x).
+      exact (cat_idr _).
+  Defined.
+
+  Local Instance is1natural_gpd_adjunction_hom_l
+    : forall y : B, Is1Natural (A := A^op)
+        (isgraph_A := isgraph_op)
+        (is0functor_F := is0functor_compose
+          (A := A^op) (B := B^op) (C := ZeroGpd)
+          F (yon_0gpd y))
+        (is0functor_G := is0functor_yon_0gpd (G y))
+        (yon_0gpd y o F) (yon_0gpd (G y))
+        (fun x => cate_fun (gpd_adjunction_hom x y)).
+  Proof.
+    intro y.
+    snapply Build_Is1Natural.
+    intros x' x f h.
+    unfold op in x', x, f.
+    cbn.
+    refine ((fmap_comp G _ _ $@R _) $@ _).
+    refine (cat_assoc _ _ _ $@ _).
+    pose (p := isnat_tr (alnat := is1natural_nattrans eta)
+      (a := x) (a' := x') eta f).
+    refine ((_ $@L p) $@ _).
+    exact (cat_assoc_opp _ _ _).
+  Defined.
+
+  Local Instance is1natural_gpd_adjunction_hom_r
+    : forall x : A, Is1Natural
+        (is0functor_F := is0functor_opyon_0gpd (F x))
+        (is0functor_G := is0functor_compose
+          (A := B) (B := A) (C := ZeroGpd)
+          G (opyon_0gpd x))
+        (opyon_0gpd (F x)) (opyon_0gpd x o G)
+        (fun y => cate_fun (gpd_adjunction_hom x y)).
+  Proof.
+    intro x.
+    snapply Build_Is1Natural.
+    intros y y' g h.
+    cbn.
+    refine ((fmap_comp G _ _ $@R _) $@ _).
+    exact (cat_assoc _ _ _).
+  Defined.
+
+  Definition Build_GpdAdjunction_unit_counit
+    : GpdAdjunction F G.
+  Proof.
+    snapply Build_GpdAdjunction.
+    - exact gpd_adjunction_hom.
+    - exact is1natural_gpd_adjunction_hom_l.
+    - exact is1natural_gpd_adjunction_hom_r.
+  Defined.
+End BuildGpdAdjunction.
 
 
 (** TODO: move but where? *)

@@ -543,12 +543,12 @@ The intended permanent dependency order is:
 
 1. `OneGroupoid.v`: the category of 1-groupoids and its standard
    `CatIsEquiv` structure;
-2. a permanent coherent-Yoneda module extracted from
-   `CohYonedaScratch.v`;
+2. `TwoYoneda.v`: the permanent coherent covariant and contravariant
+   `OneGpd`-valued Yoneda constructions;
 3. `Limits.v`: diagonal, cone mapping objects, universal cones, and derived
    local operations;
-4. chosen-limit functoriality and adjunction, either later in `Limits.v` or in a
-   focused companion module if the file becomes too large;
+4. chosen-limit functoriality and the diagonal adjunction, implemented later
+   in `Limits.v`;
 5. `Colimits.v`: a thin public dual interface implemented through limits in
    opposite categories, following `Coproducts.v`;
 6. shape-specific limit modules such as pullbacks, with colimit modules such
@@ -570,8 +570,8 @@ sources to inspect.  Permanent modules must not import them.
 
 - [x] Define the coherent diagonal for `Fun02` diagrams.
 - [x] Define `cone_1gpd`.
-- [ ] Package the contravariant apex functoriality of `cone_1gpd` when it is
-      required by the chosen-limit construction.
+- [x] Package the contravariant apex functoriality of `cone_1gpd` as
+      `fun12_cone_1gpd`.
 - [x] Define `limit_cone_map` as a 1-functor.
 - [x] Audit the signature with universe printing and accept the bundled
       `CatIsEquiv` small-shape universe policy.
@@ -588,10 +588,13 @@ sources to inspect.  Permanent modules must not import them.
 
 ### Chosen limits
 
-- [ ] Define `HasLimits` as a choice of local universal cone for every diagram.
-- [ ] Derive the limit operation on transformations and modifications.
-- [ ] Prove its functor laws from universal uniqueness.
-- [ ] Prove the adjunction with the diagonal as a theorem.
+- [x] Define `HasLimits` as a choice of local universal cone for every diagram.
+- [x] Derive the limit operation on transformations, modifications, and
+      higher cells.
+- [x] Prove its functor laws from universal uniqueness and package it as
+      `fun12_cat_limit`.
+- [x] Prove the `GpdAdjunction` with the diagonal from the derived unit,
+      counit, naturality, and triangle identities.
 
 ### Opposite-category colimit interface
 
@@ -617,6 +620,8 @@ sources to inspect.  Permanent modules must not import them.
 
 ### Validation
 
+- [x] Build and assumption-audit `fun12_cone_1gpd`, `fun12_cat_limit`, and
+      `gpd_adjunction_cat_limit`; all are closed under the global context.
 - [ ] Show that the discrete limit specializes to the existing `Product`
       universal property.
 - [ ] Confirm that the dual discrete interface specializes as

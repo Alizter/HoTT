@@ -217,8 +217,8 @@ design reference; permanent limit modules must not import it.
       mediating maps from that universal cone.
 - [x] Derive transport of universality and categorical unicity of universal
       cones.
-- [ ] Define `HasLimits` as a choice of universal cone and derive the limit
-      functor and its adjunction with the diagonal.
+- [x] Define `HasLimits` as a choice of universal cone, derive the coherent
+      `Fun12` limit functor, and prove its `GpdAdjunction` with the diagonal.
 - [ ] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
       including the coherence on transformations and modifications.
 - [ ] Prove abstract limit Fubini by showing the row-first and column-first
@@ -240,8 +240,8 @@ pushout mate/unmate machinery.
 
 Reusable prototypes already present:
 
-- `TwoYoneda.v` now contains the permanent coherent `OneGpd` Yoneda
-  constructions needed to state the universal property.
+- `TwoYoneda.v` now contains the permanent covariant and contravariant
+  `OneGpd`-valued Yoneda constructions used by universal cones.
 - `LimitsScratch.v` contains coherent diagonals, argument swap, pointwise
   machinery, and Fubini calculations to inspect while deriving the permanent
   limit-first interfaces.
@@ -249,14 +249,14 @@ Reusable prototypes already present:
   statements for the eventual opposite-category specialization.
 
 The coherent-Yoneda foundation, specified universal cones, local corecursor
-API, transport, and categorical unicity are now permanent.  Diagram shapes
-follow the explicit policy that they are small relative to the ambient
-category.  The next implementation increments are:
+API, transport, categorical unicity, chosen limit functor, and diagonal-limit
+adjunction are now permanent. Diagram shapes follow the explicit policy that
+they are small relative to the ambient category. The next implementation
+increments are:
 
-1. define `HasLimits`, chosen-limit functoriality, and the diagonal adjunction;
-2. derive pointwise limits;
-3. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
-4. only then expose the colimit and pushout APIs by duality.
+1. derive pointwise limits from chosen limits in the ambient category;
+2. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
+3. only then expose the colimit and pushout APIs by duality.
 
 The scratch files last built successfully. Keep them building as reference
 material, but do not make permanent modules depend on them.
@@ -304,6 +304,9 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
       `limit_apex_equiv_cone` are closed under the global context.  The
       interface deliberately uses bundled `CatIsEquiv` under the small-shape
       universe policy.
+- [x] Build and assumption-audit the chosen-limit API;
+      `fun12_cone_1gpd`, `fun12_cat_limit`, and
+      `gpd_adjunction_cat_limit` are closed under the global context.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.
