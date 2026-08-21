@@ -210,10 +210,12 @@ design reference; permanent limit modules must not import it.
 
 - [x] Move the required coherent `OneGpd` Yoneda constructions into the
       permanent `theories/WildCat/TwoYoneda.v` module.
-- [ ] Define `IsLimitCone` and `Limit` from a specified cone whose induced map
+- [x] Define `IsLimitCone` and `Limit` from a specified cone whose induced map
       on mapping `OneGpd`s is a categorical equivalence.
-- [ ] Derive corecursion, beta, eta, higher-cell action, transport, and
-      categorical unicity from that universal cone.
+- [x] Derive corecursion, beta, eta, higher-cell action, and uniqueness of
+      mediating maps from that universal cone.
+- [ ] Derive transport of universality and categorical unicity of universal
+      cones.
 - [ ] Define `HasLimits` as a choice of universal cone and derive the limit
       functor and its adjunction with the diagonal.
 - [ ] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
@@ -294,7 +296,9 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] `git diff --check` currently passes.
 - [x] Build and assumption-audit the permanent coherent-Yoneda module;
       `opyoneda_equiv_1gpd` is closed under the global context.
-- [ ] Build and assumption-audit each permanent limit module as it is introduced.
+- [x] Build and assumption-audit the permanent local limit module;
+      `fun22_diagonal02`, `Limit`, and `limit_corec_unique` are closed under
+      the global context.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.

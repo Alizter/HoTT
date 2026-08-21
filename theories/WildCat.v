@@ -44,3 +44,4 @@ Require Export WildCat.Cylinder.
 Require Export WildCat.TwoFunctor.
 
 Require Export WildCat.TwoYoneda.
+Require Export WildCat.Limits.
