@@ -341,6 +341,58 @@ Definition IsLimitCone
   (lambda : diagonal02 A J l $-> X) : Type
   := forall a : A, CatIsEquiv (limit_cone_map X l lambda a).
 
+Definition limit_cone_map_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (a : A)
+  : limit_cone_map X l alpha a
+    $== limit_cone_map X l beta a.
+Proof.
+  snapply Build_NatTrans.
+  - intro k.
+    change (a $-> l) in k.
+    exact (natmod_precompose (fmap (diagonal02 A J) k) h).
+  - snapply Build_Is1Natural.
+    intros k k' p.
+    exact (bifunctor_coh_comp
+      (fmap2 (diagonal02 A J) p) h)^$.
+Defined.
+
+Definition islimitcone_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (Halpha : IsLimitCone X l alpha)
+  : IsLimitCone X l beta.
+Proof.
+  intro a.
+  pose (e := Build_CatEquiv (fe := Halpha a)
+    (limit_cone_map X l alpha a)).
+  napply (catie_homotopic (cate_fun e)).
+  - exact _.
+  - exact (limit_cone_map_homotopic h a).
+Defined.
+
+Local Definition limit_cone_map_cate_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone X l lambda) (a : A)
+  : hom_1gpd a l $<~> cone_1gpd X a
+  := Build_CatEquiv (fe := Hlambda a)
+      (limit_cone_map X l lambda a).
+
+(** The inverse mapping functor associated to an explicitly universal cone. *)
+Definition limit_cone_map_inv_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone X l lambda) (a : A)
+  : Fun11 (cone_1gpd X a) (hom_1gpd a l)
+  := cate_fun (cate_inv
+      (limit_cone_map_cate_of_islimitcone lambda Hlambda a)).
+
 Class Limit
   (J : Type) {A : Type} `{IsGraph J, Is21Cat A}
   (X : Fun02 J A) := Build_Limit {
@@ -355,14 +407,12 @@ Arguments cat_islimit_cone J {A _ _ _ _ _ _ _} X {limit} : rename.
 
 (** ** Local universal-cone API *)
 
-Definition cate_limit_cone_map
+Definition limit_cone_map_inv
   {A J : Type} `{Is21Cat A, IsGraph J}
   (X : Fun02 J A) `{!Limit J X} (a : A)
-  : hom_1gpd a (cat_limit J X) $<~> cone_1gpd X a.
-Proof.
-  napply Build_CatEquiv.
-  exact (cat_islimit_cone J X a).
-Defined.
+  : Fun11 (cone_1gpd X a) (hom_1gpd a (cat_limit J X))
+  := limit_cone_map_inv_of_islimitcone
+      (cat_limit_cone J X) (cat_islimit_cone J X) a.
 
 Definition limit_corec
   {A J : Type} `{Is21Cat A, IsGraph J}
@@ -370,7 +420,7 @@ Definition limit_corec
   {a : A} (alpha : diagonal02 A J a $-> X)
   : a $-> cat_limit J X.
 Proof.
-  exact (cate_fun (cate_limit_cone_map X a)^-1$ alpha).
+  exact (limit_cone_map_inv X a alpha).
 Defined.
 
 Definition limit_beta
@@ -380,7 +430,9 @@ Definition limit_beta
   : limit_cone_map X (cat_limit J X) (cat_limit_cone J X) a
       (limit_corec X alpha) $== alpha.
 Proof.
-  exact (cate_isretr (cate_limit_cone_map X a) alpha).
+  exact (cate_isretr
+    (limit_cone_map_cate_of_islimitcone
+      (cat_limit_cone J X) (cat_islimit_cone J X) a) alpha).
 Defined.
 
 Definition limit_eta
@@ -391,7 +443,9 @@ Definition limit_eta
       (limit_cone_map X (cat_limit J X) (cat_limit_cone J X) a k)
     $== k.
 Proof.
-  exact (cate_issect (cate_limit_cone_map X a) k).
+  exact (cate_issect
+    (limit_cone_map_cate_of_islimitcone
+      (cat_limit_cone J X) (cat_islimit_cone J X) a) k).
 Defined.
 
 Definition limit_corec_modification
@@ -401,7 +455,7 @@ Definition limit_corec_modification
   (p : alpha $== beta)
   : limit_corec X alpha $== limit_corec X beta.
 Proof.
-  exact (fmap (cate_fun (cate_limit_cone_map X a)^-1$) p).
+  exact (fmap (limit_cone_map_inv X a) p).
 Defined.
 
 Definition limit_corec_3cell
@@ -411,7 +465,7 @@ Definition limit_corec_3cell
   {p q : alpha $== beta} (h : p $== q)
   : limit_corec_modification X p $== limit_corec_modification X q.
 Proof.
-  exact (fmap2 (cate_fun (cate_limit_cone_map X a)^-1$) h).
+  exact (fmap2 (limit_cone_map_inv X a) h).
 Defined.
 
 Definition limit_corec_unique
@@ -424,5 +478,131 @@ Definition limit_corec_unique
   : k $== limit_corec X alpha.
 Proof.
   exact ((limit_eta X k)^$
-    $@ fmap (cate_fun (cate_limit_cone_map X a)^-1$) p).
+    $@ fmap (limit_cone_map_inv X a) p).
+Defined.
+
+(** ** Categorical unicity of universal cones *)
+
+(** The canonical map from one universal-cone apex to another. *)
+Definition limit_apex_map
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hmu : IsLimitCone X m mu)
+  : l $-> m
+  := limit_cone_map_inv_of_islimitcone mu Hmu l lambda.
+
+Definition limit_apex_map_beta
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hmu : IsLimitCone X m mu)
+  : limit_cone_map X m mu l (limit_apex_map lambda mu Hmu)
+    $== lambda.
+Proof.
+  exact (cate_isretr
+    (limit_cone_map_cate_of_islimitcone mu Hmu l) lambda).
+Defined.
+
+Definition limit_cone_map_id
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  (lambda : diagonal02 A J l $-> X)
+  : limit_cone_map X l lambda l (Id l) $== lambda.
+Proof.
+  exact ((lambda $@L fmap_id (diagonal02 A J) l)
+    $@ cat_idr lambda).
+Defined.
+
+(** The mapping equivalence reflects modifications between mediating maps. *)
+Definition limit_cone_map_reflects
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l a : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone X l lambda)
+  {f g : a $-> l}
+  (p : limit_cone_map X l lambda a f
+    $== limit_cone_map X l lambda a g)
+  : f $== g.
+Proof.
+  pose (e := limit_cone_map_cate_of_islimitcone lambda Hlambda a).
+  exact ((cate_issect e f)^$
+    $@ fmap (cate_fun (cate_inv e)) p
+    $@ cate_issect e g).
+Defined.
+
+Local Definition limit_apex_map_composite_cone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hlambda : IsLimitCone X l lambda)
+  (Hmu : IsLimitCone X m mu)
+  : limit_cone_map X l lambda l
+      (limit_apex_map mu lambda Hlambda
+        $o limit_apex_map lambda mu Hmu)
+    $== lambda.
+Proof.
+  pose (f := limit_apex_map lambda mu Hmu).
+  pose (g := limit_apex_map mu lambda Hlambda).
+  change (lambda $o fmap (diagonal02 A J) (g $o f) $== lambda).
+  exact ((lambda $@L fmap_comp (diagonal02 A J) f g)
+    $@ cat_assoc_opp (fmap (diagonal02 A J) f)
+      (fmap (diagonal02 A J) g) lambda
+    $@ (limit_apex_map_beta mu lambda Hlambda
+      $@R fmap (diagonal02 A J) f)
+    $@ limit_apex_map_beta lambda mu Hmu).
+Defined.
+
+Definition limit_apex_map_sect
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hlambda : IsLimitCone X l lambda)
+  (Hmu : IsLimitCone X m mu)
+  : limit_apex_map mu lambda Hlambda
+      $o limit_apex_map lambda mu Hmu
+    $== Id l.
+Proof.
+  napply (limit_cone_map_reflects lambda Hlambda).
+  exact (limit_apex_map_composite_cone lambda mu Hlambda Hmu
+    $@ (limit_cone_map_id lambda)^$).
+Defined.
+
+(** The apexes of two universal cones are canonically equivalent. *)
+Definition limit_apex_equiv
+  {A J : Type} `{Is21Cat A} `{!HasEquivs A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hlambda : IsLimitCone X l lambda)
+  (Hmu : IsLimitCone X m mu)
+  : l $<~> m.
+Proof.
+  exact (cate_adjointify
+    (limit_apex_map lambda mu Hmu)
+    (limit_apex_map mu lambda Hlambda)
+    (limit_apex_map_sect mu lambda Hmu Hlambda)
+    (limit_apex_map_sect lambda mu Hlambda Hmu)).
+Defined.
+
+(** The canonical apex equivalence carries the second cone to the first. *)
+Definition limit_apex_equiv_cone
+  {A J : Type} `{Is21Cat A} `{!HasEquivs A, IsGraph J}
+  {X : Fun02 J A} {l m : A}
+  (lambda : diagonal02 A J l $-> X)
+  (mu : diagonal02 A J m $-> X)
+  (Hlambda : IsLimitCone X l lambda)
+  (Hmu : IsLimitCone X m mu)
+  : limit_cone_map X m mu l
+      (cate_fun (limit_apex_equiv lambda mu Hlambda Hmu))
+    $== lambda.
+Proof.
+  exact (fmap (limit_cone_map X m mu l)
+      (cate_buildequiv_fun
+        (limit_apex_map lambda mu Hmu))
+    $@ limit_apex_map_beta lambda mu Hmu).
 Defined.

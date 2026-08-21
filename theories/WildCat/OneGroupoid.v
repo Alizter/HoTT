@@ -32,7 +32,6 @@ Definition onegpd_rev
   : b $== a
   := p^$.
 
-
 (** Vertical composition of 2-cells in a 1-groupoid. *)
 Definition onegpd_comp
   {A : OneGpd} {a b c : A}

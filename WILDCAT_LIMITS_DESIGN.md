@@ -296,7 +296,7 @@ Its action is:
   postcomposition by `lambda`;
 - on a 3-cell, act pointwise.
 
-The proposed local predicate is:
+The accepted local predicate is:
 
 ```coq
 Definition IsLimitCone
@@ -326,8 +326,8 @@ Separating `IsLimitCone` from `Limit` is useful for proving that a concrete cone
 is universal and for transporting universality across an equivalence or
 modification of cones.
 
-The exact exported names remain subject to a collision audit against scratch
-modules.  The mathematical interface above is the accepted one.
+The exported interface uses the bundled `CatIsEquiv` predicate.  Diagram
+shapes are intentionally small relative to the ambient category.
 
 ## Colimits by opposite-category duality
 
@@ -516,31 +516,33 @@ recovers the existing `CatPullback` API used by `IsEpiStable` and the
 
 ## Universe policy
 
-The mapping `OneGpd`s for the ambient category, diagram category, and cone
-category may live in different universes.  A naive bundled comparison can force
-unwanted equalities between:
+The indexing graph `J` is a small diagram shape relative to the ambient
+category `A`.  This covers the intended walking spans, walking cospans, finite
+grids, and other small indexing categories.
 
-- the object and arrow universes of `J`;
-- the object, 1-cell, 2-cell, and 3-cell universes of `A`;
-- the carrier universes of the two mapping groupoids.
+The public universal-cone predicate therefore uses `CatIsEquiv` in the
+category `OneGpd`.  Its source and target mapping 1-groupoids are placed in a
+common universe.  Rocq may consequently require the object and arrow
+universes of `J` to be no larger than the relevant universes of `A`, or may
+lift a concrete small `J` into that common universe.  This is an intentional
+small-shape constraint, not an obstruction.
 
-Before accepting the public signature:
+Before accepting a public signature:
 
-1. prototype it in a temporary file with `Set Printing Universes`;
-2. inspect all exported constants and classes;
-3. reject any accidental equality between a shape universe and a cell universe;
-4. if necessary, use a heterogeneous `Fun11`/equivalence formulation rather
-   than forcing both mapping objects into one bundled `OneGpd` universe;
-5. record unavoidable inequalities explicitly.
+1. inspect it with `Set Printing Universes`;
+2. confirm that its constraints express only this small-shape policy;
+3. avoid a parallel heterogeneous equivalence API solely to preserve
+   unnecessary independence between the two mapping-groupoid universes.
 
-No universe workaround may use `Funext`, univalence, or equality of categorical
-objects.
+No universe workaround may use `Funext`, univalence, or equality of
+categorical objects.
 
 ## Module boundaries
 
 The intended permanent dependency order is:
 
-1. `OneGroupoid.v`: the category of 1-groupoids;
+1. `OneGroupoid.v`: the category of 1-groupoids and its standard
+   `CatIsEquiv` structure;
 2. a permanent coherent-Yoneda module extracted from
    `CohYonedaScratch.v`;
 3. `Limits.v`: diagonal, cone mapping objects, universal cones, and derived
@@ -559,25 +561,28 @@ sources to inspect.  Permanent modules must not import them.
 
 ### Coherent Yoneda foundation
 
-- [ ] Select the required `OneGpd` Yoneda definitions from
+- [x] Select the required `OneGpd` Yoneda definitions from
       `CohYonedaScratch.v`.
-- [ ] Move them into a permanent module without importing scratch code.
-- [ ] Build the module and audit assumptions and universes.
+- [x] Move them into a permanent module without importing scratch code.
+- [x] Build the module and audit assumptions and universes.
 
 ### Universal cones
 
-- [ ] Define the coherent diagonal for `Fun02` diagrams.
-- [ ] Define `cone_1gpd` and its apex functoriality.
-- [ ] Define `limit_cone_map` as a 1-functor.
-- [ ] Audit the signature with universe printing.
-- [ ] Define `IsLimitCone` and `Limit`.
+- [x] Define the coherent diagonal for `Fun02` diagrams.
+- [x] Define `cone_1gpd`.
+- [ ] Package the contravariant apex functoriality of `cone_1gpd` when it is
+      required by the chosen-limit construction.
+- [x] Define `limit_cone_map` as a 1-functor.
+- [x] Audit the signature with universe printing and accept the bundled
+      `CatIsEquiv` small-shape universe policy.
+- [x] Define `IsLimitCone` and `Limit`.
 
 ### Local limit API
 
-- [ ] Derive corecursion, beta, and eta.
-- [ ] Derive action on modifications and higher cells.
-- [ ] Prove transport of universality.
-- [ ] Prove categorical unicity of universal cones.
+- [x] Derive corecursion, beta, and eta.
+- [x] Derive action on modifications and higher cells.
+- [x] Prove transport of universality.
+- [x] Prove categorical unicity of universal cones.
 - [ ] Add a `Build_Product`-style convenience constructor if justified by the
       first concrete example.
 

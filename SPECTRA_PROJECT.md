@@ -210,11 +210,12 @@ design reference; permanent limit modules must not import it.
 
 - [x] Move the required coherent `OneGpd` Yoneda constructions into the
       permanent `theories/WildCat/TwoYoneda.v` module.
-- [x] Define `IsLimitCone` and `Limit` from a specified cone whose induced map
-      on mapping `OneGpd`s is a categorical equivalence.
+- [x] Define `IsLimitCone` and `Limit` from a specified cone whose induced
+      `Fun11` between mapping 1-groupoids satisfies the standard bundled
+      `CatIsEquiv` predicate.
 - [x] Derive corecursion, beta, eta, higher-cell action, and uniqueness of
       mediating maps from that universal cone.
-- [ ] Derive transport of universality and categorical unicity of universal
+- [x] Derive transport of universality and categorical unicity of universal
       cones.
 - [ ] Define `HasLimits` as a choice of universal cone and derive the limit
       functor and its adjunction with the diagonal.
@@ -247,13 +248,15 @@ Reusable prototypes already present:
 - `PushoutScratch.v` and `PushoutComparisonScratch.v` provide regression
   statements for the eventual opposite-category specialization.
 
-The next implementation increment is:
+The coherent-Yoneda foundation, specified universal cones, local corecursor
+API, transport, and categorical unicity are now permanent.  Diagram shapes
+follow the explicit policy that they are small relative to the ambient
+category.  The next implementation increments are:
 
-1. extract the minimum coherent-Yoneda foundation into permanent code;
-2. define the specified universal-cone interface and derive its local API;
-3. derive chosen limits and pointwise limits;
-4. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
-5. only then expose the colimit and pushout APIs by duality.
+1. define `HasLimits`, chosen-limit functoriality, and the diagonal adjunction;
+2. derive pointwise limits;
+3. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
+4. only then expose the colimit and pushout APIs by duality.
 
 The scratch files last built successfully. Keep them building as reference
 material, but do not make permanent modules depend on them.
@@ -297,8 +300,10 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] Build and assumption-audit the permanent coherent-Yoneda module;
       `opyoneda_equiv_1gpd` is closed under the global context.
 - [x] Build and assumption-audit the permanent local limit module;
-      `fun22_diagonal02`, `Limit`, and `limit_corec_unique` are closed under
-      the global context.
+      `IsLimitCone`, `islimitcone_homotopic`, `limit_apex_equiv`, and
+      `limit_apex_equiv_cone` are closed under the global context.  The
+      interface deliberately uses bundled `CatIsEquiv` under the small-shape
+      universe policy.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.
