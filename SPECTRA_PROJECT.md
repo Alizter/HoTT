@@ -219,6 +219,16 @@ design reference; permanent limit modules must not import it.
       cones.
 - [x] Define `HasLimits` as a choice of universal cone, derive the coherent
       `Fun12` limit functor, and prove its `GpdAdjunction` with the diagonal.
+- [x] Transplant `CubicalAdjunction`, its coherent `Fun02`
+      postcomposition lift, and the `GpdAdjunction` composition/transport
+      combinators into permanent modules.
+- [x] Transplant the coherent argument-swap adjunction and use it with the
+      cubical lift to construct the conditional pointwise
+      diagonal-limit adjunction in `PointwiseLimits.v`.
+- [ ] Derive the `HasLimit22` coherence package from `HasLimits`; in
+      particular, retain enough `OneGpd`-level data to recover the full
+      `Fun11` universal property rather than only its `GpdAdjunction`
+      truncation.
 - [ ] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
       including the coherence on transformations and modifications.
 - [ ] Prove abstract limit Fubini by showing the row-first and column-first
@@ -242,6 +252,13 @@ Reusable prototypes already present:
 
 - `TwoYoneda.v` now contains the permanent covariant and contravariant
   `OneGpd`-valued Yoneda constructions used by universal cones.
+- `Adjoint.v` now contains `CubicalAdjunction`, its coherent
+  postcomposition lift, and the generic composition and natural-equivalence
+  transport operations for `GpdAdjunction`.
+- `SwapAdjunction.v` contains the permanent coherent argument-swap
+  adjunction.
+- `PointwiseLimits.v` composes those operations into
+  `gpd_adjunction_pointwise_limit_fun02`, conditional on `HasLimit22`.
 - `LimitsScratch.v` contains coherent diagonals, argument swap, pointwise
   machinery, and Fubini calculations to inspect while deriving the permanent
   limit-first interfaces.
@@ -249,12 +266,14 @@ Reusable prototypes already present:
   statements for the eventual opposite-category specialization.
 
 The coherent-Yoneda foundation, specified universal cones, local corecursor
-API, transport, categorical unicity, chosen limit functor, and diagonal-limit
+API, transport, categorical unicity, chosen limit functor, diagonal-limit
+adjunction, cubical adjunction infrastructure, and conditional pointwise
 adjunction are now permanent. Diagram shapes follow the explicit policy that
 they are small relative to the ambient category. The next implementation
 increments are:
 
-1. derive pointwise limits from chosen limits in the ambient category;
+1. derive `HasLimit22` from `HasLimits` without discarding the
+   `OneGpd`-level coherence, then package pointwise universal cones;
 2. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
 3. only then expose the colimit and pushout APIs by duality.
 

@@ -2,11 +2,14 @@ Require Import Basics.Utf8 Basics.Overture Basics.Tactics Basics.Equivalences.
 Require Import WildCat.Core.
 Require Import WildCat.NatTrans.
 Require Import WildCat.Equiv.
+Require Import WildCat.EquivGpd.
 Require Import WildCat.Prod.
 Require Import WildCat.Opposite.
 Require Import WildCat.Yoneda WildCat.ZeroGroupoid.
 Require Import WildCat.FunctorCat.
 Require Import WildCat.Universe.
+Require Import WildCat.Cylinder WildCat.Square WildCat.TwoFunctor
+  WildCat.TwoOneCat.
 Require Import Types.Prod.
 
 Generalizable Variables C D F G.
@@ -181,6 +184,417 @@ Section BuildGpdAdjunction.
     - exact is1natural_gpd_adjunction_hom_r.
   Defined.
 End BuildGpdAdjunction.
+
+(** A cubical adjunction stores exactly the higher naturality needed to lift
+    its unit and counit through coherent graph-indexed functor categories. *)
+Record CubicalAdjunction
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) (G : Fun22 B A) := {
+  cubical_adjunction_counit
+    : CubicalNatTrans12
+        (fun12_compose (fun12_fun22 F) (fun12_fun22 G))
+        fun12_id;
+  cubical_adjunction_unit
+    : CubicalNatTrans12
+        fun12_id
+        (fun12_compose (fun12_fun22 G) (fun12_fun22 F));
+  cubical_adjunction_triangle_l
+    : NatModification
+        (nattrans_comp
+          (nattrans_prewhisker cubical_adjunction_counit F)
+          (nattrans_postwhisker F cubical_adjunction_unit))
+        (nattrans_id F);
+  cubical_adjunction_triangle_r
+    : NatModification
+        (nattrans_comp
+          (nattrans_postwhisker G cubical_adjunction_counit)
+          (nattrans_prewhisker cubical_adjunction_unit G))
+        (nattrans_id G);
+}.
+
+Definition gpd_adjunction_cubical
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B) (G : Fun22 B A)
+  (adj : CubicalAdjunction F G)
+  : GpdAdjunction F G.
+Proof.
+  napply (Build_GpdAdjunction_unit_counit F G
+    (cubical_adjunction_counit F G adj)
+    (cubical_adjunction_unit F G adj)).
+  - intro a.
+    exact (natmod_component _ _
+      (cubical_adjunction_triangle_l F G adj) a).
+  - intro b.
+    exact (natmod_component _ _
+      (cubical_adjunction_triangle_r F G adj) b).
+Defined.
+
+Section CubicalAdjunctionPostcomp.
+  Context (A B J : Type)
+    `{Is21Cat A, Is21Cat B, IsGraph J}
+    (F : Fun22 A B) (G : Fun22 B A)
+    (adj : CubicalAdjunction F G).
+
+  Definition nattrans_cubical_adjunction_counit_postcomp
+    : NatTrans
+        (fun02_postcomp (A := J) (fun12_fun22 F) o
+          fun02_postcomp (A := J) (fun12_fun22 G))
+        idmap.
+  Proof.
+    snapply Build_NatTrans.
+    - intro X.
+      exact (nattrans_prewhisker
+        (cubical_adjunction_counit F G adj) X).
+    - snapply Build_Is1Natural.
+      intros X Y alpha.
+      snapply Build_NatModification.
+      { exact (fun j => isnat
+          (cubical_adjunction_counit F G adj) (alpha j)). }
+      intros j j' f.
+      unfold nattrans_prewhisker, trans_prewhisker.
+      unfold nattrans_postwhisker, trans_postwhisker.
+      unfold is1natural_comp, is1natural_prewhisker.
+      unfold is1natural_postwhisker.
+      cbn.
+      rapply cylinder_rewrite_front.
+      { exact (square_vconcat_natural_above
+          (fmap_square_compose G F (isnat alpha f))
+          (isnat (cubical_adjunction_counit F G adj) (fmap Y f))). }
+      rapply cylinder_rewrite_back.
+      { exact (square_vconcat_natural_below
+          (isnat (cubical_adjunction_counit F G adj) (fmap X f))
+          (fmap_square_id (isnat alpha f))^$). }
+      exact (cubical12_naturality
+        (cubical_adjunction_counit F G adj) (isnat alpha f)).
+  Defined.
+
+  Definition nattrans_cubical_adjunction_unit_postcomp
+    : NatTrans
+        idmap
+        (fun02_postcomp (A := J) (fun12_fun22 G) o
+          fun02_postcomp (A := J) (fun12_fun22 F)).
+  Proof.
+    snapply Build_NatTrans.
+    - intro X.
+      exact (nattrans_prewhisker
+        (cubical_adjunction_unit F G adj) X).
+    - snapply Build_Is1Natural.
+      intros X Y alpha.
+      snapply Build_NatModification.
+      { exact (fun j => isnat
+          (cubical_adjunction_unit F G adj) (alpha j)). }
+      intros j j' f.
+      unfold nattrans_prewhisker, trans_prewhisker.
+      unfold nattrans_postwhisker, trans_postwhisker.
+      unfold is1natural_comp, is1natural_prewhisker.
+      unfold is1natural_postwhisker.
+      cbn.
+      rapply cylinder_rewrite_front.
+      { exact (square_vconcat_natural_above
+          (fmap_square_id (isnat alpha f))^$
+          (isnat (cubical_adjunction_unit F G adj) (fmap Y f))). }
+      rapply cylinder_rewrite_back.
+      { exact (square_vconcat_natural_below
+          (isnat (cubical_adjunction_unit F G adj) (fmap X f))
+          (fmap_square_compose F G (isnat alpha f))). }
+      exact (cubical12_naturality
+        (cubical_adjunction_unit F G adj) (isnat alpha f)).
+  Defined.
+
+  Definition gpd_adjunction_fun02_postcomp_cubical
+    : GpdAdjunction
+        (fun12_fun02_postcomp (A := J) F)
+        (fun12_fun02_postcomp (A := J) G).
+  Proof.
+    napply (Build_GpdAdjunction_unit_counit
+      (fun12_fun02_postcomp (A := J) F)
+      (fun12_fun02_postcomp (A := J) G)
+      nattrans_cubical_adjunction_counit_postcomp
+      nattrans_cubical_adjunction_unit_postcomp).
+    - intro X.
+      exact (natmod_prewhisker
+        (cubical_adjunction_triangle_l F G adj) X).
+    - intro X.
+      exact (natmod_prewhisker
+        (cubical_adjunction_triangle_r F G adj) X).
+    Unshelve.
+    { exact (is1functor_fun02_postcomp (A := J) F). }
+    exact (is1functor_fun02_postcomp (A := J) G).
+  Defined.
+End CubicalAdjunctionPostcomp.
+
+(** ** Coherent adjunction data and combinators *)
+
+Section GpdAdjunctionData.
+  Context {A B : Type} {F : A -> B} {G : B -> A}
+    `{Is1Cat A, Is1Cat B,
+      !Is0Functor F, !Is1Functor F,
+      !Is0Functor G, !Is1Functor G}
+    (adj : GpdAdjunction F G).
+
+  Definition natequiv_gpd_adjunction_l (y : B)
+    : NatEquiv (A := A^op) (yon_0gpd y o F) (yon_0gpd (G y))
+        (is0functor_F := is0functor_compose
+          (A := A^op) (B := B^op) (C := ZeroGpd)
+          F (yon_0gpd y))
+        (is0functor_G := is0functor_yon_0gpd (G y)).
+  Proof.
+    snapply Build_NatEquiv.
+    - exact (fun x => equiv_gpd_adjunction F G adj x y).
+    - exact (is1natural_equiv_gpd_adjunction_l F G adj y).
+  Defined.
+
+  Definition natequiv_gpd_adjunction_r (x : A)
+    : NatEquiv (opyon_0gpd (F x)) (opyon_0gpd x o G)
+        (is0functor_F := is0functor_opyon_0gpd (F x))
+        (is0functor_G := is0functor_compose
+          (A := B) (B := A) (C := ZeroGpd)
+          G (opyon_0gpd x)).
+  Proof.
+    snapply Build_NatEquiv.
+    - exact (equiv_gpd_adjunction F G adj x).
+    - exact (is1natural_equiv_gpd_adjunction_r F G adj x).
+  Defined.
+End GpdAdjunctionData.
+
+Section GpdAdjunctionPostcomp.
+  Context (A B J : Type)
+    `{Is1Cat A, Is1Cat B, IsGraph J}
+    (F : Fun11 A B) (G : Fun11 B A)
+    (adj : GpdAdjunction F G).
+
+  Local Definition gpd_adjunction_postcomp_to
+    (X : Fun01 J A) (Y : Fun01 J B)
+    : fun01_compose F X $-> Y -> X $-> fun01_compose G Y.
+  Proof.
+    intro alpha.
+    snapply Build_NatTrans.
+    - intro j.
+      exact (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj (X j) (Y j)) (alpha j)).
+    - snapply Build_Is1Natural.
+      intros j j' f.
+      lhs' exact (isnat_tr
+        (alnat := is1natural_equiv_gpd_adjunction_l F G adj (Y j'))
+        (fun x => cate_fun (equiv_gpd_adjunction F G adj x (Y j')))
+        (a := X j') (a' := X j) (fmap X f) (alpha j')).
+      lhs' exact (fmap (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj (X j) (Y j')))
+        (isnat alpha f)).
+      exact (isnat
+        (alnat := is1natural_equiv_gpd_adjunction_r F G adj (X j))
+        (fun y => cate_fun (equiv_gpd_adjunction F G adj (X j) y))
+        (fmap Y f) (alpha j)).
+  Defined.
+
+  Local Definition gpd_adjunction_postcomp_from
+    (X : Fun01 J A) (Y : Fun01 J B)
+    : X $-> fun01_compose G Y -> fun01_compose F X $-> Y.
+  Proof.
+    intro beta.
+    snapply Build_NatTrans.
+    - intro j.
+      exact (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj (X j) (Y j))^-1$ (beta j)).
+    - snapply Build_Is1Natural.
+      intros j j' f.
+      set (el := natequiv_inverse
+        (@natequiv_gpd_adjunction_l A B F G
+          _ _ _ _ _ _ _ _ _ _ adj (Y j'))).
+      set (er := natequiv_inverse
+        (@natequiv_gpd_adjunction_r A B F G
+          _ _ _ _ _ _ _ _ _ _ adj (X j))).
+      rapply (isnat_tr (alnat := is1natural_natequiv el)
+        (a := X j') (a' := X j) el (fmap X f) (beta j') $@ _).
+      rapply (fmap (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj (X j) (Y j'))^-1$)
+        (isnat beta f) $@ _).
+      exact (isnat (alnat := is1natural_natequiv er)
+        er (fmap Y f) (beta j)).
+  Defined.
+
+  Local Definition gpd_adjunction_postcomp_hom
+    (X : Fun01 J A) (Y : Fun01 J B)
+    : opyon_0gpd (fun01_compose F X) Y
+        $<~> opyon_0gpd X (fun01_compose G Y).
+  Proof.
+    snapply cate_adjointify.
+    - snapply Build_Fun01'.
+      + exact (gpd_adjunction_postcomp_to X Y).
+      + intros alpha beta p j.
+        exact (fmap (equiv_fun_0gpd
+          (equiv_gpd_adjunction F G adj (X j) (Y j))) (p j)).
+    - snapply Build_Fun01'.
+      + exact (gpd_adjunction_postcomp_from X Y).
+      + intros alpha beta p j.
+        exact (fmap (equiv_fun_0gpd
+          (equiv_gpd_adjunction F G adj (X j) (Y j))^-1$) (p j)).
+    - intros beta j.
+      exact (cat_eisretr
+        (equiv_gpd_adjunction F G adj (X j) (Y j)) (beta j)).
+    - intros alpha j.
+      exact (cat_eissect
+        (equiv_gpd_adjunction F G adj (X j) (Y j)) (alpha j)).
+  Defined.
+
+  Definition gpd_adjunction_postcomp
+    : GpdAdjunction
+        (fun11_fun01_postcomp (A := J) F)
+        (fun11_fun01_postcomp (A := J) G).
+  Proof.
+    snapply Build_GpdAdjunction.
+    - exact gpd_adjunction_postcomp_hom.
+    - intro Y.
+      snapply Build_Is1Natural.
+      intros X' X alpha beta j.
+      exact (isnat
+        (alnat := is1natural_equiv_gpd_adjunction_l F G adj (Y j))
+        (fun x => cate_fun (equiv_gpd_adjunction F G adj x (Y j)))
+        (alpha j) (beta j)).
+    - intro X.
+      snapply Build_Is1Natural.
+      intros Y Y' alpha beta j.
+      exact (isnat
+        (alnat := is1natural_equiv_gpd_adjunction_r F G adj (X j))
+        (fun y => cate_fun (equiv_gpd_adjunction F G adj (X j) y))
+        (alpha j) (beta j)).
+  Defined.
+End GpdAdjunctionPostcomp.
+
+Section GpdAdjunctionCompose.
+  Context (A B C : Type) `{Is1Cat A} `{Is1Cat B} `{Is1Cat C}.
+  Context
+    (F : Fun11 A B) (G : Fun11 B A)
+    (F' : Fun11 B C) (G' : Fun11 C B)
+    (adj : GpdAdjunction F G) (adj' : GpdAdjunction F' G').
+
+  Local Definition gpd_adjunction_compose_hom (x : A) (z : C)
+    : opyon_0gpd (F' (F x)) z $<~> opyon_0gpd x (G (G' z))
+    := equiv_gpd_adjunction F G adj x (G' z)
+         $oE equiv_gpd_adjunction F' G' adj' (F x) z.
+
+  Definition gpd_adjunction_compose
+    : GpdAdjunction (fun11_compose F' F) (fun11_compose G G').
+  Proof.
+    snapply Build_GpdAdjunction.
+    - exact gpd_adjunction_compose_hom.
+    - intro z.
+      snapply Build_Is1Natural.
+      intros x' x f h.
+      unfold op in x', x, f.
+      change (x $-> x') in f.
+      change (F' (F x') $-> z) in h.
+      cbn.
+      change (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj x (G' z))
+        (equiv_fun_0gpd
+          (equiv_gpd_adjunction F' G' adj' (F x) z)
+          (h $o fmap F' (fmap F f)))
+        $==
+          (equiv_fun_0gpd
+            (equiv_gpd_adjunction F G adj x' (G' z))
+            (equiv_fun_0gpd
+              (equiv_gpd_adjunction F' G' adj' (F x') z) h)) $o f).
+      rapply (fmap (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj x (G' z)))
+        (isnat
+          (alnat := is1natural_equiv_gpd_adjunction_l F' G' adj' z)
+          (fun y => cate_fun (equiv_gpd_adjunction F' G' adj' y z))
+          (a := F x') (a' := F x) (fmap F f) h) $@ _).
+      rapply (isnat
+        (alnat := is1natural_equiv_gpd_adjunction_l F G adj (G' z))
+        (fun y => cate_fun (equiv_gpd_adjunction F G adj y (G' z)))
+        (a := x') (a' := x) f (equiv_fun_0gpd
+          (equiv_gpd_adjunction F' G' adj' (F x') z) h)).
+    - intro x.
+      snapply Build_Is1Natural.
+      intros z z' f h.
+      change (z $-> z') in f.
+      change (F' (F x) $-> z) in h.
+      cbn.
+      change (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj x (G' z'))
+        (equiv_fun_0gpd
+          (equiv_gpd_adjunction F' G' adj' (F x) z')
+          (f $o h))
+        $== fmap G (fmap G' f) $o
+          (equiv_fun_0gpd
+            (equiv_gpd_adjunction F G adj x (G' z))
+            (equiv_fun_0gpd
+              (equiv_gpd_adjunction F' G' adj' (F x) z) h))).
+      rapply (fmap (equiv_fun_0gpd
+        (equiv_gpd_adjunction F G adj x (G' z')))
+        (isnat
+          (alnat := is1natural_equiv_gpd_adjunction_r F' G' adj' (F x))
+          (fun y => cate_fun (equiv_gpd_adjunction F' G' adj' (F x) y))
+          f h) $@ _).
+      rapply (isnat
+        (alnat := is1natural_equiv_gpd_adjunction_r F G adj x)
+        (fun y => cate_fun (equiv_gpd_adjunction F G adj x y))
+        (fmap G' f) (equiv_fun_0gpd
+          (equiv_gpd_adjunction F' G' adj' (F x) z) h)).
+  Defined.
+End GpdAdjunctionCompose.
+
+Section GpdAdjunctionNatEquiv.
+  Context {A B : Type} `{Is1Cat A, HasEquivs B}
+    (F F' : Fun11 A B) (G : Fun11 B A)
+    (e : NatEquiv F F') (adj : GpdAdjunction F G).
+
+  Local Definition gpd_adjunction_natequiv_left_hom (x : A) (y : B)
+    : opyon_0gpd (F' x) y $<~> opyon_0gpd x (G y)
+    := equiv_gpd_adjunction F G adj x y
+         $oE equiv_precompose_cat_equiv_0gpd (e x).
+
+  Definition gpd_adjunction_natequiv_left
+    : GpdAdjunction F' G.
+  Proof.
+    snapply Build_GpdAdjunction.
+    - exact gpd_adjunction_natequiv_left_hom.
+    - intro y.
+      exact (is1natural_natequiv
+        (natequiv_compose
+          (natequiv_gpd_adjunction_l adj y)
+          (natequiv_postwhisker
+            (A := A^op) (B := B^op) (C := ZeroGpd)
+            (F := F') (G := F) (yon_0gpd y) (natequiv_op e)))).
+    - intro x.
+      exact (is1natural_natequiv
+        (natequiv_compose
+          (natequiv_gpd_adjunction_r adj x)
+          (natequiv_opyon_equiv_0gpd (e x)))).
+  Defined.
+End GpdAdjunctionNatEquiv.
+
+Section GpdAdjunctionNatEquivRight.
+  Context {A B : Type} `{HasEquivs A, Is1Cat B}
+    (F : Fun11 A B) (G G' : Fun11 B A)
+    (e : NatEquiv G G') (adj : GpdAdjunction F G).
+
+  Local Definition gpd_adjunction_natequiv_right_hom (x : A) (y : B)
+    : opyon_0gpd (F x) y $<~> opyon_0gpd x (G' y)
+    := equiv_postcompose_cat_equiv_0gpd (e y)
+         $oE equiv_gpd_adjunction F G adj x y.
+
+  Definition gpd_adjunction_natequiv_right
+    : GpdAdjunction F G'.
+  Proof.
+    snapply Build_GpdAdjunction.
+    - exact gpd_adjunction_natequiv_right_hom.
+    - intro y.
+      exact (is1natural_natequiv
+        (natequiv_compose
+          (natequiv_yon_equiv_0gpd (e y))
+          (natequiv_gpd_adjunction_l adj y))).
+    - intro x.
+      exact (is1natural_natequiv
+        (natequiv_compose
+          (natequiv_postwhisker
+            (A := B) (B := A) (C := ZeroGpd)
+            (F := G) (G := G') (opyon_0gpd x) e)
+          (natequiv_gpd_adjunction_r adj x))).
+  Defined.
+End GpdAdjunctionNatEquivRight.
 
 
 (** TODO: move but where? *)

@@ -387,7 +387,7 @@ Proof.
   - exact (limit_cone_map_homotopic h a).
 Defined.
 
-Local Definition limit_cone_map_cate_of_islimitcone
+Definition limit_cone_map_cate_of_islimitcone
   {A J : Type} `{Is21Cat A, IsGraph J}
   {X : Fun02 J A} {l : A}
   (lambda : diagonal02 A J l $-> X)
@@ -859,3 +859,65 @@ Proof.
   Unshelve.
   all: exact _.
 Defined.
+
+(** ** Pointwise limits *)
+
+Section PointwiseLimits.
+  Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.
+  Context `{!HasLimits J A}.
+
+  Definition pointwise_limit_diagram
+    (X : Fun02 J (Fun02 I A)) (i : I) : Fun02 J A
+    := swap_fun02 J I A X i.
+
+  Definition pointwise_limit_apex
+    (X : Fun02 J (Fun02 I A)) : Fun02 I A
+    := fun02_postcomp (A := I) (fun12_cat_limit (J := J))
+      (swap_fun02 J I A X).
+
+  Local Definition transpose_hrefl_vrefl
+    {a b : A} (h : a $-> b)
+    : transpose (hrefl h) $== vrefl h.
+  Proof.
+    cbv [transpose hrefl vrefl].
+    exact (gpd_rev_pp ((cat_idl h)^$) (cat_idr h)
+      $@ ((cat_idr h)^$ $@L gpd_rev_rev (cat_idl h))).
+  Defined.
+
+  Definition pointwise_limit_cone_at
+    (X : Fun02 J (Fun02 I A)) (j : J)
+    : pointwise_limit_apex X $-> X j.
+  Proof.
+    snapply Build_NatTrans.
+    - intro i.
+      exact (cat_limit_cone J (pointwise_limit_diagram X i) j).
+    - snapply Build_Is1Natural.
+      intros i i' f.
+      exact (natmod_component _ _
+        (cat_limit_map_beta (fmap (swap_fun02 J I A X) f)) j).
+  Defined.
+
+  Definition pointwise_limit_cone
+    (X : Fun02 J (Fun02 I A))
+    : diagonal02 (Fun02 I A) J (pointwise_limit_apex X) $-> X.
+  Proof.
+    snapply Build_NatTrans.
+    - exact (pointwise_limit_cone_at X).
+    - snapply Build_Is1Natural.
+      intros j j' g.
+      snapply Build_NatModification.
+      + intro i.
+        exact (isnat (cat_limit_cone J
+          (pointwise_limit_diagram X i)) g).
+      + intros i i' f.
+        rapply cylinder_rewrite_front.
+        * exact (square_vconcat_natural_above
+            (transpose_hrefl_vrefl
+              (cat_limit_map (fmap (swap_fun02 J I A X) f)))
+            (natmod_component _ _
+              (cat_limit_map_beta (fmap (swap_fun02 J I A X) f)) j'))^$.
+        * exact (cylinder_rotate_vconcat_transpose_back
+            (natmod_isnatural _ _
+              (cat_limit_map_beta (fmap (swap_fun02 J I A X) f)) g)).
+  Defined.
+End PointwiseLimits.

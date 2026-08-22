@@ -1058,6 +1058,230 @@ Instance is21cat_fun12
   : Is21Cat (Fun12 A B)
   := is21cat_induced fun02_fun12.
 
+
+(** ** Evaluation and transposition of coherent graph-indexed functors *)
+
+Definition fun12_eval_fun02
+  {A B : Type} `{IsGraph A, Is21Cat B} (a : A)
+  : Fun12 (Fun02 A B) B.
+Proof.
+  snapply Build_Fun12.
+  - exact (fun F => F a).
+  - snapply Build_Is0Functor.
+    exact (fun F G alpha => alpha a).
+  - snapply Build_Is1Functor.
+    + intros F G alpha beta p.
+      exact (natmod_component alpha beta p a).
+    + intro F.
+      exact (Id _).
+    + intros F G K alpha beta.
+      exact (Id _).
+Defined.
+
+Local Definition cat_assoc_rev_is_opp
+  {D : Type} `{Is21Cat D}
+  {a b c d : D} (f : a $-> b) (g : b $-> c) (h : c $-> d)
+  : (cat_assoc f g h)^$ $== cat_assoc_opp f g h.
+Proof.
+  symmetry.
+  rapply cat_assoc_opp_is_rev.
+Defined.
+
+Section Swap02.
+  Context (A B C : Type) `{IsGraph A, IsGraph B, Is21Cat C}.
+
+  Definition swap_fun02_at
+    (F : Fun02 A (Fun02 B C)) (b : B)
+    : Fun02 A C.
+  Proof.
+    snapply Build_Fun02.
+    { exact (fun a => F a b). }
+    snapply Build_Is0Functor.
+    exact (fun a a' f => fmap F f b).
+  Defined.
+
+  Definition swap_fun02_fmap
+    (F : Fun02 A (Fun02 B C)) {b b' : B} (g : b $-> b')
+    : swap_fun02_at F b $-> swap_fun02_at F b'.
+  Proof.
+    snapply Build_NatTrans.
+    { exact (fun a => fmap (F a) g). }
+    snapply Build_Is1Natural.
+    intros a a' f.
+    change (Square
+      (fmap (F a) g) (fmap (F a') g) (fmap F f b) (fmap F f b')).
+    napply transpose.
+    rapply isnat.
+  Defined.
+
+  Definition swap_fun02
+    : Fun02 A (Fun02 B C) -> Fun02 B (Fun02 A C).
+  Proof.
+    intro F.
+    snapply Build_Fun02.
+    { exact (swap_fun02_at F). }
+    snapply Build_Is0Functor.
+    intros b b' g.
+    exact (swap_fun02_fmap F g).
+  Defined.
+
+  Definition nattrans_swap_fun02_at
+    {F G : Fun02 A (Fun02 B C)} (alpha : F $-> G) (b : B)
+    : swap_fun02 F b $-> swap_fun02 G b.
+  Proof.
+    snapply Build_NatTrans.
+    { exact (fun a => alpha a b). }
+    snapply Build_Is1Natural.
+    intros a a' f.
+    exact (fmap2 (fun12_eval_fun02 b) (isnat alpha f)).
+  Defined.
+
+  Definition natmod_swap_fun02_naturality
+    {F G : Fun02 A (Fun02 B C)} (alpha : F $-> G)
+    {b b' : B} (g : b $-> b')
+    : nattrans_swap_fun02_at alpha b'
+        $o fmap (swap_fun02 F) g
+      $== fmap (swap_fun02 G) g
+        $o nattrans_swap_fun02_at alpha b.
+  Proof.
+    snapply Build_NatModification.
+    { intro a.
+      exact (isnat (alpha a) g). }
+    intros a a' f.
+    cbn beta.
+    rapply cylinder_rotate_vconcat.
+    exact (natmod_isnatural _ _
+      (isnat (alnat := is1natural_nattrans alpha) alpha f) g).
+  Defined.
+
+  Definition nattrans_swap_fun02
+    {F G : Fun02 A (Fun02 B C)} (alpha : F $-> G)
+    : swap_fun02 F $-> swap_fun02 G.
+  Proof.
+    snapply Build_NatTrans.
+    { exact (nattrans_swap_fun02_at alpha). }
+    snapply Build_Is1Natural.
+    intros b b' g.
+    exact (natmod_swap_fun02_naturality alpha g).
+  Defined.
+
+  Definition natmod_swap_fun02_at
+    {F G : Fun02 A (Fun02 B C)}
+    {alpha beta : F $-> G} (p : alpha $== beta) (b : B)
+    : nattrans_swap_fun02_at alpha b
+      $== nattrans_swap_fun02_at beta b.
+  Proof.
+    snapply Build_NatModification.
+    { intro a.
+      exact (natmod_component
+        (alpha a) (beta a) (natmod_component alpha beta p a) b). }
+    intros a a' f.
+    exact (natmod_isnatural alpha beta p f b).
+  Defined.
+
+  Definition natmod_swap_fun02
+    {F G : Fun02 A (Fun02 B C)}
+    {alpha beta : F $-> G} (p : alpha $== beta)
+    : nattrans_swap_fun02 alpha $== nattrans_swap_fun02 beta.
+  Proof.
+    snapply Build_NatModification.
+    { exact (natmod_swap_fun02_at p). }
+    intros b b' g a.
+    exact (natmod_isnatural
+      (alpha a) (beta a) (natmod_component alpha beta p a) g).
+  Defined.
+
+  Definition natmod_swap_fun02_id_at
+    (F : Fun02 A (Fun02 B C)) (b : B)
+    : nattrans_swap_fun02_at (Id F) b
+      $== Id (swap_fun02 F b).
+  Proof.
+    snapply Build_NatModification.
+    { intro a.
+      exact (Id _). }
+    intros a a' f.
+    exact (cylinder_refl _).
+  Defined.
+
+  Definition natmod_swap_fun02_id
+    (F : Fun02 A (Fun02 B C))
+    : nattrans_swap_fun02 (Id F) $== Id (swap_fun02 F).
+  Proof.
+    snapply Build_NatModification.
+    { exact (natmod_swap_fun02_id_at F). }
+    intros b b' g a.
+    exact (cylinder_refl _).
+  Defined.
+
+  Definition natmod_swap_fun02_comp_at
+    {F G K : Fun02 A (Fun02 B C)}
+    (alpha : F $-> G) (beta : G $-> K) (b : B)
+    : nattrans_swap_fun02_at (beta $o alpha) b
+      $== nattrans_swap_fun02_at beta b
+        $o nattrans_swap_fun02_at alpha b.
+  Proof.
+    snapply Build_NatModification.
+    { intro a.
+      exact (Id _). }
+    intros a a' f.
+    rapply cylinder_rewrite_back.
+    { rapply cat_prewhisker.
+      rapply cat_postwhisker.
+      rapply cat_postwhisker.
+      nrefine (cat_assoc_opp_is_rev _ _ _ _ _ _ _). }
+    exact (cylinder_refl _).
+  Defined.
+
+  Definition natmod_swap_fun02_comp
+    {F G K : Fun02 A (Fun02 B C)}
+    (alpha : F $-> G) (beta : G $-> K)
+    : nattrans_swap_fun02 (beta $o alpha)
+      $== nattrans_swap_fun02 beta $o nattrans_swap_fun02 alpha.
+  Proof.
+    snapply Build_NatModification.
+    { exact (natmod_swap_fun02_comp_at alpha beta). }
+    intros b b' g.
+    rapply Build_Cylinder_fun02.
+    intro a.
+    rapply cylinder_rewrite_back.
+    { rapply cat_prewhisker.
+      rapply cat_postwhisker.
+      rapply cat_postwhisker.
+      nrefine (cat_assoc_rev_is_opp _ _ _). }
+    exact (cylinder_refl _).
+  Defined.
+
+  Global Instance is0functor_swap_fun02
+    : Is0Functor swap_fun02.
+  Proof.
+    snapply Build_Is0Functor.
+    exact (fun F G alpha => nattrans_swap_fun02 alpha).
+  Defined.
+
+  Global Instance is1functor_swap_fun02
+    : Is1Functor swap_fun02.
+  Proof.
+    snapply Build_Is1Functor.
+    { intros F G alpha beta p.
+      exact (natmod_swap_fun02 p). }
+    { exact natmod_swap_fun02_id. }
+    intros F G K alpha beta.
+    exact (natmod_swap_fun02_comp alpha beta).
+  Defined.
+
+  Definition fun12_swap_fun02
+    : Fun12
+        (Fun02 A (Fun02 B C))
+        (Fun02 B (Fun02 A C))
+    := Build_Fun12 swap_fun02.
+
+  Definition fun02_swap_fun02
+    : Fun02
+        (Fun02 A (Fun02 B C))
+        (Fun02 B (Fun02 A C))
+    := fun02_fun12 fun12_swap_fun02.
+End Swap02.
+
 (** ** Composition of coherent graph-indexed functors *)
 
 Definition fun02_compose
