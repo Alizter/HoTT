@@ -631,14 +631,14 @@ Defined.
     limit apexes whose composite with the target cone is the transformed source
     cone. *)
 Definition cat_limit_map
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  {X Y : Fun02 J A} (f : X $-> Y)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X Y : Fun02 J A} `{!Limit J X, !Limit J Y} (f : X $-> Y)
   : cat_limit J X $-> cat_limit J Y
   := limit_corec Y (f $o cat_limit_cone J X).
 
 Definition cat_limit_map_beta
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  {X Y : Fun02 J A} (f : X $-> Y)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X Y : Fun02 J A} `{!Limit J X, !Limit J Y} (f : X $-> Y)
   : limit_cone_map Y (cat_limit J Y) (cat_limit_cone J Y)
       (cat_limit J X) (cat_limit_map f)
     $== f $o cat_limit_cone J X
@@ -647,15 +647,16 @@ Definition cat_limit_map_beta
 (** The higher-cell action is inherited from the inverse of the cone-mapping
     equivalence, rather than chosen independently. *)
 Definition cat_limit_map_modification
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  {X Y : Fun02 J A} {f g : X $-> Y} (p : f $== g)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X Y : Fun02 J A} `{!Limit J X, !Limit J Y}
+  {f g : X $-> Y} (p : f $== g)
   : cat_limit_map f $== cat_limit_map g
   := limit_corec_modification Y (p $@R cat_limit_cone J X).
 
 Definition cat_limit_map_3cell
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  {X Y : Fun02 J A} {f g : X $-> Y}
-  {p q : f $== g} (h : p $== q)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X Y : Fun02 J A} `{!Limit J X, !Limit J Y}
+  {f g : X $-> Y} {p q : f $== g} (h : p $== q)
   : cat_limit_map_modification p
     $== cat_limit_map_modification q
   := limit_corec_3cell Y
@@ -664,8 +665,8 @@ Definition cat_limit_map_3cell
 (** Identity and composition coherence are forced by uniqueness of maps into
     the chosen universal cones. *)
 Definition cat_limit_map_id
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  (X : Fun02 J A)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) `{!Limit J X}
   : cat_limit_map (Id X) $== Id (cat_limit J X).
 Proof.
   exact ((limit_corec_unique X
@@ -676,8 +677,9 @@ Proof.
 Defined.
 
 Definition cat_limit_map_comp
-  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimits J A}
-  {X Y Z : Fun02 J A} (f : X $-> Y) (g : Y $-> Z)
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X Y Z : Fun02 J A} `{!Limit J X, !Limit J Y, !Limit J Z}
+  (f : X $-> Y) (g : Y $-> Z)
   : cat_limit_map (g $o f)
     $== cat_limit_map g $o cat_limit_map f.
 Proof.
@@ -709,8 +711,8 @@ Global Instance is1functor_cat_limit
 Proof.
   snapply Build_Is1Functor.
   - exact (fun X Y f g => cat_limit_map_modification).
-  - exact cat_limit_map_id.
-  - exact (fun X Y Z => cat_limit_map_comp).
+  - intro X. exact (cat_limit_map_id X).
+  - intros X Y Z f g. exact (cat_limit_map_comp f g).
 Defined.
 
 Definition fun12_cat_limit
@@ -864,16 +866,22 @@ Defined.
 
 Section PointwiseLimits.
   Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.
-  Context `{!HasLimits J A}.
 
   Definition pointwise_limit_diagram
     (X : Fun02 J (Fun02 I A)) (i : I) : Fun02 J A
     := swap_fun02 J I A X i.
 
   Definition pointwise_limit_apex
-    (X : Fun02 J (Fun02 I A)) : Fun02 I A
-    := fun02_postcomp (A := I) (fun12_cat_limit (J := J))
-      (swap_fun02 J I A X).
+    (X : Fun02 J (Fun02 I A))
+    `{!forall i, Limit J (pointwise_limit_diagram X i)}
+    : Fun02 I A.
+  Proof.
+    snapply Build_Fun02.
+    - exact (fun i => cat_limit J (pointwise_limit_diagram X i)).
+    - snapply Build_Is0Functor.
+      intros i i' f.
+      exact (cat_limit_map (fmap (swap_fun02 J I A X) f)).
+  Defined.
 
   Local Definition transpose_hrefl_vrefl
     {a b : A} (h : a $-> b)
@@ -885,8 +893,9 @@ Section PointwiseLimits.
   Defined.
 
   Definition pointwise_limit_cone_at
-    (X : Fun02 J (Fun02 I A)) (j : J)
-    : pointwise_limit_apex X $-> X j.
+    (X : Fun02 J (Fun02 I A))
+    `{!forall i, Limit J (pointwise_limit_diagram X i)}
+    (j : J) : pointwise_limit_apex X $-> X j.
   Proof.
     snapply Build_NatTrans.
     - intro i.
@@ -899,6 +908,7 @@ Section PointwiseLimits.
 
   Definition pointwise_limit_cone
     (X : Fun02 J (Fun02 I A))
+    `{!forall i, Limit J (pointwise_limit_diagram X i)}
     : diagonal02 (Fun02 I A) J (pointwise_limit_apex X) $-> X.
   Proof.
     snapply Build_NatTrans.

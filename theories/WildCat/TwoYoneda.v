@@ -758,3 +758,27 @@ Definition opyoneda_equiv_1gpd
   {A : Type} `{Is21Cat A} (F : Fun22 A OneGpd) (a : A)
   : F a $<~> pseudonat_1gpd (opyon2_1gpd a) F
   := Build_CatEquiv (opyoneda1_1gpd F a).
+
+(** Precomposition with a categorical equivalence is an equivalence of hom
+    1-groupoids.  This is the contravariant half of coherent Yoneda. *)
+Definition fun11_precompose_cate_1gpd
+  {A : Type} `{Is21Cat A, !HasEquivs A}
+  {x y : A} (e : x $<~> y) (z : A)
+  : Fun11 (hom_1gpd y z) (hom_1gpd x z).
+Proof.
+  change (@CatEquiv (op A) _ _ _ _ _ y x) in e.
+  exact (fmap (yon_1gpd z) e).
+Defined.
+
+Global Instance catie_fun11_precompose_cate_1gpd
+  {A : Type} `{Is21Cat A, !HasEquivs A}
+  {x y : A} (e : x $<~> y) (z : A)
+  : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+      is01cat_1gpd is1cat_1gpd
+      (hom_1gpd y z) (hom_1gpd x z)
+      (fun11_precompose_cate_1gpd e z).
+Proof.
+  unfold fun11_precompose_cate_1gpd.
+  change (@CatEquiv (op A) _ _ _ _ _ y x) in e.
+  exact (iemap (yon_1gpd z) e).
+Defined.

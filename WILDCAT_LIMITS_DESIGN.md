@@ -610,9 +610,9 @@ sources to inspect.  Permanent modules must not import them.
 
 ### Pointwise limits and Fubini
 
-- [ ] Construct specified pointwise limits in `Fun02 I A` from specified
+- [x] Construct specified pointwise limits in `Fun02 I A` from specified
       limits in `A`.
-- [ ] Prove the assembled pointwise cone is universal in the functor category.
+- [x] Prove the assembled pointwise cone is universal in the functor category.
 - [ ] Define row-first and column-first double-cone presentations without
       hiding the chosen cones behind unrelated typeclass choices.
 - [ ] Prove the abstract Fubini equivalence by coherent argument swap and
@@ -634,7 +634,7 @@ sources to inspect.  Permanent modules must not import them.
 - [ ] Exhibit the standard `AbGroup` pullback as a universal cone.
 - [ ] Compare the new walking-cospan limit with `CatPullback` under the legacy
       truncation hypotheses.
-- [ ] Derive pointwise limits in `Fun02 I A` from chosen limits in `A`.
+- [x] Derive pointwise limits in `Fun02 I A` from chosen limits in `A`.
 - [ ] Prove abstract limit Fubini with its specified universal cones.
 - [ ] As the final smoke test, derive pullback 3-by-3 in an arbitrary category
       with the required chosen pullbacks.

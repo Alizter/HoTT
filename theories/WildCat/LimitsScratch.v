@@ -2169,6 +2169,17 @@ End DiagonalInterchange02.
 
 (** ** Pointwise coherent limit and colimit candidates *)
 
+Section PointwiseDiagonal02.
+  Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
+  Context `{!IsCoherentDiagonal02 B J}.
+
+  Definition fun12_pointwise_diagonal
+    : Fun12 (Fun02 A B) (Fun02 J (Fun02 A B))
+    := fun12_compose
+      (fun12_swap_fun02 A J B)
+      (fun12_fun02_postcomp (A := A) (fun22_diagonal02 B J)).
+End PointwiseDiagonal02.
+
 Section PointwiseLimit02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
   Context `{!IsCoherentDiagonal02 B J, !HasLimit22 B J}.
@@ -2178,6 +2189,28 @@ Section PointwiseLimit02.
     := fun12_compose
       (fun12_fun02_postcomp (A := A) (cat_limit22 B J))
       (fun12_swap_fun02 J A B).
+
+  Definition gpd_adjunction_pointwise_limit
+    : GpdAdjunction
+        (fun12_pointwise_diagonal A B J)
+        fun12_pointwise_limit.
+  Proof.
+    exact (gpd_adjunction_compose
+      (Fun02 A B)
+      (Fun02 A (Fun02 J B))
+      (Fun02 J (Fun02 A B))
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := A) (fun22_diagonal02 B J)))
+      (fun11_fun12
+        (fun12_fun02_postcomp (A := A) (cat_limit22 B J)))
+      (fun11_fun12 (fun12_swap_fun02 A J B))
+      (fun11_fun12 (fun12_swap_fun02 J A B))
+      (gpd_adjunction_fun02_postcomp_cubical
+        B (Fun02 J B) A
+        (fun22_diagonal02 B J) (cat_limit22 B J)
+        (cubical_adjunction_cat_limit22 B J))
+      (gpd_adjunction_swap_fun02 A J B)).
+  Defined.
 End PointwiseLimit02.
 
 Section PointwiseColimit02.
@@ -2190,16 +2223,11 @@ Section PointwiseColimit02.
       (fun12_fun02_postcomp (A := A) (cat_colimit22 B J))
       (fun12_swap_fun02 J A B).
 
-  Definition fun12_pointwise_diagonal
-    : Fun12 (Fun02 A B) (Fun02 J (Fun02 A B))
-    := fun12_compose
-      (fun12_swap_fun02 A J B)
-      (fun12_fun02_postcomp (A := A) (fun22_diagonal02 B J)).
 
   Definition gpd_adjunction_pointwise_colimit
     : GpdAdjunction
         fun12_pointwise_colimit
-        fun12_pointwise_diagonal.
+        (fun12_pointwise_diagonal A B J).
   Proof.
     exact (gpd_adjunction_compose
       (Fun02 J (Fun02 A B))
@@ -2482,6 +2510,55 @@ Proof.
   snapply Build_HasPointwiseDiagonalComparison02.
   exact (natequiv_pointwise_diagonal02_generic A B J).
 Defined.
+
+Section PointwiseLimitFunctorCategory02.
+  Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.
+  Context `{!HasLimit22 B J}.
+
+  Definition gpd_adjunction_pointwise_limit_fun02
+    : GpdAdjunction
+        (fun11_fun22 (fun22_diagonal02 (Fun02 A B) J))
+        (fun11_fun12 (fun12_pointwise_limit A B J)).
+  Proof.
+    rapply (gpd_adjunction_natequiv_left
+      (fun11_fun12 (fun12_pointwise_diagonal A B J))
+      (fun11_fun22 (fun22_diagonal02 (Fun02 A B) J))
+      (fun11_fun12 (fun12_pointwise_limit A B J))
+      natequiv_pointwise_diagonal02).
+    exact (gpd_adjunction_pointwise_limit A B J).
+  Defined.
+
+  (** The objectwise limit is a full coherent limit in the functor
+      category, not merely a family of limit objects. *)
+  Definition pointwise_limit02_islimit
+    (X : Fun02 J (Fun02 A B))
+    : IsLimit X (fun12_pointwise_limit A B J X)
+    := natequiv_inverse
+      (natequiv_gpd_adjunction_l
+        gpd_adjunction_pointwise_limit_fun02 X).
+
+  Definition pointwise_limit02_cone
+    (X : Fun02 J (Fun02 A B))
+    : diagonal02 (Fun02 A B) J
+        (fun12_pointwise_limit A B J X) $-> X
+    := limit_cone_of_islimit
+      (pointwise_limit02_islimit X).
+
+  Definition pointwise_limit02_cone_islimit
+    (X : Fun02 J (Fun02 A B))
+    : IsLimitCone X (fun12_pointwise_limit A B J X)
+        (pointwise_limit02_cone X)
+    := islimitcone_of_islimit
+      (pointwise_limit02_islimit X).
+
+  Global Instance haslimit02_fun02
+    : HasLimit02 (Fun02 A B) J.
+  Proof.
+    snapply Build_HasLimit02.
+    - exact (fun12_pointwise_limit A B J).
+    - exact gpd_adjunction_pointwise_limit_fun02.
+  Defined.
+End PointwiseLimitFunctorCategory02.
 
 Section PointwiseColimitFunctorCategory02.
   Context (A B J : Type) `{IsGraph A, Is21Cat B, IsGraph J}.

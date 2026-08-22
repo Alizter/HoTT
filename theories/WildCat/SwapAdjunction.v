@@ -2,7 +2,7 @@ Require Import Basics.Overture Basics.PathGroupoids Basics.Tactics.
 Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
   WildCat.EquivGpd WildCat.FunctorCat WildCat.NatTrans WildCat.OneGroupoid
   WildCat.Opposite WildCat.Square WildCat.TwoFunctor WildCat.TwoOneCat
-  WildCat.Yoneda WildCat.ZeroGroupoid.
+  WildCat.TwoYoneda WildCat.Yoneda WildCat.ZeroGroupoid.
 
 Set Typeclasses Depth 3.
 
@@ -410,6 +410,87 @@ Section Swap02Adjunction.
       (fun01_swap_fun02_hom_from F G)
       (natmod_swap_fun02_hom_to_from F G)
       (natmod_swap_fun02_hom_from_to F G).
+
+  (** The argument-swap equivalence on natural transformations retains the
+      modifications and perturbations in the hom 1-groupoids. *)
+  Definition fun11_swap_fun02_hom_to
+    (F : Fun02 A (Fun02 B C)) (G : Fun02 B (Fun02 A C))
+    : Fun11
+        (hom_1gpd (swap_fun02 A B C F) G)
+        (hom_1gpd F (swap_fun02 B A C G)).
+  Proof.
+    snapply Build_Fun11.
+    - exact (swap_fun02_hom_to F G).
+    - snapply Build_Is0Functor.
+      exact (fun alpha beta p =>
+        natmod_swap_fun02_hom_to F G p).
+    - snapply Build_Is1Functor.
+      + intros alpha beta p q h a b. exact (h b a).
+      + intros alpha a b. exact (Id _).
+      + intros alpha beta gamma p q a b. exact (Id _).
+  Defined.
+
+  Definition fun11_swap_fun02_hom_from
+    (F : Fun02 A (Fun02 B C)) (G : Fun02 B (Fun02 A C))
+    : Fun11
+        (hom_1gpd F (swap_fun02 B A C G))
+        (hom_1gpd (swap_fun02 A B C F) G).
+  Proof.
+    snapply Build_Fun11.
+    - exact (swap_fun02_hom_from F G).
+    - snapply Build_Is0Functor.
+      exact (fun alpha beta p =>
+        natmod_swap_fun02_hom_from F G p).
+    - snapply Build_Is1Functor.
+      + intros alpha beta p q h b a. exact (h a b).
+      + intros alpha b a. exact (Id _).
+      + intros alpha beta gamma p q b a. exact (Id _).
+  Defined.
+
+  Definition nattrans_fun11_swap_fun02_hom_to_from
+    (F : Fun02 A (Fun02 B C)) (G : Fun02 B (Fun02 A C))
+    : NatTrans
+        (fun11_compose
+          (fun11_swap_fun02_hom_to F G)
+          (fun11_swap_fun02_hom_from F G))
+        (Id (hom_1gpd F (swap_fun02 B A C G))).
+  Proof.
+    snapply Build_NatTrans.
+    - exact (natmod_swap_fun02_hom_to_from F G).
+    - snapply Build_Is1Natural.
+      intros alpha beta p a b.
+      exact (cat_idl _ $@ (cat_idr _)^$).
+  Defined.
+
+  Definition nattrans_fun11_swap_fun02_hom_from_to
+    (F : Fun02 A (Fun02 B C)) (G : Fun02 B (Fun02 A C))
+    : NatTrans
+        (fun11_compose
+          (fun11_swap_fun02_hom_from F G)
+          (fun11_swap_fun02_hom_to F G))
+        (Id (hom_1gpd (swap_fun02 A B C F) G)).
+  Proof.
+    snapply Build_NatTrans.
+    - exact (natmod_swap_fun02_hom_from_to F G).
+    - snapply Build_Is1Natural.
+      intros alpha beta p b a.
+      exact (cat_idl _ $@ (cat_idr _)^$).
+  Defined.
+
+  Global Instance catie_fun11_swap_fun02_hom_to
+    (F : Fun02 A (Fun02 B C)) (G : Fun02 B (Fun02 A C))
+    : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+        is01cat_1gpd is1cat_1gpd
+        (hom_1gpd (swap_fun02 A B C F) G)
+        (hom_1gpd F (swap_fun02 B A C G))
+        (fun11_swap_fun02_hom_to F G).
+  Proof.
+    snapply Build_Cat_IsBiInv.
+    - exact (fun11_swap_fun02_hom_from F G).
+    - exact (nattrans_fun11_swap_fun02_hom_to_from F G).
+    - exact (fun11_swap_fun02_hom_from F G).
+    - exact (nattrans_fun11_swap_fun02_hom_from_to F G).
+  Defined.
 
   Local Definition equiv_swap_fun02_hom_op
     (F : (Fun02 A (Fun02 B C))^op)

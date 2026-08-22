@@ -1,7 +1,8 @@
 Require Import Basics.Overture Basics.PathGroupoids Basics.Tactics.
 Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
-  WildCat.FunctorCat WildCat.Limits WildCat.NatTrans WildCat.Square
-  WildCat.SwapAdjunction WildCat.TwoFunctor WildCat.TwoOneCat.
+  WildCat.FunctorCat WildCat.Limits WildCat.NatTrans WildCat.OneGroupoid
+  WildCat.Square WildCat.SwapAdjunction WildCat.TwoFunctor WildCat.TwoOneCat
+  WildCat.TwoYoneda.
 
 Set Typeclasses Depth 4.
 
@@ -365,6 +366,58 @@ Section PointwiseDiagonalComparison.
       + exact (pointwise_diagonal_sect F).
   Defined.
 End PointwiseDiagonalComparison.
+
+(** A cone over a diagram in a coherent functor category is equivalently a
+    natural transformation from the objectwise constant diagram.  The first
+    factor transports along the pointwise/global diagonal comparison; the
+    second swaps the two diagram variables. *)
+Section PointwiseConeLocalization.
+  Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.
+
+  Definition fun02_pointwise_diagram_diagonal
+    (P : Fun02 I A) : Fun02 I (Fun02 J A)
+    := fun02_postcomp (A := I)
+      (fun12_fun22 (fun22_diagonal02 A J)) P.
+
+  Definition fun11_pointwise_cone_localization
+    (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
+    : Fun11
+        (cone_1gpd X P)
+        (hom_1gpd
+          (fun02_pointwise_diagram_diagonal P)
+          (swap_fun02 J I A X)).
+  Proof.
+    pose (d := natequiv_pointwise_diagonal I A J P).
+    pose (pre := fun11_precompose_cate_1gpd d X).
+    pose (sw := fun11_swap_fun02_hom_to I J A
+      (fun02_pointwise_diagram_diagonal P) X).
+    exact (fun11_compose sw pre).
+  Defined.
+
+  Global Instance catie_fun11_pointwise_cone_localization
+    (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
+    : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+        is01cat_1gpd is1cat_1gpd
+        (cone_1gpd X P)
+        (hom_1gpd
+          (fun02_pointwise_diagram_diagonal P)
+          (swap_fun02 J I A X))
+        (fun11_pointwise_cone_localization X P).
+  Proof.
+    unfold fun11_pointwise_cone_localization.
+    pose (d := natequiv_pointwise_diagonal I A J P).
+    pose (pre := fun11_precompose_cate_1gpd d X).
+    pose (sw := fun11_swap_fun02_hom_to I J A
+      (fun02_pointwise_diagram_diagonal P) X).
+    exact (@compose_catie' OneGpd
+      isgraph_1gpd is2graph_1gpd is01cat_1gpd
+      is1cat_1gpd hasequivs_1gpd
+      _ _ _ sw
+      (catie_fun11_swap_fun02_hom_to I J A
+        (fun02_pointwise_diagram_diagonal P) X)
+      pre (catie_fun11_precompose_cate_1gpd d X)).
+  Defined.
+End PointwiseConeLocalization.
 
 Section PointwiseLimitFunctorCategory.
   Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.

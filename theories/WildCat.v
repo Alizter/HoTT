@@ -47,3 +47,4 @@ Require Export WildCat.SwapAdjunction.
 Require Export WildCat.TwoYoneda.
 Require Export WildCat.Limits.
 Require Export WildCat.PointwiseLimits.
+Require Export WildCat.PointwiseLimitUniversal.

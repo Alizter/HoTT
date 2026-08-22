@@ -326,6 +326,10 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] Build and assumption-audit the chosen-limit API;
       `fun12_cone_1gpd`, `fun12_cat_limit`, and
       `gpd_adjunction_cat_limit` are closed under the global context.
+- [x] Build and assumption-audit the permanent pointwise-limit construction;
+      `pointwise_limit_eta`, `pointwise_limit_islimitcone`,
+      `pointwise_limit`, and `haslimits_fun02` are closed under the global
+      context.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.
