@@ -185,6 +185,31 @@ Definition fun11_fun22 {A B : Type} `{Is21Cat A} `{Is21Cat B}
 
 Coercion fun11_fun22 : Fun22 >-> Fun11.
 
+(** Naturality squares for the compositor of a coherent 2-functor. *)
+Definition fmap_comp_prewhisker_natural
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c : A} (f : a $-> b)
+  {g g' : b $-> c} (q : g $== g')
+  : Square (A := F a $-> F c)
+      (fmap2 F (q $@R f))
+      (fmap2 F q $@R fmap F f)
+      (fmap_comp F f g)
+      (fmap_comp F f g')
+  := fmap2_prewhisker F f q.
+
+Definition fmap_comp_postwhisker_natural
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun22 A B)
+  {a b c : A} {f f' : a $-> b}
+  (p : f $== f') (g : b $-> c)
+  : Square (A := F a $-> F c)
+      (fmap2 F (g $@L p))
+      (fmap F g $@L fmap2 F p)
+      (fmap_comp F f g)
+      (fmap_comp F f' g)
+  := fmap2_postwhisker F p g.
+
 (** A pseudonatural transformation has the usual naturality 2-cell, naturality in 2-cells, and compatibility with identities and composition. *)
 Record PseudoNatTrans {A B : Type} `{Is21Cat A} `{Is21Cat B}
   (F G : Fun22 A B) := {
@@ -845,6 +870,246 @@ Proof.
   exact (gpd_isretr (natmod_component alpha beta p a)).
 Defined.
 
+(** Squares of modifications are pointwise squares.  These named
+    constructor and eliminator keep clients from relying on the reducible
+    implementation of [Square] and the pointwise [Is3Graph] instance. *)
+Definition natmod_square_component
+  {A B : Type} `{IsGraph A} `{Is21Cat B}
+  {F G : Fun02 A B}
+  {alpha beta gamma delta : F $-> G}
+  {l : alpha $== gamma} {r : beta $== delta}
+  {t : alpha $== beta} {b : gamma $== delta}
+  (s : Square l r t b) (a : A)
+  : Square
+      (natmod_component alpha gamma l a)
+      (natmod_component beta delta r a)
+      (natmod_component alpha beta t a)
+      (natmod_component gamma delta b a)
+  := s a.
+
+Definition Build_NatModificationSquare
+  {A B : Type} `{IsGraph A} `{Is21Cat B}
+  {F G : Fun02 A B}
+  {alpha beta gamma delta : F $-> G}
+  {l : alpha $== gamma} {r : beta $== delta}
+  {t : alpha $== beta} {b : gamma $== delta}
+  (s : forall a, Square
+      (natmod_component alpha gamma l a)
+      (natmod_component beta delta r a)
+      (natmod_component alpha beta t a)
+      (natmod_component gamma delta b a))
+  : Square l r t b
+  := s.
+
+(** Components of the standard operations on modifications.  Client modules
+    should rewrite with these lemmas instead of unfolding the records. *)
+Definition natmod_comp_component
+  {C D : Type} `{IsGraph C} `{Is21Cat D}
+  {U V : C -> D} `{!Is0Functor U, !Is0Functor V}
+  {alpha beta gamma : NatTrans U V}
+  (q : NatModification beta gamma)
+  (p : NatModification alpha beta)
+  (c : C)
+  : natmod_component alpha gamma (natmod_comp q p) c
+    =
+    natmod_component alpha beta p c
+      $@ natmod_component beta gamma q c.
+Proof.
+  reflexivity.
+Defined.
+
+Definition natmod_cat_comp_component
+  {C D : Type} `{IsGraph C} `{Is21Cat D}
+  {F G : Fun02 C D}
+  {alpha beta gamma : F $-> G}
+  (q : beta $== gamma) (p : alpha $== beta) (c : C)
+  : natmod_component alpha gamma (q $o p) c
+    =
+    natmod_component alpha beta p c
+      $@ natmod_component beta gamma q c.
+Proof.
+  reflexivity.
+Defined.
+
+Definition natmod_postcompose_component
+  {C D : Type} `{IsGraph C} `{Is21Cat D}
+  {F G K : Fun02 C D}
+  (delta : G $-> K)
+  {alpha beta : F $-> G}
+  (p : alpha $== beta) (c : C)
+  : natmod_component
+      (nattrans_comp delta alpha)
+      (nattrans_comp delta beta)
+      (natmod_postcompose delta p) c
+    =
+    delta c $@L natmod_component alpha beta p c.
+Proof.
+  reflexivity.
+Defined.
+
+Definition natmod_precompose_component
+  {C D : Type} `{IsGraph C} `{Is21Cat D}
+  {F G K : Fun02 C D}
+  (delta : F $-> G)
+  {alpha beta : G $-> K}
+  (p : alpha $== beta) (c : C)
+  : natmod_component
+      (nattrans_comp alpha delta)
+      (nattrans_comp beta delta)
+      (natmod_precompose delta p) c
+    =
+    natmod_component alpha beta p c $@R delta c.
+Proof.
+  reflexivity.
+Defined.
+
+(** Reflecting cells through an equivalence of 1-groupoids.  These operations
+    expose the categorical construction without exposing [Square]. *)
+Definition fun11_bireflect
+  {C D : OneGpd} (F : Fun11 C D)
+  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F)
+  {f g : C} (p : F f $-> F g)
+  : f $-> g
+  := (@cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
+      is01cat_1gpd is1cat_1gpd C D F H f)^$
+    $@ fun11_fmap
+      (@cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
+        is01cat_1gpd is1cat_1gpd C D F H) p
+    $@ @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
+      is01cat_1gpd is1cat_1gpd C D F H g.
+
+Definition fun11_bireflect_square
+  {C D : OneGpd} (F : Fun11 C D)
+  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F)
+  {x00 x20 x02 x22 : C}
+  {l : F x00 $-> F x02} {r : F x20 $-> F x22}
+  {t : F x00 $-> F x20} {b : F x02 $-> F x22}
+  (s : Square l r t b)
+  : Square
+      (fun11_bireflect F H l)
+      (fun11_bireflect F H r)
+      (fun11_bireflect F H t)
+      (fun11_bireflect F H b).
+Proof.
+  pose (G := @cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F H).
+  pose (eta := @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F H).
+  napply (whiskerBR (f := eta x22)).
+  napply (@whiskerLB_gpd C
+    (isgraph_onegpd_carrier C)
+    (is2graph_onegpd_carrier C)
+    (is01cat_onegpd_carrier C)
+    (is1cat_onegpd_carrier C)
+    (is0gpd_onegpd_carrier C)
+    (is1gpd_onegpd_carrier C)).
+  napply (@whiskerTR_gpd C
+    (isgraph_onegpd_carrier C)
+    (is2graph_onegpd_carrier C)
+    (is01cat_onegpd_carrier C)
+    (is1cat_onegpd_carrier C)
+    (is0gpd_onegpd_carrier C)
+    (is1gpd_onegpd_carrier C)).
+  napply (whiskerTL (f := (eta x00)^$)).
+  exact (fmap_square G s).
+Defined.
+
+Definition fun11_bireflect_fmap
+  {C D : OneGpd} (F : Fun11 C D)
+  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F)
+  {f g : C} (p : f $-> g)
+  : fun11_bireflect F H (fun11_fmap F p) $== p.
+Proof.
+  pose (G := @cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F H).
+  pose (eta := @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F H).
+  assert (np :
+    eta g $o fun11_fmap G (fun11_fmap F p)
+    $== p $o eta f).
+  { exact (isnat eta p). }
+  exact ((cat_assoc _ _ _)^$ $@ gpd_moveR_hV np).
+Defined.
+
+Definition fun11_retract_reflect_2cell
+  {C D : OneGpd} (F : Fun11 C D) (G : Fun11 D C)
+  (epsilon : NatTrans (F o G) idmap)
+  {x y : D} {r s : x $-> y}
+  (q : fun11_fmap G r $== fun11_fmap G s)
+  : r $== s.
+Proof.
+  napply (@gpd_cancelR D
+    (isgraph_onegpd_carrier D)
+    (is2graph_onegpd_carrier D)
+    (is01cat_onegpd_carrier D)
+    (is1cat_onegpd_carrier D)
+    (is0gpd_onegpd_carrier D)
+    (is1gpd_onegpd_carrier D)).
+  lhs' exact (isnat epsilon r)^$.
+  lhs' exact (epsilon y $@L fmap2 F q).
+  exact (isnat epsilon s).
+Defined.
+
+Definition fun11_fmap_bireflect
+  {C D : OneGpd} (F : Fun11 C D)
+  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F)
+  {f g : C} (p : F f $-> F g)
+  : fun11_fmap F (fun11_bireflect F H p) $== p.
+Proof.
+  pose (G := @cat_equiv_inv OneGpd
+    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
+    C D F H).
+  pose (epsilon := @cat_eisretr OneGpd
+    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
+    C D F H).
+  napply (fun11_retract_reflect_2cell F G epsilon).
+  pose (eta := @cat_eissect OneGpd
+    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
+    C D F H).
+  pose (r := fun11_bireflect F H p).
+  napply (@gpd_cancelL C
+    (isgraph_onegpd_carrier C)
+    (is2graph_onegpd_carrier C)
+    (is01cat_onegpd_carrier C)
+    (is1cat_onegpd_carrier C)
+    (is0gpd_onegpd_carrier C)
+    (is1gpd_onegpd_carrier C)
+    _ _ _ (eta g)).
+  lhs' exact (isnat eta r).
+  lhs' exact (cat_assoc _ _ _).
+  exact (eta g $@L gpd_hV_h (fun11_fmap G p) (eta f)).
+Defined.
+
+Definition fun11_fmap_bireflect_2cell
+  {C D : OneGpd} (F : Fun11 C D)
+  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
+    is01cat_1gpd is1cat_1gpd C D F)
+  {f g : C} {p q : f $-> g}
+  (h : fun11_fmap F p $== fun11_fmap F q)
+  : p $== q.
+Proof.
+  pose (G := @cat_equiv_inv OneGpd
+    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
+    C D F H).
+  pose (eta := @cat_eissect OneGpd
+    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
+    C D F H).
+  napply (@gpd_cancelR C
+    (isgraph_onegpd_carrier C)
+    (is2graph_onegpd_carrier C)
+    (is01cat_onegpd_carrier C)
+    (is1cat_onegpd_carrier C)
+    (is0gpd_onegpd_carrier C)
+    (is1gpd_onegpd_carrier C)).
+  lhs' exact (isnat eta p)^$.
+  lhs' exact (eta g $@L fmap2 G h).
+  exact (isnat eta q).
+Defined.
+
 Instance is1functor_postcomp_fun02
   {A B : Type} `{IsGraph A} `{Is21Cat B}
   (F G K : Fun02 A B) (delta : G $-> K)
@@ -1179,6 +1444,17 @@ Section Swap02.
     exact (natmod_isnatural alpha beta p f b).
   Defined.
 
+  Definition natmod_swap_fun02_at_component
+    {F G : Fun02 A (Fun02 B C)}
+    {alpha beta : F $-> G} (p : alpha $== beta) (b : B) (a : A)
+    : natmod_component _ _ (natmod_swap_fun02_at p b) a
+      =
+      natmod_component (alpha a) (beta a)
+        (natmod_component alpha beta p a) b.
+  Proof.
+    reflexivity.
+  Defined.
+
   Definition natmod_swap_fun02
     {F G : Fun02 A (Fun02 B C)}
     {alpha beta : F $-> G} (p : alpha $== beta)
@@ -1281,6 +1557,16 @@ Section Swap02.
         (Fun02 B (Fun02 A C))
     := fun02_fun12 fun12_swap_fun02.
 End Swap02.
+
+Definition natmod_swap_fun02_3cell
+  {A B C : Type} `{IsGraph A, IsGraph B, Is21Cat C}
+  {F G : Fun02 A (Fun02 B C)}
+  {alpha beta : F $-> G} {p q : alpha $== beta}
+  (h : p $== q)
+  : natmod_swap_fun02 A B C p
+    $== natmod_swap_fun02 A B C q
+  := fun b a => h a b.
+
 
 (** ** Composition of coherent graph-indexed functors *)
 

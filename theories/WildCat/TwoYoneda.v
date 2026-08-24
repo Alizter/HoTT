@@ -14,6 +14,48 @@ Definition opyon_1gpd {A : Type} `{Is21Cat A} (a b : A) : OneGpd
 Definition hom_1gpd {A : Type} `{Is21Cat A} (a b : A) : OneGpd
   := opyon_1gpd a b.
 
+Definition fun11_swap_fun02_hom
+  {A B C : Type} `{IsGraph A, IsGraph B, Is21Cat C}
+  (F G : Fun02 A (Fun02 B C))
+  : Fun11
+      (hom_1gpd F G)
+      (hom_1gpd
+        (swap_fun02 A B C F)
+        (swap_fun02 A B C G)).
+Proof.
+  snapply Build_Fun11.
+  - exact (nattrans_swap_fun02 A B C).
+  - snapply Build_Is0Functor.
+    exact (fun alpha beta p => natmod_swap_fun02 A B C p).
+  - snapply Build_Is1Functor.
+    + exact (fun alpha beta p q h =>
+        natmod_swap_fun02_3cell h).
+    + intros alpha b a.
+      exact (Id _).
+    + intros alpha beta gamma p q b a.
+      exact (Id _).
+Defined.
+
+Definition fun11_eval_fun02_hom
+  {A B : Type} `{IsGraph A, Is21Cat B}
+  (F G : Fun02 A B) (a : A)
+  : Fun11
+      (hom_1gpd F G)
+      (hom_1gpd (F a) (G a)).
+Proof.
+  snapply Build_Fun11.
+  - exact (fun alpha => alpha a).
+  - snapply Build_Is0Functor.
+    exact (fun alpha beta p =>
+      natmod_component alpha beta p a).
+  - snapply Build_Is1Functor.
+    + exact (fun alpha beta p q h => h a).
+    + intro alpha.
+      exact (Id _).
+    + intros alpha beta gamma p q.
+      exact (Id _).
+Defined.
+
 Instance is0functor_opyon_1gpd {A : Type} `{Is21Cat A} (a : A)
   : Is0Functor (opyon_1gpd a).
 Proof.

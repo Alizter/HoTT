@@ -225,17 +225,30 @@ design reference; permanent limit modules must not import it.
 - [x] Transplant the coherent argument-swap adjunction and use it with the
       cubical lift to construct the conditional pointwise
       diagonal-limit adjunction in `PointwiseLimits.v`.
-- [ ] Derive the `HasLimit22` coherence package from `HasLimits`; in
-      particular, retain enough `OneGpd`-level data to recover the full
-      `Fun11` universal property rather than only its `GpdAdjunction`
-      truncation.
-- [ ] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
-      including the coherence on transformations and modifications.
-- [ ] Prove abstract limit Fubini by showing the row-first and column-first
-      iterated limits represent coherently equivalent double-cone objects.
+- [x] Retain the full `OneGpd`-level universal property directly through
+      `IsLimitCone`; the permanent pointwise construction does not require a
+      separate `HasLimit22` package.
+- [x] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
+      including coherence on transformations and modifications.
+- [ ] Define coherent preservation first for one specified `Limit J D`:
+      applying a `Fun12` functor to its apex and cone must produce an
+      `IsLimitCone` for the postcomposed diagram.  The core theorem must not
+      require global `HasLimits`.
+- [ ] Construct the cone mate/unmate equivalence for a coherent adjunction and
+      use it to prove that right adjoints preserve every specified limit.
+- [ ] Add a `HasLimits` corollary only to compare the preserved cone with the
+      library's separately chosen output limit.
+- [ ] Instantiate preservation with the specified `pointwise_limit` and
+      `gpd_adjunction_cat_limit : Δ_J ⊣ lim_J`; use global choices only for
+      the constituent limits.
+- [ ] Derive abstract limit Fubini as
+      `lim_J (lim_I D) $<~> lim_I (lim_J ∘ D)`, retaining compatibility with
+      the induced double cones.  Argument swap should only re-express the
+      second iterated diagram, not drive a separate double-diagonal proof.
 - [ ] Specialize both shapes to the walking cospan and derive pullback 3-by-3
-      in an arbitrary category with the required chosen pullbacks. This is the
-      final smoke test.
+      in an arbitrary category with the required chosen pullbacks.
+- [ ] Compare the canonical map and boundary beta laws of the `Type`
+      specialization with `Limits.Pullback.pullback3x3`.
 - [ ] Construct coherent opposite diagrams and expose `Colimit`,
       `HasColimits`, their adjunction, pointwise colimits, and colimit Fubini
       only as wrappers around the corresponding limit results.

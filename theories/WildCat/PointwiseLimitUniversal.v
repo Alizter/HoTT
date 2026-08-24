@@ -13,39 +13,7 @@ Require Import WildCat.PointwiseLimitCorec.
 
 Set Typeclasses Depth 4.
 
-Local Definition natmod_cat_comp_component_eta
-  {C D : Type} `{IsGraph C} `{Is21Cat D}
-  {F G : Fun02 C D}
-  {alpha beta gamma : F $-> G}
-  (q : beta $== gamma) (p : alpha $== beta) (c : C)
-  : natmod_component alpha gamma (q $o p) c
-    =
-    natmod_component alpha beta p c
-      $@ natmod_component beta gamma q c.
-Proof.
-  reflexivity.
-Defined.
 
-Local Definition pointwise_limit_cone_map_comparison_component_eta
-  (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}
-  `{!HasLimits J A}
-  (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
-  (k : P $-> pointwise_limit_apex I A J X)
-  (i : I) (j : J)
-  : natmod_component _ _
-      (pointwise_limit_cone_map_comparison I A J X P k i) j
-    $== Id _.
-Proof.
-  unfold pointwise_limit_cone_map_comparison.
-  cbn.
-  pose (lambda :=
-    cat_limit_cone J (pointwise_limit_diagram I A J X i) j).
-  change (((Id (lambda $o k i))
-    $@ (lambda $@L Id (k i)))
-    $== Id (lambda $o k i)).
-  exact (cat_idr (lambda $@L Id (k i))
-    $@ fmap_id (cat_postcomp (P i) lambda) (k i)).
-Defined.
 
 Section PointwiseLimitEta.
   Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.
@@ -87,24 +55,25 @@ Section PointwiseLimitEta.
         (fun11_fmap Flocal (natmod_component k l p i))
         compk compl).
       {
+        napply Build_NatModificationSquare.
         intro j.
-        rewrite natmod_cat_comp_component_eta.
-        rewrite natmod_cat_comp_component_eta.
+        rewrite natmod_cat_comp_component.
+        rewrite natmod_cat_comp_component.
         pose (ek :=
-          pointwise_limit_cone_map_comparison_component_eta
+          pointwise_limit_cone_map_comparison_component
             I A J X P k i j).
         pose (el :=
-          pointwise_limit_cone_map_comparison_component_eta
+          pointwise_limit_cone_map_comparison_component
             I A J X P l i j).
-        lhs' exact (_ $@L ek).
-        rhs' exact (el $@R _).
+        nrefine (vconcatR (vconcatL ek _) el).
+        napply Build_Square.
         lhs' exact (cat_idr _).
         rhs' exact (cat_idl _).
         unfold Flocal, r, q, Fglobal.
         cbn.
         reflexivity.
       }
-      apply (fun11_fmap_bireflect_2cell_direct Flocal HF).
+      napply (fun11_fmap_bireflect_2cell Flocal HF).
       lhs' exact (fmap_comp Flocal _ _).
       rhs' exact (fmap_comp Flocal _ _).
       pose (sk :=
@@ -115,10 +84,10 @@ Section PointwiseLimitEta.
         limit_beta_direct D
           (pointwise_limit_local_cones I A J (Fglobal l) i)
         $@ pointwise_limit_cone_map_comparison I A J X P l i).
-      lhs' exact ((fun11_fmap_bireflect_direct Flocal HF sl)
+      lhs' exact ((fun11_fmap_bireflect Flocal HF sl)
         $@R _).
       rhs' exact (_ $@L
-        fun11_fmap_bireflect_direct Flocal HF sk).
+        fun11_fmap_bireflect Flocal HF sk).
       pose (betak := limit_beta_direct D
         (pointwise_limit_local_cones I A J (Fglobal k) i)).
       pose (betal := limit_beta_direct D

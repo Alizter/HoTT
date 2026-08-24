@@ -13,250 +13,11 @@ Require Import WildCat.Core WildCat.Cylinder WildCat.Equiv WildCat.FunctorCat
 
 Set Typeclasses Depth 4.
 
-Definition square_whiskerTL_1gpd_direct
-  {C : OneGpd}
-  {x x00 x20 x02 x22 : C}
-  {t : x00 $-> x20} {b : x02 $-> x22}
-  {l : x00 $-> x02} {r : x20 $-> x22}
-  (f : x $-> x00) (s : Square l r t b)
-  : Square (l $o f) r (t $o f) b
-  := (cat_assoc _ _ _)^$ $@ (s $@R f) $@ cat_assoc _ _ _.
-
-Definition square_whiskerBR_1gpd_direct
-  {C : OneGpd}
-  {x x00 x20 x02 x22 : C}
-  {t : x00 $-> x20} {b : x02 $-> x22}
-  {l : x00 $-> x02} {r : x20 $-> x22}
-  (f : x22 $-> x) (s : Square l r t b)
-  : Square l (f $o r) t (f $o b)
-  := cat_assoc _ _ _ $@ (f $@L s) $@ (cat_assoc _ _ _)^$.
-
-Definition square_whiskerLB_1gpd_direct
-  {C : OneGpd}
-  {x x00 x20 x02 x22 : C}
-  {t : x00 $-> x20} {b : x02 $-> x22}
-  {l : x00 $-> x02} {r : x20 $-> x22}
-  (f : x02 $-> x) (s : Square l r t b)
-  : Square (f $o l) r t (b $o f^$)
-  := s $@ ((gpd_hV_h _ _)^$ $@R l) $@ cat_assoc _ _ _.
-
-
-Definition natmod_swap_fun02_3cell_direct
-  {A B C : Type} `{IsGraph A, IsGraph B, Is21Cat C}
-  {F G : Fun02 A (Fun02 B C)}
-  {alpha beta : F $-> G} {p q : alpha $== beta}
-  (h : p $== q)
-  : natmod_swap_fun02 A B C p
-    $== natmod_swap_fun02 A B C q
-  := fun b a => h a b.
-
-Definition fun11_swap_fun02_hom_direct
-  {A B C : Type} `{IsGraph A, IsGraph B, Is21Cat C}
-  (F G : Fun02 A (Fun02 B C))
-  : Fun11
-      (hom_1gpd F G)
-      (hom_1gpd
-        (swap_fun02 A B C F)
-        (swap_fun02 A B C G)).
-Proof.
-  snapply Build_Fun11.
-  - exact (nattrans_swap_fun02 A B C).
-  - snapply Build_Is0Functor.
-    exact (fun alpha beta p => natmod_swap_fun02 A B C p).
-  - snapply Build_Is1Functor.
-    + exact (fun alpha beta p q h =>
-        natmod_swap_fun02_3cell_direct h).
-    + intros alpha b a.
-      exact (Id _).
-    + intros alpha beta gamma p q b a.
-      exact (Id _).
-Defined.
-
-Definition fun11_eval_fun02_hom_direct
-  {A B : Type} `{IsGraph A, Is21Cat B}
-  (F G : Fun02 A B) (a : A)
-  : Fun11
-      (hom_1gpd F G)
-      (hom_1gpd (F a) (G a)).
-Proof.
-  snapply Build_Fun11.
-  - exact (fun alpha => alpha a).
-  - snapply Build_Is0Functor.
-    exact (fun alpha beta p =>
-      natmod_component alpha beta p a).
-  - snapply Build_Is1Functor.
-    + exact (fun alpha beta p q h => h a).
-    + intro alpha.
-      exact (Id _).
-    + intros alpha beta gamma p q.
-      exact (Id _).
-Defined.
-
-Definition fun11_bireflect_direct
-  {C D : OneGpd} (F : Fun11 C D)
-  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F)
-  {f g : C} (p : F f $-> F g)
-  : f $-> g
-  := (@cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
-      is01cat_1gpd is1cat_1gpd C D F H f)^$
-    $@ fun11_fmap
-      (@cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
-        is01cat_1gpd is1cat_1gpd C D F H) p
-    $@ @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
-      is01cat_1gpd is1cat_1gpd C D F H g.
 
 
 
-Definition fun11_bireflect_square_direct
-  {C D : OneGpd} (F : Fun11 C D)
-  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F)
-  {x00 x20 x02 x22 : C}
-  {l : F x00 $-> F x02} {r : F x20 $-> F x22}
-  {t : F x00 $-> F x20} {b : F x02 $-> F x22}
-  (s : Square l r t b)
-  : Square
-      (fun11_bireflect_direct F H l)
-      (fun11_bireflect_direct F H r)
-      (fun11_bireflect_direct F H t)
-      (fun11_bireflect_direct F H b).
-Proof.
-  pose (G := @cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F H).
-  pose (eta := @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F H).
-  pose (s0 := fmap_square G s).
-  pose (s1 := square_whiskerTL_1gpd_direct (eta x00)^$ s0).
-  pose (s2 := whiskerTR_gpd (eta x20) s1).
-  pose (s3 := square_whiskerLB_1gpd_direct (eta x02) s2).
-  pose (s4 := square_whiskerBR_1gpd_direct (eta x22) s3).
-  unfold fun11_bireflect_direct.
-  exact s4.
-Defined.
-
-Definition fun11_bireflect_fmap_direct
-  {C D : OneGpd} (F : Fun11 C D)
-  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F)
-  {f g : C} (p : f $-> g)
-  : fun11_bireflect_direct F H (fun11_fmap F p) $== p.
-Proof.
-  unfold fun11_bireflect_direct.
-  pose (G := @cat_equiv_inv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F H).
-  pose (eta := @cat_eissect OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F H).
-  assert (np :
-    eta g $o fun11_fmap G (fun11_fmap F p)
-    $== p $o eta f).
-  { exact (isnat eta p). }
-  exact ((cat_assoc _ _ _)^$ $@ gpd_moveR_hV np).
-Defined.
-
-Definition fun11_retract_reflect_2cell_direct
-  {C D : OneGpd} (F : Fun11 C D) (G : Fun11 D C)
-  (epsilon : NatTrans (F o G) idmap)
-  {x y : D} {r s : x $-> y}
-  (q : fun11_fmap G r $== fun11_fmap G s)
-  : r $== s.
-Proof.
-  apply (gpd_cancelR r s (epsilon x)).
-  lhs' exact (isnat epsilon r)^$.
-  lhs' exact (epsilon y $@L fmap2 F q).
-  exact (isnat epsilon s).
-Defined.
-
-Definition fun11_fmap_bireflect_direct
-  {C D : OneGpd} (F : Fun11 C D)
-  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F)
-  {f g : C} (p : F f $-> F g)
-  : fun11_fmap F (fun11_bireflect_direct F H p) $== p.
-Proof.
-  pose (G := @cat_equiv_inv OneGpd
-    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
-    C D F H).
-  pose (epsilon := @cat_eisretr OneGpd
-    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
-    C D F H).
-  refine (fun11_retract_reflect_2cell_direct F G epsilon _).
-  pose (eta := @cat_eissect OneGpd
-    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
-    C D F H).
-  pose (r := fun11_bireflect_direct F H p).
-  change (fun11_fmap G (fun11_fmap F r) $==
-    fun11_fmap G p).
-  apply (gpd_cancelL (eta g) _ _).
-  lhs' exact (isnat eta r).
-  change (r $o eta f $== eta g $o fun11_fmap G p).
-  unfold r, fun11_bireflect_direct.
-  lhs' exact (cat_assoc _ _ _).
-  exact (eta g $@L gpd_hV_h (fun11_fmap G p) (eta f)).
-Defined.
-
-Definition fun11_fmap_bireflect_2cell_direct
-  {C D : OneGpd} (F : Fun11 C D)
-  (H : @Cat_IsBiInv OneGpd isgraph_1gpd is2graph_1gpd
-    is01cat_1gpd is1cat_1gpd C D F)
-  {f g : C} {p q : f $-> g}
-  (h : fun11_fmap F p $== fun11_fmap F q)
-  : p $== q.
-Proof.
-  pose (G := @cat_equiv_inv OneGpd
-    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
-    C D F H).
-  pose (eta := @cat_eissect OneGpd
-    isgraph_1gpd is2graph_1gpd is01cat_1gpd is1cat_1gpd
-    C D F H).
-  apply (gpd_cancelR p q (eta f)).
-  lhs' exact (isnat eta p)^$.
-  lhs' exact (eta g $@L fmap2 G h).
-  exact (isnat eta q).
-Defined.
 
 
-Definition fmap_comp_prewhisker_natural_direct
-  {A B : Type} `{Is21Cat A, Is21Cat B}
-  (F : Fun22 A B)
-  {a b c : A} (f : a $-> b)
-  {g g' : b $-> c} (q : g $== g')
-  : Square (A := F a $-> F c)
-      (fmap2 F (q $@R f))
-      (fmap2 F q $@R fmap F f)
-      (fmap_comp F f g)
-      (fmap_comp F f g')
-  := fmap2_prewhisker F f q.
-
-Definition fmap_comp_postwhisker_natural_direct
-  {A B : Type} `{Is21Cat A, Is21Cat B}
-  (F : Fun22 A B)
-  {a b c : A} {f f' : a $-> b}
-  (p : f $== f') (g : b $-> c)
-  : Square (A := F a $-> F c)
-      (fmap2 F (g $@L p))
-      (fmap F g $@L fmap2 F p)
-      (fmap_comp F f g)
-      (fmap_comp F f' g)
-  := fmap2_postwhisker F p g.
-
-Definition cat_assoc_opp_natural_m_direct
-  {A : Type} `{Is21Cat A}
-  {a b c d : A} (f : a $-> b)
-  {g g' : b $-> c} (p : g $== g') (h : c $-> d)
-  : Square (A := a $-> d)
-      (h $@L (p $@R f))
-      ((h $@L p) $@R f)
-      (cat_assoc_opp f g h)
-      (cat_assoc_opp f g' h).
-Proof.
-  napply vconcatR.
-  { napply vconcatL.
-    { exact (cat_assoc_opp_is_rev a b c d f g h). }
-    exact (transpose (vinverse_square_gpd
-      (cat_assoc_natural_m f p h))). }
-  exact (cat_assoc_opp_is_rev a b c d f g' h).
-Defined.
 
 Definition limit_cone_biinv_direct
   {A J : Type} `{Is21Cat A, IsGraph J}
@@ -334,7 +95,7 @@ Definition limit_cone_map_reflects_direct
   (p : limit_cone_map D l lambda a f
     $== limit_cone_map D l lambda a g)
   : f $== g
-  := fun11_bireflect_direct
+  := fun11_bireflect
       (limit_cone_map D l lambda a)
       (limit_cone_biinv_direct lambda Hlambda a) p.
 
@@ -391,54 +152,7 @@ Proof.
     p)^$).
 Defined.
 
-Local Definition natmod_cat_comp_component_early
-  {C D : Type} `{IsGraph C} `{Is21Cat D}
-  {F G : Fun02 C D}
-  {alpha beta gamma : F $-> G}
-  (q : beta $== gamma)
-  (p : alpha $== beta)
-  (c : C)
-  : natmod_component alpha gamma (q $o p) c
-    =
-    natmod_component alpha beta p c
-      $@ natmod_component beta gamma q c.
-Proof.
-  reflexivity.
-Defined.
 
-Local Definition natmod_postcompose_component_early
-  {C D : Type} `{IsGraph C} `{Is21Cat D}
-  {F G K : Fun02 C D}
-  (delta : G $-> K)
-  {alpha beta : F $-> G}
-  (p : alpha $== beta)
-  (c : C)
-  : natmod_component
-      (nattrans_comp delta alpha)
-      (nattrans_comp delta beta)
-      (natmod_postcompose delta p) c
-    =
-    delta c $@L natmod_component alpha beta p c.
-Proof.
-  reflexivity.
-Defined.
-
-Local Definition gpdhom_of_cylinder_id_direct
-  {C : Type} `{Is21Cat C}
-  {x00 x20 x02 x22 : C}
-  {f : x00 $-> x20} {g : x02 $-> x22}
-  {u : x00 $-> x02} {v : x20 $-> x22}
-  {s t : Square u v f g}
-  (c : Cylinder (Id u) (Id v) s t)
-  : s $== t.
-Proof.
-  unfold Cylinder, Square in c.
-  lhs' exact (cat_idl s)^$.
-  lhs' exact ((fmap_id (cat_postcomp _ g) u)^$ $@R s).
-  lhs' exact c.
-  lhs' exact (t $@L fmap_id (cat_precomp _ f) v).
-  exact (cat_idr t).
-Defined.
 Section PointwiseLimitDirect.
   Context (I A J : Type) `{IsGraph I, Is21Cat A, IsGraph J}.
   Context `{!HasLimits J A}.
@@ -447,7 +161,6 @@ Section PointwiseLimitDirect.
     {a b : A} (h : a $-> b)
     : transpose (hrefl h) $== vrefl h.
   Proof.
-    cbv [transpose hrefl vrefl].
     exact (gpd_rev_pp ((cat_idl h)^$) (cat_idr h)
       $@ ((cat_idr h)^$ $@L gpd_rev_rev (cat_idl h))).
   Defined.
@@ -456,7 +169,6 @@ Section PointwiseLimitDirect.
     {a b : A} (h : a $-> b)
     : transpose (vrefl h) $== hrefl h.
   Proof.
-    cbv [transpose hrefl vrefl].
     exact (gpd_rev_pp ((cat_idr h)^$) (cat_idl h)
       $@ ((cat_idl h)^$ $@L gpd_rev_rev (cat_idr h))).
   Defined.
@@ -472,7 +184,6 @@ Section PointwiseLimitDirect.
     - intro j.
       exact (Id _).
     - intros j j' g.
-      cbn.
       exact (cylinder_rewrite_front
         (transpose_vrefl_hrefl_direct (fmap P f))
         (cylinder_refl (hrefl (fmap P f)))).
@@ -488,7 +199,6 @@ Section PointwiseLimitDirect.
     - intro j.
       exact (Id _).
     - intros j j' g.
-      cbn.
       exact (cylinder_refl (hrefl (k i))).
   Defined.
 
@@ -506,7 +216,6 @@ Section PointwiseLimitDirect.
       snapply Build_NatModification.
       + intro i. exact (Id _).
       + intros i i' f.
-        cbn.
         exact (cylinder_rewrite_front
           (s0' := transpose (hrefl (fmap P f)) $@v vrefl (fmap P f))
           (square_vconcat_natural_above
@@ -594,7 +303,7 @@ Section PointwiseLimitDirect.
         (hom_1gpd
           (swap_fun02 J I A (diagonal02 (Fun02 I A) J P))
           (swap_fun02 J I A X))
-    := fun11_swap_fun02_hom_direct
+    := fun11_swap_fun02_hom
       (diagonal02 (Fun02 I A) J P) X.
 
   Definition pointwise_limit_corec_component
@@ -619,7 +328,6 @@ Section PointwiseLimitDirect.
           (pointwise_limit_diagram I A J X i))
         (P i) (k i).
   Proof.
-    unfold limit_cone_map.
     lhs' exact (natmod_swap_fun02_comp_at J I A
       (fmap (diagonal02 (Fun02 I A) J) k)
       (pointwise_limit_cone I A J X) i).
@@ -629,7 +337,7 @@ Section PointwiseLimitDirect.
       (pointwise_diagonal_map_comparison k i)).
   Defined.
 
-  Local Definition pointwise_limit_cone_map_comparison_component
+  Definition pointwise_limit_cone_map_comparison_component
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
     (k : P $-> pointwise_limit_apex I A J X)
     (i : I) (j : J)
@@ -637,15 +345,11 @@ Section PointwiseLimitDirect.
         (pointwise_limit_cone_map_comparison X P k i) j
       $== Id _.
   Proof.
-    unfold pointwise_limit_cone_map_comparison.
-    rewrite natmod_cat_comp_component_early.
-    rewrite natmod_postcompose_component_early.
+    rewrite natmod_cat_comp_component.
+    rewrite natmod_postcompose_component.
     pose (lambda :=
       cat_limit_cone J
         (pointwise_limit_diagram I A J X i) j).
-    change (((Id (lambda $o k i))
-      $@ (lambda $@L Id (k i)))
-      $== Id (lambda $o k i)).
     exact (cat_idr (lambda $@L Id (k i))
       $@ fmap_id (cat_postcomp (P i) lambda) (k i)).
   Defined.
@@ -657,7 +361,7 @@ Section PointwiseLimitDirect.
         (hom_1gpd (P i) (pointwise_limit_apex I A J X i)).
   Proof.
     pose (L := pointwise_limit_local_cones_fun11 X P).
-    pose (V := fun11_eval_fun02_hom_direct
+    pose (V := fun11_eval_fun02_hom
       (swap_fun02 J I A (diagonal02 (Fun02 I A) J P))
       (swap_fun02 J I A X) i).
     pose (E := limit_cone_map_inv_direct
@@ -702,8 +406,6 @@ Section PointwiseLimitDirect.
     pose (k := pointwise_limit_corec_component alpha i).
     pose (k' := pointwise_limit_corec_component alpha i').
     pose (lf := fmap (pointwise_limit_apex I A J X) f).
-    change (lambda' $o fmap (diagonal02 A J) (k' $o pf)
-      $== lambda' $o fmap (diagonal02 A J) (lf $o k)).
     lhs' exact (natmod_postcompose lambda'
       (natmod_diagonal02_comp A J pf k')).
     lhs' exact (natmod_inverse
@@ -783,7 +485,7 @@ Section PointwiseLimitDirect.
       (pointwise_limit_corec_component_fun11 X P i) p).
   Defined.
 
-  Definition pointwise_limit_corec_modification_naturality_cone_test
+  Definition pointwise_limit_corec_modification_naturality_cone_square
     {X : Fun02 J (Fun02 I A)} {P : Fun02 I A}
     {alpha beta : diagonal02 (Fun02 I A) J P $-> X}
     (p : alpha $== beta) {i i' : I} (f : i $-> i')
@@ -800,7 +502,10 @@ Section PointwiseLimitDirect.
             $@L pointwise_limit_corec_modification_component p i))
         (pointwise_limit_corec_naturality_cone alpha f)
         (pointwise_limit_corec_naturality_cone beta f).
-    cbn zeta.
+    nrefine (hconcatR _ _).
+    2: reflexivity.
+    nrefine (hconcatL _ _).
+    { reflexivity. }
     pose (D := pointwise_limit_diagram I A J X i).
     pose (D' := pointwise_limit_diagram I A J X i').
     pose (lambda := cat_limit_cone J D).
@@ -843,9 +548,9 @@ Section PointwiseLimitDirect.
     pose (ep1 := limit_beta_direct_naturality D' p1).
     pose (c1 := fmap_square
       (cat_postcomp (diagonal02 A J (P i)) lambda')
-      (fmap_comp_prewhisker_natural_direct delta pf m1)).
+      (fmap_comp_prewhisker_natural delta pf m1)).
     pose (c2 :=
-      cat_assoc_opp_natural_m_direct dpf dm1 lambda').
+      cat_assoc_opp_natural_m dpf dm1 lambda').
     pose (c3 := fmap_square
       (cat_precomp D' dpf) ep1).
     pose (s := fmap
@@ -875,25 +580,16 @@ Section PointwiseLimitDirect.
     pose (c9 := fmap_square
       (cat_postcomp (diagonal02 A J (P i)) lambda')
       (hinverse_square_gpd
-        (fmap_comp_postwhisker_natural_direct delta m0 lf))).
-    pose (c := c1 $@h (c2 $@h (c3 $@h (c3' $@h
-      (c4 $@h (c5 $@h (c6 $@h
-        (c7' $@h (c8 $@h c9))))))))).
-    pose (F := limit_cone_map D'
-      (pointwise_limit_apex I A J X i') lambda' (P i)).
-    assert (el :
-      fun11_fmap F (m1 $@R pf)
-      $==
-      fmap (cat_postcomp (diagonal02 A J (P i)) lambda')
-        (fmap2 delta (m1 $@R pf))).
-    { reflexivity. }
-    assert (er :
-      fun11_fmap F (lf $@L m0)
-      $==
-      fmap (cat_postcomp (diagonal02 A J (P i)) lambda')
-        (fmap2 delta (lf $@L m0))).
-    { reflexivity. }
-    exact (hconcatR (hconcatL el c) er).
+        (fmap_comp_postwhisker_natural delta m0 lf))).
+    nrefine (hconcat c1 _).
+    nrefine (hconcat c2 _).
+    nrefine (hconcat c3 _).
+    nrefine (hconcat c3' _).
+    nrefine (hconcat c4 _).
+    nrefine (hconcat c5 _).
+    nrefine (hconcat c6 _).
+    nrefine (hconcat c7' _).
+    nrefine (hconcat c8 c9).
   Defined.
 
   Definition limit_cone_map_reflects_3cell_direct
@@ -911,11 +607,17 @@ Section PointwiseLimitDirect.
     pose (gh := fmap2 (cate_fun e^-1$) h).
     pose (np := isnat eta p).
     pose (nq := isnat eta q).
-    apply (gpd_cancelR p q (eta f)).
+    napply (@gpd_cancelR (a $-> l)
+      (isgraph_hom a l)
+      (isgraph_hom_hom a l)
+      (is01cat_hom a l)
+      (is1cat_hom a l)
+      (is0gpd_hom a l)
+      (is1gpd_hom a l)).
     exact (np^$ $@ (eta g $@L gh) $@ nq).
   Defined.
 
-  Definition pointwise_limit_corec_modification_naturality_test
+  Definition pointwise_limit_corec_modification_naturality_cylinder
     {X : Fun02 J (Fun02 I A)} {P : Fun02 I A}
     {alpha beta : diagonal02 (Fun02 I A) J P $-> X}
     (p : alpha $== beta) {i i' : I} (f : i $-> i')
@@ -925,23 +627,23 @@ Section PointwiseLimitDirect.
         (pointwise_limit_corec_naturality alpha f)
         (pointwise_limit_corec_naturality beta f).
   Proof.
-    unfold Cylinder.
+    napply cylinder_of_square.
     pose (D' := pointwise_limit_diagram I A J X i').
     pose (lambda' := cat_limit_cone J D').
     pose (F := limit_cone_map D'
       (pointwise_limit_apex I A J X i') lambda' (P i)).
     pose (HF := limit_cone_biinv_direct lambda'
       (cat_islimit_cone J D') (P i)).
-    pose (s :=
-      pointwise_limit_corec_modification_naturality_cone_test p f).
-    pose (sr := fun11_bireflect_square_direct F HF s).
-    pose (el := fun11_bireflect_fmap_direct F HF
-      (pointwise_limit_corec_modification_component p i'
-        $@R fmap P f)).
-    pose (er := fun11_bireflect_fmap_direct F HF
-      (fmap (pointwise_limit_apex I A J X) f
-        $@L pointwise_limit_corec_modification_component p i)).
-    exact (hconcatR (hconcatL el^$ sr) er^$).
+    nrefine (hconcatR _ _).
+    - nrefine (hconcatL _ _).
+      + exact (fun11_bireflect_fmap F HF
+          (pointwise_limit_corec_modification_component p i'
+            $@R fmap P f))^$.
+      + napply (fun11_bireflect_square F HF).
+        exact (pointwise_limit_corec_modification_naturality_cone_square p f).
+    - exact (fun11_bireflect_fmap F HF
+        (fmap (pointwise_limit_apex I A J X) f
+          $@L pointwise_limit_corec_modification_component p i))^$.
   Defined.
 
 
@@ -954,7 +656,7 @@ Section PointwiseLimitDirect.
     snapply Build_NatModification.
     - exact (pointwise_limit_corec_modification_component p).
     - exact (fun i i' f =>
-        pointwise_limit_corec_modification_naturality_test p f).
+        pointwise_limit_corec_modification_naturality_cylinder p f).
   Defined.
 
   Definition pointwise_limit_corec_3cell
@@ -991,69 +693,6 @@ Section PointwiseLimitDirect.
           (pointwise_limit_corec_component_fun11 X P i) p q).
   Defined.
 
-  Local Definition natmod_comp_component_direct
-    {C D : Type} `{IsGraph C} `{Is21Cat D}
-    {U V : C -> D} `{!Is0Functor U, !Is0Functor V}
-    {alpha beta gamma : NatTrans U V}
-    (q : NatModification beta gamma)
-    (p : NatModification alpha beta)
-    (c : C)
-    : natmod_component alpha gamma (natmod_comp q p) c
-      =
-      natmod_component alpha beta p c
-      $@ natmod_component beta gamma q c.
-  Proof.
-    reflexivity.
-  Defined.
-
-  Local Definition natmod_cat_comp_component_direct
-    {C D : Type} `{IsGraph C} `{Is21Cat D}
-    {F G : Fun02 C D}
-    {alpha beta gamma : F $-> G}
-    (q : beta $== gamma)
-    (p : alpha $== beta)
-    (c : C)
-    : natmod_component alpha gamma (q $o p) c
-      =
-      natmod_component alpha beta p c
-      $@ natmod_component beta gamma q c.
-  Proof.
-    reflexivity.
-  Defined.
-
-  Local Definition natmod_postcompose_component_direct
-    {C D : Type} `{IsGraph C} `{Is21Cat D}
-    {F G K : Fun02 C D}
-    (delta : G $-> K)
-    {alpha beta : F $-> G}
-    (p : alpha $== beta)
-    (c : C)
-    : natmod_component
-        (nattrans_comp delta alpha)
-        (nattrans_comp delta beta)
-        (natmod_postcompose delta p) c
-      =
-      delta c $@L natmod_component alpha beta p c.
-  Proof.
-    reflexivity.
-  Defined.
-
-  Local Definition natmod_precompose_component_direct
-    {C D : Type} `{IsGraph C} `{Is21Cat D}
-    {F G K : Fun02 C D}
-    (delta : F $-> G)
-    {alpha beta : G $-> K}
-    (p : alpha $== beta)
-    (c : C)
-    : natmod_component
-        (nattrans_comp alpha delta)
-        (nattrans_comp beta delta)
-        (natmod_precompose delta p) c
-      =
-      natmod_component alpha beta p c $@R delta c.
-  Proof.
-    reflexivity.
-  Defined.
 
   Definition pointwise_limit_beta_at
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
@@ -1066,22 +705,10 @@ Section PointwiseLimitDirect.
   Proof.
     snapply Build_NatModification.
     - intro i.
-        change (limit_cone_map
-          (pointwise_limit_diagram I A J X i)
-          (pointwise_limit_apex I A J X i)
-          (cat_limit_cone J
-            (pointwise_limit_diagram I A J X i))
-          (P i)
-          (pointwise_limit_corec_component alpha i) j
-          $== alpha j i).
         pose (b := natmod_component _ _
           (limit_beta_direct
             (pointwise_limit_diagram I A J X i)
             (pointwise_limit_local_cones alpha i)) j).
-        unfold pointwise_limit_local_cones,
-          nattrans_swap_fun02,
-          nattrans_swap_fun02_at in b.
-        cbn beta in b.
         exact b.
     - intros i i' f.
         pose (D' := pointwise_limit_diagram I A J X i').
@@ -1092,11 +719,11 @@ Section PointwiseLimitDirect.
           (cat_islimit_cone J D') (P i)).
         pose (s :=
           pointwise_limit_corec_naturality_cone alpha f).
-        pose (h := fun11_fmap_bireflect_direct F HF s).
+        pose (h := fun11_fmap_bireflect F HF s).
         pose (hj := h j).
         pose (delta := fun22_diagonal02 A J).
         pose (n := pointwise_limit_corec_naturality alpha f).
-        unfold Cylinder, Square.
+        napply Build_Cylinder.
         pose (D := pointwise_limit_diagram I A J X i).
         pose (lambda := cat_limit_cone J D).
         pose (a := pointwise_limit_local_cones alpha i).
@@ -1168,7 +795,7 @@ Section PointwiseLimitDirect.
           unfold gpd_comp.
           unfold is01cat_hom_fun02.
           unfold cat_comp.
-          repeat rewrite natmod_comp_component_direct.
+          repeat rewrite natmod_comp_component.
           cbn beta.
           unfold natmod_component.
           cbn beta.
@@ -1368,12 +995,12 @@ Section PointwiseLimitDirect.
       pointwise_limit_cone_map_comparison_component
         X P (pointwise_limit_corec alpha) i j').
     pose (c := natmod_isnatural _ _ h g).
-    exact (gpdhom_of_cylinder_id_direct
+    exact (cylinder_id_to_3cell
       (cylinder_rewrite_right ehj'^$
         (cylinder_rewrite_left ehj^$ c))).
   Defined.
 
-  Definition pointwise_limit_beta_component_skeleton
+  Definition pointwise_limit_beta_component
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
     (alpha : cone_1gpd X P)
     : (limit_cone_map X
@@ -1390,20 +1017,6 @@ Section PointwiseLimitDirect.
       pose (a := pointwise_limit_local_cones alpha i).
       pose (beta := limit_beta_direct D a).
       pose (c := natmod_isnatural _ _ beta g).
-      unfold Cylinder, Square in c.
-      rewrite natmod_cat_comp_component_direct.
-      rewrite natmod_postcompose_component_direct.
-      rewrite (natmod_cat_comp_component_direct
-        (is1natural_nattrans alpha j j' g) _ i).
-      rewrite (natmod_precompose_component_direct
-        (fmap (diagonal02 (Fun02 I A) J P) g)
-        (pointwise_limit_beta_at X P alpha j') i).
-      rewrite pointwise_limit_beta_at_component.
-      rewrite pointwise_limit_beta_at_component.
-      rewrite pointwise_limit_local_cones_isnatural_component.
-      rewrite
-        (pointwise_limit_local_cones_isnatural_component
-          X P alpha j j' g i).
       pose (e :=
         pointwise_limit_cone_map_isnatural_component
           X P alpha j j' g i).
@@ -1416,7 +1029,7 @@ Section PointwiseLimitDirect.
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
     (alpha : cone_1gpd X P) (j : J)
     : natmod_component _ _
-        (pointwise_limit_beta_component_skeleton X P alpha) j
+        (pointwise_limit_beta_component X P alpha) j
       =
       pointwise_limit_beta_at X P alpha j.
   Proof.
@@ -1428,7 +1041,7 @@ Section PointwiseLimitDirect.
     (alpha : cone_1gpd X P) (i : I)
     : Square
         (natmod_swap_fun02_at J I A
-          (pointwise_limit_beta_component_skeleton X P alpha) i)
+          (pointwise_limit_beta_component X P alpha) i)
         (limit_beta_direct
           (pointwise_limit_diagram I A J X i)
           (pointwise_limit_local_cones alpha i))
@@ -1436,9 +1049,9 @@ Section PointwiseLimitDirect.
           (pointwise_limit_corec alpha) i)
         (Id (pointwise_limit_local_cones alpha i)).
   Proof.
+    napply Build_NatModificationSquare.
     intro j.
-    rewrite natmod_cat_comp_component_direct.
-    rewrite natmod_cat_comp_component_direct.
+    rewrite natmod_cat_comp_component.
     pose (hcj := natmod_component _ _
       (pointwise_limit_cone_map_comparison X P
         (pointwise_limit_corec alpha) i) j).
@@ -1448,21 +1061,20 @@ Section PointwiseLimitDirect.
         (pointwise_limit_local_cones alpha i)) j).
     pose (bgj := natmod_component _ _
       (natmod_swap_fun02_at J I A
-        (pointwise_limit_beta_component_skeleton X P alpha) i) j).
-    change (hcj $@ betj $== bgj $@ Id _).
+        (pointwise_limit_beta_component X P alpha) i) j).
     pose (eh := pointwise_limit_cone_map_comparison_component
       X P (pointwise_limit_corec alpha) i j).
-    lhs' exact (betj $@L eh).
-    lhs' exact (cat_idr betj).
-    rhs' exact (cat_idl bgj).
-    unfold bgj.
-    change (betj $== natmod_component _ _
-      (pointwise_limit_beta_at X P alpha j) i).
-    rewrite pointwise_limit_beta_at_component.
-    exact (Id betj).
+    assert (eb : bgj $== betj).
+    {
+      unfold bgj.
+      rewrite natmod_swap_fun02_at_component.
+      rewrite pointwise_limit_beta_at_component.
+      exact (Id betj).
+    }
+    exact (vconcatL eh (hconcatL eb (hrefl betj))).
   Defined.
 
-  Definition pointwise_limit_beta_naturality_skeleton
+  Definition pointwise_limit_beta_naturality
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
     {alpha beta : cone_1gpd X P} (p : alpha $== beta)
     : Square
@@ -1473,25 +1085,17 @@ Section PointwiseLimitDirect.
               (pointwise_limit_cone I A J X) P)
             (pointwise_limit_corec_fun11 X P)) p)
         p
-        (pointwise_limit_beta_component_skeleton X P alpha)
-        (pointwise_limit_beta_component_skeleton X P beta).
+        (pointwise_limit_beta_component X P alpha)
+        (pointwise_limit_beta_component X P beta).
   Proof.
+    napply Build_NatModificationSquare.
     intro j.
+    napply Build_NatModificationSquare.
     intro i.
-    rewrite natmod_cat_comp_component_direct.
-    rewrite natmod_cat_comp_component_direct.
-    rewrite natmod_cat_comp_component_direct.
-    rewrite natmod_cat_comp_component_direct.
-    rewrite pointwise_limit_beta_component_at.
-    rewrite pointwise_limit_beta_at_component.
-    rewrite pointwise_limit_beta_component_at.
-    rewrite pointwise_limit_beta_at_component.
-    cbn beta.
     pose (D := pointwise_limit_diagram I A J X i).
     pose (q := natmod_component _ _
       (pointwise_limit_local_cones_modification p) i).
     pose (c := limit_beta_direct_naturality D q).
-    unfold Square in c.
     exact (c j).
   Defined.
 
@@ -1505,21 +1109,13 @@ Section PointwiseLimitDirect.
       $== Id (cone_1gpd X P).
   Proof.
     snapply Build_NatTrans.
-    - exact (pointwise_limit_beta_component_skeleton X P).
+    - exact (pointwise_limit_beta_component X P).
     - snapply Build_Is1Natural.
       intros alpha beta p.
-      change (
-        pointwise_limit_beta_component_skeleton X P beta
-          $o fun11_fmap
-            (fun11_compose
-              (limit_cone_map X
-                (pointwise_limit_apex I A J X)
-                (pointwise_limit_cone I A J X) P)
-              (pointwise_limit_corec_fun11 X P)) p
-        $==
-        p $o pointwise_limit_beta_component_skeleton X P alpha).
-      exact (pointwise_limit_beta_naturality_skeleton X P p)^$.
+      exact (pointwise_limit_beta_naturality X P p)^$.
   Defined.
+
+  Opaque pointwise_limit_beta.
 
   Definition pointwise_limit_eta_component
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
@@ -1530,24 +1126,28 @@ Section PointwiseLimitDirect.
           (pointwise_limit_cone I A J X) P k) i
       $== k i.
   Proof.
-    pose (D := pointwise_limit_diagram I A J X i).
-    pose (lambda := cat_limit_cone J D).
-    pose (Hlambda := cat_islimit_cone J D).
-    pose (F := limit_cone_map D
-      (pointwise_limit_apex I A J X i) lambda (P i)).
-    pose (HF := limit_cone_biinv_direct lambda Hlambda (P i)).
-    pose (alpha := pointwise_limit_local_cones
-      (limit_cone_map X
-        (pointwise_limit_apex I A J X)
-        (pointwise_limit_cone I A J X) P k) i).
-    pose (h := pointwise_limit_cone_map_comparison X P k i).
-    exact (fun11_bireflect_direct F HF
-      (limit_beta_direct D alpha $@ h)).
+    napply (fun11_bireflect
+      (limit_cone_map
+        (pointwise_limit_diagram I A J X i)
+        (pointwise_limit_apex I A J X i)
+        (cat_limit_cone J (pointwise_limit_diagram I A J X i))
+        (P i))
+      (limit_cone_biinv_direct
+        (cat_limit_cone J (pointwise_limit_diagram I A J X i))
+        (cat_islimit_cone J (pointwise_limit_diagram I A J X i))
+        (P i))).
+    exact (limit_beta_direct
+      (pointwise_limit_diagram I A J X i)
+      (pointwise_limit_local_cones
+        (limit_cone_map X
+          (pointwise_limit_apex I A J X)
+          (pointwise_limit_cone I A J X) P k) i)
+      $@ pointwise_limit_cone_map_comparison X P k i).
   Defined.
 
 
 
-  Definition pointwise_limit_eta_naturality_cone2
+  Definition pointwise_limit_eta_naturality_cone
     (X : Fun02 J (Fun02 I A)) (P : Fun02 I A)
     (k : P $-> pointwise_limit_apex I A J X)
     {i i' : I} (f : i $-> i')
@@ -1602,18 +1202,18 @@ Section PointwiseLimitDirect.
     pose (eta1 := pointwise_limit_eta_component X P k i').
     pose (deta0 := fmap2 delta eta0).
     pose (deta1 := fmap2 delta eta1).
-    pose (ep0 := fun11_fmap_bireflect_direct
+    pose (ep0 := fun11_fmap_bireflect
       (limit_cone_map D (cat_limit J D) lambda (P i))
       (limit_cone_biinv_direct lambda
         (cat_islimit_cone J D) (P i)) p0).
-    pose (ep1 := fun11_fmap_bireflect_direct
+    pose (ep1 := fun11_fmap_bireflect
       (limit_cone_map D' (cat_limit J D') lambda' (P i'))
       (limit_cone_biinv_direct lambda'
         (cat_islimit_cone J D') (P i')) p1).
     pose (c1 := fmap_square
       (cat_postcomp (diagonal02 A J (P i)) lambda')
-      (fmap_comp_prewhisker_natural_direct delta pf eta1)).
-    pose (c2 := cat_assoc_opp_natural_m_direct
+      (fmap_comp_prewhisker_natural delta pf eta1)).
+    pose (c2 := cat_assoc_opp_natural_m
       dpf deta1 lambda').
     pose (c3 := fmap_square
       (cat_precomp D' dpf) (hdeg_square ep1)).
@@ -1622,7 +1222,7 @@ Section PointwiseLimitDirect.
     pose (cleft := cleft12 $@hR eep1^$).
     pose (u := pointwise_diagonal_fmap_direct P f).
     pose (bglobal :=
-      pointwise_limit_beta_component_skeleton X P alpha).
+      pointwise_limit_beta_component X P alpha).
     pose (bglobal0 :=
       natmod_swap_fun02_at J I A bglobal i).
     pose (bglobal1 :=
@@ -1677,7 +1277,7 @@ Section PointwiseLimitDirect.
     pose (c9 := fmap_square
       (cat_postcomp (diagonal02 A J (P i)) lambda')
       (hinverse_square_gpd
-        (fmap_comp_postwhisker_natural_direct
+        (fmap_comp_postwhisker_natural
           delta eta0 lf))).
     pose (cright0 :=
       c6 $@h (c7' $@h (c8 $@h c9))).
@@ -1691,11 +1291,8 @@ Section PointwiseLimitDirect.
       (cbetabridge1 $@h (cmid' $@h (cbetabridge0 $@h
         (cbridge0 $@h cright))))))).
     pose (F := limit_cone_map D' (cat_limit J D') lambda' (P i)).
-    let W := type of whole in
-    lazymatch W with
-    | Square _ _ _ ?WB =>
-      assert (ebottom : fun11_fmap F (isnat k f) $== WB)
-    end.
+    square_bottom whole as WB.
+    assert (ebottom : fun11_fmap F (isnat k f) $== WB).
     {
     intro j.
     cbn.
@@ -1896,14 +1493,7 @@ Section PointwiseLimitDirect.
     }
     exact (ecore $@ (efull $@ eunit)^$).
     }
-    let MTy := type of middle in
-    lazymatch MTy with
-    | Square ?ml ?mr ?mt ?mb =>
-      pose (MidL := ml);
-      pose (MidR := mr);
-      pose (MidT := mt);
-      pose (MidB := mb)
-    end.
+    square_boundaries middle as MidL MidR MidT MidB.
     pose (Lbet := fmap (cat_precomp D' dpf) bet').
     pose (Lh := fmap (cat_precomp D' dpf) h').
     pose (Rbet := fmap
@@ -1929,20 +1519,10 @@ Section PointwiseLimitDirect.
     pose (eT := gpd_moveL_hM eT0).
     pose (middleC := middle $@vL eT^$).
     pose (wholeC := cleft $@h (middleC $@h cright)).
-    let WCTy := type of wholeC in
-    lazymatch WCTy with
-    | Square _ _ ?wct ?wcb =>
-      pose (WCT := wct);
-      pose (WCB := wcb)
-    end.
-    let CLTy := type of cleft in
-    lazymatch CLTy with
-    | Square _ _ ?clt _ => pose (CLTop := clt)
-    end.
-    let CRTy := type of cright in
-    lazymatch CRTy with
-    | Square _ _ ?crt _ => pose (CRTop := crt)
-    end.
+    square_top wholeC as WCT.
+    square_bottom wholeC as WCB.
+    square_top cleft as CLTop.
+    square_top cright as CRTop.
     pose (RbetInv := fmap
       (cat_postcomp (diagonal02 A J (P i)) df) bet^$).
     pose (NatA := isnat (pointwise_limit_local_cones alpha) f).
@@ -2050,14 +1630,8 @@ Section PointwiseLimitDirect.
       change (DirectFlat $== WCT).
       exact (eGroup $@ ePasted^$).
     }
-    let CRBTy := type of cright in
-    lazymatch CRBTy with
-    | Square _ _ _ ?crb => pose (CRBottom := crb)
-    end.
-    let CLBTy := type of cleft in
-    lazymatch CLBTy with
-    | Square _ _ _ ?clb => pose (CLBottom := clb)
-    end.
+    square_bottom cright as CRBottom.
+    square_bottom cleft as CLBottom.
     pose (B1 := Rh $o RId).
     pose (B2 := B1 $o NatA).
     pose (B3 := B2 $o LIdV).
@@ -2102,7 +1676,7 @@ Section PointwiseLimitDirect.
         $== FlatBottom) in ebottom.
       exact (ebottom $@ eBottomGroup).
     }
-    refine (wholeC $@hL _ $@hR _
+    nrefine (wholeC $@hL _ $@hR _
       $@vL etopC $@vR ebottomC).
     all: try reflexivity.
   Defined.
@@ -2126,16 +1700,16 @@ Section PointwiseLimitDirect.
         lambda' (P i)).
       pose (HF := limit_cone_biinv_direct lambda'
         (cat_islimit_cone J D') (P i)).
-      pose (c := fun11_bireflect_square_direct F HF
-        (pointwise_limit_eta_naturality_cone2 X P k f)).
-      refine (c $@hL _ $@hR _ $@vL _ $@vR _).
+      pose (c := fun11_bireflect_square F HF
+        (pointwise_limit_eta_naturality_cone X P k f)).
+      nrefine (c $@hL _ $@hR _ $@vL _ $@vR _).
       + reflexivity.
-      + exact (fun11_bireflect_fmap_direct F HF
+      + exact (fun11_bireflect_fmap F HF
           (pointwise_limit_eta_component X P k i'
             $@R fmap P f))^$.
-      + exact (fun11_bireflect_fmap_direct F HF
+      + exact (fun11_bireflect_fmap F HF
           (fmap (pointwise_limit_apex I A J X) f
             $@L pointwise_limit_eta_component X P k i))^$.
-      + exact (fun11_bireflect_fmap_direct F HF (isnat k f))^$.
+      + exact (fun11_bireflect_fmap F HF (isnat k f))^$.
   Defined.
 End PointwiseLimitDirect.

@@ -613,15 +613,164 @@ sources to inspect.  Permanent modules must not import them.
 - [x] Construct specified pointwise limits in `Fun02 I A` from specified
       limits in `A`.
 - [x] Prove the assembled pointwise cone is universal in the functor category.
-- [ ] Define row-first and column-first double-cone presentations without
-      hiding the chosen cones behind unrelated typeclass choices.
-- [ ] Prove the abstract Fubini equivalence by coherent argument swap and
+- [ ] Define the postcomposed diagram `R D` and the canonical coherent
+      comparison `Δ (R l) $-> R (Δ l)`, then use them to define the image
+      under `R` of one specified cone `Δ l $-> D`.
+- [ ] Define the core preservation predicate for one specified
+      `Limit J D`: its image cone is an `IsLimitCone` for `R D`.  Do not
+      require global `HasLimits` in this statement.
+- [ ] Construct the cone mate/unmate equivalence needed for preservation:
+      for a coherent adjunction `L ⊣ R`, compare cones from `L X` to `D` with
+      cones from `X` to `R D`, retaining transformations and modifications in
+      the mapping `OneGpd`s.
+- [ ] Compose the adjunction hom equivalence, the specified limit-cone
+      equivalence, and the cone mate equivalence.  Prove that this composite
+      is homotopic to the canonical cone map for the image cone; the final
+      step is the adjunction triangle/mate-unmate law.
+- [ ] Conclude that a coherent right adjoint preserves every specified
+      `Limit J D` by `catie_homotopic`.
+- [ ] Add a separate `HasLimits` corollary only for comparison with the
+      library's chosen output limit: derive the canonical equivalence
+      `R (cat_limit D) $<~> cat_limit (R D)` and its cone beta law by
       categorical unicity.
+- [ ] Instantiate preservation with the specified pointwise limit
+      `pointwise_limit` and
+      `gpd_adjunction_cat_limit : Δ_J ⊣ lim_J`; use `HasLimits` only to select
+      the constituent limits, never to identify unrelated typeclass choices
+      definitionally.
+- [ ] Define the two iterated-limit expressions and derive abstract Fubini as
+      the resulting preservation comparison
+      `lim_J (lim_I D) $<~> lim_I (lim_J ∘ D)`.  Express the second side with
+      argument swap only as a notation-level reformulation.
+- [ ] Record the Fubini comparison's compatibility with both induced double
+      cones.  Do not introduce a separate double-diagonal interchange theorem
+      unless the preservation proof exposes it as an unavoidable prerequisite.
+- [ ] Specialize `I` and `J` to `WalkingCospan`, identify chosen limits with
+      pullbacks, and derive the abstract pullback 3-by-3 equivalence.
+- [ ] In `Type`, compare the canonical map and boundary beta laws with
+      `Limits.Pullback.pullback3x3`; equality of packaged equivalence records
+      is not a required or stable comparison.
 
 ### Validation
 
 - [x] Build and assumption-audit `fun12_cone_1gpd`, `fun12_cat_limit`, and
       `gpd_adjunction_cat_limit`; all are closed under the global context.
+- [x] Audit conversion-heavy proofs in `PointwiseLimitCorec.v` and
+      `PointwiseLimitUniversal.v`.  Timings below are wall times for dedicated
+      `coqc -time` scratch reproductions unless marked as module builds; `≤1 s`
+      records a proof whose complete dedicated or reduced scratch finished
+      within one second.
+
+| Proof | Revised conversion use | Timing |
+| --- | --- | ---: |
+| `fun11_bireflect_square` | named square whiskering only | `≤1 s` |
+| `fun11_bireflect_fmap` | none | `≤1 s` |
+| `fun11_fmap_bireflect` | none | `≤1 s` |
+| `cylinder_id_to_3cell` | named cylinder elimination and unit laws | `≤1 s` |
+| `transpose_hrefl_vrefl_direct` | none | `≤1 s` |
+| `transpose_vrefl_hrefl_direct` | none | `≤1 s` |
+| `pointwise_diagonal_fmap_direct` | none | `≤1 s` |
+| `pointwise_diagonal_map_comparison` | none | `≤1 s` |
+| `pointwise_diagonal_comparison` | none | `≤1 s` |
+| `swap_fun02_hom_to_naturality_direct` | one targeted `cbn beta` | `≤1 s` |
+| `pointwise_limit_cone_map_comparison` | none | `≤1 s` |
+| `pointwise_limit_cone_map_comparison_component` | rewrites only | `≤1 s` |
+| `pointwise_limit_corec_naturality_cone` | none | `≤1 s` |
+| `pointwise_limit_corec_modification_naturality_cone_square` | named square pasting and boundary rewrites | `72.50 s` |
+| `pointwise_limit_corec_modification_naturality_cylinder` | constructor, reflection, and boundary rewrites | `≤1 s` |
+| `pointwise_limit_beta_at` | starts from `Build_Cylinder`; no square/cylinder unfolding | `16.04 s` |
+| `pointwise_limit_beta_component` | rewrites removed | `1.07 s` |
+| `pointwise_limit_beta_comparison` | componentwise square constructor | `1.30 s` |
+| `pointwise_limit_beta_naturality` | nested componentwise square constructors | `3.26 s` |
+| `pointwise_limit_beta` | packaging conversion removed | `1.01 s` |
+| `pointwise_limit_eta_naturality_cone` | named boundary eliminators and square pasting | `74.68 s` |
+| `pointwise_limit_cone_map_comparison_component_eta` | none | `4.15 s` |
+| `pointwise_limit_eta` | componentwise comparison square; beta opaque | `36.81 s` |
+
+- [x] Rebuild the revised pointwise-limit modules.  The current
+      `PointwiseLimitCorec.v` `coqc -time` run completed in `329.42 s`;
+      the current `PointwiseLimitUniversal.v` sequential check completed in
+      `43.14 s`.
+
+#### Square/Cylinder abstraction and proof direction
+
+The pointwise-limit proofs were also audited for reliance on the definitions
+`Square l r t b := r $o t $== b $o l` and
+`Cylinder p q s t := Square (q $@R f) (g $@L p) s t`.  A representation leak
+includes not only an explicit `unfold Square` or `unfold Cylinder`, but also a
+`change` to the resulting raw composite, proving a square by component
+`intro`s, using a cylinder directly as a 3-cell by conversion, or
+`lazymatch`ing the boundary of a `Square`.  The forward-proof counts below are
+counts of `pose`, `assert`, and Ltac `let` commands in the proof body.  They are
+a warning metric, not by themselves a defect: a backward proof should first
+apply the constructor, eliminator, reflection, or pasting operation dictated
+by its goal, and introduce local names only for repeated subterms.
+
+API work required before rewriting the largest proofs:
+
+- [x] Move the pointwise-only corner-whiskering calculations to `Square.v`
+      as the reusable `whiskerTR_gpd`, `whiskerBL_gpd`, and
+      `whiskerLB_gpd` operations.
+- [x] Add `Build_NatModificationSquare` and
+      `natmod_square_component` as the componentwise constructor and
+      eliminator for squares of modifications.
+- [x] Move identity-sided cylinder elimination to `Cylinder.v` as
+      `cylinder_id_to_3cell`, expressed through `gpdhom_cylinder` and named
+      unit laws.
+- [x] Add the generic laws exposed by the rewrites:
+      `fmap_comp_prewhisker_natural`,
+      `fmap_comp_postwhisker_natural`, and
+      `cat_assoc_opp_natural_m`; the existing rotation and pasting operations
+      cover the remaining cases.
+- [x] Adopt the client-module invariant that `Square` and `Cylinder` are not
+      unfolded and their raw composite equations are not targets of `change`.
+      Representation-level proofs remain in `Square.v` and `Cylinder.v`.
+
+Representation-dependent proofs, in priority order:
+
+- [x] Rewrite `pointwise_limit_eta_naturality_cone` to inspect constituent
+      boundaries only through the named `square_*` eliminators and assemble
+      the result through square pasting.  Its remaining long equations are
+      3-cell coherence calculations after boundary elimination, not
+      conversions from `Square` or `Cylinder`.
+- [x] Rewrite the edge-coherence branch of `pointwise_limit_beta_at` to start
+      from `Build_Cylinder`; it no longer unfolds either representation.
+- [x] Replace `gpdhom_of_cylinder_id_direct` by the generic
+      `cylinder_id_to_3cell`.
+- [x] Rewrite `pointwise_limit_beta_comparison` through
+      `Build_NatModificationSquare`.
+- [x] Rewrite `pointwise_limit_beta_naturality` through nested
+      `Build_NatModificationSquare` constructors.
+- [x] Rewrite the local comparison square in `pointwise_limit_eta` with
+      `Build_NatModificationSquare`, named boundary rewrites, and
+      `Build_Square`.
+
+Forward-construction hotspots refactored toward goal-directed construction:
+
+- [x] Refactor
+      `pointwise_limit_corec_modification_naturality_cone_square` to apply
+      `hconcatR` and `hconcatL` from the target before assembling its
+      constituent squares.
+- [x] Refactor
+      `pointwise_limit_corec_modification_naturality_cylinder` to apply
+      `cylinder_of_square`, reflection, and boundary rewrites from the target.
+- [x] Refactor `fun11_bireflect_square` as a backward sequence of generic
+      square-whiskering operations.
+- [x] Refactor `pointwise_limit_eta_component` to apply `fun11_bireflect`
+      first and fill its beta/comparison argument afterward.
+- [x] Review `pointwise_limit_corec_naturality_cone`; its goal-directed
+      `lhs'` chain is retained and only repeated composite terms are named.
+
+Completion criteria:
+
+- [x] The two pointwise-limit modules contain no `unfold Square`,
+      `unfold Cylinder`, `change` to a raw square/cylinder composite, or
+      `lazymatch` over a `Square` boundary.
+- [x] Square and cylinder construction sites use named constructors,
+      eliminators, reflection, rewrites, or pasting operations; forward
+      aliases name repeated terms in the resulting coherence subgoals.
+- [x] Rebuild both modules and rerun the closed-context assumption audit;
+      all audited declarations remain closed under the global context.
 - [ ] Show that the discrete limit specializes to the existing `Product`
       universal property.
 - [ ] Confirm that the dual discrete interface specializes as

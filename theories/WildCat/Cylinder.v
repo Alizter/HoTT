@@ -64,6 +64,19 @@ Section Cylinders.
     : s0 $@ (g $@L p0) $== (q0 $@R f) $@ s1
     := c.
 
+  (** A cylinder is a square in the relevant hom-category.  These named
+      conversions let clients use that fact without unfolding [Cylinder]. *)
+  Definition cylinder_of_square
+    (c : Square (q0 $@R f) (g $@L p0) s0 s1)
+    : Cylinder p0 q0 s0 s1
+    := c.
+
+  Definition square_of_cylinder
+    (c : Cylinder p0 q0 s0 s1)
+    : Square (q0 $@R f) (g $@L p0) s0 s1
+    := c.
+
+
   Definition cylinder_refl (s : Square u0 v0 f g)
     : Cylinder (Id u0) (Id v0) s s.
   Proof.
@@ -127,6 +140,24 @@ Section Cylinders.
   Defined.
 
 End Cylinders.
+
+(** A cylinder whose side faces are identities determines a 3-cell between
+    its front and back squares. *)
+Definition cylinder_id_to_3cell
+  {A : Type} `{Is21Cat A}
+  {x00 x20 x02 x22 : A}
+  {f : x00 $-> x20} {g : x02 $-> x22}
+  {u : x00 $-> x02} {v : x20 $-> x22}
+  {s t : Square u v f g}
+  (c : Cylinder (Id u) (Id v) s t)
+  : s $== t.
+Proof.
+  lhs' exact (cat_idl s)^$.
+  lhs' exact ((fmap_id (cat_postcomp _ g) u)^$ $@R s).
+  lhs' exact (gpdhom_cylinder c).
+  lhs' exact (t $@L fmap_id (cat_precomp _ f) v).
+  exact (cat_idr t).
+Defined.
 
 (** A 2-cell gives a cylinder between the horizontally degenerate
     squares at its source and target.  This is the horizontal pasting
@@ -435,6 +466,23 @@ Proof.
     { exact (cat_assoc_opp_is_rev a b c d f g h). }
     exact (cat_assoc_inverse_natural_r p g h). }
   exact (cat_assoc_opp_is_rev a b c d f' g h).
+Defined.
+
+Definition cat_assoc_opp_natural_m {A : Type} `{Is21Cat A}
+  {a b c d : A} (f : a $-> b)
+  {g g' : b $-> c} (p : g $== g') (h : c $-> d)
+  : Square
+      (h $@L (p $@R f))
+      ((h $@L p) $@R f)
+      (cat_assoc_opp f g h)
+      (cat_assoc_opp f g' h).
+Proof.
+  napply vconcatR.
+  { napply vconcatL.
+    { exact (cat_assoc_opp_is_rev a b c d f g h). }
+    exact (transpose (vinverse_square_gpd
+      (cat_assoc_natural_m f p h))). }
+  exact (cat_assoc_opp_is_rev a b c d f g' h).
 Defined.
 
 Definition cat_assoc_opp_natural_l {A : Type} `{Is21Cat A}

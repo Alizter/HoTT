@@ -155,6 +155,17 @@ Definition whiskerBL_gpd
   : Square (f^$ $o l) r t (b $o f)
   := s $@ ((gpd_hh_V b f)^$ $@R l) $@ cat_assoc _ _ _.
 
+(** Whisker the lower-left corner in a 1-groupoid, using the canonical
+    inverse of the new edge. *)
+Definition whiskerLB_gpd
+  {A : Type} `{Is1Gpd A}
+  {x x00 x20 x02 x22 : A}
+  {t : x00 $-> x20} {b : x02 $-> x22}
+  {l : x00 $-> x02} {r : x20 $-> x22}
+  (f : x02 $-> x) (s : Square l r t b)
+  : Square (f $o l) r t (b $o f^$)
+  := s $@ ((gpd_hV_h b f)^$ $@R l) $@ cat_assoc _ _ _.
+
 Section Squares2.
 
   (** We declare the context again, so that we can reuse some declarations where the variables have been inserted. This would not need to be done if Coq could generalize variables within sections. Currently this is possible in Lean and Agda. *)
@@ -225,6 +236,39 @@ Section Squares2.
     := (fmap_comp f _ _)^$ $@ fmap2 f s $@ fmap_comp f _ _.
 
 End Squares2.
+
+(** Named boundary eliminators for tactic proofs.  Representation-sensitive
+    type inspection stays in this module rather than in square clients. *)
+Tactic Notation "square_left" constr(s) "as" ident(left) :=
+  let S := type of s in
+  lazymatch S with
+  | Square ?l _ _ _ => pose (left := l)
+  end.
+
+Tactic Notation "square_right" constr(s) "as" ident(right) :=
+  let S := type of s in
+  lazymatch S with
+  | Square _ ?r _ _ => pose (right := r)
+  end.
+
+Tactic Notation "square_top" constr(s) "as" ident(top) :=
+  let S := type of s in
+  lazymatch S with
+  | Square _ _ ?t _ => pose (top := t)
+  end.
+
+Tactic Notation "square_bottom" constr(s) "as" ident(bottom) :=
+  let S := type of s in
+  lazymatch S with
+  | Square _ _ _ ?b => pose (bottom := b)
+  end.
+
+Tactic Notation "square_boundaries" constr(s) "as"
+  ident(left) ident(right) ident(top) ident(bottom) :=
+  square_left s as left;
+  square_right s as right;
+  square_top s as top;
+  square_bottom s as bottom.
 
 Notation "s $@h t" := (hconcat s t).
 Notation "s $@v t" := (vconcat s t).
