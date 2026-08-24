@@ -17,14 +17,17 @@ to apply to every `Is1Cat` example that has the relevant concrete limits once
 its mapping coherence is packaged.  `Type`, `pType`, `Group`, and `AbGroup`
 are important diagnostics, not an exhaustive list of targets.
 
-The indexing diagrams are one-dimensional: initially they are graph-shaped
-objects of `Fun02 J A`.  The universal property nevertheless retains the
-available homotopy coherence by taking values in `OneGpd`.
+The indexing diagrams are one-dimensional graph-shaped objects of
+`Fun02 J A`. A chosen limit operation is presented as a coherent right
+adjoint to the diagonal. Its induced `GpdAdjunction` gives an equivalence of
+coherent hom 0-groupoids: cone morphisms are `NatModification`s and therefore
+retain their cylinder condition.
 
-A limit is defined by a specified universal cone.  A chosen limit operation,
-its functoriality, and its adjunction with the diagonal are theorems derived
-from those local universal properties.  An adjunction is not a field of the
-definition of having limits.
+The earlier `OneGpd`-valued local representability prototype is superseded.
+Its pointwise perturbations do not compare modification cylinders, while
+equality of paths in a pullback retains the corresponding higher square. The
+ordinary homotopy pullback of arbitrary types therefore cannot satisfy that
+prototype's local injectivity condition.
 
 Colimits are not a second theory.  Following `Coproducts.v`, the complete
 colimit interface is obtained from the limit interface by passing to the
@@ -32,40 +35,40 @@ opposite category and the opposite diagram.
 
 ## Accepted decisions
 
-1. **Universal cones are primitive.**  Follow the organization of
-   `WildCat/Products.v`: bundle an apex, a concrete cone, and the equivalence
-   induced by that cone.
-2. **Adjunctions are derived.**  Choosing a universal cone for every diagram
-   yields the limit operation and its adjunction with the diagonal.
+1. **A coherent adjunction is primitive for chosen limits.**  A chosen
+   `J`-limit operation is a coherent right adjoint to the diagonal
+   `A -> Fun02 J A`.
+2. **Local universality is derived at the coherent hom-0-groupoid level.**
+   The induced `GpdAdjunction` corepresents cones whose morphisms are
+   cylinder-coherent `NatModification`s.
 3. **Colimits are derived exclusively by duality.**  Follow
    `WildCat/Coproducts.v`: define colimit notions and operations as the
    corresponding limit notions and operations in `A^op`, with the indexing
-   graph also reversed.  Do not duplicate cone proofs with cocone proofs.
-4. **Use `OneGpd`-valued representability.**  `ZeroGpd` forgets comparisons
-   between modifications.  Those three-cells are needed for coherent induced
-   maps, iterated limits, and functor-category arguments.
+   graph also reversed. Do not duplicate cone proofs with cocone proofs.
+4. **Do not use the corner-induced `pullback_0gpd` as the cone object.**  Its
+   morphisms forget the square relating the stored glue. The hom 0-groupoid in
+   `Fun02` is different: its morphisms are coherent modifications and retain
+   that square.
 5. **Start with `Fun02` diagrams.**  A graph with edges needs naturality
-   two-cells and cylinder-coherent modifications.  `Fun01` does not provide
+   two-cells and cylinder-coherent modifications. `Fun01` does not provide
    the correct cells between cones.
 6. **Products cover the discrete case.**  For an edge-free shape the cylinder
    conditions are vacuous, and the existing `Product` theory supplies the
    intended low-dimensional construction.
-7. **Do not develop pseudofunctor bilimits yet.**  Diagrams
-   `X : Fun22 J A`, pseudonatural cones, and arbitrary 2-categorical indexing
-   shapes are outside the immediate scope.
-8. **`Fun12` and `Fun22` may appear as derived structure.**  They describe the
-   coherence of a chosen limit operation or of the cone functor.  Their use as
-   bookkeeping does not change the fact that the indexed diagrams are
-   one-dimensional.
+7. **Do not demand arbitrary top-cell reflection.**  The chosen limit functor
+   initially needs `Fun12` structure. Cubically natural unit/counit and
+   triangle modifications package the selected next coherence without a
+   `Fun22` action on every pointwise perturbation.
+8. **Test the interface in `Type` first.**  Ordinary homotopy pullbacks carry
+   the required selected coherence by path induction. General wild-category
+   hypotheses should be isolated only after this instance and Fubini work.
 9. **Unicity is categorical.**  Universal cones are related by categorical
    equivalences, not by paths obtained from univalence or `Funext`.
-10. **The theory is not restricted to existing `Is21Cat` instances.**
-    `Is21Cat` is the current sufficient package for constructing mapping
-    `OneGpd`s.  Categories initially presented only as `Is1Cat`, especially
-    locally truncated algebraic examples, should receive their canonical
-    higher coherence through a reusable construction.  Truncation of a
-    particular diagram object must not be built into the abstract definition
-    of a limit.
+10. **The first implementation is Type-specific at the coherence boundary.**
+    The abstract adjunction interface may apply to other `Is21Cat` examples,
+    but it must not claim that the generic pointwise top cells of `Fun02`
+    model all higher path coherence in arbitrary wild categories. Locally
+    truncated algebraic examples can receive comparison theorems later.
 11. **Scratch files are design sources, not implementation targets.**
     Accepted definitions move into permanent modules.  Permanent modules must
     not import `LimitsScratch.v` or `CohYonedaScratch.v`.
@@ -122,22 +125,23 @@ hom object is not the correct category of cones for an edgeful diagram.
 `NatModification`s satisfying the required cylinder.  This is the minimum
 appropriate diagram category for the present theory.
 
-### Why `OneGpd` rather than `ZeroGpd`
+### Why the coherent hom `ZeroGpd` is the right local target
 
-For `X : Fun02 J A` and an apex `a`, the cone mapping object has:
+For `X : Fun02 J A` and an apex `a`, use the hom 0-groupoid from the constant
+diagram to `X`:
 
-- objects: natural-transformation cones;
-- 1-cells: cylinder-coherent `NatModification`s;
-- 2-cells: pointwise 3-cells between modifications.
+- objects are natural-transformation cones;
+- morphisms are cylinder-coherent `NatModification`s.
 
-A `ZeroGpd` can retain the first two levels, but not the third.  A `OneGpd`
-retains all three levels available in the current `(2,1)`-categorical
-infrastructure.
+This is not `ZeroGroupoid.pullback_0gpd`, whose graph is induced from its two
+corners and forgets compatibility with the stored glue. The `Fun02` hom
+0-groupoid retains exactly that compatibility in `natmod_isnatural`.
 
-This matters even though the indexing diagram is one-dimensional.  The extra
-level is used when proving that induced maps respect modifications, that
-functor laws hold coherently, and that two iterated universal constructions
-represent the same cone object.
+The next generic layer, pointwise perturbations between modifications, does
+not compare those cylinders. Requiring a `CatIsEquiv` of the corresponding
+mapping `OneGpd`s is therefore too strong for pullbacks of untruncated types.
+The coherent adjunction instead supplies only the selected cubes needed for
+unit/counit naturality and the triangle laws.
 
 ## Existing precedents and infrastructure
 
@@ -244,90 +248,54 @@ Only the limit-facing constructions should be promoted into the foundational
 theory.  Cocone and colimit code in scratch files is evidence for the duality
 interface, not a second implementation to port.
 
-## Mapping objects
+## Mapping objects and the chosen-limit adjunction
 
 Let `J : IsGraph`, `A : Is21Cat`, and `X : Fun02 J A`.
 
-### Cone 1-groupoid
-
-For `a : A`, define conceptually
+For `a : A`, the coherent 0-groupoid of cones is
 
 ```coq
-cone_1gpd X a
-  := Hom_1gpd (diagonal02 A J a) X.
+cone_0gpd X a
+  := yon_0gpd X (diagonal02 A J a).
 ```
 
-It is the hom `OneGpd` in `Fun02 J A` from the constant diagram at `a` to `X`.
+Its objects are cones and its morphisms are `NatModification`s with their
+cylinder coherence. A chosen limit operation is global data
 
+```coq
+limit_functor : Fun12 (Fun02 J A) A
+```
 
-### Functoriality in the apex
-
-The cone construction is contravariant in `a`.  Ultimately it should be a
-coherent `OneGpd`-valued functor:
+together with a coherent adjunction
 
 ```text
-Cone(X,-) : A^op -> OneGpd.
+diagonal02 A J  ⊣  limit_functor.
 ```
 
-The initial local universal-cone definition need not take this functor as a
-field.  Its structure should be constructed once from precomposition and the
-coherent diagonal.
+The intrinsic record should contain cubically natural unit and counit plus
+triangle modifications. Unlike the existing stronger `CubicalAdjunction`, its
+endpoints need only be `Fun12`; it must not require the right adjoint to map
+arbitrary pointwise perturbations.
 
-## Universal cone
-
-Given an apex `l : A` and a cone
+Forgetting the selected cubical data produces
 
 ```coq
-lambda : diagonal02 A J l $-> X
+GpdAdjunction diagonal02 limit_functor
 ```
 
-composition with `lambda` induces, for each `a : A`, a 1-functor
+and hence, for every `a` and `X`, an equivalence
 
 ```coq
-limit_cone_map X l lambda a
-  : Hom_1gpd a l $-> cone_1gpd X a.
+opyon_0gpd (diagonal02 A J a) X
+  $<~> opyon_0gpd a (limit_functor X).
 ```
 
-Its action is:
+The counit component at `X` is the chosen universal cone. Corecursion, beta,
+eta, and uniqueness are derived from this hom-0-groupoid equivalence.
 
-- on a map `k : a $-> l`, send `k` to
-  `lambda $o fmap diagonal02 k`;
-- on a 2-cell `p : k $== k'`, use the diagonal modification and
-  postcomposition by `lambda`;
-- on a 3-cell, act pointwise.
-
-The accepted local predicate is:
-
-```coq
-Definition IsLimitCone
-  {A J} `{Is21Cat A, IsGraph J}
-  (X : Fun02 J A) (l : A)
-  (lambda : diagonal02 A J l $-> X)
-  : Type
-  := forall a : A,
-       CatIsEquiv (limit_cone_map X l lambda a).
-```
-
-The proposed bundled construction follows `Product`:
-
-```coq
-Class Limit
-  (J : Type) {A : Type}
-  `{IsGraph J, Is21Cat A}
-  (X : Fun02 J A) := {
-  cat_limit : A;
-  cat_limit_cone : diagonal02 A J cat_limit $-> X;
-  cat_islimit_cone ::
-    IsLimitCone X cat_limit cat_limit_cone;
-}.
-```
-
-Separating `IsLimitCone` from `Limit` is useful for proving that a concrete cone
-is universal and for transporting universality across an equivalence or
-modification of cones.
-
-The exported interface uses the bundled `CatIsEquiv` predicate.  Diagram
-shapes are intentionally small relative to the ambient category.
+For a single diagram, a local `IsLimitCone` wrapper may record that canonical
+comparison as an equivalence of coherent hom 0-groupoids. It is derived from
+the chosen adjunction and is not the former `OneGpd`-valued predicate.
 
 ## Colimits by opposite-category duality
 
@@ -362,61 +330,51 @@ theory:
 
 1. construct `fun02_op : Fun02 J A -> Fun02 J^op A^op`;
 2. identify the opposite diagonal with the diagonal of the opposite category;
-3. transport cones, modifications, and their `OneGpd` mapping objects;
+3. transport cones, modifications, and their coherent hom 0-groupoids;
 4. record double-opposite comparison coherently enough for the public
    wrappers;
 5. derive `HasColimits` from `HasLimits` in the opposite category.
 
-Any `IsColimitCocone` name should be a definitional wrapper or immediate
-transport of `IsLimitCone` for the opposite diagram.  It must not carry an
-independently proved universal property.
+Any local `IsColimitCocone` name should be a definitional wrapper or immediate
+transport of the coherent hom-0-groupoid limit property.
 
 ## Derived local API
 
-From `Limit J X`, derive in this order:
+From the coherent diagonal-limit adjunction derive, in this order:
 
-1. the inverse equivalence on each mapping `OneGpd`;
-2. `limit_corec`, sending a cone to its mediating map;
-3. beta: the induced cone is related to the input cone by a modification;
-4. eta: corecursion applied to the universal cone recovers the map;
-5. action of `limit_corec` on modifications and 3-cells;
-6. uniqueness/full faithfulness of mediating maps;
-7. transport of universality along an equivalence of cones;
-8. categorical equivalence between the apexes of two universal cones;
-9. coherence of that apex equivalence with the two cones.
+1. the counit cone at each diagram;
+2. the inverse map on each coherent hom 0-groupoid;
+3. `limit_corec`, sending a cone to its mediating map;
+4. beta and eta modifications;
+5. uniqueness of mediating maps;
+6. the action of the selected `Fun12` limit operation;
+7. transport and categorical comparison results that follow at this level.
 
-The convenience constructor analogous to `Build_Product` may accept explicit
-corecursor, beta, eta, and coherence data, but it must construct the universal
-mapping equivalence.  It must not introduce an alternative foundational notion
-of limit.
+Do not derive an action on arbitrary perturbations unless an application
+supplies a genuinely coherent top-cell model.
 
-All dual recursor, beta, eta, and unicity names belong to the thin
-opposite-category wrapper described above.
+## Chosen limits
 
-## Chosen limits and the adjunction theorem
-
-After the local interface is stable, define choice separately:
+The primary class should package all chosen limits of one shape at once:
 
 ```coq
-Class HasLimits (J A : Type) `{IsGraph J, Is21Cat A}
-  := has_limits : forall X : Fun02 J A, Limit J X.
+Class HasLimits (J A : Type) `{IsGraph J, Is21Cat A} := {
+  cat_limit : Fun12 (Fun02 J A) A;
+  cat_limit_adjunction : CoherentAdjunction12
+    (fun12_diagonal02 A J) cat_limit;
+}.
 ```
 
-From `HasLimits J A`, derive:
+The exact record name is provisional. Its fields are the `Fun12` analogue of
+the existing `CubicalAdjunction`: cubically natural unit/counit and triangle
+`NatModification`s. It induces the ordinary `GpdAdjunction`.
 
-1. the object function `X |-> cat_limit J X`;
-2. its action on natural transformations using universal cones;
-3. its action on `NatModification`s;
-4. identity and composition comparison cells;
-5. initially a `Fun12 (Fun02 J A) A` structure;
-6. any further `Fun22` coherence justified by the `OneGpd` universal property;
-7. the unit/counit or hom-equivalence form of the adjunction with the diagonal.
+This is stronger than merely choosing unrelated local apexes, but canonical
+pullbacks in `Type` already provide a functorial choice. It is also weaker in
+the relevant direction than the superseded local `OneGpd` equivalence: it
+does not reflect arbitrary incoherent perturbations.
 
-The first adjunction theorem should expose the useful one-categorical interface.
-A coherent/cubical adjunction may then be derived as a stronger theorem.  No
-adjunction is stored in `HasLimits`.
-
-The colimit adjunction is obtained by applying this theorem in the opposite
+The colimit adjunction is obtained by applying this structure in the opposite
 category; it is not proved independently.
 
 ## `OneGpd` limits
@@ -445,37 +403,30 @@ The decisive test of the theory is not merely constructing a walking-cospan
 limit.  It is proving limit 3-by-3 abstractly in a category with the required
 chosen limits.
 
-The proof must proceed through the universal-cone machinery:
+The proof should proceed directly from coherent adjunctions:
 
-1. Start with specified chosen `J`-limits in `A`.
-2. For a graph `I`, construct `J`-limits in `Fun02 I A` pointwise.  At each
-   object of `I`, use the chosen limit cone in `A`; use its universal property
-   to define the action on edges, modifications, and higher cells.
-3. Prove that the assembled pointwise cone is universal in the functor
-   category.  Pointwise evaluation alone is not the theorem; the
-   `OneGpd`-equivalence of cone objects is.
-4. For `X : Fun02 I (Fun02 J A)`, form row-first and column-first iterated
-   limits using these specified pointwise choices.
-5. Show that both iterated limits represent the same `OneGpd` of double cones.
-   Argument swap identifies the two cone presentations, and categorical
-   unicity supplies the canonical Fubini equivalence
+1. Construct the walking-cospan pullback `Fun12` and its coherent adjunction
+   with the diagonal in `Type`.
+2. Extract the local hom-0-groupoid universal property and check that the
+   counit component is the canonical pullback cone.
+3. Lift only the selected unit/counit coherence needed to assemble pointwise
+   limits in `Fun02 I Type`.
+4. Compose the resulting adjunctions and use argument swap to identify the two
+   presentations of double cones.
+5. Obtain the Fubini equivalence
 
    ```text
    lim_I (lim_J X)  <~>  lim_J (lim_I (swap X)).
    ```
 
-The construction must keep the chosen cones visible long enough to identify
-the canonical comparison maps.  It must not rely on unrelated opaque
-typeclass choices and then prove only that the resulting apexes happen to be
-equivalent.
+The construction must keep the counit cones visible long enough to identify
+the canonical comparison maps. It must not rely on unrelated opaque
+typeclass choices.
 
-Finally specialize both `I` and `J` to the walking cospan.  For any category
-`A` with the required chosen pullbacks and pointwise pullbacks, this must yield
-the pullback 3-by-3 lemma: the two iterated pullback constructions are
-canonically equivalent, with the equivalence compatible with their universal
-cones.  This theorem must be abstract in `A`; specializing it to `Type` should
-recover the existing concrete result without a new path-constructor
-calculation.
+First specialize both shapes to the walking cospan in `Type`. Once that smoke
+test works, isolate the exact coherent-adjunction hypotheses under which the
+same proof is abstract in `A`. Pushout 3-by-3 remains the opposite-category
+corollary.
 
 This pullback 3-by-3 theorem is the final acceptance test for the initial
 limit formalisation.  Pushout 3-by-3 is then obtained by applying it to the
@@ -493,11 +444,12 @@ coherence instance has not yet been packaged.
 
 ### `Type` and `pType`
 
-`Type` and `pType` already have `Is21Cat` instances, so their mapping
-`OneGpd`s and coherent cone objects can be formed immediately.  Their
-canonical limits should be connected to the abstract interface by proving
-`IsLimitCone`, not by rebuilding functoriality or Fubini with constructors and
-path calculations.
+`Type` is the first coherence diagnostic. Its ordinary pullback operation
+should be constructed as a `Fun12`, with the canonical pullback cone as the
+adjunction counit. Path induction supplies the chosen cylinder and triangle
+coherence. This Type-specific proof determines the minimum abstract
+coherent-adjunction interface; it must not be forced through generic
+pointwise perturbations.
 
 ### `Group` and `AbGroup`
 
@@ -506,12 +458,9 @@ The algebraic categories currently enter the library primarily through their
 higher coherence should be canonical rather than additional mathematical
 content.
 
-The standard group and abelian-group pullbacks are concrete test cases.  The
-new `OneGpd`-valued universal cone should validate them without putting a
-corner-truncation premise in the abstract pullback definition.  A separate
-comparison should show that, in these truncated examples, the new pullback
-recovers the existing `CatPullback` API used by `IsEpiStable` and the
-`AbGroup` developments.
+The standard group and abelian-group pullbacks remain later comparison cases.
+Their local truncation should make the distinction between the new coherent
+hom-0-groupoid property and the legacy `CatPullback` interface harmless.
 
 
 ## Universe policy
@@ -520,12 +469,11 @@ The indexing graph `J` is a small diagram shape relative to the ambient
 category `A`.  This covers the intended walking spans, walking cospans, finite
 grids, and other small indexing categories.
 
-The public universal-cone predicate therefore uses `CatIsEquiv` in the
-category `OneGpd`.  Its source and target mapping 1-groupoids are placed in a
-common universe.  Rocq may consequently require the object and arrow
-universes of `J` to be no larger than the relevant universes of `A`, or may
-lift a concrete small `J` into that common universe.  This is an intentional
-small-shape constraint, not an obstruction.
+The coherent-adjunction and `GpdAdjunction` interfaces use hom 0-groupoids, so
+they avoid the former bundled `OneGpd` universe constraint. Indexing graphs
+remain small relative to the ambient category. Inspect exported signatures,
+but do not preserve the superseded `OneGpd` predicate merely for its existing
+universe policy.
 
 Before accepting a public signature:
 
@@ -566,35 +514,39 @@ sources to inspect.  Permanent modules must not import them.
 - [x] Move them into a permanent module without importing scratch code.
 - [x] Build the module and audit assumptions and universes.
 
-### Universal cones
+### Superseded universal-cone prototype
 
-- [x] Define the coherent diagonal for `Fun02` diagrams.
-- [x] Define `cone_1gpd`.
-- [x] Package the contravariant apex functoriality of `cone_1gpd` as
-      `fun12_cone_1gpd`.
-- [x] Define `limit_cone_map` as a 1-functor.
-- [x] Audit the signature with universe printing and accept the bundled
-      `CatIsEquiv` small-shape universe policy.
-- [x] Define `IsLimitCone` and `Limit`.
+- [x] Build and audit the `OneGpd`-valued `IsLimitCone` prototype.
+- [x] Derive its corecursor, chosen limit `Fun12`, pointwise construction, and
+      diagonal `GpdAdjunction`.
+- [x] Diagnose its invalid top-cell requirement using the walking-cospan
+      pullback: pointwise perturbations omit cylinder comparison.
+- [ ] Keep the built modules as migration references until their useful
+      lower-dimensional API has moved to the replacement.
 
-### Local limit API
+### Coherent-adjunction replacement
 
-- [x] Derive corecursion, beta, and eta.
-- [x] Derive action on modifications and higher cells.
-- [x] Prove transport of universality.
-- [x] Prove categorical unicity of universal cones.
-- [ ] Add a `Build_Product`-style convenience constructor if justified by the
-      first concrete example.
+- [x] Define the `Fun12` coherent-adjunction record with cubically natural
+      unit/counit and triangle modifications.
+- [x] Prove that it induces `GpdAdjunction`.
+- [x] Define `HasLimit02` from a chosen limit `Fun12` and its
+      `GpdAdjunction`.
+- [ ] Recover the local coherent hom-0-groupoid cone property and corecursor
+      API.
+- [x] Construct the walking-cospan pullback `Fun12` in `Type`.
+- [ ] Construct its unit, canonical-cone counit, selected cubical naturality,
+      and triangle modifications.
+- [x] Build the resulting `GpdAdjunction` and audit assumptions.
 
-### Chosen limits
-
-- [x] Define `HasLimits` as a choice of local universal cone for every diagram.
-- [x] Derive the limit operation on transformations, modifications, and
-      higher cells.
-- [x] Prove its functor laws from universal uniqueness and package it as
-      `fun12_cat_limit`.
-- [x] Prove the `GpdAdjunction` with the diagonal from the derived unit,
-      counit, naturality, and triangle identities.
+The current `Type` prototype deliberately stops at `HasLimit02` and the
+coherent hom-0-groupoid cone property.  It does not register the legacy
+`Limits.HasLimits` instance: that would reintroduce the false
+`OneGpd`-valued local injectivity requirement.  Instead,
+`PullbackFubiniApplicationScratch.v` now contains a closed concrete regression
+theorem, `equiv_iterated_cospan_pullback_fubini`, stated using only the
+canonical rowwise and columnwise iterated pullback operations.  Its direct
+proof handles the transposed naturality cells propositionally; it does not
+yet supply the abstract pointwise-limit Fubini theorem.
 
 ### Opposite-category colimit interface
 
@@ -610,51 +562,30 @@ sources to inspect.  Permanent modules must not import them.
 
 ### Pointwise limits and Fubini
 
-- [x] Construct specified pointwise limits in `Fun02 I A` from specified
-      limits in `A`.
-- [x] Prove the assembled pointwise cone is universal in the functor category.
-- [ ] Define the postcomposed diagram `R D` and the canonical coherent
-      comparison `Δ (R l) $-> R (Δ l)`, then use them to define the image
-      under `R` of one specified cone `Δ l $-> D`.
-- [ ] Define the core preservation predicate for one specified
-      `Limit J D`: its image cone is an `IsLimitCone` for `R D`.  Do not
-      require global `HasLimits` in this statement.
-- [ ] Construct the cone mate/unmate equivalence needed for preservation:
-      for a coherent adjunction `L ⊣ R`, compare cones from `L X` to `D` with
-      cones from `X` to `R D`, retaining transformations and modifications in
-      the mapping `OneGpd`s.
-- [ ] Compose the adjunction hom equivalence, the specified limit-cone
-      equivalence, and the cone mate equivalence.  Prove that this composite
-      is homotopic to the canonical cone map for the image cone; the final
-      step is the adjunction triangle/mate-unmate law.
-- [ ] Conclude that a coherent right adjoint preserves every specified
-      `Limit J D` by `catie_homotopic`.
-- [ ] Add a separate `HasLimits` corollary only for comparison with the
-      library's chosen output limit: derive the canonical equivalence
-      `R (cat_limit D) $<~> cat_limit (R D)` and its cone beta law by
-      categorical unicity.
-- [ ] Instantiate preservation with the specified pointwise limit
-      `pointwise_limit` and
-      `gpd_adjunction_cat_limit : Δ_J ⊣ lim_J`; use `HasLimits` only to select
-      the constituent limits, never to identify unrelated typeclass choices
-      definitionally.
-- [ ] Define the two iterated-limit expressions and derive abstract Fubini as
-      the resulting preservation comparison
-      `lim_J (lim_I D) $<~> lim_I (lim_J ∘ D)`.  Express the second side with
-      argument swap only as a notation-level reformulation.
-- [ ] Record the Fubini comparison's compatibility with both induced double
-      cones.  Do not introduce a separate double-diagonal interchange theorem
-      unless the preservation proof exposes it as an unavoidable prerequisite.
-- [ ] Specialize `I` and `J` to `WalkingCospan`, identify chosen limits with
-      pullbacks, and derive the abstract pullback 3-by-3 equivalence.
-- [ ] In `Type`, compare the canonical map and boundary beta laws with
-      `Limits.Pullback.pullback3x3`; equality of packaged equivalence records
-      is not a required or stable comparison.
+- [ ] Assemble pointwise limits directly from the coherent limit adjunction.
+- [ ] Prove the pointwise counit cone and the hom-0-groupoid universal
+      property using only the selected cubical coherence.
+- [ ] Compose the two pointwise adjunction presentations and derive Fubini.
+- [ ] Record compatibility of the Fubini map with both induced double cones.
+- [ ] Specialize both shapes to `WalkingCospan` in `Type` and compare the
+      resulting equivalence and boundary beta laws with
+      `Limits.Pullback.pullback3x3`.
+
+The concrete canonical equivalence is now checked in
+`PullbackFubiniApplicationScratch.v`.  It validates the presentation without
+doubled inverse witnesses in the public statement; replacing its direct
+path-square proof by abstract Fubini remains part of the unchecked work above.
+
+- [ ] After the Type smoke test, state the minimum hypotheses for the abstract
+      walking-cospan theorem.
 
 ### Validation
 
 - [x] Build and assumption-audit `fun12_cone_1gpd`, `fun12_cat_limit`, and
       `gpd_adjunction_cat_limit`; all are closed under the global context.
+- [x] Build and assumption-audit `cospan_pullback_map_homotopy`,
+      `gpd_adjunction_cospan_pullback`, and `cospan_pullback_islimit`; all are
+      closed under the global context.
 - [x] Audit conversion-heavy proofs in `PointwiseLimitCorec.v` and
       `PointwiseLimitUniversal.v`.  Timings below are wall times for dedicated
       `coqc -time` scratch reproductions unless marked as module builds; `≤1 s`
@@ -775,18 +706,14 @@ Completion criteria:
       universal property.
 - [ ] Confirm that the dual discrete interface specializes as
       `Coproduct := Product` in the opposite category.
-- [ ] Construct the required limits in `OneGpd`.
-- [ ] Exhibit the standard homotopy pullback of types as a universal cone.
+- [ ] Construct the walking-cospan pullback coherent adjunction in `Type`.
 - [ ] Exhibit the corresponding pointed construction in `pType`.
-- [ ] Provide a reusable coherent-hom lift for locally truncated `Is1Cat`
-      examples.
-- [ ] Exhibit the standard `AbGroup` pullback as a universal cone.
-- [ ] Compare the new walking-cospan limit with `CatPullback` under the legacy
-      truncation hypotheses.
-- [x] Derive pointwise limits in `Fun02 I A` from chosen limits in `A`.
-- [ ] Prove abstract limit Fubini with its specified universal cones.
-- [ ] As the final smoke test, derive pullback 3-by-3 in an arbitrary category
-      with the required chosen pullbacks.
+- [ ] Compare locally truncated algebraic examples with the coherent
+      hom-0-groupoid interface and legacy `CatPullback`.
+- [ ] Derive pointwise limits and abstract limit Fubini from coherent
+      adjunctions.
+- [ ] As the final smoke test, derive pullback 3-by-3 first in `Type`, then
+      under the isolated abstract hypotheses.
 - [ ] Obtain pushout 3-by-3 solely by opposite-category duality.
 
 ## Explicit non-goals for the first implementation
@@ -804,16 +731,14 @@ Completion criteria:
 
 ## Open design questions
 
-1. Final exported names: `Limit`, `GraphLimit`, or a temporary coherence suffix
-   during migration.
-2. The exact heterogeneous equivalence structure needed for separately
-   universed mapping `OneGpd`s.
-3. Whether the `OneGpd` universal property directly derives the full `Fun22`
-   structure on the chosen limit operation, or first yields only `Fun12` plus a
-   separate coherence theorem.
+1. Final exported names for the coherent-adjunction and derived local
+   interfaces.
+2. Whether the intrinsic `Fun12` record should generalize
+   `CubicalAdjunction` directly or be limit-specific.
+3. The minimum selected coherence needed to lift the adjunction pointwise
+   without a `Fun22` action on arbitrary perturbations.
 4. Whether all immediate indexing shapes are best represented as graphs, or
    whether an ordinary category-shaped layer is needed before sequential
    constructions.
-5. The minimum reusable coherence interface, or automatic construction, that
-   lets locally truncated `Is1Cat` examples such as `Group` and `AbGroup`
-   supply mapping `OneGpd`s without bespoke proofs.
+5. The cleanest comparison with locally truncated `Group` and `AbGroup`
+   examples.

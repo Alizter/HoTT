@@ -8,7 +8,7 @@ Construct spectrification of prespectra and use it to turn the existing suspensi
 
 There is a parallel categorical track developing wild limits. Its final smoke test is an abstract pullback 3-by-3 theorem obtained from pointwise limits in functor categories and limit Fubini. The entire colimit theory, including pushouts and pushout 3-by-3, is then derived by applying the limit theory to opposite categories and opposite diagrams. This infrastructure is useful, but it should not unnecessarily block the direct construction of spectrification.
 
-The existing coherent-colimit and `Type`-specific pushout work is a prototype and regression target, not the permanent architecture. The replacement direction is to make specified universal cones primitive, derive chosen limit operations and their adjunctions, construct functor-category limits pointwise, prove abstract limit Fubini, and specialize it to walking-cospan limits in an arbitrary category. Pushout results should contain no duplicated cocone theory or mate/unmate calculation: they should be thin dual consequences, following the relation between `Coproducts.v` and `Products.v`.
+The existing coherent-colimit and `Type`-specific pushout work is a prototype and regression target, not the permanent architecture. The replacement direction is to make a coherent diagonal-limit adjunction primitive for a chosen limit operation. Its induced `GpdAdjunction` gives the local universal property in the 0-groupoid of coherent cones, whose morphisms are cylinder-coherent modifications. This deliberately avoids asking the generic pointwise perturbations of `Fun02` to reflect coherence stored in paths of `Type`. Pointwise limits, limit Fubini, and walking-cospan pullback 3-by-3 should be derived from that adjunction; pushout results remain thin dual consequences.
 
 ## Established spectrum infrastructure
 
@@ -94,6 +94,10 @@ obtained through opposite-category duality.
 - [x] Package the coherent pointwise construction as `gpd_adjunction_pointwise_colimit_fun02`, prove the full universal properties `pointwise_colimit02_iscolimit` and `pointwise_colimit02_cocone_iscolimit`, and register the conditional instance `hascolimit02_fun02`.
 - [x] Construct `IsCoherentDiagonal02 (Fun02 A B) J` and `HasPointwiseDiagonalComparison02` generically, including the cylinder relating the two identity-like naturality squares.
 - [x] Determine whether the packaged functor-category colimit can be made definitionally pointwise: under the current `IsCoherentDiagonal02` interface the diagonal comparison is necessary, since that class does not constrain the chosen action on 2-cells to be the componentwise one.
+- [x] Diagnose the obstruction in the permanent `OneGpd`-valued `IsLimitCone`: pointwise perturbations compare modification components but not their cylinders, so the ordinary pullback of arbitrary types cannot satisfy the demanded local injectivity.
+- [x] Select the replacement interface: a chosen limit operation is packaged by a coherent right adjunction to the diagonal, and its local universal property is the induced `GpdAdjunction` equivalence between coherent hom 0-groupoids.
+- [x] Generalize the intrinsic unit/counit/triangle fields of `CubicalAdjunction` to `Fun12` adjoints, without requiring an action on arbitrary top perturbations.
+- [x] Instantiate the walking-cospan `Fun12` and its diagonal `GpdAdjunction` in `Type` with ordinary homotopy pullbacks; its counit is definitionally the canonical pullback cone.
 - [ ] Replace remaining costly elaboration (`refine` and inferred functors) with explicit functors and `nrefine`/`napply` where the goal determines the data.
 - [ ] Reduce `Typeclasses Depth 4` in `LimitsScratch.v` if the coherent interface permits it.
 
@@ -208,45 +212,29 @@ design reference; permanent limit modules must not import it.
 
 ### Permanent universal-cone route to the smoke test
 
-- [x] Move the required coherent `OneGpd` Yoneda constructions into the
-      permanent `theories/WildCat/TwoYoneda.v` module.
-- [x] Define `IsLimitCone` and `Limit` from a specified cone whose induced
-      `Fun11` between mapping 1-groupoids satisfies the standard bundled
-      `CatIsEquiv` predicate.
-- [x] Derive corecursion, beta, eta, higher-cell action, and uniqueness of
-      mediating maps from that universal cone.
-- [x] Derive transport of universality and categorical unicity of universal
-      cones.
-- [x] Define `HasLimits` as a choice of universal cone, derive the coherent
-      `Fun12` limit functor, and prove its `GpdAdjunction` with the diagonal.
-- [x] Transplant `CubicalAdjunction`, its coherent `Fun02`
-      postcomposition lift, and the `GpdAdjunction` composition/transport
-      combinators into permanent modules.
-- [x] Transplant the coherent argument-swap adjunction and use it with the
-      cubical lift to construct the conditional pointwise
-      diagonal-limit adjunction in `PointwiseLimits.v`.
-- [x] Retain the full `OneGpd`-level universal property directly through
-      `IsLimitCone`; the permanent pointwise construction does not require a
-      separate `HasLimit22` package.
+- [x] Move the coherent adjunction and coherent `Fun02` infrastructure needed by the experiment into permanent modules.
+- [x] Prototype specified universal cones through a `Fun11` comparison of mapping 1-groupoids and derive the local corecursor API, chosen limit functor, and diagonal `GpdAdjunction`.
+- [x] Diagnose why that prototype is too strong for edgeful limits in untruncated `Type`: `is3graph_fun02` forgets modification-cylinder coherence, while equality of pullback paths retains the corresponding higher square.
+- [x] Retain the useful lower-dimensional result: the hom 0-groupoid in `Fun02` has cones as objects and cylinder-coherent `NatModification`s as morphisms, unlike the known-defective corner-induced `pullback_0gpd`.
+- [ ] Introduce the coherent-adjunction-first chosen-limit interface. It must package a `Fun12` limit operation, cubically natural unit and counit, and triangle modifications, but must not require a `Fun22` action on arbitrary pointwise perturbations.
+- [ ] Derive its `GpdAdjunction` and recover local corecursion, beta, eta, and uniqueness from the resulting equivalence of coherent hom 0-groupoids.
+- [ ] Build this adjunction directly for walking-cospan pullbacks in `Type`, using `equiv_path_pullback`, `pullback_homotopic`, and path induction for the selected coherence.
+- [ ] Rework the pointwise-limit construction to consume the coherent adjunction directly and retain only the cubes used by the pointwise cone.
 - [x] Construct limits in `Fun02 I A` pointwise from specified limits in `A`,
       including coherence on transformations and modifications.
-- [ ] Define coherent preservation first for one specified `Limit J D`:
-      applying a `Fun12` functor to its apex and cone must produce an
-      `IsLimitCone` for the postcomposed diagram.  The core theorem must not
-      require global `HasLimits`.
-- [ ] Construct the cone mate/unmate equivalence for a coherent adjunction and
-      use it to prove that right adjoints preserve every specified limit.
-- [ ] Add a `HasLimits` corollary only to compare the preserved cone with the
-      library's separately chosen output limit.
-- [ ] Instantiate preservation with the specified `pointwise_limit` and
-      `gpd_adjunction_cat_limit : Δ_J ⊣ lim_J`; use global choices only for
-      the constituent limits.
+- [ ] State coherent preservation for a chosen limit adjunction, without requiring a false `OneGpd` equivalence or unrelated global typeclass choices.
+- [ ] Construct the cone mate/unmate equivalence at the coherent hom-0-groupoid level and use it to prove that right adjoints preserve the selected limit operation.
 - [ ] Derive abstract limit Fubini as
       `lim_J (lim_I D) $<~> lim_I (lim_J ∘ D)`, retaining compatibility with
-      the induced double cones.  Argument swap should only re-express the
-      second iterated diagram, not drive a separate double-diagonal proof.
+      the induced double cones. Argument swap should only re-express the
+      second iterated diagram.
 - [ ] Specialize both shapes to the walking cospan and derive pullback 3-by-3
-      in an arbitrary category with the required chosen pullbacks.
+      in `Type` first, then isolate exactly which coherent-adjunction fields
+      make the argument abstract.
+- [x] Add a concrete `Type` presentation regression test:
+      `equiv_iterated_cospan_pullback_fubini` compares the canonical
+      columnwise and rowwise iterated pullback operations. Its public type
+      contains no manually reconstructed maps or doubled inverse witnesses.
 - [ ] Compare the canonical map and boundary beta laws of the `Type`
       specialization with `Limits.Pullback.pullback3x3`.
 - [ ] Construct coherent opposite diagrams and expose `Colimit`,
@@ -257,9 +245,7 @@ design reference; permanent limit modules must not import it.
 
 ## Handoff to the next model
 
-The immediate categorical objective is the universal-cone limit route in
-`WILDCAT_LIMITS_DESIGN.md`, not further development of the specialized
-pushout mate/unmate machinery.
+The immediate categorical objective is the coherent diagonal-pullback adjunction in `Type`, followed by the limit Fubini smoke test. Do not continue the specialized pushout mate/unmate machinery or attempt to complete the superseded `OneGpd`-valued pullback `IsLimitCone`.
 
 Reusable prototypes already present:
 
@@ -278,17 +264,20 @@ Reusable prototypes already present:
 - `PushoutScratch.v` and `PushoutComparisonScratch.v` provide regression
   statements for the eventual opposite-category specialization.
 
-The coherent-Yoneda foundation, specified universal cones, local corecursor
-API, transport, categorical unicity, chosen limit functor, diagonal-limit
-adjunction, cubical adjunction infrastructure, and conditional pointwise
-adjunction are now permanent. Diagram shapes follow the explicit policy that
-they are small relative to the ambient category. The next implementation
-increments are:
+The coherent diagram, cylinder, adjunction, argument-swap, and pointwise-limit prototypes are reusable. The permanent `OneGpd`-valued local limit API builds, but its top-cell requirement is not valid for ordinary pullbacks of arbitrary types and is now superseded.
 
-1. derive `HasLimit22` from `HasLimits` without discarding the
-   `OneGpd`-level coherence, then package pointwise universal cones;
-2. prove abstract limit Fubini and walking-cospan pullback 3-by-3;
-3. only then expose the colimit and pushout APIs by duality.
+The first replacement increment is complete:
+
+- [x] Prototype the walking-cospan pullback as a `Fun12` right adjoint to the
+  diagonal, construct its `GpdAdjunction`, and recover the canonical cone's
+  hom-0-groupoid universal property.
+
+The remaining increments are:
+
+1. package the selected cubical unit/counit coherence without demanding a
+   `Fun22` action on arbitrary pointwise perturbations;
+2. drive pointwise limits and abstract Fubini from that coherent adjunction;
+3. only then expose colimits and pushouts by duality.
 
 The scratch files last built successfully. Keep them building as reference
 material, but do not make permanent modules depend on them.
@@ -331,18 +320,21 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
 - [x] `git diff --check` currently passes.
 - [x] Build and assumption-audit the permanent coherent-Yoneda module;
       `opyoneda_equiv_1gpd` is closed under the global context.
-- [x] Build and assumption-audit the permanent local limit module;
-      `IsLimitCone`, `islimitcone_homotopic`, `limit_apex_equiv`, and
-      `limit_apex_equiv_cone` are closed under the global context.  The
-      interface deliberately uses bundled `CatIsEquiv` under the small-shape
-      universe policy.
-- [x] Build and assumption-audit the chosen-limit API;
-      `fun12_cone_1gpd`, `fun12_cat_limit`, and
-      `gpd_adjunction_cat_limit` are closed under the global context.
-- [x] Build and assumption-audit the permanent pointwise-limit construction;
-      `pointwise_limit_eta`, `pointwise_limit_islimitcone`,
-      `pointwise_limit`, and `haslimits_fun02` are closed under the global
-      context.
+- [x] Build and assumption-audit the permanent coherent-Yoneda and local
+      `OneGpd`-limit prototypes. These checks establish that the definitions
+      are well formed, not that ordinary pullbacks instantiate them.
+- [x] Reproduce the walking-cospan obstruction at local injectivity: a
+      perturbation supplies only pointwise comparisons of modification
+      components, while equality of maps into a pullback also compares the
+      stored pullback-path square.
+- [x] Build and assumption-audit the walking-cospan pullback `Fun12`, its
+      diagonal `GpdAdjunction`, and the derived coherent hom-0-groupoid cone
+      property; all are closed under the global context.
+- [x] Build and assumption-audit
+      `PullbackFubiniApplicationScratch.v`; the concrete canonical
+      walking-cospan Fubini equivalence is closed under the global context.
+- [ ] Package the selected cubical naturality as the full coherent-adjunction
+      replacement without requiring a `Fun22` pullback operation.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.
 - [ ] Rerun the full `dune test` validation after the permanent limit-first
       route is integrated.

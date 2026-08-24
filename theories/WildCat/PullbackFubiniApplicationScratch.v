@@ -1,35 +1,18 @@
 Require Import Basics.Equivalences Basics.Overture Basics.PathGroupoids
   Basics.Tactics.
 Require Import Limits.Pullback.
-Require Import WildCat.Core WildCat.Equiv WildCat.Limits WildCat.NatTrans
-  WildCat.PointwiseLimitUniversal WildCat.PullbackLimitScratch
-  WildCat.SwapAdjunction WildCat.TwoFunctor WildCat.TwoOneCat
-  WildCat.Universe WildCat.FunctorCat WildCat.OneGroupoid WildCat.EquivGpd WildCat.TwoYoneda.
+Require Import Cubical.PathSquare Types.Sigma.
+Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
+  WildCat.EquivGpd WildCat.FunctorCat WildCat.Limits WildCat.LimitsScratch
+  WildCat.NatTrans WildCat.OneGroupoid WildCat.PointwiseLimitUniversal
+  WildCat.PullbackLimitScratch WildCat.Square WildCat.SwapAdjunction
+  WildCat.TwoFunctor WildCat.TwoOneCat WildCat.TwoYoneda WildCat.Universe
+  WildCat.ZeroGroupoid.
 
 Set Typeclasses Depth 4.
 
-(** * General limit Fubini and the pullback 3-by-3 test case *)
+(** * The coherent pullback operation and its 3-by-3 test case *)
 
-(** ** The general theorem we want *)
-
-Section GeneralLimitFubini.
-  Context {A I J : Type} `{Is21Cat A, IsGraph I, IsGraph J}.
-  Context `{!HasEquivs A, !HasLimits I A, !HasLimits J A}.
-
-  Definition limit_fubini_statement
-    (X : Fun02 J (Fun02 I A)) : Type
-    := cat_limit I (pointwise_limit_apex I A J X)
-      $<~> cat_limit J
-        (pointwise_limit_apex J A I (swap_fun02 J I A X)).
-End GeneralLimitFubini.
-
-(** This is the only theorem assumed by the application below.  Its proof is
-    the general Fubini development, not part of the walking-cospan instance. *)
-Axiom limit_fubini
-  : forall {A I J : Type} `{Is21Cat A, IsGraph I, IsGraph J}
-      `{!HasEquivs A, !HasLimits I A, !HasLimits J A}
-      (X : Fun02 J (Fun02 I A)),
-    limit_fubini_statement X.
 
 (** ** Ordinary pullbacks populate walking-cospan limits in [Type] *)
 
@@ -75,41 +58,340 @@ Definition cospan_pullback_corec
        @ isnat alpha
          (a := cospan_right) (a' := cospan_center) tt y).
 
-(** First local proof obligation: [equiv_pullback_corec] supplies this
-    universal property. *)
-Definition cospan_pullback_islimit (D : Fun02 WalkingCospan Type)
-  : IsLimitCone D (cospan_pullback_apex D) (cospan_pullback_cone D).
+(** The pullback apex acts functorially on coherent cospans.  We use the
+    inverse of the stored naturality cell explicitly: an arbitrary
+    [Is1Natural] carries both orientations but does not assert that they are
+    inverse to one another. *)
+Definition cospan_pullback_map
+  {X Y : Fun02 WalkingCospan Type} (alpha : X $-> Y)
+  : cospan_pullback_apex X -> cospan_pullback_apex Y
+  := functor_pullback
+      (cospan_left_map X) (cospan_right_map X)
+      (cospan_left_map Y) (cospan_right_map Y)
+      (alpha cospan_center) (alpha cospan_left) (alpha cospan_right)
+      (fun x => (isnat alpha
+        (a := cospan_left) (a' := cospan_center) tt x)^)
+      (fun x => (isnat alpha
+        (a := cospan_right) (a' := cospan_center) tt x)^).
+
+Definition cospan_pullback_map_homotopy
+  {X Y : Fun02 WalkingCospan Type}
+  {alpha beta : X $-> Y} (p : alpha $== beta)
+  : cospan_pullback_map alpha == cospan_pullback_map beta.
 Proof.
-  intros Y.
-  simpl.
-  stapply isequiv_1gpd_issurjinj.
-  - intros eta.
-    eexists (cospan_pullback_corec D Y eta).
-    stapply Build_NatModification.
-    + intros [ | | ].
-      * reflexivity.
-      * simpl.
-        admit.
-      * reflexivity.
-    + 
-
-    
-
-  .
-Admitted.
-
-Definition cospan_pullback_limit
-  (X : Fun02 WalkingCospan Type) : Limit WalkingCospan X.
-Proof.
-  snapply Build_Limit.
-  - exact (cospan_pullback_apex X).
-  - exact (cospan_pullback_cone X).
-  - exact (cospan_pullback_islimit X).
+  snapply pullback_homotopic.
+  - intro x.
+    exact (natmod_component alpha beta p cospan_left x.1).
+  - intro x.
+    exact (natmod_component alpha beta p cospan_right x.2.1).
+  - intros [xl [xr xglue]].
+    unfold cospan_pullback_map, functor_pullback.
+    cbn beta.
+    unfold Sigma.functor_sigma.
+    cbn beta.
+    cbn.
+    unfold cospan_left_map, cospan_right_map.
+    cbn beta.
+    pose (cl := natmod_isnatural alpha beta p
+      (a := cospan_left) (b := cospan_center) tt xl).
+    pose (cr := natmod_isnatural alpha beta p
+      (a := cospan_right) (b := cospan_center) tt xr).
+    cbn in cl, cr.
+    pose (cc := concat_Ap
+      (natmod_component alpha beta p cospan_center) xglue).
+    cbn in cc.
+    pose (cl' := moveL_Vp _ _ _
+      ((concat_pp_p _ _ _)^ @ moveR_pV _ _ _ cl)).
+    rewrite !inv_V.
+    rewrite <- !concat_pp_p.
+    rewrite cl'.
+    rewrite (concat_pp_p _
+      (natmod_component alpha beta p cospan_center
+        (cospan_left_map X xl))
+      (ap (beta cospan_center) xglue)).
+    rewrite <- cc.
+    rewrite !concat_pp_p.
+    rewrite <- cr.
+    reflexivity.
 Defined.
 
-Global Instance haslimits_walking_cospan_type
-  : HasLimits WalkingCospan Type
-  := fun X => cospan_pullback_limit X.
+Global Instance is0functor_cospan_pullback_apex
+  : Is0Functor cospan_pullback_apex.
+Proof.
+  snapply Build_Is0Functor.
+  exact (fun X Y alpha => cospan_pullback_map alpha).
+Defined.
+
+Definition cospan_pullback_map_id
+  (X : Fun02 WalkingCospan Type)
+  : cospan_pullback_map (Id X) == idmap.
+Proof.
+  snapply pullback_homotopic.
+  - intro x; reflexivity.
+  - intro x; reflexivity.
+  - intros [xl [xr xglue]].
+    unfold cospan_pullback_map, functor_pullback.
+    cbn beta.
+    unfold Sigma.functor_sigma.
+    cbn beta.
+    cbn.
+    rewrite !concat_1p, !concat_p1, ap_idmap.
+    reflexivity.
+Defined.
+
+Definition cospan_pullback_map_comp
+  {X Y Z : Fun02 WalkingCospan Type}
+  (alpha : X $-> Y) (beta : Y $-> Z)
+  : cospan_pullback_map (beta $o alpha)
+    == cospan_pullback_map beta o cospan_pullback_map alpha.
+Proof.
+  snapply pullback_homotopic.
+  - intro x; reflexivity.
+  - intro x; reflexivity.
+  - intros [xl [xr xglue]].
+    unfold cospan_pullback_map, functor_pullback.
+    cbn beta.
+    unfold Sigma.functor_sigma.
+    cbn beta.
+    cbn.
+    rewrite !concat_1p, !concat_p1.
+    rewrite !inv_pp, !ap_pp, !ap_V, !inv_V.
+    rewrite (ap_compose (alpha cospan_center)
+      (beta cospan_center) xglue).
+    rewrite !concat_pp_p.
+    reflexivity.
+Defined.
+
+Global Instance is1functor_cospan_pullback_apex
+  : Is1Functor cospan_pullback_apex.
+Proof.
+  snapply Build_Is1Functor.
+  - intros X Y alpha beta p.
+    exact (cospan_pullback_map_homotopy p).
+  - exact cospan_pullback_map_id.
+  - intros X Y Z alpha beta.
+    exact (cospan_pullback_map_comp alpha beta).
+Defined.
+
+Definition fun12_cospan_pullback
+  : Fun12 (Fun02 WalkingCospan Type) Type
+  := Build_Fun12 cospan_pullback_apex.
+
+Definition cospan_pullback_counit_component
+  (X : Fun02 WalkingCospan Type)
+  : diagonal02 Type WalkingCospan (cospan_pullback_apex X) $-> X
+  := cospan_pullback_cone X.
+
+Definition cospan_pullback_counit_naturality
+  {X Y : Fun02 WalkingCospan Type} (alpha : X $-> Y)
+  : NatModification
+      (A := WalkingCospan) (B := Type)
+      (F := diagonal02 Type WalkingCospan (cospan_pullback_apex X))
+      (G := Y)
+      (@cat_comp (Fun02 WalkingCospan Type) _
+        (is01cat_fun02 WalkingCospan Type)
+        (diagonal02 Type WalkingCospan (cospan_pullback_apex X))
+        (diagonal02 Type WalkingCospan (cospan_pullback_apex Y))
+        Y
+        (cospan_pullback_counit_component Y)
+        (fmap (diagonal02 Type WalkingCospan)
+          (cospan_pullback_map alpha)))
+      (@cat_comp (Fun02 WalkingCospan Type) _
+        (is01cat_fun02 WalkingCospan Type)
+        (diagonal02 Type WalkingCospan (cospan_pullback_apex X))
+        X Y alpha (cospan_pullback_counit_component X)).
+Proof.
+  snapply Build_NatModification.
+  { intro i.
+    destruct i.
+    - intro x; reflexivity.
+    - intro x.
+      exact (isnat alpha (a := cospan_left)
+        (a' := cospan_center) tt x.1)^.
+    - intro x; reflexivity. }
+  intros i j f.
+  destruct i, j; destruct f; cbn beta.
+  - intros [xl [xr xglue]].
+    unfold Cylinder, Square.
+    cbn.
+    rewrite !concat_1p, !concat_p1, concat_Vp.
+    reflexivity.
+  - intros [xl [xr xglue]].
+    unfold Cylinder, Square.
+    cbn.
+    rewrite !concat_1p, !concat_p1, !inv_V, !concat_pp_p.
+    reflexivity.
+Defined.
+
+Definition nattrans_cospan_pullback_counit
+  : NatTrans
+      (diagonal02 Type WalkingCospan o cospan_pullback_apex)
+      idmap.
+Proof.
+  snapply Build_NatTrans.
+  { exact cospan_pullback_counit_component. }
+  snapply Build_Is1Natural.
+  intros X Y alpha.
+  exact (cospan_pullback_counit_naturality alpha).
+Defined.
+
+Definition cospan_pullback_unit_component (P : Type)
+  : P -> cospan_pullback_apex
+      (diagonal02 Type WalkingCospan P)
+  := fun x => (x; (x; 1)).
+
+Definition nattrans_cospan_pullback_unit
+  : NatTrans idmap
+      (cospan_pullback_apex o diagonal02 Type WalkingCospan).
+Proof.
+  snapply Build_NatTrans.
+  { exact cospan_pullback_unit_component. }
+  snapply Build_Is1Natural.
+  intros P Q f x.
+  unfold cospan_pullback_unit_component.
+  unfold cospan_pullback_map, functor_pullback.
+  cbn beta.
+  unfold Sigma.functor_sigma.
+  cbn beta.
+  cbn.
+  reflexivity.
+Defined.
+
+Definition cospan_pullback_triangle_l (P : Type)
+  : NatModification
+      (A := WalkingCospan) (B := Type)
+      (F := diagonal02 Type WalkingCospan P)
+      (G := diagonal02 Type WalkingCospan P)
+      (nattrans_comp
+        (F := diagonal02 Type WalkingCospan P)
+        (G := diagonal02 Type WalkingCospan
+          (cospan_pullback_apex
+            (diagonal02 Type WalkingCospan P)))
+        (K := diagonal02 Type WalkingCospan P)
+        (cospan_pullback_counit_component
+          (diagonal02 Type WalkingCospan P))
+        (fmap (diagonal02 Type WalkingCospan)
+          (cospan_pullback_unit_component P)))
+      (nattrans_id (diagonal02 Type WalkingCospan P)).
+Proof.
+  snapply Build_NatModification.
+  { intro i.
+    destruct i; intro x; reflexivity. }
+  intros i j f.
+  destruct i, j; destruct f; cbn beta.
+  - intro x.
+    unfold Cylinder, Square.
+    cbn.
+    reflexivity.
+  - intro x.
+    unfold Cylinder, Square.
+    cbn.
+    reflexivity.
+Defined.
+
+Definition cospan_pullback_triangle_r
+  (X : Fun02 WalkingCospan Type)
+  : cospan_pullback_map
+      (cospan_pullback_counit_component X)
+      o cospan_pullback_unit_component (cospan_pullback_apex X)
+    == idmap.
+Proof.
+  snapply pullback_homotopic.
+  - intro x; reflexivity.
+  - intro x; reflexivity.
+  - intros [xl [xr xglue]].
+    unfold cospan_pullback_map, functor_pullback.
+    unfold cospan_pullback_unit_component.
+    cbn beta.
+    unfold Sigma.functor_sigma.
+    cbn beta.
+    cbn.
+    rewrite !concat_1p, !concat_p1, inv_V.
+    reflexivity.
+Defined.
+
+Definition gpd_adjunction_cospan_pullback
+  : GpdAdjunction
+      (fun12_fun22 (fun22_diagonal02 Type WalkingCospan))
+      fun12_cospan_pullback.
+Proof.
+  napply (Build_GpdAdjunction_unit_counit
+    (fun12_fun22 (fun22_diagonal02 Type WalkingCospan))
+    fun12_cospan_pullback
+    nattrans_cospan_pullback_counit
+    nattrans_cospan_pullback_unit).
+  - exact cospan_pullback_triangle_l.
+  - exact cospan_pullback_triangle_r.
+  Unshelve.
+  { exact (HoTT.WildCat.LimitsScratch.is1functor_diagonal02_generic
+      Type WalkingCospan). }
+  exact is1functor_cospan_pullback_apex.
+Defined.
+
+Global Instance haslimit02_type_walking_cospan
+  : HasLimit02 Type WalkingCospan.
+Proof.
+  snapply Build_HasLimit02.
+  - exact fun12_cospan_pullback.
+  - exact gpd_adjunction_cospan_pullback.
+Defined.
+
+(** The chosen coherent right adjoint supplies the universal property of the
+    concrete pullback cone.  The canonical cone reconstructed from the
+    adjunction differs only by postcomposition with the diagonal identity. *)
+Definition cospan_pullback_islimit (D : Fun02 WalkingCospan Type)
+  : HoTT.WildCat.LimitsScratch.IsLimitCone
+      D (cospan_pullback_apex D) (cospan_pullback_cone D).
+Proof.
+  pose (H := cat_limit02_cone_islimit Type WalkingCospan D).
+  cbn [cat_limit02 haslimit02_type_walking_cospan] in H.
+  refine (islimitcone_homotopic _ H).
+  unfold cat_limit02_cone, limit_cone_of_islimit, cat_limit02_islimit.
+  change (NatModification
+    (A := WalkingCospan) (B := Type)
+    (nattrans_comp
+      (cospan_pullback_counit_component D)
+      (fmap (diagonal02 Type WalkingCospan)
+        (Id (cospan_pullback_apex D))))
+    (cospan_pullback_counit_component D)).
+  snapply Build_NatModification.
+  { intro i.
+    destruct i; intro x; reflexivity. }
+  intros i j f.
+  destruct i, j; destruct f; cbn beta.
+  - intro x.
+    unfold Cylinder, Square.
+    cbn.
+    reflexivity.
+  - intro x.
+    unfold Cylinder, Square.
+    cbn.
+    rewrite !concat_1p, !concat_p1.
+    reflexivity.
+Defined.
+
+
+(** ** Canonical iterated pullbacks *)
+
+Definition pointwise_cospan_pullback
+  {C : Type} `{IsGraph C}
+  (X : Fun02 C (Fun02 WalkingCospan Type))
+  : Fun02 C Type
+  := fun02_postcomp (A := C) fun12_cospan_pullback X.
+
+Definition iterated_cospan_pullback_rows
+  (X : Fun02 WalkingCospan
+    (Fun02 WalkingCospan Type))
+  : Type
+  := cospan_pullback_apex (pointwise_cospan_pullback X).
+
+Definition iterated_cospan_pullback_columns
+  (X : Fun02 WalkingCospan
+    (Fun02 WalkingCospan Type))
+  : Type
+  := cospan_pullback_apex
+      (pointwise_cospan_pullback
+        (swap_fun02 WalkingCospan WalkingCospan Type X)).
 
 (** ** The pullback 3-by-3 application *)
 
@@ -126,18 +408,7 @@ Section PullbackThreeByThree.
     (H31 : f32 $o f41 $== f21 $o f30)
     (H33 : f32 $o f43 $== f23 $o f34).
 
-  Let fX1 := functor_pullback
-    f10 f30 f12 f32 f21 f01 f41 H11 H31.
-  Let fX3 := functor_pullback
-    f14 f34 f12 f32 f23 f03 f43 H13 H33.
-  Let f1X := functor_pullback
-    f01 f03 f21 f23 f12 f10 f14
-    (symmetry _ _ H11) (symmetry _ _ H13).
-  Let f3X := functor_pullback
-    f41 f43 f21 f23 f32 f30 f34
-    (symmetry _ _ H31) (symmetry _ _ H33).
-
-  Local Definition pullback_3_by_3_diagram
+  Definition pullback_3_by_3_diagram
     : Fun02 WalkingCospan (Fun02 WalkingCospan Type).
   Proof.
     snapply (fun02_walking_cospan
@@ -169,37 +440,69 @@ Section PullbackThreeByThree.
         * exact H33.
   Defined.
 
-  Local Definition columnwise_limits : Fun02 WalkingCospan Type
-    := pointwise_limit_apex WalkingCospan Type WalkingCospan
-      pullback_3_by_3_diagram.
+  Let fX1_double_inverse := functor_pullback
+    f10 f30 f12 f32 f21 f01 f41
+    (fun x => ((H11 x)^)^) (fun x => ((H31 x)^)^).
 
-  Local Definition rowwise_limits : Fun02 WalkingCospan Type
-    := pointwise_limit_apex WalkingCospan Type WalkingCospan
-      (swap_fun02 WalkingCospan WalkingCospan Type
-        pullback_3_by_3_diagram).
+  Let fX3_double_inverse := functor_pullback
+    f14 f34 f12 f32 f23 f03 f43
+    (fun x => ((H13 x)^)^) (fun x => ((H33 x)^)^).
 
-  Local Definition iterated_column_limit : Type
-    := cat_limit WalkingCospan columnwise_limits.
+  Let f1X := functor_pullback
+    f01 f03 f21 f23 f12 f10 f14
+    (symmetry _ _ H11) (symmetry _ _ H13).
 
-  Local Definition iterated_row_limit : Type
-    := cat_limit WalkingCospan rowwise_limits.
+  Let f3X := functor_pullback
+    f41 f43 f21 f23 f32 f30 f34
+    (symmetry _ _ H31) (symmetry _ _ H33).
 
-  (** These are the two concrete comparison obligations left after applying
-      general Fubini. *)
-  Definition columnwise_pullback_comparison_statement
-    : iterated_column_limit <~> Pullback fX1 fX3.
+  Local Definition normalized_column_data : Type
+    := {a : Pullback f10 f30 &
+      {a0 : Pullback f14 f34 &
+      {p : f01 a.1 = f03 a0.1 &
+      {q : f41 a.2.1 = f43 a0.2.1 &
+      PathSquare (ap f12 p) (ap f32 q)
+        ((H11 a.1 @ ap f21 a.2.2) @ (H31 a.2.1)^)
+        ((H13 a0.1 @ ap f23 a0.2.2) @ (H33 a0.2.1)^)}}}}.
+
+  (** The theorem is stated only in terms of the canonical maps induced by
+      the two presentations of the double diagram.  Consequently, no
+      comparison asks conversion to identify [p^^] with [p]. *)
+  Definition equiv_iterated_cospan_pullback_fubini
+    : iterated_cospan_pullback_columns pullback_3_by_3_diagram
+      <~> iterated_cospan_pullback_rows pullback_3_by_3_diagram.
   Proof.
-
-  Admitted.
-
-  Definition rowwise_pullback_comparison_statement
-    : iterated_row_limit <~> Pullback f1X f3X.
-  Proof.
-  Admitted.
-
-  Definition pullback_3_by_3_from_limit_fubini
-    : Pullback fX1 fX3 <~> Pullback f1X f3X
-    := rowwise_pullback_comparison_statement 
-      oE limit_fubini pullback_3_by_3_diagram
-      oE equiv_inverse columnwise_pullback_comparison_statement.
+    change (Pullback fX1_double_inverse fX3_double_inverse
+      <~> Pullback f1X f3X).
+    refine (_ oE _ oE _).
+    1,3:do 2 (rapply equiv_functor_sigma_id; intro).
+    1:apply equiv_path_pullback.
+    1:symmetry; apply equiv_path_pullback.
+    refine (_ oE _).
+    { do 4 (rapply equiv_functor_sigma_id; intro).
+      refine (sq_tr oE _).
+      refine (sq_move_14^-1 oE _).
+      refine (sq_move_31 oE _).
+      refine (sq_move_24^-1 oE _).
+      refine (sq_move_23^-1 oE _).
+      rewrite 2 inv_V.
+      reflexivity. }
+    unfold fX1_double_inverse, fX3_double_inverse.
+    unfold functor_pullback.
+    cbn.
+    refine ((_ : normalized_column_data <~> _) oE
+      (_ : _ <~> normalized_column_data)).
+    - make_equiv.
+    - rapply equiv_functor_sigma_id; intro a.
+      rapply equiv_functor_sigma_id; intro a0.
+      rapply equiv_functor_sigma_id; intro p.
+      rapply equiv_functor_sigma_id; intro q.
+      refine (sq_GGGG 1 1 _ _).
+      + rewrite (inv_V (H11 a.1)).
+        rewrite (inv_V ((H31 a.2.1)^)).
+        reflexivity.
+      + rewrite (inv_V (H13 a0.1)).
+        rewrite (inv_V ((H33 a0.2.1)^)).
+        reflexivity.
+  Defined.
 End PullbackThreeByThree.

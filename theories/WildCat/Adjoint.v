@@ -185,6 +185,52 @@ Section BuildGpdAdjunction.
   Defined.
 End BuildGpdAdjunction.
 
+(** A coherent adjunction whose adjoints only act through 2-cells.  The
+    cubical naturality of the unit and counit records the selected 3-cells
+    needed by coherent diagram arguments, without requiring either adjoint to
+    act on every 3-cell in its source. *)
+Record CubicalAdjunction12
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun12 A B) (G : Fun12 B A) := {
+  cubical12_adjunction_counit
+    : CubicalNatTrans12
+        (fun12_compose F G)
+        fun12_id;
+  cubical12_adjunction_unit
+    : CubicalNatTrans12
+        fun12_id
+        (fun12_compose G F);
+  cubical12_adjunction_triangle_l
+    : NatModification
+        (nattrans_comp
+          (nattrans_prewhisker cubical12_adjunction_counit F)
+          (nattrans_postwhisker F cubical12_adjunction_unit))
+        (nattrans_id F);
+  cubical12_adjunction_triangle_r
+    : NatModification
+        (nattrans_comp
+          (nattrans_postwhisker G cubical12_adjunction_counit)
+          (nattrans_prewhisker cubical12_adjunction_unit G))
+        (nattrans_id G);
+}.
+
+Definition gpd_adjunction_cubical12
+  {A B : Type} `{Is21Cat A, Is21Cat B}
+  (F : Fun12 A B) (G : Fun12 B A)
+  (adj : CubicalAdjunction12 F G)
+  : GpdAdjunction F G.
+Proof.
+  napply (Build_GpdAdjunction_unit_counit F G
+    (cubical12_adjunction_counit F G adj)
+    (cubical12_adjunction_unit F G adj)).
+  - intro a.
+    exact (natmod_component _ _
+      (cubical12_adjunction_triangle_l F G adj) a).
+  - intro b.
+    exact (natmod_component _ _
+      (cubical12_adjunction_triangle_r F G adj) b).
+Defined.
+
 (** A cubical adjunction stores exactly the higher naturality needed to lift
     its unit and counit through coherent graph-indexed functor categories. *)
 Record CubicalAdjunction
