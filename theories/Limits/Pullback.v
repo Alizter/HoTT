@@ -375,6 +375,58 @@ Proof.
   apply sq_path, q.
 Defined.
 
+(** The path selected by [pullback_homotopic] is the image of its two
+    projected paths and coherence square under [equiv_path_pullback]. *)
+Definition pullback_homotopic_beta
+  {A B C D : Type} {g : C -> D} {k : B -> D}
+  (f h : A -> Pullback k g)
+  (p1 : pullback_pr1 o f == pullback_pr1 o h)
+  (p2 : pullback_pr2 o f == pullback_pr2 o h)
+  (q : forall a,
+    ap k (p1 a) @ (h a).2.2 = (f a).2.2 @ ap g (p2 a))
+  (a : A)
+  : pullback_homotopic f h p1 p2 q a
+    = equiv_path_pullback k g (f a) (h a)
+      (p1 a; (p2 a; sq_path (q a))).
+Proof.
+  reflexivity.
+Defined.
+
+(** Changing only the commutativity witnesses used by
+    [functor_pullback] changes the resulting map only up to homotopy. *)
+Definition functor_pullback_homotopic
+  {A1 B1 C1 A2 B2 C2 : Type}
+  {f1 : B1 -> A1} {g1 : C1 -> A1}
+  {f2 : B2 -> A2} {g2 : C2 -> A2}
+  {h : A1 -> A2} {k : B1 -> B2} {l : C1 -> C2}
+  {p p' : f2 o k == h o f1} {q q' : g2 o l == h o g1}
+  (hp : forall x, p x = p' x) (hq : forall x, q x = q' x)
+  : functor_pullback f1 g1 f2 g2 h k l p q
+    == functor_pullback f1 g1 f2 g2 h k l p' q'.
+Proof.
+  snapply pullback_homotopic.
+  - intro x; reflexivity.
+  - intro x; reflexivity.
+  - intros [b [c e]].
+    unfold functor_pullback.
+    cbn.
+    rewrite !concat_1p, !concat_p1.
+    rewrite hp, hq.
+    reflexivity.
+Defined.
+
+(** Pullbacks are invariant under pointwise changes of their defining maps.
+    This avoids exposing transports when only an equivalence is needed. *)
+Definition equiv_pullback_homotopic
+  {A B C : Type} {f f' : B -> A} {g g' : C -> A}
+  (p : f == f') (q : g == g')
+  : Pullback f g <~> Pullback f' g'.
+Proof.
+  snapply (equiv_pullback equiv_idmap equiv_idmap equiv_idmap).
+  - intro x; exact (p x)^.
+  - intro x; exact (q x)^.
+Defined.
+
 (** When [A] is a set, the [PathSquare] becomes trivial. *)
 Definition equiv_path_pullback_hset {A B C} `{IsHSet A} (f : B -> A) (g : C -> A)
            (x y : Pullback f g)

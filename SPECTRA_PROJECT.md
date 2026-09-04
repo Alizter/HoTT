@@ -232,9 +232,11 @@ design reference; permanent limit modules must not import it.
       in `Type` first, then isolate exactly which coherent-adjunction fields
       make the argument abstract.
 - [x] Add a concrete `Type` presentation regression test:
-      `equiv_iterated_cospan_pullback_fubini` compares the canonical
-      columnwise and rowwise iterated pullback operations. Its public type
-      contains no manually reconstructed maps or doubled inverse witnesses.
+      `equiv_iterated_cospan_pullback_fubini` takes one coherent double
+      cospan and compares its canonical columnwise and rowwise iterated
+      pullbacks. The proof reuses `Limits.Pullback.pullback3x3` after a
+      generic homotopy normalization; callers supply no reconstructed maps
+      or doubled inverse witnesses.
 - [ ] Compare the canonical map and boundary beta laws of the `Type`
       specialization with `Limits.Pullback.pullback3x3`.
 - [ ] Construct coherent opposite diagrams and expose `Colimit`,
@@ -331,8 +333,9 @@ Current exploratory work is in `theories/WildCat/SectionsScratch.v`.
       diagonal `GpdAdjunction`, and the derived coherent hom-0-groupoid cone
       property; all are closed under the global context.
 - [x] Build and assumption-audit
-      `PullbackFubiniApplicationScratch.v`; the concrete canonical
-      walking-cospan Fubini equivalence is closed under the global context.
+      `PullbackFubiniApplicationScratch.v`; its one-argument canonical
+      walking-cospan Fubini equivalence and the reusable pullback homotopy
+      helpers are closed under the global context.
 - [ ] Package the selected cubical naturality as the full coherent-adjunction
       replacement without requiring a `Fun22` pullback operation.
 - [ ] Add the abstract walking-cospan pullback 3-by-3 smoke test.

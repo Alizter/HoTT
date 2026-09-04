@@ -2,6 +2,8 @@ Require Import Basics.Overture Basics.PathGroupoids Basics.Tactics.
 Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
   WildCat.FunctorCat WildCat.NatTrans WildCat.OneGroupoid WildCat.Opposite
   WildCat.Square WildCat.TwoFunctor WildCat.TwoOneCat WildCat.TwoYoneda.
+Require WildCat.ZeroGroupoid.
+Require WildCat.Yoneda.
 
 Set Typeclasses Depth 3.
 
@@ -931,3 +933,282 @@ Section PointwiseLimits.
               (cat_limit_map_beta (fmap (swap_fun02 J I A X) f)) g)).
   Defined.
 End PointwiseLimits.
+
+(** ** Chosen limits from coherent adjunctions *)
+
+(** A chosen limit functor with the selected cubical coherence needed by
+    graph-indexed constructions.  Its adjoints act through 2-cells; no action
+    on arbitrary pointwise 3-cells is required. *)
+Class HasLimit12
+  (J A : Type) `{IsGraph J, Is21Cat A} := {
+  cat_limit12 : Fun12 (Fun02 J A) A;
+  cubical_adjunction_cat_limit12
+    : CubicalAdjunction12
+        (fun12_fun22 (fun22_diagonal02 A J)) cat_limit12;
+}.
+
+(** The lower-dimensional interface induced by a chosen coherent
+    adjunction.  This is sufficient for the local universal property in
+    coherent hom 0-groupoids. *)
+Class HasLimit02
+  (J A : Type) `{IsGraph J, Is21Cat A} := {
+  cat_limit02 : Fun12 (Fun02 J A) A;
+  adjunction_cat_limit02
+    : GpdAdjunction
+        (fun12_fun22 (fun22_diagonal02 A J)) cat_limit02;
+}.
+
+Global Instance haslimit02_haslimit12
+  (J A : Type) `{IsGraph J, Is21Cat A}
+  (limits : HasLimit12 J A)
+  : HasLimit02 J A.
+Proof.
+  destruct limits as [L adj].
+  snapply Build_HasLimit02.
+  - exact L.
+  - exact (gpd_adjunction_cubical12
+      (fun12_fun22 (fun22_diagonal02 A J)) L adj).
+Defined.
+
+Import ZeroGroupoid Yoneda.
+
+(** ** Local coherent hom-0-groupoid universality *)
+
+(** The 0-groupoid of coherent cones.  Its morphisms are
+    cylinder-coherent modifications in [Fun02]. *)
+Definition cone_0gpd
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (a : A) : ZeroGroupoid.ZeroGpd
+  := Yoneda.yon_0gpd X (diagonal02 A J a).
+
+Global Instance is0functor_cone_0gpd
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A)
+  : Is0Functor (A := A^op) (cone_0gpd X)
+  := is0functor_compose
+      (A := A^op) (B := (Fun02 J A)^op)
+      (C := ZeroGroupoid.ZeroGpd)
+      (diagonal02 A J) (Yoneda.yon_0gpd X).
+
+Global Instance is1functor_cone_0gpd
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A)
+  : Is1Functor (A := A^op) (cone_0gpd X)
+  := is1functor_compose
+      (A := A^op) (B := (Fun02 J A)^op)
+      (C := ZeroGroupoid.ZeroGpd)
+      (diagonal02 A J) (Yoneda.yon_0gpd X).
+
+Definition IsLimit02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A) : Type
+  := NatEquiv (Yoneda.yon_0gpd l) (cone_0gpd X).
+
+Definition limit02_cone_map
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A)
+  (lambda : diagonal02 A J l $-> X) (a : A)
+  : Yoneda.yon_0gpd l a $-> cone_0gpd X a.
+Proof.
+  snapply Build_Fun01'.
+  - intro k.
+    change (a $-> l) in k.
+    exact (nattrans_comp lambda (fmap (diagonal02 A J) k)).
+  - intros k k' p.
+    change (a $-> l) in k, k'.
+    change (k $== k') in p.
+    exact (natmod_postcompose lambda (natmod_diagonal02 A J p)).
+Defined.
+
+Definition IsLimitCone02
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  (X : Fun02 J A) (l : A)
+  (lambda : diagonal02 A J l $-> X) : Type
+  := forall a : A, CatIsEquiv (limit02_cone_map X l lambda a).
+
+Definition limit02_cone_map_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (a : A)
+  : limit02_cone_map X l alpha a
+    $== limit02_cone_map X l beta a.
+Proof.
+  intro k.
+  change (a $-> l) in k.
+  exact (natmod_precompose (fmap (diagonal02 A J) k) h).
+Defined.
+
+Definition islimitcone02_homotopic
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  {alpha beta : diagonal02 A J l $-> X}
+  (h : alpha $== beta) (Halpha : IsLimitCone02 X l alpha)
+  : IsLimitCone02 X l beta.
+Proof.
+  intro a.
+  napply (catie_homotopic (limit02_cone_map X l alpha a)).
+  - exact (Halpha a).
+  - exact (limit02_cone_map_homotopic h a).
+Defined.
+
+Definition limit02_cone_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit02 X l)
+  : diagonal02 A J l $-> X
+  := equiv_fun_0gpd (e l) (@Id A IsGraph0 Is01Cat0 l).
+
+Definition limit02_cone_map_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit02 X l) (a : A)
+  : cate_fun (e a)
+    $== limit02_cone_map X l (limit02_cone_of_islimit e) a.
+Proof.
+  pose (alnat := is1natural_natequiv e).
+  change (cate_fun (e a) $==
+    Yoneda.yoneda_0gpd l (cone_0gpd X)
+      (Yoneda.un_yoneda_0gpd l (cone_0gpd X) e) a).
+  exact (Yoneda.yoneda_isretr_0gpd l (cone_0gpd X) e a)^$.
+Defined.
+
+Definition islimitcone02_of_islimit
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A} (e : IsLimit02 X l)
+  : IsLimitCone02 X l (limit02_cone_of_islimit e).
+Proof.
+  intro a.
+  napply (catie_homotopic (cate_fun (e a))).
+  - exact _.
+  - exact (limit02_cone_map_of_islimit e a).
+Defined.
+
+Section ChosenLimit02.
+  Context (J A : Type) `{IsGraph J, Is21Cat A, !HasLimit02 J A}.
+
+  Definition cat_limit02_islimit
+    (X : Fun02 J A)
+    : IsLimit02 X (cat_limit02 (J := J) (A := A) X)
+    := natequiv_inverse
+      (natequiv_gpd_adjunction_l
+        (adjunction_cat_limit02 (J := J) (A := A)) X).
+
+  Definition cat_limit02_cone
+    (X : Fun02 J A)
+    : diagonal02 A J (cat_limit02 (J := J) (A := A) X) $-> X
+    := limit02_cone_of_islimit (cat_limit02_islimit X).
+
+  Definition cat_limit02_cone_islimit
+    (X : Fun02 J A)
+    : IsLimitCone02 X (cat_limit02 (J := J) (A := A) X)
+        (cat_limit02_cone X)
+    := islimitcone02_of_islimit (cat_limit02_islimit X).
+End ChosenLimit02.
+
+(** The inverse mapping functor and local corecursor derived from a coherent
+    hom-0-groupoid universal cone. *)
+Definition limit02_cone_map_cate_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone02 X l lambda) (a : A)
+  : Yoneda.yon_0gpd l a $<~> cone_0gpd X a
+  := Build_CatEquiv (fe := Hlambda a)
+      (limit02_cone_map X l lambda a).
+
+Definition limit02_cone_map_inv_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone02 X l lambda) (a : A)
+  : cone_0gpd X a $-> Yoneda.yon_0gpd l a
+  := cate_fun (cate_inv
+      (limit02_cone_map_cate_of_islimitcone lambda Hlambda a)).
+
+Definition limit02_corec_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l a : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone02 X l lambda)
+  (alpha : diagonal02 A J a $-> X)
+  : a $-> l
+  := limit02_cone_map_inv_of_islimitcone lambda Hlambda a alpha.
+
+Definition limit02_beta_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l a : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone02 X l lambda)
+  (alpha : diagonal02 A J a $-> X)
+  : limit02_cone_map X l lambda a
+      (limit02_corec_of_islimitcone lambda Hlambda alpha)
+    $== alpha
+  := cate_isretr
+      (limit02_cone_map_cate_of_islimitcone lambda Hlambda a) alpha.
+
+Definition limit02_eta_of_islimitcone
+  {A J : Type} `{Is21Cat A, IsGraph J}
+  {X : Fun02 J A} {l a : A}
+  (lambda : diagonal02 A J l $-> X)
+  (Hlambda : IsLimitCone02 X l lambda)
+  (k : a $-> l)
+  : limit02_corec_of_islimitcone lambda Hlambda
+      (limit02_cone_map X l lambda a k)
+    $== k
+  := cate_issect
+      (limit02_cone_map_cate_of_islimitcone lambda Hlambda a) k.
+
+Definition limit02_corec
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimit02 J A}
+  (X : Fun02 J A) {a : A}
+  (alpha : diagonal02 A J a $-> X)
+  : a $-> cat_limit02 (J := J) (A := A) X
+  := limit02_corec_of_islimitcone
+      (cat_limit02_cone J A X) (cat_limit02_cone_islimit J A X) alpha.
+
+Definition limit02_beta
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimit02 J A}
+  (X : Fun02 J A) {a : A}
+  (alpha : diagonal02 A J a $-> X)
+  : limit02_cone_map X
+      (cat_limit02 (J := J) (A := A) X)
+      (cat_limit02_cone J A X) a
+      (limit02_corec X alpha)
+    $== alpha
+  := limit02_beta_of_islimitcone
+      (cat_limit02_cone J A X) (cat_limit02_cone_islimit J A X) alpha.
+
+Definition limit02_eta
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimit02 J A}
+  (X : Fun02 J A) {a : A}
+  (k : a $-> cat_limit02 (J := J) (A := A) X)
+  : limit02_corec X
+      (limit02_cone_map X
+        (cat_limit02 (J := J) (A := A) X)
+        (cat_limit02_cone J A X) a k)
+    $== k
+  := limit02_eta_of_islimitcone
+      (cat_limit02_cone J A X) (cat_limit02_cone_islimit J A X) k.
+
+Definition limit02_corec_modification
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimit02 J A}
+  (X : Fun02 J A) {a : A}
+  {alpha beta : diagonal02 A J a $-> X}
+  (p : alpha $== beta)
+  : limit02_corec X alpha $== limit02_corec X beta
+  := fmap
+      (limit02_cone_map_inv_of_islimitcone
+        (cat_limit02_cone J A X) (cat_limit02_cone_islimit J A X) a) p.
+
+Definition limit02_corec_unique
+  {A J : Type} `{Is21Cat A, IsGraph J, !HasLimit02 J A}
+  (X : Fun02 J A) {a : A}
+  (alpha : diagonal02 A J a $-> X)
+  (k : a $-> cat_limit02 (J := J) (A := A) X)
+  (p : limit02_cone_map X
+      (cat_limit02 (J := J) (A := A) X)
+      (cat_limit02_cone J A X) a k $== alpha)
+  : k $== limit02_corec X alpha
+  := (limit02_eta X k)^$
+    $@ fmap
+      (limit02_cone_map_inv_of_islimitcone
+        (cat_limit02_cone J A X) (cat_limit02_cone_islimit J A X) a) p.

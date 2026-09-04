@@ -1,7 +1,6 @@
 Require Import Basics.Equivalences Basics.Overture Basics.PathGroupoids
   Basics.Tactics.
 Require Import Limits.Pullback.
-Require Import Cubical.PathSquare Types.Sigma.
 Require Import WildCat.Adjoint WildCat.Core WildCat.Cylinder WildCat.Equiv
   WildCat.EquivGpd WildCat.FunctorCat WildCat.Limits WildCat.LimitsScratch
   WildCat.NatTrans WildCat.OneGroupoid WildCat.PointwiseLimitUniversal
@@ -23,6 +22,20 @@ Definition cospan_left_map (X : Fun02 WalkingCospan Type)
 Definition cospan_right_map (X : Fun02 WalkingCospan Type)
   : X cospan_right -> X cospan_center
   := fmap X (a := cospan_right) (b := cospan_center) tt.
+
+Definition cospan_left_naturality
+  {X Y : Fun02 WalkingCospan Type} (alpha : X $-> Y)
+  : alpha cospan_center o cospan_left_map X
+    == cospan_left_map Y o alpha cospan_left
+  := isnat alpha
+    (a := cospan_left) (a' := cospan_center) tt.
+
+Definition cospan_right_naturality
+  {X Y : Fun02 WalkingCospan Type} (alpha : X $-> Y)
+  : alpha cospan_center o cospan_right_map X
+    == cospan_right_map Y o alpha cospan_right
+  := isnat alpha
+    (a := cospan_right) (a' := cospan_center) tt.
 
 Definition cospan_pullback_apex
   (X : Fun02 WalkingCospan Type) : Type
@@ -69,10 +82,8 @@ Definition cospan_pullback_map
       (cospan_left_map X) (cospan_right_map X)
       (cospan_left_map Y) (cospan_right_map Y)
       (alpha cospan_center) (alpha cospan_left) (alpha cospan_right)
-      (fun x => (isnat alpha
-        (a := cospan_left) (a' := cospan_center) tt x)^)
-      (fun x => (isnat alpha
-        (a := cospan_right) (a' := cospan_center) tt x)^).
+      (fun x => (cospan_left_naturality alpha x)^)
+      (fun x => (cospan_right_naturality alpha x)^).
 
 Definition cospan_pullback_map_homotopy
   {X Y : Fun02 WalkingCospan Type}
@@ -393,7 +404,71 @@ Definition iterated_cospan_pullback_columns
       (pointwise_cospan_pullback
         (swap_fun02 WalkingCospan WalkingCospan Type X)).
 
-(** ** The pullback 3-by-3 application *)
+(** ** Fubini for pullbacks *)
+
+(** Pullback Fubini consumes one coherent double cospan.  Internally,
+    [swap_fun02] transposes a naturality cell and [cospan_pullback_map]
+    reverses it, so the resulting column map contains a double inverse.
+    Homotopy invariance removes that representational difference before
+    applying the ordinary pullback 3-by-3 equivalence. *)
+Definition equiv_iterated_cospan_pullback_fubini
+  (X : Fun02 WalkingCospan (Fun02 WalkingCospan Type))
+  : iterated_cospan_pullback_columns X
+    <~> iterated_cospan_pullback_rows X.
+Proof.
+  pose (A00 := X cospan_left cospan_left).
+  pose (A02 := X cospan_left cospan_center).
+  pose (A04 := X cospan_left cospan_right).
+  pose (A20 := X cospan_center cospan_left).
+  pose (A22 := X cospan_center cospan_center).
+  pose (A24 := X cospan_center cospan_right).
+  pose (A40 := X cospan_right cospan_left).
+  pose (A42 := X cospan_right cospan_center).
+  pose (A44 := X cospan_right cospan_right).
+  pose (f01 := cospan_left_map (X cospan_left)).
+  pose (f03 := cospan_right_map (X cospan_left)).
+  pose (f21 := cospan_left_map (X cospan_center)).
+  pose (f23 := cospan_right_map (X cospan_center)).
+  pose (f41 := cospan_left_map (X cospan_right)).
+  pose (f43 := cospan_right_map (X cospan_right)).
+  pose (alpha1 := fmap X
+    (a := cospan_left) (b := cospan_center) tt).
+  pose (alpha3 := fmap X
+    (a := cospan_right) (b := cospan_center) tt).
+  pose (f10 := alpha1 cospan_left).
+  pose (f12 := alpha1 cospan_center).
+  pose (f14 := alpha1 cospan_right).
+  pose (f30 := alpha3 cospan_left).
+  pose (f32 := alpha3 cospan_center).
+  pose (f34 := alpha3 cospan_right).
+  pose (H11 := cospan_left_naturality alpha1).
+  pose (H13 := cospan_right_naturality alpha1).
+  pose (H31 := cospan_left_naturality alpha3).
+  pose (H33 := cospan_right_naturality alpha3).
+  change (Pullback
+    (functor_pullback f10 f30 f12 f32 f21 f01 f41
+      (fun x => ((H11 x)^)^) (fun x => ((H31 x)^)^))
+    (functor_pullback f14 f34 f12 f32 f23 f03 f43
+      (fun x => ((H13 x)^)^) (fun x => ((H33 x)^)^))
+    <~> Pullback
+    (functor_pullback f01 f03 f21 f23 f12 f10 f14
+      (symmetry _ _ H11) (symmetry _ _ H13))
+    (functor_pullback f41 f43 f21 f23 f32 f30 f34
+      (symmetry _ _ H31) (symmetry _ _ H33))).
+  refine (pullback3x3
+    A00 A02 A04 A20 A22 A24 A40 A42 A44
+    f01 f03 f10 f12 f14 f21 f23 f30 f32 f34 f41 f43
+    H11 H13 H31 H33 oE _).
+  rapply equiv_pullback_homotopic.
+  - rapply functor_pullback_homotopic.
+    + intro x; apply inv_V.
+    + intro x; apply inv_V.
+  - rapply functor_pullback_homotopic.
+    + intro x; apply inv_V.
+    + intro x; apply inv_V.
+Defined.
+
+(** ** A constructor for textbook 3-by-3 data *)
 
 Section PullbackThreeByThree.
   Context
@@ -440,69 +515,8 @@ Section PullbackThreeByThree.
         * exact H33.
   Defined.
 
-  Let fX1_double_inverse := functor_pullback
-    f10 f30 f12 f32 f21 f01 f41
-    (fun x => ((H11 x)^)^) (fun x => ((H31 x)^)^).
-
-  Let fX3_double_inverse := functor_pullback
-    f14 f34 f12 f32 f23 f03 f43
-    (fun x => ((H13 x)^)^) (fun x => ((H33 x)^)^).
-
-  Let f1X := functor_pullback
-    f01 f03 f21 f23 f12 f10 f14
-    (symmetry _ _ H11) (symmetry _ _ H13).
-
-  Let f3X := functor_pullback
-    f41 f43 f21 f23 f32 f30 f34
-    (symmetry _ _ H31) (symmetry _ _ H33).
-
-  Local Definition normalized_column_data : Type
-    := {a : Pullback f10 f30 &
-      {a0 : Pullback f14 f34 &
-      {p : f01 a.1 = f03 a0.1 &
-      {q : f41 a.2.1 = f43 a0.2.1 &
-      PathSquare (ap f12 p) (ap f32 q)
-        ((H11 a.1 @ ap f21 a.2.2) @ (H31 a.2.1)^)
-        ((H13 a0.1 @ ap f23 a0.2.2) @ (H33 a0.2.1)^)}}}}.
-
-  (** The theorem is stated only in terms of the canonical maps induced by
-      the two presentations of the double diagram.  Consequently, no
-      comparison asks conversion to identify [p^^] with [p]. *)
-  Definition equiv_iterated_cospan_pullback_fubini
+  Definition equiv_pullback_3_by_3_fubini
     : iterated_cospan_pullback_columns pullback_3_by_3_diagram
-      <~> iterated_cospan_pullback_rows pullback_3_by_3_diagram.
-  Proof.
-    change (Pullback fX1_double_inverse fX3_double_inverse
-      <~> Pullback f1X f3X).
-    refine (_ oE _ oE _).
-    1,3:do 2 (rapply equiv_functor_sigma_id; intro).
-    1:apply equiv_path_pullback.
-    1:symmetry; apply equiv_path_pullback.
-    refine (_ oE _).
-    { do 4 (rapply equiv_functor_sigma_id; intro).
-      refine (sq_tr oE _).
-      refine (sq_move_14^-1 oE _).
-      refine (sq_move_31 oE _).
-      refine (sq_move_24^-1 oE _).
-      refine (sq_move_23^-1 oE _).
-      rewrite 2 inv_V.
-      reflexivity. }
-    unfold fX1_double_inverse, fX3_double_inverse.
-    unfold functor_pullback.
-    cbn.
-    refine ((_ : normalized_column_data <~> _) oE
-      (_ : _ <~> normalized_column_data)).
-    - make_equiv.
-    - rapply equiv_functor_sigma_id; intro a.
-      rapply equiv_functor_sigma_id; intro a0.
-      rapply equiv_functor_sigma_id; intro p.
-      rapply equiv_functor_sigma_id; intro q.
-      refine (sq_GGGG 1 1 _ _).
-      + rewrite (inv_V (H11 a.1)).
-        rewrite (inv_V ((H31 a.2.1)^)).
-        reflexivity.
-      + rewrite (inv_V (H13 a0.1)).
-        rewrite (inv_V ((H33 a0.2.1)^)).
-        reflexivity.
-  Defined.
+      <~> iterated_cospan_pullback_rows pullback_3_by_3_diagram
+    := equiv_iterated_cospan_pullback_fubini pullback_3_by_3_diagram.
 End PullbackThreeByThree.

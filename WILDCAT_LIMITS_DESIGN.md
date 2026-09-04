@@ -543,10 +543,12 @@ coherent hom-0-groupoid cone property.  It does not register the legacy
 `Limits.HasLimits` instance: that would reintroduce the false
 `OneGpd`-valued local injectivity requirement.  Instead,
 `PullbackFubiniApplicationScratch.v` now contains a closed concrete regression
-theorem, `equiv_iterated_cospan_pullback_fubini`, stated using only the
-canonical rowwise and columnwise iterated pullback operations.  Its direct
-proof handles the transposed naturality cells propositionally; it does not
-yet supply the abstract pointwise-limit Fubini theorem.
+theorem, `equiv_iterated_cospan_pullback_fubini`, which consumes one coherent
+double cospan and returns the equivalence between its canonical rowwise and
+columnwise iterated pullbacks.  Its proof delegates to
+`Limits.Pullback.pullback3x3` after a generic homotopy normalization of the
+transposed naturality witnesses; it does not yet supply the abstract
+pointwise-limit Fubini theorem.
 
 ### Opposite-category colimit interface
 
@@ -571,10 +573,10 @@ yet supply the abstract pointwise-limit Fubini theorem.
       resulting equivalence and boundary beta laws with
       `Limits.Pullback.pullback3x3`.
 
-The concrete canonical equivalence is now checked in
-`PullbackFubiniApplicationScratch.v`.  It validates the presentation without
-doubled inverse witnesses in the public statement; replacing its direct
-path-square proof by abstract Fubini remains part of the unchecked work above.
+The concrete one-argument equivalence is now checked in
+`PullbackFubiniApplicationScratch.v`.  Its implementation reuses
+`Limits.Pullback.pullback3x3`; replacing that concrete step by abstract Fubini
+remains part of the unchecked work above and does not require an API change.
 
 - [ ] After the Type smoke test, state the minimum hypotheses for the abstract
       walking-cospan theorem.
