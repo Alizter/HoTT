@@ -6,6 +6,8 @@ Require Import Pointed.
 Require Import Truncations.
 Require Import Spaces.Circle Spaces.TwoSphere.
 
+Local Set Universe Minimization ToSet.
+
 (** * The spheres, in all dimensions. *)
 
 Local Open Scope pointed_scope.
@@ -17,15 +19,15 @@ Generalizable Variables X A B f g n.
 (** ** Definition, by iterated suspension. *)
 
 (** To match the usual indexing for spheres, we have to pad the sequence with a dummy term [Sphere -2]. *)
-Fixpoint Sphere (n : trunc_index)
-  := match n return Type with
+Fixpoint Sphere (n : trunc_index) : Type0
+  := match n return Type0 with
        | -2 => Empty
        | -1 => Empty
        | n'.+1 => Susp (Sphere n')
      end.
 
 (** ** Pointed sphere for non-negative dimensions. *)
-Definition psphere (n : nat) : pType := [Sphere n, _].
+Definition psphere (n : nat) : pType@{Set} := [Sphere n, _].
 
 Arguments Sphere : simpl never.
 Arguments psphere : simpl never.
@@ -256,7 +258,7 @@ Defined.
 
 Instance isconnected_sn n : IsConnected n.+1 (Sphere n.+2).
 Proof.
-  induction n.
+  simple_induction n n IHn.
   { srapply contr_inhabited_hprop.
     apply tr, North. }
   exact isconnected_susp.

@@ -5,6 +5,8 @@ Require Import Homotopy.HSpace.Core.
 Require Import Homotopy.HSpace.Coherent.
 Require Import Spaces.Spheres.
 
+Local Set Universe Minimization ToSet.
+
 (** H-space structure on circle. *)
 
 Section HSpace_S1.
