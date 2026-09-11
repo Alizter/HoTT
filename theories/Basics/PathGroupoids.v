@@ -462,6 +462,19 @@ Definition concat_Ap {A B : Type} {f g : A -> B} (p : forall x, f x = g x) {x y 
     | idpath => concat_1p_p1 _
   end.
 
+(** Naturality also respects a pointwise comparison of the chosen homotopies. *)
+Definition concat_Ap_homotopic {A B : Type} {f g : A -> B}
+  (h k : f == g) (q : forall x, h x = k x)
+  {x y : A} (p : x = y)
+  : concat_Ap h p @ ap (fun r => r @ ap g p) (q x)
+    = ap (fun r => ap f p @ r) (q y) @ concat_Ap k p.
+Proof.
+  destruct p; cbn.
+  generalize (k x), (q x).
+  intros r s; destruct s.
+  exact (concat_p1 _ @ (concat_1p _)^).
+Defined.
+
 (** A useful variant of [concat_Ap]. *)
 Definition ap_homotopic {A B : Type} {f g : A -> B} (p : forall x, f x = g x) {x y : A} (q : x = y)
   : (ap f q) = (p x) @ (ap g q) @ (p y)^.

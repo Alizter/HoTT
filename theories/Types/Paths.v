@@ -444,6 +444,28 @@ Definition equiv_moveR_Vp
 : (p = r @ q) <~> (r^ @ p = q)
 := Build_Equiv _ _ (moveR_Vp p q r) _.
 
+(** The path-algebra conversion used by [transport_paths FlFr] is an equivalence. Its forward map retains the same transport and reassociation witnesses as that tactic. *)
+Definition equiv_naturality_transport {A B : Type} (f g : A -> B)
+  {x y : A} (p : x = y) (u : f x = g x) (v : f y = g y)
+  : (ap f p @ v = u @ ap g p)
+      <~> (transport (fun z => f z = g z) p u = v)
+  := equiv_concat_l (transport_paths_FlFr p u) v
+       oE equiv_concat_l (concat_pp_p (ap f p)^ u (ap g p)) v
+       oE equiv_moveR_Vp (u @ ap g p) v (ap f p)
+       oE equiv_path_inverse _ _.
+
+Definition equiv_naturality_transport_apD {A B : Type}
+  {f g : A -> B} (h : f == g) {x y : A} (p : x = y)
+  : equiv_naturality_transport f g p (h x) (h y) (concat_Ap h p)
+    = apD h p.
+Proof.
+  destruct p; cbn.
+  generalize (h x).
+  generalize (g x).
+  intros z q; destruct q.
+  reflexivity.
+Defined.
+
 Instance isequiv_moveR_pV
   {A : Type} {x y z : A} (p : z = x) (q : y = z) (r : y = x)
 : IsEquiv (moveR_pV p q r).

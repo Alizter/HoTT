@@ -26,6 +26,16 @@ Proof.
   - reflexivity.
 Defined.
 
+(** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The latter compares the actual mixed filler with translated, unit-normalized recursion data, retaining both sets of boundary witnesses. Identifying this translated data with postcomposition by the diagonal join map, and supplying the action and unit coherences, remain necessary before using equivariance to address associativity. *)
+
+(** The four scalar-corner lemmas [cd_associativity_rectangle_ll], [cd_associativity_rectangle_lr], [cd_associativity_rectangle_rl], and [cd_associativity_rectangle_rr] supply the point cases of double join induction, using [commutative_sgop_s1]. Extending these particular fillers still requires glue coherences. For example, the first glue case would be:
+<<
+  transport (cd_associativity_rectangle a b (joinl c)) (jglue d e)
+    (cd_associativity_rectangle_ll a b c d)
+  = cd_associativity_rectangle_lr a b c e
+>>
+This compares the chosen fillers, not merely their endpoints. No extension of these scalar-normalized choices across the glues is asserted. *)
+
 (** Proof skeleton with its remaining obligation exposed as an argument, not an axiom. The required family is the rectangle comparison for the chosen circle double, with both later arguments arbitrary join elements. No inhabitant of this family is supplied here. *)
 Definition hspace_s7_from_rectangle `{Univalence}
   (h : forall (a b : Sphere 1) (u v : Join (Sphere 1) (Sphere 1)),
@@ -41,4 +51,20 @@ Proof.
   nrefine (@hspace_cd (pjoin (psphere 1) (Sphere 1)) spheroid3 _ _).
   - exact _.
   - exact cd_diamond_double.
+Defined.
+
+(** Normalizing in the middle argument gives a different choice of corners. The families [cd_associativity_rectangle_middle_l] and [cd_associativity_rectangle_middle_r] are defined for every [v], so both inner glue coherences are supplied by [apD]. The remaining outer glue compatibility follows if transport around each middle rectangle fixes the specified unit filler. This is a sufficient condition, not a claim that such invariance has been proved. *)
+Definition hspace_s7_from_rectangle_invariance `{Univalence}
+  (h : forall (a b c d : Sphere 1) (v : Join (Sphere 1) (Sphere 1)),
+    transport (fun u => cd_associativity_rectangle (X:=psphere 1) a b u v)
+      (join_rectangle_loop (A:=psphere 1) (B:=psphere 1) c d)
+      (cd_associativity_rectangle_unit a b v)
+    = cd_associativity_rectangle_unit a b v)
+  : IsHSpace (psphere 7).
+Proof.
+  napply hspace_s7_from_rectangle.
+  intros a b u v.
+  exact (Join_ind_from_rectangle (A:=psphere 1) (B:=psphere 1)
+    (fun u => cd_associativity_rectangle a b u v)
+    (cd_associativity_rectangle_unit a b v) (fun c d => h a b c d v) u).
 Defined.

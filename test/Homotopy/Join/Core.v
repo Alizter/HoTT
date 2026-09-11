@@ -21,6 +21,23 @@ Section ZigzagNaturality.
       = concat_1p_p1 (zigzag a c b) := idpath.
 End ZigzagNaturality.
 
+(** Mapping fillers imposes no ordering between the source and target join universes. *)
+Section ZigzagFillers.
+  Universe i j k l m n.
+  Constraint i <= k.
+  Constraint j <= k.
+  Constraint l <= n.
+  Constraint m <= n.
+  Context {A : Type@{i}} {B : Type@{j}} {C : Type@{l}} {D : Type@{m}}.
+
+  Example zigzag_filler_universes (f : A -> C) (g : B -> D)
+    {a a' : A} {b b' : B}
+    (h : zigzag@{i j k} a a' b = zigzag@{i j k} a a' b')
+    : zigzag@{l m n} (f a) (f a') (g b)
+      = zigzag@{l m n} (f a) (f a') (g b')
+    := join_zigzag_filler@{i j l m n k} f g 1 1 1 1 h.
+End ZigzagFillers.
+
 (** The two join factors and the codomain may live in independent universes. *)
 Section RectangleHomotopy.
   Universe i j k l.

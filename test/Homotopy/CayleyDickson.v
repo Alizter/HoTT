@@ -32,6 +32,13 @@ Section ScalarBoundaryPaths.
   Example boundary_product (a b c d : X)
     : c * ((conj c * conj a * d * conj b) * b) = conj a * d
     := cd_diamond_map_r_parameter a b c d.
+  (** Normalizing the parameter still needs no diamond. *)
+  Context `{!Commutative (@hspace_op X _)}.
+
+  Example parameter_diagonal_translation (a b c d r : X)
+    : cd_diamond_parameter a b (c * r) (d * r)
+      = cd_diamond_parameter a b c d
+    := cd_diamond_parameter_translate@{u} a b c d r.
 End ScalarBoundaryPaths.
 
 (** The construction works for an arbitrary spheroid and an arbitrary chosen diamond, without commutativity or any further coherence hypotheses. *)
@@ -155,6 +162,35 @@ Section Spheroid.
   Example chosen_diamond_right_inverse
     : RightInverse (@cd_op X _ _ D) cd_conjugate pt
     := @cd_op_conjugate_right_inverse X _ _ D.
+
+  (** The two-glue computation exposes this supplied diamond, with all four one-glue beta paths retained. *)
+  Example chosen_diamond_mixed_computation (a b c d : X)
+    : let gl := Join_rec_beta_jglue
+        (fun a => joinl (a * c)) (fun b => joinr (c * b))
+        (fun a b => jglue (a * c) (c * b)) a b in
+      let gr := Join_rec_beta_jglue
+        (fun a => joinr (conj a * d)) (fun b => joinl ((-d) * conj b))
+        (fun a b => (jglue ((-d) * conj b) (conj a * d))^) a b in
+      let lg := Join_rec_beta_jglue
+        (fun c => joinl (a * c)) (fun d => joinr (conj a * d))
+        (fun c d => jglue (a * c) (conj a * d)) c d in
+      let rg := Join_rec_beta_jglue
+        (fun c => joinr (c * b)) (fun d => joinl ((-d) * conj b))
+        (fun c d => (jglue ((-d) * conj b) (c * b))^) c d in
+      concat_Ap (fun y => ap (fun x => @cd_op X _ _ D x y) (jglue a b))
+        (jglue c d) @ (gl @@ 1)
+      = (1 @@ gr) @ (lg @@ 1)
+          @ (@cd_op_diamond X _ _ D a b c d @ (1 @@ rg)^).
+  Proof.
+    rhs napply concat_pp_p.
+    exact (Join_rec2_beta_jglue_jglue _ _ _ _ _ _ _ _ _
+      (@cd_op_diamond X _ _ D) a b c d).
+  Defined.
+
+  Context `{Funext} `{!Commutative (@hspace_op X _)} (a b c d : X).
+
+  (** The complete boundary-aware comparison stays in one universe and uses [D], not the ambient diamond. *)
+  Check (@cd_op_diamond_normalize@{u} X _ _ D _ _ a b c d).
 End Spheroid.
 
 (** The canonical diamond does not depend on an imaginaroid structure, or even on involutivity of negation. *)
