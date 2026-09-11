@@ -57,6 +57,22 @@ Section Join.
     apply Hglue.
   Defined.
 
+  (** The homotopy eliminator computes to the supplied naturality witness, including its choice of filler. *)
+  Definition Join_ind_FlFr_beta_jglue {A B P : Type}
+    (f g : Join A B -> P)
+    (Hl : forall a, f (joinl a) = g (joinl a))
+    (Hr : forall b, f (joinr b) = g (joinr b))
+    (Hglue : forall a b,
+      ap f (jglue a b) @ Hr b = Hl a @ ap g (jglue a b)) a b
+    : concat_Ap (Join_ind_FlFr f g Hl Hr Hglue) (jglue a b)
+      = Hglue a b.
+  Proof.
+    rapply (equiv_inj
+      (equiv_naturality_transport f g (jglue a b) (Hl a) (Hr b))).
+    lhs napply equiv_naturality_transport_apD.
+    exact (Join_ind_beta_jglue _ Hl Hr _ a b).
+  Defined.
+
   Definition Join_ind_Flr {A B : Type} (f : Join A B -> Join A B)
     (Hl : forall a, f (joinl a) = joinl a)
     (Hr : forall b, f (joinr b) = joinr b)
@@ -179,6 +195,29 @@ Definition join_rectangle_loop {A : pType@{i}} {B : pType@{j}}
   (a : A) (b : B)
   : @joinl@{i j k} A B pt = joinl pt
   := (zigzag a pt pt)^ @ jglue a b @ (jglue pt b)^.
+
+(** A chosen value extends to a dependent section if transport around each rectangle loop fixes it. The point clauses use transport along the paths from the basepoint to the two join factors. *)
+Definition Join_ind_from_rectangle
+  {A : pType@{i}} {B : pType@{j}}
+  (P : Join@{i j k} A B -> Type@{l}) (q : P (joinl pt))
+  (h : forall (a : A) (b : B),
+    transport P (join_rectangle_loop a b) q = q)
+  : forall z, P z.
+Proof.
+  snapply Join_ind.
+  - intro a.
+    exact (transport P (zigzag a (point A) (point B))^ q).
+  - intro b.
+    exact (transport P (jglue (point A) b) q).
+  - intros a b.
+    pose (p := zigzag a (point A) (point B)).
+    pose (r := jglue (point A) b).
+    apply moveL_transport_p.
+    lhs_V napply (ap (transport P r^)
+      (transport_pp P p^ (jglue a b) q)).
+    lhs_V napply (transport_pp P (p^ @ jglue a b) r^ q).
+    exact (h a b).
+Defined.
 
 (** A comparison at the basepoint extends to a homotopy if it intertwines the actions on all rectangle loops. This constructs a homotopy from specified data; it does not assert that arbitrary loop comparisons exist. *)
 Definition Join_homotopy_from_rectangle
@@ -518,6 +557,52 @@ Section JoinNatSq.
   Defined.
 
 End JoinNatSq.
+
+(** ** Images of zigzag fillers with specified boundaries *)
+
+(** Map a chosen filler into a join, retaining all four scalar boundary identifications. *)
+Definition join_zigzag_filler {A B C D : Type}
+  (f : A -> C) (g : B -> D)
+  {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+  (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  : zigzag c c' d = zigzag c c' d'.
+Proof.
+  napply (cancelL (ap joinl p)).
+  refine (zigzag_natsq p q r @ _ @ (zigzag_natsq p q s)^).
+  napply whiskerR.
+  lhs_V napply (Join_rec_beta_zigzag _ _
+    (fun x y => jglue (f x) (g y))).
+  rhs_V napply (Join_rec_beta_zigzag _ _
+    (fun x y => jglue (f x) (g y))).
+  exact (ap (ap (Join_rec (joinl o f) (joinr o g)
+    (fun x y => jglue (f x) (g y)))) h).
+Defined.
+
+(** Changing the maps and the diamond parameter changes the complete filler by transport along the induced boundary paths. Both sets of boundary witnesses occur explicitly; the conclusion does not identify arbitrary witnesses with equal endpoints. *)
+Definition join_zigzag_filler_change {X C D : Type} {n e : X}
+  (h : forall t, zigzag n t t = zigzag n t e)
+  {f f' : X -> C} {g g' : X -> D}
+  (pf : f = f') (pg : g = g') {t t' : X} (p_t : t = t')
+  {c c' k k' : C} {d d' l l' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  (p' : f' n = k) (q' : f' t' = k')
+  (r' : g' t' = l) (s' : g' e = l')
+  : transport011
+      (fun x : C * C => fun y : D * D =>
+        zigzag (fst x) (snd x) (fst y)
+          = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (p^ @ ap10 pf n @ p')
+        (q^ @ (ap10 pf t @ ap f' p_t) @ q'))
+      (path_prod' (r^ @ (ap10 pg t @ ap g' p_t) @ r')
+        (s^ @ ap10 pg e @ s'))
+      (join_zigzag_filler f g p q r s (h t))
+    = join_zigzag_filler f' g' p' q' r' s' (h t').
+Proof.
+  destruct pf, pg, p_t.
+  destruct p, q, r, s, p', q', r', s'.
+  reflexivity.
+Defined.
 
 (** The triangles that arise when one of the given paths is reflexivity. *)
 Section Triangle.
@@ -1041,14 +1126,10 @@ Section Rec2.
     (P_gxD : forall d a b, P_AD a d = P_BD b d)
     (P_g : forall a b c d, P_gAx a c d @ P_gxD d a b = P_gxC c a b @ P_gBx b c d).
 
-  Definition Join_rec2 : Join A B -> Join C D -> P.
+  Definition Join_rec2_glue (a : A) (b : B)
+    : Join_rec (P_AC a) (P_AD a) (P_gAx a)
+      == Join_rec (P_BC b) (P_BD b) (P_gBx b).
   Proof.
-    intros x y; revert x.
-    snapply Join_rec.
-    1: intros a; exact (Join_rec (P_AC a) (P_AD a) (P_gAx a) y).
-    1: intros b; exact (Join_rec (P_BC b) (P_BD b) (P_gBx b) y).
-    intros a b.
-    revert y.
     snapply Join_ind_FlFr.
     1: intros c; exact (P_gxC c a b).
     1: intros d; exact (P_gxD d a b).
@@ -1059,6 +1140,35 @@ Section Rec2.
     rhs napply whiskerL.
     2: apply Join_rec_beta_jglue.
     exact (P_g a b c d).
+  Defined.
+
+  Definition Join_rec2 : Join A B -> Join C D -> P.
+  Proof.
+    intros x y; revert x.
+    snapply Join_rec.
+    1: intros a; exact (Join_rec (P_AC a) (P_AD a) (P_gAx a) y).
+    1: intros b; exact (Join_rec (P_BC b) (P_BD b) (P_gBx b) y).
+    exact (fun a b => Join_rec2_glue a b y).
+  Defined.
+
+  (** The mixed computation rule, with all four edge computations retained. It identifies the actual naturality of the first glue with the chosen two-glue filler [P_g], rather than merely comparing their boundaries. *)
+  Definition Join_rec2_beta_jglue_jglue (a : A) (b : B) (c : C) (d : D)
+    : concat_Ap (fun y => ap (fun x => Join_rec2 x y) (jglue a b))
+        (jglue c d)
+        @ (Join_rec_beta_jglue (fun a => P_AC a c)
+            (fun b => P_BC b c) (P_gxC c) a b @@ 1)
+      = (1 @@ Join_rec_beta_jglue (fun a => P_AD a d)
+            (fun b => P_BD b d) (P_gxD d) a b)
+        @ ((Join_rec_beta_jglue (P_AC a) (P_AD a) (P_gAx a) c d @@ 1)
+          @ (P_g a b c d
+            @ (1 @@ Join_rec_beta_jglue
+              (P_BC b) (P_BD b) (P_gBx b) c d)^)).
+  Proof.
+    lhs napply (concat_Ap_homotopic _ (Join_rec2_glue a b)
+      (fun y => Join_rec_beta_jglue _ _ (fun a b => Join_rec2_glue a b y)
+        a b) (jglue c d)).
+    napply whiskerL.
+    exact (Join_ind_FlFr_beta_jglue _ _ _ _ _ c d).
   Defined.
 
 End Rec2.
