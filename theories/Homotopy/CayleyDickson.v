@@ -1,6 +1,6 @@
 From HoTT Require Import Basics.
 Require Import Types.Paths.
-Require Import Classes.interfaces.abstract_algebra.
+Require Import Classes.interfaces.abstract_algebra Classes.theory.groups.
 Require Import Pointed.Core Pointed.pSusp.
 Require Import Homotopy.HSpace.Core.
 Require Import Homotopy.Suspension.
@@ -16,7 +16,7 @@ Local Open Scope path_scope.
 
 The construction works by replicating the classical Cayley-Dickson construction on convolution algebras ([*]-algebras), which can produce the complex numbers, quaternions, octonions, etc. starting with the real numbers. We cannot replicate this directly in HoTT since such algebras have a contractible underlying vector space, therefore the construction here attempts to axiomatize the properties of the units of those algebras instead.
 
-This is done by postulating a structure called a "Cayley-Dickson imaginaroid" on a type [A] and showing that [Join (Susp A) (Susp A)] is an H-space. Here we separate the algebra from the geometry: an associative spheroid [X] with a chosen diamond gives an H-space on [Join X X], and suspensions supply the canonical diamond. We also prove the doubled involution, inverse, and sign laws, without additional coherences of the diamond. In fact, doubled negation is homotopic to the identity. We construct unit-based partial associators and give an explicit rectangle-loop comparison sufficient for their compatibility. Anti-multiplicativity of doubled conjugation and associativity of the doubled multiplication are not established here. Recovering an imaginaroid on [Join A (Susp A)] remains an open problem requiring further coherences. *)
+This is done by postulating a structure called a "Cayley-Dickson imaginaroid" on a type [A] and showing that [Join (Susp A) (Susp A)] is an H-space. Here we separate the algebra from the geometry: an associative spheroid [X] with a chosen diamond gives an H-space on [Join X X], and suspensions supply the canonical diamond. We also prove the doubled involution, inverse, and sign laws, without additional coherences of the diamond. In fact, doubled negation is homotopic to the identity. We construct unit-based partial associators and give an explicit rectangle-loop comparison sufficient for their compatibility. Associativity of the doubled multiplication is not established here. Once it is supplied, inverse anti-multiplicativity completes the doubled spheroid structure, and the join supplies its next diamond directly. Recovering an imaginaroid on [Join A (Susp A)] remains an open problem requiring further coherences. *)
 
 (** ** Cayley-Dickson spheroids *)
 
@@ -173,6 +173,11 @@ Defined.
 
 Instance cd_negate {X : Type} `{Negate X} : Negate (Join X X)
   := functor_join (-) (-).
+
+(** The next diamond is available on every double, independently of multiplication or a diamond on [X]. *)
+#[export] Instance cd_diamond_double {X : pType} `{Negate X}
+  : CayleyDicksonDiamond (pjoin X X) cd_negate
+  := @diamond_join X X (-pt) pt pt.
 
 Instance cd_conjugate {X : Type} `{Negate X, Conjugate X}
   : Conjugate (Join X X)
@@ -470,6 +475,24 @@ Section SpheroidHSpace.
       (fun z => cd_op (cd_op z u) v)
       (fun z => cd_op z (cd_op u v))
       (cd_assoc_at_unit u v) (fun a b => h a b u v) x)^.
+  Defined.
+
+  (** Once doubled associativity is supplied, inverse anti-multiplicativity completes the spheroid structure. No independent coherence of conjugation is assumed. *)
+  Definition cd_spheroid_of_associative `{!Associative cd_op}
+    : CayleyDicksonSpheroid (pjoin X X).
+  Proof.
+    refine {| cds_hspace := hspace_cd;
+              cds_negate := cd_negate;
+              cds_conjug := cd_conjugate;
+              cds_negate_inv := involutive_cd_negate;
+              cds_conjug_inv := involutive_cd_conjugate;
+              cds_conjug_unit_pres := isunitpreserving_cd_conjugate;
+              cds_conjug_left_inv := cd_op_conjugate_left_inverse;
+              cds_conjug_distr := _;
+              cds_swapop := swapop_cd;
+              cds_factorneg_r := cd_op_factorneg_r |}.
+    intros x y.
+    rapply (inverse_sg_op (op:=cd_op) (unit:=pt) (i:=cd_conjugate) x y).
   Defined.
 
 End SpheroidHSpace.
