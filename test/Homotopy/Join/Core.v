@@ -1,5 +1,5 @@
 From HoTT Require Import Basics.
-From HoTT Require Import Homotopy.Join.Core.
+From HoTT Require Import Pointed.Core Homotopy.Join.Core.
 
 Local Open Scope path_scope.
 
@@ -20,6 +20,22 @@ Section ZigzagNaturality.
     : zigzag_natsq (idpath a) (idpath c) (idpath b)
       = concat_1p_p1 (zigzag a c b) := idpath.
 End ZigzagNaturality.
+
+(** The two join factors and the codomain may live in independent universes. *)
+Section RectangleHomotopy.
+  Universe i j k l.
+  Constraint i <= k.
+  Constraint j <= k.
+  Context {A : pType@{i}} {B : pType@{j}} {Y : Type@{l}}.
+
+  Example rectangle_homotopy_universes (F G : Join@{i j k} A B -> Y)
+    (q : F (joinl (point A)) = G (joinl (point A)))
+    (h : forall (a : A) (b : B),
+      ap F (join_rectangle_loop@{i j k} a b) @ q
+        = q @ ap G (join_rectangle_loop@{i j k} a b))
+    : F == G
+    := Join_homotopy_from_rectangle@{i j l k} F G q h.
+End RectangleHomotopy.
 
 (** The diamond twist is a dependent path between equalities of zigzags, without a PathSquare. *)
 Example diamond_twist_path {A : Type} {a a' : A} (p : a = a')

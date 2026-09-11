@@ -172,6 +172,36 @@ Proof.
   exact (Join_rec_beta_jglue _ _ _ a b @@ inverse2 (Join_rec_beta_jglue _ _ _ a' b)).
 Defined.
 
+(** ** Rectangle loops *)
+
+(** Both inclusions have paths to the left basepoint: [zigzag a pt pt] and [(jglue pt b)^]. Conjugating a glue by these paths gives a loop at that basepoint. *)
+Definition join_rectangle_loop {A : pType@{i}} {B : pType@{j}}
+  (a : A) (b : B)
+  : @joinl@{i j k} A B pt = joinl pt
+  := (zigzag a pt pt)^ @ jglue a b @ (jglue pt b)^.
+
+(** A comparison at the basepoint extends to a homotopy if it intertwines the actions on all rectangle loops. This constructs a homotopy from specified data; it does not assert that arbitrary loop comparisons exist. *)
+Definition Join_homotopy_from_rectangle
+  {A : pType@{i}} {B : pType@{j}} {Y : Type@{l}}
+  (F G : Join@{i j k} A B -> Y)
+  (q : F (joinl pt) = G (joinl pt))
+  (h : forall (a : A) (b : B),
+    ap F (join_rectangle_loop a b) @ q
+      = q @ ap G (join_rectangle_loop a b))
+  : F == G.
+Proof.
+  snapply Join_ind_FlFr.
+  - intro a.
+    exact (ap F (zigzag a pt pt) @ q
+      @ (ap G (zigzag a pt pt))^).
+  - intro b.
+    pose (r := (jglue (point A) b)^).
+    exact (ap F r @ q @ (ap G r)^).
+  - intros a b.
+    exact (ap_naturality_from_loop F G q
+      (zigzag a pt pt) (jglue pt b)^ (jglue a b) (h a b)).
+Defined.
+
 (** * [Join_rec] gives an equivalence of 0-groupoids
 
   We now prove many things about [Join_rec], for example, that it is an equivalence of 0-groupoids from the [JoinRecData] that we define next.  The framework we use is a bit elaborate, but it parallels the framework used in TriJoin.v, where careful organization is essential. *)
