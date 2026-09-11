@@ -470,6 +470,24 @@ Proof.
   apply concat_Ap.
 Defined.
 
+(** Paths to a common point transport a specified comparison [q] to the endpoints of [s]. Their naturality along [s] follows from exactly the comparison on the conjugated loop [p^ @ s @ r]. *)
+Definition ap_naturality_from_loop {A B : Type} (F G : A -> B)
+  {e x y : A} (q : F e = G e)
+  (p : x = e) (r : y = e) (s : x = y)
+  (h : ap F (p^ @ s @ r) @ q = q @ ap G (p^ @ s @ r))
+  : ap F s @ (ap F r @ q @ (ap G r)^)
+    = (ap F p @ q @ (ap G p)^) @ ap G s.
+Proof.
+  destruct p, r; cbn in *.
+  pose (q_unit := concat_p1 (1 @ q) @ concat_1p q).
+  lhs exact (ap (fun t => ap F s @ t) q_unit).
+  rhs exact (ap (fun t => t @ ap G s) q_unit).
+  pose (s_unit := concat_p1 (1 @ s) @ concat_1p s).
+  lhs_V exact (ap (fun t => ap F t @ q) s_unit).
+  rhs_V exact (ap (fun t => q @ ap G t) s_unit).
+  exact h.
+Defined.
+
 (** Naturality of [ap] at identity. *)
 Definition concat_A1p {A : Type} {f : A -> A} (p : forall x, f x = x) {x y : A} (q : x = y) :
   (ap f q) @ (p y) = (p x) @ q

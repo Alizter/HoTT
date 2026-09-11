@@ -16,7 +16,7 @@ Local Open Scope path_scope.
 
 The construction works by replicating the classical Cayley-Dickson construction on convolution algebras ([*]-algebras), which can produce the complex numbers, quaternions, octonions, etc. starting with the real numbers. We cannot replicate this directly in HoTT since such algebras have a contractible underlying vector space, therefore the construction here attempts to axiomatize the properties of the units of those algebras instead.
 
-This is done by postulating a structure called a "Cayley-Dickson imaginaroid" on a type [A] and showing that [Join (Susp A) (Susp A)] is an H-space. Here we separate the algebra from the geometry: an associative spheroid [X] with a chosen diamond gives an H-space on [Join X X], and suspensions supply the canonical diamond. We also prove the doubled involution, inverse, and sign laws, without additional coherences of the diamond. In fact, doubled negation is homotopic to the identity. Anti-multiplicativity of doubled conjugation and associativity of the doubled multiplication are not established here. Recovering an imaginaroid on [Join A (Susp A)] remains an open problem requiring further coherences. *)
+This is done by postulating a structure called a "Cayley-Dickson imaginaroid" on a type [A] and showing that [Join (Susp A) (Susp A)] is an H-space. Here we separate the algebra from the geometry: an associative spheroid [X] with a chosen diamond gives an H-space on [Join X X], and suspensions supply the canonical diamond. We also prove the doubled involution, inverse, and sign laws, without additional coherences of the diamond. In fact, doubled negation is homotopic to the identity. We construct unit-based partial associators and give an explicit rectangle-loop comparison sufficient for their compatibility. Anti-multiplicativity of doubled conjugation and associativity of the doubled multiplication are not established here. Recovering an imaginaroid on [Join A (Susp A)] remains an open problem requiring further coherences. *)
 
 (** ** Cayley-Dickson spheroids *)
 
@@ -425,6 +425,52 @@ Section SpheroidHSpace.
   Defined.
 
   #[export] Instance hspace_cd : IsHSpace (pjoin X X) := {}.
+
+  (** ** Associativity via rectangle loops *)
+
+  (** The comparison at the unit, built from the chosen left-unit paths. *)
+  Definition cd_assoc_at_unit (u v : pjoin X X)
+    : cd_op (cd_op pt u) v = cd_op pt (cd_op u v)
+    := ap (fun z => cd_op z v) (cd_op_left_identity u)
+         @ (cd_op_left_identity (cd_op u v))^.
+
+  (** Both partial associators use paths from the join factors to the unit. These choices need not agree with scalar-normalized associators at the corners. *)
+  Definition cd_assoc_l (a : X) (u v : pjoin X X)
+    : cd_op (cd_op (joinl a) u) v = cd_op (joinl a) (cd_op u v).
+  Proof.
+    pose (p := zigzag a (point X) (point X)).
+    exact (ap (fun z => cd_op (cd_op z u) v) p
+      @ cd_assoc_at_unit u v
+      @ (ap (fun z => cd_op z (cd_op u v)) p)^).
+  Defined.
+
+  Definition cd_assoc_r (b : X) (u v : pjoin X X)
+    : cd_op (cd_op (joinr b) u) v = cd_op (joinr b) (cd_op u v).
+  Proof.
+    pose (p := (jglue (point X) b)^).
+    exact (ap (fun z => cd_op (cd_op z u) v) p
+      @ cd_assoc_at_unit u v
+      @ (ap (fun z => cd_op z (cd_op u v)) p)^).
+  Defined.
+
+  (** The remaining obligation for these partial associators. It must be supplied as a family in all four variables, not just at scalar vertices. *)
+  Definition cd_associativity_rectangle (a b : X) (u v : pjoin X X)
+    := ap (fun z => cd_op (cd_op z u) v) (join_rectangle_loop a b)
+         @ cd_assoc_at_unit u v
+       = cd_assoc_at_unit u v
+         @ ap (fun z => cd_op z (cd_op u v)) (join_rectangle_loop a b).
+
+  (** This is conditional: no inhabitant of the rectangle-comparison family is constructed here. [Associative] uses the reverse orientation of [cd_assoc_l] and [cd_assoc_r]. *)
+  Definition cd_assoc_from_rectangle
+    (h : forall a b u v, cd_associativity_rectangle a b u v)
+    : Associative cd_op.
+  Proof.
+    intros x u v.
+    exact (Join_homotopy_from_rectangle
+      (fun z => cd_op (cd_op z u) v)
+      (fun z => cd_op z (cd_op u v))
+      (cd_assoc_at_unit u v) (fun a b => h a b u v) x)^.
+  Defined.
 
 End SpheroidHSpace.
 

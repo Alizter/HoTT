@@ -86,6 +86,19 @@ Section Spheroid.
   Example doubled_factorneg_l : FactorNegLeft cd_negate cd_op := _.
   Example doubled_factorneg_r : FactorNegRight cd_negate cd_op := _.
 
+  (** The conditional associator uses exactly the unit-based partial associators on both join factors. *)
+  Example assoc_from_rectangle_joinl
+    (h : forall a b u v, cd_associativity_rectangle a b u v)
+    (a : X) (u v : pjoin X X)
+    : cd_assoc_from_rectangle@{u} h (joinl a) u v
+      = (cd_assoc_l a u v)^ := idpath.
+
+  Example assoc_from_rectangle_joinr
+    (h : forall a b u v, cd_associativity_rectangle a b u v)
+    (b : X) (u v : pjoin X X)
+    : cd_assoc_from_rectangle@{u} h (joinr b) u v
+      = (cd_assoc_r b u v)^ := idpath.
+
   (** Simplifying the glue proof preserves the chosen inverse witnesses on points. *)
   Example doubled_left_inverse_joinl (a : X)
     : cd_op_conjugate_left_inverse (joinl a)
