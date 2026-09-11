@@ -7,6 +7,8 @@ Require Import Homotopy.Suspension Homotopy.HSpace.Core.
 Require Import Homotopy.HSpaceS1 Homotopy.CayleyDickson.
 Require Import Homotopy.Join.Core Homotopy.Join.JoinSusp.
 
+Local Set Universe Minimization ToSet.
+
 Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
 Local Open Scope path_scope.
