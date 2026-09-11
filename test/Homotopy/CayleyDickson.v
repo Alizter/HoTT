@@ -8,6 +8,10 @@ Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
 Local Open Scope path_scope.
 
+(** The next diamond needs no algebra or diamond on the input. *)
+Example double_diamond_without_algebra {X : pType} `{Negate X}
+  : CayleyDicksonDiamond (pjoin X X) cd_negate := _.
+
 (** The scalar boundary paths need neither a chosen diamond nor commutativity. *)
 Section ScalarBoundaryPaths.
   Universe u.
@@ -85,6 +89,10 @@ Section Spheroid.
   Example doubled_right_inverse : RightInverse cd_op cd_conjugate pt := _.
   Example doubled_factorneg_l : FactorNegLeft cd_negate cd_op := _.
   Example doubled_factorneg_r : FactorNegRight cd_negate cd_op := _.
+
+  Example double_spheroid_from_associativity (a : Associative cd_op)
+    : CayleyDicksonSpheroid (pjoin X X)
+    := @cd_spheroid_of_associative X _ _ _ a.
 
   (** The conditional associator uses exactly the unit-based partial associators on both join factors. *)
   Example assoc_from_rectangle_joinl

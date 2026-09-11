@@ -45,3 +45,11 @@ Example diamond_twist_path {A : Type} {a a' : A} (p : a = a')
 
 Example diamond_twist_idpath {A : Type} (a : A)
   : diamond_twist (idpath a) = diamond_symm a a := idpath.
+
+Example diamond_join_left {A B : Type} (n e a : A) (b0 : B)
+  : diamond_join n e b0 (joinl a)
+    = diamond_h (joinl e) (joinl a) (zigzag n a b0) := idpath.
+
+Example diamond_join_right {A B : Type} (n e : A) (b0 b : B)
+  : diamond_join n e b0 (joinr b)
+    = diamond_v (joinl n) (joinr b) (jglue e b) := idpath.
