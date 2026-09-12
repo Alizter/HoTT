@@ -1,4 +1,4 @@
-From HoTT Require Import Basics.
+From HoTT Require Import Basics Types.Prod.
 From HoTT Require Import Pointed.Core Homotopy.Join.Core.
 
 Local Open Scope path_scope.
@@ -62,6 +62,33 @@ Section ZigzagFillerComposition.
     := join_zigzag_filler_compose@{uA uB uC uD uE uF uT uM uS}
          f g k l p q r s h.
 End ZigzagFillerComposition.
+
+(** Map homotopies and parameter changes need no function extensionality and impose no ordering between the two join universes. Both sets of boundary witnesses are arbitrary. *)
+Section ZigzagFillerChange.
+  Universe uX uC uD uS uT.
+  Constraint uX <= uS.
+  Constraint uC <= uT.
+  Constraint uD <= uT.
+  Context {X : Type@{uX}} {C : Type@{uC}} {D : Type@{uD}} {n e : X}.
+
+  Example zigzag_filler_change_without_funext
+    (h : forall t, zigzag@{uX uX uS} n t t = zigzag n t e)
+    {f f' : X -> C} {g g' : X -> D} (pf : f == f') (pg : g == g')
+    {t t' : X} (p_t : t = t')
+    {c c' k k' : C} {d d' l l' : D}
+    (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+    (p' : f' n = k) (q' : f' t' = k') (r' : g' t' = l) (s' : g' e = l')
+    : transport011
+        (fun x : C * C => fun y : D * D =>
+          zigzag@{uC uD uT} (fst x) (snd x) (fst y)
+            = zigzag (fst x) (snd x) (snd y))
+        (path_prod' (p^ @ pf n @ p') (q^ @ (pf t @ ap f' p_t) @ q'))
+        (path_prod' (r^ @ (pg t @ ap g' p_t) @ r') (s^ @ pg e @ s'))
+        (join_zigzag_filler f g p q r s (h t))
+      = join_zigzag_filler f' g' p' q' r' s' (h t')
+    := join_zigzag_filler_change@{uX uC uD uS uT}
+         h pf pg p_t p q r s p' q' r' s'.
+End ZigzagFillerChange.
 
 (** Bypassing the 0-groupoid wrapper changes neither the map nor its chosen glue computation. *)
 Example functor_join_recdata_compatibility {A B C D : Type}

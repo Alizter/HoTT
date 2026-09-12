@@ -36,6 +36,17 @@ Example circle_rectangle_middle_r_glue `{Univalence}
 Section CircleNormalForm.
   Context `{Univalence} (a b c d : Sphere 1).
   Check (cd_op_diamond_normalize@{Set} (X:=psphere 1) a b c d).
+  (** The parameter-independent mixed comparison needs no further circle coherence input. *)
+  Check (fun r : Sphere 1 =>
+    cd_op_diamond_diagonal@{Set} (X:=psphere 1) a b c d r).
+  Check (fun (r : Sphere 1) (y : Join (Sphere 1) (Sphere 1)) =>
+    cd_op_diagonal_equivariance_joinl@{Set} (X:=psphere 1) r a y).
+  Check (fun (r : Sphere 1) (y : Join (Sphere 1) (Sphere 1)) =>
+    cd_op_diagonal_equivariance_joinr@{Set} (X:=psphere 1) r b y).
+  Check (fun r : Sphere 1 =>
+    cd_op_diagonal_equivariance_glue_joinl@{Set} (X:=psphere 1) r a b c).
+  Check (fun r : Sphere 1 =>
+    cd_op_diagonal_equivariance_glue_joinr@{Set} (X:=psphere 1) r a b d).
 End CircleNormalForm.
 
 (** The full rectangle family is still a required input. *)
