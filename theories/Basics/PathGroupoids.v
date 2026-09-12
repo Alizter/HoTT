@@ -483,6 +483,25 @@ Proof.
   apply concat_Ap.
 Defined.
 
+(** Naturality of path images with specified endpoint identifications. The boundary comparisons [ha] and [hb] retain the chosen paths, not just their endpoints. *)
+Definition ap_path_image_natural {A B C : Type}
+  (f : A -> B) (g : B -> C) (k : A -> C) (h : k == g o f)
+  {x y : A} {u v : B} {w z : C}
+  (p : f x = u) (q : f y = v) (r : g u = w) (s : g v = z)
+  (a : k x = w) (b : k y = z)
+  (ha : h x @ ap g p @ r = a) (hb : h y @ ap g q @ s = b)
+  (t : x = y)
+  : r^ @ (ap g (p^ @ (ap f t @ q)) @ s)
+    = a^ @ (ap k t @ b).
+Proof.
+  destruct t, p, q, r, s; cbn in *.
+  destruct ha, hb.
+  generalize (h x).
+  generalize (g (f x)).
+  intros w r; destruct r.
+  reflexivity.
+Defined.
+
 (** Paths to a common point transport a specified comparison [q] to the endpoints of [s]. Their naturality along [s] follows from exactly the comparison on the conjugated loop [p^ @ s @ r]. *)
 Definition ap_naturality_from_loop {A B : Type} (F G : A -> B)
   {e x y : A} (q : F e = G e)
@@ -1208,6 +1227,57 @@ Definition ap_Vp {A B : Type} (f : A -> B) {a0 a1 a1' : A} (p : a0 = a1) (q : a0
 
 (** Some higher coherences *)
 
+(** Naturality of a zigzag follows from the naturality of its two edges. *)
+Definition concat_pV_natural {A : Type} {x x' y y' z z' : A}
+  {p : x = z} {q : y = z} {p' : x' = z'} {q' : y' = z'}
+  (hx : x = x') (hy : y = y') (hz : z = z')
+  (hp : p @ hz = hx @ p') (hq : q @ hz = hy @ q')
+  : (p @ q^) @ hy = hx @ (p' @ q'^).
+Proof.
+  assert (k : q^ @ hy = hz @ q'^).
+  { apply moveL_pV.
+    lhs napply concat_pp_p.
+    apply moveR_Vp.
+    exact hq^. }
+  lhs napply concat_pp_p.
+  lhs napply (1 @@ k).
+  lhs napply concat_p_pp.
+  lhs napply (hp @@ 1).
+  apply concat_pp_p.
+Defined.
+
+Definition concat_Ap_pV {A B : Type} {f g : A -> B} (h : f == g)
+  {x y z : A} (p : x = z) (q : y = z)
+  : concat_Ap h (p @ q^)
+    = (ap_pV f p q @@ 1)
+      @ concat_pV_natural (h x) (h y) (h z)
+          (concat_Ap h p) (concat_Ap h q)
+      @ (1 @@ ap_pV g p q)^.
+Proof.
+  destruct p, q; cbn.
+  generalize (h y).
+  generalize (g y).
+  intros w r; destruct r.
+  reflexivity.
+Defined.
+
+(** The zigzag computation for a composite map agrees with computing each map in turn, including specified computations on both edges. *)
+Definition ap_pV_compose_beta {A B C : Type}
+  (f : A -> B) (g : B -> C) {x y z : A} (p : x = z) (q : y = z)
+  {p' : f x = f z} {q' : f y = f z}
+  {p'' : g (f x) = g (f z)} {q'' : g (f y) = g (f z)}
+  (fp : ap f p = p') (fq : ap f q = q')
+  (gp : ap g p' = p'') (gq : ap g q' = q'')
+  : (ap_compose f g (p @ q^)
+      @ ap (ap g) (ap_pV f p q @ (fp @@ inverse2 fq)))
+      @ (ap_pV g p' q' @ (gp @@ inverse2 gq))
+    = ap_pV (g o f) p q
+      @ ((ap_compose f g p @ ap (ap g) fp @ gp)
+        @@ inverse2 (ap_compose f g q @ ap (ap g) fq @ gq)).
+Proof.
+  destruct fp, fq, gp, gq, p, q; reflexivity.
+Defined.
+
 Lemma ap_pp_concat_p1 {A B} (f : A -> B) {a b : A} (p : a = b)
   : ap_pp f p 1 @ concat_p1 (ap f p) = ap (ap f) (concat_p1 p).
 Proof.
@@ -1271,6 +1341,15 @@ Definition whiskerR {A : Type} {x y z : A} {p q : x = y}
 Definition cancelL {A} {x y z : A} (p : x = y) (q r : y = z)
 : (p @ q = p @ r) -> (q = r)
 := fun h => (concat_V_pp p q)^ @ whiskerL p^ h @ (concat_V_pp p r).
+
+(** Cancelling the unit boundary in a naturality comparison recovers its specified filler. *)
+Definition cancelL_1_natural {A : Type} {x y : A}
+  {p q : x = y} (h : p = q)
+  : cancelL 1 p q
+      ((concat_1p_p1 p @ (h @@ 1)) @ (concat_1p_p1 q)^) = h.
+Proof.
+  destruct h, p; reflexivity.
+Defined.
 
 Definition cancelR {A} {x y z : A} (p q : x = y) (r : y = z)
 : (p @ r = q @ r) -> (p = q)

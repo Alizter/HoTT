@@ -26,7 +26,7 @@ Proof.
   - reflexivity.
 Defined.
 
-(** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The latter compares the actual mixed filler with translated, unit-normalized recursion data, retaining both sets of boundary witnesses. Identifying this translated data with postcomposition by the diagonal join map, and supplying the action and unit coherences, remain necessary before using equivariance to address associativity. *)
+(** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The latter compares the actual mixed filler with postcomposition of the unit-normalized filler, retaining both sets of boundary witnesses. The multiplication-level equivariance, its point and glue computations, and the final compatibility of partial associators still need to be constructed; filler normalization alone does not establish associativity. *)
 
 (** The four scalar-corner lemmas [cd_associativity_rectangle_ll], [cd_associativity_rectangle_lr], [cd_associativity_rectangle_rl], and [cd_associativity_rectangle_rr] supply the point cases of double join induction, using [commutative_sgop_s1]. Extending these particular fillers still requires glue coherences. For example, the first glue case would be:
 <<
