@@ -1,5 +1,6 @@
 From HoTT Require Import Basics.
-Require Import Types.Arrow Types.Paths Types.Prod.
+Require Import Types.Paths Types.Prod.
+Require Import Modalities.ReflectiveSubuniverse Truncations.Core.
 Require Import Classes.interfaces.abstract_algebra Classes.theory.groups.
 Require Import Pointed.Core Pointed.pSusp.
 Require Import Homotopy.HSpace.Core Homotopy.HSpace.Coherent.
@@ -827,22 +828,22 @@ Section SpheroidHSpace.
          (cd_diamond (cd_diamond_parameter a b mon_unit (conj c * d)))^.
 
   (** The actual mixed filler agrees with postcomposition of the unit-normalized filler along these specified boundary paths. The two paths through the parameter use the equality above and dependent naturality of the same family [cd_diamond], never a reflected diamond. No equality with other choices of scalar boundary paths is asserted. *)
-  Definition cd_op_diamond_normalize `{Funext} (a b c d : X)
+  Definition cd_op_diamond_normalize (a b c d : X)
     : let fl := fun x => cd_diamond_map_l a mon_unit x * c in
       let fr := fun y => cd_diamond_map_r b mon_unit y * c in
-      let pf := path_arrow _ _ (cd_diamond_map_l_normalize a c) in
-      let pg := path_arrow _ _ (cd_diamond_map_r_normalize b c) in
+      let pf := cd_diamond_map_l_normalize a c in
+      let pg := cd_diamond_map_r_normalize b c in
       let t := cd_diamond_parameter a b c d in
       let p_t := cd_diamond_parameter_normalize a b c d in
-      let lt := ap10 pf t @ ap fl p_t in
-      let rt := ap10 pg t @ ap fr p_t in
-      let p := (cd_diamond_map_l_neg_unit a c)^ @ ap10 pf (-mon_unit)
+      let lt := pf t @ ap fl p_t in
+      let rt := pg t @ ap fr p_t in
+      let p := (cd_diamond_map_l_neg_unit a c)^ @ pf (-mon_unit)
         @ ap (.* c) (cd_diamond_map_l_neg_unit a mon_unit) in
       let q := (cd_diamond_map_l_parameter a b c d)^ @ lt
         @ ap (.* c) (cd_diamond_map_l_parameter a b mon_unit (conj c * d)) in
       let r := (cd_diamond_map_r_parameter a b c d)^ @ rt
         @ ap (.* c) (cd_diamond_map_r_parameter a b mon_unit (conj c * d)) in
-      let s := (cd_diamond_map_r_unit b c)^ @ ap10 pg mon_unit
+      let s := (cd_diamond_map_r_unit b c)^ @ pg mon_unit
         @ ap (.* c) (cd_diamond_map_r_unit b mon_unit) in
       transport011
         (fun x : X * X => fun y : X * X =>
@@ -857,9 +858,251 @@ Section SpheroidHSpace.
       (cd_diamond_map_l a mon_unit) (cd_diamond_map_r b mon_unit)
       (.* c) (.* c)).
     exact (join_zigzag_filler_change (fun t => (cd_diamond t)^)
-      (path_arrow _ _ (cd_diamond_map_l_normalize a c))
-      (path_arrow _ _ (cd_diamond_map_r_normalize b c))
+      (cd_diamond_map_l_normalize a c)
+      (cd_diamond_map_r_normalize b c)
       (cd_diamond_parameter_normalize a b c d) _ _ _ _ _ _ _ _).
+  Defined.
+
+  (** ** Diagonal translation of the mixed filler *)
+
+  Definition cd_diamond_map_l_translate (a c r : X)
+    : cd_diamond_map_l a (c * r)
+      == fun x => cd_diamond_map_l a c x * r.
+  Proof.
+    intro x.
+    refine (cd_diamond_map_l_normalize a (c * r) x @ _).
+    refine (assoc (cd_diamond_map_l a mon_unit x) c r @ _).
+    exact (ap (.* r) (cd_diamond_map_l_normalize a c x)^).
+  Defined.
+
+  Definition cd_diamond_map_r_translate (b c r : X)
+    : cd_diamond_map_r b (c * r)
+      == fun y => cd_diamond_map_r b c y * r.
+  Proof.
+    intro y.
+    refine (cd_diamond_map_r_normalize b (c * r) y @ _).
+    refine (assoc (cd_diamond_map_r b mon_unit y) c r @ _).
+    exact (ap (.* r) (cd_diamond_map_r_normalize b c y)^).
+  Defined.
+
+  (** These are the boundary paths induced by translating the same diamond. Naming them keeps their choices explicit when comparing the multiplication's recursion data. *)
+  Definition cd_diamond_translate_l_neg_unit (a c r : X)
+    : a * (c * r) = (a * c) * r
+    := (cd_diamond_map_l_neg_unit a (c * r))^
+      @ cd_diamond_map_l_translate a c r (-mon_unit)
+      @ ap (.* r) (cd_diamond_map_l_neg_unit a c).
+
+  Definition cd_diamond_translate_l_parameter (a b c d r : X)
+    : (-(d * r)) * conj b = ((-d) * conj b) * r.
+  Proof.
+    nrefine (_ @ ap (.* r) (cd_diamond_map_l_parameter a b c d)).
+    nrefine ((cd_diamond_map_l_parameter a b (c * r) (d * r))^ @ _).
+    exact (cd_diamond_map_l_translate a c r
+        (cd_diamond_parameter a b (c * r) (d * r))
+      @ ap (fun x => cd_diamond_map_l a c x * r)
+          (cd_diamond_parameter_translate a b c d r)).
+  Defined.
+
+  Definition cd_diamond_translate_r_parameter (a b c d r : X)
+    : conj a * (d * r) = (conj a * d) * r.
+  Proof.
+    nrefine (_ @ ap (.* r) (cd_diamond_map_r_parameter a b c d)).
+    nrefine ((cd_diamond_map_r_parameter a b (c * r) (d * r))^ @ _).
+    exact (cd_diamond_map_r_translate b c r
+        (cd_diamond_parameter a b (c * r) (d * r))
+      @ ap (fun y => cd_diamond_map_r b c y * r)
+          (cd_diamond_parameter_translate a b c d r)).
+  Defined.
+
+  Definition cd_diamond_translate_r_unit (b c r : X)
+    : (c * r) * b = (c * b) * r
+    := (cd_diamond_map_r_unit b (c * r))^
+      @ cd_diamond_map_r_translate b c r mon_unit
+      @ ap (.* r) (cd_diamond_map_r_unit b c).
+
+  (** This is a comparison of the actual fillers, with all four induced boundary paths. There is no reflection or replacement of [cd_diamond]. *)
+  Definition cd_op_diamond_translate (a b c d r : X)
+    : transport011
+        (fun x : X * X => fun y : X * X =>
+          zigzag (fst x) (snd x) (fst y)
+            = zigzag (fst x) (snd x) (snd y))
+        (path_prod' (cd_diamond_translate_l_neg_unit a c r)
+          (cd_diamond_translate_l_parameter a b c d r))
+        (path_prod' (cd_diamond_translate_r_parameter a b c d r)
+          (cd_diamond_translate_r_unit b c r))
+        (cd_op_diamond a b (c * r) (d * r))
+      = join_zigzag_filler (.* r) (.* r) 1 1 1 1 (cd_op_diamond a b c d).
+  Proof.
+    rhs napply (join_zigzag_filler_compose
+      (cd_diamond_map_l a c) (cd_diamond_map_r b c) (.* r) (.* r)).
+    exact (join_zigzag_filler_change (fun t => (cd_diamond t)^)
+      (cd_diamond_map_l_translate a c r)
+      (cd_diamond_map_r_translate b c r)
+      (cd_diamond_parameter_translate a b c d r) _ _ _ _ _ _ _ _).
+  Defined.
+
+  (** The first-variable point clauses for diagonal equivariance. Their four scalar paths are exactly the vertex paths used in [cd_op_diamond_diagonal] below. *)
+  Definition cd_op_diagonal_equivariance_joinl (r a : X)
+    : forall y : pjoin X X,
+      cd_op (joinl a) (functor_join (.* r) (.* r) y)
+        = functor_join (.* r) (.* r) (cd_op (joinl a) y).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (ap joinl (cd_diamond_translate_l_neg_unit a c r)).
+    - intro d.
+      exact (ap joinr
+        (cd_diamond_translate_r_parameter a mon_unit mon_unit d r)).
+    - intros c d.
+      lhs napply (ap_compose (functor_join (.* r) (.* r))
+        (cd_op (joinl a)) (jglue c d) @@ 1).
+      lhs napply (ap (ap (cd_op (joinl a)))
+        (functor_join_beta_jglue (.* r) (.* r) c d) @@ 1).
+      change (cd_op (joinl a)) with
+        (Join_rec (fun c => joinl (a * c)) (fun d => joinr (conj a * d))
+          (fun c d => jglue (a * c) (conj a * d))).
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => jglue (a * c) (conj a * d)) (c * r) (d * r) @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinl a))
+        (functor_join (.* r) (.* r)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (functor_join (.* r) (.* r)))
+        (Join_rec_beta_jglue (P:=pjoin X X)
+          (fun c => joinl (a * c)) (fun d => joinr (conj a * d))
+          (fun c d => jglue (a * c) (conj a * d)) c d)).
+      rhs napply (1 @@ functor_join_beta_jglue (.* r) (.* r)
+        (a * c) (conj a * d)).
+      exact (join_natsq (cd_diamond_translate_l_neg_unit a c r)
+        (cd_diamond_translate_r_parameter a mon_unit mon_unit d r))^.
+  Defined.
+
+  Definition cd_op_diagonal_equivariance_joinr (r b : X)
+    : forall y : pjoin X X,
+      cd_op (joinr b) (functor_join (.* r) (.* r) y)
+        = functor_join (.* r) (.* r) (cd_op (joinr b) y).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (ap joinr (cd_diamond_translate_r_unit b c r)).
+    - intro d.
+      exact (ap joinl
+        (cd_diamond_translate_l_parameter mon_unit b mon_unit d r)).
+    - intros c d.
+      lhs napply (ap_compose (functor_join (.* r) (.* r))
+        (cd_op (joinr b)) (jglue c d) @@ 1).
+      lhs napply (ap (ap (cd_op (joinr b)))
+        (functor_join_beta_jglue (.* r) (.* r) c d) @@ 1).
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => (jglue ((-d) * conj b) (c * b))^) (c * r) (d * r) @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinr b))
+        (functor_join (.* r) (.* r)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (functor_join (.* r) (.* r)))
+        (Join_rec_beta_jglue _ _
+          (fun c d => (jglue ((-d) * conj b) (c * b))^) c d)).
+      rhs napply (1 @@ ap_V (functor_join (.* r) (.* r))
+        (jglue ((-d) * conj b) (c * b))).
+      rhs napply (1 @@ inverse2 (functor_join_beta_jglue (.* r) (.* r)
+        ((-d) * conj b) (c * b))).
+      apply moveL_pV.
+      lhs napply concat_pp_p.
+      apply moveR_Vp.
+      exact (join_natsq
+        (cd_diamond_translate_l_parameter mon_unit b mon_unit d r)
+        (cd_diamond_translate_r_unit b c r)).
+  Defined.
+
+  (** The two point clauses for the first-variable glue of equivariance, using the same four vertex paths as the point homotopies above. *)
+  Definition cd_op_diagonal_equivariance_glue_joinl (r a b c : X)
+    : ap (fun x => cd_op x (joinl (c * r))) (jglue a b)
+        @ cd_op_diagonal_equivariance_joinr r b (joinl c)
+      = cd_op_diagonal_equivariance_joinl r a (joinl c)
+        @ ap (fun x => functor_join (.* r) (.* r) (cd_op x (joinl c)))
+            (jglue a b).
+  Proof.
+    lhs napply (Join_rec_beta_jglue _ _
+      (fun a b => jglue (a * (c * r)) ((c * r) * b)) a b @@ 1).
+    rhs napply (1 @@ ap_compose (fun x => cd_op x (joinl c))
+      (functor_join (.* r) (.* r)) (jglue a b)).
+    rhs napply (1 @@ ap (ap (functor_join (.* r) (.* r)))
+      (Join_rec_beta_jglue _ _ (fun a b => jglue (a * c) (c * b)) a b)).
+    rhs napply (1 @@ functor_join_beta_jglue (.* r) (.* r) (a * c) (c * b)).
+    exact (join_natsq (cd_diamond_translate_l_neg_unit a c r)
+      (cd_diamond_translate_r_unit b c r))^.
+  Defined.
+
+  Definition cd_op_diagonal_equivariance_glue_joinr (r a b d : X)
+    : ap (fun x => cd_op x (joinr (d * r))) (jglue a b)
+        @ cd_op_diagonal_equivariance_joinr r b (joinr d)
+      = cd_op_diagonal_equivariance_joinl r a (joinr d)
+        @ ap (fun x => functor_join (.* r) (.* r) (cd_op x (joinr d)))
+            (jglue a b).
+  Proof.
+    lhs napply (Join_rec_beta_jglue _ _
+      (fun a b => (jglue ((-(d * r)) * conj b) (conj a * (d * r)))^)
+      a b @@ 1).
+    rhs napply (1 @@ ap_compose (fun x => cd_op x (joinr d))
+      (functor_join (.* r) (.* r)) (jglue a b)).
+    rhs napply (1 @@ ap (ap (functor_join (.* r) (.* r)))
+      (Join_rec_beta_jglue _ _
+        (fun a b => (jglue ((-d) * conj b) (conj a * d))^) a b)).
+    rhs napply (1 @@ ap_V (functor_join (.* r) (.* r))
+      (jglue ((-d) * conj b) (conj a * d))).
+    rhs napply (1 @@ inverse2 (functor_join_beta_jglue (.* r) (.* r)
+      ((-d) * conj b) (conj a * d))).
+    apply moveL_pV.
+    lhs napply concat_pp_p.
+    apply moveR_Vp.
+    exact (join_natsq
+      (cd_diamond_translate_l_parameter mon_unit b mon_unit d r)
+      (cd_diamond_translate_r_parameter a mon_unit mon_unit d r)).
+  Defined.
+
+  (** For connected 1-truncated scalars, the parameter-corner paths are independent of the labels absent from their endpoints. Each such scalar-path family is set-valued, so connectedness gives a nullhomotopy. We normalize it by its value at [mon_unit], rather than identifying its arbitrary center with the chosen unit value. The resulting comparisons at the unit cancel to reflexivity. No truncation of the join-valued fillers is used. *)
+  Context `{!IsConnected (0%trunc) X, !IsTrunc 1 X}.
+
+  Definition cd_diamond_translate_l_parameter_independent (a b c d r : X)
+    : cd_diamond_translate_l_parameter a b c d r
+      = cd_diamond_translate_l_parameter mon_unit b mon_unit d r.
+  Proof.
+    destruct (isconnected_elim (Tr 0) _
+      (fun x => cd_diamond_translate_l_parameter x b c d r)) as [p hp].
+    nrefine (hp a @ _).
+    nrefine ((hp mon_unit)^ @ _).
+    destruct (isconnected_elim (Tr 0) _
+      (fun x => cd_diamond_translate_l_parameter mon_unit b x d r)) as [q hq].
+    exact (hq c @ (hq mon_unit)^).
+  Defined.
+
+  Definition cd_diamond_translate_r_parameter_independent (a b c d r : X)
+    : cd_diamond_translate_r_parameter a b c d r
+      = cd_diamond_translate_r_parameter a mon_unit mon_unit d r.
+  Proof.
+    destruct (isconnected_elim (Tr 0) _
+      (fun x => cd_diamond_translate_r_parameter a x c d r)) as [p hp].
+    nrefine (hp b @ _).
+    nrefine ((hp mon_unit)^ @ _).
+    destruct (isconnected_elim (Tr 0) _
+      (fun x => cd_diamond_translate_r_parameter a mon_unit x d r)) as [q hq].
+    exact (hq c @ (hq mon_unit)^).
+  Defined.
+
+  (** After these scalar comparisons, each vertex path depends only on its own two input labels and the translation parameter. This is the boundary-aware mixed comparison for the proposed diagonal equivariance. *)
+  Definition cd_op_diamond_diagonal (a b c d r : X)
+    : transport011
+        (fun x : X * X => fun y : X * X =>
+          zigzag (fst x) (snd x) (fst y)
+            = zigzag (fst x) (snd x) (snd y))
+        (path_prod' (cd_diamond_translate_l_neg_unit a c r)
+          (cd_diamond_translate_l_parameter mon_unit b mon_unit d r))
+        (path_prod' (cd_diamond_translate_r_parameter a mon_unit mon_unit d r)
+          (cd_diamond_translate_r_unit b c r))
+        (cd_op_diamond a b (c * r) (d * r))
+      = join_zigzag_filler (.* r) (.* r) 1 1 1 1 (cd_op_diamond a b c d).
+  Proof.
+    lhs_V napply (ap011 (fun p q => transport011 _ p q
+      (cd_op_diamond a b (c * r) (d * r)))
+      (ap (path_prod' (cd_diamond_translate_l_neg_unit a c r))
+        (cd_diamond_translate_l_parameter_independent a b c d r))
+      (ap (fun p => path_prod' p (cd_diamond_translate_r_unit b c r))
+        (cd_diamond_translate_r_parameter_independent a b c d r))).
+    exact (cd_op_diamond_translate a b c d r).
   Defined.
 
 End SpheroidHSpace.

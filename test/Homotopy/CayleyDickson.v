@@ -1,5 +1,6 @@
 From HoTT Require Import Basics.
 From HoTT Require Import Classes.interfaces.abstract_algebra.
+From HoTT Require Import Modalities.ReflectiveSubuniverse Truncations.Core.
 From HoTT Require Import Pointed.Core Pointed.pSusp.
 From HoTT Require Import Homotopy.HSpace.Core Homotopy.Suspension.
 From HoTT Require Import Homotopy.Join.Core Homotopy.CayleyDickson.
@@ -187,10 +188,10 @@ Section Spheroid.
       (@cd_op_diamond X _ _ D) a b c d).
   Defined.
 
-  Context `{Funext} `{!Commutative (@hspace_op X _)} (a b c d : X).
+  Context `{!Commutative (@hspace_op X _)} (a b c d : X).
 
-  (** The complete postcomposition comparison stays in one universe and uses [D], not the ambient diamond. *)
-  Check (@cd_op_diamond_normalize@{u} X _ _ D _ _ a b c d).
+  (** The complete postcomposition comparison needs no function extensionality, stays in one universe, and uses [D], not the ambient diamond. *)
+  Check (@cd_op_diamond_normalize@{u} X _ _ D _ a b c d).
 
   Example right_translate_joinl_left (r x : X)
     : @cd_op_right_translate_joinl@{u} X _ _ D _ r (joinl x)
@@ -209,6 +210,49 @@ Section Spheroid.
   Proof.
     exact (Join_ind_FlFr_beta_jglue (fun z => @cd_op X _ _ D z (joinl r))
       (functor_join (.* r) (.* r)) _ _ _ x y).
+  Defined.
+  (** Translation uses the explicitly supplied diamond, without requiring truncation or connectedness. *)
+  Check (fun r : X => @cd_op_diamond_translate@{u} X _ _ D _ a b c d r).
+
+  (** The equivariance point homotopies compute to the exact four vertex paths chosen for the mixed comparison. *)
+  Example diagonal_equivariance_ll (r : X)
+    : @cd_op_diagonal_equivariance_joinl@{u} X _ _ D _ r a (joinl c)
+      = ap joinl (cd_diamond_translate_l_neg_unit a c r) := idpath.
+
+  Example diagonal_equivariance_lr (r : X)
+    : @cd_op_diagonal_equivariance_joinl@{u} X _ _ D _ r a (joinr d)
+      = ap joinr (cd_diamond_translate_r_parameter a mon_unit mon_unit d r)
+    := idpath.
+
+  Example diagonal_equivariance_rl (r : X)
+    : @cd_op_diagonal_equivariance_joinr@{u} X _ _ D _ r b (joinl c)
+      = ap joinr (cd_diamond_translate_r_unit b c r) := idpath.
+
+  Example diagonal_equivariance_rr (r : X)
+    : @cd_op_diagonal_equivariance_joinr@{u} X _ _ D _ r b (joinr d)
+      = ap joinl (cd_diamond_translate_l_parameter mon_unit b mon_unit d r)
+    := idpath.
+  (** Removing irrelevant scalar labels still needs no extensionality. *)
+  Context `{!IsConnected (0%trunc) X, !IsTrunc 1 X}.
+  Check (fun r : X => @cd_op_diamond_diagonal@{u} X _ _ D _ _ _ a b c d r).
+
+  (** The nullhomotopies are normalized by their actual unit values. Check that these comparisons at the unit cancel, rather than assuming equality with an arbitrary center. *)
+  Example diagonal_l_parameter_at_unit (r : X)
+    : cd_diamond_translate_l_parameter_independent mon_unit b mon_unit d r
+      = 1.
+  Proof.
+    unfold cd_diamond_translate_l_parameter_independent; cbn.
+    lhs napply concat_p_Vp.
+    apply concat_pV.
+  Defined.
+
+  Example diagonal_r_parameter_at_unit (r : X)
+    : cd_diamond_translate_r_parameter_independent a mon_unit mon_unit d r
+      = 1.
+  Proof.
+    unfold cd_diamond_translate_r_parameter_independent; cbn.
+    lhs napply concat_p_Vp.
+    apply concat_pV.
   Defined.
 End Spheroid.
 

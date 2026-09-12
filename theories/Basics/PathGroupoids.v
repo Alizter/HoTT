@@ -483,6 +483,15 @@ Proof.
   apply concat_Ap.
 Defined.
 
+(** Applying a function to a path image also maps its two endpoint identifications. *)
+Definition ap_path_image {A B C : Type} (f : A -> B) (g : B -> C)
+  {x y : A} {u v : B} (p : f x = u) (q : f y = v) (h : x = y)
+  : ap g (p^ @ (ap f h @ q))
+    = (ap g p)^ @ (ap (g o f) h @ ap g q).
+Proof.
+  destruct p, q, h; reflexivity.
+Defined.
+
 (** Naturality of path images with specified endpoint identifications. The boundary comparisons [ha] and [hb] retain the chosen paths, not just their endpoints. *)
 Definition ap_path_image_natural {A B C : Type}
   (f : A -> B) (g : B -> C) (k : A -> C) (h : k == g o f)
@@ -1244,6 +1253,49 @@ Proof.
   lhs napply concat_p_pp.
   lhs napply (hp @@ 1).
   apply concat_pp_p.
+Defined.
+
+(** Changing the edge computations before forming a zigzag agrees with changing the resulting zigzag computation. *)
+Definition concat_pV_natural_change {A : Type} {x x' y y' z z' : A}
+  {p p0 : x = z} {q q0 : y = z} {p' p0' : x' = z'} {q' q0' : y' = z'}
+  (hx : x = x') (hy : y = y') (hz : z = z')
+  (bp : p = p0) (bq : q = q0) (bp' : p' = p0') (bq' : q' = q0')
+  (np : p0 @ hz = hx @ p0') (nq : q0 @ hz = hy @ q0')
+  : concat_pV_natural hx hy hz
+      (((bp @@ 1) @ np) @ (1 @@ bp')^)
+      (((bq @@ 1) @ nq) @ (1 @@ bq')^)
+    = (((bp @@ inverse2 bq) @@ 1)
+        @ concat_pV_natural hx hy hz np nq)
+      @ (1 @@ (bp' @@ inverse2 bq'))^.
+Proof.
+  destruct bp, bq, bp', bq'; cbn.
+  lhs napply (ap011 (concat_pV_natural hx hy hz)
+    (concat_p1 _ @ concat_1p _) (concat_p1 _ @ concat_1p _)).
+  rhs napply concat_p1.
+  rhs napply concat_1p.
+  reflexivity.
+Defined.
+
+Definition concat_pV_natural_units {A : Type} {x y z : A}
+  (p : x = z) (q : y = z)
+  : concat_pV_natural 1 1 1 (concat_1p_p1 p)^ (concat_1p_p1 q)^
+    = (concat_1p_p1 (p @ q^))^.
+Proof.
+  destruct p, q; reflexivity.
+Defined.
+
+(** Successive changes of the two edges of a naturality comparison compose. *)
+Definition naturality_change_compose {A : Type} {x x' y y' : A}
+  {p p' p'' : x = y} {q q' q'' : x' = y'}
+  (r : y = y') (s : x = x')
+  (a : p = p') (b : p' = p'') (c : q = q') (d : q' = q'')
+  (n : p'' @ r = s @ q'')
+  : ((a @@ 1) @ (((b @@ 1) @ n) @ (1 @@ d)^)) @ (1 @@ c)^
+    = (((a @ b) @@ 1) @ n) @ (1 @@ (c @ d))^.
+Proof.
+  destruct a, b, c, d; cbn.
+  lhs napply (concat_1p _ @@ 1).
+  apply concat_p1.
 Defined.
 
 Definition concat_Ap_pV {A B : Type} {f g : A -> B} (h : f == g)

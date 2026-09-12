@@ -26,7 +26,7 @@ Proof.
   - reflexivity.
 Defined.
 
-(** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The latter compares the actual mixed filler with postcomposition of the unit-normalized filler, retaining both sets of boundary witnesses. The multiplication-level equivariance, its point and glue computations, and the final compatibility of partial associators still need to be constructed; filler normalization alone does not establish associativity. *)
+(** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The comparison [cd_op_diamond_diagonal] additionally uses connectedness and 1-truncation of the scalars to make each vertex path independent of the other labels. The multiplication-level point homotopies [cd_op_diagonal_equivariance_joinl] and [cd_op_diagonal_equivariance_joinr], and the two point clauses of their first-variable glue, use those exact vertex paths. Their remaining dependent two-glue coherence still needs to be assembled from the mixed comparison and the recursor computations. Neither full equivariance nor the final compatibility of partial associators is asserted here. *)
 
 (** The four scalar-corner lemmas [cd_associativity_rectangle_ll], [cd_associativity_rectangle_lr], [cd_associativity_rectangle_rl], and [cd_associativity_rectangle_rr] supply the point cases of double join induction, using [commutative_sgop_s1]. Extending these particular fillers still requires glue coherences. For example, the first glue case would be:
 <<
