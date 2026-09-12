@@ -189,8 +189,27 @@ Section Spheroid.
 
   Context `{Funext} `{!Commutative (@hspace_op X _)} (a b c d : X).
 
-  (** The complete boundary-aware comparison stays in one universe and uses [D], not the ambient diamond. *)
+  (** The complete postcomposition comparison stays in one universe and uses [D], not the ambient diamond. *)
   Check (@cd_op_diamond_normalize@{u} X _ _ D _ _ a b c d).
+
+  Example right_translate_joinl_left (r x : X)
+    : @cd_op_right_translate_joinl@{u} X _ _ D _ r (joinl x)
+      = idpath := idpath.
+
+  Example right_translate_joinl_right (r x : X)
+    : @cd_op_right_translate_joinl@{u} X _ _ D _ r (joinr x)
+      = ap joinr (commutativity r x) := idpath.
+
+  Example right_translate_joinl_glue (r x y : X)
+    : concat_Ap (@cd_op_right_translate_joinl X _ _ D _ r) (jglue x y)
+      = (Join_rec_beta_jglue _ _
+          (fun a b => jglue (a * r) (r * b)) x y @@ 1)
+        @ ((join_natsq 1 (commutativity r y))^
+          @ (1 @@ functor_join_beta_jglue (.* r) (.* r) x y)^).
+  Proof.
+    exact (Join_ind_FlFr_beta_jglue (fun z => @cd_op X _ _ D z (joinl r))
+      (functor_join (.* r) (.* r)) _ _ _ x y).
+  Defined.
 End Spheroid.
 
 (** The canonical diamond does not depend on an imaginaroid structure, or even on involutivity of negation. *)

@@ -746,6 +746,23 @@ Section SpheroidHSpace.
     exact (concat_Ap (cd_assoc_rr c d) (join_rectangle_loop a b)).
   Defined.
 
+  (** ** Scalar right translations *)
+
+  (** Right multiplication by a left-copy scalar is the diagonal join map. The scalar commutativity path on the right copy and its naturality are retained. *)
+  Definition cd_op_right_translate_joinl (r : X)
+    : forall z : pjoin X X,
+      cd_op z (joinl r) = functor_join (.* r) (.* r) z.
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro a; reflexivity.
+    - intro b; exact (ap joinr (comm r b)).
+    - intros a b.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun a b => jglue (a * r) (r * b)) a b @@ 1).
+      rhs napply (1 @@ functor_join_beta_jglue (.* r) (.* r) a b).
+      exact (join_natsq 1 (comm r b))^.
+  Defined.
+
   (** ** Diagonal-translation normal form *)
 
   (** The parameter is unchanged by replacing [(c,d)] with [(1,conj c * d)]. This uses commutativity of the scalar multiplication, but no property of the chosen diamond. *)
@@ -794,7 +811,7 @@ Section SpheroidHSpace.
     exact (ap (.* d) (left_inverse r) @ left_identity d).
   Defined.
 
-  (** Translate the complete recursion data at [(1,conj c * d)] by [c], including all four boundary witnesses. This definition acts on recursion data; identifying it with postcomposition of the original filler by [functor_join (.* c) (.* c)] is a separate functoriality comparison. *)
+  (** Translate the complete recursion data at [(1,conj c * d)] by [c], including all four boundary witnesses. By [join_zigzag_filler_compose], this is also the complete filler obtained by postcomposition with the diagonal join map. *)
   Definition cd_op_diamond_normalized (a b c d : X)
     : zigzag ((a * mon_unit) * c) (((-(conj c * d)) * conj b) * c)
         ((conj a * (conj c * d)) * c)
@@ -809,7 +826,7 @@ Section SpheroidHSpace.
          (ap (.* c) (cd_diamond_map_r_unit b mon_unit))
          (cd_diamond (cd_diamond_parameter a b mon_unit (conj c * d)))^.
 
-  (** The actual mixed filler agrees with the normalized recursion-data filler along these specified boundary paths. The two paths through the parameter use the equality above and dependent naturality of the same family [cd_diamond], never a reflected diamond. No equality with other choices of scalar boundary paths is asserted. *)
+  (** The actual mixed filler agrees with postcomposition of the unit-normalized filler along these specified boundary paths. The two paths through the parameter use the equality above and dependent naturality of the same family [cd_diamond], never a reflected diamond. No equality with other choices of scalar boundary paths is asserted. *)
   Definition cd_op_diamond_normalize `{Funext} (a b c d : X)
     : let fl := fun x => cd_diamond_map_l a mon_unit x * c in
       let fr := fun y => cd_diamond_map_r b mon_unit y * c in
@@ -832,8 +849,13 @@ Section SpheroidHSpace.
           zigzag (fst x) (snd x) (fst y)
             = zigzag (fst x) (snd x) (snd y))
         (path_prod' p q) (path_prod' r s) (cd_op_diamond a b c d)
-      = cd_op_diamond_normalized a b c d.
+      = join_zigzag_filler (.* c) (.* c) 1 1 1 1
+          (cd_op_diamond a b mon_unit (conj c * d)).
   Proof.
+    cbn zeta.
+    rhs napply (join_zigzag_filler_compose
+      (cd_diamond_map_l a mon_unit) (cd_diamond_map_r b mon_unit)
+      (.* c) (.* c)).
     exact (join_zigzag_filler_change (fun t => (cd_diamond t)^)
       (path_arrow _ _ (cd_diamond_map_l_normalize a c))
       (path_arrow _ _ (cd_diamond_map_r_normalize b c))

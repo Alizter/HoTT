@@ -341,6 +341,26 @@ Definition equiv_1p_q1 {A : Type} {x y : A} {p q : x = y}
   : p = q <~> 1 @ p = q @ 1
   := equiv_concat_lr (concat_1p p) (concat_p1 q)^.
 
+(** Zigzag naturality respects the unit-boundary encoding of comparisons. *)
+Definition concat_pV_natural_computation {A : Type} {x y z : A}
+  {p p' r : x = z} {q q' s : y = z}
+  (hp : p = r) (hp' : p' = r) (hq : q = s) (hq' : q' = s)
+  : concat_pV_natural 1 1 1
+      (equiv_p1_1q (hp @ hp'^)) (equiv_p1_1q (hq @ hq'^))
+    = equiv_p1_1q ((hp @@ inverse2 hq) @ (hp' @@ inverse2 hq')^).
+Proof.
+  destruct hp, hp', hq, hq', p', q'; reflexivity.
+Defined.
+
+Definition equiv_p1_1q_concat {A : Type} {x y : A}
+  {p p' q q' r : x = y}
+  (u : p = p') (v : p' = r) (w : q' = r) (z : q = q')
+  : ((u @@ 1) @ equiv_p1_1q (v @ w^)) @ (1 @@ z)^
+    = equiv_p1_1q ((u @ v) @ (z @ w)^).
+Proof.
+  destruct u, v, w, z, q; reflexivity.
+Defined.
+
 Instance isequiv_whiskerL {A} {x y z : A} (p : x = y) {q r : y = z}
 : IsEquiv (@whiskerL A x y z p q r).
 Proof.

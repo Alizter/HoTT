@@ -38,6 +38,41 @@ Section ZigzagFillers.
     := join_zigzag_filler@{i j l m n k} f g 1 1 1 1 h.
 End ZigzagFillers.
 
+(** Composition retains arbitrary boundary witnesses and independent source, intermediate, and target join universes. *)
+Section ZigzagFillerComposition.
+  Universe uA uB uC uD uE uF uS uM uT.
+  Constraint uA <= uS.
+  Constraint uB <= uS.
+  Constraint uC <= uM.
+  Constraint uD <= uM.
+  Constraint uE <= uT.
+  Constraint uF <= uT.
+  Context {A : Type@{uA}} {B : Type@{uB}} {C : Type@{uC}}
+    {D : Type@{uD}} {E : Type@{uE}} {F : Type@{uF}}.
+
+  Example zigzag_filler_compose_universes
+    (f : A -> C) (g : B -> D) (k : C -> E) (l : D -> F)
+    {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+    (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+    (h : zigzag@{uA uB uS} a a' b = zigzag@{uA uB uS} a a' b')
+    : join_zigzag_filler@{uC uD uE uF uT uM} k l 1 1 1 1
+        (join_zigzag_filler@{uA uB uC uD uM uS} f g p q r s h)
+      = join_zigzag_filler@{uA uB uE uF uT uS} (k o f) (l o g)
+        (ap k p) (ap k q) (ap l r) (ap l s) h
+    := join_zigzag_filler_compose@{uA uB uC uD uE uF uT uM uS}
+         f g k l p q r s h.
+End ZigzagFillerComposition.
+
+(** Bypassing the 0-groupoid wrapper changes neither the map nor its chosen glue computation. *)
+Example functor_join_recdata_compatibility {A B C D : Type}
+  (f : A -> C) (g : B -> D)
+  : functor_join f g = join_rec (functor_join_recdata f g) := idpath.
+
+Example functor_join_recdata_beta_compatibility {A B C D : Type}
+  (f : A -> C) (g : B -> D) (a : A) (b : B)
+  : functor_join_beta_jglue f g a b
+    = join_rec_beta_jg (functor_join_recdata f g) a b := idpath.
+
 (** The two join factors and the codomain may live in independent universes. *)
 Section RectangleHomotopy.
   Universe i j k l.
