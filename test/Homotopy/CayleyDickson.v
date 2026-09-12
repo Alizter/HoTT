@@ -13,6 +13,26 @@ Local Open Scope path_scope.
 Example double_diamond_without_algebra {X : pType} `{Negate X}
   : CayleyDicksonDiamond (pjoin X X) cd_negate := _.
 
+(** Rotation needs only negation and conjugation and allows an independently chosen join universe. *)
+Section Rotation.
+  Universe i j.
+  Constraint i <= j.
+  Context {X : Type@{i}} `{Negate X, Conjugate X}.
+
+  Example chi_left (a : X)
+    : @cd_chi@{i j} X _ _ (joinl a) = joinr (conj a) := idpath.
+
+  Example chi_right (b : X)
+    : @cd_chi@{i j} X _ _ (joinr b) = joinl (-conj b) := idpath.
+
+  Example chi_glue (a b : X)
+    : ap (@cd_chi@{i j} X _ _) (jglue a b)
+      = (jglue (-conj b) (conj a))^.
+  Proof.
+    exact (Join_rec_beta_jglue _ _ _ a b).
+  Defined.
+End Rotation.
+
 (** The scalar boundary paths need neither a chosen diamond nor commutativity. *)
 Section ScalarBoundaryPaths.
   Universe u.
@@ -214,6 +234,76 @@ Section Spheroid.
   (** Translation uses the explicitly supplied diamond, without requiring truncation or connectedness. *)
   Check (fun r : X => @cd_op_diamond_translate@{u} X _ _ D _ a b c d r).
 
+  (** The first-two-constructor associators preserve the old scalar-corner choices and need no connectedness or truncation. *)
+  Example first_ll_left (a b c : X)
+    : @cd_assoc_first_ll@{u} X _ _ D _ a b (joinl c)
+      = cd_assoc_ll b c (joinl a) := idpath.
+  Example first_ll_right (a b d : X)
+    : @cd_assoc_first_ll@{u} X _ _ D _ a b (joinr d)
+      = cd_assoc_lr b d (joinl a) := idpath.
+  Example first_lr_left (a b c : X)
+    : @cd_assoc_first_lr@{u} X _ _ D _ a b (joinl c)
+      = cd_assoc_rl b c (joinl a) := idpath.
+  Example first_lr_right (a b d : X)
+    : @cd_assoc_first_lr@{u} X _ _ D _ a b (joinr d)
+      = cd_assoc_rr b d (joinl a) := idpath.
+  Example first_rl_left (a b c : X)
+    : @cd_assoc_first_rl@{u} X _ _ D _ a b (joinl c)
+      = cd_assoc_ll b c (joinr a) := idpath.
+  Example first_rl_right (a b d : X)
+    : @cd_assoc_first_rl@{u} X _ _ D _ a b (joinr d)
+      = cd_assoc_lr b d (joinr a) := idpath.
+  Example first_rr_left (a b c : X)
+    : @cd_assoc_first_rr@{u} X _ _ D _ a b (joinl c)
+      = cd_assoc_rl b c (joinr a) := idpath.
+  Example first_rr_right (a b d : X)
+    : @cd_assoc_first_rr@{u} X _ _ D _ a b (joinr d)
+      = cd_assoc_rr b d (joinr a) := idpath.
+
+  (** The right-copy translation and unit-glue symmetry need neither connectedness nor truncation nor extensionality. *)
+  Example right_translate_joinr_left (r x : X)
+    : @cd_op_right_translate_joinr@{u} X _ _ D _ r (joinl x) = 1 := idpath.
+
+  Example right_translate_joinr_right (r x : X)
+    : @cd_op_right_translate_joinr@{u} X _ _ D _ r (joinr x)
+      = ap joinl (factorneg_l r (conj x)
+          @ ap (-) (commutativity r (conj x)) @ (factorneg_l (conj x) r)^)
+    := idpath.
+
+  Example right_translate_joinr_glue (r x y : X)
+    : let p := factorneg_l r (conj y)
+        @ ap (-) (commutativity r (conj y)) @ (factorneg_l (conj y) r)^ in
+      let rho := functor_join (.* r) (.* r) in
+      let bm := Join_rec_beta_jglue _ _
+        (fun a b => (jglue ((-r) * conj b) (conj a * r))^) x y in
+      let b0 := ap_compose cd_chi rho (jglue x y) in
+      let b1 := ap (ap rho) (Join_rec_beta_jglue _ _
+        (fun a b => (jglue (-conj b) (conj a))^) x y) in
+      let b2 := ap_V rho (jglue (-conj y) (conj x)) in
+      let b3 := inverse2 (functor_join_beta_jglue (.* r) (.* r)
+        (-conj y) (conj x)) in
+      concat_Ap (@cd_op_right_translate_joinr X _ _ D _ r) (jglue x y)
+      = naturality_change bm (((b0 @ b1) @ b2) @ b3)
+          (inverse_natural _ _ (join_natsq p 1)).
+  Proof.
+    cbn zeta.
+    lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ x y).
+    rhs napply concat_pp_p.
+    napply (ap (fun q => (Join_rec_beta_jglue _ _
+      (fun a b => (jglue ((-r) * conj b) (conj a * r))^) x y @@ 1) @ q)).
+    lhs napply naturality_suffix.
+    lhs napply naturality_suffix.
+    apply naturality_suffix.
+  Defined.
+
+  Check (fun z : pjoin X X => @cd_chi_homotopic_id@{u} X _ _ D _ z).
+
+  Example chi_equivariance_choice (x y : pjoin X X)
+    : @cd_op_chi_equivariance@{u} X _ _ D _ x y
+      = ap (@cd_op X _ _ D x) (@cd_chi_homotopic_id X _ _ D _ y)
+        @ (@cd_chi_homotopic_id X _ _ D _ (@cd_op X _ _ D x y))^
+    := idpath.
+
   (** The equivariance point homotopies compute to the exact four vertex paths chosen for the mixed comparison. *)
   Example diagonal_equivariance_ll (r : X)
     : @cd_op_diagonal_equivariance_joinl@{u} X _ _ D _ r a (joinl c)
@@ -254,6 +344,100 @@ Section Spheroid.
     lhs napply concat_p_Vp.
     apply concat_pV.
   Defined.
+  (** The mixed case and full homotopy use the explicit diamond, need no extensionality, and stay in the original universe. *)
+  Check (fun r : X =>
+    @cd_op_diagonal_equivariance_glue_glue@{u} X _ _ D _ _ _ r a b c d).
+
+  Example chosen_diagonal_equivariance (r : X) (x y : pjoin X X)
+    : @cd_op X _ _ D x (functor_join (.* r) (.* r) y)
+      = functor_join (.* r) (.* r) (@cd_op X _ _ D x y)
+    := @cd_op_diagonal_equivariance@{u} X _ _ D _ _ _ r x y.
+
+  Example diagonal_equivariance_left (r : X) (y : pjoin X X)
+    : @cd_op_diagonal_equivariance@{u} X _ _ D _ _ _ r (joinl a) y
+      = @cd_op_diagonal_equivariance_joinl X _ _ D _ r a y := idpath.
+
+  Example diagonal_equivariance_right (r : X) (y : pjoin X X)
+    : @cd_op_diagonal_equivariance@{u} X _ _ D _ _ _ r (joinr b) y
+      = @cd_op_diagonal_equivariance_joinr X _ _ D _ r b y := idpath.
+
+  (** The first glue computes to the chosen dependent homotopy, not just a path with the same endpoints. *)
+  Example diagonal_equivariance_glue (r : X) (y : pjoin X X)
+    : concat_Ap (fun x =>
+        @cd_op_diagonal_equivariance X _ _ D _ _ _ r x y) (jglue a b)
+      = @cd_op_diagonal_equivariance_glue X _ _ D _ _ _ r a b y.
+  Proof.
+    exact (Join_ind_FlFr_beta_jglue
+      (fun x => @cd_op X _ _ D x (functor_join (.* r) (.* r) y))
+      (fun x => functor_join (.* r) (.* r) (@cd_op X _ _ D x y))
+      _ _ _ a b).
+  Defined.
+
+  Example diagonal_glue_left (r : X)
+    : @cd_op_diagonal_equivariance_glue@{u} X _ _ D _ _ _ r a b (joinl c)
+      = @cd_op_diagonal_equivariance_glue_joinl X _ _ D _ r a b c := idpath.
+
+  Example diagonal_glue_right (r : X)
+    : @cd_op_diagonal_equivariance_glue@{u} X _ _ D _ _ _ r a b (joinr d)
+      = @cd_op_diagonal_equivariance_glue_joinr X _ _ D _ r a b d := idpath.
+
+  Example diagonal_glue_mixed (r : X)
+    : apD (@cd_op_diagonal_equivariance_glue X _ _ D _ _ _ r a b)
+        (jglue c d)
+      = @cd_op_diagonal_equivariance_glue_glue X _ _ D _ _ _ r a b c d.
+  Proof.
+    exact (Join_ind_beta_jglue _ _ _
+      (@cd_op_diagonal_equivariance_glue_glue X _ _ D _ _ _ r a b) c d).
+  Defined.
+
+  (** The associator retains exactly the translation and equivariance paths in its defining formula. *)
+  Example associator_last_joinl_formula (x y : pjoin X X) (r : X)
+    : @cd_assoc_last_joinl@{u} X _ _ D _ _ _ x y r
+      = @cd_op_right_translate_joinl X _ _ D _ r (@cd_op X _ _ D x y)
+        @ (@cd_op_diagonal_equivariance X _ _ D _ _ _ r x y)^
+        @ ap (@cd_op X _ _ D x) (@cd_op_right_translate_joinl X _ _ D _ r y)^
+    := idpath.
+  (** The new right choice has the entire unit-left-label boundary by reflexivity. It agrees with the old right choice at the unit by the previously proved comparison. *)
+  Example transported_right_boundary (x y : pjoin X X) (d : X)
+    : transport (fun z => @cd_op X _ _ D (@cd_op X _ _ D x y) z
+        = @cd_op X _ _ D x (@cd_op X _ _ D y z))
+        (jglue (point X) d) (@cd_assoc_last_joinl X _ _ D _ _ _ x y mon_unit)
+      = @cd_assoc_last_joinr_transport@{u} X _ _ D _ _ _ x y d
+    := idpath.
+
+  Example transported_right_unit (x y : pjoin X X)
+    : @cd_assoc_last_joinr_transport@{u} X _ _ D _ _ _ x y mon_unit
+      = @cd_assoc_last_joinr X _ _ D _ _ _ x y mon_unit
+    := cd_assoc_last_glue_unit x y.
+
+  (** No circle or extensionality hypothesis is needed for the constructor-pair loop computations, and the chosen diamond remains explicit. *)
+  Check (fun (a b c d : X) (p : c = c) =>
+    @cd_assoc_last_transport_loop_ll@{u} X _ _ D _ _ _ a b d c p).
+  Check (fun (a b c d : X) (p : c = c) =>
+    @cd_assoc_last_transport_loop_lr@{u} X _ _ D _ _ _ a b d c p).
+  Check (fun (a b c d : X) (p : c = c) =>
+    @cd_assoc_last_transport_loop_rl@{u} X _ _ D _ _ _ a b d c p).
+  Check (fun (a b c d : X) (p : c = c) =>
+    @cd_assoc_last_transport_loop_rr@{u} X _ _ D _ _ _ a b d c p).
+
+  Example associator_last_joinr_formula (x y : pjoin X X) (r : X)
+    : @cd_assoc_last_joinr@{u} X _ _ D _ _ _ x y r
+      = @cd_op_right_translate_joinr X _ _ D _ r (@cd_op X _ _ D x y)
+        @ (ap (functor_join (.* r) (.* r))
+            (@cd_op_chi_equivariance X _ _ D _ x y)^
+          @ ((@cd_op_diagonal_equivariance X _ _ D _ _ _ r x (cd_chi y))^
+            @ ap (@cd_op X _ _ D x)
+                (@cd_op_right_translate_joinr X _ _ D _ r y)^))
+    := idpath.
+
+  (** Compatibility uses these exact two associators, not merely arbitrary paths between the same endpoints. *)
+  Example associator_unit_glue (x y : pjoin X X)
+    : transport (fun z => @cd_op X _ _ D (@cd_op X _ _ D x y) z
+        = @cd_op X _ _ D x (@cd_op X _ _ D y z))
+        (jglue (point X) (point X))
+        (@cd_assoc_last_joinl X _ _ D _ _ _ x y mon_unit)
+      = @cd_assoc_last_joinr X _ _ D _ _ _ x y mon_unit
+    := @cd_assoc_last_glue_unit@{u} X _ _ D _ _ _ x y.
 End Spheroid.
 
 (** The canonical diamond does not depend on an imaginaroid structure, or even on involutivity of negation. *)

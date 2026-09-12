@@ -219,6 +219,12 @@ Instance isunitpreserving_cd_conjugate {X : pType}
   : @IsUnitPreserving (pjoin X X) (pjoin X X) pt pt cd_conjugate
   := ap joinl preserves_mon_unit.
 
+(** The right-copy rotation has the quaternionic constructor table. We specify its glue directly, independently of multiplication or a chosen diamond. *)
+Definition cd_chi {X : Type@{i}} `{Negate X, Conjugate X}
+  : Join@{i i j} X X -> Join@{i i j} X X
+  := Join_rec (joinr o conj) (fun b => joinl (-conj b))
+       (fun a b => (jglue (-conj b) (conj a))^).
+
 (** ** Multiplication on the double *)
 
 (** An associative Cayley-Dickson spheroid with a chosen diamond gives an H-space structure on its self-join. For an imaginaroid, [cd_diamond_susp] supplies the diamond automatically. *)
@@ -682,6 +688,113 @@ Section SpheroidHSpace.
       exact (join_natsq (hl a) (hr b))^.
   Defined.
 
+  Local Opaque cd_diamond cd_op_diamond.
+
+  (** Associators with the first two arguments in specified copies and the last argument arbitrary. Their point clauses reuse the four scalar-corner associators above, including their chosen scalar witnesses. *)
+  Definition cd_assoc_first_ll (a b : X)
+    : forall z : pjoin X X, cd_op (cd_op (joinl a) (joinl b)) z
+      = cd_op (joinl a) (cd_op (joinl b) z).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (cd_assoc_ll b c (joinl a)).
+    - intro d; exact (cd_assoc_lr b d (joinl a)).
+    - intros c d.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => jglue ((a * b) * c) (conj (a * b) * d)) c d @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinl b))
+        (cd_op (joinl a)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (cd_op (joinl a)))
+        (Join_rec_beta_jglue _ _
+          (fun c d => jglue (b * c) (conj b * d)) c d)).
+      rhs napply (1 @@ Join_rec_beta_jglue _ _
+        (fun c d => jglue (a * c) (conj a * d)) (b * c) (conj b * d)).
+      exact (join_natsq _ _)^.
+  Defined.
+
+  Definition cd_assoc_first_lr (a b : X)
+    : forall z : pjoin X X, cd_op (cd_op (joinl a) (joinr b)) z
+      = cd_op (joinl a) (cd_op (joinr b) z).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (cd_assoc_rl b c (joinl a)).
+    - intro d; exact (cd_assoc_rr b d (joinl a)).
+    - intros c d.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => (jglue ((-d) * conj (conj a * b))
+          (c * (conj a * b)))^) c d @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinr b))
+        (cd_op (joinl a)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (cd_op (joinl a)))
+        (Join_rec_beta_jglue _ _
+          (fun c d => (jglue ((-d) * conj b) (c * b))^) c d)).
+      rhs napply (1 @@ ap_V (cd_op (joinl a))
+        (jglue ((-d) * conj b) (c * b))).
+      change (cd_op (joinl a)) with
+        (Join_rec (fun c => joinl (a * c)) (fun d => joinr (conj a * d))
+          (fun c d => jglue (a * c) (conj a * d))).
+      rhs napply (1 @@ inverse2 (Join_rec_beta_jglue (P:=pjoin X X) _ _
+        (fun c d => jglue (a * c) (conj a * d))
+        ((-d) * conj b) (c * b))).
+      exact (inverse_natural _ _ (join_natsq _ _)).
+  Defined.
+
+  Definition cd_assoc_first_rl (a b : X)
+    : forall z : pjoin X X, cd_op (cd_op (joinr a) (joinl b)) z
+      = cd_op (joinr a) (cd_op (joinl b) z).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (cd_assoc_ll b c (joinr a)).
+    - intro d; exact (cd_assoc_lr b d (joinr a)).
+    - intros c d.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => (jglue ((-d) * conj (b * a))
+          (c * (b * a)))^) c d @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinl b))
+        (cd_op (joinr a)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (cd_op (joinr a)))
+        (Join_rec_beta_jglue _ _
+          (fun c d => jglue (b * c) (conj b * d)) c d)).
+      change (cd_op (joinr a)) with
+        (Join_rec (fun c => joinr (c * a))
+          (fun d => joinl ((-d) * conj a))
+          (fun c d => (jglue ((-d) * conj a) (c * a))^)).
+      rhs napply (1 @@ Join_rec_beta_jglue _ _
+        (fun c d => (jglue ((-d) * conj a) (c * a))^)
+        (b * c) (conj b * d)).
+      exact (inverse_natural _ _ (join_natsq _ _)).
+  Defined.
+
+  Definition cd_assoc_first_rr (a b : X)
+    : forall z : pjoin X X, cd_op (cd_op (joinr a) (joinr b)) z
+      = cd_op (joinr a) (cd_op (joinr b) z).
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro c; exact (cd_assoc_rl b c (joinr a)).
+    - intro d; exact (cd_assoc_rr b d (joinr a)).
+    - intros c d.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun c d => jglue (((-b) * conj a) * c)
+          (conj ((-b) * conj a) * d)) c d @@ 1).
+      rhs napply (1 @@ ap_compose (cd_op (joinr b))
+        (cd_op (joinr a)) (jglue c d)).
+      rhs napply (1 @@ ap (ap (cd_op (joinr a)))
+        (Join_rec_beta_jglue _ _
+          (fun c d => (jglue ((-d) * conj b) (c * b))^) c d)).
+      rhs napply (1 @@ ap_V (cd_op (joinr a))
+        (jglue ((-d) * conj b) (c * b))).
+      change (cd_op (joinr a)) with
+        (Join_rec (fun c => joinr (c * a))
+          (fun d => joinl ((-d) * conj a))
+          (fun c d => (jglue ((-d) * conj a) (c * a))^)).
+      rhs napply (1 @@ inverse2 (Join_rec_beta_jglue _ _
+        (fun c d => (jglue ((-d) * conj a) (c * a))^)
+        ((-d) * conj b) (c * b))).
+      rhs napply (1 @@ inv_V _).
+      exact (join_natsq _ _)^.
+  Defined.
+
+  Local Transparent cd_diamond cd_op_diamond.
+
   (** To obtain the specified rectangle comparison, we must also compare each corner homotopy at the unit with [cd_assoc_at_unit]. Both paths factor through the same join inclusion, whose path images are identified by the triangle lemmas. Thus no equality of scalar coherence witnesses is assumed. *)
   Definition cd_associativity_rectangle_ll (a b c d : X)
     : cd_associativity_rectangle a b (joinl c) (joinl d).
@@ -763,6 +876,50 @@ Section SpheroidHSpace.
       rhs napply (1 @@ functor_join_beta_jglue (.* r) (.* r) a b).
       exact (join_natsq 1 (comm r b))^.
   Defined.
+
+  Local Opaque cd_diamond cd_op_diamond.
+
+  (** Right multiplication by a right-copy scalar is diagonal translation after [cd_chi]. This retains the negation and commutativity witnesses on the right constructor. *)
+  Definition cd_op_right_translate_joinr (r : X)
+    : forall z : pjoin X X,
+      cd_op z (joinr r) = functor_join (.* r) (.* r) (cd_chi z).
+  Proof.
+    pose (p := fun b : X => factorneg_l r (conj b)
+      @ ap (-) (comm r (conj b)) @ (factorneg_l (conj b) r)^).
+    snapply Join_ind_FlFr.
+    - reflexivity.
+    - intro b; exact (ap joinl (p b)).
+    - intros a b.
+      lhs napply (Join_rec_beta_jglue _ _
+        (fun a b => (jglue ((-r) * conj b) (conj a * r))^) a b @@ 1).
+      rhs napply (1 @@ ap_compose cd_chi
+        (functor_join (.* r) (.* r)) (jglue a b)).
+      rhs napply (1 @@ ap (ap (functor_join (.* r) (.* r)))
+        (Join_rec_beta_jglue _ _
+          (fun a b => (jglue (-conj b) (conj a))^) a b)).
+      rhs napply (1 @@ ap_V (functor_join (.* r) (.* r))
+        (jglue (-conj b) (conj a))).
+      rhs napply (1 @@ inverse2 (functor_join_beta_jglue (.* r) (.* r)
+        (-conj b) (conj a))).
+      exact (inverse_natural _ _ (join_natsq (p b) 1)).
+  Defined.
+
+  (** The unit join glue connects right multiplication by the two unit constructors. Together with the specified translations and right unit paths, it supplies an explicit homotopy from [cd_chi] to the identity. No reflection law for the chosen diamond is needed. *)
+  Definition cd_chi_homotopic_id (z : pjoin X X) : cd_chi z = z.
+  Proof.
+    refine ((cd_op_right_identity (cd_chi z))^ @ _).
+    refine (cd_op_right_translate_joinl mon_unit (cd_chi z) @ _).
+    refine ((cd_op_right_translate_joinr mon_unit z)^ @ _).
+    exact (ap (cd_op z) (jglue mon_unit mon_unit)^ @ cd_op_right_identity z).
+  Defined.
+
+  (** This is a full symmetry homotopy with the choice induced by the unit join glue. In particular, its faces are not silently identified with a different choice obtained from scalar-normalized reflected diamonds. Compatibility with diagonal equivariance remains a separate question. *)
+  Definition cd_op_chi_equivariance (x y : pjoin X X)
+    : cd_op x (cd_chi y) = cd_chi (cd_op x y)
+    := ap (cd_op x) (cd_chi_homotopic_id y)
+      @ (cd_chi_homotopic_id (cd_op x y))^.
+
+  Local Transparent cd_diamond cd_op_diamond.
 
   (** ** Diagonal-translation normal form *)
 
@@ -1103,6 +1260,341 @@ Section SpheroidHSpace.
       (ap (fun p => path_prod' p (cd_diamond_translate_r_unit b c r))
         (cd_diamond_translate_r_parameter_independent a b c d r))).
     exact (cd_op_diamond_translate a b c d r).
+  Defined.
+
+  (** Convert the transported mixed-filler comparison to the dependent mixed case of equivariance. The four existing side faces are compared using their actual beta paths, not replaced by faces with the same endpoints. *)
+  Local Opaque cd_diamond cd_op_diamond.
+
+  Definition cd_op_diagonal_equivariance_glue_glue (r a b c d : X)
+    : transport
+        (fun y => ap (fun x => cd_op x (functor_join (.* r) (.* r) y))
+            (jglue a b) @ cd_op_diagonal_equivariance_joinr r b y
+          = cd_op_diagonal_equivariance_joinl r a y
+            @ ap (fun x => functor_join (.* r) (.* r) (cd_op x y))
+                (jglue a b))
+        (jglue c d) (cd_op_diagonal_equivariance_glue_joinl r a b c)
+      = cd_op_diagonal_equivariance_glue_joinr r a b d.
+  Proof.
+    pose (rho := functor_join (.* r) (.* r)).
+    pose (f0 := cd_op (joinl a)).
+    pose (f1 := cd_op (joinr b)).
+    pose (W := fun y => ap (fun x => cd_op x y) (jglue a b)).
+    pose (U := fun y => W (rho y)).
+    pose (V := fun y => ap (fun x => rho (cd_op x y)) (jglue a b)).
+    (** First name the original four edge computations and the diagonal map's computation. *)
+    pose (brho := functor_join_beta_jglue (.* r) (.* r)).
+    pose (bh0 := fun c d => Join_rec_beta_jglue _ _
+      (fun c d => jglue (a * c) (conj a * d)) c d).
+    pose (bh1 := fun c d => Join_rec_beta_jglue _ _
+      (fun c d => (jglue ((-d) * conj b) (c * b))^) c d).
+    pose (bv0 := fun c => Join_rec_beta_jglue _ _
+      (fun a b => jglue (a * c) (c * b)) a b).
+    pose (bv1 := fun d => Join_rec_beta_jglue _ _
+      (fun a b => (jglue ((-d) * conj b) (conj a * d))^) a b).
+    (** The eight edge computations of multiplication before and after translation. *)
+    pose (bfh0 := (ap_compose rho f0 (jglue c d)
+      @ ap (ap f0) (brho c d)) @ bh0 (c * r) (d * r)).
+    pose (bfh1 := (ap_compose rho f1 (jglue c d)
+      @ ap (ap f1) (brho c d)) @ bh1 (c * r) (d * r)).
+    pose (bfv0 := bv0 (c * r)).
+    pose (bfv1 := bv1 (d * r)).
+    pose (t := fun y => ap_compose (fun x => cd_op x y) rho (jglue a b)).
+    pose (bgh0 := (ap_compose f0 rho (jglue c d)
+      @ ap (ap rho) (bh0 c d)) @ brho (a * c) (conj a * d)).
+    pose (bgh1 := (ap_compose f1 rho (jglue c d)
+      @ ap (ap rho) (bh1 c d)) @ (ap_V rho (jglue ((-d) * conj b) (c * b))
+        @ inverse2 (brho ((-d) * conj b) (c * b)))).
+    pose (bgv0 := (t (joinl c) @ ap (ap rho) (bv0 c))
+      @ brho (a * c) (c * b)).
+    pose (bgv1 := (t (joinr d) @ ap (ap rho) (bv1 d))
+      @ (ap_V rho (jglue ((-d) * conj b) (conj a * d))
+        @ inverse2 (brho ((-d) * conj b) (conj a * d)))).
+    (** Obtain both mixed computations from the named beta rule of the unchanged multiplication. *)
+    assert (BM : forall c d, concat_Ap W (jglue c d) @ (bv0 c @@ 1)
+      = (1 @@ bv1 d) @ naturality_change
+          (bh0 c d) (bh1 c d) (cd_op_diamond a b c d)).
+    { intros c0 d0.
+      nrefine (Join_rec2_beta_jglue_jglue (pjoin X X)
+        _ _ _ _ _ _ _ _ cd_op_diamond a b c0 d0 @ _).
+      exact (1 @@ concat_p_pp _ _ _). }
+    assert (BF : concat_Ap U (jglue c d) @ (bfv0 @@ 1)
+      = (1 @@ bfv1) @ naturality_change bfh0 bfh1
+        (cd_op_diamond a b (c * r) (d * r))).
+    { exact (concat_Ap_precompose_beta W rho (jglue c d)
+        (jglue (c * r) (d * r)) (brho c d)
+        (bh0 (c * r) (d * r)) (bv1 (d * r))
+        (bv0 (c * r)) (bh1 (c * r) (d * r)) _ (BM (c * r) (d * r))). }
+    assert (BG : concat_Ap V (jglue c d) @ (bgv0 @@ 1)
+      = (1 @@ bgv1) @ naturality_change bgh0 bgh1
+        (join_zigzag_filler (.* r) (.* r) 1 1 1 1 (cd_op_diamond a b c d))).
+    { napply (mixed_beta_compose
+        (ap_compose f0 rho (jglue c d) @ ap (ap rho) (bh0 c d))
+        (t (joinr d) @ ap (ap rho) (bv1 d))
+        (t (joinl c) @ ap (ap rho) (bv0 c))
+        (ap_compose f1 rho (jglue c d) @ ap (ap rho) (bh1 c d))
+        _ _ _ _ _ (ap_naturality rho (cd_op_diamond a b c d)) _).
+      - napply (mixed_beta_vertical (t (joinl c)) (t (joinr d))
+          (ap (ap rho) (bv0 c)) (ap (ap rho) (bv1 d)) _ _
+          _ (concat_Ap (fun y => ap rho (W y)) (jglue c d)) _).
+        + exact (concat_Ap_homotopic V (fun y => ap rho (W y)) t (jglue c d)).
+        + exact (concat_Ap_postcompose_beta W rho (jglue c d)
+            (bh0 c d) (bv1 d) (bv0 c) (bh1 c d) _ (BM c d)).
+      - rhs napply (1 @@ ap (naturality_change _ _)
+          (join_zigzag_filler_refl (.* r) (.* r) (cd_op_diamond a b c d))).
+        exact (ap_pV_filler_beta rho
+          (jglue (a * c) (conj a * d)) (jglue ((-d) * conj b) (conj a * d))
+          (jglue (a * c) (c * b)) (jglue ((-d) * conj b) (c * b))
+          (brho _ _) (brho _ _) (brho _ _) (brho _ _) (cd_op_diamond a b c d)). }
+    (** Match the four specified side faces to these edge computations. No scalar path or face witness is discarded. *)
+    pose (p00 := cd_diamond_translate_l_neg_unit a c r).
+    pose (p01 := cd_diamond_translate_r_parameter a mon_unit mon_unit d r).
+    pose (p10 := cd_diamond_translate_r_unit b c r).
+    pose (p11 := cd_diamond_translate_l_parameter mon_unit b mon_unit d r).
+    pose (eh0 := (join_natsq p00 p01)^).
+    pose (eh1 := inverse_natural _ _ (join_natsq p11 p10)).
+    pose (ev0 := (join_natsq p00 p10)^).
+    pose (ev1 := inverse_natural _ _ (join_natsq p11 p01)).
+    assert (EH0 : concat_Ap (cd_op_diagonal_equivariance_joinl r a) (jglue c d)
+      = naturality_change bfh0 bgh0 eh0).
+    { lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ c d).
+      lhs napply naturality_prefix.
+      lhs napply naturality_prefix.
+      rhs napply concat_pp_p.
+      napply (ap (fun q => (bfh0 @@ 1) @ q)).
+      lhs napply naturality_suffix.
+      apply naturality_suffix. }
+    assert (EH1 : concat_Ap (cd_op_diagonal_equivariance_joinr r b) (jglue c d)
+      = naturality_change bfh1 bgh1 eh1).
+    { lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ c d).
+      lhs napply naturality_prefix.
+      lhs napply naturality_prefix.
+      rhs napply concat_pp_p.
+      napply (ap (fun q => (bfh1 @@ 1) @ q)).
+      lhs napply naturality_suffix.
+      lhs napply naturality_suffix.
+      lhs napply naturality_suffix.
+      exact (ap (fun q => eh1 @ (1 @@ q)^) (concat_pp_p _ _ _)). }
+    assert (EV0 : cd_op_diagonal_equivariance_glue_joinl r a b c
+      = naturality_change bfv0 bgv0 ev0).
+    { rhs napply concat_pp_p.
+      napply (ap (fun q => (bfv0 @@ 1) @ q)).
+      lhs napply naturality_suffix.
+      apply naturality_suffix. }
+    assert (EV1 : cd_op_diagonal_equivariance_glue_joinr r a b d
+      = naturality_change bfv1 bgv1 ev1).
+    { rhs napply concat_pp_p.
+      napply (ap (fun q => (bfv1 @@ 1) @ q)).
+      lhs napply naturality_suffix.
+      lhs napply naturality_suffix.
+      lhs napply naturality_suffix.
+      exact (ap (fun q => ev1 @ (1 @@ q)^) (concat_pp_p _ _ _)). }
+    (** The dependent glue equation is now the cube supplied by [cd_op_diamond_diagonal]. *)
+    nrefine (equiv_naturality_transport2 _ _ (jglue c d) _ _ _).
+    lhs napply (concat_Ap_concat U
+      (cd_op_diagonal_equivariance_joinr r b) (jglue c d) @@ 1).
+    rhs napply (1 @@ concat_Ap_concat
+      (cd_op_diagonal_equivariance_joinl r a) V (jglue c d)).
+    lhs napply (ap (concat_natural
+      (ap (f0 o rho) (jglue c d)) (ap (f1 o rho) (jglue c d))
+      (ap (rho o f1) (jglue c d)) (U (joinl c)) (U (joinr d))
+      (ap joinr p10) (ap joinl p11) (concat_Ap U (jglue c d))) EH1 @@ 1).
+    lhs napply (1 @@ ap (fun q => q @@ idpath (ap (rho o f1) (jglue c d))) EV0).
+    rhs napply (ap (fun q => idpath (ap (f0 o rho) (jglue c d)) @@ q) EV1 @@ 1).
+    rhs napply (1 @@ ap (fun q => concat_natural
+      (ap (f0 o rho) (jglue c d)) (ap (rho o f0) (jglue c d))
+      (ap (rho o f1) (jglue c d)) (ap joinl p00) (ap joinr p01)
+      (V (joinl c)) (V (joinr d)) q (concat_Ap V (jglue c d))) EH0).
+    napply (naturality_cube_change
+      (ap joinl p00) (ap joinr p01) (ap joinr p10) (ap joinl p11)
+      bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+      _ _ _ _ eh0 eh1 ev0 ev1 BF BG).
+    exact (join_zigzag_filler_cube p00 p11 p01 p10 _ _
+      (cd_op_diamond_diagonal a b c d r)).
+  Defined.
+
+  Local Transparent cd_diamond cd_op_diamond.
+
+  Definition cd_op_diagonal_equivariance_glue (r a b : X)
+    : forall y : pjoin X X,
+      ap (fun x => cd_op x (functor_join (.* r) (.* r) y)) (jglue a b)
+        @ cd_op_diagonal_equivariance_joinr r b y
+      = cd_op_diagonal_equivariance_joinl r a y
+        @ ap (fun x => functor_join (.* r) (.* r) (cd_op x y)) (jglue a b).
+  Proof.
+    snapply Join_ind.
+    - exact (cd_op_diagonal_equivariance_glue_joinl r a b).
+    - exact (cd_op_diagonal_equivariance_glue_joinr r a b).
+    - exact (cd_op_diagonal_equivariance_glue_glue r a b).
+  Defined.
+
+  (** Full diagonal equivariance, with the existing point homotopies and the chosen dependent mixed computation. *)
+  Definition cd_op_diagonal_equivariance (r : X)
+    : forall x y : pjoin X X,
+      cd_op x (functor_join (.* r) (.* r) y)
+        = functor_join (.* r) (.* r) (cd_op x y).
+  Proof.
+    intros x y; revert x.
+    snapply Join_ind_FlFr.
+    - exact (fun a => cd_op_diagonal_equivariance_joinl r a y).
+    - exact (fun b => cd_op_diagonal_equivariance_joinr r b y).
+    - exact (fun a b => cd_op_diagonal_equivariance_glue r a b y).
+  Defined.
+
+  (** Equivariance and scalar right translation give the associator with a last argument in the left copy. Both preceding arguments remain arbitrary join elements. *)
+  Definition cd_assoc_last_joinl (x y : pjoin X X) (r : X)
+    : cd_op (cd_op x y) (joinl r) = cd_op x (cd_op y (joinl r))
+    := cd_op_right_translate_joinl r (cd_op x y)
+      @ (cd_op_diagonal_equivariance r x y)^
+      @ ap (cd_op x) (cd_op_right_translate_joinl r y)^.
+
+  (** Transport the fixed left associator to a right constructor. The second scalar is the variable of the resulting map into a fixed path type. *)
+  Definition cd_assoc_last_transport (x y : pjoin X X) (d c : X)
+    : cd_op (cd_op x y) (joinr d) = cd_op x (cd_op y (joinr d))
+    := transport (fun z => cd_op (cd_op x y) z = cd_op x (cd_op y z))
+         (jglue c d) (cd_assoc_last_joinl x y c).
+
+  (** This alternative right partial associator makes the whole boundary [jglue mon_unit d] automatic. It changes neither multiplication nor the chosen left associator. No comparison with the symmetry-based right associator at arbitrary [d] is asserted. *)
+  Definition cd_assoc_last_joinr_transport (x y : pjoin X X) (d : X)
+    : cd_op (cd_op x y) (joinr d) = cd_op x (cd_op y (joinr d))
+    := cd_assoc_last_transport x y d mon_unit.
+
+  (** Compare the actual left associator with the first-two-constructor associators. Join triangles compare the images of the scalar witnesses; no equality of arbitrary scalar witnesses or join-valued fillers is assumed. *)
+  Local Opaque cd_diamond cd_op_diamond.
+
+  Definition cd_assoc_last_joinl_first_ll (a b c : X)
+    : cd_assoc_last_joinl (joinl a) (joinl b) c
+      = cd_assoc_first_ll a b (joinl c).
+  Proof.
+    lhs napply concat_p1.
+    lhs napply concat_1p.
+    lhs_V napply (ap_V (joinl (B:=X))
+      (cd_diamond_translate_l_neg_unit a b c)).
+    exact ((triangle_h' (point X)
+        (cd_diamond_translate_l_neg_unit a b c)^)^
+      @ triangle_h' (point X) (assoc a b c)^).
+  Defined.
+
+  Definition cd_assoc_last_joinl_first_lr (a b c : X)
+    : cd_assoc_last_joinl (joinl a) (joinr b) c
+      = cd_assoc_first_lr a b (joinl c).
+  Proof.
+    lhs_V napply (1 @@ ap (ap (cd_op (joinl a)))
+      (ap_V (joinr (A:=X)) (comm c b))).
+    lhs_V napply (1 @@ ap_compose joinr (cd_op (joinl a)) (comm c b)^).
+    lhs napply (1 @@ ap_compose (conj a *.) joinr (comm c b)^).
+    lhs_V napply (ap_pV (joinr (A:=X)) _ _ @@ 1).
+    lhs_V napply (ap_pp (joinr (A:=X)) _ _).
+    lhs_V rapply (triangle_v' (point X)).
+    rhs_V rapply (triangle_v' (point X)).
+    reflexivity.
+  Defined.
+
+  Definition cd_assoc_last_joinl_first_rl (a b c : X)
+    : cd_assoc_last_joinl (joinr a) (joinl b) c
+      = cd_assoc_first_rl a b (joinl c).
+  Proof.
+    lhs napply concat_p1.
+    lhs_V napply (ap_pV (joinr (A:=X)) _ _).
+    lhs_V rapply (triangle_v' (point X)).
+    rhs_V rapply (triangle_v' (point X)).
+    reflexivity.
+  Defined.
+
+  Definition cd_assoc_last_joinl_first_rr (a b c : X)
+    : cd_assoc_last_joinl (joinr a) (joinr b) c
+      = cd_assoc_first_rr a b (joinl c).
+  Proof.
+    lhs napply (concat_1p _ @@ 1).
+    lhs_V napply (1 @@ ap (ap (cd_op (joinr a)))
+      (ap_V (joinr (A:=X)) (comm c b))).
+    lhs_V napply (1 @@ ap_compose joinr (cd_op (joinr a)) (comm c b)^).
+    lhs napply (1 @@ ap_compose (fun d => (-d) * conj a) joinl (comm c b)^).
+    lhs_V napply (ap_V (joinl (B:=X))
+      (cd_diamond_translate_l_parameter mon_unit a mon_unit b c) @@ 1).
+    lhs_V napply (ap_pp (joinl (B:=X)) _ _).
+    lhs_V rapply (triangle_h' (point X)).
+    rhs_V rapply (triangle_h' (point X)).
+    reflexivity.
+  Defined.
+
+  (** Scalar loops vanish at each of the four constructor pairs of the preceding arguments. Each proof is a family in [d], so its second-label coherence is [apD]. Extending these proofs across the preceding arguments' join glues is still required; this is not loop vanishing for arbitrary join elements. *)
+  Definition cd_assoc_last_transport_loop_ll (a b d : X)
+    {c : X} (p : c = c)
+    : ap (cd_assoc_last_transport (joinl a) (joinl b) d) p = 1.
+  Proof.
+    pose (K := fun c => ap (transport _ (jglue c d))
+      (cd_assoc_last_joinl_first_ll a b c)
+      @ apD (cd_assoc_first_ll a b) (jglue c d)).
+    lhs napply (ap_homotopic K p).
+    lhs napply ((1 @@ ap_const p _) @@ 1).
+    lhs napply (concat_p1 _ @@ 1).
+    apply concat_pV.
+  Defined.
+
+  Definition cd_assoc_last_transport_loop_lr (a b d : X)
+    {c : X} (p : c = c)
+    : ap (cd_assoc_last_transport (joinl a) (joinr b) d) p = 1.
+  Proof.
+    pose (K := fun c => ap (transport _ (jglue c d))
+      (cd_assoc_last_joinl_first_lr a b c)
+      @ apD (cd_assoc_first_lr a b) (jglue c d)).
+    lhs napply (ap_homotopic K p).
+    lhs napply ((1 @@ ap_const p _) @@ 1).
+    lhs napply (concat_p1 _ @@ 1).
+    apply concat_pV.
+  Defined.
+
+  Definition cd_assoc_last_transport_loop_rl (a b d : X)
+    {c : X} (p : c = c)
+    : ap (cd_assoc_last_transport (joinr a) (joinl b) d) p = 1.
+  Proof.
+    pose (K := fun c => ap (transport _ (jglue c d))
+      (cd_assoc_last_joinl_first_rl a b c)
+      @ apD (cd_assoc_first_rl a b) (jglue c d)).
+    lhs napply (ap_homotopic K p).
+    lhs napply ((1 @@ ap_const p _) @@ 1).
+    lhs napply (concat_p1 _ @@ 1).
+    apply concat_pV.
+  Defined.
+
+  Definition cd_assoc_last_transport_loop_rr (a b d : X)
+    {c : X} (p : c = c)
+    : ap (cd_assoc_last_transport (joinr a) (joinr b) d) p = 1.
+  Proof.
+    pose (K := fun c => ap (transport _ (jglue c d))
+      (cd_assoc_last_joinl_first_rr a b c)
+      @ apD (cd_assoc_first_rr a b) (jglue c d)).
+    lhs napply (ap_homotopic K p).
+    lhs napply ((1 @@ ap_const p _) @@ 1).
+    lhs napply (concat_p1 _ @@ 1).
+    apply concat_pV.
+  Defined.
+
+  Local Transparent cd_diamond cd_op_diamond.
+
+  (** The chosen symmetry homotopy and diagonal equivariance give a last-right associator. This does not assert its compatibility with [cd_assoc_last_joinl] along the last join glue. *)
+  Definition cd_assoc_last_joinr (x y : pjoin X X) (r : X)
+    : cd_op (cd_op x y) (joinr r) = cd_op x (cd_op y (joinr r)).
+  Proof.
+    nrefine (cd_op_right_translate_joinr r (cd_op x y) @ _).
+    nrefine (ap (functor_join (.* r) (.* r)) (cd_op_chi_equivariance x y)^ @ _).
+    exact ((cd_op_diagonal_equivariance r x (cd_chi y))^
+      @ ap (cd_op x) (cd_op_right_translate_joinr r y)^).
+  Defined.
+
+  (** The chosen last-left and last-right associators agree across the unit join glue, with both preceding arguments arbitrary. The comparison across [jglue c d] for arbitrary scalars remains a further coherence obligation. *)
+  Definition cd_assoc_last_glue_unit (x y : pjoin X X)
+    : transport (fun z => cd_op (cd_op x y) z = cd_op x (cd_op y z))
+        (jglue (point X) (point X)) (cd_assoc_last_joinl x y mon_unit)
+      = cd_assoc_last_joinr x y mon_unit.
+  Proof.
+    exact (transport_translation_comparison (joinl (point X)) cd_op
+      cd_op_right_identity (functor_join (.* mon_unit) (.* mon_unit))
+      (cd_op_right_translate_joinl mon_unit) (cd_op x)
+      (fun y => cd_op_diagonal_equivariance mon_unit x y) y
+      (jglue (point X) (point X)) (cd_chi y) (cd_chi (cd_op x y))
+      (cd_op_right_translate_joinr mon_unit y)
+      (cd_op_right_translate_joinr mon_unit (cd_op x y))).
   Defined.
 
 End SpheroidHSpace.
