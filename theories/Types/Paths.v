@@ -486,6 +486,103 @@ Proof.
   reflexivity.
 Defined.
 
+(** Naturality of a comparison between two homotopies is the dependent transport equation for that comparison. *)
+Definition equiv_naturality_transport2 {A B : Type} {f g : A -> B}
+  (h k : f == g) {x y : A} (p : x = y)
+  (u : h x = k x) (v : h y = k y)
+  : (concat_Ap h p @ (u @@ 1) = (1 @@ v) @ concat_Ap k p)
+    <~> (transport (fun z => h z = k z) p u = v).
+Proof.
+  destruct p; cbn.
+  revert u v.
+  generalize (k x).
+  generalize (h x).
+  generalize (g x).
+  intros w a b u v.
+  destruct a, u; cbn.
+  exact (equiv_concat_r (concat_p1 (1 @@ v) @ whiskerL_1p_1 v) 1).
+Defined.
+
+(** A unit-based comparison transports to the comparison obtained from the two specified endpoint translations. The homotopies [Ny] and [Nv] retain the chosen unit path and translations. This only concerns a path starting at the distinguished unit parameter [e]. *)
+Definition transport_translation_comparison {A T : Type}
+  (e : A) (m : T -> A -> T) (ru : forall z, m z e = z)
+  (rho : T -> T) (L : forall z, m z e = rho z)
+  (f : T -> T) (E : forall z, f (rho z) = rho (f z))
+  (y : T) {j : A} (p : e = j) (u v : T)
+  (R0 : m y j = rho u) (R1 : m (f y) j = rho v)
+  : let Ny := (ru u)^ @ (L u @ (R0^ @ (ap (m y) p^ @ ru y))) in
+    let Nv := (ru v)^ @ (L v @ (R1^ @ (ap (m (f y)) p^ @ ru (f y)))) in
+    transport (fun z => m (f y) z = f (m y z)) p
+      (L (f y) @ (E y)^ @ ap f (L y)^)
+    = R1 @ (ap rho (ap f Ny @ Nv^)^ @ ((E u)^ @ ap f R0^)).
+Proof.
+  assert (IsEquiv rho).
+  { rapply (isequiv_homotopic idmap).
+    exact (fun z => (ru z)^ @ L z). }
+  destruct p.
+  (** Equivalence/path induction normalizes the two free endpoint comparisons, with the unit case of each comparison still explicit. *)
+  revert u R0.
+  srapply (equiv_path_ind (fun u =>
+    equiv_concat_l (L y) _ oE equiv_ap rho y u)).
+  revert v R1.
+  srapply (equiv_path_ind (fun v =>
+    equiv_concat_l (L (f y)) _ oE equiv_ap rho (f y) v)).
+  cbn.
+  assert (K : forall {x y z : T} (a : x = y) (b : x = z),
+    a^ @ (b @ ((b @ 1)^ @ (1 @ a))) = 1).
+  { intros x0 y0 z0 a b; destruct a, b; reflexivity. }
+  rhs napply (concat_p1 _ @@ 1).
+  rhs napply (1 @@ (ap (fun q => ap rho q^)
+    (ap011 (fun a b => ap f a @ b^) (K _ _ _ (ru y) (L y))
+      (K _ _ _ (ru (f y)) (L (f y)))) @@ 1)).
+  rhs napply (1 @@ concat_1p _).
+  rhs napply (1 @@ (1 @@ ap (fun q => ap f q^) (concat_p1 (L y)))).
+  apply concat_pp_p.
+Defined.
+
+(** The cube with unit vertex paths commutes for an arbitrary supplied comparison of zigzags. The four edges here are free; this does not eliminate a filler constrained to a fixed join boundary. *)
+Definition concat_pV_cube_unit {T : Type} {x y z w : T}
+  (p : x = y) (q : z = y) (r : x = w) (s : z = w)
+  (h : p @ q^ = r @ s^)
+  : concat_natural p s^ s^ r q^ 1 1 h
+      (inverse_natural 1 1 (concat_1p_p1 s))
+      @ ((concat_1p_p1 r)^ @@ 1)
+    = (1 @@ inverse_natural 1 1 (concat_1p_p1 q))
+      @ concat_natural p p s^ 1 1 r q^ (concat_1p_p1 p)^ h.
+Proof.
+  destruct p, r, s; cbn in *.
+  revert h.
+  equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
+  revert h.
+  equiv_intro (equiv_path_inverse 1 q^) h.
+  revert h.
+  equiv_intro (equiv_ap inverse 1 q) h.
+  destruct h; reflexivity.
+Defined.
+
+(** Mapping a zigzag filler has the mixed computation determined by the four specified edge computations. Again all the edges, rather than the sides of a fixed diamond, are free in this path-algebra lemma. *)
+Definition ap_pV_filler_beta {A B : Type} (f : A -> B)
+  {x y z w : A} (p : x = y) (q : z = y) (r : x = w) (s : z = w)
+  {p' : f x = f y} {q' : f z = f y} {r' : f x = f w} {s' : f z = f w}
+  (bp : ap f p = p') (bq : ap f q = q')
+  (br : ap f r = r') (bs : ap f s = s')
+  (h : p @ q^ = r @ s^)
+  : ap_naturality f h @ (br @@ 1)
+    = (1 @@ (ap_V f q @ inverse2 bq))
+      @ naturality_change bp (ap_V f s @ inverse2 bs)
+        ((ap_pV f p q @ (bp @@ inverse2 bq))^
+          @ (ap (ap f) h @ (ap_pV f r s @ (br @@ inverse2 bs)))).
+Proof.
+  destruct bp, bq, br, bs, p, r, s; cbn in *.
+  revert h.
+  equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
+  revert h.
+  equiv_intro (equiv_path_inverse 1 q^) h.
+  revert h.
+  equiv_intro (equiv_ap inverse 1 q) h.
+  destruct h; reflexivity.
+Defined.
+
 Instance isequiv_moveR_pV
   {A : Type} {x y z : A} (p : z = x) (q : y = z) (r : y = x)
 : IsEquiv (moveR_pV p q r).

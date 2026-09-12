@@ -1012,6 +1012,29 @@ Proof.
     + exact (concat_p1 _ @ concat_1p _).
 Defined.
 
+(** A transported filler comparison supplies a cube whose four side faces are exactly the naturalities of the four scalar vertex paths. Only those free scalar paths are eliminated; the given join-valued filler is preserved. *)
+Definition join_zigzag_filler_cube {A B : Type}
+  {a a' c c' : A} {b b' d d' : B}
+  (p : a = c) (q : a' = c') (r : b = d) (s : b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  (h' : zigzag c c' d = zigzag c c' d')
+  (v : transport011
+      (fun x : A * A => fun y : B * B =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' p q) (path_prod' r s) h = h')
+  : concat_natural (jglue a b) (jglue a' b')^ (jglue c' d')^
+      (jglue a b') (jglue a' b)^
+      (ap joinr s) (ap joinl q) h (inverse_natural _ _ (join_natsq q s))
+      @ ((join_natsq p s)^ @@ 1)
+    = (1 @@ inverse_natural _ _ (join_natsq q r))
+      @ concat_natural (jglue a b) (jglue c d) (jglue c' d')^
+          (ap joinl p) (ap joinr r) (jglue c d') (jglue c' d)^
+          (join_natsq p r)^ h'.
+Proof.
+  destruct p, q, r, s, v.
+  exact (concat_pV_cube_unit _ _ _ _ h).
+Defined.
+
 (** * Symmetry of Join
 
   We'll use the recursion equivalence above to prove the symmetry of Join, using the Yoneda lemma.  The idea is that [Join A B -> P] is equivalent (as a 0-groupoid) to [JoinRecData A B P], and the latter is very symmetrical by construction, which makes it easy to show that it is equivalent to [JoinRecData B A P].  Going back along the first equivalence gets us to [Join B A -> P].  These equivalences are natural in [P], so the symmetry equivalence follows from the Yoneda lemma.  This is mainly meant as a warm-up to proving the associativity of the join. *)

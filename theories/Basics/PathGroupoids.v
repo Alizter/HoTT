@@ -1236,6 +1236,17 @@ Definition ap_Vp {A B : Type} (f : A -> B) {a0 a1 a1' : A} (p : a0 = a1) (q : a0
 
 (** Some higher coherences *)
 
+(** Reverse the horizontal edges of a naturality comparison. The orientation of the input agrees with [join_natsq]. *)
+Definition inverse_natural {A : Type} {x x' y y' : A}
+  {p : x = y} {q : x' = y'} (h : x = x') (k : y = y')
+  (n : h @ q = p @ k) : p^ @ h = k @ q^.
+Proof.
+  apply moveL_pV.
+  lhs napply concat_pp_p.
+  apply moveR_Vp.
+  exact n.
+Defined.
+
 (** Naturality of a zigzag follows from the naturality of its two edges. *)
 Definition concat_pV_natural {A : Type} {x x' y y' z z' : A}
   {p : x = z} {q : y = z} {p' : x' = z'} {q' : y' = z'}
@@ -1284,6 +1295,14 @@ Proof.
   destruct p, q; reflexivity.
 Defined.
 
+(** Reidentify the two horizontal edges of a naturality comparison, retaining their chosen computation paths. *)
+Definition naturality_change {T : Type} {x x' y y' : T}
+  {p p' : x = y} {q q' : x' = y'}
+  {a : x = x'} {b : y = y'}
+  (bp : p = p') (bq : q = q') (h : p' @ b = a @ q')
+  : p @ b = a @ q
+  := ((bp @@ 1) @ h) @ (1 @@ bq)^.
+
 (** Successive changes of the two edges of a naturality comparison compose. *)
 Definition naturality_change_compose {A : Type} {x x' y y' : A}
   {p p' p'' : x = y} {q q' q'' : x' = y'}
@@ -1296,6 +1315,280 @@ Proof.
   destruct a, b, c, d; cbn.
   lhs napply (concat_1p _ @@ 1).
   apply concat_p1.
+Defined.
+
+(** Naturality for pointwise concatenation of homotopies. *)
+Definition concat_natural {A : Type} {x x' y y' z z' : A}
+  (p : x = x') (q : y = y') (r : z = z')
+  (h : x = y) (h' : x' = y') (k : y = z) (k' : y' = z')
+  (a : p @ h' = h @ q) (b : q @ k' = k @ r)
+  : p @ (h' @ k') = (h @ k) @ r.
+Proof.
+  lhs napply concat_p_pp.
+  lhs napply (a @@ 1).
+  lhs napply concat_pp_p.
+  lhs napply (1 @@ b).
+  apply concat_p_pp.
+Defined.
+
+Definition concat_Ap_concat {A B : Type} {f g k : A -> B}
+  (h : f == g) (l : g == k) {x y : A} (p : x = y)
+  : concat_Ap (fun z => h z @ l z) p
+    = concat_natural (ap f p) (ap g p) (ap k p)
+      (h x) (h y) (l x) (l y) (concat_Ap h p) (concat_Ap l p).
+Proof.
+  destruct p; cbn.
+  generalize (l x).
+  generalize (k x).
+  generalize (h x).
+  generalize (g x).
+  intros y u z v; destruct u, v.
+  reflexivity.
+Defined.
+
+(** Naturality for pointwise inverses, with the chosen comparison retained. *)
+Definition concat_Ap_inverse {A B : Type} {f g : A -> B}
+  (h : f == g) {x y : A} (p : x = y)
+  : concat_Ap (fun z => (h z)^) p
+    = (inverse_natural (ap f p) (ap g p) (concat_Ap h p))^.
+Proof.
+  destruct p; cbn.
+  generalize (h x); generalize (g x).
+  intros z q; destruct q; reflexivity.
+Defined.
+
+Definition concat_Ap_refl {A B : Type} (f : A -> B)
+  {x y : A} (p : x = y)
+  : concat_Ap (fun z => idpath (f z)) p
+    = concat_p1 (ap f p) @ (concat_1p (ap f p))^.
+Proof.
+  destruct p; reflexivity.
+Defined.
+
+(** These two rules collect successive edge computations in a specified face proof. *)
+Definition naturality_prefix {T : Type} {x y z : T}
+  {p p' p'' : x = y} (a : p = p') (b : p' = p'')
+  (r : y = z) {s : x = z} (h : p'' @ r = s)
+  : (a @@ 1) @ ((b @@ 1) @ h) = ((a @ b) @@ 1) @ h.
+Proof.
+  destruct a, b; cbn; apply concat_1p.
+Defined.
+
+Definition naturality_suffix {T : Type} {x y z : T}
+  (p : x = y) {q q' q'' : y = z} (a : q = q') (b : q' = q'')
+  {s : x = z} (h : s = p @ q'')
+  : (h @ (1 @@ b)^) @ (1 @@ a)^ = h @ (1 @@ (a @ b))^.
+Proof.
+  destruct a, b; cbn; apply concat_p1.
+Defined.
+
+Definition concat_Ap_precompose {A B C : Type}
+  {f g : B -> C} (h : f == g) (k : A -> B) {x y : A} (p : x = y)
+  : concat_Ap (h o k) p
+    = naturality_change (ap_compose k f p) (ap_compose k g p)
+        (concat_Ap h (ap k p)).
+Proof.
+  destruct p; cbn.
+  generalize (h (k x)); generalize (g (k x)).
+  intros z q; destruct q; reflexivity.
+Defined.
+
+(** Apply a map to a comparison of two composites, with its concatenation computations included. *)
+Definition ap_naturality {A B : Type} (f : A -> B)
+  {x y z w : A} {p : x = y} {q : y = w} {r : x = z} {s : z = w}
+  (h : p @ q = r @ s)
+  : ap f p @ ap f q = ap f r @ ap f s
+  := (ap_pp f p q)^ @ ap (ap f) h @ ap_pp f r s.
+
+Definition concat_Ap_postcompose {A B C : Type}
+  {f g : A -> B} (h : f == g) (k : B -> C) {x y : A} (p : x = y)
+  : concat_Ap (fun z => ap k (h z)) p
+    = naturality_change (ap_compose f k p) (ap_compose g k p)
+        (ap_naturality k (concat_Ap h p)).
+Proof.
+  destruct p; cbn.
+  generalize (h x); generalize (g x).
+  intros z q; destruct q; reflexivity.
+Defined.
+
+Definition concat_Ap_change {A B : Type} {f g : A -> B}
+  (h : f == g) {x y : A} {p q : x = y} (r : p = q)
+  : concat_Ap h p
+    = naturality_change (ap (ap f) r) (ap (ap g) r) (concat_Ap h q).
+Proof.
+  destruct r; cbn [naturality_change].
+  exact (concat_p1 _ @ concat_1p _)^.
+Defined.
+
+(** Mixed computation rules remain valid when further horizontal or vertical edge computations are appended. These lemmas eliminate only the free edge identifications. *)
+Definition mixed_beta_horizontal {T : Type} {x y z w : T}
+  {p p' p'' : x = y} {q q' : y = w} {r r' : x = z}
+  {s s' s'' : z = w}
+  (a : p = p') (b : s = s') (c : p' = p'') (d : s' = s'')
+  (e : r = r') (f : q = q')
+  (h : p' @ q = r @ s') (h' : p'' @ q' = r' @ s'')
+  (v : h @ (e @@ 1) = (1 @@ f) @ naturality_change c d h')
+  : naturality_change a b h @ (e @@ 1)
+    = (1 @@ f) @ naturality_change (a @ c) (b @ d) h'.
+Proof.
+  destruct a, b; cbn [naturality_change].
+  lhs napply ((concat_p1 _ @ concat_1p _) @@ 1).
+  rhs napply (1 @@ ap011 (fun c d => naturality_change c d h')
+    (concat_1p c) (concat_1p d)).
+  exact v.
+Defined.
+
+Definition mixed_beta_vertical {T : Type} {x y z w : T}
+  {p p' : x = y} {q q' q'' : y = w} {r r' r'' : x = z}
+  {s s' : z = w}
+  (a : r = r') (b : q = q') (c : r' = r'') (d : q' = q'')
+  (e : p = p') (f : s = s')
+  (h : p @ q = r @ s) (h' : p @ q' = r' @ s)
+  (h'' : p' @ q'' = r'' @ s')
+  (v : h @ (a @@ 1) = (1 @@ b) @ h')
+  (v' : h' @ (c @@ 1) = (1 @@ d) @ naturality_change e f h'')
+  : h @ ((a @ c) @@ 1)
+    = (1 @@ (b @ d)) @ naturality_change e f h''.
+Proof.
+  destruct a, b.
+  assert (k : h = h').
+  { exact ((concat_p1 h)^ @ v @ concat_1p h'). }
+  destruct k.
+  lhs napply (1 @@ ap (fun q => q @@ idpath s) (concat_1p c)).
+  rhs napply (ap (fun q => idpath p @@ q) (concat_1p d) @@ 1).
+  exact v'.
+Defined.
+
+Definition mixed_beta_compose {T : Type} {x y z w : T}
+  {p p' p'' : x = y} {q q' q'' : y = w}
+  {r r' r'' : x = z} {s s' s'' : z = w}
+  (bp : p = p') (bq : q = q') (br : r = r') (bs : s = s')
+  (cp : p' = p'') (cq : q' = q'') (cr : r' = r'') (cs : s' = s'')
+  (h : p @ q = r @ s) (h' : p' @ q' = r' @ s')
+  (h'' : p'' @ q'' = r'' @ s'')
+  (v : h @ (br @@ 1) = (1 @@ bq) @ naturality_change bp bs h')
+  (v' : h' @ (cr @@ 1) = (1 @@ cq) @ naturality_change cp cs h'')
+  : h @ ((br @ cr) @@ 1)
+    = (1 @@ (bq @ cq)) @ naturality_change (bp @ cp) (bs @ cs) h''.
+Proof.
+  napply (mixed_beta_vertical br bq cr cq _ _
+    h (naturality_change bp bs h') h'' v).
+  exact (mixed_beta_horizontal bp bs cp cs cr cq h' h'' v').
+Defined.
+
+(** Applying a map preserves a mixed computation rule, including the computations on all four edges. *)
+Definition ap_mixed_beta {A B : Type} (f : A -> B)
+  {x y z w : A} {p p' : x = y} {q q' : y = w}
+  {r r' : x = z} {s s' : z = w}
+  (bp : p = p') (bq : q = q') (br : r = r') (bs : s = s')
+  (h : p @ q = r @ s) (h' : p' @ q' = r' @ s')
+  (v : h @ (br @@ 1) = (1 @@ bq) @ naturality_change bp bs h')
+  : ap_naturality f h @ (ap (ap f) br @@ 1)
+    = (1 @@ ap (ap f) bq)
+      @ naturality_change (ap (ap f) bp) (ap (ap f) bs)
+        (ap_naturality f h').
+Proof.
+  destruct bp, bq, br, bs.
+  assert (k : h = h').
+  { exact ((concat_p1 h)^ @ v
+      @ (concat_1p _ @ (concat_p1 _ @ concat_1p _))). }
+  destruct k.
+  lhs napply concat_p1.
+  rhs napply concat_1p.
+  exact (concat_p1 _ @ concat_1p _)^.
+Defined.
+
+Definition concat_Ap_precompose_beta {A B C : Type}
+  {f g : B -> C} (h : f == g) (k : A -> B)
+  {x y : A} (p : x = y) (q : k x = k y) (bk : ap k p = q)
+  {P : f (k x) = f (k y)} {Q : f (k y) = g (k y)}
+  {R : f (k x) = g (k x)} {S : g (k x) = g (k y)}
+  (bp : ap f q = P) (bq : h (k y) = Q)
+  (br : h (k x) = R) (bs : ap g q = S)
+  (v : P @ Q = R @ S)
+  (bv : concat_Ap h q @ (br @@ 1)
+    = (1 @@ bq) @ naturality_change bp bs v)
+  : concat_Ap (h o k) p @ (br @@ 1)
+    = (1 @@ bq) @ naturality_change
+      ((ap_compose k f p @ ap (ap f) bk) @ bp)
+      ((ap_compose k g p @ ap (ap g) bk) @ bs) v.
+Proof.
+  lhs napply (concat_Ap_precompose h k p @@ 1).
+  lhs napply (ap (naturality_change
+    (ap_compose k f p) (ap_compose k g p)) (concat_Ap_change h bk) @@ 1).
+  lhs napply (naturality_change_compose _ _ _ _ _ _ _ @@ 1).
+  exact (mixed_beta_horizontal _ _ bp bs br bq _ _ bv).
+Defined.
+
+Definition concat_Ap_postcompose_beta {A B C : Type}
+  {f g : A -> B} (h : f == g) (k : B -> C)
+  {x y : A} (p : x = y)
+  {P : f x = f y} {Q : f y = g y} {R : f x = g x} {S : g x = g y}
+  (bp : ap f p = P) (bq : h y = Q) (br : h x = R) (bs : ap g p = S)
+  (v : P @ Q = R @ S)
+  (bv : concat_Ap h p @ (br @@ 1)
+    = (1 @@ bq) @ naturality_change bp bs v)
+  : concat_Ap (fun z => ap k (h z)) p @ (ap (ap k) br @@ 1)
+    = (1 @@ ap (ap k) bq) @ naturality_change
+        (ap_compose f k p @ ap (ap k) bp)
+        (ap_compose g k p @ ap (ap k) bs) (ap_naturality k v).
+Proof.
+  lhs napply (concat_Ap_postcompose h k p @@ 1).
+  napply mixed_beta_horizontal.
+  exact (ap_mixed_beta k bp bq br bs _ _ bv).
+Defined.
+
+(** A cube comparison is invariant under specified computations on its eight horizontal and vertical edges. The two mixed computations and the four side faces are kept explicitly. *)
+Definition naturality_cube_change {T : Type}
+  {f00 f01 f10 f11 g00 g01 g10 g11 : T}
+  {fh0 FH0 : f00 = f01} {fh1 FH1 : f10 = f11}
+  {fv0 FV0 : f00 = f10} {fv1 FV1 : f01 = f11}
+  {gh0 GH0 : g00 = g01} {gh1 GH1 : g10 = g11}
+  {gv0 GV0 : g00 = g10} {gv1 GV1 : g01 = g11}
+  (p00 : f00 = g00) (p01 : f01 = g01)
+  (p10 : f10 = g10) (p11 : f11 = g11)
+  (bfh0 : fh0 = FH0) (bfh1 : fh1 = FH1)
+  (bfv0 : fv0 = FV0) (bfv1 : fv1 = FV1)
+  (bgh0 : gh0 = GH0) (bgh1 : gh1 = GH1)
+  (bgv0 : gv0 = GV0) (bgv1 : gv1 = GV1)
+  (cf : fh0 @ fv1 = fv0 @ fh1) (cg : gh0 @ gv1 = gv0 @ gh1)
+  (CF : FH0 @ FV1 = FV0 @ FH1) (CG : GH0 @ GV1 = GV0 @ GH1)
+  (eh0 : FH0 @ p01 = p00 @ GH0) (eh1 : FH1 @ p11 = p10 @ GH1)
+  (ev0 : FV0 @ p10 = p00 @ GV0) (ev1 : FV1 @ p11 = p01 @ GV1)
+  (bcf : cf @ (bfv0 @@ 1) = (1 @@ bfv1) @ naturality_change bfh0 bfh1 CF)
+  (bcg : cg @ (bgv0 @@ 1) = (1 @@ bgv1) @ naturality_change bgh0 bgh1 CG)
+  (h : concat_natural FH0 FH1 GH1 FV0 FV1 p10 p11 CF eh1 @ (ev0 @@ 1)
+    = (1 @@ ev1) @ concat_natural FH0 GH0 GH1 p00 p01 GV0 GV1 eh0 CG)
+  : concat_natural fh0 fh1 gh1 fv0 fv1 p10 p11 cf
+      (naturality_change bfh1 bgh1 eh1)
+      @ (naturality_change bfv0 bgv0 ev0 @@ 1)
+    = (1 @@ naturality_change bfv1 bgv1 ev1)
+      @ concat_natural fh0 gh0 gh1 p00 p01 gv0 gv1
+          (naturality_change bfh0 bgh0 eh0) cg.
+Proof.
+  destruct bfh0, bfh1, bfv0, bfv1, bgh0, bgh1, bgv0, bgv1.
+  cbn [naturality_change] in bcf, bcg |- *.
+  assert (ecf : cf = CF).
+  { lhs_V napply concat_p1.
+    nrefine (bcf @ _).
+    lhs napply concat_1p.
+    exact (concat_p1 _ @ concat_1p _). }
+  assert (ecg : cg = CG).
+  { lhs_V napply concat_p1.
+    nrefine (bcg @ _).
+    lhs napply concat_1p.
+    exact (concat_p1 _ @ concat_1p _). }
+  destruct ecf, ecg.
+  lhs napply (ap (concat_natural fh0 fh1 gh1 fv0 fv1 p10 p11 cf)
+    (concat_p1 _ @ concat_1p _) @@ 1).
+  lhs napply (1 @@ ap (fun q => q @@ idpath gh1)
+    (concat_p1 _ @ concat_1p _)).
+  rhs napply (ap (fun q => idpath fh0 @@ q)
+    (concat_p1 _ @ concat_1p _) @@ 1).
+  rhs napply (1 @@ ap (fun q =>
+    concat_natural fh0 gh0 gh1 p00 p01 gv0 gv1 q cg)
+      (concat_p1 _ @ concat_1p _)).
+  exact h.
 Defined.
 
 Definition concat_Ap_pV {A B : Type} {f g : A -> B} (h : f == g)
