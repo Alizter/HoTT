@@ -5,9 +5,11 @@ Require Import Pointed.Core Pointed.pEquiv.
 Require Import Spaces.Spheres.
 Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1 Homotopy.HSpaceS3.
 Require Import Homotopy.CayleyDickson Homotopy.Suspension.
+Require Import Homotopy.NullHomotopy.
 Require Import Homotopy.Join.Core Homotopy.Join.JoinSusp.
 Require Export Homotopy.HSpaceS7.LeftScalar Homotopy.HSpaceS7.Balanced.
 Require Export Homotopy.HSpaceS7.MiddleScalar Homotopy.HSpaceS7.RightScalar.
+Require Export Homotopy.HSpaceS7.Direct.
 
 Local Set Universe Minimization ToSet.
 
@@ -16,7 +18,7 @@ Local Open Scope path_scope.
 
 (** * The remaining input for the 7-sphere H-space *)
 
-(** The executable outline is [S7ProofOutline] below. Its single named section hypothesis is precisely the missing proof: the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
+(** The direct route is [S7DirectGluing], with its second doubling and transfer in [hspace_s7_from_direct_mixed] below. It glues [first_l] and [first_r] using two compatible faces and a remaining 4-dimensional mixed filler, without scalar-loop elimination. The older executable loop outline is [S7ProofOutline] below. Its single named section hypothesis is precisely the missing proof for that route: the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
 <<
   four constructor loop proofs
     -> three proved sides, one transported side, and one open mixed coherence
@@ -40,6 +42,24 @@ Proof.
   - reflexivity.
 Defined.
 
+(** ** Direct gluing and second doubling *)
+
+(** This is the direct route's final assembly. The only missing input is [S7DirectGluing.Mixed], with the two whole faces and their intersection already constructed. Neither the loop outline's OPEN 5 nor a prescribed last-argument associator is an input. *)
+Definition hspace_s7_from_direct_mixed `{Univalence}
+  (mixed : forall a b s t c d : Sphere 1,
+    S7DirectGluing.Mixed a b s t c d)
+  : IsHSpace (psphere 7).
+Proof.
+  pose proof (S7DirectGluing.associative mixed).
+  pose (spheroid3 := cd_spheroid_of_associative (X:=psphere 1)).
+  napply (ishspace_equiv_hspace pequiv_iterated_join_s1_s7^-1*).
+  nrefine (@hspace_cd (pjoin (psphere 1) (Sphere 1)) spheroid3 _ _).
+  - exact _.
+  - exact cd_diamond_double.
+Defined.
+
+(** ** The earlier scalar-loop route *)
+
 (** The diagonal circle-action approach starts with [cd_diamond_parameter_translate] and [cd_op_diamond_normalize]. The comparison [cd_op_diamond_diagonal] uses connectedness and 1-truncation of the scalars to make each vertex path independent of the other labels. The dependent mixed case [cd_op_diagonal_equivariance_glue_glue] converts that comparison using the actual recursor computations and the four specified side faces. Thus [cd_op_diagonal_equivariance] is a full homotopy and gives [cd_assoc_last_joinl]. The unit join glue additionally gives [cd_chi_homotopic_id], whose specified symmetry homotopy [cd_op_chi_equivariance] yields [cd_assoc_last_joinr]. This construction does not assert an equality between scalar-normalized reflected diamonds. Both partial associators have arbitrary preceding join arguments, and [cd_assoc_last_glue_unit] proves their compatibility across the unit join glue. *)
 
 (** For assembling an associator, [cd_assoc_last_joinr_transport] is a different right partial associator: it transports the unchanged left associator at the unit along [jglue mon_unit d]. Thus the whole unit-left-label boundary is automatic. At [d = mon_unit], [cd_assoc_last_glue_unit] compares this choice with the symmetry-based right associator; no comparison at arbitrary [d] is required or asserted.
@@ -58,6 +78,7 @@ The four lemmas [cd_assoc_last_transport_loop_ll], [cd_assoc_last_transport_loop
 Module S7ProofOutline.
 Section Construction.
   Context `{Univalence}.
+  Local Opaque ap_loop_nullhomotopic.
 
   (** Share the scalar witnesses with the proved left row; independent universe instances of truncation proofs need not be definitionally interchangeable. *)
   Local Existing Instances S7LeftScalar.circle_imaginaroid
@@ -87,38 +108,20 @@ Section Construction.
   Definition m_rr (a b d : C) : M (joinr a) (joinr b) d
     := cd_assoc_last_transport_loop_rr@{Set} a b d ell.
 
-  Local Opaque m_ll m_lr m_rl m_rr.
+  (** Step 2: use the already constructed [row_loop] families directly, rather than reconstructing them by join induction from their dependent applications. *)
 
   (** Former OPEN 1 is proved by the first-left-scalar associator and its overlap with [AL]. Its corner values retain the original [m_ll] and [m_lr] witnesses. *)
-  Local Notation loop_y_joinl :=
-    (fun a b b' d => S7LeftScalar.loop_y_joinl
-      cd_diamond_susp a b b' d ell).
+  Definition loop_row_l (a d : C) : forall y : J, M (joinl a) y d
+    := fun y => S7LeftScalar.row_loop cd_diamond_susp a d y ell.
 
   (** Former OPEN 2 is proved by the first-right scalar associator and its overlap with [AL]. The canonical diamond's turn law, reversed-edge computations, and original [m_rl]/[m_rr] witnesses are retained. *)
-  Local Notation loop_y_joinr :=
-    (fun a b b' d => S7RightScalar.loop_y_joinr a b b' d ell).
+  Definition loop_row_r (a d : C) : forall y : J, M (joinr a) y d
+    := fun y => S7RightScalar.row_loop a d y ell.
 
   (** Former OPEN 3 is proved using middle-left associativity with the original constructor rows and its overlap with [AL]. *)
   Local Notation loop_x_joinl :=
     (fun a a' b d => S7MiddleScalar.loop_x_joinl
       cd_diamond_susp a a' b d ell).
-
-  (** Step 2: the two proved comparisons assemble the rows. *)
-  Definition loop_row_l (a d : C) : forall y : J, M (joinl a) y d.
-  Proof.
-    snapply Join_ind.
-    - exact (fun b => m_ll a b d).
-    - exact (fun b => m_lr a b d).
-    - exact (fun b b' => loop_y_joinl a b b' d).
-  Defined.
-
-  Definition loop_row_r (a d : C) : forall y : J, M (joinr a) y d.
-  Proof.
-    snapply Join_ind.
-    - exact (fun b => m_rl a b d).
-    - exact (fun b => m_rr a b d).
-    - exact (fun b b' => loop_y_joinr a b b' d).
-  Defined.
 
   (** This is the remaining x-glue family. It contains both previously chosen y-glue comparisons through the rows. *)
   Definition XGlue (a a' d : C) (y : J)
@@ -132,7 +135,7 @@ Section Construction.
     := transport (XGlue a a' d) (jglue North b)
       (loop_x_joinl a a' North d).
 
-  (** OPEN 5: compatibility of all four chosen sides. First expose [XGlue] and use [Join_ind_beta_jglue] for both rows. Normalize the two-variable transports before comparing the resulting pastings of OPEN 1--4. Any remaining comparison of actual mixed fillers must then be proved, not inferred from matching boundaries. If necessary, specialize that residual statement to [cd_diamond_susp] and its north, south, and meridian computations. *)
+  (** OPEN 5: compatibility of all four chosen sides. First expose [XGlue] and the original [row_loop] families. Their y-glue comparisons come from dependent application, without a further join-induction beta rule. Normalize the two-variable transports before comparing the resulting pastings of OPEN 1--4. Any remaining comparison of actual mixed fillers must then be proved, not inferred from matching boundaries. If necessary, specialize that residual statement to [cd_diamond_susp] and its north, south, and meridian computations. *)
   Context (loop_mixed : forall a a' b b' d : C,
     transport (XGlue a a' d) (jglue b b') (loop_x_joinl a a' b d)
       = loop_x_joinr a a' b' d).

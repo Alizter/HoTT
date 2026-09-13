@@ -83,3 +83,91 @@ Section Homotopy2.
     - exact (fun a b => Join_ind2_FlFr_glue a b y).
   Defined.
 End Homotopy2.
+
+(** * Dependent extension from two compatible left faces *)
+
+(** The two faces have one arbitrary join coordinate each. Their intersection comparison is supplied, not inferred from matching types. Right-constructor data are chosen by transport from [a0] and [c0], leaving precisely the mixed glue comparison as an input. *)
+Section FromLeftFaces.
+  Universes u v w z s t p.
+  Context {A : Type@{u}} {B : Type@{v}}
+    {C : Type@{w}} {D : Type@{z}}
+    (P : Join@{u v s} A B -> Join@{w z t} C D -> Type@{p})
+    (a0 : A) (c0 : C)
+    (left : forall a y, P (joinl a) y)
+    (bottom : forall x c, P x (joinl c))
+    (agree : forall a c, bottom (joinl a) c = left a (joinl c)).
+
+  Definition Join_ind2_from_left_right (b : B) (y : Join C D)
+    : P (joinr b) y
+    := transport (fun x => P x y) (jglue a0 b) (left a0 y).
+
+  Definition JoinInd2LeftGlue (a : A) (b : B) (y : Join C D)
+    := transport (fun x => P x y) (jglue a b) (left a y)
+      = Join_ind2_from_left_right b y.
+
+  (** The comparison on the transported right row retains the chosen intersection path and the dependent application of [bottom]. *)
+  Definition Join_ind2_from_left_overlap_r (b : B) (c : C)
+    : bottom (joinr b) c = Join_ind2_from_left_right b (joinl c)
+    := (apD (fun x => bottom x c) (jglue a0 b))^
+      @ ap (transport (fun x => P x (joinl c)) (jglue a0 b))
+        (agree a0 c).
+
+  Definition Join_ind2_from_left_glue_l (a : A) (b : B) (c : C)
+    : JoinInd2LeftGlue a b (joinl c)
+    := ((apD (fun x => bottom x c) (jglue a b))^
+        @ ap (transport (fun x => P x (joinl c)) (jglue a b))
+          (agree a c))^
+      @ Join_ind2_from_left_overlap_r b c.
+
+  Definition Join_ind2_from_left_glue_r (a : A) (b : B) (d : D)
+    : JoinInd2LeftGlue a b (joinr d)
+    := transport (JoinInd2LeftGlue a b) (jglue c0 d)
+      (Join_ind2_from_left_glue_l a b c0).
+
+  (** At [a0] the mixed comparison is supplied by the canonical contraction of an inverse followed by its path. This is a computation with the specified side, not uniqueness of fillers. *)
+  Definition Join_ind2_from_left_mixed_base (b : B) (c : C) (d : D)
+    : transport (JoinInd2LeftGlue a0 b) (jglue c d)
+        (Join_ind2_from_left_glue_l a0 b c)
+      = Join_ind2_from_left_glue_r a0 b d.
+  Proof.
+    refine (ap (transport (JoinInd2LeftGlue a0 b) (jglue c d))
+      (concat_Vp _) @ _).
+    refine (apD (fun y => idpath (Join_ind2_from_left_right b y))
+      (jglue c d) @ _).
+    refine ((apD (fun y => idpath (Join_ind2_from_left_right b y))
+      (jglue c0 d))^ @ _).
+    exact (ap (transport (JoinInd2LeftGlue a0 b) (jglue c0 d))
+      (concat_Vp _)^).
+  Defined.
+
+  Context (mixed : forall a b c d,
+    transport (JoinInd2LeftGlue a b) (jglue c d)
+      (Join_ind2_from_left_glue_l a b c)
+    = Join_ind2_from_left_glue_r a b d).
+
+  Definition Join_ind2_from_left_glue (a : A) (b : B)
+    : forall y, JoinInd2LeftGlue a b y
+    := Join_ind _ (Join_ind2_from_left_glue_l a b)
+      (Join_ind2_from_left_glue_r a b) (mixed a b).
+
+  Definition Join_ind2_from_left (x : Join A B) (y : Join C D) : P x y
+    := Join_ind (fun x => P x y) (fun a => left a y)
+      (fun b => Join_ind2_from_left_right b y)
+      (fun a b => Join_ind2_from_left_glue a b y) x.
+
+  (** The other whole face is retained up to the specified intersection comparison. At left constructors this computes to [agree]. *)
+  Definition Join_ind2_from_left_overlap (x : Join A B) (c : C)
+    : bottom x c = Join_ind2_from_left x (joinl c).
+  Proof.
+    revert x; snapply Join_ind.
+    - exact (fun a => agree a c).
+    - exact (fun b => Join_ind2_from_left_overlap_r b c).
+    - intros a b.
+      lhs napply (transport_paths_FlFr_D
+        (f:=fun x => bottom x c)
+        (g:=fun x => Join_ind2_from_left x (joinl c))
+        (jglue a b) (agree a c)).
+      lhs napply (1 @@ Join_ind_beta_jglue _ _ _ _ a b).
+      exact (concat_p_Vp _ _).
+  Defined.
+End FromLeftFaces.

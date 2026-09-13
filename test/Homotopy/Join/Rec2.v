@@ -74,3 +74,63 @@ Section Computation.
   Example column_r (a : A) (b : B) (d : D)
     : glue a b (joinr d) = hv1 a b d := idpath.
 End Computation.
+
+(** A genuinely dependent family, independent source and fiber universes, and a specified comparison on the intersection of the two whole faces. *)
+Section LeftFaces.
+  Universes u v w z s t p.
+  Context {A : Type@{u}} {B : Type@{v}}
+    {C : Type@{w}} {D : Type@{z}}
+    (P : Join@{u v s} A B -> Join@{w z t} C D -> Type@{p})
+    (a0 : A) (c0 : C)
+    (left : forall a y, P (joinl a) y)
+    (bottom : forall x c, P x (joinl c))
+    (agree : forall a c, bottom (joinl a) c = left a (joinl c)).
+
+  Let R := Join_ind2_from_left_right P a0 left.
+  Let E := JoinInd2LeftGlue P a0 left.
+  Let gl := Join_ind2_from_left_glue_l P a0 left bottom agree.
+  Let gr := Join_ind2_from_left_glue_r P a0 c0 left bottom agree.
+
+  Example mixed_at_base (b : B) (c : C) (d : D)
+    : transport (E a0 b) (jglue c d) (gl a0 b c) = gr a0 b d
+    := Join_ind2_from_left_mixed_base P a0 c0 left bottom agree b c d.
+  Example mixed_at_last_base (a : A) (b : B) (d : D)
+    : transport (E a b) (jglue c0 d) (gl a b c0) = gr a b d
+    := idpath.
+
+  Context (mixed : forall a b c d,
+    transport (E a b) (jglue c d) (gl a b c) = gr a b d).
+  Let ext := Join_ind2_from_left@{u v w z s t p}
+    P a0 c0 left bottom agree mixed.
+  Let glue := Join_ind2_from_left_glue@{u v w z s t p}
+    P a0 c0 left bottom agree mixed.
+  Let overlap := Join_ind2_from_left_overlap@{u v w z s t p}
+    P a0 c0 left bottom agree mixed.
+
+  Example whole_left_face (a : A) (y : Join C D)
+    : ext (joinl a) y = left a y := idpath.
+  Example transported_right_face (b : B) (y : Join C D)
+    : ext (joinr b) y = R b y := idpath.
+  Example first_glue (a : A) (b : B) (y : Join C D)
+    : apD (fun x => ext x y) (jglue a b) = glue a b y.
+  Proof.
+    exact (Join_ind_beta_jglue _ _ _ _ a b).
+  Defined.
+  Example glue_left (a : A) (b : B) (c : C)
+    : glue a b (joinl c) = gl a b c := idpath.
+  Example glue_right (a : A) (b : B) (d : D)
+    : glue a b (joinr d) = gr a b d := idpath.
+  Example specified_mixed (a : A) (b : B) (c : C) (d : D)
+    : apD (glue a b) (jglue c d) = mixed a b c d.
+  Proof.
+    exact (Join_ind_beta_jglue _ _ _ _ c d).
+  Defined.
+  Example other_whole_face (x : Join A B) (c : C)
+    : bottom x c = ext x (joinl c) := overlap x c.
+  Example specified_intersection (a : A) (c : C)
+    : overlap (joinl a) c = agree a c := idpath.
+  Example specified_right_overlap (b : B) (c : C)
+    : overlap (joinr b) c
+      = Join_ind2_from_left_overlap_r P a0 left bottom agree b c
+    := idpath.
+End LeftFaces.

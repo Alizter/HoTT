@@ -4,7 +4,7 @@ From HoTT Require Import Pointed.Core Spaces.Spheres.
 From HoTT Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1.
 From HoTT Require Import Homotopy.HSpaceS3 Homotopy.HSpaceS7.
 From HoTT Require Import Homotopy.CayleyDickson Homotopy.Suspension.
-From HoTT Require Import Homotopy.Join.Core.
+From HoTT Require Import Homotopy.Join.Core Homotopy.NullHomotopy.
 
 Local Set Universe Minimization ToSet.
 Local Open Scope pointed_scope.
@@ -15,6 +15,7 @@ Module O := S7ProofOutline.
 (** Test the actual outline in [theories/Homotopy/HSpaceS7.v], not a second implementation of the assembly. The sole remaining open comparison is an explicit parameter. Both rows and the left column use proved comparisons; the right column is transported. *)
 Section OutlineChecks.
   Context `{Univalence}.
+  Local Opaque ap_loop_nullhomotopic.
   Local Existing Instances S7LeftScalar.circle_imaginaroid
     S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
     S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
@@ -44,6 +45,15 @@ Section OutlineChecks.
 
   Example right_row_without_gaps (a d : C) (y : J)
     : M (joinr a) y d := O.loop_row_r a d y.
+
+  (** The outline reuses the whole nullhomotopy families, not just their constructor values. *)
+  Example row_l_direct (a d : C)
+    : O.loop_row_l a d
+      = (fun y => S7LeftScalar.row_loop cd_diamond_susp a d y ell)
+    := idpath.
+  Example row_r_direct (a d : C)
+    : O.loop_row_r a d = (fun y => S7RightScalar.row_loop a d y ell)
+    := idpath.
 
   Local Notation loop_x_joinl :=
     (fun a a' b d => S7MiddleScalar.loop_x_joinl
@@ -79,13 +89,13 @@ Section OutlineChecks.
   Example row_l_glue (a b b' d : C)
     : apD (row_l a d) (jglue b b') = loop_y_joinl a b b' d.
   Proof.
-    exact (Join_ind_beta_jglue _ _ _ _ b b').
+    unfold S7LeftScalar.loop_y_joinl.
+    rhs napply concat_1p.
+    exact (concat_p1 _)^.
   Defined.
   Example row_r_glue (a b b' d : C)
-    : apD (row_r a d) (jglue b b') = loop_y_joinr a b b' d.
-  Proof.
-    exact (Join_ind_beta_jglue _ _ _ _ b b').
-  Defined.
+    : apD (row_r a d) (jglue b b') = loop_y_joinr a b b' d
+    := idpath.
   Example column_mixed (a a' b b' d : C)
     : apD (column a a' d) (jglue b b') = loop_mixed a a' b b' d.
   Proof.

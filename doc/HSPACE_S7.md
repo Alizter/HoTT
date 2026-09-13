@@ -1,25 +1,114 @@
-# S⁷: scalar actions and the remaining mixed comparison
+# S⁷: direct gluing and the remaining mixed comparison
 
-The executable assembly is `S7ProofOutline` in
+The preferred route is now `S7DirectGluing` in
+[`HSpaceS7/Direct.v`](../theories/Homotopy/HSpaceS7/Direct.v), followed by
+`hspace_s7_from_direct_mixed` in
 [`theories/Homotopy/HSpaceS7.v`](../theories/Homotopy/HSpaceS7.v).
-Its sole remaining hypothesis is **OPEN 5**. Former OPEN 1, OPEN 2, and OPEN 3
-are supplied by `S7LeftScalar.loop_y_joinl`, `S7RightScalar.loop_y_joinr`, and
-`S7MiddleScalar.loop_x_joinl`. Former OPEN 4 is constructed by transport;
-it is not an independent input. The right row uses the actual canonical
-suspension diamond and retains the original corner loop witnesses.
+It uses the existing `first_l`, `first_r`, `middle_l`, and their overlaps,
+with the unchanged multiplication and canonical diamond. Two compatible
+whole faces are proved; the remaining input is the explicit **4-path
+`S7DirectGluing.Mixed`**. It has not been proved in general.
+
+The earlier scalar-loop assembly remains available separately as
+`S7ProofOutline`. Its sole remaining hypothesis is **OPEN 5**. Former
+OPEN 1, OPEN 2, and OPEN 3 are supplied by `S7LeftScalar.loop_y_joinl`,
+`S7RightScalar.loop_y_joinr`, and `S7MiddleScalar.loop_x_joinl`; former OPEN 4
+is constructed by transport. The new `Mixed` is not asserted to equal this
+older loop-family obligation.
 
 The associativity required here is that of the **circle double**, which is
 pointedly equivalent to S³. The resulting structure on S⁷ only needs to be an
 H-space. No associator pentagon is required for the second doubling.
 
-## 1. Current proof structure
+## Direct gluing
+
+Write `P(x,y,z) := (mu (mu x y) z = mu x (mu y z))`, and let `BL`, `BR`, and
+`BM` be the existing first-left, first-right, and middle-left associators.
+For fixed `y,z`, put `F(x) := mu (mu x y) z` and
+`G(x) := mu x (mu y z)`. The first-argument join glue requires
+
+```text
+Gamma a b y z := ap F (jglue a b) @ BR b y z
+                = BL a y z @ ap G (jglue a b).
+```
+
+The following constructions are checked:
+
+- `face_y a b s z` is `concat_Ap (fun x => BM s x z) (jglue a b)`.
+  Its endpoints are definitionally the original `BL` and `BR` rows.
+- `face_z a b y c` is naturality of `AL (-) y c`, with its endpoints
+  replaced using the original left and right overlaps.
+- `face_overlap a b s c` identifies `face_z a b (joinl s) c` with
+  `face_y a b s (joinl c)`. It is obtained from
+  `concat_Ap_homotopic` applied to the middle overlap, whose endpoint
+  components are precisely the two overlaps used by `face_z`.
+
+### The exact remaining extension
+
+The general dependent construction `Join_ind2_from_left` in
+[`Join/Rec2.v`](../theories/Homotopy/Join/Rec2.v) extends two compatible
+left faces, with right-constructor data chosen by transport. It works for
+arbitrary dependent families and independent source and fiber universes;
+it does not assume truncation or extensionality.
+
+For `Gamma a b`, abbreviate its chosen right row and remaining y-glue family
+by
+
+```text
+R t z   := transport (fun y => Gamma a b y z) (jglue North t)
+             (face_y a b North z)
+E s t z := transport (fun y => Gamma a b y z) (jglue s t)
+             (face_y a b s z) = R t z.
+```
+
+The known last-left face and intersection comparison supply
+`el s t c : E s t (joinl c)`. Explicitly, with
+
+```text
+h s t c := (apD (fun y => face_z a b y c) (jglue s t))^
+             @ ap (transport (fun y => Gamma a b y (joinl c))
+                    (jglue s t)) (face_overlap a b s c),
+```
+
+we use `el s t c := (h s t c)^ @ h North t c`. Choose
+
+```text
+er s t d := transport (E s t) (jglue North d) (el s t North).
+```
+
+Then **`Mixed a b s t c d`** is exactly
+
+```text
+transport (E s t) (jglue c d) (el s t c) = er s t d.
+```
+
+`Gamma` is a 2-path in the join, `E` a 3-path, and `Mixed` a 4-path.
+Two unit cases are already checked: `s = North` follows by canonical
+cancellation (`Join_ind2_from_left_mixed_base`), and `c = North` is reflexivity. The general
+mixed filler remains open; matching boundaries do not supply it.
+
+Given this one input, `first_glue` extends `Gamma` to arbitrary `y,z`.
+It retains `face_y` definitionally and `face_z` by a comparison whose
+left-constructor value is the actual `face_overlap`. Finally,
+
+```text
+associator x y z := Join_ind_FlFr F G
+  (fun a => BL a y z) (fun b => BR b y z)
+  (fun a b => first_glue a b y z) x.
+```
+
+Reversing this path gives `Associative mu`; second doubling and sphere
+transfer give `hspace_s7_from_direct_mixed`. This route uses no `T`, `M`,
+`ap_loop_nullhomotopic`, or circle induction on the last scalar. It does not
+require prescribed last-argument computation rules for the associator.
+
+## 1. Earlier scalar-loop proof structure
 
 ```text
 m_ll, m_lr, m_rl, m_rr                                  proved
         │
-        ├── loop_y_joinl                               proved
-        ├── loop_y_joinr                               proved (former OPEN 2)
-        │       └── loop_row_l, loop_row_r
+        ├── loop_row_l, loop_row_r                     existing row_loop families
+        │       └── loop_y_joinl, loop_y_joinr          dependent glue comparisons
         │
         ├── loop_x_joinl                               proved
         ├── loop_x_joinr                               transported from proved sides
@@ -53,6 +142,13 @@ AR x y d    = T x y d North
 ell         = merid North @ (merid South)^
 M x y d     = (ap (T x y d) ell = 1)
 ```
+
+`loop_row_l` and `loop_row_r` directly specialize the `row_loop` families in
+`S7LeftScalar` and `S7RightScalar` to `ell`, with the canonical diamond.
+They are not reconstructed by join induction. Their constructor values are
+still definitionally `m_ll`, `m_lr`, `m_rl`, and `m_rr`. The right row's glue
+comparison is definitionally `loop_y_joinr`; the left agrees with
+`loop_y_joinl` after cancelling its reflexive endpoint adjustments.
 
 `AR` is the transported right choice, not the older symmetry-based
 `cd_assoc_last_joinr`. This makes the whole `jglue North d` boundary
@@ -356,9 +452,10 @@ Only choose this comparison after the side constructions are fixed. The
 family `XGlue` contains the chosen y-row proofs, so its dependent glue case
 must match those proofs and the two chosen x-side proofs.
 
-Normalize the dependent transports and use the actual
-`Join_ind_beta_jglue` computations before applying a generic cube lemma.
-`cd_op_diagonal_equivariance_glue_glue` concerns equivariance, not the loop
+Normalize the dependent transports using the original `row_loop` families
+and their chosen overlap computations before applying a generic cube lemma.
+The rows' dependent applications need no additional `Join_ind_beta_jglue`
+comparison. `cd_op_diagonal_equivariance_glue_glue` concerns equivariance, not the loop
 family `M`; using it requires the conversion and boundary matching.
 
 If a geometric symmetry remains, state it with the full boundary and the two
@@ -383,7 +480,9 @@ the available computations are the horizontal/vertical pole fillers and
 
 Tests of the actual implementations live in:
 
-- `test/Homotopy/Join/Rec2.v`: arbitrary corner and edge computations;
+- `test/Homotopy/Join/Rec2.v`: arbitrary corner and edge computations, dependent
+  extension from compatible left faces, independent universes, and the
+  specified intersection and mixed computation;
 - `test/Types/Paths.v`: universe interfaces of the transport conversions;
 - `test/Homotopy/NullHomotopy.v`: the exact loop-closing witness without
   extensionality;
@@ -402,8 +501,12 @@ Tests of the actual implementations live in:
   mixed beta computation, transparency, and arbitrary scalar loops;
 - `test/Homotopy/CayleyDickson.v`: shared scalar witnesses with unchanged
   constructor computations and a supplied diamond;
-- `test/Homotopy/HSpaceS7Outline.v`: the one-hypothesis assembly and its beta
-  rules through the conditional S⁷ H-space.
+- `test/Homotopy/HSpaceS7Direct.v`: the two whole faces, their actual
+  intersection comparison, unit cases of `Mixed`, conditional direct gluing,
+  retained first associators, and second doubling;
+- `test/Homotopy/HSpaceS7Outline.v`: the earlier one-hypothesis loop assembly,
+  direct reuse of the original `row_loop` families, and its beta rules through
+  the conditional S⁷ H-space.
 
 Validate with `dune build`, `dune build test/`, and finally `dune test`, which
 also runs `coqchk`. Full doubled associativity and the unconditional S⁷
