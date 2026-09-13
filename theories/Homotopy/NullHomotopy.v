@@ -78,4 +78,14 @@ Section NullHomotopy.
       apply ap_const.
   Defined.
 
+  (** A specified nullhomotopy sends every loop to reflexivity. Keeping the closing calculation in one definition also makes comparisons of such witnesses depend only on the nullhomotopies themselves. *)
+  Definition ap_loop_nullhomotopic {X Y : Type} {f : X -> Y} {y : Y}
+    (h : forall x, f x = y) {x : X} (p : x = x)
+    : ap f p = 1.
+  Proof.
+    lhs napply (ap_homotopic h p).
+    lhs napply ((1 @@ ap_const p _) @@ 1).
+    lhs napply (concat_p1 _ @@ 1).
+    apply concat_pV.
+  Defined.
 End NullHomotopy.

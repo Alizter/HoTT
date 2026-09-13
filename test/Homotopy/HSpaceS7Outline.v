@@ -12,9 +12,13 @@ Local Open Scope path_scope.
 
 Module O := S7ProofOutline.
 
-(** Test the actual outline in [theories/Homotopy/HSpaceS7.v], not a second implementation of the assembly. All five open comparisons remain explicit parameters of these checks. *)
+(** Test the actual outline in [theories/Homotopy/HSpaceS7.v], not a second implementation of the assembly. The four remaining open comparisons are explicit parameters; the left row uses the proved comparison. *)
 Section OutlineChecks.
   Context `{Univalence}.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
+    S7LeftScalar.circle_truncated.
 
   Local Notation C := (Sphere 1).
   Local Notation J := (Join@{Set Set Set} C C).
@@ -31,10 +35,11 @@ Section OutlineChecks.
 
   Let M (x y : J) (d : C) := ap (T x y d) ell = 1.
 
+  Local Notation loop_y_joinl :=
+    (fun a b b' d => S7LeftScalar.loop_y_joinl
+      cd_diamond_susp a b b' d ell).
+
   Context
-    (loop_y_joinl : forall a b b' d : C,
-      transport (fun y => M (joinl a) y d) (jglue b b') (m_ll a b d)
-        = m_lr a b' d)
     (loop_y_joinr : forall a b b' d : C,
       transport (fun y => M (joinr a) y d) (jglue b b') (m_rl a b d)
         = m_rr a b' d)
@@ -45,20 +50,20 @@ Section OutlineChecks.
       transport (fun x => M x (joinr b) d) (jglue a a') (m_lr a b d)
         = m_rr a' b d).
 
-  Let row_l := O.loop_row_l loop_y_joinl.
+  Let row_l := O.loop_row_l.
   Let row_r := O.loop_row_r loop_y_joinr.
 
   Context (loop_mixed : forall a a' b b' d : C,
-    transport (O.XGlue loop_y_joinl loop_y_joinr a a' d) (jglue b b')
+    transport (O.XGlue loop_y_joinr a a' d) (jglue b b')
       (loop_x_joinl a a' b d) = loop_x_joinr a a' b' d).
 
-  Let column := O.loop_column loop_y_joinl loop_y_joinr
+  Let column := O.loop_column loop_y_joinr
     loop_x_joinl loop_x_joinr loop_mixed.
-  Let loops := O.all_scalar_loops loop_y_joinl loop_y_joinr
+  Let loops := O.all_scalar_loops loop_y_joinr
     loop_x_joinl loop_x_joinr loop_mixed.
-  Let glue := O.last_glue loop_y_joinl loop_y_joinr
+  Let glue := O.last_glue loop_y_joinr
     loop_x_joinl loop_x_joinr loop_mixed.
-  Let assoc := O.associator loop_y_joinl loop_y_joinr
+  Let assoc := O.associator loop_y_joinr
     loop_x_joinl loop_x_joinr loop_mixed.
 
   Example loops_ll (a b d : C)
@@ -107,10 +112,10 @@ Section OutlineChecks.
   Defined.
 
   Example associativity_orientation (x y z : J)
-    : O.associative_cd_s1_from_gaps loop_y_joinl loop_y_joinr
+    : O.associative_cd_s1_from_gaps loop_y_joinr
         loop_x_joinl loop_x_joinr loop_mixed x y z = (assoc x y z)^
     := idpath.
   Example conditional_s7_small : IsHSpace@{Set} (psphere 7)
-    := O.hspace_s7_from_gaps loop_y_joinl loop_y_joinr
+    := O.hspace_s7_from_gaps loop_y_joinr
          loop_x_joinl loop_x_joinr loop_mixed.
 End OutlineChecks.

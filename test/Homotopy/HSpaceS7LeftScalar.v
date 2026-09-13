@@ -1,6 +1,7 @@
 From HoTT Require Import Basics Types.Universe.
 From HoTT Require Import Classes.interfaces.abstract_algebra.
 From HoTT Require Import Pointed.Core Spaces.Spheres.
+From HoTT Require Import Modalities.ReflectiveSubuniverse Truncations.Core.
 From HoTT Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1 Homotopy.HSpaceS3.
 From HoTT Require Import Homotopy.CayleyDickson Homotopy.Join.Core.
 From HoTT Require Import Homotopy.HSpaceS7.LeftScalar Homotopy.Suspension.
@@ -23,6 +24,24 @@ End PolynomialTranslation.
 
 Section ChosenDiamond.
   Context `{Univalence}.
+
+  (** The shared witnesses are the usual circle data, with their universe instances fixed. Check this before registering them locally. *)
+  Example scalar_spheroid
+    : L.circle_spheroid = (_ : CayleyDicksonSpheroid (psphere 1))
+    := idpath.
+  Example scalar_associative
+    : L.circle_associative = (_ : Associative sgop_s1) := idpath.
+  Example scalar_commutative
+    : L.circle_commutative = (_ : Commutative sgop_s1) := idpath.
+  Example scalar_connected
+    : L.circle_connected = (_ : IsConnected (0%trunc) (psphere 1))
+    := idpath.
+  Example scalar_truncated
+    : L.circle_truncated = (_ : IsTrunc 1 (psphere 1)) := idpath.
+
+  Local Existing Instances L.circle_imaginaroid L.circle_spheroid
+    L.circle_associative L.circle_commutative L.circle_connected
+    L.circle_truncated.
   Context (D : CayleyDicksonDiamond (psphere 1) (-)).
   Local Existing Instance D.
   Local Notation C := (Sphere 1).
@@ -60,21 +79,29 @@ Section ChosenDiamond.
     exact (Join_ind_beta_jglue _ _ _ _ c d).
   Defined.
 
-  (** This remains a conditional test of the overlap reduction, not a proof of the missing comparison. *)
-  Context (q : forall s a b c : C,
-    concat_Ap (fun y => cd_assoc_last_joinl@{Set} (X:=psphere 1) (joinl s) y c)
-        (jglue a b) @ (cd_assoc_last_joinl_first_ll@{Set} s a c @@ 1)
-      = (1 @@ cd_assoc_last_joinl_first_lr@{Set} s b c)
-        @ L.first_l_glue_l D s a b c).
-
-  Example conditional_loop_row_l (s a d : C)
-    : L.row_loop D q s d (joinl a) (merid North @ (merid South)^)
+  (** The overlap and loop comparison have no additional coherence inputs. *)
+  Example overlap_row_l (s a c : C)
+    : L.overlap D s (joinl a) c
+      = cd_assoc_last_joinl_first_ll@{Set} (X:=psphere 1) s a c
+    := idpath.
+  Example overlap_row_r (s b c : C)
+    : L.overlap D s (joinr b) c
+      = cd_assoc_last_joinl_first_lr@{Set} (X:=psphere 1) s b c
+    := idpath.
+  Example loop_row_l (s a d : C)
+    : L.row_loop D s d (joinl a) (merid North @ (merid South)^)
       = cd_assoc_last_transport_loop_ll@{Set} (X:=psphere 1) s a d
           (merid North @ (merid South)^)
-    := L.row_loop_l D q s a d (merid North @ (merid South)^).
-  Example conditional_loop_row_r (s b d : C) {c : C} (p : c = c)
-    : L.row_loop D q s d (joinr b) p
+    := L.row_loop_l D s a d (merid North @ (merid South)^).
+  Example loop_row_r (s b d : C) {c : C} (p : c = c)
+    : L.row_loop D s d (joinr b) p
       = cd_assoc_last_transport_loop_lr@{Set} (X:=psphere 1) s b d p
-    := L.row_loop_r D q s b d p.
-  Check (L.loop_y_joinl_from_overlap D q).
+    := L.row_loop_r D s b d p.
+  Example left_loop_glue (s a b d : C) {c : C} (p : c = c)
+    : transport (fun y =>
+        ap (cd_assoc_last_transport@{Set} (X:=psphere 1)
+          (joinl s) y d) p = 1) (jglue a b)
+        (cd_assoc_last_transport_loop_ll@{Set} s a d p)
+      = cd_assoc_last_transport_loop_lr@{Set} s b d p
+    := L.loop_y_joinl D s a b d p.
 End ChosenDiamond.

@@ -6,7 +6,7 @@ Require Import Spaces.Spheres.
 Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1 Homotopy.HSpaceS3.
 Require Import Homotopy.CayleyDickson Homotopy.Suspension.
 Require Import Homotopy.Join.Core Homotopy.Join.JoinSusp.
-Require Export Homotopy.HSpaceS7.LeftScalar.
+Require Export Homotopy.HSpaceS7.LeftScalar Homotopy.HSpaceS7.Balanced.
 
 Local Set Universe Minimization ToSet.
 
@@ -15,10 +15,10 @@ Local Open Scope path_scope.
 
 (** * The remaining input for the 7-sphere H-space *)
 
-(** The executable outline is [S7ProofOutline] below. Its five named section hypotheses are precisely the missing proofs: four sides and the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
+(** The executable outline is [S7ProofOutline] below. Its four named section hypotheses are precisely the missing proofs: three sides and the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
 <<
   four constructor loop proofs
-    -> four join-glue comparisons and one mixed coherence (OPEN)
+    -> one proved join-glue comparison, three open sides, and one open mixed coherence
     -> loop vanishing for arbitrary x,y,d
     -> circle induction in c: the last join glue
     -> join induction in z: the associator
@@ -49,14 +49,20 @@ Writing [T d c := cd_assoc_last_transport x y d c], the remaining glue condition
   m0 : M North
   m1 : transport M ell m0 = m0.
 >>
-The four lemmas [cd_assoc_last_transport_loop_ll], [cd_assoc_last_transport_loop_lr], [cd_assoc_last_transport_loop_rl], and [cd_assoc_last_transport_loop_rr] prove loop vanishing when the preceding arguments are constructors. They are families in [d], so their particular second-label coherences follow by [apD]. These constructor proofs have not been extended across the preceding arguments' join glues. Consequently neither [m0] nor [m1] is supplied for arbitrary [x,y], and no unconditional doubled associativity is asserted here. Connectedness and scalar truncation do not fill these join-valued coherence goals. *)
+The four lemmas [cd_assoc_last_transport_loop_ll], [cd_assoc_last_transport_loop_lr], [cd_assoc_last_transport_loop_rl], and [cd_assoc_last_transport_loop_rr] prove loop vanishing when the preceding arguments are constructors. They are families in [d], so their particular second-label coherences follow by [apD]. [S7LeftScalar.loop_y_joinl] extends the left row across its join glue. The other three sides and their mixed compatibility remain open. Consequently neither [m0] nor [m1] is supplied for arbitrary [x,y], and no unconditional doubled associativity is asserted here. Connectedness and scalar truncation do not fill these join-valued coherence goals. *)
 
-(** ** Executable outline with five open comparisons *)
+(** ** Executable outline with four open comparisons *)
 
 (** Short names are confined to this module. All definitions after the gap hypotheses remain conditional on the hypotheses they use; none is registered as an unconditional associativity or H-space instance. *)
 Module S7ProofOutline.
 Section Construction.
   Context `{Univalence}.
+
+  (** Share the scalar witnesses with the proved left row; independent universe instances of truncation proofs need not be definitionally interchangeable. *)
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
+    S7LeftScalar.circle_truncated.
 
   Local Notation C := (Sphere 1).
   Local Notation J := (Join@{Set Set Set} C C).
@@ -82,17 +88,17 @@ Section Construction.
 
   Local Opaque m_ll m_lr m_rl m_rr.
 
-  (** OPEN 1: compare the [ll] and [lr] loop proofs along a y-glue. [S7LeftScalar.first_l] now assembles their auxiliary associators across this glue, using the actual left-translated diamond. [S7LeftScalar.loop_y_joinl_from_overlap] checks the remaining reduction: compare the fixed [AL] with that associator on the last left copy, retaining the existing [cd_assoc_last_joinl_first_ll] and [cd_assoc_last_joinl_first_lr] witnesses. That one-glue overlap calculation is still unproved. *)
-  Context (loop_y_joinl : forall a b b' d : C,
-    transport (fun y => M (joinl a) y d) (jglue b b') (m_ll a b d)
-      = m_lr a b' d).
+  (** Former OPEN 1 is proved by the first-left-scalar associator and its overlap with [AL]. Its corner values retain the original [m_ll] and [m_lr] witnesses. *)
+  Local Notation loop_y_joinl :=
+    (fun a b b' d => S7LeftScalar.loop_y_joinl
+      cd_diamond_susp a b b' d ell).
 
   (** OPEN 2: the analogous y-glue with x in the right copy. Use the right equivariance row and retain its inverse-edge computations [ap_V] and [inverse_natural]; it is not obtained by declaring a reflection symmetry of the diamond. *)
   Context (loop_y_joinr : forall a b b' d : C,
     transport (fun y => M (joinr a) y d) (jglue b b') (m_rl a b d)
       = m_rr a b' d).
 
-  (** OPEN 3: compare [ll] with [rl] along an x-glue. This is a useful first calculation: the relevant equivariance face is [cd_op_diagonal_equivariance_glue_joinl]. The two auxiliary nullhomotopy centers are values of [cd_assoc_lr b d], whose specified comparison along this glue is [apD]. The comparison of the loop proofs themselves is still missing. *)
+  (** OPEN 3: compare [ll] with [rl] along an x-glue. [cd_assoc_middle_joinl] now supplies partial associativity with this middle scalar and both outer arguments arbitrary. Comparing its choices with [AL] and the original corner witnesses is still required before it gives this loop comparison. The relevant existing equivariance face is [cd_op_diagonal_equivariance_glue_joinl]. *)
   Context (loop_x_joinl : forall a a' b d : C,
     transport (fun x => M x (joinl b) d) (jglue a a') (m_ll a b d)
       = m_rl a' b d).
@@ -102,7 +108,7 @@ Section Construction.
     transport (fun x => M x (joinr b) d) (jglue a a') (m_lr a b d)
       = m_rr a' b d).
 
-  (** Step 2: OPEN 1 and OPEN 2 assemble the two rows. *)
+  (** Step 2: the proved left comparison and OPEN 2 assemble the rows. *)
   Definition loop_row_l (a d : C) : forall y : J, M (joinl a) y d.
   Proof.
     snapply Join_ind.
@@ -146,7 +152,7 @@ Section Construction.
     - exact (fun a a' => loop_column a a' d y).
   Defined.
 
-  (** These are (I) and (II) of the two-circle formulation. Since OPEN 1--5 are families in [d], both follow from the assembled family and are not additional hypotheses. *)
+  (** These are (I) and (II) of the two-circle formulation. Since all five comparisons are families in [d], both follow from the assembled family and are not additional hypotheses. *)
   Let m0 (x y : J) : M x y North := all_scalar_loops x y North.
   Let m1 (x y : J) : transport (M x y) ell (m0 x y) = m0 x y
     := apD (all_scalar_loops x y) ell.
@@ -177,7 +183,7 @@ Section Construction.
   Definition associative_cd_s1_from_gaps : Associative mu
     := fun x y z => (associator x y z)^.
 
-  (** Step 6: inverse uniqueness completes the doubled spheroid; double again and transfer to S7. This definition still has OPEN 1--5 as parameters. *)
+  (** Step 6: inverse uniqueness completes the doubled spheroid; double again and transfer to S7. This definition still has OPEN 2--5 as parameters. *)
   Definition hspace_s7_from_gaps : IsHSpace (psphere 7).
   Proof.
     pose proof associative_cd_s1_from_gaps.
