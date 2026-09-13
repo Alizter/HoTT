@@ -4,7 +4,7 @@ Require Import Classes.interfaces.abstract_algebra.
 Require Import Pointed.Core Spaces.Spheres Truncations.Connectedness.
 Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1 Homotopy.HSpaceS3.
 Require Import Homotopy.CayleyDickson Homotopy.Suspension Homotopy.Join.Core.
-Require Import Homotopy.Join.MapCoherence.
+Require Import Homotopy.Join.MapCoherence Homotopy.NullHomotopy.
 
 Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
@@ -410,24 +410,11 @@ Proof.
     lhs napply naturality_suffix.
     lhs napply naturality_suffix.
     exact (ap (fun q => ev1 @ (1 @@ q)^) (concat_pp_p _ _ _)). }
-  nrefine (equiv_naturality_transport2 _ _ (jglue c d) _ _ _).
-  lhs napply (concat_Ap_concat U (cd_assoc_first_lr D0 s b) (jglue c d) @@ 1).
-  rhs napply (1 @@ concat_Ap_concat (cd_assoc_first_ll D0 s a) V (jglue c d)).
-  lhs napply (ap (concat_natural (ap f0 (jglue c d)) (ap f1 (jglue c d))
-    (ap (rho o g1) (jglue c d)) (U (joinl c)) (U (joinr d))
-    (ap joinr (p10 s b c)) (ap joinl (p11 s b d))
-    (concat_Ap U (jglue c d))) EH1 @@ 1).
-  lhs napply (1 @@ ap (fun q => q @@ idpath (ap (rho o g1) (jglue c d))) EV0).
-  rhs napply (ap (fun q => idpath (ap f0 (jglue c d)) @@ q) EV1 @@ 1).
-  rhs napply (1 @@ ap (fun q => concat_natural
-    (ap f0 (jglue c d)) (ap (rho o g0) (jglue c d)) (ap (rho o g1) (jglue c d))
-    (ap joinl (p00 s a c)) (ap joinr (p01 s a d)) (V (joinl c)) (V (joinr d))
-    q (concat_Ap V (jglue c d))) EH0).
-  napply (naturality_cube_change
-    (ap joinl (p00 s a c)) (ap joinr (p01 s a d))
-    (ap joinr (p10 s b c)) (ap joinl (p11 s b d))
-    bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
-    _ _ _ _ eh0 eh1 ev0 ev1 BF BG).
+  refine (ap (transport _ (jglue c d)) EV0 @ _ @ EV1^).
+  napply (transport_naturality_square_beta U V
+    (cd_assoc_first_ll D0 s a) (cd_assoc_first_lr D0 s b)
+    (jglue c d) bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+    _ _ eh0 eh1 ev0 ev1 BF BG EH0 EH1).
   exact (join_zigzag_filler_cube (p00 s a c) (p11 s b d) (p01 s a d) (p10 s b c)
     _ _ (left_diamond_standard D0 s a b c d)).
 Defined.
@@ -469,6 +456,12 @@ Local Notation qll :=
     circle_spheroid circle_associative D0 circle_commutative circle_connected circle_truncated).
 Local Notation qlr :=
   (fun D0 => @cd_assoc_last_joinl_first_lr@{Set} (psphere 1)
+    circle_spheroid circle_associative D0 circle_commutative circle_connected circle_truncated).
+Local Notation mll :=
+  (fun D0 => @cd_assoc_last_transport_loop_ll@{Set} (psphere 1)
+    circle_spheroid circle_associative D0 circle_commutative circle_connected circle_truncated).
+Local Notation mlr :=
+  (fun D0 => @cd_assoc_last_transport_loop_lr@{Set} (psphere 1)
     circle_spheroid circle_associative D0 circle_commutative circle_connected circle_truncated).
 
 (** ** Agreement with the fixed last-left associator *)
@@ -542,24 +535,23 @@ Definition row_loop `{Univalence}
 Proof.
   pose (K := fun c => ap (transport _ (jglue c d)) (overlap D0 s y c)
     @ apD (first_l D0 s y) (jglue c d)).
-  lhs napply (ap_homotopic K p).
-  lhs napply ((1 @@ ap_const p _) @@ 1).
-  lhs napply (concat_p1 _ @@ 1).
-  apply concat_pV.
+  exact (ap_loop_nullhomotopic K p).
 Defined.
+
+Local Opaque ap_loop_nullhomotopic.
 
 Definition row_loop_l `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-))
   (s a d : C) {c : C} (p : c = c)
   : row_loop D0 s d (joinl a) p
-    = cd_assoc_last_transport_loop_ll@{Set} (X:=psphere 1) s a d p
+    = mll D0 s a d c p
   := idpath.
 
 Definition row_loop_r `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-))
   (s b d : C) {c : C} (p : c = c)
   : row_loop D0 s d (joinr b) p
-    = cd_assoc_last_transport_loop_lr@{Set} (X:=psphere 1) s b d p
+    = mlr D0 s b d c p
   := idpath.
 
 (** OPEN 1 of the S7 outline, now proved for any supplied circle diamond and every scalar loop. *)
@@ -567,8 +559,7 @@ Definition loop_y_joinl `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-))
   (s a b d : C) {c : C} (p : c = c)
   : transport (fun y => ap (T D0 (joinl s) y d) p = 1) (jglue a b)
-      (cd_assoc_last_transport_loop_ll@{Set} (X:=psphere 1) s a d p)
-    = cd_assoc_last_transport_loop_lr@{Set} (X:=psphere 1) s b d p.
+      (mll D0 s a d c p) = mlr D0 s b d c p.
 Proof.
   lhs_V napply (ap (transport (fun y => ap (T D0 (joinl s) y d) p = 1)
     (jglue a b)) (row_loop_l D0 s a d p)).

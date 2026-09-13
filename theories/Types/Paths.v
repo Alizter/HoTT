@@ -503,6 +503,73 @@ Proof.
   exact (equiv_concat_r (concat_p1 (1 @@ v) @ whiskerL_1p_1 v) 1).
 Defined.
 
+(** A cube of naturality squares is the dependent transport equation for a square of homotopies. The four homotopies and the two selected endpoint squares are arbitrary. *)
+Definition transport_naturality_square {A B : Type}
+  {f0 f1 g0 g1 : A -> B}
+  (u : f0 == f1) (v : g0 == g1)
+  (h : f0 == g0) (k : f1 == g1)
+  {x y : A} (p : x = y)
+  (q : u x @ k x = h x @ v x)
+  (r : u y @ k y = h y @ v y)
+  (c : concat_natural (ap f0 p) (ap f1 p) (ap g1 p)
+      (u x) (u y) (k x) (k y) (concat_Ap u p) (concat_Ap k p)
+      @ (q @@ 1)
+    = (1 @@ r) @ concat_natural (ap f0 p) (ap g0 p) (ap g1 p)
+      (h x) (h y) (v x) (v y) (concat_Ap h p) (concat_Ap v p))
+  : transport (fun z => u z @ k z = h z @ v z) p q = r.
+Proof.
+  nrefine (equiv_naturality_transport2
+    (fun z => u z @ k z) (fun z => h z @ v z) p q r _).
+  lhs napply (concat_Ap_concat u k p @@ 1).
+  rhs napply (1 @@ concat_Ap_concat h v p).
+  exact c.
+Defined.
+
+(** The same construction with specified edge computations. Its hypotheses separate the two mixed computations, the two homotopy computations, and the geometric cube. This avoids repeating the beta-path bookkeeping when comparing maps defined by double recursion. *)
+Definition transport_naturality_square_beta {A B : Type}
+  {f0 f1 g0 g1 : A -> B}
+  (u : f0 == f1) (v : g0 == g1)
+  (h : f0 == g0) (k : f1 == g1)
+  {x y : A} (p : x = y)
+  {fh0 : f0 x = f0 y} {fh1 : f1 x = f1 y}
+  {fv0 : f0 x = f1 x} {fv1 : f0 y = f1 y}
+  {gh0 : g0 x = g0 y} {gh1 : g1 x = g1 y}
+  {gv0 : g0 x = g1 x} {gv1 : g0 y = g1 y}
+  (bfh0 : ap f0 p = fh0) (bfh1 : ap f1 p = fh1)
+  (bfv0 : u x = fv0) (bfv1 : u y = fv1)
+  (bgh0 : ap g0 p = gh0) (bgh1 : ap g1 p = gh1)
+  (bgv0 : v x = gv0) (bgv1 : v y = gv1)
+  (cf : fh0 @ fv1 = fv0 @ fh1)
+  (cg : gh0 @ gv1 = gv0 @ gh1)
+  (eh0 : fh0 @ h y = h x @ gh0)
+  (eh1 : fh1 @ k y = k x @ gh1)
+  (ev0 : fv0 @ k x = h x @ gv0)
+  (ev1 : fv1 @ k y = h y @ gv1)
+  (bf : concat_Ap u p @ (bfv0 @@ 1)
+    = (1 @@ bfv1) @ naturality_change bfh0 bfh1 cf)
+  (bg : concat_Ap v p @ (bgv0 @@ 1)
+    = (1 @@ bgv1) @ naturality_change bgh0 bgh1 cg)
+  (bh : concat_Ap h p = naturality_change bfh0 bgh0 eh0)
+  (bk : concat_Ap k p = naturality_change bfh1 bgh1 eh1)
+  (c : concat_natural fh0 fh1 gh1 fv0 fv1 (k x) (k y) cf eh1
+      @ (ev0 @@ 1)
+    = (1 @@ ev1) @ concat_natural fh0 gh0 gh1
+      (h x) (h y) gv0 gv1 eh0 cg)
+  : transport (fun z => u z @ k z = h z @ v z) p
+      (naturality_change bfv0 bgv0 ev0)
+    = naturality_change bfv1 bgv1 ev1.
+Proof.
+  napply (transport_naturality_square u v h k p).
+  lhs napply (ap (concat_natural (ap f0 p) (ap f1 p) (ap g1 p)
+    (u x) (u y) (k x) (k y) (concat_Ap u p)) bk @@ 1).
+  rhs napply (1 @@ ap (fun q => concat_natural
+    (ap f0 p) (ap g0 p) (ap g1 p)
+    (h x) (h y) (v x) (v y) q (concat_Ap v p)) bh).
+  exact (naturality_cube_change (h x) (h y) (k x) (k y)
+    bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+    _ _ cf cg eh0 eh1 ev0 ev1 bf bg c).
+Defined.
+
 (** A unit-based comparison transports to the comparison obtained from the two specified endpoint translations. The homotopies [Ny] and [Nv] retain the chosen unit path and translations. This only concerns a path starting at the distinguished unit parameter [e]. *)
 Definition transport_translation_comparison {A T : Type}
   (e : A) (m : T -> A -> T) (ru : forall z, m z e = z)

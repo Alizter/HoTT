@@ -4,7 +4,7 @@ Require Import Modalities.ReflectiveSubuniverse Truncations.Core.
 Require Import Classes.interfaces.abstract_algebra Classes.theory.groups.
 Require Import Pointed.Core Pointed.pSusp.
 Require Import Homotopy.HSpace.Core Homotopy.HSpace.Coherent.
-Require Import Homotopy.Suspension.
+Require Import Homotopy.Suspension Homotopy.NullHomotopy.
 Require Import Homotopy.Join.Core.
 
 Local Open Scope pointed_scope.
@@ -1389,25 +1389,12 @@ Section SpheroidHSpace.
       lhs napply naturality_suffix.
       exact (ap (fun q => ev1 @ (1 @@ q)^) (concat_pp_p _ _ _)). }
     (** The dependent glue equation is now the cube supplied by [cd_op_diamond_diagonal]. *)
-    nrefine (equiv_naturality_transport2 _ _ (jglue c d) _ _ _).
-    lhs napply (concat_Ap_concat U
-      (cd_op_diagonal_equivariance_joinr r b) (jglue c d) @@ 1).
-    rhs napply (1 @@ concat_Ap_concat
-      (cd_op_diagonal_equivariance_joinl r a) V (jglue c d)).
-    lhs napply (ap (concat_natural
-      (ap (f0 o rho) (jglue c d)) (ap (f1 o rho) (jglue c d))
-      (ap (rho o f1) (jglue c d)) (U (joinl c)) (U (joinr d))
-      (ap joinr p10) (ap joinl p11) (concat_Ap U (jglue c d))) EH1 @@ 1).
-    lhs napply (1 @@ ap (fun q => q @@ idpath (ap (rho o f1) (jglue c d))) EV0).
-    rhs napply (ap (fun q => idpath (ap (f0 o rho) (jglue c d)) @@ q) EV1 @@ 1).
-    rhs napply (1 @@ ap (fun q => concat_natural
-      (ap (f0 o rho) (jglue c d)) (ap (rho o f0) (jglue c d))
-      (ap (rho o f1) (jglue c d)) (ap joinl p00) (ap joinr p01)
-      (V (joinl c)) (V (joinr d)) q (concat_Ap V (jglue c d))) EH0).
-    napply (naturality_cube_change
-      (ap joinl p00) (ap joinr p01) (ap joinr p10) (ap joinl p11)
-      bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
-      _ _ _ _ eh0 eh1 ev0 ev1 BF BG).
+    refine (ap (transport _ (jglue c d)) EV0 @ _ @ EV1^).
+    napply (transport_naturality_square_beta U V
+      (cd_op_diagonal_equivariance_joinl r a)
+      (cd_op_diagonal_equivariance_joinr r b)
+      (jglue c d) bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+      _ _ eh0 eh1 ev0 ev1 BF BG EH0 EH1).
     exact (join_zigzag_filler_cube p00 p11 p01 p10 _ _
       (cd_op_diamond_diagonal a b c d r)).
   Defined.
@@ -1525,10 +1512,7 @@ Section SpheroidHSpace.
     pose (K := fun c => ap (transport _ (jglue c d))
       (cd_assoc_last_joinl_first_ll a b c)
       @ apD (cd_assoc_first_ll a b) (jglue c d)).
-    lhs napply (ap_homotopic K p).
-    lhs napply ((1 @@ ap_const p _) @@ 1).
-    lhs napply (concat_p1 _ @@ 1).
-    apply concat_pV.
+    exact (ap_loop_nullhomotopic K p).
   Defined.
 
   Definition cd_assoc_last_transport_loop_lr (a b d : X)
@@ -1538,10 +1522,7 @@ Section SpheroidHSpace.
     pose (K := fun c => ap (transport _ (jglue c d))
       (cd_assoc_last_joinl_first_lr a b c)
       @ apD (cd_assoc_first_lr a b) (jglue c d)).
-    lhs napply (ap_homotopic K p).
-    lhs napply ((1 @@ ap_const p _) @@ 1).
-    lhs napply (concat_p1 _ @@ 1).
-    apply concat_pV.
+    exact (ap_loop_nullhomotopic K p).
   Defined.
 
   Definition cd_assoc_last_transport_loop_rl (a b d : X)
@@ -1551,10 +1532,7 @@ Section SpheroidHSpace.
     pose (K := fun c => ap (transport _ (jglue c d))
       (cd_assoc_last_joinl_first_rl a b c)
       @ apD (cd_assoc_first_rl a b) (jglue c d)).
-    lhs napply (ap_homotopic K p).
-    lhs napply ((1 @@ ap_const p _) @@ 1).
-    lhs napply (concat_p1 _ @@ 1).
-    apply concat_pV.
+    exact (ap_loop_nullhomotopic K p).
   Defined.
 
   Definition cd_assoc_last_transport_loop_rr (a b d : X)
@@ -1564,10 +1542,7 @@ Section SpheroidHSpace.
     pose (K := fun c => ap (transport _ (jglue c d))
       (cd_assoc_last_joinl_first_rr a b c)
       @ apD (cd_assoc_first_rr a b) (jglue c d)).
-    lhs napply (ap_homotopic K p).
-    lhs napply ((1 @@ ap_const p _) @@ 1).
-    lhs napply (concat_p1 _ @@ 1).
-    apply concat_pV.
+    exact (ap_loop_nullhomotopic K p).
   Defined.
 
   Local Transparent cd_diamond cd_op_diamond.

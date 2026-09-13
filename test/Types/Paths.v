@@ -7,4 +7,6 @@ Section NaturalityUniverses.
 
   Check (@equiv_naturality_transport2@{u v} A B).
   Check (@transport_translation_comparison@{u v} A B).
+  Check (@transport_naturality_square@{u v} A B).
+  Check (@transport_naturality_square_beta@{u v} A B).
 End NaturalityUniverses.
