@@ -1,5 +1,5 @@
 From HoTT Require Import Basics.
-Require Import Types.Paths.
+Require Import Types.Paths Types.Prod.
 Require Import Homotopy.Join.Core Homotopy.Suspension.
 
 Local Open Scope path_scope.
@@ -11,35 +11,6 @@ Definition diamond_susp {A : Type} (t : Susp A)
   := Susp_ind (fun t => zigzag South t North = zigzag South t t)
     (diamond_v South North 1) (diamond_h North South 1)
     (fun a => diamond_twist (merid a)) t.
-
-Local Definition turn_paths {A : Type} {a a' b b' : A}
-  (p : a = b) (q : a = b') (r : a' = b) (s : a' = b')
-  (h : p^ @ q = r^ @ s) : p @ r^ = q @ s^.
-Proof.
-  apply moveL_pV.
-  lhs napply concat_pp_p.
-  lhs_V napply (1 @@ h).
-  apply concat_p_Vp.
-Defined.
-
-Local Definition turn_beta {A B : Type} (f : A -> B)
-  {a a' b : A} (p : a = b) (q : a' = b)
-  {p' : f b = f a} {q' : f b = f a'}
-  (bp : ap f p = p'^) (bq : ap f q = q'^)
-  : ap f (p @ q^) = p'^ @ q'
-  := ap_pV f p q @ (bp @@ (inverse2 bq @ inv_V q')).
-
-Local Definition turn_filler {A B : Type} (f : A -> B)
-  {a a' b b' : A}
-  (p : a = b) (q : a' = b) (r : a = b') (s : a' = b')
-  {p' : f b = f a} {q' : f b = f a'}
-  {r' : f b' = f a} {s' : f b' = f a'}
-  (bp : ap f p = p'^) (bq : ap f q = q'^)
-  (br : ap f r = r'^) (bs : ap f s = s'^)
-  (h : p @ q^ = r @ s^)
-  : p' @ r'^ = q' @ s'^
-  := turn_paths p' q' r' s'
-    ((turn_beta f p q bp bq)^ @ ap (ap f) h @ turn_beta f r s br bs).
 
 Local Definition turn_paths_refl {A : Type} {a b b' : A}
   (p : a = b) (q : a = b')
@@ -55,10 +26,11 @@ Local Definition turn_filler_v {A B : Type} (f : A -> B)
   : turn_filler f p q p q bp bq bp bq 1
     = concat_pV p' @ (concat_pV q')^.
 Proof.
-  unfold turn_filler.
-  refine (ap (turn_paths p' q' p' q') _ @ turn_paths_refl p' q').
-  lhs napply (concat_p1 _ @@ 1).
-  apply concat_Vp.
+  destruct p, q.
+  revert p' bp q' bq.
+  srapply (equiv_path_ind (fun p' => equiv_ap inverse 1 p')).
+  srapply (equiv_path_ind (fun q' => equiv_ap inverse 1 q')).
+  reflexivity.
 Defined.
 
 Local Definition turn_filler_h {A B : Type} (f : A -> B)
@@ -87,39 +59,101 @@ Proof.
 Defined.
 
 (** The turn exchanges the two join factors while applying the scalar map. *)
-Definition join_turn {A B : Type} (f : A -> B) : Join A A -> Join B B
-  := Join_rec (joinr o f) (joinl o f)
-    (fun a b => (jglue (f b) (f a))^).
+Definition join_turn {A B C D : Type} (f : A -> D) (g : B -> C)
+  : Join A B -> Join C D
+  := Join_rec (joinr o f) (joinl o g)
+    (fun a b => (jglue (g b) (f a))^).
 
-Definition join_diamond_turn {A B : Type} (f : A -> B)
-  {a a' b b' : A} (h : zigzag a a' b = zigzag a a' b')
-  : zigzag (f b) (f b') (f a) = zigzag (f b) (f b') (f a')
-  := turn_filler (join_turn f)
+Definition join_diamond_turn {A B C D : Type}
+  (f : A -> D) (g : B -> C)
+  {a a' : A} {b b' : B} (h : zigzag a a' b = zigzag a a' b')
+  : zigzag (g b) (g b') (f a) = zigzag (g b) (g b') (f a')
+  := turn_filler (join_turn f g)
     (jglue a b) (jglue a' b) (jglue a b') (jglue a' b')
     (Join_rec_beta_jglue _ _ _ a b) (Join_rec_beta_jglue _ _ _ a' b)
     (Join_rec_beta_jglue _ _ _ a b') (Join_rec_beta_jglue _ _ _ a' b') h.
 
-Definition join_diamond_turn_v {A B : Type} (f : A -> B) (a a' b : A)
-  : join_diamond_turn f (diamond_v a a' (idpath b))
-    = diamond_h (f a) (f a') (idpath (f b)).
+(** Turning a mapped filler retains the four mapped boundary identifications. This uses naturality of the actual filler, not induction on its fixed join boundary. *)
+Definition join_diamond_turn_map {A B C D E F : Type}
+  (f : A -> C) (g : B -> D) (k : C -> F) (l : D -> E)
+  {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+  (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  : join_diamond_turn k l (join_zigzag_filler f g p q r s h)
+    = transport011
+      (fun x : E * E => fun y : F * F =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (ap l r) (ap l s)) (path_prod' (ap k p) (ap k q))
+      (join_diamond_turn (k o f) (l o g) h).
 Proof.
-  exact (turn_filler_v (join_turn f) (jglue a b) (jglue a' b) _ _).
+  destruct p, q, r, s.
+  lhs napply (ap (join_diamond_turn k l) (join_zigzag_filler_refl f g h)).
+  unfold join_diamond_turn, turn_filler.
+  napply (ap (turn_paths _ _ _ _)).
+  napply (ap (fun v => (1 @@ inv_V _)^ @ v @ (1 @@ inv_V _))).
+  exact (Join_rec_postcompose_filler (joinl o f) (joinr o g)
+    (fun a b => jglue (f a) (g b)) (join_turn k l)
+    (fun a b => (jglue (l (g b)) (k (f a)))^)
+    (fun a b => Join_rec_beta_jglue _ _ _ (f a) (g b)) h).
 Defined.
 
-Definition join_diamond_turn_h {A B : Type} (f : A -> B) (a b b' : A)
-  : join_diamond_turn f (diamond_h b b' (idpath a))
-    = diamond_v (f b) (f b') (idpath (f a)).
+(** Mapping after a turn agrees with turning by the composite scalar maps. The reversed intermediate glues and their [ap_V] computations are explicit. *)
+Definition join_diamond_map_turn {A B C D E F : Type}
+  (f : A -> D) (g : B -> C) (k : C -> E) (l : D -> F)
+  {a a' : A} {b b' : B} {c c' : E} {d d' : F}
+  (p : k (g b) = c) (q : k (g b') = c')
+  (r : l (f a) = d) (s : l (f a') = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  : join_zigzag_filler k l p q r s (join_diamond_turn f g h)
+    = transport011
+      (fun x : E * E => fun y : F * F =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' p q) (path_prod' r s)
+      (join_diamond_turn (l o f) (k o g) h).
 Proof.
-  exact (turn_filler_h (join_turn f) (jglue a b) (jglue a b') _ _).
+  destruct p, q, r, s.
+  lhs napply (join_zigzag_filler_refl k l).
+  lhs napply (turn_filler_map (join_turn f g) (functor_join k l)
+    (jglue a b) (jglue a' b) (jglue a b') (jglue a' b')
+    (Join_rec_beta_jglue _ _ _ a b) (Join_rec_beta_jglue _ _ _ a' b)
+    (Join_rec_beta_jglue _ _ _ a b') (Join_rec_beta_jglue _ _ _ a' b')
+    (functor_join_beta_jglue k l (g b) (f a))
+    (functor_join_beta_jglue k l (g b) (f a'))
+    (functor_join_beta_jglue k l (g b') (f a))
+    (functor_join_beta_jglue k l (g b') (f a')) h).
+  unfold join_diamond_turn, turn_filler.
+  napply (ap (turn_paths _ _ _ _)).
+  napply (ap (fun v => (1 @@ inv_V _)^ @ v @ (1 @@ inv_V _))).
+  exact (Join_rec_postcompose_filler (joinr o f) (joinl o g)
+    (fun a b => (jglue (g b) (f a))^) (functor_join k l)
+    (fun a b => (jglue (k (g b)) (l (f a)))^)
+    (fun a b => ap_V (functor_join k l) (jglue (g b) (f a))
+      @ inverse2 (functor_join_beta_jglue k l (g b) (f a))) h).
+Defined.
+
+Definition join_diamond_turn_v {A B C D : Type}
+  (f : A -> D) (g : B -> C) (a a' : A) (b : B)
+  : join_diamond_turn f g (diamond_v a a' (idpath b))
+    = diamond_h (f a) (f a') (idpath (g b)).
+Proof.
+  exact (turn_filler_v (join_turn f g) (jglue a b) (jglue a' b) _ _).
+Defined.
+
+Definition join_diamond_turn_h {A B C D : Type}
+  (f : A -> D) (g : B -> C) (a : A) (b b' : B)
+  : join_diamond_turn f g (diamond_h b b' (idpath a))
+    = diamond_v (g b) (g b') (idpath (f a)).
+Proof.
+  exact (turn_filler_h (join_turn f g) (jglue a b) (jglue a b') _ _).
 Defined.
 
 (** The two pole computations are compatible with the chosen suspension twist. The eliminated path is free; no fixed join glue or diamond is eliminated. *)
 Definition join_diamond_turn_twist {A B : Type} (f : A -> B)
   {n s : A} (p : n = s)
   : let Q := fun t => zigzag (f n) t (f s) = zigzag (f n) t t in
-    ap01D1 (fun t => @join_diamond_turn A B f s t n t)
-      p (diamond_twist p) @ join_diamond_turn_h f s n s
-    = (ap (transport (fun t => Q (f t)) p) (join_diamond_turn_v f s n n)
+    ap01D1 (fun t => @join_diamond_turn A A B B f f s t n t)
+      p (diamond_twist p) @ join_diamond_turn_h f f s n s
+    = (ap (transport (fun t => Q (f t)) p) (join_diamond_turn_v f f s n n)
         @ transport_compose Q f p (diamond_h (f s) (f n) 1))
       @ moveR_transport_p Q (ap f p) _ _ (diamond_twist (ap f p)^)^.
 Proof.
@@ -127,7 +161,7 @@ Proof.
   cbn [ap01D1 transport transport_compose ap moveR_transport_p].
   rhs napply (concat_p1 _ @@ 1).
   rhs napply (ap_idmap _ @@ 1).
-  exact (turn_filler_symm (join_turn f) (jglue n n) _).
+  exact (turn_filler_symm (join_turn f f) (jglue n n) _).
 Defined.
 
 Local Definition diamond_twist_inverse {A : Type} {n s : A} (p : n = s)
@@ -141,16 +175,17 @@ Defined.
 (** Negating a suspension reverses the pole computations as well as the meridians. The chosen turn respects both, not just the four vertices. *)
 Definition diamond_susp_turn {A B : Type} (g : A -> B)
   : forall t : Susp A,
-    join_diamond_turn (susp_neg B o functor_susp g) (diamond_susp t)
+    join_diamond_turn (susp_neg B o functor_susp g)
+      (susp_neg B o functor_susp g) (diamond_susp t)
       = diamond_susp (susp_neg B (functor_susp g t)).
 Proof.
   pose (f := susp_neg B o functor_susp g).
   pose (Q := fun t : Susp B => zigzag South t North = zigzag South t t).
-  pose (turn := fun t => @join_diamond_turn (Susp A) (Susp B)
-    f South t North t).
+  pose (turn := fun t => @join_diamond_turn
+    (Susp A) (Susp A) (Susp B) (Susp B) f f South t North t).
   snapply Susp_ind.
-  - exact (join_diamond_turn_v f South North North).
-  - exact (join_diamond_turn_h f South North South).
+  - exact (join_diamond_turn_v f f South North North).
+  - exact (join_diamond_turn_h f f South North South).
   - intro a.
     assert (E : forall (q : South = North :> Susp B),
       q = (merid (g a))^ ->

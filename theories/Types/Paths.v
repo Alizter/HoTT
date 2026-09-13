@@ -650,6 +650,110 @@ Proof.
   destruct h; reflexivity.
 Defined.
 
+(** Turning a square exchanges its two pairs of opposite edges. *)
+Definition turn_paths {A : Type} {a a' b b' : A}
+  (p : a = b) (q : a = b') (r : a' = b) (s : a' = b')
+  (h : p^ @ q = r^ @ s) : p @ r^ = q @ s^.
+Proof.
+  apply moveL_pV.
+  lhs napply concat_pp_p.
+  lhs_V napply (1 @@ h).
+  apply concat_p_Vp.
+Defined.
+
+(** Map and turn a filler using the four specified reversed edge computations. *)
+Definition turn_filler {A B : Type} (f : A -> B)
+  {a a' b b' : A}
+  (p : a = b) (q : a' = b) (r : a = b') (s : a' = b')
+  {p' : f b = f a} {q' : f b = f a'}
+  {r' : f b' = f a} {s' : f b' = f a'}
+  (bp : ap f p = p'^) (bq : ap f q = q'^)
+  (br : ap f r = r'^) (bs : ap f s = s'^)
+  (h : p @ q^ = r @ s^)
+  : p' @ r'^ = q' @ s'^
+  := turn_paths p' q' r' s'
+    ((1 @@ inv_V q')^
+      @ ((ap_pV f p q @ (bp @@ inverse2 bq))^
+        @ (ap (ap f) h @ (ap_pV f r s @ (br @@ inverse2 bs))))
+      @ (1 @@ inv_V s')).
+
+(** The mixed computation of the inverse filler after a turn. This retains [ap_V] and the double-inverse computations, rather than treating the turn as a renaming of the square. *)
+Definition turn_filler_beta {A B : Type} (f : A -> B)
+  {a a' b b' : A}
+  (p : a = b) (q : a' = b) (r : a = b') (s : a' = b')
+  {p' : f b = f a} {q' : f b = f a'}
+  {r' : f b' = f a} {s' : f b' = f a'}
+  (bp : ap f p = p'^) (bq : ap f q = q'^)
+  (br : ap f r = r'^) (bs : ap f s = s'^)
+  (h : p @ q^ = r @ s^)
+  : ap_naturality f h^ @ (bp @@ 1)
+    = (1 @@ ((ap_V f s @ inverse2 bs) @ inv_V s'))
+      @ naturality_change br ((ap_V f q @ inverse2 bq) @ inv_V q')
+        ((1 @@ inv_V s')^
+          @ (inverse_natural q' r'^
+            (turn_filler f p q r s bp bq br bs h)^)^).
+Proof.
+  destruct p, r, s.
+  revert p' bp q' bq r' br s' bs.
+  revert h.
+  equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
+  revert h.
+  equiv_intro (equiv_path_inverse 1 q^) h.
+  revert h.
+  equiv_intro (equiv_ap inverse 1 q) h.
+  destruct h.
+  srapply (equiv_path_ind (fun p' => equiv_ap inverse 1 p')).
+  srapply (equiv_path_ind (fun q' => equiv_ap inverse 1 q')).
+  srapply (equiv_path_ind (fun r' => equiv_ap inverse 1 r')).
+  srapply (equiv_path_ind (fun s' => equiv_ap inverse 1 s')).
+  reflexivity.
+Defined.
+
+(** Mapping a turned filler can be computed before turning it. The inner and outer edge computations are retained separately, including the reversed inner edges. *)
+Definition turn_filler_map {A B C : Type} (f : A -> B) (g : B -> C)
+  {a a' b b' : A}
+  (p : a = b) (q : a' = b) (r : a = b') (s : a' = b')
+  {p' : f b = f a} {q' : f b = f a'}
+  {r' : f b' = f a} {s' : f b' = f a'}
+  (bp : ap f p = p'^) (bq : ap f q = q'^)
+  (br : ap f r = r'^) (bs : ap f s = s'^)
+  {p'' : g (f b) = g (f a)} {q'' : g (f b) = g (f a')}
+  {r'' : g (f b') = g (f a)} {s'' : g (f b') = g (f a')}
+  (cp : ap g p' = p'') (cq : ap g q' = q'')
+  (cr : ap g r' = r'') (cs : ap g s' = s'')
+  (h : p @ q^ = r @ s^)
+  : (ap_pV g p' r' @ (cp @@ inverse2 cr))^
+      @ (ap (ap g) (turn_filler f p q r s bp bq br bs h)
+        @ (ap_pV g q' s' @ (cq @@ inverse2 cs)))
+    = turn_paths p'' q'' r'' s''
+      ((1 @@ inv_V q'')^
+        @ ((ap_pV g p'^ q'^
+              @ ((ap_V g p' @ inverse2 cp)
+                @@ inverse2 (ap_V g q' @ inverse2 cq)))^
+          @ (ap (ap g)
+              ((ap_pV f p q @ (bp @@ inverse2 bq))^
+                @ (ap (ap f) h @ (ap_pV f r s @ (br @@ inverse2 bs))))
+            @ (ap_pV g r'^ s'^
+              @ ((ap_V g r' @ inverse2 cr)
+                @@ inverse2 (ap_V g s' @ inverse2 cs)))))
+        @ (1 @@ inv_V s'')).
+Proof.
+  destruct cp, cq, cr, cs, p, r, s.
+  revert p' bp q' bq r' br s' bs.
+  revert h.
+  equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
+  revert h.
+  equiv_intro (equiv_path_inverse 1 q^) h.
+  revert h.
+  equiv_intro (equiv_ap inverse 1 q) h.
+  destruct h.
+  srapply (equiv_path_ind (fun p' => equiv_ap inverse 1 p')).
+  srapply (equiv_path_ind (fun q' => equiv_ap inverse 1 q')).
+  srapply (equiv_path_ind (fun r' => equiv_ap inverse 1 r')).
+  srapply (equiv_path_ind (fun s' => equiv_ap inverse 1 s')).
+  reflexivity.
+Defined.
+
 Instance isequiv_moveR_pV
   {A : Type} {x y z : A} (p : z = x) (q : y = z) (r : y = x)
 : IsEquiv (moveR_pV p q r).

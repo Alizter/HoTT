@@ -843,6 +843,69 @@ Proof.
   exact (cancelL_1_natural _).
 Defined.
 
+(** Postcomposition of a recursor acts on any supplied zigzag filler using the specified computations of its edges. The intermediate codomain and its edge paths are arbitrary; in particular, these edges may be reversed join glues. *)
+Definition Join_rec_postcompose_filler {A B P Q : Type}
+  (f : A -> P) (g : B -> P) (e : forall a b, f a = g b)
+  (k : P -> Q) (e' : forall a b, k (f a) = k (g b))
+  (be : forall a b, ap k (e a b) = e' a b)
+  {a a' : A} {b b' : B} (h : zigzag a a' b = zigzag a a' b')
+  : let F := Join_rec f g e in
+    let G := Join_rec (k o f) (k o g) e' in
+    let z0 := Join_rec_beta_zigzag f g e a a' in
+    let z1 := fun v => ap_pV k (e a v) (e a' v)
+      @ (be a v @@ inverse2 (be a' v)) in
+    let z2 := Join_rec_beta_zigzag (k o f) (k o g) e' a a' in
+    (z1 b)^ @ (ap (ap k) ((z0 b)^ @ (ap (ap F) h @ z0 b')) @ z1 b')
+      = (z2 b)^ @ (ap (ap G) h @ z2 b').
+Proof.
+  cbn zeta.
+  pose (F := Join_rec f g e).
+  pose (G := Join_rec (k o f) (k o g) e').
+  pose (b0 := Join_rec_beta_jglue f g e).
+  pose (b2 := Join_rec_beta_jglue (k o f) (k o g) e').
+  pose (z0 := Join_rec_beta_zigzag f g e a a').
+  pose (z1 := fun v => ap_pV k (e a v) (e a' v)
+    @ (be a v @@ inverse2 (be a' v))).
+  pose (z2 := Join_rec_beta_zigzag (k o f) (k o g) e' a a').
+  pose (bc := fun u v => ap_compose F k (jglue u v)
+    @ ap (ap k) (b0 u v) @ be u v).
+  pose (hc := fun u v => equiv_p1_1q (b2 u v @ (bc u v)^)).
+  pose (K := Join_ind_FlFr G (k o F) (fun _ => 1) (fun _ => 1) hc).
+  pose (zc := fun v => ap_compose F k (zigzag a a' v)
+    @ ap (ap k) (z0 v) @ z1 v).
+  assert (betaK : forall v, concat_Ap K (zigzag a a' v)
+    = equiv_p1_1q (z2 v @ (zc v)^)).
+  { intro v.
+    lhs napply concat_Ap_pV.
+    lhs napply ((1 @@ ap011 (concat_pV_natural 1 1 1)
+      (Join_ind_FlFr_beta_jglue G (k o F) _ _ hc a v)
+      (Join_ind_FlFr_beta_jglue G (k o F) _ _ hc a' v)) @@ 1).
+    lhs napply ((1 @@ concat_pV_natural_computation _ _ _ _) @@ 1).
+    rhs napply (ap equiv_p1_1q (1 @@ inverse2
+      (ap_pV_compose_beta F k (jglue a v) (jglue a' v)
+        (b0 a v) (b0 a' v) (be a v) (be a' v)))).
+    exact (equiv_p1_1q_concat _ _ _ _). }
+  pose (N := fun p : joinl a = joinl a' =>
+    equiv_p1_1q^-1 (concat_Ap K p) @ ap_compose F k p).
+  assert (betaN : forall v,
+    N (zigzag a a' v) @ ap (ap k) (z0 v) @ z1 v = z2 v).
+  { intro v.
+    assert (n : equiv_p1_1q^-1 (concat_Ap K (zigzag a a' v))
+      = z2 v @ (zc v)^).
+    { lhs napply (ap equiv_p1_1q^-1 (betaK v)); apply eissect. }
+    unfold N.
+    lhs napply concat_pp_p.
+    lhs napply concat_pp_p.
+    lhs_V napply (1 @@ concat_pp_p _ _ _).
+    lhs napply (n @@ 1).
+    apply concat_pV_p. }
+  exact (ap_path_image_natural
+    (fun p : joinl a = joinl a' => ap F p) (ap k)
+    (fun p : joinl a = joinl a' => ap G p) N
+    (z0 b) (z0 b') (z1 b) (z1 b') (z2 b) (z2 b')
+    (betaN b) (betaN b') h).
+Defined.
+
 (** Mapping a complete filler twice agrees with mapping it by the composite. Only the free scalar boundary identifications are eliminated; the given filler [h] is compared by naturality, not by path induction on its fixed boundary. *)
 Definition join_zigzag_filler_compose {A B C D E F : Type}
   (f : A -> C) (g : B -> D) (k : C -> E) (l : D -> F)
@@ -854,63 +917,14 @@ Definition join_zigzag_filler_compose {A B C D E F : Type}
       (ap k p) (ap k q) (ap l r) (ap l s) h.
 Proof.
   destruct p, q, r, s.
-  pose (F0 := functor_join f g).
-  pose (F1 := functor_join k l).
-  pose (F2 := functor_join (k o f) (l o g)).
-  pose (b0 := functor_join_beta_jglue f g).
-  pose (b1 := functor_join_beta_jglue k l).
-  pose (b2 := functor_join_beta_jglue (k o f) (l o g)).
-  pose (z0 := functor_join_beta_zigzag f g).
-  pose (z1 := functor_join_beta_zigzag k l).
-  pose (z2 := functor_join_beta_zigzag (k o f) (l o g)).
-  (** Choose the composition homotopy with these specific edge computations. *)
-  pose (bc := fun (u : A) (v : B) =>
-    ap_compose F0 F1 (jglue u v) @ ap (ap F1) (b0 u v) @ b1 (f u) (g v)).
-  pose (hc := fun u v => equiv_p1_1q (b2 u v @ (bc u v)^)).
-  pose (K := Join_ind_FlFr F2 (F1 o F0) (fun _ => 1) (fun _ => 1) hc).
-  pose (zc := fun v => ap_compose F0 F1 (zigzag a a' v)
-    @ ap (ap F1) (z0 a a' v) @ z1 (f a) (f a') (g v)).
-  (** Its zigzag computation is forced by its two edge computations. *)
-  assert (betaK : forall v, concat_Ap K (zigzag a a' v)
-    = equiv_p1_1q (z2 a a' v @ (zc v)^)).
-  { intro v.
-    lhs napply concat_Ap_pV.
-    lhs napply ((1 @@ ap011 (concat_pV_natural 1 1 1)
-      (Join_ind_FlFr_beta_jglue F2 (F1 o F0) _ _ hc a v)
-      (Join_ind_FlFr_beta_jglue F2 (F1 o F0) _ _ hc a' v)) @@ 1).
-    lhs napply ((1 @@ concat_pV_natural_computation _ _ _ _) @@ 1).
-    rhs napply (ap equiv_p1_1q (1 @@ inverse2
-      (ap_pV_compose_beta F0 F1 (jglue a v) (jglue a' v)
-        (b0 a v) (b0 a' v) (b1 (f a) (g v)) (b1 (f a') (g v))))).
-    exact (equiv_p1_1q_concat _ _ _ _). }
-  (** Remove the unit boundaries to compare the induced maps on path spaces. *)
-  pose (N := fun p : joinl a = joinl a' =>
-    equiv_p1_1q^-1 (concat_Ap K p) @ ap_compose F0 F1 p).
-  assert (betaN : forall v,
-    N (zigzag a a' v) @ ap (ap F1) (z0 a a' v)
-      @ z1 (f a) (f a') (g v) = z2 a a' v).
-  { intro v.
-    assert (n : equiv_p1_1q^-1 (concat_Ap K (zigzag a a' v))
-      = z2 a a' v @ (zc v)^).
-    { lhs napply (ap equiv_p1_1q^-1 (betaK v)).
-      apply eissect. }
-    unfold N.
-    lhs napply concat_pp_p.
-    lhs napply concat_pp_p.
-    lhs_V napply (1 @@ concat_pp_p _ _ _).
-    lhs napply (n @@ 1).
-    apply concat_pV_p. }
-  (** Apply that comparison to the actual supplied filler. *)
   lhs napply (ap (join_zigzag_filler k l 1 1 1 1)
     (join_zigzag_filler_refl f g h)).
   lhs napply (join_zigzag_filler_refl k l).
   rhs napply (join_zigzag_filler_refl (k o f) (l o g)).
-  exact (ap_path_image_natural
-    (fun p : joinl a = joinl a' => ap F0 p) (ap F1)
-    (fun p : joinl a = joinl a' => ap F2 p) N
-    (z0 a a' b) (z0 a a' b') (z1 (f a) (f a') (g b))
-    (z1 (f a) (f a') (g b')) (z2 a a' b) (z2 a a' b')
-    (betaN b) (betaN b') h).
+  exact (Join_rec_postcompose_filler (joinl o f) (joinr o g)
+    (fun a b => jglue (f a) (g b)) (functor_join k l)
+    (fun a b => jglue (k (f a)) (l (g b)))
+    (fun a b => functor_join_beta_jglue k l (f a) (g b)) h).
 Defined.
 
 (** Pointwise homotopies suffice to compare mapped fillers. Their join homotopy has specified edge computations, whose zigzag computation lets us apply naturality to the actual supplied filler. No function equality or function extensionality is used. *)
