@@ -236,4 +236,141 @@ Section Comparison.
     exact (concat_Ap_homotopic _ _ K (jglue a b)).
   Defined.
 End Comparison.
+
+(** ** Comparing a translated composite with a single join map *)
+
+Section Composite.
+  Context {A B : Type} (f t l : A -> A) (g u r : B -> B).
+
+  Definition combine
+    (pl : forall a, t (f a) = l a) (pr : forall b, u (g b) = r b)
+    : functor_join t u o functor_join f g == functor_join l r.
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro a; exact (ap joinl (pl a)).
+    - intro b; exact (ap joinr (pr b)).
+    - intros a b.
+      lhs napply (ap_compose (functor_join f g) (functor_join t u)
+        (jglue a b) @@ 1).
+      lhs napply (ap (ap (functor_join t u))
+        (functor_join_beta_jglue f g a b) @@ 1).
+      lhs napply (functor_join_beta_jglue t u (f a) (g b) @@ 1).
+      rhs napply (1 @@ functor_join_beta_jglue l r a b).
+      exact (join_natsq (pl a) (pr b))^.
+  Defined.
+
+  Definition split
+    (el : forall a, l a = t (f a)) (er : forall b, r b = u (g b))
+    : functor_join l r == functor_join t u o functor_join f g.
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro a; exact (ap joinl (el a)).
+    - intro b; exact (ap joinr (er b)).
+    - intros a b.
+      lhs napply (functor_join_beta_jglue l r a b @@ 1).
+      rhs napply (1 @@ ap_compose (functor_join f g) (functor_join t u)
+        (jglue a b)).
+      rhs napply (1 @@ ap (ap (functor_join t u))
+        (functor_join_beta_jglue f g a b)).
+      rhs napply (1 @@ functor_join_beta_jglue t u (f a) (g b)).
+      exact (join_natsq (el a) (er b))^.
+  Defined.
+
+  Definition split_inverse
+    (el : forall a, l a = t (f a)) (er : forall b, r b = u (g b))
+    : forall x, (split el er x)^
+      = combine (fun a => (el a)^) (fun b => (er b)^) x.
+  Proof.
+    snapply Join_ind.
+    - intro a; exact (ap_V joinl (el a))^.
+    - intro b; exact (ap_V joinr (er b))^.
+    - intros a b.
+      nrefine (equiv_naturality_transport2
+        (fun x => (split el er x)^)
+        (combine (fun a => (el a)^) (fun b => (er b)^))
+        (jglue a b) _ _ _).
+      lhs napply (concat_Ap_inverse (split el er) (jglue a b) @@ 1).
+      rhs napply (1 @@ Join_ind_FlFr_beta_jglue _ _ _ _ _ a b).
+      assert (be : concat_Ap (split el er) (jglue a b)
+        = naturality_change (functor_join_beta_jglue l r a b)
+          ((ap_compose (functor_join f g) (functor_join t u) (jglue a b)
+            @ ap (ap (functor_join t u)) (functor_join_beta_jglue f g a b))
+            @ functor_join_beta_jglue t u (f a) (g b))
+          (join_natsq (el a) (er b))^).
+      { lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ a b).
+        rhs napply concat_pp_p.
+        napply whiskerL.
+        lhs napply naturality_suffix.
+        apply naturality_suffix. }
+      lhs napply (ap (fun n => (inverse_natural _ _ n)^) be @@ 1).
+      rhs napply (1 @@ naturality_prefix _ _ _ _).
+      rhs napply (1 @@ naturality_prefix _ _ _ _).
+      rhs napply (1 @@ concat_p_pp _ _ _).
+      apply inverse_change.
+  Defined.
+End Composite.
+
+Definition compare_r_prefix {A B : Type} (a0 : A)
+  {u u' v : B} (p : u = u') (q : v = u') (r : u = v)
+  : (ap (joinr (A:=A)) p @ (ap joinr q)^) @ 1 = ap joinr r.
+Proof.
+  lhs napply concat_p1.
+  lhs_V napply (ap_pV (joinr (A:=A)) p q).
+  lhs_V napply (triangle_v' a0).
+  rhs_V napply (triangle_v' a0).
+  reflexivity.
+Defined.
+
+Local Definition compare_r_prefix_refl {A B : Type} (a0 : A)
+  {v u : B} (p : v = u)
+  : (1 @ (concat_p1 (1 @ (ap (joinr (A:=A)) p)^)
+      @ concat_1p (ap joinr p)^)) @ (ap_V joinr p)^
+    = compare_r_prefix a0 1 p p^.
+Proof.
+  destruct p; unfold compare_r_prefix; cbn.
+  do 2 (rhs napply concat_1p).
+  rhs napply (1 @@ concat_1p _).
+  symmetry; apply concat_Vp.
+Defined.
+
+Section CompositeComparison.
+  Context `{Funext} {A B : Type} (a0 : A) (b0 : B)
+    (f t l : A -> A) (g u v r : B -> B) (d : u == v)
+    (el : forall a, l a = t (f a)) (er : forall b, r b = v (g b))
+    (pl : forall a, t (f a) = l a) (pr : forall b, u (g b) = r b)
+    (cl : forall a, (el a)^ = pl a)
+    (cr : forall b, d (g b) @ (er b)^ = pr b).
+
+  Definition translated_composite_comparison (a : A) (b : B)
+    : concat_Ap (fun x =>
+        (delta t u v d (functor_join f g x)
+          @ (split f t l g v r el er x)^) @ 1) (jglue a b)
+        @ (compare_l b0 (el a) (pl a) @@ 1)
+      = (1 @@ compare_r_prefix a0 (d (g b)) (er b) (pr b))
+        @ concat_Ap (combine f t l g u r pl pr) (jglue a b).
+  Proof.
+    revert v d er pl pr cl cr.
+    snapply (equiv_path_ind (fun v => equiv_ap10 u v)).
+    cbn [ap10].
+    intros er pl pr cl cr.
+    destruct (path_forall _ _ cl).
+    assert (cr' : (fun b => (er b)^) = pr).
+    { apply path_forall; intro b'.
+      exact ((concat_1p _)^ @ cr b'). }
+    destruct cr'.
+    pose (E := split f t l g u r el er).
+    pose (K := fun x =>
+      (ap (fun p => (p @ (E x)^) @ 1)
+        (delta_refl t u (functor_join f g x))
+        @ (concat_p1 _ @ concat_1p _))
+      @ split_inverse f t l g u r el er x).
+    lhs_V napply (1 @@ ap (fun q => q @@ idpath
+      (ap (functor_join l r) (jglue a b)))
+      (compare_l_refl b0 (el a))).
+    rhs_V napply (ap (fun q => idpath
+      (ap (functor_join t u o functor_join f g) (jglue a b)) @@ q)
+      (compare_r_prefix_refl a0 (er b)) @@ 1).
+    exact (concat_Ap_homotopic _ _ K (jglue a b)).
+  Defined.
+End CompositeComparison.
 End JoinMapCoherence.

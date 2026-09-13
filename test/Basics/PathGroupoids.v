@@ -50,3 +50,16 @@ Section Naturality.
       = concat_p1 (ap f p) @ (concat_1p (ap f p))^
     := concat_Ap_refl@{u v} f p.
 End Naturality.
+
+Section FiberwiseComposition.
+  Universe u v w.
+  Context {A : Type@{u}} {P : A -> Type@{v}} {Q : A -> Type@{w}}
+    (f : forall a, P a -> Q a) (s : forall a, P a).
+
+  Example dependent_composition {x y : A} (p : x = y)
+    : apD (fun a => f a (s a)) p = ap01D1 f p (apD s p)
+    := apD_composeD@{u v w} f s p.
+
+  Example dependent_composition_refl (x : A)
+    : apD_composeD f s (idpath x) = idpath := idpath.
+End FiberwiseComposition.

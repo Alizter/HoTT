@@ -1,9 +1,11 @@
-# S⁷: scalar actions and the four remaining comparisons
+# S⁷: scalar actions and the two remaining comparisons
 
 The executable assembly is `S7ProofOutline` in
 [`theories/Homotopy/HSpaceS7.v`](../theories/Homotopy/HSpaceS7.v).
-Its remaining hypotheses are **OPEN 2–5**. Former OPEN 1 is now supplied by
-`S7LeftScalar.loop_y_joinl`, not by a section hypothesis.
+Its remaining hypotheses are **OPEN 2 and OPEN 5**. Former OPEN 1 and OPEN 3
+are supplied by `S7LeftScalar.loop_y_joinl` and
+`S7MiddleScalar.loop_x_joinl`. Former OPEN 4 is constructed by transport,
+conditionally on OPEN 2; it is no longer an independent input.
 
 The associativity required here is that of the **circle double**, which is
 pointedly equivalent to S³. The resulting structure on S⁷ only needs to be an
@@ -18,8 +20,8 @@ m_ll, m_lr, m_rl, m_rr                                  proved
         ├── loop_y_joinr                               OPEN 2
         │       └── loop_row_l, loop_row_r
         │
-        ├── loop_x_joinl                               OPEN 3
-        ├── loop_x_joinr                               OPEN 4
+        ├── loop_x_joinl                               proved
+        ├── loop_x_joinr                               transported, uses OPEN 2
         │
         └── loop_mixed                                 OPEN 5
                 │
@@ -34,7 +36,7 @@ m_ll, m_lr, m_rl, m_rr                                  proved
           hspace_s7_from_gaps                           double and transfer
 ```
 
-All assembly steps after the four hypotheses are implemented. This is still a
+All assembly steps after the two hypotheses are implemented. This is still a
 **conditional** construction, not an unconditional `hspace_s7` instance.
 
 The notation in the outline is:
@@ -56,9 +58,9 @@ M x y d     = (ap (T x y d) ell = 1)
 reflexivity. There is no obligation to identify these two right choices for
 arbitrary `d`.
 
-All four remaining hypotheses are families in `d`. Consequently, once they
+Both remaining hypotheses are families in `d`. Consequently, once they
 are proved, the second-circle coherence is simply
-`apD (all_scalar_loops x y) ell`; it is not a fifth missing input.
+`apD (all_scalar_loops x y) ell`; it is not an additional missing input.
 
 ## 2. Reusable proof machinery
 
@@ -91,16 +93,24 @@ homotopies. The latter separates:
 - the two homotopy computations;
 - the actual geometric cube.
 
-It replaces the final repeated bookkeeping block in both
-`cd_op_diagonal_equivariance_glue_glue` and
-`S7LeftScalar.first_l_glue_glue`. The existing side witnesses are retained.
+It handles the final bookkeeping in `cd_op_diagonal_equivariance_glue_glue`,
+`S7LeftScalar.first_l_glue_glue`, and `S7MiddleScalar.middle_l_glue_glue`.
+The existing side witnesses are retained.
+
+### Comparing composites of join maps
+
+`JoinMapCoherence.translated_composite_comparison` compares a translated
+composite with a single join map. Its input comparisons are scalar paths;
+its output retains the specified join triangles at the corners. The
+`combine` and `split` templates retain the existing beta computations.
+This supplies the overlap for the new middle-left associator.
 
 ### Closing nullhomotopies around loops
 
 `ap_loop_nullhomotopic` in
 [`Homotopy/NullHomotopy.v`](../theories/Homotopy/NullHomotopy.v) extracts the
-common loop-closing calculation. Both the four original corner witnesses and
-the new left row use it. This avoids repeatedly unfolding that calculation
+common loop-closing calculation. The four original corner witnesses, the
+left row, and the left column all use it. This avoids repeatedly unfolding that calculation
 when comparing their values.
 
 ## 3. Former OPEN 1 is proved
@@ -187,39 +197,76 @@ cd_assoc_middle_joinl n x s y
   : mu (mu x (joinl s)) y = mu x (mu (joinl s) y).
 ```
 
-Both outer arguments are arbitrary. This is new partial associativity, but
-**it has not yet closed OPEN 3**: its choices still need to be compared with
-the choices of the fixed loop outline.
+Both outer arguments are arbitrary. The circle construction below chooses
+its rows separately, rather than assuming that this general homotopy has
+the original scalar-corner computations.
 
-## 5. Next mathematical work
+## 5. Completing boundary comparisons
 
-### OPEN 3: use the middle-scalar associator
+### Former OPEN 3 is proved
 
-Prefer comparing partial associators to expanding proofs of loop vanishing.
-The new middle-scalar associator gives a candidate family for the x-row with
-middle argument `joinl s`.
+[`HSpaceS7/MiddleScalar.v`](../theories/Homotopy/HSpaceS7/MiddleScalar.v)
+constructs `middle_l D s x z` with arbitrary outer arguments and exactly the
+original `cd_assoc_first_ll` and `cd_assoc_first_rl` rows.
 
-The required work is to compare its restriction at the last left copy with
-`AL x (joinl s) c`, including the existing corner comparison witnesses.
-The balanced construction uses its induced scalar boundary paths; it does
-not assert that its rows are the original `cd_assoc_first_ll` and
-`cd_assoc_first_rl`. Either construct the middle associator with those rows,
-or prove the row comparisons and their glue computations first.
+It uses the raw right translation, with labels `(a*s,s*b)`, and the balanced
+parameter comparison. The induced boundary paths are identified with the
+old scalar associativity paths. The actual mixed comparison is then
+converted using all four specified side computations.
 
-After a compatible overlap is obtained, assemble nullhomotopy data and only
-then apply `ap_loop_nullhomotopic`. Check that the resulting endpoint loop
-proofs are the original `m_ll` and `m_rl`.
+`overlap D s x c` identifies its last-left restriction with
+`AL x (joinl s) c`. Its constructors are definitionally the original
+`cd_assoc_last_joinl_first_ll` and `cd_assoc_last_joinl_first_rl`.
+`JoinMapCoherence.translated_composite_comparison` supplies the glue.
 
-### OPEN 2 and OPEN 4: right-copy comparisons
+Closing the resulting nullhomotopy gives `column_loop`. Its constructor
+values are definitionally `m_ll` and `m_rl`, so dependent application in `x`
+gives `loop_x_joinl`. This works for every scalar loop and every supplied
+circle diamond, not just the canonical one.
 
-Right-copy scalar translations involve `cd_chi` and reversed join glues.
-A promising next reusable result would describe a rotation or twist on the
-complete multiplication diagram, with its chosen boundaries and filler.
-The fact that `cd_chi` is homotopic to the identity does not automatically
-supply compatibility with the chosen scalar-action witnesses.
+### Former OPEN 4 is derived from OPEN 2
 
-Retain `ap_V`, `inverse_natural`, and the mixed recursor beta rules. Do not
-regard either right-copy case as a formal renaming of a left-copy proof.
+After the two rows are assembled, `XGlue a a' d y` is the family of
+comparisons between their transported values. Choose
+
+```text
+loop_x_joinr a a' b d
+  := transport (XGlue a a' d) (jglue North b)
+       (loop_x_joinl a a' North d).
+```
+
+This has precisely the required `lr` and `rr` endpoints. It needs OPEN 2
+through the right row; it is not an unconditional proof of the original
+right-column statement in isolation. No separate right-middle associator
+is needed. The `b = North` case of OPEN 5 is now reflexivity.
+
+### OPEN 2: right-row assembly still needed
+
+A geometric ingredient is now proved in
+[`Join/SuspDiamond.v`](../theories/Homotopy/Join/SuspDiamond.v).
+`diamond_susp_turn` compares the actual suspension diamond after turning
+its two join factors and reversing the suspension poles. It works for any
+map between the suspension bases and requires no extensionality.
+Specialized to suspension negation, it gives
+
+```text
+join_diamond_turn (-) (cd_diamond_susp t) = cd_diamond_susp (-t).
+```
+
+The vertical and horizontal pole fillers are interchanged, and
+`join_diamond_turn_twist` proves compatibility with the specified meridian
+computation. The canonical diamond's definition has moved into this
+geometric file; the Cayley-Dickson instance still uses exactly that filler.
+`apD_composeD` supplies the reusable fiberwise dependent-application rule.
+
+This does **not yet prove OPEN 2**. The remaining work is to compare the
+right scalar action's parameter and mapping functions, convert this turn
+law into its actual mixed multiplication computation, and assemble the
+`rl`/`rr` rows with their overlap with `AL`.
+
+Retain `ap_V`, `inverse_natural`, and the mixed recursor beta rules. The fact
+that `cd_chi` is homotopic to the identity does not itself supply this
+witness-preserving comparison.
 
 ### OPEN 5: compatibility of the actual four sides
 
@@ -261,7 +308,12 @@ Tests of the actual implementations live in:
 - `test/Homotopy/HSpaceS7Balanced.v`: general scalars, supplied diamond, four
   corner computations, actual filler comparison, and circle specialization;
 - `test/Homotopy/HSpaceS7LeftScalar.v`: overlap and original loop witnesses;
-- `test/Homotopy/HSpaceS7Outline.v`: the four-hypothesis assembly and its beta
+- `test/Homotopy/HSpaceS7MiddleScalar.v`: middle associator, mixed beta,
+  overlap, and the original column-loop witnesses;
+- `test/Homotopy/Join/MapCoherence.v`: the composite comparison templates;
+- `test/Homotopy/Join/SuspDiamond.v`: pole computations and the turn law for
+  the actual canonical diamond, with independent universes;
+- `test/Homotopy/HSpaceS7Outline.v`: the two-hypothesis assembly and its beta
   rules through the conditional S⁷ H-space.
 
 Validate with `dune build`, `dune build test/`, and finally `dune test`, which

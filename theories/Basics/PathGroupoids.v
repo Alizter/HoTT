@@ -937,6 +937,15 @@ Proof.
   destruct p, q; reflexivity.
 Defined.
 
+(** Dependent application commutes with a fiberwise map. *)
+Definition apD_composeD {A : Type} {P Q : A -> Type}
+  (f : forall a, P a -> Q a) (s : forall a, P a)
+  {x y : A} (p : x = y)
+  : apD (fun a => f a (s a)) p = ap01D1 f p (apD s p).
+Proof.
+  destruct p; reflexivity.
+Defined.
+
 Definition apD011 {A B C} (f : forall (a:A) (b:B a), C a b)
            {x x'} (p : x = x') {y y'} (q : p # y = y')
 : transport (C x') q (transportD B C p y (f x y)) = f x' y'.

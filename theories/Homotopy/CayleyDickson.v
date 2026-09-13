@@ -5,7 +5,7 @@ Require Import Classes.interfaces.abstract_algebra Classes.theory.groups.
 Require Import Pointed.Core Pointed.pSusp.
 Require Import Homotopy.HSpace.Core Homotopy.HSpace.Coherent.
 Require Import Homotopy.Suspension Homotopy.NullHomotopy.
-Require Import Homotopy.Join.Core.
+Require Import Homotopy.Join.Core Homotopy.Join.SuspDiamond.
 
 Local Open Scope pointed_scope.
 Local Open Scope mc_mult_scope.
@@ -121,9 +121,7 @@ Defined.
 (** Every suspension supplies a canonical diamond. Only the value of suspension negation at the north pole is used; no laws of the negation on [A], or multiplication on [Susp A], are needed. *)
 Instance cd_diamond_susp {A : Type} `{Negate A}
   : CayleyDicksonDiamond (psusp A) (-)
-  := Susp_ind (fun t => zigzag South t North = zigzag South t t)
-       (diamond_v South North 1) (diamond_h North South 1)
-       (fun a => diamond_twist (merid a)).
+  := diamond_susp.
 
 (** ** Cayley-Dickson imaginaroids *)
 
