@@ -492,6 +492,14 @@ Proof.
   destruct p, q, h; reflexivity.
 Defined.
 
+(** Inverting a path image exchanges its specified endpoint identifications. *)
+Definition ap_path_image_V {A B : Type} (f : A -> B)
+  {x y : A} {u v : B} (p : f x = u) (q : f y = v) (h : x = y)
+  : (p^ @ (ap f h @ q))^ = q^ @ (ap f h^ @ p).
+Proof.
+  destruct p, q, h; reflexivity.
+Defined.
+
 (** Naturality of path images with specified endpoint identifications. The boundary comparisons [ha] and [hb] retain the chosen paths, not just their endpoints. *)
 Definition ap_path_image_natural {A B C : Type}
   (f : A -> B) (g : B -> C) (k : A -> C) (h : k == g o f)

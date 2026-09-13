@@ -63,3 +63,13 @@ Section FiberwiseComposition.
   Example dependent_composition_refl (x : A)
     : apD_composeD f s (idpath x) = idpath := idpath.
 End FiberwiseComposition.
+
+Section PathImageInverse.
+  Universe u v.
+  Context {A : Type@{u}} {B : Type@{v}} (f : A -> B).
+
+  Example image_inverse {x y : A} {a b : B}
+    (p : f x = a) (q : f y = b) (h : x = y)
+    : (p^ @ (ap f h @ q))^ = q^ @ (ap f h^ @ p)
+    := ap_path_image_V@{u v} f p q h.
+End PathImageInverse.

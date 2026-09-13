@@ -12,13 +12,6 @@ Definition diamond_susp {A : Type} (t : Susp A)
     (diamond_v South North 1) (diamond_h North South 1)
     (fun a => diamond_twist (merid a)) t.
 
-Local Definition turn_paths_refl {A : Type} {a b b' : A}
-  (p : a = b) (q : a = b')
-  : turn_paths p q p q 1 = concat_pV p @ (concat_pV q)^.
-Proof.
-  destruct p, q; reflexivity.
-Defined.
-
 Local Definition turn_filler_v {A B : Type} (f : A -> B)
   {a a' b : A} (p : a = b) (q : a' = b)
   {p' : f b = f a} {q' : f b = f a'}
@@ -129,6 +122,55 @@ Proof.
     (fun a b => (jglue (k (g b)) (l (f a)))^)
     (fun a b => ap_V (functor_join k l) (jglue (g b) (f a))
       @ inverse2 (functor_join_beta_jglue k l (g b) (f a))) h).
+Defined.
+
+(** Pointwise scalar comparisons transport the entire turned filler. *)
+Definition join_diamond_turn_homotopic {A B C D : Type}
+  {f f' : A -> D} {g g' : B -> C} (pf : f == f') (pg : g == g')
+  {a a' : A} {b b' : B} (h : zigzag a a' b = zigzag a a' b')
+  : transport011
+      (fun x : C * C => fun y : D * D =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (pg b) (pg b')) (path_prod' (pf a) (pf a'))
+      (join_diamond_turn f g h)
+    = join_diamond_turn f' g' h.
+Proof.
+  lhs_V napply (ap (transport011 _ _ _)
+    (join_diamond_map_turn idmap idmap g f 1 1 1 1 h)).
+  rhs_V napply (join_diamond_map_turn idmap idmap g' f' 1 1 1 1 h).
+  exact (join_zigzag_filler_homotopic pg pf
+    (join_diamond_turn idmap idmap h)).
+Defined.
+
+(** Compare a turned mapped filler with a mapped turn. All eight chosen boundary identifications, the scalar map homotopies, and the comparison with the actual target filler remain inputs. *)
+Definition join_diamond_turn_compare {A B C D E F K L : Type}
+  (f : A -> C) (g : B -> D) (k : C -> F) (l : D -> E)
+  (u : A -> L) (v : B -> K) (f' : K -> E) (g' : L -> F)
+  (pf : k o f == g' o u) (pg : l o g == f' o v)
+  {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+  {e0 e1 : E} {f0 f1 : F}
+  (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+  (p' : f' (v b) = e0) (q' : f' (v b') = e1)
+  (r' : g' (u a) = f0) (s' : g' (u a') = f1)
+  (h : zigzag a a' b = zigzag a a' b')
+  (h' : zigzag (v b) (v b') (u a) = zigzag (v b) (v b') (u a'))
+  (ht : join_diamond_turn u v h = h')
+  : transport011
+      (fun x : E * E => fun y : F * F =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' ((ap l r)^ @ pg b @ p') ((ap l s)^ @ pg b' @ q'))
+      (path_prod' ((ap k p)^ @ pf a @ r') ((ap k q)^ @ pf a' @ s'))
+      (join_diamond_turn k l (join_zigzag_filler f g p q r s h))
+    = join_zigzag_filler f' g' p' q' r' s' h'.
+Proof.
+  destruct ht, p, q, r, s, p', q', r', s'.
+  lhs napply (ap (transport011 _ _ _)
+    (join_diamond_turn_map f g k l 1 1 1 1 h)).
+  rhs napply (join_diamond_map_turn u v f' g' 1 1 1 1 h).
+  refine (_ @ join_diamond_turn_homotopic pf pg h).
+  napply (ap011 (fun p q => transport011 _ p q _));
+    napply (ap011 path_prod');
+    exact (concat_p1 _ @ concat_1p _).
 Defined.
 
 Definition join_diamond_turn_v {A B C D : Type}

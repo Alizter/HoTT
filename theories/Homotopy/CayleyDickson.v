@@ -306,6 +306,21 @@ Section SpheroidHSpace.
          (cd_diamond_map_r_unit b c)
          (cd_diamond (cd_diamond_parameter a b c d))^.
 
+  (** The opposite orientation uses the same parameter and exchanges the two right boundary computations. *)
+  Definition cd_op_diamond_V (a b c d : X)
+    : (cd_op_diamond a b c d)^
+      = join_zigzag_filler (cd_diamond_map_l a c) (cd_diamond_map_r b c)
+        (cd_diamond_map_l_neg_unit a c)
+        (cd_diamond_map_l_parameter a b c d)
+        (cd_diamond_map_r_unit b c)
+        (cd_diamond_map_r_parameter a b c d)
+        (cd_diamond (cd_diamond_parameter a b c d)).
+  Proof.
+    lhs napply join_zigzag_filler_V.
+    exact (ap (join_zigzag_filler _ _ _ _ _ _)
+      (inv_V (cd_diamond (cd_diamond_parameter a b c d)))).
+  Defined.
+
   (** Here is the multiplication map in algebraic form: [(a,b) * (c,d) = (a * c - d * b*, a* * d + c * b)].  The following is the spherical form. *)
   #[export] Instance cd_op : SgOp (pjoin X X).
   Proof.

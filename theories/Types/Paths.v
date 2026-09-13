@@ -738,20 +738,28 @@ Definition turn_filler_map {A B C : Type} (f : A -> B) (g : B -> C)
                 @@ inverse2 (ap_V g s' @ inverse2 cs)))))
         @ (1 @@ inv_V s'')).
 Proof.
-  destruct cp, cq, cr, cs, p, r, s.
-  revert p' bp q' bq r' br s' bs.
+  destruct cp, cq, cr, cs.
+  (** Normalize the independent beta witnesses before eliminating source edges, so no motive quantifies over intermediate-universe witnesses. *)
+  revert p' bp.
+  srapply (equiv_path_ind (fun p' =>
+    equiv_concat_l (inv_V (ap f p))^ _ oE equiv_ap inverse (ap f p)^ p')).
+  revert q' bq.
+  srapply (equiv_path_ind (fun q' =>
+    equiv_concat_l (inv_V (ap f q))^ _ oE equiv_ap inverse (ap f q)^ q')).
+  revert r' br.
+  srapply (equiv_path_ind (fun r' =>
+    equiv_concat_l (inv_V (ap f r))^ _ oE equiv_ap inverse (ap f r)^ r')).
+  revert s' bs.
+  srapply (equiv_path_ind (fun s' =>
+    equiv_concat_l (inv_V (ap f s))^ _ oE equiv_ap inverse (ap f s)^ s')).
+  destruct p, r, s.
   revert h.
   equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
   revert h.
   equiv_intro (equiv_path_inverse 1 q^) h.
   revert h.
   equiv_intro (equiv_ap inverse 1 q) h.
-  destruct h.
-  srapply (equiv_path_ind (fun p' => equiv_ap inverse 1 p')).
-  srapply (equiv_path_ind (fun q' => equiv_ap inverse 1 q')).
-  srapply (equiv_path_ind (fun r' => equiv_ap inverse 1 r')).
-  srapply (equiv_path_ind (fun s' => equiv_ap inverse 1 s')).
-  reflexivity.
+  destruct h; reflexivity.
 Defined.
 
 Instance isequiv_moveR_pV

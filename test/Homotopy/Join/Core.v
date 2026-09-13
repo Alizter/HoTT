@@ -39,7 +39,38 @@ Section ZigzagFillers.
     : zigzag@{l m n} (f a) (f a') (g b)
       = zigzag@{l m n} (f a) (f a') (g b')
     := join_zigzag_filler@{i j l m n k} f g 1 1 1 1 h.
+  Example zigzag_filler_inverse (f : A -> C) (g : B -> D)
+    {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+    (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+    (h : zigzag@{i j k} a a' b = zigzag a a' b')
+    : (join_zigzag_filler@{i j l m n k} f g p q r s h)^
+      = join_zigzag_filler@{i j l m n k} f g p q s r h^
+    := join_zigzag_filler_V f g p q r s h.
 End ZigzagFillers.
+
+(** The postcomposition rule works for arbitrary recursor edges, not just forward join glues. *)
+Section RecursorPostcomposition.
+  Universe uA uB uS uP uQ.
+  Constraint uA <= uS.
+  Constraint uB <= uS.
+  Context {A : Type@{uA}} {B : Type@{uB}}
+    {P : Type@{uP}} {Q : Type@{uQ}}.
+  Context (f : A -> P) (g : B -> P) (e : forall a b, f a = g b)
+    (k : P -> Q) (e' : forall a b, k (f a) = k (g b))
+    (be : forall a b, ap k (e a b) = e' a b).
+
+  Example mapped_recursion_filler {a a' : A} {b b' : B}
+    (h : zigzag@{uA uB uS} a a' b = zigzag a a' b')
+    : let F := Join_rec f g e in
+      let G := Join_rec (k o f) (k o g) e' in
+      let z0 := Join_rec_beta_zigzag f g e a a' in
+      let z1 := fun v => ap_pV k (e a v) (e a' v)
+        @ (be a v @@ inverse2 (be a' v)) in
+      let z2 := Join_rec_beta_zigzag (k o f) (k o g) e' a a' in
+      (z1 b)^ @ (ap (ap k) ((z0 b)^ @ (ap (ap F) h @ z0 b')) @ z1 b')
+        = (z2 b)^ @ (ap (ap G) h @ z2 b')
+    := Join_rec_postcompose_filler f g e k e' be h.
+End RecursorPostcomposition.
 
 (** Composition retains arbitrary boundary witnesses and independent source, intermediate, and target join universes. *)
 Section ZigzagFillerComposition.

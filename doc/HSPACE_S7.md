@@ -250,7 +250,7 @@ map between the suspension bases and requires no extensionality.
 Specialized to suspension negation, it gives
 
 ```text
-join_diamond_turn (-) (cd_diamond_susp t) = cd_diamond_susp (-t).
+join_diamond_turn (-) (-) (cd_diamond_susp t) = cd_diamond_susp (-t).
 ```
 
 The vertical and horizontal pole fillers are interchanged, and
@@ -259,10 +259,57 @@ computation. The canonical diamond's definition has moved into this
 geometric file; the Cayley-Dickson instance still uses exactly that filler.
 `apD_composeD` supplies the reusable fiberwise dependent-application rule.
 
-This does **not yet prove OPEN 2**. The remaining work is to compare the
-right scalar action's parameter and mapping functions, convert this turn
-law into its actual mixed multiplication computation, and assemble the
-`rl`/`rr` rows with their overlap with `AL`.
+The comparison with the **actual multiplication filler** is now proved in
+[`HSpaceS7/RightScalar.v`](../theories/Homotopy/HSpaceS7/RightScalar.v).
+Write `L_s(t) = t*s`, `R_s(t) = (-t)*conj s`, and
+`D(a,b,c,d) = cd_op_diamond a b c d`. Left multiplication by `joinr s`
+is the turn with these two maps. Its parameter identity is
+
+```text
+cd_diamond_parameter ((-b)*conj s) (a*s) c d
+  = -cd_diamond_parameter a b c d.
+```
+
+`map_l` and `map_r` compare the complete mapping functions after negation.
+Together with the canonical turn law they give `S7RightScalar.diamond`:
+
+```text
+transport (e10,e01; e00,e11)
+  (join_diamond_turn L_s R_s (D(a,b,c,d)^))
+  = D((-b)*conj s, a*s, c,d)^.
+```
+
+All four boundary paths are defined explicitly. They run from the
+translated output vertices to the new multiplication vertices, opposite
+to the desired associator's orientation. The theorem works for any
+suspension of an imaginaroid with associative, commutative scalar
+multiplication; it needs neither extensionality nor scalar truncation.
+It uses the canonical diamond, not an unproved symmetry of an arbitrary
+supplied diamond.
+
+The supporting comparisons are reusable:
+
+- `join_turn` and `join_diamond_turn` now take two independent scalar maps;
+- `Join_rec_postcompose_filler` works for arbitrary intermediate recursor
+  edges, including reversed glues, and also replaces the specialized proof
+  of `join_zigzag_filler_compose`;
+- `join_diamond_turn_map`, `join_diamond_map_turn`, and
+  `join_diamond_turn_homotopic` commute turns with maps and map homotopies;
+- `join_diamond_turn_compare` retains all eight chosen boundary
+  identifications and the actual target-filler comparison;
+- `turn_filler_beta` computes the inverted filler after a turn, retaining
+  `ap_V`, `inv_V`, and the required `inverse_natural` orientation;
+- `join_zigzag_filler_V` and `cd_op_diamond_V` retain the specified boundaries
+  when switching the filler orientation.
+
+This still **does not prove OPEN 2**. The next steps are to compare the
+induced boundary paths with the original `cd_assoc_first_rl` and
+`cd_assoc_first_rr` witnesses, convert the geometric comparison using the
+actual mixed recursor beta rules, and assemble the right row and its
+overlap with `AL`. The scalar comparisons are not asserted to follow by
+reflexivity at the unit: negation, right-unit, and parameter witnesses
+remain in that calculation. Neither a new right-row associator nor a new
+loop witness has been substituted for the original ones.
 
 Retain `ap_V`, `inverse_natural`, and the mixed recursor beta rules. The fact
 that `cd_chi` is homotopic to the identity does not itself supply this
@@ -311,8 +358,12 @@ Tests of the actual implementations live in:
 - `test/Homotopy/HSpaceS7MiddleScalar.v`: middle associator, mixed beta,
   overlap, and the original column-loop witnesses;
 - `test/Homotopy/Join/MapCoherence.v`: the composite comparison templates;
-- `test/Homotopy/Join/SuspDiamond.v`: pole computations and the turn law for
-  the actual canonical diamond, with independent universes;
+- `test/Homotopy/Join/SuspDiamond.v`: pole computations, two-map turns,
+  composition with arbitrary boundaries, and the actual canonical diamond;
+- `test/Homotopy/Join/Core.v`: general recursor postcomposition and mapped
+  filler inversion with independent universes;
+- `test/Homotopy/HSpaceS7RightScalar.v`: general scalar maps, the actual
+  suspension multiplication filler comparison, and the circle specialization;
 - `test/Homotopy/HSpaceS7Outline.v`: the two-hypothesis assembly and its beta
   rules through the conditional S⁷ H-space.
 

@@ -7,7 +7,7 @@ Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1 Homotopy.HSpaceS3.
 Require Import Homotopy.CayleyDickson Homotopy.Suspension.
 Require Import Homotopy.Join.Core Homotopy.Join.JoinSusp.
 Require Export Homotopy.HSpaceS7.LeftScalar Homotopy.HSpaceS7.Balanced.
-Require Export Homotopy.HSpaceS7.MiddleScalar.
+Require Export Homotopy.HSpaceS7.MiddleScalar Homotopy.HSpaceS7.RightScalar.
 
 Local Set Universe Minimization ToSet.
 

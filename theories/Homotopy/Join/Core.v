@@ -843,6 +843,21 @@ Proof.
   exact (cancelL_1_natural _).
 Defined.
 
+(** Inversion exchanges the two right boundary computations of a mapped filler. *)
+Definition join_zigzag_filler_V {A B C D : Type}
+  (f : A -> C) (g : B -> D)
+  {a a' : A} {b b' : B} {c c' : C} {d d' : D}
+  (p : f a = c) (q : f a' = c') (r : g b = d) (s : g b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  : (join_zigzag_filler f g p q r s h)^
+    = join_zigzag_filler f g p q s r h^.
+Proof.
+  destruct p, q, r, s.
+  lhs napply (inverse2 (join_zigzag_filler_refl f g h)).
+  rhs napply (join_zigzag_filler_refl f g h^).
+  apply ap_path_image_V.
+Defined.
+
 (** Postcomposition of a recursor acts on any supplied zigzag filler using the specified computations of its edges. The intermediate codomain and its edge paths are arbitrary; in particular, these edges may be reversed join glues. *)
 Definition Join_rec_postcompose_filler {A B P Q : Type}
   (f : A -> P) (g : B -> P) (e : forall a b, f a = g b)
