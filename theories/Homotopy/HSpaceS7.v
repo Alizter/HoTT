@@ -16,10 +16,10 @@ Local Open Scope path_scope.
 
 (** * The remaining input for the 7-sphere H-space *)
 
-(** The executable outline is [S7ProofOutline] below. Its two named section hypotheses are precisely the missing proofs: the right row and the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
+(** The executable outline is [S7ProofOutline] below. Its single named section hypothesis is precisely the missing proof: the dependent mixed case of double join induction on the scalar-loop proofs. Every subsequent assembly step, through the final H-space transfer, is implemented here. No unconditional [hspace_s7] has been constructed. The detailed development plan is in [doc/HSPACE_S7.md]; [test/Homotopy/HSpaceS7Outline.v] checks the actual implementation's computation rules.
 <<
   four constructor loop proofs
-    -> two proved sides, one transported side, one open row, and one open mixed coherence
+    -> three proved sides, one transported side, and one open mixed coherence
     -> loop vanishing for arbitrary x,y,d
     -> circle induction in c: the last join glue
     -> join induction in z: the associator
@@ -50,11 +50,11 @@ Writing [T d c := cd_assoc_last_transport x y d c], the remaining glue condition
   m0 : M North
   m1 : transport M ell m0 = m0.
 >>
-The four lemmas [cd_assoc_last_transport_loop_ll], [cd_assoc_last_transport_loop_lr], [cd_assoc_last_transport_loop_rl], and [cd_assoc_last_transport_loop_rr] prove loop vanishing when the preceding arguments are constructors. They are families in [d], so their particular second-label coherences follow by [apD]. [S7LeftScalar.loop_y_joinl] extends the left row across its join glue, and [S7MiddleScalar.loop_x_joinl] supplies the left column. The right row remains open; once supplied, it gives a right column by transport. The mixed compatibility is still required. Consequently neither [m0] nor [m1] is supplied for arbitrary [x,y], and no unconditional doubled associativity is asserted here. Connectedness and scalar truncation do not fill these join-valued coherence goals. *)
+The four lemmas [cd_assoc_last_transport_loop_ll], [cd_assoc_last_transport_loop_lr], [cd_assoc_last_transport_loop_rl], and [cd_assoc_last_transport_loop_rr] prove loop vanishing when the preceding arguments are constructors. They are families in [d], so their particular second-label coherences follow by [apD]. [S7LeftScalar.loop_y_joinl] extends the left row across its join glue, and [S7MiddleScalar.loop_x_joinl] supplies the left column. [S7RightScalar.loop_y_joinr] supplies the right row with the canonical diamond and the original [rl]/[rr] witnesses. The right column is obtained by transport. The mixed compatibility is still required. Consequently neither [m0] nor [m1] is supplied for arbitrary [x,y], and no unconditional doubled associativity is asserted here. Connectedness and scalar truncation do not fill these join-valued coherence goals. *)
 
-(** ** Executable outline with two open comparisons *)
+(** ** Executable outline with one open comparison *)
 
-(** Short names are confined to this module. All definitions after the gap hypotheses remain conditional on the hypotheses they use; none is registered as an unconditional associativity or H-space instance. *)
+(** Short names are confined to this module. Definitions after the mixed-gap hypothesis remain conditional on that hypothesis when they use it; none is registered as an unconditional associativity or H-space instance. *)
 Module S7ProofOutline.
 Section Construction.
   Context `{Univalence}.
@@ -94,17 +94,16 @@ Section Construction.
     (fun a b b' d => S7LeftScalar.loop_y_joinl
       cd_diamond_susp a b b' d ell).
 
-  (** OPEN 2: the analogous y-glue with x in the right copy. Use the right equivariance row and retain its inverse-edge computations [ap_V] and [inverse_natural]; it is not obtained by declaring a reflection symmetry of the diamond. *)
-  Context (loop_y_joinr : forall a b b' d : C,
-    transport (fun y => M (joinr a) y d) (jglue b b') (m_rl a b d)
-      = m_rr a b' d).
+  (** Former OPEN 2 is proved by the first-right scalar associator and its overlap with [AL]. The canonical diamond's turn law, reversed-edge computations, and original [m_rl]/[m_rr] witnesses are retained. *)
+  Local Notation loop_y_joinr :=
+    (fun a b b' d => S7RightScalar.loop_y_joinr a b b' d ell).
 
   (** Former OPEN 3 is proved using middle-left associativity with the original constructor rows and its overlap with [AL]. *)
   Local Notation loop_x_joinl :=
     (fun a a' b d => S7MiddleScalar.loop_x_joinl
       cd_diamond_susp a a' b d ell).
 
-  (** Step 2: the proved left comparison and OPEN 2 assemble the rows. *)
+  (** Step 2: the two proved comparisons assemble the rows. *)
   Definition loop_row_l (a d : C) : forall y : J, M (joinl a) y d.
   Proof.
     snapply Join_ind.
@@ -126,7 +125,7 @@ Section Construction.
     := transport (fun x => M x y d) (jglue a a') (loop_row_l a d y)
          = loop_row_r a' d y.
 
-  (** Former OPEN 4 is obtained by transporting the left column across the unit y-glue. This retains [m_lr] and [m_rr]; it depends on OPEN 2 through [XGlue], and makes the unit-left-label case of OPEN 5 reflexivity. *)
+  (** Former OPEN 4 is obtained by transporting the left column across the unit y-glue. This retains [m_lr] and [m_rr]; [XGlue] uses the proved right row. This makes the unit-left-label case of OPEN 5 reflexivity. *)
   Definition loop_x_joinr (a a' b d : C)
     : transport (fun x => M x (joinr b) d) (jglue a a') (m_lr a b d)
       = m_rr a' b d
@@ -186,7 +185,7 @@ Section Construction.
   Definition associative_cd_s1_from_gaps : Associative mu
     := fun x y z => (associator x y z)^.
 
-  (** Step 6: inverse uniqueness completes the doubled spheroid; double again and transfer to S7. This definition still has OPEN 2 and OPEN 5 as parameters. *)
+  (** Step 6: inverse uniqueness completes the doubled spheroid; double again and transfer to S7. This definition still has OPEN 5 as its sole missing-proof parameter. *)
   Definition hspace_s7_from_gaps : IsHSpace (psphere 7).
   Proof.
     pose proof associative_cd_s1_from_gaps.

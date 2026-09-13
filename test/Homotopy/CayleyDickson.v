@@ -210,6 +210,25 @@ Section Spheroid.
 
   Context `{!Commutative (@hspace_op X _)} (a b c d : X).
 
+  (** Exposing the scalar witnesses preserves the old associators definitionally, for any supplied diamond and in the original universe. *)
+  Check (@cd_assoc_ll_scalar_r@{u} X _ _ _).
+  Check (@cd_assoc_lr_scalar_r@{u} X _ _ _).
+  Check (@cd_assoc_rl_scalar_r@{u} X _ _ _).
+  Check (@cd_assoc_rr_scalar_r@{u} X _ _ _).
+
+  Example scalar_right_ll_witness
+    : @cd_assoc_ll@{u} X _ _ D _ c d (joinr b)
+      = ap joinr (cd_assoc_ll_scalar_r c d b) := idpath.
+  Example scalar_right_lr_witness
+    : @cd_assoc_lr@{u} X _ _ D _ c d (joinr b)
+      = ap joinl (cd_assoc_lr_scalar_r c d b) := idpath.
+  Example scalar_right_rl_witness
+    : @cd_assoc_rl@{u} X _ _ D _ c d (joinr b)
+      = ap joinl (cd_assoc_rl_scalar_r c d b) := idpath.
+  Example scalar_right_rr_witness
+    : @cd_assoc_rr@{u} X _ _ D _ c d (joinr b)
+      = ap joinr (cd_assoc_rr_scalar_r c d b) := idpath.
+
   (** The complete postcomposition comparison needs no function extensionality, stays in one universe, and uses [D], not the ambient diamond. *)
   Check (@cd_op_diamond_normalize@{u} X _ _ D _ a b c d).
 

@@ -627,6 +627,27 @@ Proof.
   destruct h; reflexivity.
 Defined.
 
+(** The unit cube with the vertical direction reversed. The double inverse in the upper vertical edge is part of the specified filler. *)
+Definition concat_pV_cube_unit_inverse {T : Type} {x y z w : T}
+  (p : x = y) (q : z = y) (r : x = w) (s : z = w)
+  (h : p @ q^ = r @ s^)
+  : let v := (1 @@ inv_V q)^ @ (inverse_natural p s^ h)^ in
+    concat_natural s^ p p r^ q 1 1 v (concat_1p_p1 p)^
+      @ (inverse_natural 1 1 (concat_1p_p1 r) @@ 1)
+    = (1 @@ (concat_1p_p1 q)^)
+      @ concat_natural s^ s^ p 1 1 r^ q
+        (inverse_natural 1 1 (concat_1p_p1 s)) v.
+Proof.
+  destruct p, r, s; cbn in *.
+  revert h.
+  equiv_intro (equiv_1p_q1 (p:=q^) (q:=1)) h.
+  revert h.
+  equiv_intro (equiv_path_inverse 1 q^) h.
+  revert h.
+  equiv_intro (equiv_ap inverse 1 q) h.
+  destruct h; reflexivity.
+Defined.
+
 (** Mapping a zigzag filler has the mixed computation determined by the four specified edge computations. Again all the edges, rather than the sides of a fixed diamond, are free in this path-algebra lemma. *)
 Definition ap_pV_filler_beta {A B : Type} (f : A -> B)
   {x y z w : A} (p : x = y) (q : z = y) (r : x = w) (s : z = w)

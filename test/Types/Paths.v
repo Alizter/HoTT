@@ -26,3 +26,12 @@ Section TurnUniverses.
         (p':=1) (q':=1) (r':=1) (s':=1) 1 1 1 1 1 = 1
     := idpath.
 End TurnUniverses.
+
+Section InverseCube.
+  Universe u.
+  Context {A : Type@{u}}.
+
+  Check (@concat_pV_cube_unit_inverse@{u} A).
+  Example inverse_cube_refl (x : A)
+    : concat_pV_cube_unit_inverse (idpath x) 1 1 1 1 = 1 := idpath.
+End InverseCube.

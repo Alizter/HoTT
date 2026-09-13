@@ -1064,6 +1064,51 @@ Proof.
   exact (concat_pV_cube_unit _ _ _ _ h).
 Defined.
 
+(** Reverse a filler comparison and its boundary identifications. Inverting the filler exchanges its two right labels. *)
+Definition join_zigzag_filler_transport_inverse {A B : Type}
+  {a a' c c' : A} {b b' d d' : B}
+  (p : a = c) (q : a' = c') (r : b = d) (s : b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  (h' : zigzag c c' d = zigzag c c' d')
+  (v : transport011
+      (fun x : A * A => fun y : B * B =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' p q) (path_prod' r s) h = h')
+  : transport011
+      (fun x : A * A => fun y : B * B =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' p^ q^) (path_prod' s^ r^) h'^ = h^.
+Proof.
+  destruct p, q, r, s, v; reflexivity.
+Defined.
+
+(** The same comparison with the vertical direction reversed, retaining the naturalities of the reversed glues. *)
+Definition join_zigzag_filler_cube_inverse {A B : Type}
+  {a a' c c' : A} {b b' d d' : B}
+  (p : a = c) (q : a' = c') (r : b = d) (s : b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  (h' : zigzag c c' d = zigzag c c' d')
+  (v : transport011
+      (fun x : A * A => fun y : B * B =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' p q) (path_prod' r s) h = h')
+  : let cf := (1 @@ inv_V (jglue a' b))^
+      @ (inverse_natural (jglue a b) (jglue a' b')^ h)^ in
+    let cg := (1 @@ inv_V (jglue c' d))^
+      @ (inverse_natural (jglue c d) (jglue c' d')^ h')^ in
+    concat_natural (jglue a' b')^ (jglue a b) (jglue c d)
+      (jglue a b')^ (jglue a' b)
+      (ap joinl p) (ap joinr r) cf (join_natsq p r)^
+      @ (inverse_natural _ _ (join_natsq p s) @@ 1)
+    = (1 @@ (join_natsq q r)^)
+      @ concat_natural (jglue a' b')^ (jglue c' d')^ (jglue c d)
+        (ap joinr s) (ap joinl q) (jglue c d')^ (jglue c' d)
+        (inverse_natural _ _ (join_natsq q s)) cg.
+Proof.
+  destruct p, q, r, s, v.
+  exact (concat_pV_cube_unit_inverse _ _ _ _ h).
+Defined.
+
 (** * Symmetry of Join
 
   We'll use the recursion equivalence above to prove the symmetry of Join, using the Yoneda lemma.  The idea is that [Join A B -> P] is equivalent (as a 0-groupoid) to [JoinRecData A B P], and the latter is very symmetrical by construction, which makes it easy to show that it is equivalent to [JoinRecData B A P].  Going back along the first equivalence gets us to [Join B A -> P].  These equivalences are natural in [P], so the symmetry equivalence follows from the Yoneda lemma.  This is mainly meant as a warm-up to proving the associativity of the join. *)

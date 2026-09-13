@@ -73,3 +73,15 @@ Section PathImageInverse.
     : (p^ @ (ap f h @ q))^ = q^ @ (ap f h^ @ p)
     := ap_path_image_V@{u v} f p q h.
 End PathImageInverse.
+
+Section InverseMixed.
+  Universe u.
+  Context {A : Type@{u}}.
+
+  Check (@inverse_mixed_beta@{u} A).
+  Example inverse_mixed_refl (x : A)
+    : inverse_mixed_beta (q':=idpath x)
+        (idpath (idpath x)) (idpath (idpath x))
+        (idpath (idpath x)) (idpath (idpath x)) 1 1 1 = 1
+    := idpath.
+End InverseMixed.

@@ -1493,6 +1493,31 @@ Proof.
   exact (mixed_beta_horizontal bp bs cp cs cr cq h' h'' v').
 Defined.
 
+(** Inverting the vertical homotopy preserves its mixed computation. The second vertical edge is specified in reversed form, so its double-inverse computation is retained. *)
+Definition inverse_mixed_beta {T : Type} {x y z w : T}
+  {p p' : x = y} {q : y = w} {q' : w = y}
+  {r r' : x = z} {s s' : z = w}
+  (bp : p = p') (bq : q = q'^) (br : r = r') (bs : s = s')
+  (h : p @ q = r @ s) (h' : p' @ q'^ = r' @ s')
+  (v : h @ (br @@ 1) = (1 @@ bq) @ naturality_change bp bs h')
+  : (inverse_natural p s h)^ @ (inverse2 br @@ 1)
+    = (1 @@ (inverse2 bq @ inv_V q')) @ naturality_change bs bp
+      ((1 @@ inv_V q')^ @ (inverse_natural p' s' h')^).
+Proof.
+  destruct bp, br, bs.
+  revert q bq h v; snapply paths_ind_r.
+  intros h v.
+  assert (k : h = h').
+  { exact ((concat_p1 h)^ @ v
+      @ (concat_1p _ @ (concat_p1 _ @ concat_1p _))). }
+  destruct k; clear v.
+  cbn [naturality_change inverse2].
+  lhs napply concat_p1.
+  rhs napply (1 @@ (concat_p1 _ @ concat_1p _)).
+  rhs napply (ap (fun q => idpath s @@ q) (concat_1p (inv_V q')) @@ 1).
+  symmetry; apply concat_p_Vp.
+Defined.
+
 (** Applying a map preserves a mixed computation rule, including the computations on all four edges. *)
 Definition ap_mixed_beta {A B : Type} (f : A -> B)
   {x y z w : A} {p p' : x = y} {q q' : y = w}

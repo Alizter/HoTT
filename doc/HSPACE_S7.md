@@ -1,11 +1,12 @@
-# S⁷: scalar actions and the two remaining comparisons
+# S⁷: scalar actions and the remaining mixed comparison
 
 The executable assembly is `S7ProofOutline` in
 [`theories/Homotopy/HSpaceS7.v`](../theories/Homotopy/HSpaceS7.v).
-Its remaining hypotheses are **OPEN 2 and OPEN 5**. Former OPEN 1 and OPEN 3
-are supplied by `S7LeftScalar.loop_y_joinl` and
-`S7MiddleScalar.loop_x_joinl`. Former OPEN 4 is constructed by transport,
-conditionally on OPEN 2; it is no longer an independent input.
+Its sole remaining hypothesis is **OPEN 5**. Former OPEN 1, OPEN 2, and OPEN 3
+are supplied by `S7LeftScalar.loop_y_joinl`, `S7RightScalar.loop_y_joinr`, and
+`S7MiddleScalar.loop_x_joinl`. Former OPEN 4 is constructed by transport;
+it is not an independent input. The right row uses the actual canonical
+suspension diamond and retains the original corner loop witnesses.
 
 The associativity required here is that of the **circle double**, which is
 pointedly equivalent to S³. The resulting structure on S⁷ only needs to be an
@@ -17,11 +18,11 @@ H-space. No associator pentagon is required for the second doubling.
 m_ll, m_lr, m_rl, m_rr                                  proved
         │
         ├── loop_y_joinl                               proved
-        ├── loop_y_joinr                               OPEN 2
+        ├── loop_y_joinr                               proved (former OPEN 2)
         │       └── loop_row_l, loop_row_r
         │
         ├── loop_x_joinl                               proved
-        ├── loop_x_joinr                               transported, uses OPEN 2
+        ├── loop_x_joinr                               transported from proved sides
         │
         └── loop_mixed                                 OPEN 5
                 │
@@ -36,7 +37,7 @@ m_ll, m_lr, m_rl, m_rr                                  proved
           hspace_s7_from_gaps                           double and transfer
 ```
 
-All assembly steps after the two hypotheses are implemented. This is still a
+All assembly steps after the remaining hypothesis are implemented. This is still a
 **conditional** construction, not an unconditional `hspace_s7` instance.
 
 The notation in the outline is:
@@ -58,8 +59,8 @@ M x y d     = (ap (T x y d) ell = 1)
 reflexivity. There is no obligation to identify these two right choices for
 arbitrary `d`.
 
-Both remaining hypotheses are families in `d`. Consequently, once they
-are proved, the second-circle coherence is simply
+The remaining hypothesis is a family in `d`. Consequently, once it
+is proved, the second-circle coherence is simply
 `apD (all_scalar_loops x y) ell`; it is not an additional missing input.
 
 ## 2. Reusable proof machinery
@@ -94,8 +95,11 @@ homotopies. The latter separates:
 - the actual geometric cube.
 
 It handles the final bookkeeping in `cd_op_diagonal_equivariance_glue_glue`,
-`S7LeftScalar.first_l_glue_glue`, and `S7MiddleScalar.middle_l_glue_glue`.
-The existing side witnesses are retained.
+`S7LeftScalar.first_l_glue_glue`, `S7MiddleScalar.middle_l_glue_glue`, and
+`S7RightScalar.first_r_glue_glue`. The existing side witnesses are retained.
+The right row additionally uses `inverse_mixed_beta`,
+`concat_pV_cube_unit_inverse`, and `join_zigzag_filler_cube_inverse` to keep
+the reversed direction and double-inverse computations explicit.
 
 ### Comparing composites of join maps
 
@@ -103,15 +107,21 @@ The existing side witnesses are retained.
 composite with a single join map. Its input comparisons are scalar paths;
 its output retains the specified join triangles at the corners. The
 `combine` and `split` templates retain the existing beta computations.
-This supplies the overlap for the new middle-left associator.
+This supplies the overlap for the middle-left associator.
+
+`JoinMapCoherence.translation_turn_comparison` supplies the corresponding
+comparison when a map exchanges the join factors. Its `turn_commute` and
+`commute_turn` templates retain the original reversed-glue computations;
+`compare_turn_l` retains the chosen left-copy triangle. This supplies the
+right-row overlap with exactly the original `rl` and `rr` comparisons.
 
 ### Closing nullhomotopies around loops
 
 `ap_loop_nullhomotopic` in
 [`Homotopy/NullHomotopy.v`](../theories/Homotopy/NullHomotopy.v) extracts the
 common loop-closing calculation. The four original corner witnesses, the
-left row, and the left column all use it. This avoids repeatedly unfolding that calculation
-when comparing their values.
+two rows, and the left column all use it. This avoids repeatedly unfolding
+that calculation when comparing their values.
 
 ## 3. Former OPEN 1 is proved
 
@@ -224,7 +234,7 @@ values are definitionally `m_ll` and `m_rl`, so dependent application in `x`
 gives `loop_x_joinl`. This works for every scalar loop and every supplied
 circle diamond, not just the canonical one.
 
-### Former OPEN 4 is derived from OPEN 2
+### Former OPEN 4 is obtained by transport
 
 After the two rows are assembled, `XGlue a a' d y` is the family of
 comparisons between their transported values. Choose
@@ -235,12 +245,12 @@ loop_x_joinr a a' b d
        (loop_x_joinl a a' North d).
 ```
 
-This has precisely the required `lr` and `rr` endpoints. It needs OPEN 2
-through the right row; it is not an unconditional proof of the original
-right-column statement in isolation. No separate right-middle associator
-is needed. The `b = North` case of OPEN 5 is now reflexivity.
+This has precisely the required `lr` and `rr` endpoints. Both rows are now
+proved, so this construction has no missing-proof parameter. No separate
+right-middle associator is constructed or needed. The `b = North` case of
+OPEN 5 is reflexivity.
 
-### OPEN 2: right-row assembly still needed
+### Former OPEN 2 is proved
 
 A geometric ingredient is now proved in
 [`Join/SuspDiamond.v`](../theories/Homotopy/Join/SuspDiamond.v).
@@ -302,18 +312,43 @@ The supporting comparisons are reusable:
 - `join_zigzag_filler_V` and `cd_op_diamond_V` retain the specified boundaries
   when switching the filler orientation.
 
-This still **does not prove OPEN 2**. The next steps are to compare the
-induced boundary paths with the original `cd_assoc_first_rl` and
-`cd_assoc_first_rr` witnesses, convert the geometric comparison using the
-actual mixed recursor beta rules, and assemble the right row and its
-overlap with `AL`. The scalar comparisons are not asserted to follow by
-reflexivity at the unit: negation, right-unit, and parameter witnesses
-remain in that calculation. Neither a new right-row associator nor a new
-loop witness has been substituted for the original ones.
+The circle-specific assembly is now complete:
 
-Retain `ap_V`, `inverse_natural`, and the mixed recursor beta rules. The fact
-that `cd_chi` is homotopic to the identity does not itself supply this
-witness-preserving comparison.
+1. `standard_00`, `standard_01`, `standard_10`, and `standard_11` compare the
+   induced boundaries with the original scalar witnesses. These are
+   equalities of scalar paths, not assertions that join fillers are unique.
+   The unit calculations retain
+   `rightidentity_s1 South = merid South` and
+   `parameter North North North North North = merid North`.
+   Negation and the mixed boundary computations then give the required
+   cancellations; they are not all reflexivity.
+2. `diamond_standard` reverses and reindexes the actual filler comparison.
+   `first_r_glue_glue` converts it using the two actual mixed beta rules and
+   all four specified side faces, including `ap_V`, `inv_V`, and
+   `inverse_natural`.
+3. `first_r s y z` assembles the right-copy associator with both later
+   arguments arbitrary. Its constructor rows are definitionally the original
+   `cd_assoc_first_rl` and `cd_assoc_first_rr`.
+4. `overlap s y c` compares `AL (joinr s) y c` with
+   `first_r s y (joinl c)`. The general turn-composite comparison supplies
+   its glue, while its constructors are exactly
+   `cd_assoc_last_joinl_first_rl` and `cd_assoc_last_joinl_first_rr`.
+5. Closing the resulting nullhomotopy gives `row_loop`. Its constructor
+   values are definitionally `m_rl` and `m_rr`. Dependent application in `y`
+   gives **`loop_y_joinr`**, for every scalar loop `p : c = c`.
+
+The old scalar witnesses are now named `cd_assoc_ll_scalar_r`,
+`cd_assoc_lr_scalar_r`, `cd_assoc_rl_scalar_r`, and `cd_assoc_rr_scalar_r`
+in `CayleyDickson.v`. Their proof expressions are unchanged; sharing those
+terms avoids duplicating long boundary calculations during conversion.
+The right-row constructions, including the mixed comparison, are
+transparent (`Defined`), and the regression tests check transparency as
+well as the constructor and glue computations.
+
+Unlike the left and middle-left rows, this proof uses a turn law of the
+**canonical** diamond. It does not assert the result for an arbitrary
+supplied diamond. Nor does it infer the chosen coherence from
+`cd_chi ~ id`.
 
 ### OPEN 5: compatibility of the actual four sides
 
@@ -357,14 +392,17 @@ Tests of the actual implementations live in:
 - `test/Homotopy/HSpaceS7LeftScalar.v`: overlap and original loop witnesses;
 - `test/Homotopy/HSpaceS7MiddleScalar.v`: middle associator, mixed beta,
   overlap, and the original column-loop witnesses;
-- `test/Homotopy/Join/MapCoherence.v`: the composite comparison templates;
+- `test/Homotopy/Join/MapCoherence.v`: composite and turn comparison templates;
 - `test/Homotopy/Join/SuspDiamond.v`: pole computations, two-map turns,
   composition with arbitrary boundaries, and the actual canonical diamond;
 - `test/Homotopy/Join/Core.v`: general recursor postcomposition and mapped
   filler inversion with independent universes;
 - `test/Homotopy/HSpaceS7RightScalar.v`: general scalar maps, the actual
-  suspension multiplication filler comparison, and the circle specialization;
-- `test/Homotopy/HSpaceS7Outline.v`: the two-hypothesis assembly and its beta
+  suspension filler comparison, original right-row and overlap witnesses,
+  mixed beta computation, transparency, and arbitrary scalar loops;
+- `test/Homotopy/CayleyDickson.v`: shared scalar witnesses with unchanged
+  constructor computations and a supplied diamond;
+- `test/Homotopy/HSpaceS7Outline.v`: the one-hypothesis assembly and its beta
   rules through the conditional S⁷ H-space.
 
 Validate with `dune build`, `dune build test/`, and finally `dune test`, which

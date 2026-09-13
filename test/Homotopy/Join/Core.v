@@ -11,6 +11,8 @@ Section ZigzagNaturality.
 
   (** The filler-to-cube conversion retains the independent join universe. *)
   Check (@join_zigzag_filler_cube@{u v w} A B).
+  Check (@join_zigzag_filler_cube_inverse@{u v w} A B).
+  Check (@join_zigzag_filler_transport_inverse@{u v w} A B).
 
   Example zigzag_natsq_universes
     {a a' c c' : A} {b b' : B}

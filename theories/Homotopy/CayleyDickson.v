@@ -555,6 +555,47 @@ Section SpheroidHSpace.
 
   Local Notation comm := (commutativity (f:=@hspace_op X _)).
 
+  (** Name the right-copy scalar witnesses so subsequent coherence comparisons can reuse the actual terms rather than repeatedly converting long copies of them. *)
+  Definition cd_assoc_ll_scalar_r (c d b : X)
+    : d * (c * b) = (c * d) * b
+    := assoc d c b @ ap (.* b) (comm d c).
+
+  Definition cd_assoc_lr_scalar_r (c d b : X)
+    : (-d) * conj (c * b) = (-(conj c * d)) * conj b.
+  Proof.
+    refine (factorneg_l d _ @ _ @ (factorneg_l _ (conj b))^).
+    napply (ap (-)).
+    refine (ap (d *.) (distropp c b) @ _).
+    refine (ap (d *.) (comm (conj b) (conj c)) @ _).
+    exact (assoc d (conj c) (conj b)
+      @ ap (.* conj b) (comm d (conj c))).
+  Defined.
+
+  Definition cd_assoc_rl_scalar_r (c d b : X)
+    : ((-c) * conj b) * d = (-(d * c)) * conj b.
+  Proof.
+    refine (ap (.* d) (factorneg_l c (conj b)) @ _).
+    refine (factorneg_l (c * conj b) d @ _ @ (factorneg_l _ (conj b))^).
+    napply (ap (-)).
+    refine (comm (c * conj b) d @ _).
+    exact (assoc d c (conj b)).
+  Defined.
+
+  Definition cd_assoc_rr_scalar_r (c d b : X)
+    : conj ((-c) * conj b) * d = ((-d) * conj c) * b.
+  Proof.
+    refine (ap (.* d) (distropp (-c) (conj b)) @ _).
+    refine (ap (fun x => (x * conj (-c)) * d) (cds_conjug_inv b) @ _).
+    refine (ap (fun x => (b * x) * d) (swapop c) @ _).
+    refine (ap (.* d) (factorneg_r b (conj c)) @ _).
+    refine (factorneg_l (b * conj c) d @ _).
+    refine (_ @ ap (.* b) (factorneg_l d (conj c))^).
+    refine (_ @ (factorneg_l (d * conj c) b)^).
+    napply (ap (-)).
+    refine (comm (b * conj c) d @ _).
+    exact (ap (d *.) (comm b (conj c)) @ assoc d (conj c) b).
+  Defined.
+
   (** The subscripts refer to the second and third arguments; the first argument is an arbitrary join element. These homotopies use only one-glue computations, so they work for any chosen diamond. *)
   Definition cd_assoc_ll (c d : X)
     : forall z : pjoin X X,
@@ -562,8 +603,7 @@ Section SpheroidHSpace.
         = cd_op z (joinl (c * d)).
   Proof.
     pose (hl := fun a => (assoc a c d)^).
-    pose (hr := fun b => assoc d c b
-      @ ap (fun x => hspace_op x b) (comm d c)).
+    pose (hr := cd_assoc_ll_scalar_r c d).
     snapply (Join_ind_FFlFr
       (fun z => cd_op z (joinl c)) (fun z => cd_op z (joinl d))
       (fun z => cd_op z (joinl (c * d)))).
@@ -590,14 +630,7 @@ Section SpheroidHSpace.
       refine (ap (.* d) (distropp a c) @ _).
       exact (ap (.* d) (comm (conj c) (conj a))
         @ (assoc (conj a) (conj c) d)^). }
-    assert (hr : forall b, (-d) * conj (c * b) = (-(conj c * d)) * conj b).
-    { intro b.
-      refine (factorneg_l d _ @ _ @ (factorneg_l _ (conj b))^).
-      napply (ap (-)).
-      refine (ap (d *.) (distropp c b) @ _).
-      refine (ap (d *.) (comm (conj b) (conj c)) @ _).
-      exact (assoc d (conj c) (conj b)
-        @ ap (.* conj b) (comm d (conj c))). }
+    pose (hr := cd_assoc_lr_scalar_r c d).
     snapply (Join_ind_FFlFr
       (fun z => cd_op z (joinl c)) (fun z => cd_op z (joinr d))
       (fun z => cd_op z (joinr (conj c * d)))).
@@ -629,13 +662,7 @@ Section SpheroidHSpace.
       refine (assoc d (conj a) c @ _).
       exact (ap (.* c) (comm d (conj a))
         @ (assoc (conj a) d c)^). }
-    assert (hr : forall b, ((-c) * conj b) * d = (-(d * c)) * conj b).
-    { intro b.
-      refine (ap (.* d) (factorneg_l c (conj b)) @ _).
-      refine (factorneg_l (c * conj b) d @ _ @ (factorneg_l _ (conj b))^).
-      napply (ap (-)).
-      refine (comm (c * conj b) d @ _).
-      exact (assoc d c (conj b)). }
+    pose (hr := cd_assoc_rl_scalar_r c d).
     snapply (Join_ind_FFlFr
       (fun z => cd_op z (joinr c)) (fun z => cd_op z (joinl d))
       (fun z => cd_op z (joinr (d * c)))).
@@ -668,19 +695,7 @@ Section SpheroidHSpace.
       refine (ap ((-d) *.) (distropp (conj a) c) @ _).
       refine (ap (fun x => (-d) * (conj c * x)) (cds_conjug_inv a) @ _).
       exact (assoc (-d) (conj c) a @ comm ((-d) * conj c) a). }
-    assert (hr : forall b, conj ((-c) * conj b) * d = ((-d) * conj c) * b).
-    { intro b.
-      refine (ap (.* d) (distropp (-c) (conj b)) @ _).
-      refine (ap (fun x => (x * conj (-c)) * d) (cds_conjug_inv b) @ _).
-      refine (ap (fun x => (b * x) * d) (swapop c) @ _).
-      refine (ap (.* d) (factorneg_r b (conj c)) @ _).
-      refine (factorneg_l (b * conj c) d @ _).
-      refine (_ @ ap (.* b) (factorneg_l d (conj c))^).
-      refine (_ @ (factorneg_l (d * conj c) b)^).
-      napply (ap (-)).
-      refine (comm (b * conj c) d @ _).
-      exact (ap (d *.) (comm b (conj c))
-        @ assoc d (conj c) b). }
+    pose (hr := cd_assoc_rr_scalar_r c d).
     snapply (Join_ind_FFlFr
       (fun z => cd_op z (joinr c)) (fun z => cd_op z (joinr d))
       (fun z => cd_op z (joinl ((-d) * conj c)))).
