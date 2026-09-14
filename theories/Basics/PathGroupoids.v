@@ -1194,6 +1194,17 @@ Proof.
   destruct p, q; reflexivity.
 Defined.
 
+(** The pointwise transport of a section has the prescribed transport-interchange computation. The section itself need not extend in the first coordinate. *)
+Definition apD_transport {A B : Type} (P : A -> B -> Type)
+  {x x' : A} (p : x = x') (f : forall y, P x y)
+  {y y' : B} (q : y = y')
+  : apD (fun z => transport (fun a => P a z) p (f z)) q
+    = transport_transport P p q (f y)
+      @ ap (transport (fun a => P a y') p) (apD f q).
+Proof.
+  destruct p, q; reflexivity.
+Defined.
+
 (** *** The behavior of [ap] and [apD]. *)
 
 (** In a constant fibration, [apD] reduces to [ap], modulo [transport_const]. *)

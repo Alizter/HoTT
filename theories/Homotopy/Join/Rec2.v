@@ -84,6 +84,40 @@ Section Homotopy2.
   Defined.
 End Homotopy2.
 
+(** ** The mixed computation of nested homotopy induction *)
+
+(** The outer homotopy eliminator's glue comparison is itself constructed by dependent join induction. Its variation in the second coordinate retains both outer beta paths and the exact chosen inner mixed comparison. *)
+Section NestedComputation.
+  Universes u v w z s t p.
+  Context {A : Type@{u}} {B : Type@{v}}
+    {C : Type@{w}} {D : Type@{z}} {T : Type@{p}}
+    (f g : Join@{u v s} A B -> Join@{w z t} C D -> T)
+    (hl : forall a y, f (joinl a) y = g (joinl a) y)
+    (hr : forall b y, f (joinr b) y = g (joinr b) y).
+  Let Q a b y := ap (fun x => f x y) (jglue a b) @ hr b y
+    = hl a y @ ap (fun x => g x y) (jglue a b).
+  Context (gl : forall a b c, Q a b (joinl c))
+    (gr : forall a b d, Q a b (joinr d))
+    (gm : forall a b c d,
+      transport (Q a b) (jglue c d) (gl a b c) = gr a b d).
+  Let edge a b := Join_ind (Q a b) (gl a b) (gr a b) (gm a b).
+  Let h x y := Join_ind_FlFr (fun x => f x y) (fun x => g x y)
+    (fun a => hl a y) (fun b => hr b y) (fun a b => edge a b y) x.
+  Let beta a b y : concat_Ap (fun x => h x y) (jglue a b) = edge a b y
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ a b.
+
+  Definition Join_ind_FlFr_ind_beta_jglue_jglue
+    (a : A) (b : B) (c : C) (d : D)
+    : apD (fun y => concat_Ap (fun x => h x y) (jglue a b))
+        (jglue c d)
+      = (ap (transport (Q a b) (jglue c d)) (beta a b (joinl c))
+          @ gm a b c d) @ (beta a b (joinr d))^.
+  Proof.
+    lhs napply (apD_homotopic (beta a b) (jglue c d)).
+    exact ((1 @@ Join_ind_beta_jglue _ _ _ _ c d) @@ 1).
+  Defined.
+End NestedComputation.
+
 (** * Dependent extension from two compatible left faces *)
 
 (** The two faces have one arbitrary join coordinate each. Their intersection comparison is supplied, not inferred from matching types. Right-constructor data are chosen by transport from [a0] and [c0], leaving precisely the mixed glue comparison as an input. *)

@@ -102,6 +102,71 @@ transfer give `hspace_s7_from_direct_mixed`. This route uses no `T`, `M`,
 `ap_loop_nullhomotopic`, or circle induction on the last scalar. It does not
 require prescribed last-argument computation rules for the associator.
 
+### Checked normalization of the mixed boundary
+
+`equiv_mixed_normalize` now proves an equivalence
+
+```text
+NormalizedMixed a b s t c d <~> Mixed a b s t c d.
+```
+
+It preserves the chosen sides, not just existence of some extension.
+For fixed `a,b,t`, write
+
+```text
+U_s(z) := transport (fun y => Gamma a b y z) (jglue s t)
+            (face_y a b s z)
+Q(z)   := Gamma a b (joinr t) z.
+```
+
+First, `dpath_path_FlFr_D` converts the original obligation into
+
+```text
+ap (transport Q (jglue c d)) (el s t c) @ apD U_North (jglue c d)
+  = apD U_s (jglue c d) @ er s t d.
+```
+
+The two dependent applications are computed, rather than left abstract:
+
+- `Join_ind_FlFr_ind_beta_jglue_jglue` keeps both outer join beta paths and
+  the specified inner mixed computation. Its specialization `face_y_glue`
+  computes the middle face using the original
+  `S7MiddleScalar.middle_l_glue_glue`. The analogous first-left and
+  first-right specializations are regression-checked too.
+- `apD_transport` gives `transported_face_glue`: its computed side `Z_s(c,d)`
+  is transport interchange in `Gamma`, followed by the transported middle
+  cell. The actual middle cell includes both outer beta paths.
+- The transported edge `er` is also expanded using
+  `transport_paths_FlFr_D`. No transport in a family of 3-paths is left.
+
+With the previously specified `h s t c`, set
+
+```text
+K_s(c,d) := ap (transport Q (jglue c d)) (h s t c) @ Z_s(c,d).
+```
+
+The checked normalized goal is exactly
+
+```text
+K_s(c,d) @ K_s(North,d)^
+  = K_North(c,d) @ K_North(North,d)^.
+```
+
+Both sides start at `transport Q (jglue c d) (face_z a b (joinr t) c)`
+and end at `transport Q (jglue North d) (face_z a b (joinr t) North)`.
+Their different intermediate endpoints `U_s (joinr d)` have been removed
+by the general equivalence `equiv_pasting_zigzags`, not by identifying
+arbitrary fillers. This remains a 4-path in the join.
+
+**Still open:** prove this equality of the actual pastings. In particular,
+transport interchange in `Gamma` and the y-variation of `face_z` have not
+yet been reduced to a minimal comparison of multiplication diamonds.
+The normalization is not itself that geometric comparison. The unit cases
+and both round trips of the equivalence are checked, and a normalized
+filler family can already be passed through it to the direct S⁷ assembly.
+The existing scalar-associator proof universe is shared explicitly; the
+normalization introduces no additional universe parameters.
+
 ## 1. Earlier scalar-loop proof structure
 
 ```text
@@ -481,8 +546,8 @@ the available computations are the horizontal/vertical pole fillers and
 Tests of the actual implementations live in:
 
 - `test/Homotopy/Join/Rec2.v`: arbitrary corner and edge computations, dependent
-  extension from compatible left faces, independent universes, and the
-  specified intersection and mixed computation;
+  extension from compatible left faces, independent universes, the
+  specified intersection, and the exact mixed beta rule for nested induction;
 - `test/Types/Paths.v`: universe interfaces of the transport conversions;
 - `test/Homotopy/NullHomotopy.v`: the exact loop-closing witness without
   extensionality;
@@ -502,8 +567,9 @@ Tests of the actual implementations live in:
 - `test/Homotopy/CayleyDickson.v`: shared scalar witnesses with unchanged
   constructor computations and a supplied diamond;
 - `test/Homotopy/HSpaceS7Direct.v`: the two whole faces, their actual
-  intersection comparison, unit cases of `Mixed`, conditional direct gluing,
-  retained first associators, and second doubling;
+  intersection comparison, original first-left/right/middle mixed cells,
+  normalized mixed boundary and round trips, unit cases, conditional direct
+  gluing, retained first associators, and second doubling;
 - `test/Homotopy/HSpaceS7Outline.v`: the earlier one-hypothesis loop assembly,
   direct reuse of the original `row_loop` families, and its beta rules through
   the conditional S⁷ H-space.

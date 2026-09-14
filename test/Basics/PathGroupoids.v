@@ -85,3 +85,18 @@ Section InverseMixed.
         (idpath (idpath x)) (idpath (idpath x)) 1 1 1 = 1
     := idpath.
 End InverseMixed.
+
+Section PointwiseTransport.
+  Universes u v w.
+  Context {A : Type@{u}} {B : Type@{v}}
+    (P : A -> B -> Type@{w}).
+
+  Example pointwise_transport_application {x x' : A} (p : x = x')
+    (f : forall y, P x y) {y y' : B} (q : y = y')
+    : apD (fun z => transport (fun a => P a z) p (f z)) q
+      = transport_transport P p q (f y)
+        @ ap (transport (fun a => P a y') p) (apD f q)
+    := apD_transport@{u v w} P p f q.
+  Example pointwise_transport_refl (x : A) (f : forall y, P x y) (y : B)
+    : apD_transport P (idpath x) f (idpath y) = 1 := idpath.
+End PointwiseTransport.

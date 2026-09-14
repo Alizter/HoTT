@@ -1029,6 +1029,20 @@ Definition equiv_moveL_equiv_V `{IsEquiv A B f} (x : B) (y : A)
   : (f y = x) <~> (y = f^-1 x)
   := Build_Equiv _ _ (@moveL_equiv_V A B f _ x y) _.
 
+(** Comparing two zigzag pastings eliminates their different intermediate endpoints. Only a spanning tree of the free edges is eliminated in the proof; the remaining closing edge is arbitrary. *)
+Definition equiv_pasting_zigzags {T : Type}
+  {x0 x1 y0 y1 z0 z1 u v : T}
+  (p : x0 = y0) (q : x1 = y1) (r : x0 = z0) (s : x1 = z1)
+  (a : y0 = u) (b : y1 = u) (c : z0 = v) (d : z1 = v)
+  : ((p @ a) @ (q @ b)^ = (r @ c) @ (s @ d)^)
+    <~> ((p^ @ r) @ c = a @ ((b^ @ (q^ @ s)) @ d)).
+Proof.
+  destruct p, q, r, s, a, b, c; cbn.
+  exact (equiv_concat_r (concat_1p (1 @ d))^ (idpath _)
+    oE (equiv_ap inverse (idpath _) (idpath _ @ d))^-1
+    oE equiv_concat_r (concat_1p (1 @ d)^) (idpath _)).
+Defined.
+
 (** *** Dependent paths *)
 
 (** Usually, a dependent path over [p:x1=x2] in [P:A->Type] between [y1:P x1] and [y2:P x2] is a path [transport P p y1 = y2] in [P x2].  However, when [P] is a path space, these dependent paths have a more convenient description: rather than transporting the left side both forwards and backwards, we transport both sides of the equation forwards, forming a sort of "naturality square".
@@ -1096,6 +1110,17 @@ Proof.
   - exact (equiv_concat_r (concat_1p r) (q @ 1)).
   - exact (equiv_concat_l (concat_p1 q)^ r).
 Defined.
+
+(** A dependent naturality square, with the exact transport computation retained. *)
+Definition dpath_path_FlFr_D {A : Type} {B : A -> Type}
+  (f g : forall a, B a) {x y : A} (p : x = y)
+  (u : f x = g x) (v : f y = g y)
+  : (ap (transport B p) u @ apD g p = apD f p @ v)
+    <~> (transport (fun z => f z = g z) p u = v)
+  := equiv_concat_l (transport_paths_FlFr_D p u) v
+    oE equiv_concat_l
+      (concat_pp_p (apD f p)^ (ap (transport B p) u) (apD g p)) v
+    oE equiv_moveR_Vp (ap (transport B p) u @ apD g p) v (apD f p).
 
 Definition dpath_path_FFlr {A B : Type} {f : A -> B} {g : B -> A}
   {x1 x2 : A} (p : x1 = x2) (q : g (f x1) = x1) (r : g (f x2) = x2)

@@ -134,3 +134,30 @@ Section LeftFaces.
       = Join_ind2_from_left_overlap_r P a0 left bottom agree b c
     := idpath.
 End LeftFaces.
+
+Section NestedBeta.
+  Universes u v w z s t p.
+  Context {A : Type@{u}} {B : Type@{v}}
+    {C : Type@{w}} {D : Type@{z}} {T : Type@{p}}
+    (f g : Join@{u v s} A B -> Join@{w z t} C D -> T)
+    (hl : forall a y, f (joinl a) y = g (joinl a) y)
+    (hr : forall b y, f (joinr b) y = g (joinr b) y).
+  Let Q a b y := ap (fun x => f x y) (jglue a b) @ hr b y
+    = hl a y @ ap (fun x => g x y) (jglue a b).
+  Context (gl : forall a b c, Q a b (joinl c))
+    (gr : forall a b d, Q a b (joinr d))
+    (gm : forall a b c d,
+      transport (Q a b) (jglue c d) (gl a b c) = gr a b d).
+  Let edge a b := Join_ind (Q a b) (gl a b) (gr a b) (gm a b).
+  Let h x y := Join_ind_FlFr (fun x => f x y) (fun x => g x y)
+    (fun a => hl a y) (fun b => hr b y) (fun a b => edge a b y) x.
+  Let beta a b y : concat_Ap (fun x => h x y) (jglue a b) = edge a b y
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ a b.
+
+  Example retained_nested_mixed (a : A) (b : B) (c : C) (d : D)
+    : apD (fun y => concat_Ap (fun x => h x y) (jglue a b)) (jglue c d)
+      = (ap (transport (Q a b) (jglue c d)) (beta a b (joinl c))
+          @ gm a b c d) @ (beta a b (joinr d))^
+    := Join_ind_FlFr_ind_beta_jglue_jglue@{u v w z s t p}
+      f g hl hr gl gr gm a b c d.
+End NestedBeta.
