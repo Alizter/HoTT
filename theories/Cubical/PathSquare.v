@@ -185,6 +185,20 @@ Defined.
 
 Notation sq_tr := equiv_sq_tr.
 
+(** Transposing a square presented by its path-algebra filler reverses that filler. *)
+Definition sq_tr_path {A : Type}
+  {a00 a10 a01 a11 : A}
+  {px0 : a00 = a10} {px1 : a01 = a11}
+  {p0x : a00 = a01} {p1x : a10 = a11}
+  (h : px0 @ p1x = p0x @ px1)
+  : sq_tr (sq_path h) = sq_path h^.
+Proof.
+  destruct px0, p0x, p1x.
+  revert px1 h.
+  srapply (equiv_path_ind (fun px1 => equiv_p1_1q (p:=1) (q:=px1))).
+  reflexivity.
+Defined.
+
 (** NOTE: sq_tr ought to be some sort of involution but it obviously isn't since it is not of the form A -> A. Perhaps there is a more general "involution" but between equivalent types? But then that very equivalence is given by sq_tr so it seems a bit circular... *)
 
 Definition sq_tr_refl_h {A} {a b : A} {p : a = b}
@@ -661,6 +675,17 @@ Definition sq_ap {A B : Type} {a00 a10 a01 a11 : A} (f : A -> B)
   : PathSquare px0 px1 p0x p1x -> PathSquare (ap f px0) (ap f px1) (ap f p0x) (ap f p1x).
 Proof.
   by intros [].
+Defined.
+
+(** Mapping commutes with transposition. *)
+Definition sq_ap_tr {A B : Type} (f : A -> B)
+  {a00 a10 a01 a11 : A}
+  {px0 : a00 = a10} {px1 : a01 = a11}
+  {p0x : a00 = a01} {p1x : a10 = a11}
+  (s : PathSquare px0 px1 p0x p1x)
+  : sq_tr (sq_ap f s) = sq_ap f (sq_tr s).
+Proof.
+  destruct s; reflexivity.
 Defined.
 
 (** Mapping a square preserves its specified path-algebra filler. *)

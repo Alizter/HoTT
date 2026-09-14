@@ -17,7 +17,13 @@ Module D := S7DirectGluing.
 Local Transparent D.face_overlap D.associator D.face_y_glue
   D.transported_face_glue D.equiv_mixed_normalize D.transported_face
   D.transported_face_cell D.transported_face_cell_beta D.last_face_cell
-  D.last_face_cell_beta D.computed_pasting D.equiv_mixed_expansion.
+  D.last_face_cell_beta D.computed_pasting D.equiv_mixed_expansion
+  D.last_associator_transport_normal_form D.eta_square D.eta_square_beta
+  D.eta_left_inner_cell_beta D.eta_inner_cell_beta
+  D.right_product_cap_comparison
+  D.last_middle_transport_normal_form
+  D.last_middle_transport_cell_normal_form D.eta_last_associator_cell
+  D.eta_last_associator_cell_beta.
 
 Section DirectChecks.
   Universe u.
@@ -253,12 +259,36 @@ Section DirectChecks.
   Let diagonal (c : C) := functor_join
     (fun v => @hspace_op (psphere 1) _ v c)
     (fun v => @hspace_op (psphere 1) _ v c).
+  Let eta (c d : C) (v : J)
+    := (rho c v)^ @ ap (mu v) (jglue c d).
+
+  Example actual_last_transport_normal_form (x y : J) (c d : C)
+    : transport (fun z => mu (mu x y) z = mu x (mu y z))
+        (jglue c d) (AL x y c)
+      = ((eta c d (mu x y))^
+          @ (cd_op_diagonal_equivariance c x y)^)
+        @ ap (mu x) (eta c d y)
+    := D.last_associator_transport_normal_form@{u} x y c d.
+  Example actual_eta_square (c d s t : C)
+    : concat_Ap (eta c d) (jglue s t) = D.eta_square@{u} c d s t
+    := D.eta_square_beta@{u} c d s t.
+  Example actual_eta_left_cube (a b s t c d : C)
+    : _ = _ := D.eta_left_inner_cell_beta@{u} a b s t c d.
+  Example actual_eta_right_cube (a b s t c d : C)
+    : _ = _ := D.eta_inner_cell_beta@{u} a b s t c d.
 
   Example actual_left_product_cap_target (a b s t c d : C)
     : _ = sq_ap_nat (diagonal c) (fun v => mu v (joinr d))
         (fun v => (rho c v)^ @ ap (mu v) (jglue c d))
         (sq_path (multiplication_square a b s t))
     := D.left_product_cap_comparison a b s t c d.
+  Example right_cap_rewritten_with_eta (a b s t c d : C)
+    : _ = _ := D.right_product_cap_comparison@{u} a b s t c d.
+  Example combined_cap_transport_normal_form (a b s t c d : C)
+    : _ := D.last_middle_transport_cell_normal_form@{u} a b s t c d.
+  Example combined_eta_associator_cell (a b s t c d : C)
+    : _ = D.eta_last_associator_cell@{u} a b s t c d
+    := D.eta_last_associator_cell_beta@{u} a b s t c d.
 
   Example computed_pasting_expression (a b s t c d : C)
     : D.computed_pasting@{u} a b s t c d

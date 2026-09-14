@@ -34,6 +34,17 @@ Section Naturality.
   Example application_square_transpose_refl (f : A -> B -> C) (a : A) (b : B)
     : concat_Ap_ap f (idpath a) (idpath b) = 1 := idpath.
 
+  Example naturality_on_composite_path {f g : A -> B} (h : f == g)
+    {x y z : A} (p : x = y) (q : y = z)
+    : concat_Ap h (p @ q)
+      = naturality_change (ap_pp f p q) (ap_pp g p q)
+        (concat_pp_p (ap f p) (ap f q) (h z)
+          @ whiskerL (ap f p) (concat_Ap h q)
+          @ concat_p_pp (ap f p) (h y) (ap g q)
+          @ whiskerR (concat_Ap h p) (ap g q)
+          @ concat_pp_p (h x) (ap g p) (ap g q))
+    := concat_Ap_pp@{u v} h p q.
+
   Example naturality_precompose_universes {f g : B -> C}
     (h : f == g) (k : A -> B) {x y : A} (p : x = y)
     : concat_Ap (h o k) p

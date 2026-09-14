@@ -196,6 +196,23 @@ Proof.
   exact ((concat_1p q)^ @ (concat_p1 (1 @ q))^).
 Defined.
 
+(** Transport an associator assembled from a comparison with right translation. Combining the translation path with the path in the last input removes the two separate endpoint corrections. *)
+Definition transport_associator_normal_form
+  {A : Type} (mu : A -> A -> A)
+  {z0 z1 : A} (p : z0 = z1) (r : A -> A)
+  (rho : forall v, mu v z0 = r v)
+  (E : forall x y, mu x (r y) = r (mu x y))
+  (x y : A)
+  : let eta := fun v => (rho v)^ @ ap (mu v) p in
+    transport (fun z => mu (mu x y) z = mu x (mu y z)) p
+      ((rho (mu x y) @ (E x y)^) @ ap (mu x) (rho y)^)
+    = ((eta (mu x y))^ @ (E x y)^) @ ap (mu x) (eta y).
+Proof.
+  destruct p; cbn.
+  rewrite !concat_p1, inv_V.
+  reflexivity.
+Defined.
+
 (** The above lemmas have some common rearrangements that are useful. Since these all follow the same pattern, we introduce a tactic to apply it. *)
 
 (** The most common rearrangement after applying the [transport_paths_] lemmas on the [lhs]. *)

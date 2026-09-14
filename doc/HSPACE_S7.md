@@ -282,9 +282,42 @@ converted cube inhabitants, the multiplication mixed beta witness, and all
 four side-face adjustments supplied by `ap_nat_Vp`. Its generic 4-dimensional
 pasting law is `sq_ap_nat_Vp` in `Cubical/PathCube.v`.
 
-This is a comparison of one pair of inner geometric cubes. It has **not**
-yet been lifted through the outer composition and overlap adjustments to
-rewrite the whole `computed_pasting`, and it does not supply `Mixed`.
+The two translation corrections can now be combined before taking any
+further naturality.  Put
+
+```text
+eta_c,d(v) := (rho_c(v))^ @ ap (mu v) (jglue c d).
+```
+
+The generic lemma `transport_associator_normal_form` proves that transport of
+`AL(x,y,c)` along `jglue c d` is
+
+```text
+(eta_c,d(mu x y))^ @ (E_c(x,y))^ @ ap (mu x) (eta_c,d(y)).
+```
+
+This is path induction on the free last-input path, not a diamond
+comparison.  The checked `eta_square_beta` computes naturality of `eta` as
+the horizontal pasting of inverse-translation naturality and the **transpose**
+of `multiplication_square s t c d`.  Thus the inverse orientation is part of
+the statement rather than silently corrected later.
+
+The cubical operation `cu_swap_tb_fb` transposes that right-product cube,
+and `sq_ap_nat_tr` computes the result on an actual naturality cube.
+`right_product_cap_comparison` then combines this transposed cube with the
+last inverse-translation cube using `concat_Ap_pp`.  Together with the
+existing `left_product_cap_comparison`, both product--translation pairs are
+identified with the two naturality cubes involving `eta`, retaining their
+actual source squares and beta paths.  Finally,
+`last_middle_transport_normal_form` applies the transport normal form before
+naturality in the first input, and
+`last_middle_transport_cell_normal_form` takes its actual dependent
+naturality in the middle input.  This combines both pairs at the homotopy
+level and leaves the diagonal-equivariance contribution between them.
+
+These comparisons have **not** yet eliminated the first-left, first-right,
+middle, or overlap adjustments from the whole `computed_pasting`, and they
+do not supply `Mixed`.
 
 Following the relative-induction pattern used for join associativity,
 `pathcube_ind_left` allows five faces to stay fixed while the sixth face
@@ -293,12 +326,29 @@ and its filling cube, not the type of cubes with all six faces fixed.
 This is available for the remaining pasting calculations, not a proof of
 `Mixed` by filler uniqueness.
 
-**Still open:** prove the equality of these actual pastings. Both product
-cubes and the last-associator cube have now been computed. The remaining
-mathematics is compatibility of their geometric naturality cubes with the
-specified left-action, right-turn, balanced, and diagonal diamond
-comparisons and the overlaps. A minimal remaining diamond-only coherence
-theorem has not yet been extracted.
+**Still open:** substitute the combined `eta` normal form through the
+first-left, first-right, middle, and overlap adjustments, then prove the
+equality of the resulting actual pastings.  The duplicated translation
+faces are no longer the issue.  The unresolved part is compatibility of the
+two `eta` naturality cubes and diagonal comparison with the specified
+left-action, right-turn, balanced-diamond comparisons and the overlaps.  A
+minimal remaining coherence theorem has not yet been extracted.  At the
+geometric center there are now two specified multiplication 2-cells and
+two orders of their naturality.  A generalized interchange/syllepsis law
+is therefore a plausible final normal form, but no checked reduction of
+the complete boundary to `eh_V_gen` (or to another existing cubical law)
+has been obtained.
+
+This is the genuinely new iteration problem: the original
+Buchholtz--Rijke Cayley--Dickson development constructs the H-space on S3
+and explicitly leaves iteration toward S7 to additional coherent
+imaginaroid data.  Consequently the remaining equation should not be
+expected to follow from the ordinary H-space or scalar laws alone.
+Moreover, `Mixed` asks to extend the **particular** `BL`, `BR`, `BM`, `AL`,
+and overlap witnesses retained here.  Bare existence of some associator
+would not automatically imply this prescribed filler without comparisons
+to those choices; failure of the current boundary calculation would not
+by itself prove that the multiplication is nonassociative.
 
 ## 1. Earlier scalar-loop proof structure
 

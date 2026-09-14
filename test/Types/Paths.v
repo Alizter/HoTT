@@ -11,7 +11,23 @@ Section NaturalityUniverses.
   Check (@transport_translation_comparison@{u v} A B).
   Check (@transport_naturality_square@{u v} A B).
   Check (@transport_naturality_square_beta@{u v} A B).
+  Check (@transport_associator_normal_form@{u} A).
 End NaturalityUniverses.
+
+Section AssociatorTransport.
+  Universe u.
+  Context {A : Type@{u}} (mu : A -> A -> A)
+    {z0 z1 : A} (p : z0 = z1) (r : A -> A)
+    (rho : forall v, mu v z0 = r v)
+    (E : forall x y, mu x (r y) = r (mu x y)).
+
+  Example associator_transport_normal_form (x y : A)
+    : let eta := fun v => (rho v)^ @ ap (mu v) p in
+      transport (fun z => mu (mu x y) z = mu x (mu y z)) p
+        ((rho (mu x y) @ (E x y)^) @ ap (mu x) (rho y)^)
+      = ((eta (mu x y))^ @ (E x y)^) @ ap (mu x) (eta y)
+    := transport_associator_normal_form@{u} mu p r rho E x y.
+End AssociatorTransport.
 
 (** Turns allow independent source, intermediate, and target universes. *)
 Section TurnUniverses.

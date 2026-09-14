@@ -231,6 +231,24 @@ Section Normalization.
 
   Let xf (a b : C) (y z : J) := ap (F y z) (jglue a b).
   Let xg (a b : C) (y z : J) := ap (G y z) (jglue a b).
+  Let scalar_mul : C -> C -> C := @sg_op (psphere 1) _.
+  Let diagonal (c : C) := functor_join
+    (fun v => scalar_mul v c) (fun v => scalar_mul v c).
+  Let rho (c : C) := cd_op_right_translate_joinl@{Set} (X:=psphere 1) c.
+  Let eta (c d : C) (v : J)
+    := (rho c v)^ @ ap (mu v) (jglue c d).
+
+  (** Transporting [AL] absorbs both right-translation corrections into [eta]. This is path algebra on the free last-input path; it imposes no new coherence on the diamond. *)
+  Definition last_associator_transport_normal_form
+    (x y : J) (c d : C)
+    : transport (fun z => mu (mu x y) z = mu x (mu y z))
+        (jglue c d) (AL x y c)
+      = ((eta c d (mu x y))^
+          @ (cd_op_diagonal_equivariance c x y)^)
+        @ ap (mu x) (eta c d y)
+    := transport_associator_normal_form mu (jglue c d)
+      (diagonal c) (rho c) (cd_op_diagonal_equivariance c) x y.
+
   Let yf (x : J) (s t : C) (z : J)
     := ap (fun y => F y z x) (jglue s t).
   Let yg (x : J) (s t : C) (z : J)
@@ -484,10 +502,6 @@ Section Normalization.
   Let last_middle a b c y := concat_Ap (fun x => AL x y c) (jglue a b).
 
   (** The three factors of [AL] are scalar right translation, inverse diagonal equivariance, and the image of inverse scalar right translation. *)
-  Let rho (c : C) := cd_op_right_translate_joinl@{Set} (X:=psphere 1) c.
-  Let scalar_mul : C -> C -> C := @sg_op (psphere 1) _.
-  Let diagonal (c : C) := functor_join
-    (fun v => scalar_mul v c) (fun v => scalar_mul v c).
   Let deq (c : C) := cd_op_diagonal_equivariance@{Set} (X:=psphere 1) c.
   Let h1 (c : C) (x y : J) := rho c (mu x y).
   Let h2 (c : C) (x y : J) := (deq c x y)^.
@@ -633,6 +647,79 @@ Section Normalization.
       @ ap (fun n => (inverse_natural
           (ap (fun y => mu y (joinl c)) (jglue s t))
           (ap (diagonal c) (jglue s t)) n)^) (rho_square_beta c s t).
+
+  Let last_edge (c d : C) (v : J) := ap (mu v) (jglue c d).
+  Let last_edge_square_beta (c d s t : C)
+    : concat_Ap (last_edge c d) (jglue s t)
+      = (multiplication_square s t c d)^
+    := concat_Ap_ap mu (jglue s t) (jglue c d)
+      @ inverse2 (multiplication_square_beta s t c d).
+
+  (** The naturality square of [eta] is the pasting of inverse right translation with the transpose of the specified multiplication square. *)
+  Definition eta_square (c d s t : C)
+    : ap (diagonal c) (jglue s t) @ eta c d (joinr t)
+      = eta c d (joinl s)
+        @ ap (fun y => mu y (joinr d)) (jglue s t)
+    := concat_natural
+      (ap (diagonal c) (jglue s t))
+      (ap (fun y => mu y (joinl c)) (jglue s t))
+      (ap (fun y => mu y (joinr d)) (jglue s t))
+      (rho c (joinl s))^ (rho c (joinr t))^
+      (last_edge c d (joinl s)) (last_edge c d (joinr t))
+      (rho_inverse_square c s t) (multiplication_square s t c d)^.
+
+  Definition eta_square_beta (c d s t : C)
+    : concat_Ap (eta c d) (jglue s t) = eta_square c d s t.
+  Proof.
+    refine (concat_Ap_concat (fun y => (rho c y)^)
+      (last_edge c d) (jglue s t) @ _).
+    exact (ap011 (concat_natural
+      (ap (diagonal c) (jglue s t))
+      (ap (fun y => mu y (joinl c)) (jglue s t))
+      (ap (fun y => mu y (joinr d)) (jglue s t))
+      (rho c (joinl s))^ (rho c (joinr t))^
+      (last_edge c d (joinl s)) (last_edge c d (joinr t)))
+      (rho_inverse_square_beta c s t)
+      (last_edge_square_beta c d s t)).
+  Defined.
+
+  Let eta_left_inner (a b c d : C) (y : J)
+    := concat_Ap (eta c d) (W a b y).
+  Let eta_left_inner_cell (a b s t c d : C) :=
+    (equiv_concat_Ap_cube (eta c d) (W a b) (jglue s t)
+      (multiplication_square_beta a b s t))^-1
+      (sq_ap_nat (diagonal c) (fun v => mu v (joinr d)) (eta c d)
+        (sq_path (multiplication_square a b s t))).
+
+  Definition eta_left_inner_cell_beta (a b s t c d : C)
+    : apD (eta_left_inner a b c d) (jglue s t)
+      = eta_left_inner_cell a b s t c d.
+  Proof.
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (eta c d) (W a b)
+      (jglue s t) (multiplication_square_beta a b s t))).
+    exact (equiv_concat_Ap_cube_beta (eta c d) (W a b) (jglue s t)
+      (multiplication_square_beta a b s t)).
+  Defined.
+
+  Let eta_inner (a b c d : C) (y : J)
+    := concat_Ap (W a b) (eta c d y).
+  Let eta_inner_cell (a b s t c d : C) :=
+    (equiv_concat_Ap_cube (W a b) (eta c d) (jglue s t)
+      (eta_square_beta c d s t))^-1
+      (sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b)
+        (sq_path (eta_square c d s t))).
+
+  (** Applying the first multiplication homotopy to [eta_square] gives the common cube for the right-product and final-translation contributions. *)
+  Definition eta_inner_cell_beta (a b s t c d : C)
+    : apD (eta_inner a b c d) (jglue s t)
+      = eta_inner_cell a b s t c d.
+  Proof.
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b) (eta c d)
+      (jglue s t) (eta_square_beta c d s t))).
+    exact (equiv_concat_Ap_cube_beta (W a b) (eta c d) (jglue s t)
+      (eta_square_beta c d s t)).
+  Defined.
+
   Let n3_inner (a b c : C) (y : J) := concat_Ap (W a b) (rho c y)^.
   Let n3_change (a b c : C) (y : J)
     (n : ap (mu (joinl a)) (rho c y)^ @ W a b (mu y (joinl c))
@@ -645,6 +732,14 @@ Section Normalization.
       (rho_inverse_square_beta c s t))^-1
       (sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b)
         (sq_path (rho_inverse_square c s t))).
+  Let n3_inner_cell_beta (a b s t c : C)
+    : apD (n3_inner a b c) (jglue s t) = n3_inner_cell a b s t c.
+  Proof.
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b)
+      (fun y => (rho c y)^) (jglue s t) (rho_inverse_square_beta c s t))).
+    exact (equiv_concat_Ap_cube_beta (W a b) (fun y => (rho c y)^)
+      (jglue s t) (rho_inverse_square_beta c s t)).
+  Defined.
   Let n3_cell (a b s t c : C) :=
     (ap (transport _ (jglue s t)) (n3_beta a b c (joinl s))
       @ ap01D1 (n3_change a b c) (jglue s t) (n3_inner_cell a b s t c))
@@ -655,12 +750,264 @@ Section Normalization.
     refine (apD_homotopic (n3_beta a b c) (jglue s t) @ _).
     nrefine ((1 @@ _) @@ 1).
     refine (apD_composeD (n3_change a b c) (n3_inner a b c) (jglue s t) @ _).
-    napply (ap (ap01D1 (n3_change a b c) (jglue s t))).
-    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b)
-      (fun y => (rho c y)^) (jglue s t) (rho_inverse_square_beta c s t))).
-    exact (equiv_concat_Ap_cube_beta (W a b) (fun y => (rho c y)^)
-      (jglue s t) (rho_inverse_square_beta c s t)).
+    exact (ap (ap01D1 (n3_change a b c) (jglue s t))
+      (n3_inner_cell_beta a b s t c)).
   Defined.
+
+  (** Transpose the right-product cube so that it computes variation of the last-input edge in the middle argument. All six faces, including the original multiplication square, are retained. *)
+  Let nv_cube (a b s t c d : C) :=
+    equiv_concat_Ap_cube (W a b) (W s t) (jglue c d)
+      (multiplication_square_beta s t c d)
+      (nv_inner_cell a b s t c d).
+  Let nv_cube_transposed_raw (a b s t c d : C) :=
+    cu_GGcccc
+      (sq_ap_tr (mu (joinl a))
+        (sq_path (multiplication_square s t c d)))
+      (sq_ap_tr (mu (joinr b))
+        (sq_path (multiplication_square s t c d)))
+      (cu_swap_tb_fb (nv_cube a b s t c d)).
+  Let nv_cube_transposed (a b s t c d : C) :=
+    cu_GGcccc
+      (ap (fun q => sq_ap (mu (joinl a)) q)
+        (sq_tr_path (multiplication_square s t c d)))
+      (ap (fun q => sq_ap (mu (joinr b)) q)
+        (sq_tr_path (multiplication_square s t c d)))
+      (nv_cube_transposed_raw a b s t c d).
+
+  Let cross_inner (a b c d : C) (y : J)
+    := concat_Ap (W a b) (last_edge c d y).
+  Let cross_inner_cell (a b s t c d : C) :=
+    (equiv_concat_Ap_cube (W a b) (last_edge c d) (jglue s t)
+      (last_edge_square_beta c d s t))^-1
+      (nv_cube_transposed a b s t c d).
+
+  Let cross_inner_cell_beta (a b s t c d : C)
+    : apD (cross_inner a b c d) (jglue s t)
+      = cross_inner_cell a b s t c d.
+  Proof.
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b)
+      (last_edge c d) (jglue s t) (last_edge_square_beta c d s t))).
+    unfold nv_cube_transposed, nv_cube_transposed_raw, nv_cube.
+    lhs napply (equiv_concat_Ap_cube_beta (W a b) (last_edge c d)
+      (jglue s t) (last_edge_square_beta c d s t)).
+    rhs napply (ap (fun q => cu_GGcccc _ _
+      (cu_GGcccc _ _ (cu_swap_tb_fb q)))
+      (eisretr (equiv_concat_Ap_cube (W a b) (W s t) (jglue c d)
+        (multiplication_square_beta s t c d)) _)).
+    rhs napply (ap (fun q => cu_GGcccc
+      (ap (fun q => sq_ap (mu (joinl a)) q)
+        (sq_tr_path (multiplication_square s t c d)))
+      (ap (fun q => sq_ap (mu (joinr b)) q)
+        (sq_tr_path (multiplication_square s t c d))) q)
+      (sq_ap_nat_tr (mu (joinl a)) (mu (joinr b)) (W a b)
+        (sq_path (multiplication_square s t c d)))).
+    exact (cu_GGcccc_natural
+      (fun q => sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b) q)
+      (sq_tr_path (multiplication_square s t c d)))^.
+  Defined.
+
+  Let eta_split_close (a b c d : C) (y : J)
+    (n : ap (mu (joinl a)) (rho c y)^ @ W a b (mu y (joinl c))
+      = W a b (diagonal c y) @ ap (mu (joinr b)) (rho c y)^)
+    (m : ap (mu (joinl a)) (last_edge c d y) @ W a b (mu y (joinr d))
+      = W a b (mu y (joinl c)) @ ap (mu (joinr b)) (last_edge c d y))
+    := naturality_change
+      (ap_pp (mu (joinl a)) (rho c y)^ (last_edge c d y))
+      (ap_pp (mu (joinr b)) (rho c y)^ (last_edge c d y))
+      (concat_pp_p (ap (mu (joinl a)) (rho c y)^)
+          (ap (mu (joinl a)) (last_edge c d y)) (W a b (mu y (joinr d)))
+        @ (1 @@ m)
+        @ concat_p_pp (ap (mu (joinl a)) (rho c y)^)
+          (W a b (mu y (joinl c)))
+          (ap (mu (joinr b)) (last_edge c d y))
+        @ (n @@ 1)
+        @ concat_pp_p (W a b (diagonal c y))
+          (ap (mu (joinr b)) (rho c y)^)
+          (ap (mu (joinr b)) (last_edge c d y))).
+  Let eta_split (a b c d : C) (y : J)
+    := eta_split_close a b c d y
+      (n3_inner a b c y) (cross_inner a b c d y).
+  Let eta_split_beta (a b c d : C) (y : J)
+    : eta_inner a b c d y = eta_split a b c d y
+    := concat_Ap_pp (W a b) (rho c y)^ (last_edge c d y).
+
+  Let right_product_cap_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue s t)) (eta_split_beta a b c d (joinl s))
+      @ ap01D11 (eta_split_close a b c d) (jglue s t)
+        (n3_inner_cell a b s t c)
+        (cross_inner_cell a b s t c d))
+      @ (eta_split_beta a b c d (joinr t))^.
+
+  Let right_product_cap_cell_beta (a b s t c d : C)
+    : apD (eta_inner a b c d) (jglue s t)
+      = right_product_cap_cell a b s t c d.
+  Proof.
+    refine (apD_homotopic (eta_split_beta a b c d) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    lhs napply (apD_composeD2 (eta_split_close a b c d)
+      (n3_inner a b c) (cross_inner a b c d) (jglue s t)).
+    exact (ap011 (ap01D11 (eta_split_close a b c d) (jglue s t))
+      (n3_inner_cell_beta a b s t c)
+      (cross_inner_cell_beta a b s t c d)).
+  Defined.
+
+  (** This is the right-product analogue of [left_product_cap_comparison]. It first transposes the actual right-product cube, then combines it with the final inverse-translation cube by naturality on concatenated paths. *)
+  Definition right_product_cap_comparison (a b s t c d : C)
+    : right_product_cap_cell a b s t c d
+      = eta_inner_cell a b s t c d
+    := (right_product_cap_cell_beta a b s t c d)^
+      @ eta_inner_cell_beta a b s t c d.
+
+  (** Apply the normal form before varying the first two inputs. Its naturality combines both cap--product pairs and leaves the diagonal-equivariance contribution between the two [eta] terms. *)
+  Let transported_associator (c d : C) (x y : J)
+    := transport (fun z => mu (mu x y) z = mu x (mu y z))
+      (jglue c d) (AL x y c).
+  Let eta_associator (c d : C) (x y : J)
+    := ((eta c d (mu x y))^
+        @ (cd_op_diagonal_equivariance c x y)^)
+      @ ap (mu x) (eta c d y).
+  Let transported_last_middle (a b c d : C) (y : J)
+    := concat_Ap (fun x => transported_associator c d x y) (jglue a b).
+  Let eta_last_middle (a b c d : C) (y : J)
+    := concat_Ap (fun x => eta_associator c d x y) (jglue a b).
+
+  Definition last_middle_transport_normal_form
+    (a b c d : C) (y : J)
+    : transported_last_middle a b c d y
+        @ ap (fun r => r @ ap (fun x => mu x (mu y (joinr d))) (jglue a b))
+          (last_associator_transport_normal_form (joinl a) y c d)
+      = ap (fun r => ap (fun x => mu (mu x y) (joinr d)) (jglue a b) @ r)
+          (last_associator_transport_normal_form (joinr b) y c d)
+        @ eta_last_middle a b c d y
+    := concat_Ap_homotopic _ _
+      (fun x => last_associator_transport_normal_form x y c d)
+      (jglue a b).
+
+  Definition last_middle_transport_cell_normal_form
+    (a b s t c d : C)
+    := apD (last_middle_transport_normal_form a b c d) (jglue s t).
+
+  Let e0d a b d y := xf a b y (joinr d).
+  Let e3d a b d y := xg a b y (joinr d).
+  Let eh1 (c d : C) (x y : J) := (eta c d (mu x y))^.
+  Let eh3 (c d : C) (x y : J) := ap (mu x) (eta c d y).
+  Let en1 (a b c d : C) (y : J)
+    := concat_Ap (fun x => eh1 c d x y) (jglue a b).
+  Let en3 (a b c d : C) (y : J)
+    := concat_Ap (fun x => eh3 c d x y) (jglue a b).
+
+  Let en1_change (a b c d : C) (y : J)
+    (n : ap (diagonal c) (W a b y) @ eta c d (mu (joinr b) y)
+      = eta c d (mu (joinl a) y)
+        @ ap (fun v => mu v (joinr d)) (W a b y))
+    := (inverse_natural (e1 a b c y) (e0d a b d y)
+      (naturality_change
+        (ap_compose (fun x => mu x y) (diagonal c) (jglue a b))
+        (ap_compose (fun x => mu x y) (fun v => mu v (joinr d))
+          (jglue a b)) n))^.
+  Let en1_beta (a b c d : C) (y : J)
+    : en1 a b c d y
+      = en1_change a b c d y (eta_left_inner a b c d y)
+    := concat_Ap_inverse (fun x => eta c d (mu x y)) (jglue a b)
+      @ ap (fun n => (inverse_natural (e1 a b c y) (e0d a b d y) n)^)
+        (concat_Ap_precompose (eta c d) (fun x => mu x y) (jglue a b)).
+  Let en1_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue s t)) (en1_beta a b c d (joinl s))
+      @ ap01D1 (en1_change a b c d) (jglue s t)
+        (eta_left_inner_cell a b s t c d))
+      @ (en1_beta a b c d (joinr t))^.
+  Let en1_cell_beta (a b s t c d : C)
+    : apD (en1 a b c d) (jglue s t) = en1_cell a b s t c d.
+  Proof.
+    refine (apD_homotopic (en1_beta a b c d) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (en1_change a b c d)
+      (eta_left_inner a b c d) (jglue s t) @ _).
+    exact (ap (ap01D1 (en1_change a b c d) (jglue s t))
+      (eta_left_inner_cell_beta a b s t c d)).
+  Defined.
+
+  Let en3_change (a b c d : C) (y : J)
+    (n : ap (mu (joinl a)) (eta c d y) @ W a b (mu y (joinr d))
+      = W a b (diagonal c y) @ ap (mu (joinr b)) (eta c d y)) := n^.
+  Let en3_beta (a b c d : C) (y : J)
+    : en3 a b c d y = en3_change a b c d y (eta_inner a b c d y)
+    := concat_Ap_ap mu (jglue a b) (eta c d y).
+  Let en3_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue s t)) (en3_beta a b c d (joinl s))
+      @ ap01D1 (en3_change a b c d) (jglue s t)
+        (eta_inner_cell a b s t c d))
+      @ (en3_beta a b c d (joinr t))^.
+  Let en3_cell_beta (a b s t c d : C)
+    : apD (en3 a b c d) (jglue s t) = en3_cell a b s t c d.
+  Proof.
+    refine (apD_homotopic (en3_beta a b c d) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (en3_change a b c d)
+      (eta_inner a b c d) (jglue s t) @ _).
+    exact (ap (ap01D1 (en3_change a b c d) (jglue s t))
+      (eta_inner_cell_beta a b s t c d)).
+  Defined.
+
+  Let eta_paste12 (a b c d : C) (y : J)
+    (n : e0d a b d y @ eh1 c d (joinr b) y
+      = eh1 c d (joinl a) y @ e1 a b c y)
+    (m : e1 a b c y @ h2 c (joinr b) y
+      = h2 c (joinl a) y @ e2 a b c y)
+    := concat_natural (e0d a b d y) (e1 a b c y) (e2 a b c y)
+      (eh1 c d (joinl a) y) (eh1 c d (joinr b) y)
+      (h2 c (joinl a) y) (h2 c (joinr b) y) n m.
+  Let eta_paste (a b c d : C) (y : J)
+    (n : e0d a b d y
+        @ (eh1 c d (joinr b) y @ h2 c (joinr b) y)
+      = (eh1 c d (joinl a) y @ h2 c (joinl a) y) @ e2 a b c y)
+    (m : e2 a b c y @ eh3 c d (joinr b) y
+      = eh3 c d (joinl a) y @ e3d a b d y)
+    := concat_natural (e0d a b d y) (e2 a b c y) (e3d a b d y)
+      (eh1 c d (joinl a) y @ h2 c (joinl a) y)
+      (eh1 c d (joinr b) y @ h2 c (joinr b) y)
+      (eh3 c d (joinl a) y) (eh3 c d (joinr b) y) n m.
+  Let eta_last_beta (a b c d : C) (y : J)
+    : eta_last_middle a b c d y
+      = eta_paste a b c d y
+        (eta_paste12 a b c d y (en1 a b c d y) (n2 a b c y))
+        (en3 a b c d y).
+  Proof.
+    lhs napply (concat_Ap_concat
+      (fun x => eh1 c d x y @ h2 c x y)
+      (fun x => eh3 c d x y) (jglue a b)).
+    exact (ap (fun n => eta_paste a b c d y n (en3 a b c d y))
+      (concat_Ap_concat (fun x => eh1 c d x y)
+        (fun x => h2 c x y) (jglue a b))).
+  Defined.
+
+  Definition eta_last_associator_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue s t)) (eta_last_beta a b c d (joinl s))
+      @ ap01D11 (eta_paste a b c d) (jglue s t)
+        (ap01D11 (eta_paste12 a b c d) (jglue s t)
+          (en1_cell a b s t c d) (n2_cell a b s t c))
+        (en3_cell a b s t c d))
+      @ (eta_last_beta a b c d (joinr t))^.
+
+  Definition eta_last_associator_cell_beta (a b s t c d : C)
+    : apD (eta_last_middle a b c d) (jglue s t)
+      = eta_last_associator_cell a b s t c d.
+  Proof.
+    refine (apD_homotopic (eta_last_beta a b c d) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    lhs napply (apD_composeD2 (eta_paste a b c d)
+      (fun y => eta_paste12 a b c d y
+        (en1 a b c d y) (n2 a b c y))
+      (en3 a b c d) (jglue s t)).
+    napply (ap011 (ap01D11 (eta_paste a b c d) (jglue s t))).
+    - lhs napply (apD_composeD2 (eta_paste12 a b c d)
+        (en1 a b c d) (n2 a b c) (jglue s t)).
+      exact (ap011 (ap01D11 (eta_paste12 a b c d) (jglue s t))
+        (en1_cell_beta a b s t c d) (n2_cell_beta a b s t c)).
+    - exact (en3_cell_beta a b s t c d).
+  Defined.
+
+  (** The duplicated product--translation block is now normalized. The remaining open comparison must pass this cell through the first-left, first-right, middle, and overlap cells; no such comparison is asserted here. *)
 
   Let last_paste12 (a b c : C) (y : J)
     (n : e0 a b c y @ h1 c (joinr b) y = h1 c (joinl a) y @ e1 a b c y)

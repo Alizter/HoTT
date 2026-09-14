@@ -256,6 +256,32 @@ Defined.
 
 Notation cu_rot_tb_fb := equiv_cu_rot_tb_fb.
 
+(** Swap the top--bottom and front--back axes, transposing the left and right faces. Unlike [cu_rot_tb_fb], this reverses the orientation of the coordinate frame and is therefore not a rotation. *)
+Definition cu_swap_tb_fb {A}
+  {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+  {p0i0 : x000 = x010} {p1i0 : x100 = x110}
+  {pi00 : x000 = x100} {pi10 : x010 = x110}
+  {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+  {pi01 : x001 = x101} {pi11 : x011 = x111}
+  {p00i : x000 = x001} {p01i : x010 = x011}
+  {p10i : x100 = x101} {p11i : x110 = x111}
+  {s0ii : PathSquare p0i0 p0i1 p00i p01i}
+  {s1ii : PathSquare p1i0 p1i1 p10i p11i}
+  {sii0 : PathSquare p0i0 p1i0 pi00 pi10}
+  {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
+  {si0i : PathSquare p00i p10i pi00 pi01}
+  {si1i : PathSquare p01i p11i pi10 pi11}
+  (c : PathCube s0ii s1ii sii0 sii1 si0i si1i)
+  : PathCube (sq_tr s0ii) (sq_tr s1ii) si0i si1i sii0 sii1.
+Proof.
+  refine (PathCube_ind (fun
+    x000 x010 x100 x110 x001 x011 x101 x111
+    p0i0 p1i0 pi00 pi10 p0i1 p1i1 pi01 pi11
+    p00i p01i p10i p11i s0ii s1ii sii0 sii1 si0i si1i c =>
+      PathCube (sq_tr s0ii) (sq_tr s1ii) si0i si1i sii0 sii1)
+    (fun x => idcube x) c).
+Defined.
+
 (** Degenerate cubes formed from paths between squares *)
 
 (** The first case is easiest to prove and can be written as equivalences *)
@@ -679,6 +705,47 @@ Proof.
   generalize (l x); generalize (k x).
   generalize (h x); generalize (g x).
   intros b1 q b2 r; destruct q, r; reflexivity.
+Defined.
+
+Local Definition naturality_cube_refl {B : Type} {x y : B} (p : x = y)
+  : PathCube (@sq_id B x) (@sq_id B y)
+      (sq_refl_v p) (sq_refl_v p) (sq_refl_v p) (sq_refl_v p).
+Proof.
+  destruct p; exact (idcube x).
+Defined.
+
+Local Definition sq_ap_nat_refl {A B : Type}
+  (f g : A -> B) (h : f == g) (x : A)
+  : sq_ap_nat f g h (@sq_id A x) = naturality_cube_refl (h x).
+Proof.
+  unfold sq_ap_nat, naturality_cube_refl.
+  reflexivity.
+Defined.
+
+Local Definition naturality_cube_refl_swap
+  {B : Type} {x y : B} (p : x = y)
+  : cu_GGcccc 1 1 (cu_swap_tb_fb (naturality_cube_refl p))
+    = naturality_cube_refl p.
+Proof.
+  destruct p; reflexivity.
+Defined.
+
+(** Swapping the source axes of a naturality cube gives naturality on the transposed source square. *)
+Definition sq_ap_nat_tr
+  {A B : Type} {a00 a10 a01 a11 : A}
+  (f g : A -> B) (h : f == g)
+  {px0 : a00 = a10} {px1 : a01 = a11}
+  {p0x : a00 = a01} {p1x : a10 = a11}
+  (s : PathSquare px0 px1 p0x p1x)
+  : cu_GGcccc (sq_ap_tr f s) (sq_ap_tr g s)
+      (cu_swap_tb_fb (sq_ap_nat f g h s))
+    = sq_ap_nat f g h (sq_tr s).
+Proof.
+  destruct s as [x].
+  lhs napply (ap (fun q => cu_GGcccc _ _ (cu_swap_tb_fb q))
+    (sq_ap_nat_refl f g h x)).
+  rhs napply (sq_ap_nat_refl f g h x).
+  exact (naturality_cube_refl_swap (h x)).
 Defined.
 
 (** The dependent variation of a mapped square is its naturality cube. The four face comparisons compute the actual binary application squares; none of the six faces is replaced merely because it has the same boundary. *)

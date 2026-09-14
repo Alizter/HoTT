@@ -34,6 +34,12 @@ Section RelativeInduction.
     : forall s0ii c, P s0ii c
     := pathcube_ind_left@{u v} s1ii sii0 sii1 si0i si1i P p.
 
+  Example swapping_cube_axes
+    (s0ii : PathSquare p0i0 p0i1 p00i p01i)
+    (c : PathCube s0ii s1ii sii0 sii1 si0i si1i)
+    : PathCube (sq_tr s0ii) (sq_tr s1ii) si0i si1i sii0 sii1
+    := cu_swap_tb_fb@{u} c.
+
   Example changing_two_faces {T : Type@{v}}
     {l : T -> PathSquare p0i0 p0i1 p00i p01i}
     {r : T -> PathSquare p1i0 p1i1 p10i p11i}
@@ -68,6 +74,21 @@ Section MappedSquare.
   Example mapped_filler (h : px0 @ p1x = p0x @ px1)
     : sq_ap (f c) (sq_path h) = sq_path (ap_naturality (f c) h)
     := sq_ap_path@{u v} (f c) h.
+
+  Example transposed_mapped_square
+    : sq_tr (sq_ap (f c) s) = sq_ap (f c) (sq_tr s)
+    := sq_ap_tr@{u v} (f c) s.
+
+  Example transposed_path_square (h : px0 @ p1x = p0x @ px1)
+    : sq_tr (sq_path h) = sq_path h^
+    := sq_tr_path@{u} h.
+
+  Example transposed_naturality_cube
+    (g : A -> B) (h : f c == g)
+    : cu_GGcccc (sq_ap_tr (f c) s) (sq_ap_tr g s)
+        (cu_swap_tb_fb (sq_ap_nat (f c) g h s))
+      = sq_ap_nat (f c) g h (sq_tr s)
+    := sq_ap_nat_tr (f c) g h s.
 
   Example mapped_path_cube_beta (h : px0 @ p1x = p0x @ px1)
     : ap_naturality_cube f p h

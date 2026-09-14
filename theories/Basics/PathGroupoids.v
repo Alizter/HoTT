@@ -1411,6 +1411,22 @@ Proof.
   reflexivity.
 Defined.
 
+(** Naturality on a concatenated path is the vertical pasting of the two naturality squares, with the two [ap_pp] comparisons retained. *)
+Definition concat_Ap_pp {A B : Type} {f g : A -> B} (h : f == g)
+  {x y z : A} (p : x = y) (q : y = z)
+  : concat_Ap h (p @ q)
+    = naturality_change (ap_pp f p q) (ap_pp g p q)
+      (concat_pp_p (ap f p) (ap f q) (h z)
+        @ (1 @@ concat_Ap h q)
+        @ concat_p_pp (ap f p) (h y) (ap g q)
+        @ (concat_Ap h p @@ 1)
+        @ concat_pp_p (h x) (ap g p) (ap g q)).
+Proof.
+  destruct p, q; cbn.
+  generalize (h x); generalize (g x).
+  intros w r; destruct r; reflexivity.
+Defined.
+
 (** Naturality for pointwise inverses, with the chosen comparison retained. *)
 Definition concat_Ap_inverse {A B : Type} {f g : A -> B}
   (h : f == g) {x y : A} (p : x = y)
