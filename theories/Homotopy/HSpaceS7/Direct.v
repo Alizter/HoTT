@@ -1,8 +1,9 @@
 From HoTT Require Import Basics.
 Require Import Types.Paths Types.Universe.
-Require Import Classes.interfaces.abstract_algebra.
+Require Import Cubical.PathSquare Cubical.PathCube.
+Require Import Classes.interfaces.abstract_algebra Classes.interfaces.canonical_names.
 Require Import Pointed.Core Spaces.Spheres.
-Require Import Homotopy.CayleyDickson Homotopy.Suspension.
+Require Import Homotopy.HSpace.Core Homotopy.CayleyDickson Homotopy.Suspension.
 Require Import Homotopy.Join.Core Homotopy.Join.Rec2.
 Require Import Homotopy.HSpaceS7.LeftScalar Homotopy.HSpaceS7.MiddleScalar.
 Require Import Homotopy.HSpaceS7.RightScalar.
@@ -110,6 +111,9 @@ Section Normalization.
   Local Notation face_overlap := (S7DirectGluing.face_overlap@{u}).
   Local Notation Mixed := (S7DirectGluing.Mixed@{u}).
   Local Notation BM := (S7MiddleScalar.middle_l@{u} cd_diamond_susp).
+  Local Notation BL := (S7LeftScalar.first_l@{u} cd_diamond_susp).
+  Local Notation BR := (S7RightScalar.first_r@{u}).
+  Local Notation AL := (cd_assoc_last_joinl@{Set} (X:=psphere 1)).
   Local Notation el := (fun a b => Join_ind2_from_left_glue_l
     (Gamma a b) North (face_y a b) (face_z a b) (face_overlap a b)).
   Local Notation er := (fun a b => Join_ind2_from_left_glue_r
@@ -222,5 +226,572 @@ Section Normalization.
       (side a b s t c d) (side a b s t North d)
       (side a b North t c d) (side a b North t North d)).
   Defined.
+
+  (** ** Expanding transport interchange into the actual side cubes *)
+
+  Let xf (a b : C) (y z : J) := ap (F y z) (jglue a b).
+  Let xg (a b : C) (y z : J) := ap (G y z) (jglue a b).
+  Let yf (x : J) (s t : C) (z : J)
+    := ap (fun y => F y z x) (jglue s t).
+  Let yg (x : J) (s t : C) (z : J)
+    := ap (fun y => G y z x) (jglue s t).
+  Let nu a b s t z := concat_Ap (fun y => xf a b y z) (jglue s t).
+  Let nv a b s t z := concat_Ap (fun y => xg a b y z) (jglue s t).
+  Let nl a s t z := concat_Ap (fun y => BL a y z) (jglue s t).
+  Let nr b s t z := concat_Ap (fun y => BR b y z) (jglue s t).
+
+  (** Unlike [U], this face is a path-algebra expression in the original five faces, not a transport in [Gamma]. *)
+  Definition transported_face (a b s t : C) (z : J)
+    : Gamma a b (joinr t) z
+    := naturality_square_filler (nu a b s t z) (nv a b s t z)
+      (nl a s t z) (nr b s t z) (face_y a b s z).
+
+  Let face_transport_compute (a b s t : C) (z : J)
+    : U a b s t z = transported_face a b s t z
+    := transport_naturality_square_compute
+      (fun y => xf a b y z) (fun y => xg a b y z)
+      (fun y => BL a y z) (fun y => BR b y z)
+      (jglue s t) (face_y a b s z).
+
+  Let left_beta a s t z
+    : nl a s t z = S7LeftScalar.first_l_glue@{u} cd_diamond_susp a s t z
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ s t.
+  Let right_beta b s t z
+    : nr b s t z = S7RightScalar.first_r_glue@{u} b s t z
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ s t.
+  Let left_square a s t z := yf (joinl a) s t z @ BL a (joinr t) z
+    = BL a (joinl s) z @ yg (joinl a) s t z.
+  Let right_square b s t z := yf (joinr b) s t z @ BR b (joinr t) z
+    = BR b (joinl s) z @ yg (joinr b) s t z.
+  Let left_cell a s t c d :=
+    (ap (transport (left_square a s t) (jglue c d))
+        (left_beta a s t (joinl c))
+      @ S7LeftScalar.first_l_glue_glue@{u} cd_diamond_susp a s t c d)
+    @ (left_beta a s t (joinr d))^.
+  Let first_right_cell b s t c d :=
+    (ap (transport (right_square b s t) (jglue c d))
+        (right_beta b s t (joinl c))
+      @ S7RightScalar.first_r_glue_glue@{u} b s t c d)
+    @ (right_beta b s t (joinr d))^.
+
+  (** The inner multiplication square, with its four recursor edge computations. *)
+  Let W (a b : C) (z : J) := ap (fun x => mu x z) (jglue a b).
+  Let mbh0 (a c d : C) : ap (mu (joinl a)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let mbh1 (b c d : C) : ap (mu (joinr b)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let mbv0 (a b c : C) : W a b (joinl c) = _
+    := Join_rec_beta_jglue _ _ _ a b.
+  Let mbv1 (a b d : C) : W a b (joinr d) = _
+    := Join_rec_beta_jglue _ _ _ a b.
+  Let multiplication_square (a b c d : C) :=
+    ((1 @@ mbv1 a b d) @ ((mbh0 a c d @@ 1)
+      @ (cd_op_diamond@{Set} (X:=psphere 1) a b c d
+        @ (1 @@ mbh1 b c d)^))) @ (mbv0 a b c @@ 1)^.
+  Let multiplication_square_beta (a b c d : C)
+    : concat_Ap (W a b) (jglue c d) = multiplication_square a b c d.
+  Proof.
+    napply moveL_pV.
+    exact (Join_rec2_beta_jglue_jglue J _ _ _ _ _ _ _ _
+      (cd_op_diamond@{Set} (X:=psphere 1)) a b c d).
+  Defined.
+  Local Opaque cd_op cd_op_diamond.
+
+  (** Postcomposition of the specified inner multiplication square gives the left-bracketed product's xy-face. The vertical and horizontal composition beta paths are kept. *)
+  Let nu_vertical (a b : C) (y z : J)
+    := ap_compose (fun x => mu x y) (fun v => mu v z) (jglue a b).
+  Let nu_close (a b s t : C) (z : J)
+    (n : ap (fun v => mu v z) (ap (mu (joinl a)) (jglue s t))
+        @ ap (fun v => mu v z) (W a b (joinr t))
+      = ap (fun v => mu v z) (W a b (joinl s))
+        @ ap (fun v => mu v z) (ap (mu (joinr b)) (jglue s t)))
+    := ((1 @@ nu_vertical a b (joinr t) z)
+      @ naturality_change
+        (ap_compose (mu (joinl a)) (fun v => mu v z) (jglue s t))
+        (ap_compose (mu (joinr b)) (fun v => mu v z) (jglue s t)) n)
+      @ (nu_vertical a b (joinl s) z @@ 1)^.
+  Let nu_map (a b s t : C) (z : J)
+    (n : ap (mu (joinl a)) (jglue s t) @ W a b (joinr t)
+      = W a b (joinl s) @ ap (mu (joinr b)) (jglue s t))
+    := nu_close a b s t z (ap_naturality (fun v => mu v z) n).
+  Let nu_beta (a b s t : C) (z : J)
+    : nu a b s t z = nu_map a b s t z (multiplication_square a b s t).
+  Proof.
+    napply moveL_pV.
+    lhs napply (concat_Ap_homotopic _ _
+      (fun y => nu_vertical a b y z) (jglue s t)).
+    napply whiskerL.
+    lhs napply (concat_Ap_postcompose (W a b) (fun v => mu v z)
+      (jglue s t)).
+    exact (ap (fun n => naturality_change _ _
+      (ap_naturality (fun v => mu v z) n))
+      (multiplication_square_beta a b s t)).
+  Defined.
+
+  (** The geometric inner cube is naturality of right multiplication on the specified multiplication square. Its six faces are fixed by [sq_ap_nat]; the equivalence retains the cube when converting back to a dependent path. *)
+  Let nu_inner_cell (a b s t c d : C) :=
+    (equiv_ap_naturality_cube (fun z v : J => mu v z) (jglue c d)
+      (multiplication_square a b s t))^-1
+      (sq_ap_nat (fun v => mu v (joinl c)) (fun v => mu v (joinr d))
+        (fun v => ap (mu v) (jglue c d))
+        (sq_path (multiplication_square a b s t))).
+  Let nu_inner_cell_beta (a b s t c d : C)
+    : apD (fun z => ap_naturality (fun v => mu v z)
+        (multiplication_square a b s t)) (jglue c d)
+      = nu_inner_cell a b s t c d.
+  Proof.
+    napply (moveL_equiv_V' (equiv_ap_naturality_cube
+      (fun z v : J => mu v z) (jglue c d) (multiplication_square a b s t))).
+    exact (ap_naturality_cube_beta (fun z v : J => mu v z)
+      (jglue c d) (multiplication_square a b s t)).
+  Defined.
+
+  Definition left_product_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue c d)) (nu_beta a b s t (joinl c))
+      @ ap01D1 (nu_close a b s t) (jglue c d)
+        (nu_inner_cell a b s t c d)) @ (nu_beta a b s t (joinr d))^.
+
+  Definition left_product_cell_beta (a b s t c d : C)
+    : apD (nu a b s t) (jglue c d) = left_product_cell a b s t c d.
+  Proof.
+    refine (apD_homotopic (nu_beta a b s t) (jglue c d) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (nu_close a b s t)
+      (fun z => ap_naturality (fun v => mu v z)
+        (multiplication_square a b s t)) (jglue c d) @ _).
+    exact (ap (ap01D1 (nu_close a b s t) (jglue c d))
+      (nu_inner_cell_beta a b s t c d)).
+  Defined.
+
+  (** The right-bracketed product uses naturality of the first multiplication homotopy on the specified inner square. Changing that source square by its actual mixed beta path rewrites both mapped faces of the cube, retaining the other four faces. *)
+  Let nv_inner (a b s t : C) (z : J)
+    (v : mu (joinl s) z = mu (joinr t) z) := concat_Ap (W a b) v.
+  Let nv_change (a b s t : C) (z : J)
+    (n : ap (mu (joinl a)) (W s t z) @ W a b (mu (joinr t) z)
+      = W a b (mu (joinl s) z) @ ap (mu (joinr b)) (W s t z))
+    := naturality_change
+      (ap_compose (fun y => mu y z) (mu (joinl a)) (jglue s t))
+      (ap_compose (fun y => mu y z) (mu (joinr b)) (jglue s t)) n.
+  Let nv_beta (a b s t : C) (z : J)
+    : nv a b s t z = nv_change a b s t z (nv_inner a b s t z (W s t z))
+    := concat_Ap_precompose (W a b) (fun y => mu y z) (jglue s t).
+  Let nv_inner_cell (a b s t c d : C) :=
+    (equiv_concat_Ap_cube (W a b) (W s t) (jglue c d)
+      (multiplication_square_beta s t c d))^-1
+      (sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b)
+        (sq_path (multiplication_square s t c d))).
+  Let nv_inner_cell_beta (a b s t c d : C)
+    : apD (fun z => nv_inner a b s t z (W s t z)) (jglue c d)
+      = nv_inner_cell a b s t c d.
+  Proof.
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b) (W s t)
+      (jglue c d) (multiplication_square_beta s t c d))).
+    exact (equiv_concat_Ap_cube_beta (W a b) (W s t) (jglue c d)
+      (multiplication_square_beta s t c d)).
+  Defined.
+
+  Definition right_product_cell (a b s t c d : C) :=
+    (ap (transport _ (jglue c d)) (nv_beta a b s t (joinl c))
+      @ ap01D1 (nv_change a b s t) (jglue c d)
+        (nv_inner_cell a b s t c d)) @ (nv_beta a b s t (joinr d))^.
+
+  Definition right_product_cell_beta (a b s t c d : C)
+    : apD (nv a b s t) (jglue c d) = right_product_cell a b s t c d.
+  Proof.
+    lhs napply (apD_homotopic (nv_beta a b s t) (jglue c d)).
+    napply (ap (fun q => (_ @ q) @ _)).
+    lhs napply (apD_composeD (nv_change a b s t)
+      (fun z => nv_inner a b s t z (W s t z)) (jglue c d)).
+    exact (ap (ap01D1 (nv_change a b s t) (jglue c d))
+      (nv_inner_cell_beta a b s t c d)).
+  Defined.
+
+  Local Transparent cd_op cd_op_diamond.
+
+  Let paste_cubes a b s t c d := naturality_square_filler_glue
+    (nu a b s t) (nv a b s t) (nl a s t) (nr b s t)
+    (face_y a b s) (jglue c d).
+
+  (** The first two cubes expose the inner multiplication diamonds: postcomposition for the left-bracketed product and dependent application of the first multiplication homotopy for the right-bracketed product. The other three are exactly the existing left, right, and balanced associator cubes, with their outer beta paths. There is no [transport_transport Gamma] here. *)
+  Definition transported_face_cell (a b s t c d : C)
+    : transport (Gamma a b (joinr t)) (jglue c d)
+        (transported_face a b s t (joinl c))
+      = transported_face a b s t (joinr d)
+    := paste_cubes a b s t c d
+      (left_product_cell a b s t c d) (right_product_cell a b s t c d)
+      (left_cell a s t c d) (first_right_cell b s t c d)
+      (middle_cell a b s c d).
+
+  Definition transported_face_cell_beta (a b s t c d : C)
+    : apD (transported_face a b s t) (jglue c d)
+      = transported_face_cell a b s t c d.
+  Proof.
+    lhs napply (apD_naturality_square_filler
+      (nu a b s t) (nv a b s t) (nl a s t) (nr b s t)
+      (face_y a b s) (jglue c d)).
+    lhs napply (ap011 (fun l r => paste_cubes a b s t c d l r
+      (apD (nl a s t) (jglue c d)) (apD (nr b s t) (jglue c d))
+      (apD (face_y a b s) (jglue c d)))
+      (left_product_cell_beta a b s t c d)
+      (right_product_cell_beta a b s t c d)).
+    lhs napply (ap011 (fun l r => paste_cubes a b s t c d
+      (left_product_cell a b s t c d) (right_product_cell a b s t c d)
+      l r (apD (face_y a b s) (jglue c d)))
+      (Join_ind_FlFr_ind_beta_jglue_jglue
+        (fun y z => F y z (joinl a)) (fun y z => G y z (joinl a))
+        (fun s z => BL a (joinl s) z) (fun t z => BL a (joinr t) z)
+        (S7LeftScalar.first_l_glue_l cd_diamond_susp a)
+        (S7LeftScalar.first_l_glue_r cd_diamond_susp a)
+        (S7LeftScalar.first_l_glue_glue@{u} cd_diamond_susp a) s t c d)
+      (Join_ind_FlFr_ind_beta_jglue_jglue
+        (fun y z => F y z (joinr b)) (fun y z => G y z (joinr b))
+        (fun s z => BR b (joinl s) z) (fun t z => BR b (joinr t) z)
+        (S7RightScalar.first_r_glue_l b)
+        (S7RightScalar.first_r_glue_r b)
+        (S7RightScalar.first_r_glue_glue@{u} b) s t c d)).
+    exact (ap (paste_cubes a b s t c d
+      (left_product_cell a b s t c d) (right_product_cell a b s t c d)
+      (left_cell a s t c d) (first_right_cell b s t c d))
+      (face_y_glue a b s c d)).
+  Defined.
+
+  (** This is a computation of the previously specified interchange side, including both endpoint changes, not a newly chosen side with the same boundary. *)
+  Definition transported_face_glue_expansion (a b s t c d : C)
+    : side a b s t c d @ face_transport_compute a b s t (joinr d)
+      = ap (transport (Gamma a b (joinr t)) (jglue c d))
+          (face_transport_compute a b s t (joinl c))
+        @ transported_face_cell a b s t c d.
+  Proof.
+    lhs_V napply (transported_face_glue a b s t c d @@ 1).
+    exact (apD_natural (face_transport_compute a b s t) (jglue c d)
+      @ (1 @@ transported_face_cell_beta a b s t c d)).
+  Defined.
+
+  (** ** The last face retains the original overlap cubes *)
+
+  Let ol (a c : C) (y : J) := S7LeftScalar.overlap@{u} cd_diamond_susp a y c.
+  Let or (b c : C) (y : J) := S7RightScalar.overlap@{u} b y c.
+  Let ol_cell a s t c := equiv_naturality_transport2
+    (fun y => AL (joinl a) y c) (fun y => BL a y (joinl c))
+    (jglue s t) (ol a c (joinl s)) (ol a c (joinr t))
+    (S7LeftScalar.overlap_glue@{u} cd_diamond_susp a s t c
+      @ (1 @@ left_beta a s t (joinl c))^).
+  Let or_cell b s t c := equiv_naturality_transport2
+    (fun y => AL (joinr b) y c) (fun y => BR b y (joinl c))
+    (jglue s t) (or b c (joinl s)) (or b c (joinr t))
+    (S7RightScalar.overlap_glue@{u} b s t c
+      @ (1 @@ right_beta b s t (joinl c))^).
+  Let last_middle a b c y := concat_Ap (fun x => AL x y c) (jglue a b).
+
+  (** The three factors of [AL] are scalar right translation, inverse diagonal equivariance, and the image of inverse scalar right translation. *)
+  Let rho (c : C) := cd_op_right_translate_joinl@{Set} (X:=psphere 1) c.
+  Let scalar_mul : C -> C -> C := @sg_op (psphere 1) _.
+  Let diagonal (c : C) := functor_join
+    (fun v => scalar_mul v c) (fun v => scalar_mul v c).
+  Let deq (c : C) := cd_op_diagonal_equivariance@{Set} (X:=psphere 1) c.
+  Let h1 (c : C) (x y : J) := rho c (mu x y).
+  Let h2 (c : C) (x y : J) := (deq c x y)^.
+  Let h3 (c : C) (x y : J) := ap (mu x) (rho c y)^.
+  Let e0 a b c y := xf a b y (joinl c).
+  Let e1 (a b c : C) (y : J)
+    := ap (fun x => diagonal c (mu x y)) (jglue a b).
+  Let e2 (a b c : C) (y : J)
+    := ap (fun x => mu x (diagonal c y)) (jglue a b).
+  Let e3 a b c y := xg a b y (joinl c).
+  Let n1 (a b c : C) (y : J) := concat_Ap (fun x => h1 c x y) (jglue a b).
+  Let n2 (a b c : C) (y : J) := concat_Ap (fun x => h2 c x y) (jglue a b).
+  Let n3 (a b c : C) (y : J) := concat_Ap (fun x => h3 c x y) (jglue a b).
+
+  Local Opaque cd_op cd_op_diamond.
+
+  Let n1_inner (a b c : C) (y : J) := concat_Ap (rho c) (W a b y).
+  Let n1_change (a b c : C) (y : J)
+    (n : ap (fun v => mu v (joinl c)) (W a b y) @ rho c (mu (joinr b) y)
+      = rho c (mu (joinl a) y) @ ap (diagonal c) (W a b y))
+    := naturality_change
+      (ap_compose (fun x => mu x y) (fun v => mu v (joinl c)) (jglue a b))
+      (ap_compose (fun x => mu x y) (diagonal c) (jglue a b)) n.
+  Let n1_beta (a b c : C) (y : J)
+    : n1 a b c y = n1_change a b c y (n1_inner a b c y)
+    := concat_Ap_precompose (rho c) (fun x => mu x y) (jglue a b).
+  Let n1_inner_cell (a b s t c : C) :=
+    (equiv_concat_Ap_cube (rho c) (W a b) (jglue s t)
+      (multiplication_square_beta a b s t))^-1
+      (sq_ap_nat (fun v => mu v (joinl c)) (diagonal c) (rho c)
+        (sq_path (multiplication_square a b s t))).
+  Let n1_cell (a b s t c : C) :=
+    (ap (transport _ (jglue s t)) (n1_beta a b c (joinl s))
+      @ ap01D1 (n1_change a b c) (jglue s t) (n1_inner_cell a b s t c))
+      @ (n1_beta a b c (joinr t))^.
+  Let n1_cell_beta (a b s t c : C)
+    : apD (n1 a b c) (jglue s t) = n1_cell a b s t c.
+  Proof.
+    refine (apD_homotopic (n1_beta a b c) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (n1_change a b c) (n1_inner a b c) (jglue s t) @ _).
+    napply (ap (ap01D1 (n1_change a b c) (jglue s t))).
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (rho c) (W a b)
+      (jglue s t) (multiplication_square_beta a b s t))).
+    exact (equiv_concat_Ap_cube_beta (rho c) (W a b) (jglue s t)
+      (multiplication_square_beta a b s t)).
+  Defined.
+
+  (** The left-product cube and the first factor of the last-associator cube share a mapped multiplication square. Compare their actual converted inhabitants before merging them across that face. The four side-face computations are part of this 4-path. *)
+  Let left_cap_cube (a b s t c d : C) := cu_concat_lr
+    (cu_flip_lr
+      (equiv_concat_Ap_cube (rho c) (W a b) (jglue s t)
+        (multiplication_square_beta a b s t) (n1_inner_cell a b s t c)))
+    (equiv_ap_naturality_cube (fun z v : J => mu v z) (jglue c d)
+      (multiplication_square a b s t) (nu_inner_cell a b s t c d)).
+
+  Definition left_product_cap_comparison (a b s t c d : C)
+    : cu_ccGGGG
+        (ap_nat_Vp (rho c) (fun v => ap (mu v) (jglue c d))
+          (ap (mu (joinl a)) (jglue s t)))
+        (ap_nat_Vp (rho c) (fun v => ap (mu v) (jglue c d))
+          (ap (mu (joinr b)) (jglue s t)))
+        (ap_nat_Vp (rho c) (fun v => ap (mu v) (jglue c d))
+          (W a b (joinl s)))
+        (ap_nat_Vp (rho c) (fun v => ap (mu v) (jglue c d))
+          (W a b (joinr t))) (left_cap_cube a b s t c d)
+      = sq_ap_nat (diagonal c) (fun v => mu v (joinr d))
+        (fun v => (rho c v)^ @ ap (mu v) (jglue c d))
+        (sq_path (multiplication_square a b s t)).
+  Proof.
+    pose (br := eisretr (equiv_concat_Ap_cube (rho c) (W a b)
+      (jglue s t) (multiplication_square_beta a b s t))
+      (sq_ap_nat (fun v => mu v (joinl c)) (diagonal c) (rho c)
+        (sq_path (multiplication_square a b s t)))).
+    pose (bp := eisretr (equiv_ap_naturality_cube (fun z v : J => mu v z)
+      (jglue c d) (multiplication_square a b s t))
+      (sq_ap_nat (fun v => mu v (joinl c)) (fun v => mu v (joinr d))
+        (fun v => ap (mu v) (jglue c d))
+        (sq_path (multiplication_square a b s t)))).
+    refine (ap (cu_ccGGGG _ _ _ _)
+      (ap011 (fun r p => cu_concat_lr (cu_flip_lr r) p) br bp) @ _).
+    exact (sq_ap_nat_Vp (rho c) (fun v => ap (mu v) (jglue c d))
+      (sq_path (multiplication_square a b s t))).
+  Defined.
+
+  (** The diagonal factor retains its original nested-induction mixed cell and both outer beta witnesses. *)
+  Let dn (a b c : C) (y : J) := concat_Ap (fun x => deq c x y) (jglue a b).
+  Let dbeta (a b c : C) (y : J)
+    : dn a b c y
+      = cd_op_diagonal_equivariance_glue@{Set} (X:=psphere 1) c a b y
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ a b.
+  Let dsquare (a b c : C) (y : J)
+    := e2 a b c y @ deq c (joinr b) y = deq c (joinl a) y @ e1 a b c y.
+  Let dcell (a b s t c : C) :=
+    (ap (transport (dsquare a b c) (jglue s t)) (dbeta a b c (joinl s))
+      @ cd_op_diagonal_equivariance_glue_glue@{Set} (X:=psphere 1) c a b s t)
+      @ (dbeta a b c (joinr t))^.
+  Let dcell_beta (a b s t c : C)
+    : apD (dn a b c) (jglue s t) = dcell a b s t c.
+  Proof.
+    exact (Join_ind_FlFr_ind_beta_jglue_jglue
+      (fun x y => mu x (diagonal c y)) (fun x y => diagonal c (mu x y))
+      (cd_op_diagonal_equivariance_joinl@{Set} (X:=psphere 1) c)
+      (cd_op_diagonal_equivariance_joinr@{Set} (X:=psphere 1) c)
+      (cd_op_diagonal_equivariance_glue_joinl@{Set} (X:=psphere 1) c)
+      (cd_op_diagonal_equivariance_glue_joinr@{Set} (X:=psphere 1) c)
+      (cd_op_diagonal_equivariance_glue_glue@{Set} (X:=psphere 1) c) a b s t).
+  Defined.
+  Let n2_change (a b c : C) (y : J) (n : dsquare a b c y)
+    := (inverse_natural (e2 a b c y) (e1 a b c y) n)^.
+  Let n2_beta (a b c : C) (y : J)
+    : n2 a b c y = n2_change a b c y (dn a b c y)
+    := concat_Ap_inverse (fun x => deq c x y) (jglue a b).
+  Let n2_cell (a b s t c : C) :=
+    (ap (transport _ (jglue s t)) (n2_beta a b c (joinl s))
+      @ ap01D1 (n2_change a b c) (jglue s t) (dcell a b s t c))
+      @ (n2_beta a b c (joinr t))^.
+  Let n2_cell_beta (a b s t c : C)
+    : apD (n2 a b c) (jglue s t) = n2_cell a b s t c.
+  Proof.
+    refine (apD_homotopic (n2_beta a b c) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (n2_change a b c) (dn a b c) (jglue s t) @ _).
+    exact (ap (ap01D1 (n2_change a b c) (jglue s t)) (dcell_beta a b s t c)).
+  Defined.
+
+  (** Scalar right translation's square is the original join naturality square for scalar commutativity. *)
+  Let rho_square (c s t : C) :=
+    (mbv0 s t c @@ 1)
+      @ ((join_natsq (idpath (scalar_mul s c))
+          (commutativity (f:=scalar_mul) c t))^
+        @ (1 @@ functor_join_beta_jglue
+          (fun v => scalar_mul v c) (fun v => scalar_mul v c) s t)^).
+  Let rho_square_beta (c s t : C)
+    : concat_Ap (rho c) (jglue s t) = rho_square c s t
+    := Join_ind_FlFr_beta_jglue _ _ _ _ _ s t.
+  Let rho_inverse_square (c s t : C) :=
+    (inverse_natural (ap (fun y => mu y (joinl c)) (jglue s t))
+      (ap (diagonal c) (jglue s t)) (rho_square c s t))^.
+  Let rho_inverse_square_beta (c s t : C)
+    : concat_Ap (fun y => (rho c y)^) (jglue s t) = rho_inverse_square c s t
+    := concat_Ap_inverse (rho c) (jglue s t)
+      @ ap (fun n => (inverse_natural
+          (ap (fun y => mu y (joinl c)) (jglue s t))
+          (ap (diagonal c) (jglue s t)) n)^) (rho_square_beta c s t).
+  Let n3_inner (a b c : C) (y : J) := concat_Ap (W a b) (rho c y)^.
+  Let n3_change (a b c : C) (y : J)
+    (n : ap (mu (joinl a)) (rho c y)^ @ W a b (mu y (joinl c))
+      = W a b (diagonal c y) @ ap (mu (joinr b)) (rho c y)^) := n^.
+  Let n3_beta (a b c : C) (y : J)
+    : n3 a b c y = n3_change a b c y (n3_inner a b c y)
+    := concat_Ap_ap mu (jglue a b) (rho c y)^.
+  Let n3_inner_cell (a b s t c : C) :=
+    (equiv_concat_Ap_cube (W a b) (fun y => (rho c y)^) (jglue s t)
+      (rho_inverse_square_beta c s t))^-1
+      (sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b)
+        (sq_path (rho_inverse_square c s t))).
+  Let n3_cell (a b s t c : C) :=
+    (ap (transport _ (jglue s t)) (n3_beta a b c (joinl s))
+      @ ap01D1 (n3_change a b c) (jglue s t) (n3_inner_cell a b s t c))
+      @ (n3_beta a b c (joinr t))^.
+  Let n3_cell_beta (a b s t c : C)
+    : apD (n3 a b c) (jglue s t) = n3_cell a b s t c.
+  Proof.
+    refine (apD_homotopic (n3_beta a b c) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    refine (apD_composeD (n3_change a b c) (n3_inner a b c) (jglue s t) @ _).
+    napply (ap (ap01D1 (n3_change a b c) (jglue s t))).
+    napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b)
+      (fun y => (rho c y)^) (jglue s t) (rho_inverse_square_beta c s t))).
+    exact (equiv_concat_Ap_cube_beta (W a b) (fun y => (rho c y)^)
+      (jglue s t) (rho_inverse_square_beta c s t)).
+  Defined.
+
+  Let last_paste12 (a b c : C) (y : J)
+    (n : e0 a b c y @ h1 c (joinr b) y = h1 c (joinl a) y @ e1 a b c y)
+    (m : e1 a b c y @ h2 c (joinr b) y = h2 c (joinl a) y @ e2 a b c y)
+    := concat_natural (e0 a b c y) (e1 a b c y) (e2 a b c y)
+      (h1 c (joinl a) y) (h1 c (joinr b) y)
+      (h2 c (joinl a) y) (h2 c (joinr b) y) n m.
+  Let last_paste (a b c : C) (y : J)
+    (n : e0 a b c y @ (h1 c (joinr b) y @ h2 c (joinr b) y)
+      = (h1 c (joinl a) y @ h2 c (joinl a) y) @ e2 a b c y)
+    (m : e2 a b c y @ h3 c (joinr b) y = h3 c (joinl a) y @ e3 a b c y)
+    := concat_natural (e0 a b c y) (e2 a b c y) (e3 a b c y)
+      (h1 c (joinl a) y @ h2 c (joinl a) y)
+      (h1 c (joinr b) y @ h2 c (joinr b) y)
+      (h3 c (joinl a) y) (h3 c (joinr b) y) n m.
+  Let last_beta (a b c : C) (y : J)
+    : last_middle a b c y
+      = last_paste a b c y
+        (last_paste12 a b c y (n1 a b c y) (n2 a b c y)) (n3 a b c y).
+  Proof.
+    lhs napply (concat_Ap_concat (fun x => h1 c x y @ h2 c x y)
+      (fun x => h3 c x y) (jglue a b)).
+    exact (ap (fun n => last_paste a b c y n (n3 a b c y))
+      (concat_Ap_concat (fun x => h1 c x y) (fun x => h2 c x y) (jglue a b))).
+  Defined.
+
+  (** The whole last-associator cube is now a pasting of two geometric naturality cubes and the original diagonal-equivariance cube. *)
+  Definition last_associator_cell (a b s t c : C) :=
+    (ap (transport _ (jglue s t)) (last_beta a b c (joinl s))
+      @ ap01D11 (last_paste a b c) (jglue s t)
+        (ap01D11 (last_paste12 a b c) (jglue s t)
+          (n1_cell a b s t c) (n2_cell a b s t c)) (n3_cell a b s t c))
+      @ (last_beta a b c (joinr t))^.
+
+  Definition last_associator_cell_beta (a b s t c : C)
+    : apD (last_middle a b c) (jglue s t) = last_associator_cell a b s t c.
+  Proof.
+    refine (apD_homotopic (last_beta a b c) (jglue s t) @ _).
+    nrefine ((1 @@ _) @@ 1).
+    lhs napply (apD_composeD2 (last_paste a b c)
+      (fun y => last_paste12 a b c y (n1 a b c y) (n2 a b c y))
+      (n3 a b c) (jglue s t)).
+    napply (ap011 (ap01D11 (last_paste a b c) (jglue s t))).
+    - lhs napply (apD_composeD2 (last_paste12 a b c)
+        (n1 a b c) (n2 a b c) (jglue s t)).
+      exact (ap011 (ap01D11 (last_paste12 a b c) (jglue s t))
+        (n1_cell_beta a b s t c) (n2_cell_beta a b s t c)).
+    - exact (n3_cell_beta a b s t c).
+  Defined.
+
+  Local Transparent cd_op cd_op_diamond.
+
+  Let last_prefix a b c (y : J)
+    (n : xf a b y (joinl c) @ AL (joinr b) y c
+      = AL (joinl a) y c @ xg a b y (joinl c))
+    (q : AL (joinl a) y c = BL a y (joinl c))
+    := n @ ap (fun r => r @ xg a b y (joinl c)) q.
+  Let last_close a b c (y : J)
+    (q : AL (joinr b) y c = BR b y (joinl c))
+    (n : xf a b y (joinl c) @ AL (joinr b) y c
+      = BL a y (joinl c) @ xg a b y (joinl c))
+    := (ap (fun r => xf a b y (joinl c) @ r) q)^ @ n.
+
+  (** This pasting uses the computed last-associator cube and the two overlap eliminators' specified glue proofs, including their first-associator beta adjustments. *)
+  Definition last_face_cell (a b s t c : C)
+    : transport (fun y => Gamma a b y (joinl c)) (jglue s t)
+        (face_z a b (joinl s) c) = face_z a b (joinr t) c
+    := ap01D11 (last_close a b c) (jglue s t) (or_cell b s t c)
+      (ap01D11 (last_prefix a b c) (jglue s t)
+        (last_associator_cell a b s t c) (ol_cell a s t c)).
+
+  Definition last_face_cell_beta (a b s t c : C)
+    : apD (fun y => face_z a b y c) (jglue s t) = last_face_cell a b s t c.
+  Proof.
+    lhs napply (apD_composeD2 (last_close a b c) (or b c)
+      (fun y => last_prefix a b c y (last_middle a b c y) (ol a c y))
+      (jglue s t)).
+    napply (ap011 (ap01D11 (last_close a b c) (jglue s t))).
+    - exact (Join_ind_beta_jglue _ _ _ _ s t).
+    - lhs napply (apD_composeD2 (last_prefix a b c)
+        (last_middle a b c) (ol a c) (jglue s t)).
+      napply (ap011 (ap01D11 (last_prefix a b c) (jglue s t))).
+      + exact (last_associator_cell_beta a b s t c).
+      + exact (Join_ind_beta_jglue _ _ _ _ s t).
+  Defined.
+
+  Let computed_cap a b s t c :=
+    ((last_face_cell a b s t c)^
+      @ ap (transport (fun y => Gamma a b y (joinl c)) (jglue s t))
+        (face_overlap a b s c))
+    @ face_transport_compute a b s t (joinl c).
+  Let cap_expansion a b s t c
+    : cap a b s t c @ face_transport_compute a b s t (joinl c)
+      = computed_cap a b s t c
+    := (inverse2 (last_face_cell_beta a b s t c) @@ 1) @@ 1.
+
+  (** All four specified associator cubes, both overlap cubes, and the geometric naturality cubes now occur explicitly in the pasting. The remaining obligation is compatibility of these actual diamond pastings. *)
+  Definition computed_pasting (a b s t c d : C)
+    : transport (Gamma a b (joinr t)) (jglue c d)
+        (face_z a b (joinr t) c) = transported_face a b s t (joinr d)
+    := ap (transport (Gamma a b (joinr t)) (jglue c d))
+        (computed_cap a b s t c) @ transported_face_cell a b s t c d.
+
+  Definition pasting_expansion (a b s t c d : C)
+    : pasting a b s t c d @ face_transport_compute a b s t (joinr d)
+      = computed_pasting a b s t c d.
+  Proof.
+    lhs napply concat_pp_p.
+    lhs napply (1 @@ transported_face_glue_expansion a b s t c d).
+    lhs napply concat_p_pp.
+    lhs_V napply (ap_pp (transport (Gamma a b (joinr t)) (jglue c d))
+      (cap a b s t c) (face_transport_compute a b s t (joinl c)) @@ 1).
+    exact (ap (ap (transport (Gamma a b (joinr t)) (jglue c d)))
+      (cap_expansion a b s t c) @@ 1).
+  Defined.
+
+  Let based_pasting_expansion a b s t c d
+    : pasting a b s t c d @ (pasting a b s t North d)^
+      = computed_pasting a b s t c d @ (computed_pasting a b s t North d)^
+    := (concat_pV_pp (pasting a b s t c d) (pasting a b s t North d)
+        (face_transport_compute a b s t (joinr d)))^
+      @ (pasting_expansion a b s t c d
+        @@ inverse2 (pasting_expansion a b s t North d)).
+
+  (** The remaining equation compares these specific expanded pastings. This equivalence neither assumes the equation nor identifies arbitrary choices of any of its cubes. *)
+  Definition equiv_mixed_expansion (a b s t c d : C)
+    : (computed_pasting a b s t c d @ (computed_pasting a b s t North d)^
+        = computed_pasting a b North t c d @ (computed_pasting a b North t North d)^)
+      <~> Mixed a b s t c d
+    := equiv_mixed_normalize a b s t c d oE equiv_concat_lr
+      (based_pasting_expansion a b s t c d)
+      (based_pasting_expansion a b North t c d)^.
 End Normalization.
 End S7DirectGluing.

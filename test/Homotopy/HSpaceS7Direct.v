@@ -1,4 +1,5 @@
 From HoTT Require Import Basics Types.Paths Types.Universe.
+From HoTT Require Import Cubical.PathSquare Cubical.PathCube.
 From HoTT Require Import Pointed.Core Spaces.Spheres.
 From HoTT Require Import Homotopy.CayleyDickson Homotopy.Suspension.
 From HoTT Require Import Homotopy.Join.Core Homotopy.Join.Rec2.
@@ -14,7 +15,9 @@ Local Open Scope path_scope.
 Module D := S7DirectGluing.
 
 Local Transparent D.face_overlap D.associator D.face_y_glue
-  D.transported_face_glue D.equiv_mixed_normalize.
+  D.transported_face_glue D.equiv_mixed_normalize D.transported_face
+  D.transported_face_cell D.transported_face_cell_beta D.last_face_cell
+  D.last_face_cell_beta D.computed_pasting D.equiv_mixed_expansion.
 
 Section DirectChecks.
   Universe u.
@@ -28,7 +31,7 @@ Section DirectChecks.
   Local Notation J := (Join@{Set Set Set} C C).
   Local Notation mu := (cd_op@{Set} (X:=psphere 1)).
   Local Notation AL := (cd_assoc_last_joinl@{Set} (X:=psphere 1)).
-  Local Notation BM := (S7MiddleScalar.middle_l cd_diamond_susp).
+  Local Notation BM := (S7MiddleScalar.middle_l@{u} cd_diamond_susp).
   Local Notation F := (fun y z x : J => mu (mu x y) z).
   Local Notation G := (fun y z x : J => mu x (mu y z)).
 
@@ -93,8 +96,8 @@ Section DirectChecks.
     : apD (U a b s t) (jglue c d) = side a b s t c d
     := D.transported_face_glue@{u} a b s t c d.
   (** The same nested beta theorem computes the first-left and first-right cells needed when expanding transport interchange in [Gamma]. *)
-  Local Notation BL := (S7LeftScalar.first_l cd_diamond_susp).
-  Local Notation BR := S7RightScalar.first_r.
+  Local Notation BL := (S7LeftScalar.first_l@{u} cd_diamond_susp).
+  Local Notation BR := (S7RightScalar.first_r@{u}).
   Let Sq (x : J)
     (B : forall y z : J, mu (mu x y) z = mu x (mu y z))
     (s t : C) (z : J)
@@ -171,6 +174,134 @@ Section DirectChecks.
     : IsHSpace@{Set} (psphere 7)
     := hspace_s7_from_direct_mixed (fun a b s t c d =>
       D.equiv_mixed_normalize@{u} a b s t c d (n a b s t c d)).
+
+  (** The expanded face and its cube use all five original faces and their specified computations. *)
+  Let xf a b y z := ap (F y z) (jglue a b).
+  Let xg a b y z := ap (G y z) (jglue a b).
+  Let nu a b s t z := concat_Ap (fun y => xf a b y z) (jglue s t).
+  Let nv a b s t z := concat_Ap (fun y => xg a b y z) (jglue s t).
+  Let nl a s t z := concat_Ap (fun y => BL a y z) (jglue s t).
+  Let nr b s t z := concat_Ap (fun y => BR b y z) (jglue s t).
+  Let left_cell a s t c d :=
+    (ap (transport (Sq (joinl a) (BL a) s t) (jglue c d))
+        (beta_l a s t (joinl c))
+      @ S7LeftScalar.first_l_glue_glue@{u} cd_diamond_susp a s t c d)
+    @ (beta_l a s t (joinr d))^.
+  Let right_cell b s t c d :=
+    (ap (transport (Sq (joinr b) (BR b) s t) (jglue c d))
+        (beta_r b s t (joinl c))
+      @ S7RightScalar.first_r_glue_glue@{u} b s t c d)
+    @ (beta_r b s t (joinr d))^.
+  Let theta a b s t z := transport_naturality_square_compute
+    (fun y => xf a b y z) (fun y => xg a b y z)
+    (fun y => BL a y z) (fun y => BR b y z)
+    (jglue s t) (D.face_y a b s z).
+
+  Example expanded_face_expression (a b s t : C) (z : J)
+    : D.transported_face@{u} a b s t z
+      = naturality_square_filler (nu a b s t z) (nv a b s t z)
+          (nl a s t z) (nr b s t z) (D.face_y a b s z)
+    := idpath.
+  Example expanded_side_expression (a b s t c d : C)
+    : D.transported_face_cell@{u} a b s t c d
+      = naturality_square_filler_glue
+          (nu a b s t) (nv a b s t) (nl a s t) (nr b s t)
+          (D.face_y a b s) (jglue c d)
+          (D.left_product_cell a b s t c d)
+          (D.right_product_cell a b s t c d)
+          (left_cell a s t c d) (right_cell b s t c d) (cell a b s c d)
+    := idpath.
+  Example actual_left_product_cube (a b s t c d : C)
+    : apD (nu a b s t) (jglue c d) = D.left_product_cell a b s t c d
+    := D.left_product_cell_beta a b s t c d.
+  Example actual_right_product_cube (a b s t c d : C)
+    : apD (nv a b s t) (jglue c d) = D.right_product_cell a b s t c d
+    := D.right_product_cell_beta a b s t c d.
+  Example expanded_side_beta (a b s t c d : C)
+    : apD (D.transported_face a b s t) (jglue c d)
+      = D.transported_face_cell a b s t c d
+    := D.transported_face_cell_beta@{u} a b s t c d.
+  Example actual_interchange_expansion (a b s t c d : C)
+    : side a b s t c d @ theta a b s t (joinr d)
+      = ap (transport (D.Gamma a b (joinr t)) (jglue c d))
+          (theta a b s t (joinl c)) @ D.transported_face_cell a b s t c d
+    := D.transported_face_glue_expansion@{u} a b s t c d.
+  Example actual_last_associator_cube (a b s t c : C)
+    : apD (fun y => concat_Ap (fun x => AL x y c) (jglue a b))
+        (jglue s t) = D.last_associator_cell a b s t c
+    := D.last_associator_cell_beta a b s t c.
+  Example actual_last_face_expansion (a b s t c : C)
+    : apD (fun y => D.face_z a b y c) (jglue s t)
+      = D.last_face_cell a b s t c
+    := D.last_face_cell_beta@{u} a b s t c.
+
+  (** Check the target of the shared-face comparison against the original diamond and all four multiplication edge beta paths. The left side is inferred from the theorem, whose type retains both actual converted cubes. *)
+  Let W (a b : C) (z : J) := ap (fun x => mu x z) (jglue a b).
+  Let bh0 (a c d : C) : ap (mu (joinl a)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let bh1 (b c d : C) : ap (mu (joinr b)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let bv0 (a b c : C) : W a b (joinl c) = _
+    := Join_rec_beta_jglue _ _ _ a b.
+  Let bv1 (a b d : C) : W a b (joinr d) = _
+    := Join_rec_beta_jglue _ _ _ a b.
+  Let multiplication_square (a b c d : C) :=
+    ((1 @@ bv1 a b d) @ ((bh0 a c d @@ 1)
+      @ (cd_op_diamond@{Set} (X:=psphere 1) a b c d
+        @ (1 @@ bh1 b c d)^))) @ (bv0 a b c @@ 1)^.
+  Let rho (c : C) := cd_op_right_translate_joinl@{Set} (X:=psphere 1) c.
+  Let diagonal (c : C) := functor_join
+    (fun v => @hspace_op (psphere 1) _ v c)
+    (fun v => @hspace_op (psphere 1) _ v c).
+
+  Example actual_left_product_cap_target (a b s t c d : C)
+    : _ = sq_ap_nat (diagonal c) (fun v => mu v (joinr d))
+        (fun v => (rho c v)^ @ ap (mu v) (jglue c d))
+        (sq_path (multiplication_square a b s t))
+    := D.left_product_cap_comparison a b s t c d.
+
+  Example computed_pasting_expression (a b s t c d : C)
+    : D.computed_pasting@{u} a b s t c d
+      = ap (transport (D.Gamma a b (joinr t)) (jglue c d))
+          (((D.last_face_cell a b s t c)^
+            @ ap (transport (fun y => D.Gamma a b y (joinl c)) (jglue s t))
+              (D.face_overlap a b s c)) @ theta a b s t (joinl c))
+        @ D.transported_face_cell a b s t c d
+    := idpath.
+  Example original_pasting_expansion (a b s t c d : C)
+    : pasting a b s t c d @ theta a b s t (joinr d)
+      = D.computed_pasting a b s t c d
+    := D.pasting_expansion@{u} a b s t c d.
+
+  Let expanded a b s t c d :=
+    D.computed_pasting@{u} a b s t c d
+      @ (D.computed_pasting@{u} a b s t North d)^
+      = D.computed_pasting@{u} a b North t c d
+        @ (D.computed_pasting@{u} a b North t North d)^.
+  Example expanded_to_original (a b s t c d : C)
+    : expanded a b s t c d <~> D.Mixed a b s t c d
+    := D.equiv_mixed_expansion@{u} a b s t c d.
+  Example expanded_middle_unit (a b t c d : C)
+    : D.Mixed a b North t c d
+    := D.equiv_mixed_expansion a b North t c d 1.
+  Example expanded_last_unit (a b s t d : C)
+    : D.Mixed a b s t North d
+    := D.equiv_mixed_expansion a b s t North d
+      (concat_pV _ @ (concat_pV _)^).
+  Example expansion_roundtrip (a b s t c d : C) (q : expanded a b s t c d)
+    : (D.equiv_mixed_expansion a b s t c d)^-1
+        (D.equiv_mixed_expansion a b s t c d q) = q
+    := eissect (D.equiv_mixed_expansion a b s t c d) q.
+  Example expansion_original_roundtrip (a b s t c d : C)
+    (q : D.Mixed a b s t c d)
+    : D.equiv_mixed_expansion a b s t c d
+        ((D.equiv_mixed_expansion a b s t c d)^-1 q) = q
+    := eisretr (D.equiv_mixed_expansion a b s t c d) q.
+  Example expanded_s7_small
+    (q : forall a b s t c d : C, expanded a b s t c d)
+    : IsHSpace@{Set} (psphere 7)
+    := hspace_s7_from_direct_mixed (fun a b s t c d =>
+      D.equiv_mixed_expansion@{u} a b s t c d (q a b s t c d)).
 
   Context (mixed : forall a b s t c d : C, D.Mixed a b s t c d).
   Let glue := D.first_glue@{u} mixed.

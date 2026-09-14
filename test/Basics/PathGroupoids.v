@@ -26,6 +26,14 @@ Section Naturality.
   Universe u v w.
   Context {A : Type@{u}} {B : Type@{v}} {C : Type@{w}}.
 
+  Example application_square_transpose (f : A -> B -> C)
+    {a a' : A} (p : a = a') {b b' : B} (q : b = b')
+    : concat_Ap (fun a => ap (f a) q) p
+      = (concat_Ap (fun b => ap (fun a => f a b) p) q)^
+    := concat_Ap_ap@{u v w} f p q.
+  Example application_square_transpose_refl (f : A -> B -> C) (a : A) (b : B)
+    : concat_Ap_ap f (idpath a) (idpath b) = 1 := idpath.
+
   Example naturality_precompose_universes {f g : B -> C}
     (h : f == g) (k : A -> B) {x y : A} (p : x = y)
     : concat_Ap (h o k) p
@@ -63,6 +71,38 @@ Section FiberwiseComposition.
   Example dependent_composition_refl (x : A)
     : apD_composeD f s (idpath x) = idpath := idpath.
 End FiberwiseComposition.
+
+Section FiberwiseBinaryComposition.
+  Universes u v w z.
+  Context {A : Type@{u}} {P : A -> Type@{v}}
+    {Q : A -> Type@{w}} {R : A -> Type@{z}}
+    (f : forall a, P a -> Q a -> R a).
+
+  Example fiberwise_binary_paths {a b : A} (p : a = b)
+    {x : P a} {x' : P b} {y : Q a} {y' : Q b}
+    (q : transport P p x = x') (r : transport Q p y = y')
+    : transport R p (f a x y) = f b x' y'
+    := ap01D11@{u v w z} f p q r.
+  Example fiberwise_binary_application
+    (s : forall a, P a) (t : forall a, Q a) {a b : A} (p : a = b)
+    : apD (fun a => f a (s a) (t a)) p
+      = ap01D11 f p (apD s p) (apD t p)
+    := apD_composeD2@{u v w z} f s t p.
+  Example fiberwise_binary_refl
+    (s : forall a, P a) (t : forall a, Q a) (a : A)
+    : apD_composeD2 f s t (idpath a) = 1 := idpath.
+End FiberwiseBinaryComposition.
+
+Section CommonCenter.
+  Universe u.
+  Context {A : Type@{u}}.
+  Example changing_zigzag_center {x y z w : A}
+    (p : x = z) (q : y = z) (r : z = w)
+    : (p @ r) @ (q @ r)^ = p @ q^
+    := concat_pV_pp@{u} p q r.
+  Example changing_zigzag_center_refl (x : A)
+    : concat_pV_pp (idpath x) 1 1 = 1 := idpath.
+End CommonCenter.
 
 Section PathImageInverse.
   Universe u v.

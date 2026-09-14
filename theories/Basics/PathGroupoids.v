@@ -161,6 +161,14 @@ Definition concat_pV_p {A : Type} {x y z : A} (p : x = z) (q : y = z) :
       match p with idpath => 1 end
   end) p.
 
+(** A common change of center cancels from a zigzag. *)
+Definition concat_pV_pp {A : Type} {x y z w : A}
+  (p : x = z) (q : y = z) (r : z = w)
+  : (p @ r) @ (q @ r)^ = p @ q^.
+Proof.
+  destruct p, q, r; reflexivity.
+Defined.
+
 (** Inverse distributes over concatenation *)
 Definition inv_pp {A : Type} {x y z : A} (p : x = y) (q : y = z) :
   (p @ q)^ = q^ @ p^
@@ -473,6 +481,15 @@ Proof.
   generalize (k x), (q x).
   intros r s; destruct s.
   exact (concat_p1 _ @ (concat_1p _)^).
+Defined.
+
+(** The two naturality presentations of the application square are inverse paths. *)
+Definition concat_Ap_ap {A B C : Type} (f : A -> B -> C)
+  {a a' : A} (p : a = a') {b b' : B} (q : b = b')
+  : concat_Ap (fun a => ap (f a) q) p
+    = (concat_Ap (fun b => ap (fun a => f a b) p) q)^.
+Proof.
+  destruct p, q; reflexivity.
 Defined.
 
 (** A useful variant of [concat_Ap]. *)
@@ -950,6 +967,26 @@ Definition apD_composeD {A : Type} {P Q : A -> Type}
   (f : forall a, P a -> Q a) (s : forall a, P a)
   {x y : A} (p : x = y)
   : apD (fun a => f a (s a)) p = ap01D1 f p (apD s p).
+Proof.
+  destruct p; reflexivity.
+Defined.
+
+(** A fiberwise binary map acts on two dependent paths over the same base path. The two input fibers and the output fiber may have independent universes. *)
+Definition ap01D11 {A : Type} {P Q R : A -> Type}
+  (f : forall a, P a -> Q a -> R a) {x y : A} (p : x = y)
+  {u : P x} {u' : P y} {v : Q x} {v' : Q y}
+  (q : transport P p u = u') (r : transport Q p v = v')
+  : transport R p (f x u v) = f y u' v'.
+Proof.
+  destruct p, q, r; reflexivity.
+Defined.
+
+Definition apD_composeD2 {A : Type} {P Q R : A -> Type}
+  (f : forall a, P a -> Q a -> R a)
+  (s : forall a, P a) (t : forall a, Q a)
+  {x y : A} (p : x = y)
+  : apD (fun a => f a (s a) (t a)) p
+    = ap01D11 f p (apD s p) (apD t p).
 Proof.
   destruct p; reflexivity.
 Defined.

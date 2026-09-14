@@ -189,6 +189,28 @@ Notation cu_GGcccc := equiv_cu_GGcccc.
 Notation cu_ccGGcc := equiv_cu_ccGGcc.
 Notation cu_ccccGG := equiv_cu_ccccGG.
 
+(** When just the left and right faces vary, dependent naturality of the cube is explicit face rewriting. The other four chosen faces remain unchanged. *)
+Definition cu_GGcccc_natural {A T : Type}
+  {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+  {p0i0 : x000 = x010} {p1i0 : x100 = x110}
+  {pi00 : x000 = x100} {pi10 : x010 = x110}
+  {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+  {pi01 : x001 = x101} {pi11 : x011 = x111}
+  {p00i : x000 = x001} {p01i : x010 = x011}
+  {p10i : x100 = x101} {p11i : x110 = x111}
+  {sii0 : PathSquare p0i0 p1i0 pi00 pi10}
+  {sii1 : PathSquare p0i1 p1i1 pi01 pi11}
+  {si0i : PathSquare p00i p10i pi00 pi01}
+  {si1i : PathSquare p01i p11i pi10 pi11}
+  {l : T -> PathSquare p0i0 p0i1 p00i p01i}
+  {r : T -> PathSquare p1i0 p1i1 p10i p11i}
+  (c : forall t, PathCube (l t) (r t) sii0 sii1 si0i si1i)
+  {x y : T} (p : x = y)
+  : cu_GGcccc (ap l p) (ap r p) (c x) = c y.
+Proof.
+  destruct p; reflexivity.
+Defined.
+
 (* Rotating top and bottom to front and back *)
 Definition equiv_cu_rot_tb_fb {A} {x000 x010 x100 x110 x001 x011 x101 x111 : A}
   {p0i0 : x000 = x010} {p1i0 : x100 = x110} {pi00 : x000 = x100}
@@ -501,6 +523,43 @@ Proof.
   apply cu_fill_right.
 Defined.
 
+(** ** Relative cube induction *)
+
+(** As with [pathsquare_ind_l], five faces stay fixed while the remaining face and its cube vary together. This does not identify arbitrary cubes with all six faces fixed. *)
+Section KanUnique.
+  Context {A : Type}
+    {x000 x010 x100 x110 x001 x011 x101 x111 : A}
+    {p0i0 : x000 = x010} {p1i0 : x100 = x110}
+    {pi00 : x000 = x100} {pi10 : x010 = x110}
+    {p0i1 : x001 = x011} {p1i1 : x101 = x111}
+    {pi01 : x001 = x101} {pi11 : x011 = x111}
+    {p00i : x000 = x001} {p01i : x010 = x011}
+    {p10i : x100 = x101} {p11i : x110 = x111}
+    (s1ii : PathSquare p1i0 p1i1 p10i p11i)
+    (sii0 : PathSquare p0i0 p1i0 pi00 pi10)
+    (sii1 : PathSquare p0i1 p1i1 pi01 pi11)
+    (si0i : PathSquare p00i p10i pi00 pi01)
+    (si1i : PathSquare p01i p11i pi10 pi11).
+
+  #[export] Instance cu_fill_left_contr
+    : Contr {s0ii : PathSquare p0i0 p0i1 p00i p01i &
+        PathCube s0ii s1ii sii0 sii1 si0i si1i}.
+  Proof.
+    refine (Build_Contr _ (cu_fill_left s1ii sii0 sii1 si0i si1i) _).
+    intros [s0ii c]; destruct c; reflexivity.
+  Defined.
+
+  Definition pathcube_ind_left
+    (P : forall (s0ii : PathSquare p0i0 p0i1 p00i p01i),
+      PathCube s0ii s1ii sii0 sii1 si0i si1i -> Type)
+    (fill := cu_fill_left s1ii sii0 sii1 si0i si1i)
+    (p : P fill.1 fill.2)
+    : forall s0ii c, P s0ii c.
+  Proof.
+    intros s0ii c; destruct c; exact p.
+  Defined.
+End KanUnique.
+
 (** [PathCube] concatenation *)
 
 Section Concat.
@@ -603,6 +662,161 @@ Definition sq_ap_nat
 Proof.
   destruct s as [x]; cbn; by destruct (h x).
 Defined.
+
+(** Pasting two naturality cubes across their common mapped face is naturality of the composite homotopy. All four side-face comparisons are retained. This is an equality of the specified cubes, not uniqueness for their boundary. *)
+Definition sq_ap_nat_Vp {A B : Type} {f g k : A -> B}
+  (h : f == g) (l : f == k) {a00 a10 a01 a11 : A}
+  {px0 : a00 = a10} {px1 : a01 = a11}
+  {p0x : a00 = a01} {p1x : a10 = a11}
+  (s : PathSquare px0 px1 p0x p1x)
+  : cu_ccGGGG (ap_nat_Vp h l px0) (ap_nat_Vp h l px1)
+      (ap_nat_Vp h l p0x) (ap_nat_Vp h l p1x)
+      (cu_concat_lr (cu_flip_lr (sq_ap_nat f g h s))
+        (sq_ap_nat f k l s))
+    = sq_ap_nat g k (fun x => (h x)^ @ l x) s.
+Proof.
+  destruct s as [x]; cbn [sq_ap_nat ap_nat_Vp ap_nat sq_ap ap].
+  generalize (l x); generalize (k x).
+  generalize (h x); generalize (g x).
+  intros b1 q b2 r; destruct q, r; reflexivity.
+Defined.
+
+(** The dependent variation of a mapped square is its naturality cube. The four face comparisons compute the actual binary application squares; none of the six faces is replaced merely because it has the same boundary. *)
+Definition sq_ap_nat_apD {A B C : Type} (f : C -> A -> B)
+  {c c' : C} (p : c = c') {a00 a10 a01 a11 : A}
+  {px0 : a00 = a10} {px1 : a01 = a11}
+  {p0x : a00 = a01} {p1x : a10 = a11}
+  (s : PathSquare px0 px1 p0x p1x)
+  : cu_ccGGGG
+      (sq_ap011_ap_nat (fun a c => f c a) px0 p)
+      (sq_ap011_ap_nat (fun a c => f c a) px1 p)
+      (sq_ap011_ap_nat (fun a c => f c a) p0x p)
+      (sq_ap011_ap_nat (fun a c => f c a) p1x p)
+      ((dp_cu (px0:=fun c => ap (f c) px0)
+        (px1:=fun c => ap (f c) px1) (p0x:=fun c => ap (f c) p0x)
+        (p1x:=fun c => ap (f c) p1x) (p:=p))^-1
+        (apD (fun c => sq_ap (f c) s) p))
+    = sq_ap_nat (f c) (f c') (fun a => ap (fun c => f c a) p) s.
+Proof.
+  destruct p, s; reflexivity.
+Defined.
+
+(** A specified dependent path between mapped path-algebra fillers gives the corresponding cube, with the four naturality faces. This keeps the input 3-path, rather than choosing a cube from its boundary alone. *)
+Section MappedPathCube.
+  Local Open Scope path_scope.
+  Context {A B C : Type} (f : C -> A -> B)
+    {c c' : C} (p : c = c') {a00 a10 a01 a11 : A}
+    {px0 : a00 = a10} {px1 : a01 = a11}
+    {p0x : a00 = a01} {p1x : a10 = a11}
+    (h : px0 @ p1x = p0x @ px1).
+  Let P c := ap (f c) px0 @ ap (f c) p1x
+    = ap (f c) p0x @ ap (f c) px1.
+  Let S c := PathSquare (ap (f c) px0) (ap (f c) px1)
+    (ap (f c) p0x) (ap (f c) p1x).
+  Let N c := ap_naturality (f c) h.
+  Let change c := sq_ap_path (f c) h.
+  Let to_square (c : C) (n : P c) := sq_path n.
+  Let to_cube (q : transport S p (sq_ap (f c) (sq_path h))
+      = sq_ap (f c') (sq_path h)) :=
+    cu_ccGGGG
+      (sq_ap011_ap_nat (fun a c => f c a) px0 p)
+      (sq_ap011_ap_nat (fun a c => f c a) px1 p)
+      (sq_ap011_ap_nat (fun a c => f c a) p0x p)
+      (sq_ap011_ap_nat (fun a c => f c a) p1x p)
+      ((dp_cu (px0:=fun c => ap (f c) px0)
+        (px1:=fun c => ap (f c) px1) (p0x:=fun c => ap (f c) p0x)
+        (p1x:=fun c => ap (f c) p1x) (p:=p))^-1 q).
+
+  Definition ap_naturality_cube (q : transport P p (N c) = N c')
+    : PathCube (sq_ap (f c) (sq_path h)) (sq_ap (f c') (sq_path h))
+        (ap_nat (fun a => ap (fun c => f c a) p) px0)
+        (ap_nat (fun a => ap (fun c => f c a) p) px1)
+        (ap_nat (fun a => ap (fun c => f c a) p) p0x)
+        (ap_nat (fun a => ap (fun c => f c a) p) p1x)
+    := to_cube ((ap (transport S p) (change c)
+        @ ap01D1 to_square p q) @ (change c')^).
+
+  #[export] Instance isequiv_ap_naturality_cube
+    : IsEquiv ap_naturality_cube.
+  Proof.
+    assert (IsEquiv (@ap01D1 C P S to_square c c' p (N c) (N c'))).
+    { destruct p; change (IsEquiv (@ap _ _ (to_square c) (N c) (N c))).
+      exact _. }
+    change (IsEquiv (to_cube o concat_r (change c')^
+      o concat_l (ap (transport S p) (change c))
+      o @ap01D1 C P S to_square c c' p (N c) (N c'))).
+    unfold to_cube; exact _.
+  Defined.
+
+  Definition equiv_ap_naturality_cube
+    := Build_Equiv _ _ ap_naturality_cube isequiv_ap_naturality_cube.
+
+  (** In particular, the actual dependent application computes to [sq_ap_nat], with no filler-uniqueness argument. *)
+  Definition ap_naturality_cube_beta
+    : ap_naturality_cube (apD N p)
+      = sq_ap_nat (f c) (f c') (fun a => ap (fun c => f c a) p) (sq_path h).
+  Proof.
+    refine (ap to_cube _ @ sq_ap_nat_apD f p (sq_path h)).
+    rhs napply (apD_homotopic change p).
+    exact (ap (fun q => (ap (transport S p) (change c) @ q) @ (change c')^)
+      (apD_composeD to_square N p)^).
+  Defined.
+End MappedPathCube.
+
+(** Naturality of a homotopy on a varying path, expressed as a cube on the source naturality square. The source path and both endpoint homotopies are unrestricted; specializing this equivalence never eliminates a fixed join glue. *)
+Section NaturalityOnPaths.
+  Local Open Scope path_scope.
+  Context {A B C : Type} {f g : A -> B} (h : f == g)
+    {u v : C -> A} (k : u == v) {c c' : C} (p : c = c').
+  Let N c := concat_Ap h (k c).
+  Let P c := ap f (k c) @ h (v c) = h (u c) @ ap g (k c).
+
+  Let raw_equiv
+    : (transport P p (N c) = N c')
+      <~> PathCube (sq_ap f (sq_path (concat_Ap k p)))
+        (sq_ap g (sq_path (concat_Ap k p)))
+        (ap_nat h (ap u p)) (ap_nat h (ap v p))
+        (ap_nat h (k c)) (ap_nat h (k c')).
+  Proof.
+    unfold P, N.
+    destruct p; cbn [transport apD ap concat_Ap].
+    generalize (k c); generalize (v c).
+    intros a1 k0; destruct k0; cbn.
+    generalize (h (u c)); generalize (g (u c)).
+    intros b1 h0; destruct h0.
+    exact (cu_11G oE equiv_ap sq_path _ _).
+  Defined.
+
+  Let raw_beta
+    : raw_equiv (apD N p)
+      = sq_ap_nat f g h (sq_path (concat_Ap k p)).
+  Proof.
+    unfold raw_equiv, N.
+    destruct p; cbn [P transport apD ap concat_Ap].
+    generalize (k c); generalize (v c).
+    intros a1 k0; destruct k0; cbn.
+    generalize (h (u c)); generalize (g (u c)).
+    intros b1 h0; destruct h0; reflexivity.
+  Defined.
+
+  (** A specified computation of the source square rewrites both mapped faces, with the other four faces fixed. *)
+  Definition equiv_concat_Ap_cube
+    {s : ap u p @ k c' = k c @ ap v p} (beta : concat_Ap k p = s)
+    : (transport P p (N c) = N c')
+      <~> PathCube (sq_ap f (sq_path s)) (sq_ap g (sq_path s))
+        (ap_nat h (ap u p)) (ap_nat h (ap v p))
+        (ap_nat h (k c)) (ap_nat h (k c'))
+    := cu_GGcccc (ap (fun n => sq_ap f (sq_path n)) beta)
+        (ap (fun n => sq_ap g (sq_path n)) beta) oE raw_equiv.
+
+  Definition equiv_concat_Ap_cube_beta
+    {s : ap u p @ k c' = k c @ ap v p} (beta : concat_Ap k p = s)
+    : equiv_concat_Ap_cube beta (apD N p) = sq_ap_nat f g h (sq_path s).
+  Proof.
+    refine (ap (cu_GGcccc _ _) raw_beta @ _).
+    exact (cu_GGcccc_natural (fun n => sq_ap_nat f g h (sq_path n)) beta).
+  Defined.
+End NaturalityOnPaths.
 
 (** Uncurry a function in [sq_ap2] *)
 Definition sq_ap_uncurry {A B C} (f : A -> B -> C)

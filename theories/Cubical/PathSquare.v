@@ -663,6 +663,17 @@ Proof.
   by intros [].
 Defined.
 
+(** Mapping a square preserves its specified path-algebra filler. *)
+Definition sq_ap_path {A B : Type} (f : A -> B)
+  {x y z w : A} {p : x = y} {q : z = w}
+  {r : x = z} {s : y = w} (h : p @ s = r @ q)
+  : sq_ap f (sq_path h) = sq_path (ap_naturality f h).
+Proof.
+  destruct p, r, s; revert q h.
+  srapply (equiv_path_ind (fun q => equiv_p1_1q (p:=1) (q:=q))).
+  reflexivity.
+Defined.
+
 (** This preserves reflexivity. *)
 Definition sq_ap_refl_h {A B} (f : A -> B) {a0 a1 : A} (p : a0 = a1)
   : sq_ap f (sq_refl_h p) = sq_refl_h (ap f p).
@@ -688,6 +699,18 @@ Definition ap_nat' {A B} {f f' : A -> B} (h : f == f') {x y : A} (p : x = y)
   : PathSquare (h x) (h y) (ap f p) (ap f' p).
 Proof.
   by destruct p; apply sq_G1.
+Defined.
+
+(** Pasting inverse naturality with naturality retains the specified composite homotopy on both sides. *)
+Definition ap_nat_Vp {A B : Type} {f g k : A -> B}
+  (h : f == g) (l : f == k) {x y : A} (p : x = y)
+  : sq_concat_h (sq_flip_h (ap_nat h p)) (ap_nat l p)
+    = ap_nat (fun x => (h x)^ @ l x) p.
+Proof.
+  destruct p; cbn [ap_nat ap].
+  generalize (l x); generalize (k x).
+  generalize (h x); generalize (g x).
+  intros b1 q b2 r; destruct q, r; reflexivity.
 Defined.
 
 (** [ap_compose] fits into a square. *)
@@ -716,6 +739,14 @@ Definition sq_ap011 {A B C} (f : A -> B -> C)
 Proof.
   apply sq_dp.
   exact (apD (fun y => ap (fun x => f x y) p) q).
+Defined.
+
+(** The binary application square is the naturality square of the homotopy induced by the second input path. Both source paths are free in this computation. *)
+Definition sq_ap011_ap_nat {A B C : Type} (f : A -> B -> C)
+  {a a' : A} (p : a = a') {b b' : B} (q : b = b')
+  : sq_ap011 f p q = ap_nat (fun x => ap (f x) q) p.
+Proof.
+  destruct p, q; reflexivity.
 Defined.
 
 (** [PathSquare]s respect products. *)

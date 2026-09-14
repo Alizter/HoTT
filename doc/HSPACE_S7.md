@@ -158,14 +158,147 @@ Their different intermediate endpoints `U_s (joinr d)` have been removed
 by the general equivalence `equiv_pasting_zigzags`, not by identifying
 arbitrary fillers. This remains a 4-path in the join.
 
-**Still open:** prove this equality of the actual pastings. In particular,
-transport interchange in `Gamma` and the y-variation of `face_z` have not
-yet been reduced to a minimal comparison of multiplication diamonds.
-The normalization is not itself that geometric comparison. The unit cases
-and both round trips of the equivalence are checked, and a normalized
-filler family can already be passed through it to the direct S⁷ assembly.
-The existing scalar-associator proof universe is shared explicitly; the
-normalization introduces no additional universe parameters.
+The unit cases and both round trips of the equivalence are checked, and a
+normalized filler family can already be passed through it to the direct S⁷
+assembly. The further expansion below computes the previously abstract
+transport-interchange side and last-face variation. Neither calculation
+proves the general mixed filler.
+
+### Expansion into the specified cubes
+
+The reusable `naturality_square_filler` in `Types/Paths.v` fills one face
+of a cube by pasting its other five specified faces. In terms of the two
+composite naturality squares `nL,nR`, its expression is
+
+```text
+cancelL p0 _ _ ((nL @ (source_face @@ 1)) @ nR^).
+```
+
+`transport_naturality_square_compute` identifies square transport with
+this expression. `naturality_square_filler_glue` pastes the five chosen
+cubes describing variation of the input faces, and
+`apD_naturality_square_filler` proves that this computes the variation of
+the filler. This works even when the ambient target type depends on the
+parameter, with independent source and fiber universes.
+
+For `Gamma`, the resulting `transported_face a b s t z` is a path-algebra
+expression in the four y-naturality squares and `face_y a b s z`. Write
+`theta_s(z) : U_s(z) = transported_face a b s t z` for its transport
+computation. The checked `transported_face_cell` uses exactly:
+
+1. `left_product_cell`, using `sq_ap_nat` on the specified inner
+   multiplication square;
+2. `right_product_cell`, applying the first multiplication homotopy to the
+   specified inner multiplication square;
+3. `S7LeftScalar.first_l_glue_glue`;
+4. `S7RightScalar.first_r_glue_glue`;
+5. `S7MiddleScalar.middle_l_glue_glue`.
+
+The first two retain all four inner multiplication edge computations and
+`Join_rec2_beta_jglue_jglue`. The right product rewrites both mapped faces
+of the naturality cube using that beta witness, retaining the other four
+faces. Their individual beta proofs compare them to the original
+xyz-dependent applications. The last three retain both outer beta paths. `transported_face_cell_beta` proves that this is the actual
+dependent application of `transported_face`,
+and `transported_face_glue_expansion` compares it with the old interchange
+side, including both `theta` endpoint adjustments.
+
+Similarly, `last_face_cell` expands the y-variation of `face_z` into
+`last_associator_cell` and the two specified overlap cubes. The latter are
+the original `overlap_glue` proofs converted by `equiv_naturality_transport2`,
+with their first-associator beta adjustments. `last_face_cell_beta` checks
+the result against `apD face_z`; no replacement overlap is used.
+
+`last_associator_cell` computes all three factors of the original `AL`:
+
+```text
+rho_c(mu x y) @ (diagonal_equivariance_c x y)^ @ ap (mu x) (rho_c(y))^.
+```
+
+Its first cube is `sq_ap_nat` for `rho_c` on the specified multiplication
+square. Its second is the original
+`cd_op_diagonal_equivariance_glue_glue`, with both outer beta paths and the
+inverse-naturality conversion. Its third is `sq_ap_nat` for the first
+multiplication homotopy on the inverse right-translation square. That
+square retains the original `join_natsq 1 (comm c t)` and both recursor
+computations. `concat_Ap_ap` accounts for the reversed orientation of the
+third factor. The three cubes are pasted, and `last_associator_cell_beta`
+compares the result with the original dependent application.
+
+The resulting `computed_pasting` satisfies the checked equality
+
+```text
+K_s(c,d) @ theta_s(joinr d) = computed_pasting a b s t c d.
+```
+
+Cancelling this common change of center using `concat_pV_pp` gives
+`equiv_mixed_expansion`:
+
+```text
+(computed_pasting a b s t c d @ (computed_pasting a b s t North d)^
+   = computed_pasting a b North t c d @ (computed_pasting a b North t North d)^)
+  <~> Mixed a b s t c d.
+```
+
+There is no `transport_transport (Gamma a b)` in the expanded pasting.
+Ordinary path transports and their specified endpoint adjustments remain;
+this is not yet a completely transport-free multiplication-diamond diagram.
+No extra proof universes are introduced. Regression checks cover the exact
+five-face expression, both computed product cubes, original side and pasting
+comparisons, both unit cases, round trips, and conditional small S⁷ assembly.
+
+The cubical interface makes the left product's geometric cube explicit.
+`sq_ap_path` preserves the specified path-algebra filler when mapping a
+square. `sq_ap_nat_apD` identifies variation of that mapped square with
+`sq_ap_nat`, retaining all four side-face computations.
+`equiv_ap_naturality_cube` converts between dependent paths of mapped
+path-algebra fillers and these cubes; `ap_naturality_cube_beta` computes the
+image of the original dependent application. `left_product_cell` uses its
+inverse on the actual naturality cube, not on an arbitrarily chosen cube.
+
+`equiv_concat_Ap_cube` provides the complementary conversion for applying
+a fixed homotopy to a varying path. It accepts a specified source square
+and its beta witness. Its beta rule identifies the original dependent
+application with `sq_ap_nat` on that square, using `cu_GGcccc_natural` to
+retain both mapped-face comparisons. `right_product_cell` uses this inverse
+with the actual multiplication square and mixed beta path. Thus both composite-product cubes
+are now expressed using actual cubical naturality, with the original
+composition adjustments still retained.
+
+### First shared-face comparison
+
+`left_product_cap_comparison` proves a 4-path for the geometric part of the
+left product paired with the inverse right-translation part of `AL`. Both
+use the same specified multiplication square `S = multiplication_square a b s t`.
+Writing `V_cd(v) := ap (mu v) (jglue c d)`, it compares
+
+```text
+flip_lr (sq_ap_nat rho_c S) @lr sq_ap_nat V_cd S
+```
+
+with the naturality cube of `fun v => (rho_c v)^ @ V_cd(v)`. The expression
+above suppresses the endpoint maps. The checked theorem retains both actual
+converted cube inhabitants, the multiplication mixed beta witness, and all
+four side-face adjustments supplied by `ap_nat_Vp`. Its generic 4-dimensional
+pasting law is `sq_ap_nat_Vp` in `Cubical/PathCube.v`.
+
+This is a comparison of one pair of inner geometric cubes. It has **not**
+yet been lifted through the outer composition and overlap adjustments to
+rewrite the whole `computed_pasting`, and it does not supply `Mixed`.
+
+Following the relative-induction pattern used for join associativity,
+`pathcube_ind_left` allows five faces to stay fixed while the sixth face
+and its cube vary together. The contractible object is the pair of a lid
+and its filling cube, not the type of cubes with all six faces fixed.
+This is available for the remaining pasting calculations, not a proof of
+`Mixed` by filler uniqueness.
+
+**Still open:** prove the equality of these actual pastings. Both product
+cubes and the last-associator cube have now been computed. The remaining
+mathematics is compatibility of their geometric naturality cubes with the
+specified left-action, right-turn, balanced, and diagonal diamond
+comparisons and the overlaps. A minimal remaining diamond-only coherence
+theorem has not yet been extracted.
 
 ## 1. Earlier scalar-loop proof structure
 
@@ -548,7 +681,15 @@ Tests of the actual implementations live in:
 - `test/Homotopy/Join/Rec2.v`: arbitrary corner and edge computations, dependent
   extension from compatible left faces, independent universes, the
   specified intersection, and the exact mixed beta rule for nested induction;
-- `test/Types/Paths.v`: universe interfaces of the transport conversions;
+- `test/Basics/PathGroupoids.v`: fiberwise binary application with independent
+  universes, transposition of application naturality, and cancellation of a
+  common change of zigzag center;
+- `test/Cubical/PathCube.v`: relative cube induction, retained horn fillers,
+  mapped-square naturality, specified source squares and beta witnesses,
+  arbitrary chosen 3-paths, both equivalence round trips, and shared-face
+  pasting with arbitrary source squares (including retained 2-loops);
+- `test/Types/Paths.v`: transport conversions, five-face square filling,
+  arbitrary retained 2-loops, and chosen cube pasting in dependent targets;
 - `test/Homotopy/NullHomotopy.v`: the exact loop-closing witness without
   extensionality;
 - `test/Homotopy/HSpaceS7Balanced.v`: general scalars, supplied diamond, four
@@ -568,8 +709,9 @@ Tests of the actual implementations live in:
   constructor computations and a supplied diamond;
 - `test/Homotopy/HSpaceS7Direct.v`: the two whole faces, their actual
   intersection comparison, original first-left/right/middle mixed cells,
-  normalized mixed boundary and round trips, unit cases, conditional direct
-  gluing, retained first associators, and second doubling;
+  normalized and expanded mixed boundaries, exact interchange expansion,
+  chosen cubes, round trips, unit cases, conditional direct gluing, retained
+  first associators, and second doubling;
 - `test/Homotopy/HSpaceS7Outline.v`: the earlier one-hypothesis loop assembly,
   direct reuse of the original `row_loop` families, and its beta rules through
   the conditional S⁷ H-space.

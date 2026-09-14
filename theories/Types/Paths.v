@@ -525,7 +525,88 @@ Proof.
   exact c.
 Defined.
 
-(** The same construction with specified edge computations. Its hypotheses separate the two mixed computations, the two homotopy computations, and the geometric cube. This avoids repeating the beta-path bookkeeping when comparing maps defined by double recursion. *)
+(** Fill the remaining face of a cube by pasting the five specified faces. All edges are inferred from the face types; no equality of parallel fillers is used. *)
+Definition naturality_square_filler {T : Type}
+  {x0 x1 x2 x3 y0 y1 y2 y3 : T}
+  {p0 : x0 = y0} {p1 : x1 = y1} {p2 : x2 = y2} {p3 : x3 = y3}
+  {u0 : x0 = x1} {u1 : y0 = y1} {v0 : x2 = x3} {v1 : y2 = y3}
+  {h0 : x0 = x2} {h1 : y0 = y2} {k0 : x1 = x3} {k1 : y1 = y3}
+  (nu : p0 @ u1 = u0 @ p1) (nv : p2 @ v1 = v0 @ p3)
+  (nh : p0 @ h1 = h0 @ p2) (nk : p1 @ k1 = k0 @ p3)
+  (s : u0 @ k0 = h0 @ v0) : u1 @ k1 = h1 @ v1
+  := cancelL p0 _ _
+    ((concat_natural p0 p1 p3 u0 u1 k0 k1 nu nk @ (s @@ 1))
+      @ (concat_natural p0 p2 p3 h0 h1 v0 v1 nh nv)^).
+
+(** Transport of a square is this explicit five-face pasting. In particular, its four side faces are the actual naturality comparisons of the four homotopies. *)
+Definition transport_naturality_square_compute {A T : Type}
+  {f0 f1 g0 g1 : A -> T}
+  (u : f0 == f1) (v : g0 == g1)
+  (h : f0 == g0) (k : f1 == g1)
+  {x y : A} (p : x = y) (s : u x @ k x = h x @ v x)
+  : transport (fun z => u z @ k z = h z @ v z) p s
+    = naturality_square_filler (concat_Ap u p) (concat_Ap v p)
+        (concat_Ap h p) (concat_Ap k p) s.
+Proof.
+  unfold naturality_square_filler.
+  rhs_V napply (ap (fun a => cancelL (ap f0 p) _ _
+    ((a @ (s @@ 1)) @ _)) (concat_Ap_concat u k p)).
+  rhs_V napply (ap (fun b => cancelL (ap f0 p) _ _
+    ((_ @ (s @@ 1)) @ b^)) (concat_Ap_concat h v p)).
+  destruct p; cbn.
+  revert s.
+  generalize (u x @ k x), (h x @ v x).
+  generalize (g1 x).
+  intros z r t s; destruct r, s; reflexivity.
+Defined.
+
+(** Variation of a five-face pasting, with an arbitrary dependent ambient type. The supplied dependent paths are the five chosen cubes, including the selected source face's cube. The construction only pastes them; it does not replace them by other inhabitants of the same types. *)
+Section NaturalitySquareFillerVariation.
+  Context {A : Type} {T : A -> Type}
+    {x0 x1 x2 x3 y0 y1 y2 y3 : forall a, T a}
+    {p0 : x0 == y0} {p1 : x1 == y1} {p2 : x2 == y2} {p3 : x3 == y3}
+    {u0 : x0 == x1} {u1 : y0 == y1} {v0 : x2 == x3} {v1 : y2 == y3}
+    {h0 : x0 == x2} {h1 : y0 == y2} {k0 : x1 == x3} {k1 : y1 == y3}
+    (nu : forall a, p0 a @ u1 a = u0 a @ p1 a)
+    (nv : forall a, p2 a @ v1 a = v0 a @ p3 a)
+    (nh : forall a, p0 a @ h1 a = h0 a @ p2 a)
+    (nk : forall a, p1 a @ k1 a = k0 a @ p3 a)
+    (s : forall a, u0 a @ k0 a = h0 a @ v0 a).
+
+  Let left a := concat_natural (p0 a) (p1 a) (p3 a)
+    (u0 a) (u1 a) (k0 a) (k1 a).
+  Let right a := concat_natural (p0 a) (p2 a) (p3 a)
+    (h0 a) (h1 a) (v0 a) (v1 a).
+  Let prefix a (n : p0 a @ (u1 a @ k1 a) = (u0 a @ k0 a) @ p3 a)
+    (q : u0 a @ k0 a = h0 a @ v0 a) := n @ (q @@ 1).
+  Let close a (n : p0 a @ (u1 a @ k1 a) = (h0 a @ v0 a) @ p3 a)
+    (m : p0 a @ (h1 a @ v1 a) = (h0 a @ v0 a) @ p3 a)
+    := cancelL (p0 a) _ _ (n @ m^).
+
+  Definition naturality_square_filler_glue {a b : A} (p : a = b)
+    (cu : transport _ p (nu a) = nu b)
+    (cv : transport _ p (nv a) = nv b)
+    (ch : transport _ p (nh a) = nh b)
+    (ck : transport _ p (nk a) = nk b)
+    (cs : transport _ p (s a) = s b)
+    : transport (fun z => u1 z @ k1 z = h1 z @ v1 z) p
+        (naturality_square_filler (nu a) (nv a) (nh a) (nk a) (s a))
+      = naturality_square_filler (nu b) (nv b) (nh b) (nk b) (s b)
+    := ap01D11 close p
+      (ap01D11 prefix p (ap01D11 left p cu ck) cs)
+      (ap01D11 right p ch cv).
+
+  Definition apD_naturality_square_filler {a b : A} (p : a = b)
+    : apD (fun z => naturality_square_filler
+        (nu z) (nv z) (nh z) (nk z) (s z)) p
+      = naturality_square_filler_glue p
+        (apD nu p) (apD nv p) (apD nh p) (apD nk p) (apD s p).
+  Proof.
+    destruct p; reflexivity.
+  Defined.
+End NaturalitySquareFillerVariation.
+
+(** [transport_naturality_square] with specified edge computations. Its hypotheses separate the two mixed computations, the two homotopy computations, and the geometric cube. This avoids repeating the beta-path bookkeeping when comparing maps defined by double recursion. *)
 Definition transport_naturality_square_beta {A B : Type}
   {f0 f1 g0 g1 : A -> B}
   (u : f0 == f1) (v : g0 == g1)
