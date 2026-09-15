@@ -365,23 +365,77 @@ Thus the transported first-left, first-right, middle, and overlap choices
 have all reached the same whole-face normal form; no second `Mixed`
 interface was introduced.
 
-**Still open:** at a right middle-input constructor, `eta_face` can still
-depend on the auxiliary left last-input label `c`.  A sufficient next
-comparison is the 3-path
+The whole-face calculation factors the original pasting, not a replacement
+boundary. Suppress `a,b,t,d` and write
 
 ```text
-eta_face a b c d (joinr t)
-  = eta_face a b North d (joinr t).
+e_s(c) := eta_edge a b s t c d : U_s = Phi_c
+Phi_c  := eta_face a b c d (joinr t)
+h(c)   := eta_face_transport a b c d (joinr t).
 ```
 
-Equivalently, one can compare either side with naturality of the scalar
-corner associator `cd_assoc_rr t d` across `jglue a b`.  This is now the
-only non-generic geometric part: compatibility of the canonical
-`eta`/diagonal construction with the right-right scalar associator.  Its
-center contains the turned canonical suspension diamond, so
-`diamond_susp_turn` and possibly its syllepsis-level naturality remain the
-likely tools.  No checked reduction of this comparison to `eh_V_gen` (or
-to another existing cubical law) has yet been obtained.
+`pasting_eta_factor` proves `p_s(c) @ e_s(c) = h(c)`, where `h(c)`
+is independent of `s`. `computed_pasting_eta_factor` proves the same
+factorization for the existing `computed_pasting` and `eta_computed_edge`.
+The latter edge's extra source adjustment cancels in each ratio, as checked
+by `eta_computed_edge_ratio`.
+
+**Endpoint independence is already available.** The 3-path
+
+```text
+r_c := (e_North(c))^ @ e_North(North) : Phi_c = Phi_North
+```
+
+uses only the existing unit-labelled edges. It is not sufficient to finish
+`Mixed`: it identifies the endpoint faces, not the paths to those faces.
+
+**The immediate open target is edge compatibility**, the 4-path
+
+```text
+e_s(c) @ r_c = e_s(North).                            (dagger)
+```
+
+The `s = North` case follows by cancellation. For arbitrary `s`, this says
+that the comparison chosen using the unit-labelled edge agrees with the
+comparison induced by the `s`-labelled edge. Equivalently, by `equiv_moveL_Vp` and
+path inversion, the target is
+
+```text
+(e_s(c))^ @ e_s(North)
+  = (e_North(c))^ @ e_North(North).                   (edge ratios)
+```
+
+`equiv_mixed_eta` is the checked equivalence from this edge-ratio equation
+to the original `Mixed`. Its proof uses `equiv_pasting_factors` to cancel
+the common `h(c)` and `h(North)` in the existing expanded equation, using
+all four `computed_pasting_eta_factor` witnesses. No further expansion of
+the five-cube pasting is needed for this reduction.
+
+A sufficient geometric construction is a comparison of the whole sections
+
+```text
+K(y) : eta_face a b c d y = eta_face a b North d y
+```
+
+with the **specified** left-boundary computation
+
+```text
+K(joinl s)
+  = eta_face_middle a b s c d @ (eta_face_middle a b s North d)^.
+```
+
+`eta_edge_comparison_of_section` checks that these two inputs imply
+(dagger), by dependent naturality along `jglue s t`. Naturality for
+`s = North` identifies `K(joinr t)` with the already chosen `r_c`.
+An arbitrary section comparison without this left-boundary computation
+would not suffice. The required compatible section is still not constructed.
+
+A comparison with naturality of `cd_assoc_rr t d` may help construct it,
+but must retain compatibility with the chosen middle-face witnesses; an
+isolated equality at `joinr t` is not an equivalent substitute. The turned
+canonical suspension diamond remains a possible geometric tool. There is
+still no checked reduction of the remaining compatibility to `eh_V_gen`
+or another existing cubical law.
 
 This is the genuinely new iteration problem: the original
 Buchholtz--Rijke Cayley--Dickson development constructs the H-space on S3

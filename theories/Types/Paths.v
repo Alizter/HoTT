@@ -1277,6 +1277,28 @@ Proof.
     oE equiv_concat_r (concat_1p (1 @ d)^) (idpath _)).
 Defined.
 
+(** Common factors turn a comparison of pastings into a comparison of their remaining edge ratios. The four factorization witnesses are arbitrary and are used explicitly. *)
+Definition equiv_pasting_factors {T : Type}
+  {x0 x1 u v z0 z1 : T}
+  (p : x0 = u) (q : x1 = u) (r : x0 = v) (s : x1 = v)
+  (a : u = z0) (b : u = z1) (c : v = z0) (d : v = z1)
+  {h : x0 = z0} {k : x1 = z1}
+  (pa : p @ a = h) (qb : q @ b = k)
+  (rc : r @ c = h) (sd : s @ d = k)
+  : (a^ @ b = c^ @ d) <~> (p @ q^ = r @ s^).
+Proof.
+  assert (factor : forall {x y u v w : T}
+    (p : x = u) (q : y = u) (a : u = v) (b : u = w)
+    (h : x = v) (k : y = w),
+    p @ a = h -> q @ b = k -> p @ q^ = (h @ (a^ @ b)) @ k^).
+  { intros x y u0 v0 w p0 q0 a0 b0 h0 k0 f g.
+    destruct p0, q0, a0, b0; cbn in *.
+    destruct f, g; reflexivity. }
+  exact (equiv_concat_lr (factor _ _ _ _ _ p q a b h k pa qb)
+    (factor _ _ _ _ _ r s c d h k rc sd)^
+    oE equiv_ap (concat_lr h k^) (a^ @ b) (c^ @ d)).
+Defined.
+
 (** *** Dependent paths *)
 
 (** Usually, a dependent path over [p:x1=x2] in [P:A->Type] between [y1:P x1] and [y2:P x2] is a path [transport P p y1 = y2] in [P x2].  However, when [P] is a path space, these dependent paths have a more convenient description: rather than transporting the left side both forwards and backwards, we transport both sides of the equation forwards, forming a sort of "naturality square".
@@ -1355,6 +1377,21 @@ Definition dpath_path_FlFr_D {A : Type} {B : A -> Type}
     oE equiv_concat_l
       (concat_pp_p (apD f p)^ (ap (transport B p) u) (apD g p)) v
     oE equiv_moveR_Vp (ap (transport B p) u @ apD g p) v (apD f p).
+
+(** Dependent naturality with two chosen source identifications. Their compatibility with the homotopy is essential: knowing only that the target values agree does not identify the adjusted paths. *)
+Definition apD_homotopic_adjusted {A : Type} {B : A -> Type}
+  {f g : forall x, B x} (K : f == g)
+  {x y : A} (p : x = y) {b : B x}
+  (h : f x = b) (k : g x = b) (coh : K x = h @ k^)
+  : (ap (transport B p) h^ @ apD f p) @ K y
+    = ap (transport B p) k^ @ apD g p.
+Proof.
+  destruct p; cbn.
+  lhs napply (((ap_idmap h^ @@ 1) @ concat_p1 h^) @@ 1).
+  rhs napply ((ap_idmap k^ @@ 1) @ concat_p1 k^).
+  lhs napply (1 @@ coh).
+  apply concat_V_pp.
+Defined.
 
 Definition dpath_path_FFlr {A B : Type} {f : A -> B} {g : B -> A}
   {x1 x2 : A} (p : x1 = x2) (q : g (f x1) = x1) (r : g (f x2) = x2)

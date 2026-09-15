@@ -26,7 +26,9 @@ Local Transparent D.face_overlap D.associator D.face_y_glue
   D.eta_last_associator_cell_beta D.eta_face D.eta_face_cell
   D.eta_face_cell_beta D.eta_face_middle D.eta_face_transport
   D.eta_face_middle_transport D.eta_edge D.pasting_eta_factor
-  D.eta_computed_edge D.computed_pasting_eta_factor.
+  D.eta_computed_edge D.computed_pasting_eta_factor
+  D.eta_computed_edge_ratio D.equiv_mixed_eta
+  D.eta_edge_comparison_of_section.
 
 Section DirectChecks.
   Universe u.
@@ -362,6 +364,74 @@ Section DirectChecks.
     : IsHSpace@{Set} (psphere 7)
     := hspace_s7_from_direct_mixed (fun a b s t c d =>
       D.equiv_mixed_expansion@{u} a b s t c d (q a b s t c d)).
+
+  (** Endpoint independence is automatic; agreement of the edge ratios is not. *)
+  Example eta_face_right_independent (a b c d t : C)
+    : D.eta_face@{u} a b c d (joinr t)
+      = D.eta_face@{u} a b North d (joinr t)
+    := (D.eta_edge@{u} a b North t c d)^
+      @ D.eta_edge@{u} a b North t North d.
+  Example computed_eta_source_cancels (a b s t c d : C)
+    : (D.eta_computed_edge@{u} a b s t c d)^
+        @ D.eta_computed_edge@{u} a b s t North d
+      = (D.eta_edge@{u} a b s t c d)^ @ D.eta_edge@{u} a b s t North d
+    := D.eta_computed_edge_ratio@{u} a b s t c d.
+
+  Let eta_ratios (a b s t c d : C) :=
+    (D.eta_edge@{u} a b s t c d)^ @ D.eta_edge@{u} a b s t North d
+      = (D.eta_edge@{u} a b North t c d)^
+        @ D.eta_edge@{u} a b North t North d.
+  Example eta_to_existing_expansion (a b s t c d : C)
+    : eta_ratios a b s t c d <~> expanded a b s t c d
+    := (D.equiv_mixed_expansion@{u} a b s t c d)^-1
+      oE D.equiv_mixed_eta@{u} a b s t c d.
+  Example eta_ratio_roundtrip (a b s t c d : C)
+    (q : eta_ratios a b s t c d)
+    : (D.equiv_mixed_eta@{u} a b s t c d)^-1
+        (D.equiv_mixed_eta@{u} a b s t c d q) = q
+    := eissect (D.equiv_mixed_eta@{u} a b s t c d) q.
+  Example eta_original_roundtrip (a b s t c d : C)
+    (q : D.Mixed@{u} a b s t c d)
+    : D.equiv_mixed_eta@{u} a b s t c d
+        ((D.equiv_mixed_eta@{u} a b s t c d)^-1 q) = q
+    := eisretr (D.equiv_mixed_eta@{u} a b s t c d) q.
+
+  (** This is (dagger), with the comparison chosen through the unit-labelled edge. *)
+  Example eta_comparison_to_original (a b s t c d : C)
+    (q : D.eta_edge@{u} a b s t c d
+        @ ((D.eta_edge@{u} a b North t c d)^
+          @ D.eta_edge@{u} a b North t North d)
+      = D.eta_edge@{u} a b s t North d)
+    : D.Mixed@{u} a b s t c d
+    := D.equiv_mixed_eta@{u} a b s t c d (moveL_Vp _ _ _ q)^.
+  Example eta_comparison_middle_unit (a b t c d : C)
+    : D.eta_edge@{u} a b North t c d
+        @ eta_face_right_independent a b c d t
+      = D.eta_edge@{u} a b North t North d
+    := concat_p_Vp _ _.
+  Example eta_comparison_last_unit (a b s t d : C)
+    : D.eta_edge@{u} a b s t North d
+        @ eta_face_right_independent a b North d t
+      = D.eta_edge@{u} a b s t North d
+    := (1 @@ concat_Vp _) @ concat_p1 _.
+
+  Example eta_section_to_original (a b c d : C)
+    (K : forall y : J, D.eta_face@{u} a b c d y
+      = D.eta_face@{u} a b North d y)
+    (K_left : forall s : C, K (joinl s)
+      = D.eta_face_middle@{u} a b s c d
+        @ (D.eta_face_middle@{u} a b s North d)^)
+    (s t : C) : D.Mixed@{u} a b s t c d
+    := eta_comparison_to_original a b s t c d
+      (D.eta_edge_comparison_of_section@{u} a b c d K K_left s t).
+  Example eta_s7_small
+    (q : forall a b s t c d : C, D.eta_edge@{u} a b s t c d
+        @ ((D.eta_edge@{u} a b North t c d)^
+          @ D.eta_edge@{u} a b North t North d)
+      = D.eta_edge@{u} a b s t North d)
+    : IsHSpace@{Set} (psphere 7)
+    := hspace_s7_from_direct_mixed (fun a b s t c d =>
+      eta_comparison_to_original a b s t c d (q a b s t c d)).
 
   Context (mixed : forall a b s t c d : C, D.Mixed a b s t c d).
   Let glue := D.first_glue@{u} mixed.

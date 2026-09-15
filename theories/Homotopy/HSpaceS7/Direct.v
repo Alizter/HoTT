@@ -1132,6 +1132,23 @@ Section Normalization.
         (eta_face_middle a b s c d)^
       @ apD (eta_face a b c d) (jglue s t).
 
+  (** A comparison of the whole sections suffices only when its left restriction is the specified middle comparison. Dependent naturality then identifies its right value with every edge ratio, including the unit-labelled one. This does not construct the required section. *)
+  Definition eta_edge_comparison_of_section (a b c d : C)
+    (K : forall y : J, eta_face a b c d y = eta_face a b North d y)
+    (K_left : forall s : C, K (joinl s)
+      = eta_face_middle a b s c d @ (eta_face_middle a b s North d)^)
+    (s t : C)
+    : eta_edge a b s t c d
+        @ ((eta_edge a b North t c d)^ @ eta_edge a b North t North d)
+      = eta_edge a b s t North d.
+  Proof.
+    pose (edge := fun s : C => apD_homotopic_adjusted K (jglue s t)
+      (eta_face_middle a b s c d) (eta_face_middle a b s North d)
+      (K_left s)).
+    lhs_V napply (1 @@ moveL_Vp _ _ _ (edge North)).
+    exact (edge s).
+  Defined.
+
   (** The original normalized pasting followed by its [eta] edge is the pointwise transport comparison at the right middle-input constructor. *)
   Definition pasting_eta_factor (a b s t c d : C)
     : pasting a b s t c d @ eta_edge a b s t c d
@@ -1282,6 +1299,18 @@ Section Normalization.
     exact (pasting_eta_factor a b s t c d).
   Defined.
 
+  (** The source adjustment is independent of [c], so it cancels in each edge ratio. *)
+  Definition eta_computed_edge_ratio (a b s t c d : C)
+    : (eta_computed_edge a b s t c d)^
+        @ eta_computed_edge a b s t North d
+      = (eta_edge a b s t c d)^ @ eta_edge a b s t North d.
+  Proof.
+    unfold eta_computed_edge.
+    lhs napply (inv_pp _ _ @@ 1).
+    lhs napply concat_pp_p.
+    exact (1 @@ concat_V_pp _ _).
+  Defined.
+
   Let based_pasting_expansion a b s t c d
     : pasting a b s t c d @ (pasting a b s t North d)^
       = computed_pasting a b s t c d @ (computed_pasting a b s t North d)^
@@ -1298,5 +1327,28 @@ Section Normalization.
     := equiv_mixed_normalize a b s t c d oE equiv_concat_lr
       (based_pasting_expansion a b s t c d)
       (based_pasting_expansion a b North t c d)^.
+
+  (** Cancel the common whole-face transport factors in the existing expanded equation. Endpoint independence alone is automatic via the [s = North] edge ratio; the remaining 4-path says that every [s] gives that same comparison. *)
+  Definition equiv_mixed_eta (a b s t c d : C)
+    : ((eta_edge a b s t c d)^ @ eta_edge a b s t North d
+        = (eta_edge a b North t c d)^ @ eta_edge a b North t North d)
+      <~> Mixed a b s t c d.
+  Proof.
+    refine (equiv_mixed_expansion a b s t c d oE _).
+    refine (equiv_pasting_factors
+      (computed_pasting a b s t c d) (computed_pasting a b s t North d)
+      (computed_pasting a b North t c d)
+      (computed_pasting a b North t North d)
+      (eta_computed_edge a b s t c d)
+      (eta_computed_edge a b s t North d)
+      (eta_computed_edge a b North t c d)
+      (eta_computed_edge a b North t North d)
+      (computed_pasting_eta_factor a b s t c d)
+      (computed_pasting_eta_factor a b s t North d)
+      (computed_pasting_eta_factor a b North t c d)
+      (computed_pasting_eta_factor a b North t North d) oE _).
+    exact (equiv_concat_lr (eta_computed_edge_ratio a b s t c d)
+      (eta_computed_edge_ratio a b North t c d)^).
+  Defined.
 End Normalization.
 End S7DirectGluing.

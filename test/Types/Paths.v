@@ -70,6 +70,16 @@ Section DependentNaturality.
     := dpath_path_FlFr_D@{u v} f g p h k.
   Example dependent_naturality_refl (x : A)
     : dpath_path_FlFr_D f f (idpath x) 1 1 1 = 1 := idpath.
+
+  Example adjusted_dependent_naturality (K : f == g)
+    {x y : A} (p : x = y) {b : B x}
+    (h : f x = b) (k : g x = b) (coh : K x = h @ k^)
+    : (ap (transport B p) h^ @ apD f p) @ K y
+      = ap (transport B p) k^ @ apD g p
+    := apD_homotopic_adjusted@{u v} K p h k coh.
+  Example adjusted_dependent_naturality_refl (x : A)
+    : apD_homotopic_adjusted (fun y => idpath (f y)) (idpath x) 1 1 1 = 1
+    := idpath.
 End DependentNaturality.
 
 Section PastingComparison.
@@ -87,6 +97,27 @@ Section PastingComparison.
     : different_centers^-1 (different_centers h) = h
     := eissect different_centers h.
 End PastingComparison.
+
+(** No common-center or uniqueness assumption: all four factorizations are supplied. *)
+Section PastingFactors.
+  Universe u.
+  Context {T : Type@{u}} {x0 x1 u0 u1 z0 z1 : T}
+    (p : x0 = u0) (q : x1 = u0) (r : x0 = u1) (s : x1 = u1)
+    (a : u0 = z0) (b : u0 = z1) (c : u1 = z0) (d : u1 = z1)
+    (h : x0 = z0) (k : x1 = z1)
+    (pa : p @ a = h) (qb : q @ b = k)
+    (rc : r @ c = h) (sd : s @ d = k).
+
+  Example factorized_pastings
+    : (a^ @ b = c^ @ d) <~> (p @ q^ = r @ s^)
+    := equiv_pasting_factors@{u} p q r s a b c d pa qb rc sd.
+  Example factorized_pasting_roundtrip (e : a^ @ b = c^ @ d)
+    : factorized_pastings^-1 (factorized_pastings e) = e
+    := eissect factorized_pastings e.
+  Example factorized_edges_roundtrip (e : p @ q^ = r @ s^)
+    : factorized_pastings (factorized_pastings^-1 e) = e
+    := eisretr factorized_pastings e.
+End PastingFactors.
 
 Section SquareTransport.
   Universes u v.
