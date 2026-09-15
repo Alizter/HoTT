@@ -22,6 +22,25 @@ H-space. No associator pentagon is required for the second doubling.
 
 ## Direct gluing
 
+### File layout
+
+[`HSpaceS7/Direct.v`](../theories/Homotopy/HSpaceS7/Direct.v) is a
+compatibility facade: importing it still exposes `S7DirectGluing`.
+The implementation is split into separately compiled files:
+
+- [`Direct/Core.v`](../theories/Homotopy/HSpaceS7/Direct/Core.v): the chosen
+  faces and overlap, original `Mixed`, and conditional associator assembly.
+- [`Direct/Normalization.v`](../theories/Homotopy/HSpaceS7/Direct/Normalization.v):
+  the prescribed cubes, whole-face η calculation, and factorization of the
+  existing `computed_pasting`.
+- [`Direct/Comparison.v`](../theories/Homotopy/HSpaceS7/Direct/Comparison.v):
+  the edge-ratio equivalence and the sufficient section-comparison criterion.
+
+The existing η associator and its three overlap witnesses are exposed for
+cross-file comparison proofs; their defining terms are unchanged.
+
+### The chosen faces
+
 Write `P(x,y,z) := (mu (mu x y) z = mu x (mu y z))`, and let `BL`, `BR`, and
 `BM` be the existing first-left, first-right, and middle-left associators.
 For fixed `y,z`, put `F(x) := mu (mu x y) z` and
@@ -432,10 +451,47 @@ would not suffice. The required compatible section is still not constructed.
 
 A comparison with naturality of `cd_assoc_rr t d` may help construct it,
 but must retain compatibility with the chosen middle-face witnesses; an
-isolated equality at `joinr t` is not an equivalent substitute. The turned
-canonical suspension diamond remains a possible geometric tool. There is
-still no checked reduction of the remaining compatibility to `eh_V_gen`
-or another existing cubical law.
+isolated equality at `joinr t` is not an equivalent substitute.
+
+Two reusable pieces of this comparison work are now checked:
+
+- `adjusted_naturality_comparison` and
+  `adjusted_naturality_comparison_homotopic` in
+  [`Types/Paths.v`](../theories/Types/Paths.v) compare the central homotopies
+  while retaining the endpoint adjustments, and compute the resulting
+  comparison against the ratio of the two specified overlap witnesses.
+  Neither lemma requires function extensionality.
+- `diamond_susp_functor` in
+  [`Join/SuspDiamond.v`](../theories/Homotopy/Join/SuspDiamond.v) proves that
+  a suspension map preserves the actual canonical diamond, including its
+  pole computations and meridian twist. This applies to suspension
+  conjugation and complements `diamond_susp_turn`; it does not by itself
+  compare the selected diagonal-equivariance homotopies.
+
+For one **stronger, sufficient strategy**, a comparison
+`Q x y : eta_associator c d x y = eta_associator North d x y`
+would induce `K` using `adjusted_naturality_comparison`. It must come with
+left, right, and middle computations `Ql`, `Qr`, `Qm` equal to the
+corresponding ratios of `eta_overlap_l`, `eta_overlap_r`, `eta_overlap_m`.
+The corner proof terms must also agree:
+
+```text
+Ql a (joinl s) = Qm s (joinl a)
+Qr b (joinl s) = Qm s (joinr b).
+```
+
+These are not consequences of merely having matching endpoint types.
+[`test/Homotopy/HSpaceS7DirectMiddle.v`](../test/Homotopy/HSpaceS7DirectMiddle.v)
+checks that these explicitly supplied data give the **chosen** `K` left
+boundary and then the original `Mixed`. The relative geometric data
+`Q, Ql, Qr, Qm` and the two corner coherences have not been constructed;
+this strategy has not been proved equivalent to the original edge goal.
+
+There is still no checked reduction of the remaining compatibility to
+`eh_V_gen` or another existing cubical law. In particular, applying
+`eh_V_gen` would require identifying its specific interchange and
+unitor-naturality inputs with the retained diagonal/η/overlap cells, not
+merely matching their boundaries.
 
 This is the genuinely new iteration problem: the original
 Buchholtz--Rijke Cayley--Dickson development constructs the H-space on S3

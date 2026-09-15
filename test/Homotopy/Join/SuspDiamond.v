@@ -12,6 +12,8 @@ Section Universes.
 
   Check (@join_diamond_turn@{u u v v v u} A A B B f f).
   Check (@diamond_susp_turn@{u v u v} A B f).
+  Check (@diamond_susp_functor@{u v} A B f).
+  Check (join_diamond_map_twist (functor_susp f)).
 
   Example turn_vertical (a a' b : A)
     : join_diamond_turn f f (diamond_v a a' (idpath b))
@@ -31,6 +33,22 @@ Section Universes.
     : diamond_susp_turn f South
       = join_diamond_turn_h (susp_neg B o functor_susp f)
           (susp_neg B o functor_susp f) South North South
+    := idpath.
+
+  (** The map law retains both of its chosen pole computations. *)
+  Example map_north
+    : diamond_susp_functor f North
+      = join_zigzag_filler_refl (functor_susp f) (functor_susp f)
+          (diamond_susp North)
+        @ join_diamond_map_v (functor_susp f) (functor_susp f)
+          South North North
+    := idpath.
+  Example map_south
+    : diamond_susp_functor f South
+      = join_zigzag_filler_refl (functor_susp f) (functor_susp f)
+          (diamond_susp South)
+        @ join_diamond_map_h (functor_susp f) (functor_susp f)
+          South North South
     := idpath.
 End Universes.
 

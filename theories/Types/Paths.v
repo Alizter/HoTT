@@ -596,6 +596,75 @@ Proof.
   exact (concat_Ap_homotopic A B q r).
 Defined.
 
+(** A comparison of squares descends through four chosen endpoint identifications only when the endpoint comparisons are their specified ratios. *)
+Definition adjusted_square_comparison
+  {P Q T : Type} (L : P -> T) (R : Q -> T)
+  {a0 b0 z0 : P} {a1 b1 z1 : Q}
+  (nA : R a1 = L a0) (nB : R b1 = L b0)
+  (lA : a0 = z0) (kA : a1 = z1)
+  (lB : b0 = z0) (kB : b1 = z1)
+  (q0 : a0 = b0) (q1 : a1 = b1)
+  (ql : q0 = lA @ lB^) (qk : q1 = kA @ kB^)
+  (n : nA @ ap L q0 = ap R q1 @ nB)
+  : (ap R kA)^ @ (nA @ ap L lA)
+    = (ap R kB)^ @ (nB @ ap L lB).
+Proof.
+  destruct lB, kB, lA, kA.
+  cbn in ql, qk.
+  generalize ql^, qk^; clear ql qk.
+  intros el ek; destruct el, ek.
+  cbn in n |- *.
+  lhs napply concat_1p.
+  rhs napply concat_1p.
+  exact (n @ concat_1p nB @ (concat_p1 nB)^).
+Defined.
+
+(** Change the homotopy at the center of an adjusted naturality square while preserving its two chosen endpoint paths. *)
+Definition adjusted_naturality_comparison
+  {X T : Type} {f g : X -> T} {x0 x1 : X} (r : x0 = x1)
+  (A B : f == g) (H0 : f x0 = g x0) (H1 : f x1 = g x1)
+  (lA : A x0 = H0) (kA : A x1 = H1)
+  (lB : B x0 = H0) (kB : B x1 = H1)
+  (q : forall x, A x = B x)
+  (ql : q x0 = lA @ lB^) (qk : q x1 = kA @ kB^)
+  : adjusted_naturality r A H0 H1 lA kA
+    = adjusted_naturality r B H0 H1 lB kB
+  := adjusted_square_comparison
+    (fun e => e @ ap g r) (fun e => ap f r @ e)
+    (concat_Ap A r) (concat_Ap B r) lA kA lB kB
+    (q x0) (q x1) ql qk (concat_Ap_homotopic A B q r).
+
+(** When the comparison is the ratio of two pointwise comparisons to one retained homotopy, the resulting square comparison is exactly the ratio of the specified adjusted-naturality witnesses. *)
+Definition adjusted_naturality_comparison_homotopic
+  {X T : Type} {f g : X -> T} {x0 x1 : X} (r : x0 = x1)
+  (A B M : f == g)
+  (h : forall x, A x = M x) (k : forall x, B x = M x)
+  (q : forall x, A x = B x)
+  (e : forall x, q x = h x @ (k x)^)
+  : adjusted_naturality_comparison r A B (M x0) (M x1)
+      (h x0) (h x1) (k x0) (k x1) q (e x0) (e x1)
+    = adjusted_naturality_homotopic r A M h
+      @ (adjusted_naturality_homotopic r B M k)^.
+Proof.
+  destruct r.
+  unfold adjusted_naturality_comparison,
+    adjusted_naturality_homotopic, adjusted_naturality,
+    concat_Ap_homotopic.
+  cbn.
+  generalize (q x0), (e x0).
+  snapply paths_ind_r.
+  generalize (h x0), (k x0).
+  generalize (M x0), (B x0).
+  intros m b hx kx.
+  destruct hx.
+  revert b kx; snapply paths_ind_r.
+  cbn.
+  generalize (A x0).
+  generalize (g x0).
+  intros z p; destruct p.
+  reflexivity.
+Defined.
+
 (** Transport a naturality square whose underlying homotopy is replaced at the target. The endpoint comparisons include the actual dependent paths of the two retained boundary homotopies. *)
 Definition transport_adjusted_naturality
   {Z X T : Type} (f g : Z -> X -> T)

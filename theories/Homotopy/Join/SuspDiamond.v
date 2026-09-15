@@ -255,3 +255,131 @@ Proof.
     rhs napply concat_p_pp.
     exact (join_diamond_turn_twist f (merid a)).
 Defined.
+
+(** ** Functoriality of the canonical suspension diamond *)
+
+Local Set Universe Minimization ToSet.
+
+Local Definition map_filler_v {A B : Type} (f : A -> B)
+  {a a' b : A} (p : a = b) (q : a' = b)
+  {p' : f a = f b} {q' : f a' = f b}
+  (bp : ap f p = p') (bq : ap f q = q')
+  : (ap_pV f p q @ (bp @@ inverse2 bq))^
+      @ (ap (ap f) 1 @ (ap_pV f p q @ (bp @@ inverse2 bq))) = 1.
+Proof.
+  destruct bp, bq, p, q; reflexivity.
+Defined.
+
+Local Definition map_filler_h {A B : Type} (f : A -> B)
+  {a b b' : A} (p : a = b) (q : a = b')
+  {p' : f a = f b} {q' : f a = f b'}
+  (bp : ap f p = p') (bq : ap f q = q')
+  : (ap_pV f p p @ (bp @@ inverse2 bp))^
+      @ (ap (ap f) (concat_pV p @ (concat_pV q)^)
+        @ (ap_pV f q q @ (bq @@ inverse2 bq)))
+    = concat_pV p' @ (concat_pV q')^.
+Proof.
+  destruct bp, bq, p, q; reflexivity.
+Defined.
+
+Local Definition map_filler_symm {A B : Type} (f : A -> B)
+  {a b : A} (p : a = b) {q : f a = f b} (bp : ap f p = q)
+  : ap (fun h => (ap_pV f p p @ (bp @@ inverse2 bp))^
+      @ (ap (ap f) h @ (ap_pV f p p @ (bp @@ inverse2 bp))))
+      (concat_pV (concat_pV p))^ @ map_filler_h f p p bp bp
+    = map_filler_v f p p bp bp @ (concat_pV (concat_pV q))^.
+Proof.
+  destruct bp, p; reflexivity.
+Defined.
+
+Definition join_diamond_map_v {A B C D : Type}
+  (f : A -> C) (g : B -> D) (a a' : A) (b : B)
+  : (Join_rec_beta_zigzag _ _
+        (fun x y => jglue (f x) (g y)) a a' b)^
+      @ (ap (ap (functor_join f g)) (diamond_v a a' (idpath b))
+        @ Join_rec_beta_zigzag _ _
+          (fun x y => jglue (f x) (g y)) a a' b)
+    = diamond_v (f a) (f a') (idpath (g b)).
+Proof.
+  exact (map_filler_v (functor_join f g)
+    (jglue a b) (jglue a' b) _ _).
+Defined.
+
+Definition join_diamond_map_h {A B C D : Type}
+  (f : A -> C) (g : B -> D) (a : A) (b b' : B)
+  : (Join_rec_beta_zigzag _ _
+        (fun x y => jglue (f x) (g y)) a a b)^
+      @ (ap (ap (functor_join f g)) (diamond_h b b' (idpath a))
+        @ Join_rec_beta_zigzag _ _
+          (fun x y => jglue (f x) (g y)) a a b')
+    = diamond_h (g b) (g b') (idpath (f a)).
+Proof.
+  exact (map_filler_h (functor_join f g)
+    (jglue a b) (jglue a b') _ _).
+Defined.
+
+(** Mapping preserves the chosen twist between the vertical and horizontal diamonds. The path [p] and all its endpoints are free; no fixed join loop is eliminated. *)
+Definition join_diamond_map_twist {A B : Type} (f : A -> B)
+  {n s : A} (p : n = s)
+  : let Q := fun t : B => zigzag (f s) t (f n) = zigzag (f s) t t in
+    let m := fun (t : A) (h : zigzag s t n = zigzag s t t) =>
+      (Join_rec_beta_zigzag _ _
+          (fun x y => jglue (f x) (f y)) s t n)^
+        @ (ap (ap (functor_join f f)) h
+          @ Join_rec_beta_zigzag _ _
+            (fun x y => jglue (f x) (f y)) s t t) in
+    ap01D1 m p (diamond_twist p) @ join_diamond_map_h f f s n s
+    = (ap (transport (fun t => Q (f t)) p)
+        (join_diamond_map_v f f s n n)
+        @ transport_compose Q f p (diamond_v (f s) (f n) 1))
+      @ diamond_twist (ap f p).
+Proof.
+  destruct p; cbn [ap01D1 transport transport_compose ap].
+  rhs napply (concat_p1 _ @@ 1).
+  rhs napply (ap_idmap _ @@ 1).
+  exact (map_filler_symm (functor_join f f) (jglue n n) _).
+Defined.
+
+(** In particular this applies to suspension conjugation, without any involution, multiplication, truncation, or extensionality hypothesis. The comparison is with [diamond_susp] itself, not an unspecified filler with the same vertices. *)
+Definition diamond_susp_functor@{i j|}
+  {A : Type@{i}} {B : Type@{j}} (g : A -> B)
+  : forall t : Susp A,
+    join_zigzag_filler (functor_susp g) (functor_susp g)
+      1 1 1 1 (diamond_susp t)
+    = diamond_susp (functor_susp g t).
+Proof.
+  intro t.
+  lhs napply (join_zigzag_filler_refl
+    (functor_susp g) (functor_susp g)).
+  revert t.
+  pose (f := functor_susp g).
+  pose (Q := fun t : Susp B => zigzag South t North = zigzag South t t).
+  pose (m := fun (t : Susp A)
+    (h : zigzag South t North = zigzag South t t) =>
+    (Join_rec_beta_zigzag _ _
+        (fun x y => jglue (f x) (f y)) South t North)^
+      @ (ap (ap (functor_join f f)) h
+        @ Join_rec_beta_zigzag _ _
+          (fun x y => jglue (f x) (f y)) South t t)).
+  snapply Susp_ind.
+  - exact (join_diamond_map_v f f South North North).
+  - exact (join_diamond_map_h f f South North South).
+  - intro a.
+    assert (E : forall (q : North = South :> Susp B),
+      q = merid (g a) -> apD diamond_susp q = diamond_twist q).
+    { snapply paths_ind_r.
+      exact (Susp_ind_beta_merid _ _ _ _ (g a)). }
+    lhs napply (transport_paths_FlFr_D
+      (f:=fun t => m t (diamond_susp t))
+      (g:=fun t => diamond_susp (f t)) (merid a) _).
+    lhs napply concat_pp_p.
+    apply moveR_Vp; symmetry.
+    lhs napply (apD_composeD m diamond_susp (merid a) @@ 1).
+    lhs napply (ap (ap01D1 m (merid a))
+      (Susp_ind_beta_merid _ _ _ _ a) @@ 1).
+    rhs napply (1 @@ apD_compose f diamond_susp (merid a)).
+    rhs napply (1 @@ (1 @@ E (ap f (merid a))
+      (functor_susp_beta_merid@{i j i} g a))).
+    rhs napply concat_p_pp.
+    exact (join_diamond_map_twist f (merid a)).
+Defined.
