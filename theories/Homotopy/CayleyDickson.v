@@ -83,8 +83,14 @@ Class CayleyDicksonDiamond (X : pType) (neg : X -> X)
 Instance conjugate_susp (A : Type) `(Negate A) : Conjugate (Susp A)
   := functor_susp (-).
 
-Instance negate_susp (A : Type) `(Negate A) : Negate (Susp A)
+Local Instance negate_susp (A : Type) `(Negate A) : Negate (Susp A)
   := susp_neg _ o conjugate_susp A (-).
+
+(** Only peel an existing suspension; do not invent a carrier while resolving [Negate ?A]. *)
+#[export] Hint Extern 0 (Negate ?T) =>
+  let T := eval hnf in T in
+  tryif is_evar T then fail else eapply @negate_susp
+  : typeclass_instances.
 
 (** [conjugate_susp A] and [negate_susp A] commute. *)
 Instance swapop_conjugate_susp {A} `(Negate A)
@@ -170,8 +176,14 @@ Defined.
 
 (** ** Negation and conjugation on the double *)
 
-Instance cd_negate {X : Type} `{Negate X} : Negate (Join X X)
+Local Instance cd_negate {X : Type} `{Negate X} : Negate (Join X X)
   := functor_join (-) (-).
+
+(** As for suspension negation, recursive search must consume a known constructor rather than generate arbitrarily nested self-joins. *)
+#[export] Hint Extern 0 (Negate ?T) =>
+  let T := eval hnf in T in
+  tryif is_evar T then fail else eapply @cd_negate
+  : typeclass_instances.
 
 (** The next diamond is available on every double, independently of multiplication or a diamond on [X]. *)
 #[export] Instance cd_diamond_double {X : pType} `{Negate X}
