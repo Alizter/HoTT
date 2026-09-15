@@ -315,9 +315,33 @@ naturality in the first input, and
 naturality in the middle input.  This combines both pairs at the homotopy
 level and leaves the diagonal-equivariance contribution between them.
 
-These comparisons have **not** yet eliminated the first-left, first-right,
-middle, or overlap adjustments from the whole `computed_pasting`, and they
-do not supply `Mixed`.
+The homotopy-first cancellation now also reaches the whole last face.
+`transport_adjusted_naturality` is a generic path-inductive calculation:
+it transports a naturality square while replacing its underlying homotopy
+at the target, retaining the two endpoint homotopies and their dependent
+paths.  Applying it to `AL`, `BL`, and `BR` gives
+
+```text
+eta_face_transport :
+  transport (Gamma a b y) (jglue c d) (face_z a b y c)
+  = eta_face a b c d y.
+```
+
+Here `eta_face` pastes `eta_last_middle` with the transported left and right
+overlaps.  Its middle-input restriction is already the existing chosen
+middle face:
+
+```text
+eta_face_middle :
+  eta_face a b c d (joinl s) = face_y a b s (joinr d).
+```
+
+This proof uses the same `S7MiddleScalar.overlap` at both first-input
+endpoints.  `eta_face_cell_beta` also computes middle-input naturality of
+the complete `eta_face`; its center is `eta_last_associator_cell`, while its
+outer cells are the actual dependent naturalities of the transported left
+and right overlaps.  Thus the first-left and first-right adjustments are no
+longer lifted manually through the whole pasting.
 
 Following the relative-induction pattern used for join associativity,
 `pathcube_ind_left` allows five faces to stay fixed while the sixth face
@@ -326,18 +350,38 @@ and its filling cube, not the type of cubes with all six faces fixed.
 This is available for the remaining pasting calculations, not a proof of
 `Mixed` by filler uniqueness.
 
-**Still open:** substitute the combined `eta` normal form through the
-first-left, first-right, middle, and overlap adjustments, then prove the
-equality of the resulting actual pastings.  The duplicated translation
-faces are no longer the issue.  The unresolved part is compatibility of the
-two `eta` naturality cubes and diagonal comparison with the specified
-left-action, right-turn, balanced-diamond comparisons and the overlaps.  A
-minimal remaining coherence theorem has not yet been extracted.  At the
-geometric center there are now two specified multiplication 2-cells and
-two orders of their naturality.  A generalized interchange/syllepsis law
-is therefore a plausible final normal form, but no checked reduction of
-the complete boundary to `eh_V_gen` (or to another existing cubical law)
-has been obtained.
+The generic 4-dimensional theorem
+`transport_adjusted_naturality_homotopic` now proves that compatibility,
+including its proof term:
+
+```text
+eta_face_middle_transport :
+  eta_face_middle
+  = eta_face_transport^-1
+      @ (map face_overlap @ apD face_y (jglue c d)).
+```
+
+Thus the transported first-left, first-right, middle, and overlap choices
+have all reached the same whole-face normal form; no second `Mixed`
+interface was introduced.
+
+**Still open:** at a right middle-input constructor, `eta_face` can still
+depend on the auxiliary left last-input label `c`.  A sufficient next
+comparison is the 3-path
+
+```text
+eta_face a b c d (joinr t)
+  = eta_face a b North d (joinr t).
+```
+
+Equivalently, one can compare either side with naturality of the scalar
+corner associator `cd_assoc_rr t d` across `jglue a b`.  This is now the
+only non-generic geometric part: compatibility of the canonical
+`eta`/diagonal construction with the right-right scalar associator.  Its
+center contains the turned canonical suspension diamond, so
+`diamond_susp_turn` and possibly its syllepsis-level naturality remain the
+likely tools.  No checked reduction of this comparison to `eh_V_gen` (or
+to another existing cubical law) has yet been obtained.
 
 This is the genuinely new iteration problem: the original
 Buchholtz--Rijke Cayley--Dickson development constructs the H-space on S3

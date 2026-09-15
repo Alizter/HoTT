@@ -577,6 +577,142 @@ Proof.
   intros z r t s; destruct r, s; reflexivity.
 Defined.
 
+(** Adjust the two endpoint edges of a naturality square while retaining its center. *)
+Definition adjusted_naturality
+  {X T : Type} {f g : X -> T} {x0 x1 : X} (r : x0 = x1)
+  (A : f == g) (B0 : f x0 = g x0) (B1 : f x1 = g x1)
+  (l : A x0 = B0) (k : A x1 = B1)
+  := (ap (fun e => ap f r @ e) k)^ @
+      (concat_Ap A r @ ap (fun e => e @ ap g r) l).
+
+(** If both endpoint adjustments come from one pointwise comparison, the adjusted square is naturality of the target homotopy. *)
+Definition adjusted_naturality_homotopic
+  {X T : Type} {f g : X -> T} {x0 x1 : X} (r : x0 = x1)
+  (A B : f == g) (q : forall x, A x = B x)
+  : adjusted_naturality r A (B x0) (B x1) (q x0) (q x1)
+    = concat_Ap B r.
+Proof.
+  napply moveR_Vp.
+  exact (concat_Ap_homotopic A B q r).
+Defined.
+
+(** Transport a naturality square whose underlying homotopy is replaced at the target. The endpoint comparisons include the actual dependent paths of the two retained boundary homotopies. *)
+Definition transport_adjusted_naturality
+  {Z X T : Type} (f g : Z -> X -> T)
+  {x0 x1 : X} (r : x0 = x1) {z0 z1 : Z} (p : z0 = z1)
+  (A : forall x, f z0 x = g z0 x)
+  (B : forall x, f z1 x = g z1 x)
+  (H : forall z, f z x0 = g z x0)
+  (K : forall z, f z x1 = g z x1)
+  (l : A x0 = H z0) (k : A x1 = K z0)
+  (q : forall x, transport (fun z => f z x = g z x) p (A x) = B x)
+  : let l' := (q x0)^ @
+      (ap (transport (fun z => f z x0 = g z x0) p) l @ apD H p) in
+    let k' := (q x1)^ @
+      (ap (transport (fun z => f z x1 = g z x1) p) k @ apD K p) in
+    transport (fun z => ap (f z) r @ K z = H z @ ap (g z) r) p
+      ((ap (fun e => ap (f z0) r @ e) k)^ @
+        (concat_Ap A r @ ap (fun e => e @ ap (g z0) r) l))
+    = (ap (fun e => ap (f z1) r @ e) k')^ @
+        (concat_Ap B r @ ap (fun e => e @ ap (g z1) r) l').
+Proof.
+  destruct p, r; cbn.
+  change (forall x, A x = B x) in q.
+  generalize (q x0).
+  generalize (B x0).
+  intros b e; destruct e.
+  cbn.
+  assert (El : 1 @
+      (ap (transport (fun z => f z x0 = g z x0) 1) l @ 1) = l).
+  { lhs napply concat_1p.
+    lhs napply concat_p1.
+    apply ap_idmap. }
+  assert (Ek : 1 @
+      (ap (transport (fun z => f z x0 = g z x0) 1) k @ 1) = k).
+  { lhs napply concat_1p.
+    lhs napply concat_p1.
+    apply ap_idmap. }
+  rhs napply (ap011
+    (fun (k0 : A x0 = K z0) (l0 : A x0 = H z0) =>
+      (ap (fun e => 1 @ e) k0)^ @
+      (concat_1p_p1 (A x0) @ ap (fun e => e @ 1) l0)) Ek El).
+  reflexivity.
+Defined.
+
+(** The preceding transport agrees with the two canonical comparisons to a homotopy retained throughout the parameter path. This is the 4-dimensional naturality needed when the adjusted square is itself a face overlap. *)
+Definition transport_adjusted_naturality_homotopic
+  {Z X T : Type} (f g : Z -> X -> T)
+  {x0 x1 : X} (r : x0 = x1) {z0 z1 : Z} (p : z0 = z1)
+  (A : forall x, f z0 x = g z0 x)
+  (B : forall x, f z1 x = g z1 x)
+  (M : forall z x, f z x = g z x)
+  (h : forall x, A x = M z0 x)
+  (q : forall x, transport (fun z => f z x = g z x) p (A x) = B x)
+  : let m := fun x => (q x)^ @
+      (ap (transport (fun z => f z x = g z x) p) (h x)
+        @ apD (fun z => M z x) p) in
+    adjusted_naturality_homotopic r B (M z1) m
+    = (transport_adjusted_naturality f g r p A B
+        (fun z => M z x0) (fun z => M z x1) (h x0) (h x1) q)^
+      @ (ap (transport
+          (fun z => ap (f z) r @ M z x1 = M z x0 @ ap (g z) r) p)
+          (adjusted_naturality_homotopic r A (M z0) h)
+        @ apD (fun z => concat_Ap (M z) r) p).
+Proof.
+  destruct p, r.
+  unfold adjusted_naturality_homotopic, adjusted_naturality,
+    transport_adjusted_naturality.
+  unfold transport.
+  cbn.
+  change (forall x, A x = B x) in q.
+  set (qx := q x0) in *; clearbody qx.
+  set (bx := B x0) in qx |- *; clearbody bx.
+  clear q B.
+  destruct qx.
+  set (hx := h x0) in *; clearbody hx.
+  set (mx := M z0 x0) in hx |- *; clearbody mx.
+  clear h M.
+  destruct hx.
+  cbn.
+  rhs napply concat_1p.
+  rhs napply concat_p1.
+  rhs napply ap_idmap.
+  reflexivity.
+Defined.
+
+(** A transported rectangle followed by the induced top edge is its pointwise bottom-to-top comparison. The overlap coherence is retained explicitly. *)
+Definition transport_rectangle_factor
+  {A B : Type} (P : A -> B -> Type)
+  {y0 y1 : A} (p : y0 = y1) {z0 z1 : B} (q : z0 = z1)
+  (bottom : forall y, P y z0) (left : forall z, P y0 z)
+  (overlap : bottom y0 = left z0)
+  (top : forall y, P y z1)
+  (qb : forall y, transport (P y) q (bottom y) = top y)
+  (mt : top y0 = left z1)
+  (coh : mt = (qb y0)^ @
+    (ap (transport (P y0) q) overlap @ apD left q))
+  : let cap := (apD bottom p)^ @
+      ap (transport (fun y => P y z0) p) overlap in
+    let U := fun z => transport (fun y => P y z) p (left z) in
+    let edge := ap (transport (fun y => P y z1) p) mt^ @ apD top p in
+    (ap (transport (P y1) q) cap @ apD U q) @ edge = qb y1.
+Proof.
+  destruct p, q.
+  unfold transport in *; cbn in *.
+  rewrite (ap_idmap overlap), (concat_1p overlap).
+  rewrite (ap_idmap overlap), (concat_p1 overlap).
+  rewrite (ap_V idmap mt), (ap_idmap mt), (concat_p1 mt^).
+  pose (coh' := coh @
+    (1 @@ (ap (fun r => r @ 1) (ap_idmap overlap)
+      @ concat_p1 overlap))).
+  lhs napply (1 @@ inverse2 coh').
+  lhs napply (1 @@ inv_pp _ _).
+  lhs napply (1 @@ (1 @@ inv_V _)).
+  lhs napply concat_p_pp.
+  lhs napply (concat_pV _ @@ 1).
+  apply concat_1p.
+Defined.
+
 (** Variation of a five-face pasting, with an arbitrary dependent ambient type. The supplied dependent paths are the five chosen cubes, including the selected source face's cube. The construction only pastes them; it does not replace them by other inhabitants of the same types. *)
 Section NaturalitySquareFillerVariation.
   Context {A : Type} {T : A -> Type}

@@ -23,7 +23,10 @@ Local Transparent D.face_overlap D.associator D.face_y_glue
   D.right_product_cap_comparison
   D.last_middle_transport_normal_form
   D.last_middle_transport_cell_normal_form D.eta_last_associator_cell
-  D.eta_last_associator_cell_beta.
+  D.eta_last_associator_cell_beta D.eta_face D.eta_face_cell
+  D.eta_face_cell_beta D.eta_face_middle D.eta_face_transport
+  D.eta_face_middle_transport D.eta_edge D.pasting_eta_factor
+  D.eta_computed_edge D.computed_pasting_eta_factor.
 
 Section DirectChecks.
   Universe u.
@@ -289,6 +292,33 @@ Section DirectChecks.
   Example combined_eta_associator_cell (a b s t c d : C)
     : _ = D.eta_last_associator_cell@{u} a b s t c d
     := D.eta_last_associator_cell_beta@{u} a b s t c d.
+  Example eta_face_middle_agrees (a b s c d : C)
+    : D.eta_face@{u} a b c d (joinl s) = D.face_y a b s (joinr d)
+    := D.eta_face_middle@{u} a b s c d.
+  Example eta_face_is_transported_last_face (a b c d : C) (y : J)
+    : transport (fun z => D.Gamma a b y z) (jglue c d)
+        (D.face_z a b y c) = D.eta_face@{u} a b c d y
+    := D.eta_face_transport@{u} a b c d y.
+  Example actual_eta_face_cell (a b s t c d : C)
+    : apD (D.eta_face@{u} a b c d) (jglue s t)
+      = D.eta_face_cell@{u} a b s t c d
+    := D.eta_face_cell_beta@{u} a b s t c d.
+  Example eta_middle_overlap_compatibility (a b s c d : C)
+    : D.eta_face_middle@{u} a b s c d
+      = (D.eta_face_transport@{u} a b c d (joinl s))^
+        @ (ap (transport (D.Gamma a b (joinl s)) (jglue c d))
+            (D.face_overlap a b s c)
+          @ apD (D.face_y a b s) (jglue c d))
+    := D.eta_face_middle_transport@{u} a b s c d.
+  Example whole_pasting_eta_factor (a b s t c d : C)
+    : _ @ D.eta_edge@{u} a b s t c d
+      = D.eta_face_transport@{u} a b c d (joinr t)
+    := D.pasting_eta_factor@{u} a b s t c d.
+  Example computed_pasting_eta_factor (a b s t c d : C)
+    : D.computed_pasting@{u} a b s t c d
+        @ D.eta_computed_edge@{u} a b s t c d
+      = D.eta_face_transport@{u} a b c d (joinr t)
+    := D.computed_pasting_eta_factor@{u} a b s t c d.
 
   Example computed_pasting_expression (a b s t c d : C)
     : D.computed_pasting@{u} a b s t c d

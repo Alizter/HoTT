@@ -1007,7 +1007,145 @@ Section Normalization.
     - exact (en3_cell_beta a b s t c d).
   Defined.
 
-  (** The duplicated product--translation block is now normalized. The remaining open comparison must pass this cell through the first-left, first-right, middle, and overlap cells; no such comparison is asserted here. *)
+  (** The duplicated product--translation block is now normalized. Transporting the last-left face produces a canonical right face built from [eta]. *)
+
+  Let eta_overlap_l (a c d : C) (y : J)
+    : eta_associator c d (joinl a) y = BL a y (joinr d)
+    := (last_associator_transport_normal_form (joinl a) y c d)^
+      @ (ap (transport
+          (fun z => mu (mu (joinl a) y) z = mu (joinl a) (mu y z))
+          (jglue c d)) (ol a c y)
+        @ apD (BL a y) (jglue c d)).
+
+  Let eta_overlap_r (b c d : C) (y : J)
+    : eta_associator c d (joinr b) y = BR b y (joinr d)
+    := (last_associator_transport_normal_form (joinr b) y c d)^
+      @ (ap (transport
+          (fun z => mu (mu (joinr b) y) z = mu (joinr b) (mu y z))
+          (jglue c d)) (or b c y)
+        @ apD (BR b y) (jglue c d)).
+
+  Let eta_overlap_m (s c d : C) (x : J)
+    : eta_associator c d x (joinl s) = BM s x (joinr d)
+    := (last_associator_transport_normal_form x (joinl s) c d)^
+      @ (ap (transport
+          (fun z => mu (mu x (joinl s)) z = mu x (mu (joinl s) z))
+          (jglue c d))
+          (S7MiddleScalar.overlap cd_diamond_susp s x c)
+        @ apD (BM s x) (jglue c d)).
+
+  Let eta_face_prefix (a b c d : C) (y : J)
+    (n : e0d a b d y @ eta_associator c d (joinr b) y
+      = eta_associator c d (joinl a) y @ e3d a b d y)
+    (l : eta_associator c d (joinl a) y = BL a y (joinr d))
+    := n @ ap (fun r => r @ e3d a b d y) l.
+  Let eta_face_close (a b c d : C) (y : J)
+    (r : eta_associator c d (joinr b) y = BR b y (joinr d))
+    (n : e0d a b d y @ eta_associator c d (joinr b) y
+      = BL a y (joinr d) @ e3d a b d y)
+    := (ap (fun r => e0d a b d y @ r) r)^ @ n.
+
+  Definition eta_face (a b c d : C) (y : J) : Gamma a b y (joinr d)
+    := eta_face_close a b c d y (eta_overlap_r b c d y)
+      (eta_face_prefix a b c d y (eta_last_middle a b c d y)
+        (eta_overlap_l a c d y)).
+
+  Let eta_face_prefix_cell (a b s t c d : C) :=
+    ap01D11 (eta_face_prefix a b c d) (jglue s t)
+      (eta_last_associator_cell a b s t c d)
+      (apD (eta_overlap_l a c d) (jglue s t)).
+  Definition eta_face_cell (a b s t c d : C) :=
+    ap01D11 (eta_face_close a b c d) (jglue s t)
+      (apD (eta_overlap_r b c d) (jglue s t))
+      (eta_face_prefix_cell a b s t c d).
+
+  Definition eta_face_cell_beta (a b s t c d : C)
+    : apD (eta_face a b c d) (jglue s t)
+      = eta_face_cell a b s t c d.
+  Proof.
+    unfold eta_face.
+    lhs napply (apD_composeD2 (eta_face_close a b c d)
+      (eta_overlap_r b c d)
+      (fun y => eta_face_prefix a b c d y
+        (eta_last_middle a b c d y) (eta_overlap_l a c d y))
+      (jglue s t)).
+    napply (ap011 (ap01D11 (eta_face_close a b c d) (jglue s t))).
+    - reflexivity.
+    - lhs napply (apD_composeD2 (eta_face_prefix a b c d)
+        (eta_last_middle a b c d) (eta_overlap_l a c d) (jglue s t)).
+      exact (ap011 (ap01D11 (eta_face_prefix a b c d) (jglue s t))
+        (eta_last_associator_cell_beta a b s t c d) 1).
+  Defined.
+
+  Let eta_overlap_l_m (a s c d : C)
+    : eta_overlap_l a c d (joinl s) = eta_overlap_m s c d (joinl a)
+    := 1.
+  Let eta_overlap_r_m (b s c d : C)
+    : eta_overlap_r b c d (joinl s) = eta_overlap_m s c d (joinr b)
+    := 1.
+
+  (** On a left middle-input constructor, the transported [eta] face is the existing middle face. This uses the same middle overlap at both first-input endpoints. *)
+  Definition eta_face_middle (a b s c d : C)
+    : eta_face a b c d (joinl s) = face_y a b s (joinr d).
+  Proof.
+    exact (adjusted_naturality_homotopic (jglue a b)
+      (fun x => eta_associator c d x (joinl s))
+      (fun x => BM s x (joinr d)) (eta_overlap_m s c d)).
+  Defined.
+
+  (** This is the requested homotopy-first cancellation at the whole face: transport of the original last-left face is the [eta] face. The generic proof transports the adjusted naturality square once, rather than lifting the inner cube comparison through each outer correction separately. *)
+  Definition eta_face_transport (a b c d : C) (y : J)
+    : transport (fun z => Gamma a b y z) (jglue c d)
+        (face_z a b y c) = eta_face a b c d y.
+  Proof.
+    exact (transport_adjusted_naturality
+      (fun z x => mu (mu x y) z) (fun z x => mu x (mu y z))
+      (jglue a b) (jglue c d)
+      (fun x => AL x y c) (fun x => eta_associator c d x y)
+      (fun z => BL a y z) (fun z => BR b y z)
+      (ol a c y) (or b c y)
+      (fun x => last_associator_transport_normal_form x y c d)).
+  Defined.
+
+  (** Naturality of adjusted naturality proves compatibility with the specified middle overlap and middle face. This is the 4-dimensional comparison left open after the separate cap calculations. *)
+  Definition eta_face_middle_transport (a b s c d : C)
+    : eta_face_middle a b s c d
+      = (eta_face_transport a b c d (joinl s))^
+        @ (ap (transport (Gamma a b (joinl s)) (jglue c d))
+            (face_overlap a b s c)
+          @ apD (face_y a b s) (jglue c d)).
+  Proof.
+    exact (transport_adjusted_naturality_homotopic
+      (fun z x => mu (mu x (joinl s)) z)
+      (fun z x => mu x (mu (joinl s) z))
+      (jglue a b) (jglue c d)
+      (fun x => AL x (joinl s) c)
+      (fun x => eta_associator c d x (joinl s))
+      (fun z x => BM s x z)
+      (fun x => S7MiddleScalar.overlap cd_diamond_susp s x c)
+      (fun x => last_associator_transport_normal_form x (joinl s) c d)).
+  Defined.
+
+  Definition eta_edge (a b s t c d : C)
+    : U a b s t (joinr d) = eta_face a b c d (joinr t)
+    := ap (transport (fun y => Gamma a b y (joinr d)) (jglue s t))
+        (eta_face_middle a b s c d)^
+      @ apD (eta_face a b c d) (jglue s t).
+
+  (** The original normalized pasting followed by its [eta] edge is the pointwise transport comparison at the right middle-input constructor. *)
+  Definition pasting_eta_factor (a b s t c d : C)
+    : pasting a b s t c d @ eta_edge a b s t c d
+      = eta_face_transport a b c d (joinr t).
+  Proof.
+    unfold pasting, image, eta_edge.
+    lhs napply ((1 @@ (transported_face_glue a b s t c d)^) @@ 1).
+    exact (transport_rectangle_factor (fun y z => Gamma a b y z)
+      (jglue s t) (jglue c d)
+      (fun y => face_z a b y c) (face_y a b s)
+      (face_overlap a b s c) (eta_face a b c d)
+      (eta_face_transport a b c d) (eta_face_middle a b s c d)
+      (eta_face_middle_transport a b s c d)).
+  Defined.
 
   Let last_paste12 (a b c : C) (y : J)
     (n : e0 a b c y @ h1 c (joinr b) y = h1 c (joinl a) y @ e1 a b c y)
@@ -1122,6 +1260,26 @@ Section Normalization.
       (cap a b s t c) (face_transport_compute a b s t (joinl c)) @@ 1).
     exact (ap (ap (transport (Gamma a b (joinr t)) (jglue c d)))
       (cap_expansion a b s t c) @@ 1).
+  Defined.
+
+  Definition eta_computed_edge (a b s t c d : C)
+    : transported_face a b s t (joinr d)
+      = eta_face a b c d (joinr t)
+    := (face_transport_compute a b s t (joinr d))^
+      @ eta_edge a b s t c d.
+
+  (** This is the whole-face rewrite inside the existing [computed_pasting]. All original cell expansions remain on its left-hand side. *)
+  Definition computed_pasting_eta_factor (a b s t c d : C)
+    : computed_pasting a b s t c d @ eta_computed_edge a b s t c d
+      = eta_face_transport a b c d (joinr t).
+  Proof.
+    unfold eta_computed_edge.
+    lhs_V napply (pasting_expansion a b s t c d @@ 1).
+    lhs napply concat_pp_p.
+    lhs napply (1 @@ concat_p_pp _ _ _).
+    lhs napply (1 @@ (concat_pV _ @@ 1)).
+    lhs napply (1 @@ concat_1p _).
+    exact (pasting_eta_factor a b s t c d).
   Defined.
 
   Let based_pasting_expansion a b s t c d

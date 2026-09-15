@@ -11,6 +11,11 @@ Section NaturalityUniverses.
   Check (@transport_translation_comparison@{u v} A B).
   Check (@transport_naturality_square@{u v} A B).
   Check (@transport_naturality_square_beta@{u v} A B).
+  Check (@adjusted_naturality@{u v} A B).
+  Check (@adjusted_naturality_homotopic@{u v} A B).
+  Check (@transport_adjusted_naturality@{u u v} A A B).
+  Check (@transport_adjusted_naturality_homotopic@{u u v} A A B).
+  Check (@transport_rectangle_factor@{u u v} A A).
   Check (@transport_associator_normal_form@{u} A).
 End NaturalityUniverses.
 
