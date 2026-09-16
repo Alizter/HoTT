@@ -221,14 +221,14 @@ Proof.
   reflexivity.
 Defined.
 
-Local Definition assoc_unit `{Univalence} (x : C)
+Definition assoc_unit `{Univalence} (x : C)
   : assoc x North North = (rightidentity_s1 (x * North))^.
 Proof.
   revert x; srapply (conn_point_elim (-1) (A:=psphere 1)).
   reflexivity.
 Defined.
 
-Local Definition distropp_unit `{Univalence} (x : C)
+Definition distropp_unit `{Univalence} (x : C)
   : cds_conjug_distr (X:=psphere 1) x North
     = ap (conj : C -> C) (rightidentity_s1 x).
 Proof.
@@ -236,7 +236,7 @@ Proof.
   reflexivity.
 Defined.
 
-Local Definition factorneg_r_unit (x : C)
+Definition factorneg_r_unit (x : C)
   : HSpaceS3.factorneg_r_s1 North x = 1.
 Proof.
   unfold HSpaceS3.factorneg_r_s1.
@@ -253,7 +253,7 @@ Proof.
 Defined.
 
 Local Transparent cds_factorneg_l.
-Local Definition factorneg_l_unit `{Univalence}
+Definition factorneg_l_unit `{Univalence}
   : factorneg_l (North : C) North = rightidentity_s1 South.
 Proof.
   pose (ec := isequiv_adjointify (conj : C -> C) conj
@@ -272,7 +272,7 @@ Defined.
 
 Local Opaque cds_factorneg_l.
 
-Local Definition right_unit_south
+Definition right_unit_south
   : rightidentity_s1 South = merid (South : Sphere 0).
 Proof.
   change (transport (fun x : C => x * North = x)
@@ -323,7 +323,7 @@ Proof.
   apply concat_pV_p.
 Defined.
 
-Local Definition map_l_parameter_unit `{Univalence}
+Definition map_l_parameter_unit `{Univalence}
   : cd_diamond_map_l_parameter (X:=psphere 1) North North North North
     = (merid (South : Sphere 0))^.
 Proof.

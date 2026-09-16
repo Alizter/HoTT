@@ -35,6 +35,11 @@ The implementation is split into separately compiled files:
   existing `computed_pasting`.
 - [`Direct/Comparison.v`](../theories/Homotopy/HSpaceS7/Direct/Comparison.v):
   the edge-ratio equivalence and the sufficient section-comparison criterion.
+- [`Direct/RightRightScalars.v`](../theories/Homotopy/HSpaceS7/Direct/RightRightScalars.v):
+  the reciprocal-parameter and scalar-map comparisons for the right–right case.
+- [`Direct/RightRight.v`](../theories/Homotopy/HSpaceS7/Direct/RightRight.v):
+  rotation of the actual canonical circle diamond, with its pole computations
+  and meridian coherence. The proposed `eta_associator_rr` is not yet proved.
 
 The existing η associator and its three overlap witnesses are exposed for
 cross-file comparison proofs; their defining terms are unchanged.
@@ -467,6 +472,32 @@ Two reusable pieces of this comparison work are now checked:
   pole computations and meridian twist. This applies to suspension
   conjugation and complements `diamond_susp_turn`; it does not by itself
   compare the selected diagonal-equivariance homotopies.
+
+The actual right–right diamond rotation is now checked in
+[`Direct/RightRight.v`](../theories/Homotopy/HSpaceS7/Direct/RightRight.v).
+For a circle scalar `u`, put `L_u(z) = (-u)*z` and `R_u(z) = u*z`.
+`S7RightRight.rotation` proves
+
+```text
+join_zigzag_filler L_u R_u (rot_p u) (rot_q u) (rot_r u) (rot_s u)
+  (diamond_susp (conj u))
+  = join_diamond_rotate (diamond_susp u).
+```
+
+The four boundary paths have types `L_u South = u`, `L_u (conj u) = South`,
+`R_u North = u`, and `R_u (conj u) = North`. The rotation reverses both
+vertex pairs. The proof retains the actual North and South computations;
+at South, it explicitly computes `rot_p South = rot_q South = 1`, using
+the chosen inverse and sign laws. The meridian case uses the general
+`join_zigzag_filler_rotate_twist`, which eliminates a **free parameter
+path**, not a fixed join glue or chosen filler. That lemma has independent
+parameter/source/target universes and requires no function extensionality.
+
+This closes the previously missing canonical-diamond rotation, but not
+`eta_associator_rr`. Its application to the two multiplication fillers,
+the diagonal-equivariance term, and the **specified** `eta_overlap_l/r`
+computations still has to be established. The scalar lemmas and rotation
+are not asserted to identify those higher proof terms automatically.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`
