@@ -556,4 +556,152 @@ Section TurnComparison.
     exact (concat_Ap_homotopic _ _ K (jglue a b)).
   Defined.
 End TurnComparison.
+
+(** ** Comparing a translated turn with a different turn *)
+Section TurnComposite.
+  Context {A B : Type} (f l : A -> B) (g r : B -> A)
+    (t : A -> A) (u : B -> B).
+  Let rho := join_turn f g.
+  Let sigma := functor_join t u.
+  Let tau := join_turn l r.
+  Let brho := fun a b => Join_rec_beta_jglue _ _
+    (fun a b => (jglue (g b) (f a))^) a b.
+  Let btau := fun a b => Join_rec_beta_jglue _ _
+    (fun a b => (jglue (r b) (l a))^) a b.
+
+  Definition combine_turn
+    (pl : forall a, u (f a) = l a) (pr : forall b, t (g b) = r b)
+    : sigma o rho == tau.
+  Proof.
+    snapply Join_ind_FFlFr.
+    - intro a; exact (ap joinr (pl a)).
+    - intro b; exact (ap joinl (pr b)).
+    - intros a b.
+      lhs napply (ap (ap sigma) (brho a b) @@ 1).
+      lhs napply (ap_V sigma (jglue (g b) (f a)) @@ 1).
+      lhs napply (inverse2 (functor_join_beta_jglue t u (g b) (f a)) @@ 1).
+      rhs napply (1 @@ btau a b).
+      apply moveR_Vp.
+      rhs napply concat_p_pp.
+      apply moveL_pV.
+      exact (join_natsq (pr b) (pl a)).
+  Defined.
+
+  Definition split_turn
+    (el : forall b, r b = t (g b)) (er : forall a, l a = u (f a))
+    : tau == sigma o rho.
+  Proof.
+    snapply Join_ind_FlFr.
+    - intro a; exact (ap joinr (er a)).
+    - intro b; exact (ap joinl (el b)).
+    - intros a b.
+      lhs napply (btau a b @@ 1).
+      rhs napply (1 @@ ap_compose rho sigma (jglue a b)).
+      rhs napply (1 @@ ap (ap sigma) (brho a b)).
+      rhs napply (1 @@ ap_V sigma (jglue (g b) (f a))).
+      rhs napply (1 @@ inverse2 (functor_join_beta_jglue t u (g b) (f a))).
+      exact (inverse_natural _ _ (join_natsq (el b) (er a))).
+  Defined.
+
+  Definition split_turn_inverse
+    (el : forall b, r b = t (g b)) (er : forall a, l a = u (f a))
+    : forall x, (split_turn el er x)^
+      = combine_turn (fun a => (er a)^) (fun b => (el b)^) x.
+  Proof.
+    snapply Join_ind.
+    - intro a; exact (ap_V joinr (er a))^.
+    - intro b; exact (ap_V joinl (el b))^.
+    - intros a b.
+      nrefine (equiv_naturality_transport2
+        (fun x => (split_turn el er x)^)
+        (combine_turn (fun a => (er a)^) (fun b => (el b)^))
+        (jglue a b) _ _ _).
+      pose (bf := ((ap_compose rho sigma (jglue a b)
+        @ ap (ap sigma) (brho a b)) @ ap_V sigma (jglue (g b) (f a)))
+        @ inverse2 (functor_join_beta_jglue t u (g b) (f a))).
+      assert (be : concat_Ap (split_turn el er) (jglue a b)
+        = naturality_change (btau a b) bf
+          (inverse_natural _ _ (join_natsq (el b) (er a)))).
+      { lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ a b).
+        rhs napply concat_pp_p.
+        napply whiskerL.
+        do 3 (lhs napply naturality_suffix).
+        reflexivity. }
+      lhs napply (concat_Ap_inverse (split_turn el er) (jglue a b) @@ 1).
+      lhs napply (ap (fun n => (inverse_natural _ _ n)^) be @@ 1).
+      rhs napply (1 @@ Join_ind_FFlFr_beta_jglue rho sigma tau _ _ _ a b).
+      do 3 (rhs napply (1 @@ naturality_prefix _ _ _ _)).
+      rhs napply (1 @@ (1 @@ (inverse_natural_moves _ _ _ @@ 1))).
+      rhs napply (1 @@ concat_p_pp _ _ _).
+      apply inverse_change_turn.
+  Defined.
+End TurnComposite.
+
+(** A parameter-dependent turn may be translated on its output and on its scalar parameter simultaneously. Its corner comparisons are the same selected triangles as in [compare_r] and [compare_turn_l]. *)
+Section TurnParameterComparison.
+  Context `{Funext} {X : Type} (x0 : X)
+    (m00 m01 m10 m11 : X -> X -> X)
+    (dm : forall a b c d,
+      zigzag (m00 a c) (m11 b d) (m01 a d)
+        = zigzag (m00 a c) (m11 b d) (m10 b c)).
+  Let J := Join X X.
+  Let m : J -> J -> J := Join_rec2 J
+    (fun a c => joinl (m00 a c)) (fun a d => joinr (m01 a d))
+    (fun b c => joinr (m10 b c)) (fun b d => joinl (m11 b d))
+    (fun a c d => jglue (m00 a c) (m01 a d))
+    (fun b c d => (jglue (m11 b d) (m10 b c))^)
+    (fun c a b => jglue (m00 a c) (m10 b c))
+    (fun d a b => (jglue (m11 b d) (m01 a d))^) dm.
+  Context (s : X) (t u v : X -> X) (d : u == v)
+    (el : forall b, m11 b (v s) = t (m11 b s))
+    (er : forall a, m01 a (v s) = v (m01 a s))
+    (pl : forall a, u (m01 a s) = m01 a (u s))
+    (pr : forall b, t (m11 b s) = m11 b (u s))
+    (cl : forall a, (d (m01 a s) @ (er a)^) @ ap (m01 a) (d s)^ = pl a)
+    (cr : forall b, (el b)^ @ ap (m11 b) (d s)^ = pr b).
+  Let f := fun a => m01 a s.
+  Let g := fun b => m11 b s.
+  Let E := split_turn f (fun a => m01 a (v s)) g
+    (fun b => m11 b (v s)) t v el er.
+  Let B := combine_turn f (fun a => m01 a (u s)) g
+    (fun b => m11 b (u s)) t u pl pr.
+
+  Definition translated_turn_parameter_comparison (a b : X)
+    : concat_Ap (fun x =>
+        (delta t u v d (join_turn f g x) @ (E x)^)
+          @ ap (m x) (ap joinr (d s))^) (jglue a b)
+        @ (compare_r (m00 a) (m01 a) x0
+          (d (m01 a s)) (er a) (d s) (pl a) @@ 1)
+      = (1 @@ compare_turn_l x0 (m10 b) (m11 b) (el b) (d s) (pr b))
+        @ concat_Ap B (jglue a b).
+  Proof.
+    unfold E, B; clear E B.
+    revert v d el er pl pr cl cr.
+    snapply (equiv_path_ind (fun v => equiv_ap10 u v)).
+    cbn [ap10].
+    intros el er pl pr cl cr.
+    assert (cl' : (fun a => (er a)^) = pl).
+    { apply path_forall; intro a'.
+      exact ((concat_p1 _ @ concat_1p _)^ @ cl a'). }
+    assert (cr' : (fun b => (el b)^) = pr).
+    { apply path_forall; intro b'.
+      exact ((concat_p1 _)^ @ cr b'). }
+    destruct cl', cr'.
+    pose (E := split_turn f (fun a => m01 a (u s)) g
+      (fun b => m11 b (u s)) t u el er).
+    pose (K := fun x =>
+      (ap (fun p => (p @ (E x)^) @ 1)
+        (delta_refl t u (join_turn f g x))
+        @ (concat_p1 _ @ concat_1p _))
+      @ split_turn_inverse f (fun a => m01 a (u s)) g
+        (fun b => m11 b (u s)) t u el er x).
+    lhs_V napply (1 @@ ap (fun q => q @@ idpath
+      (ap (join_turn (fun a => m01 a (u s)) (fun b => m11 b (u s)))
+        (jglue a b))) (compare_r_refl (m00 a) (m01 a) x0 (er a))).
+    rhs_V napply (ap (fun q => idpath
+      (ap (functor_join t u o join_turn f g) (jglue a b)) @@ q)
+      (compare_turn_l_refl x0 (m10 b) (m11 b) (el b)) @@ 1).
+    exact (concat_Ap_homotopic _ _ K (jglue a b)).
+  Defined.
+End TurnParameterComparison.
 End JoinMapCoherence.

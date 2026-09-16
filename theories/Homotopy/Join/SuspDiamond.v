@@ -637,3 +637,36 @@ Proof.
     napply (ap011 path_prod');
     exact (concat_p1 _ @ concat_1p _).
 Defined.
+
+(** A rotated filler comparison supplies the mixed cube with one input direction reversed on each side. The four side faces use the specified scalar paths. *)
+Definition join_zigzag_filler_cube_rotate {A B : Type}
+  {a a' c c' : A} {b b' d d' : B}
+  (p : a' = c) (q : a = c') (r : b = d) (s : b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  (k : zigzag c c' d' = zigzag c c' d)
+  (v : transport011
+    (fun x : A * A => fun y : B * B =>
+      zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+    (path_prod' p q) (path_prod' r s) (join_diamond_rotate h^) = k^)
+  : let cf := (1 @@ inv_V (jglue a' b))^
+      @ (inverse_natural (jglue a b) (jglue a' b')^ h)^ in
+    let cg := inverse_natural (jglue c d) (jglue c' d')^ k^
+      @ (1 @@ inv_V (jglue c' d)) in
+    concat_natural (jglue a' b')^ (jglue a b) (jglue c' d)
+      (jglue a b')^ (jglue a' b) (ap joinl q) (ap joinr r)
+      cf (join_natsq q r)^
+      @ (inverse_natural _ _ (join_natsq q s) @@ 1)
+    = (1 @@ (join_natsq p r)^)
+      @ concat_natural (jglue a' b')^ (jglue c d')^ (jglue c' d)
+        (ap joinr s) (ap joinl p) (jglue c' d')^ (jglue c d)
+        (inverse_natural _ _ (join_natsq p s)) cg.
+Proof.
+  destruct p, q, r, s.
+  rhs_V napply (1 @@ ap (concat_natural _ _ _ _ _ _ _ _)
+    (inverse_naturality_rotation
+      (jglue a b) (jglue a' b) (jglue a b') (jglue a' b') h
+      @ ap (fun k => inverse_natural (jglue a' b) (jglue a b')^ k
+        @ (1 @@ inv_V (jglue a b))) v)).
+  exact (concat_pV_cube_unit_inverse
+    (jglue a b) (jglue a' b) (jglue a b') (jglue a' b') h).
+Defined.

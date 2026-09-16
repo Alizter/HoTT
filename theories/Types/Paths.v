@@ -1001,6 +1001,92 @@ Definition turn_filler {A B : Type} (f : A -> B)
         @ (ap (ap f) h @ (ap_pV f r s @ (br @@ inverse2 bs))))
       @ (1 @@ inv_V s')).
 
+(** The composite-function transport calculation retains the actual application-composition path. *)
+Definition equiv_naturality_transport_compose {A B C : Type}
+  (f : A -> B) (g : B -> C) (h : A -> C)
+  {x y : A} (p : x = y) (l : g (f x) = h x) (r : g (f y) = h y)
+  (v : ap g (ap f p) @ r = l @ ap h p)
+  : equiv_naturality_transport (g o f) h p l r
+      ((ap_compose f g p @@ 1) @ v)
+    = transport_paths_FFlFr p l
+      @ moveR_Vp_p_inv (ap g (ap f p)) l (ap h p) r v.
+Proof.
+  destruct p.
+  exact (ap (equiv_naturality_transport (g o f) h 1 l r) (concat_1p v)).
+Defined.
+
+(** Naturality along an inverse parameter path retains both inverse-application computations. *)
+Definition concat_Ap_V {A B : Type} {f g : A -> B}
+  (h : f == g) {x y : A} (p : x = y)
+  : concat_Ap h p^
+    = naturality_change (ap_V f p) (ap_V g p)
+      (inverse_natural (h x) (h y) (concat_Ap h p)^).
+Proof.
+  destruct p; cbn.
+  generalize (h x); generalize (g x).
+  intros z q; destruct q; reflexivity.
+Defined.
+
+(** Reverse the parameter direction of a mixed computation, including the double inverse in the second horizontal edge. *)
+Definition inverse_horizontal_mixed_beta {T : Type} {x y z w : T}
+  {p p' : x = y} {q : y = w} {q' : w = y}
+  {r r' : x = z} {s : z = w} {s' : w = z}
+  (bp : p = p') (bq : q = q'^) (br : r = r') (bs : s = s'^)
+  (h : p @ q = r @ s) (h' : p' @ q'^ = r' @ s'^)
+  (v : h @ (br @@ 1) = (1 @@ bq) @ naturality_change bp bs h')
+  : inverse_natural r q h^ @ (bq @@ 1)
+    = (1 @@ br) @ naturality_change (inverse2 bp)
+      (inverse2 bs @ inv_V s')
+      (inverse_natural r' q'^ h'^ @ (1 @@ inv_V s')).
+Proof.
+  destruct bp, br.
+  revert q bq s bs h v.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  intros h v.
+  assert (k : h = h').
+  { exact ((concat_p1 h)^ @ v
+      @ (concat_1p _ @ (concat_p1 _ @ concat_1p _))). }
+  destruct k; clear v.
+  lhs napply concat_p1.
+  rhs napply concat_1p.
+  unfold naturality_change.
+  rhs napply (concat_1p _ @@ 1).
+  rhs napply (1 @@ inverse2 (ap (fun q => 1 @@ q) (concat_1p _))).
+  symmetry; apply concat_pp_V.
+Defined.
+
+(** Compare the two orders of moving the edges in a reversed naturality square. *)
+Definition inverse_natural_moves {T : Type} {x x' y y' : T}
+  {p : x = y} {q : x' = y'} (h : x = x') (k : y = y')
+  (n : h @ q = p @ k)
+  : moveR_Vp h (k @ q^) p
+      (moveL_pV q h (p @ k) n @ (concat_p_pp p k q^)^)
+    = inverse_natural h k n.
+Proof.
+  destruct h, q, k.
+  revert p n.
+  srapply (equiv_path_ind (fun p =>
+    equiv_ap (fun q => q @ 1) 1 p)).
+  reflexivity.
+Defined.
+
+(** The two ways of reversing a zigzag square agree with rotation of its inverse. All four edges and the filler vary in this calculation. *)
+Definition inverse_naturality_rotation {T : Type} {x y z w : T}
+  (p : x = y) (q : z = y) (r : x = w) (s : z = w)
+  (h : p @ q^ = r @ s^)
+  : (1 @@ inv_V q)^ @ (inverse_natural p s^ h)^
+    = inverse_natural q r^
+        ((inv_pV p q)^ @ inverse2 (h^)^ @ inv_pV r s)
+      @ (1 @@ inv_V p).
+Proof.
+  destruct p, q, r.
+  revert s h.
+  srapply (equiv_path_ind (fun s =>
+    equiv_ap (fun q => 1 @ q^) 1 s)).
+  reflexivity.
+Defined.
+
 (** The mixed computation of the inverse filler after a turn. This retains [ap_V] and the double-inverse computations, rather than treating the turn as a renaming of the square. *)
 Definition turn_filler_beta {A B : Type} (f : A -> B)
   {a a' b b' : A}

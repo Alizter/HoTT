@@ -111,6 +111,24 @@ Section Join.
     apply Hglue.
   Defined.
   
+  (** The composite homotopy eliminator retains its application-composition adjustment. *)
+  Definition Join_ind_FFlFr_beta_jglue {A B C P : Type}
+    (f : Join A B -> C) (g : C -> P) (h : Join A B -> P)
+    (Hl : forall a, g (f (joinl a)) = h (joinl a))
+    (Hr : forall b, g (f (joinr b)) = h (joinr b))
+    (Hglue : forall a b,
+      ap g (ap f (jglue a b)) @ Hr b = Hl a @ ap h (jglue a b)) a b
+    : concat_Ap (Join_ind_FFlFr f g h Hl Hr Hglue) (jglue a b)
+      = (ap_compose f g (jglue a b) @@ 1) @ Hglue a b.
+  Proof.
+    rapply (equiv_inj
+      (equiv_naturality_transport (g o f) h (jglue a b) (Hl a) (Hr b))).
+    lhs napply equiv_naturality_transport_apD.
+    lhs napply (Join_ind_beta_jglue _ Hl Hr _ a b).
+    exact (equiv_naturality_transport_compose f g h
+      (jglue a b) (Hl a) (Hr b) (Hglue a b))^.
+  Defined.
+
   Definition Join_ind_FlFFr {A B C P : Type}
     (f : Join A B -> C) (g : C -> P) (h : Join A B -> P)
     (Hl : forall a, h (joinl a) = g (f (joinl a)))

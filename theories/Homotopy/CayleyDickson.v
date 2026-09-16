@@ -92,6 +92,16 @@ Local Instance negate_susp (A : Type) `(Negate A) : Negate (Susp A)
   tryif is_evar T then fail else eapply @negate_susp
   : typeclass_instances.
 
+(** The specified meridian computation of suspension negation. *)
+Definition negate_susp_beta_merid {A : Type@{i}} `{Negate A} (a : A)
+  : ap (negate_susp A (-)) (merid a) = (merid (-a))^.
+Proof.
+  lhs napply (ap_compose (conjugate_susp A (-)) (susp_neg A)).
+  lhs napply (ap (ap (susp_neg A))
+    (functor_susp_beta_merid@{i i i} (-) a)).
+  exact (Susp_rec_beta_merid (-a)).
+Defined.
+
 (** [conjugate_susp A] and [negate_susp A] commute. *)
 Instance swapop_conjugate_susp {A} `(Negate A)
   : SwapOp (negate_susp A (-)) (conjugate_susp A (-)).

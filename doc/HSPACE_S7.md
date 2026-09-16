@@ -39,7 +39,13 @@ The implementation is split into separately compiled files:
   the reciprocal-parameter and scalar-map comparisons for the right–right case.
 - [`Direct/RightRight.v`](../theories/Homotopy/HSpaceS7/Direct/RightRight.v):
   rotation of the actual canonical circle diamond, with its pole computations
-  and meridian coherence. The proposed `eta_associator_rr` is not yet proved.
+  and meridian coherence.
+- [`Direct/RightRightMiddle.v`](../theories/Homotopy/HSpaceS7/Direct/RightRightMiddle.v):
+  the mapped multiplication-diamond comparison, its four original scalar
+  boundaries, and the middle-right associator with its last-left overlap.
+- [`Direct/RightRightComparison.v`](../theories/Homotopy/HSpaceS7/Direct/RightRightComparison.v):
+  the proved `eta_associator_rr`, with exactly the prescribed
+  `eta_overlap_l/r` constructor computations.
 
 The existing η associator and its three overlap witnesses are exposed for
 cross-file comparison proofs; their defining terms are unchanged.
@@ -493,11 +499,39 @@ the chosen inverse and sign laws. The meridian case uses the general
 path**, not a fixed join glue or chosen filler. That lemma has independent
 parameter/source/target universes and requires no function extensionality.
 
-This closes the previously missing canonical-diamond rotation, but not
-`eta_associator_rr`. Its application to the two multiplication fillers,
-the diagonal-equivariance term, and the **specified** `eta_overlap_l/r`
-computations still has to be established. The scalar lemmas and rotation
-are not asserted to identify those higher proof terms automatically.
+The rotation has now been applied to the two actual multiplication fillers.
+`S7RightRightMiddle.diamond_standard` retains the four original scalar
+associator witnesses. `middle_r_glue_glue` converts this comparison using
+both mixed beta rules, the inverse-path computations, and all four chosen
+side faces. It constructs
+
+```text
+middle_r t x z : mu (mu x (joinr t)) z = mu x (mu (joinr t) z).
+```
+
+Its first-input constructors are the original `cd_assoc_first_lr/rr`.
+Its two last-input columns are compared with `cd_assoc_rl/rr`, with
+reflexive first-input constructor computations. The overlap with `AL`
+retains exactly `cd_assoc_last_joinl_first_lr/rr`; the generic
+`translated_turn_parameter_comparison` supplies its glue without changing
+those triangle witnesses.
+
+Transporting that overlap through `jglue c d` and using the computed right
+column now proves
+
+```text
+S7DirectGluing.eta_associator_rr c d t x :
+  eta_associator c d x (joinr t) = cd_assoc_rr t d x.
+```
+
+The final join induction uses `eta_overlap_l/r` themselves as its point
+clauses. Consequently `eta_associator_rr_beta_joinl` and
+`eta_associator_rr_beta_joinr` are both `idpath`. The spheres stay small,
+and the comparison shares the existing proof universe `u`.
+
+This completes the right-middle comparison, **not** the general `Mixed`
+filler. Compatibility across the middle-input glue, with the selected
+middle-left comparison and corner proof terms, remains open.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`
@@ -514,9 +548,12 @@ Qr b (joinl s) = Qm s (joinr b).
 These are not consequences of merely having matching endpoint types.
 [`test/Homotopy/HSpaceS7DirectMiddle.v`](../test/Homotopy/HSpaceS7DirectMiddle.v)
 checks that these explicitly supplied data give the **chosen** `K` left
-boundary and then the original `Mixed`. The relative geometric data
-`Q, Ql, Qr, Qm` and the two corner coherences have not been constructed;
-this strategy has not been proved equivalent to the original edge goal.
+boundary and then the original `Mixed`. The whole relative geometric data
+`Q, Ql, Qr, Qm` and the two corner coherences have not been constructed.
+The right-middle restriction of `Q` is now available as the ratio of the
+two `eta_associator_rr` comparisons, but its compatibility with the
+left-middle restriction across the join glue is still missing. This
+strategy has not been proved equivalent to the original edge goal.
 
 There is still no checked reduction of the remaining compatibility to
 `eh_V_gen` or another existing cubical law. In particular, applying
@@ -776,7 +813,8 @@ loop_x_joinr a a' b d
 
 This has precisely the required `lr` and `rr` endpoints. Both rows are now
 proved, so this construction has no missing-proof parameter. No separate
-right-middle associator is constructed or needed. The `b = North` case of
+right-middle associator is needed for this transported choice; the new
+right-middle associator above is used for the direct η comparison. The `b = North` case of
 OPEN 5 is reflexivity.
 
 ### Former OPEN 2 is proved
