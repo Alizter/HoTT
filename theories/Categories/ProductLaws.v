@@ -41,7 +41,7 @@ Module Associativity.
     Definition law
     : functor o inverse = 1
       /\ inverse o functor = 1
-      := (idpath, idpath)%core.
+      := (idpath, idpath).
   End associativity.
 End Associativity.
 

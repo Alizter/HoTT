@@ -65,6 +65,8 @@ Arguments pair {A B} _ _.
 Arguments fst {A B} _ / .
 Arguments snd {A B} _ / .
 
+Bind Scope core_scope with prod.
+
 Add Printing Let prod.
 
 Notation "x * y" := (prod x y) : type_scope.

@@ -48,5 +48,5 @@ Section opposite.
   Definition dual_functor_involutive A B C (S : Functor A C) (T : Functor B C)
   : dual_functor S T o (dual_functor T^op S^op)^op = 1
     /\ (dual_functor T^op S^op)^op o dual_functor S T = 1
-    := (idpath, idpath)%core.
+    := (idpath, idpath).
 End opposite.
