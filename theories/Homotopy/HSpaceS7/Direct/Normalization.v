@@ -189,7 +189,7 @@ Section Normalization.
     := naturality_square_filler (nu a b s t z) (nv a b s t z)
       (nl a s t z) (nr b s t z) (face_y a b s z).
 
-  Let face_transport_compute (a b s t : C) (z : J)
+  Definition face_transport_compute (a b s t : C) (z : J)
     : U a b s t z = transported_face a b s t z
     := transport_naturality_square_compute
       (fun y => xf a b y z) (fun y => xg a b y z)

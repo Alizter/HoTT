@@ -46,6 +46,10 @@ The implementation is split into separately compiled files:
 - [`Direct/RightRightComparison.v`](../theories/Homotopy/HSpaceS7/Direct/RightRightComparison.v):
   the proved `eta_associator_rr`, with exactly the prescribed
   `eta_overlap_l/r` constructor computations.
+- [`Direct/MiddleComparison.v`](../theories/Homotopy/HSpaceS7/Direct/MiddleComparison.v):
+  transport compatibility for the whole right-middle face, its attachment
+  to the original `computed_pasting`, and an equivalent remaining equation
+  retaining both computed middle cubes.
 
 The existing η associator and its three overlap witnesses are exposed for
 cross-file comparison proofs; their defining terms are unchanged.
@@ -532,6 +536,40 @@ and the comparison shares the existing proof universe `u`.
 This completes the right-middle comparison, **not** the general `Mixed`
 filler. Compatibility across the middle-input glue, with the selected
 middle-left comparison and corner proof terms, remains open.
+
+### Retaining both computed middle faces
+
+`Direct/MiddleComparison.v` now carries the whole `middle_r` section
+through the transport calculation. Its `eta_overlap_mr` has the original
+`eta_overlap_l/r` point clauses without replacing the last-right column
+by `cd_assoc_rr`. The proved `eta_right_transport` retains its specified
+last-left overlap and the dependent path of the right-middle face.
+
+Write `M(s,c)` for `middle_pasting a b s t c d`, with the other labels
+fixed. This transports the last-left rectangle between `middle_l` and
+`middle_r` through `jglue c d`. `middle_pasting_compute` expands it as
+
+```text
+left_middle_cell^ @ transport(last_left_rectangle) @ right_middle_cell.
+```
+
+Both cells include their original outer recursor beta paths; the right
+cell contains `middle_r_glue_glue` and hence the actual rotated
+multiplication diamond. The four-dimensional
+`computed_pasting_right_factor` attaches this rectangle to the **original**
+`computed_pasting`, retaining its source adjustment, and identifies the
+result with the transported right overlap followed by that right cell.
+
+The remaining equation is now also expressed as
+
+```text
+M(s,c)^ @ M(s,North) = M(North,c)^ @ M(North,North).
+```
+
+`equiv_mixed_middle_pasting` proves that this is equivalent to the original
+`Mixed`. The equation itself is still open. In particular, neither
+`M(s,c) = M(s,North)` nor uniqueness of the join-valued cells is assumed.
+All these comparisons retain the shared proof universe `u`.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`

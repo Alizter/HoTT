@@ -782,6 +782,41 @@ Proof.
   apply concat_1p.
 Defined.
 
+(** Transport a rectangle with both side sections retained. The two corner comparisons include their specified transport coherences; equality of their endpoints alone would not suffice. *)
+Definition transport_rectangle_boundary
+  {A B : Type} (P : A -> B -> Type)
+  {y0 y1 : A} (p : y0 = y1) {z0 z1 : B} (q : z0 = z1)
+  (bottom : forall y, P y z0)
+  (left : forall z, P y0 z) (right : forall z, P y1 z)
+  (bl : bottom y0 = left z0) (br : bottom y1 = right z0)
+  (top : forall y, P y z1)
+  (bt : forall y, transport (P y) q (bottom y) = top y)
+  (tl : top y0 = left z1) (tr : top y1 = right z1)
+  (cl : tl = (bt y0)^ @
+    (ap (transport (P y0) q) bl @ apD left q))
+  (cr : tr = (bt y1)^ @
+    (ap (transport (P y1) q) br @ apD right q))
+  : let U := fun z => transport (fun y => P y z) p (left z) in
+    let cap := (apD bottom p)^ @
+      ap (transport (fun y => P y z0) p) bl in
+    transport (fun z => U z = right z) q (cap^ @ br)
+      = (ap (transport (fun y => P y z1) p) tl^ @ apD top p) @ tr.
+Proof.
+  destruct p, q.
+  cbn [transport apD].
+  revert tl cl tr cr.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  cbn [transport apD].
+  generalize (bt y0).
+  generalize (top y0).
+  intros top0 e; destruct e.
+  generalize bl, br.
+  generalize (left z0), (right z0).
+  intros l r el er; destruct el, er.
+  reflexivity.
+Defined.
+
 (** Variation of a five-face pasting, with an arbitrary dependent ambient type. The supplied dependent paths are the five chosen cubes, including the selected source face's cube. The construction only pastes them; it does not replace them by other inhabitants of the same types. *)
 Section NaturalitySquareFillerVariation.
   Context {A : Type} {T : A -> Type}
