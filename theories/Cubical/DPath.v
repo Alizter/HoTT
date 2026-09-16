@@ -10,6 +10,8 @@ Definition DPath {A} (P : A -> Type) {a0 a1} (p : a0 = a1)
   (b0 : P a0) (b1 : P a1) : Type
   := transport P p b0 = b1.
 
+Bind Scope dpath_scope with DPath.
+
 (** This allows [DPath]s to collapse to paths under [cbn] *)
 Arguments DPath _ / _ _ _ : simpl nomatch.
 

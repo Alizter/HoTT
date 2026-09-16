@@ -54,8 +54,6 @@ Module Export ClassifyingSpace.
   (** Now we can state the expected dependent elimination principle, and derive other versions of the elimination principle from it. *)
   Section ClassifyingSpace_ind.
 
-    Local Open Scope dpath_scope.
-
     Context {G : Group}.
 
     (** Note that since our classifying space is 1-truncated, we can only eliminate into 1-truncated type families. *)
@@ -89,8 +87,6 @@ End ClassifyingSpace.
 
 (** Other eliminators *)
 Section Eliminators.
-
-  Local Open Scope dpath_scope.
 
   Context {G : Group}.
 
