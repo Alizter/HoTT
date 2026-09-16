@@ -9,8 +9,6 @@ Delimit Scope cube_scope with cube.
 Local Unset Elimination Schemes.
 Generalizable All Variables.
 
-Local Open Scope square_scope.
-
 (*
 x001----pi01----x101              x001----pi01----x101
  |  \               \              |               |  \
@@ -245,7 +243,7 @@ Definition equiv_cu_G11 {A} {a00 a10 a01 a11 : A}
 Proof.
   destruct s.
   refine (cu_path oE _).
-  refine (equiv_concat_l (sq_concat_h_1s (sq_concat_h 1%square (tr s'))
+  refine (equiv_concat_l (sq_concat_h_1s (sq_concat_h 1 (tr s'))
     (p0y:=1) (p1y:=1)) _ oE _).
   refine (equiv_concat_l (sq_concat_h_1s (tr s')
     (p0y:=1) (p1y:=1)) _ oE _).

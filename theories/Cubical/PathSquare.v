@@ -47,6 +47,7 @@ Cumulative Inductive PathSquare {A} : forall a00 {a10 a01 a11 : A},
 
 Arguments sq_id {A x}.
 Arguments PathSquare {A _ _ _ _}.
+Bind Scope square_scope with PathSquare.
 Notation "1" := sq_id : square_scope.
 
 (** TODO: ": rename" is needed because the default names changed in Rocq 9.2.0.  When the minimum supported version is >= 9.2.0, the ": rename" can be removed. *)
