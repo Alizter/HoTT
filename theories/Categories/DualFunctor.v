@@ -33,8 +33,8 @@ Section opposite.
   : (x.1^op^op; has_op (_; has_op _)) = x
     := path_sigma_uncurried
          P
-         (((x.1^op)^op)%category;
-          has_op ((x.1^op)%category;
+         (((x.1^op)^op);
+          has_op ((x.1^op);
                   has_op x))
          x
          (Category.Dual.opposite_involutive x.1;

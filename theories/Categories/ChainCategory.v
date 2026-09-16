@@ -42,7 +42,7 @@ Module Export Core.
       definition of an [n]-simplex, where a 0-simplex is a point, and
       a 1-simplex has two end-points, etc. *)
   Definition chain (n : nat) : PreCategory
-    := { m : omega | m <= n }%category.
+    := { m : omega | m <= n }.
 
   (** TODO: Possibly generalize this to arbitrary sets with arbitrary
       (total?) orders on them? *)
