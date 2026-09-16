@@ -4,8 +4,6 @@ Require Import Algebra.ooGroup.
 Require Import Universes.BAut.
 Require Import Pointed.Core.
 
-Local Open Scope pointed_scope.
-
 (** * Automorphism oo-Groups *)
 
 (** We define [Aut X] using the pointed, connected type [BAut X]. *)

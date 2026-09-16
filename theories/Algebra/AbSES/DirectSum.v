@@ -3,7 +3,6 @@ Require Import Pointed.Core.
 Require Import WildCat.Core Homotopy.ExactSequence.
 Require Import AbGroups.AbelianGroup AbSES.Core AbGroups.Biproduct.
 
-Local Open Scope pointed_scope.
 Local Open Scope type_scope.
 Local Open Scope mc_add_scope.
 

@@ -9,6 +9,7 @@ Require Import Extensions.
 Local Set Polymorphic Inductive Cumulativity.
 
 Declare Scope pointed_scope.
+Bind Scope pointed_scope with pType.
 
 Local Open Scope pointed_scope.
 Local Open Scope path_scope.

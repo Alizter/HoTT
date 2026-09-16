@@ -6,7 +6,6 @@ Require Import AbGroups.AbelianGroup AbGroups.AbPullback AbGroups.Biproduct.
 Require Import AbSES.Core AbSES.Pullback. 
 Require Import Modalities.Identity Modalities.Modality Truncations.Core.
 
-Local Open Scope pointed_scope.
 Local Open Scope mc_add_scope.
 
 (** * The fiber sequence induced by pulling back along a short exact sequence *)
