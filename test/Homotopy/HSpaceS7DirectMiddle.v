@@ -149,6 +149,18 @@ Section WholeMiddleChecks.
         (S7MiddleScalar.diamond@{u} D0 s a b c d)
     := idpath.
 
+  Example last_face_retains_diagonal (a b s t c : C)
+    : D.last_face_cell@{u} a b s t c
+      = D.last_face_cell_from_diagonal@{u} a b s t c
+        (cd_op_diamond_diagonal@{Set} (X:=psphere 1) a b s t c)
+    := idpath.
+
+  Example original_pasting_retains_diagonal (a b s t c d : C)
+    : D.computed_pasting@{u} a b s t c d
+      = D.computed_pasting_from_diagonal@{u} a b s t c d
+        (cd_op_diamond_diagonal@{Set} (X:=psphere 1) a b s t c)
+    := idpath.
+
   Context (a b s t c d : C).
   Let E := D.equiv_mixed_middle_pasting@{u} a b s t c d.
 
@@ -194,6 +206,51 @@ Section CompletedDiamondChecks.
         @ S7MiddleScalar.diagonal_path D0 a b (s * c) (conj s * d) r
     := S7MiddleScalar.diamond_translate_square_postcompose@{u} D0 s a b c d r.
 End CompletedDiamondChecks.
+
+(** The completed square acts on the diagonal factor of the actual [AL] cap, inside the original expanded pasting. The last-right label remains arbitrary. *)
+Section ActualCapChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp
+    S7LeftScalar.circle_connected S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Local Notation assoc := (simple_associativity (f:=sgop_s1)).
+  Context (s a b c d r e : C).
+  Let rt := fun z : C => z * r.
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      cd_op_diamond@{Set} (X:=psphere 1) a b (fst v) (snd v)).
+  Let source := data ((s * c) * r, (conj s * d) * r).
+  Let target := functor_join_filler_data rt rt (data (s * c, conj s * d)).
+  Let alternate : source = target :=
+    (S7MiddleScalar.diamond_path@{u} cd_diamond_susp s a b (c * r) (d * r)
+      @ ap data (path_prod' (assoc s c r) (assoc (conj s) d r)))^
+    @ (S7MiddleScalar.diagonal_path cd_diamond_susp (a * s) (s * b) c d r
+      @ ap (functor_join_filler_data rt rt)
+        (S7MiddleScalar.diamond_path@{u} cd_diamond_susp s a b c d)).
+  Let pl := path_prod'
+    (cd_diamond_translate_l_neg_unit (X:=psphere 1) a (s * c) r)
+    (cd_diamond_translate_l_parameter North b North (conj s * d) r).
+  Let pr := path_prod'
+    (cd_diamond_translate_r_parameter (X:=psphere 1) a North North (conj s * d) r)
+    (cd_diamond_translate_r_unit b (s * c) r).
+  Let beta := transport_path_prod' Q pl pr source.2.
+
+  Example original_cap_attachment
+    (kappa : pr1_path alternate = path_prod' pl pr)
+    : D.computed_pasting_from_diagonal@{u} a b (s * c) (conj s * d) r e
+        (beta^ @ transport
+          (fun p : source.1 = target.1 => transport Q p source.2 = target.2)
+          kappa (pr2_path alternate))
+      = D.computed_pasting@{u} a b (s * c) (conj s * d) r e
+    := D.computed_pasting_balanced_diagonal@{u} s a b c d r e kappa.
+End ActualCapChecks.
 
 (** Packaging a filler change retains its specified boundary paths, not only its endpoint vertices. *)
 Section FillerBoundaryCheck.

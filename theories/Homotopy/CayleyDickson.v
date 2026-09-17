@@ -1315,7 +1315,18 @@ Section SpheroidHSpace.
   (** Convert the transported mixed-filler comparison to the dependent mixed case of equivariance. The four existing side faces are compared using their actual beta paths, not replaced by faces with the same endpoints. *)
   Local Opaque cd_diamond cd_op_diamond.
 
-  Definition cd_op_diagonal_equivariance_glue_glue (r a b c d : X)
+  Definition cd_op_diagonal_equivariance_glue_glue_from_diamond
+    (r a b c d : X)
+    (diagonal : transport011
+        (fun x : X * X => fun y : X * X =>
+          zigzag (fst x) (snd x) (fst y)
+            = zigzag (fst x) (snd x) (snd y))
+        (path_prod' (cd_diamond_translate_l_neg_unit a c r)
+          (cd_diamond_translate_l_parameter mon_unit b mon_unit d r))
+        (path_prod' (cd_diamond_translate_r_parameter a mon_unit mon_unit d r)
+          (cd_diamond_translate_r_unit b c r))
+        (cd_op_diamond a b (c * r) (d * r))
+      = join_zigzag_filler (.* r) (.* r) 1 1 1 1 (cd_op_diamond a b c d))
     : transport
         (fun y => ap (fun x => cd_op x (functor_join (.* r) (.* r) y))
             (jglue a b) @ cd_op_diagonal_equivariance_joinr r b y
@@ -1438,16 +1449,20 @@ Section SpheroidHSpace.
       lhs napply naturality_suffix.
       lhs napply naturality_suffix.
       exact (ap (fun q => ev1 @ (1 @@ q)^) (concat_pp_p _ _ _)). }
-    (** The dependent glue equation is now the cube supplied by [cd_op_diamond_diagonal]. *)
+    (** The supplied geometric comparison is converted using the original side computations. *)
     refine (ap (transport _ (jglue c d)) EV0 @ _ @ EV1^).
     napply (transport_naturality_square_beta U V
       (cd_op_diagonal_equivariance_joinl r a)
       (cd_op_diagonal_equivariance_joinr r b)
       (jglue c d) bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
       _ _ eh0 eh1 ev0 ev1 BF BG EH0 EH1).
-    exact (join_zigzag_filler_cube p00 p11 p01 p10 _ _
-      (cd_op_diamond_diagonal a b c d r)).
+    exact (join_zigzag_filler_cube p00 p11 p01 p10 _ _ diagonal).
   Defined.
+
+  (** The selected diagonal-equivariance cube still uses exactly [cd_op_diamond_diagonal], with all its original side and recursor-beta witnesses. *)
+  Definition cd_op_diagonal_equivariance_glue_glue (r a b c d : X)
+    := cd_op_diagonal_equivariance_glue_glue_from_diamond r a b c d
+      (cd_op_diamond_diagonal a b c d r).
 
   Local Transparent cd_diamond cd_op_diamond.
 

@@ -645,10 +645,37 @@ middle-left cube**, with all its side computations retained. Only the
 scalar squares are identified using 1-truncation; no join-valued filler
 or higher filler comparison is truncated.
 
-The remaining obligation is to match this cube comparison with the
-specified `AL` overlap/cap pastings in the surviving `Mixed` calculation.
-That attachment has not been proved, and these local squares do not by
-themselves establish `Mixed` or unconditional S7.
+The diagonal edge now also attaches to the selected `AL` cap inside the
+original expanded pasting. `cd_op_diagonal_equivariance_glue_glue_from_diamond`
+exposes the geometric input of the existing diagonal cube, without changing
+its four sides or mixed beta computations. The original wrapper still
+supplies exactly `cd_op_diamond_diagonal`; the full historical proof body
+is checked against it by `idpath` in `S7DiagonalWitnessCheck.v`.
+
+`last_associator_cell_from_diagonal`, `last_face_cell_from_diagonal`, and
+`computed_pasting_from_diagonal` expose this same input through the existing
+normalization. Both specified `AL` overlap eliminators, the middle overlap,
+all outer beta paths, and the transport-interchange expansion remain fixed.
+The old definitions supply the original diagonal comparison, with no
+change of their chosen witnesses.
+
+`computed_pasting_balanced_diagonal` uses the actual total-data square to
+replace its bottom diagonal edge by
+
+```text
+(balanced_scaled @ reassociation)^ @ (diagonal_top @ ap Post_r balanced).
+```
+
+It extracts the fiber comparison over a prescribed scalar square and maps
+it through the entire cap construction to obtain an equality with the
+**original `computed_pasting`**, for any final right label. This is a checked
+attachment to that cap, not merely an equality of its geometric endpoints.
+
+The full surviving pasting-ratio equality is still open. In particular,
+the balanced cells appearing in this cap route still need to be matched
+with the middle-left cells in the other part of each expanded pasting,
+with their input-label changes and beta comparisons retained. The cap
+identity alone does not establish `Mixed` or unconditional S7.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`

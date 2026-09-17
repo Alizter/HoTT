@@ -1,9 +1,10 @@
 From HoTT Require Import Basics.
-Require Import Types.Paths Types.Universe.
+Require Import Types.Paths Types.Prod Types.Sigma Types.Universe.
 Require Import Cubical.PathSquare Cubical.PathCube.
 Require Import Classes.interfaces.canonical_names.
 Require Import Pointed.Core Spaces.Spheres.
-Require Import Homotopy.HSpace.Core Homotopy.CayleyDickson Homotopy.Suspension.
+Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1.
+Require Import Homotopy.CayleyDickson Homotopy.Suspension.
 Require Import Homotopy.Join.Core Homotopy.Join.Rec2.
 Require Import Homotopy.HSpaceS7.LeftScalar Homotopy.HSpaceS7.MiddleScalar.
 Require Import Homotopy.HSpaceS7.RightScalar.
@@ -520,12 +521,26 @@ Section Normalization.
     := Join_ind_FlFr_beta_jglue _ _ _ _ _ a b.
   Let dsquare (a b c : C) (y : J)
     := e2 a b c y @ deq c (joinr b) y = deq c (joinl a) y @ e1 a b c y.
-  Let dcell (a b s t c : C) :=
+  Let diagonal_input (a b s t c : C) := transport011
+      (fun x : C * C => fun y : C * C =>
+        zigzag (fst x) (snd x) (fst y)
+          = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (cd_diamond_translate_l_neg_unit (X:=psphere 1) a s c)
+        (cd_diamond_translate_l_parameter North b North t c))
+      (path_prod' (cd_diamond_translate_r_parameter a North North t c)
+        (cd_diamond_translate_r_unit b s c))
+      (cd_op_diamond@{Set} (X:=psphere 1)
+        a b (scalar_mul s c) (scalar_mul t c))
+    = join_zigzag_filler (fun v => scalar_mul v c) (fun v => scalar_mul v c)
+        1 1 1 1 (cd_op_diamond@{Set} (X:=psphere 1) a b s t).
+  Let dcell (a b s t c : C) (delta : diagonal_input a b s t c) :=
     (ap (transport (dsquare a b c) (jglue s t)) (dbeta a b c (joinl s))
-      @ cd_op_diagonal_equivariance_glue_glue@{Set} (X:=psphere 1) c a b s t)
+      @ cd_op_diagonal_equivariance_glue_glue_from_diamond@{Set}
+          (X:=psphere 1) c a b s t delta)
       @ (dbeta a b c (joinr t))^.
   Let dcell_beta (a b s t c : C)
-    : apD (dn a b c) (jglue s t) = dcell a b s t c.
+    : apD (dn a b c) (jglue s t)
+      = dcell a b s t c (cd_op_diamond_diagonal a b s t c).
   Proof.
     exact (Join_ind_FlFr_ind_beta_jglue_jglue
       (fun x y => mu x (diagonal c y)) (fun x y => diagonal c (mu x y))
@@ -540,12 +555,13 @@ Section Normalization.
   Let n2_beta (a b c : C) (y : J)
     : n2 a b c y = n2_change a b c y (dn a b c y)
     := concat_Ap_inverse (fun x => deq c x y) (jglue a b).
-  Let n2_cell (a b s t c : C) :=
+  Let n2_cell (a b s t c : C) (delta : diagonal_input a b s t c) :=
     (ap (transport _ (jglue s t)) (n2_beta a b c (joinl s))
-      @ ap01D1 (n2_change a b c) (jglue s t) (dcell a b s t c))
+      @ ap01D1 (n2_change a b c) (jglue s t) (dcell a b s t c delta))
       @ (n2_beta a b c (joinr t))^.
   Let n2_cell_beta (a b s t c : C)
-    : apD (n2 a b c) (jglue s t) = n2_cell a b s t c.
+    : apD (n2 a b c) (jglue s t)
+      = n2_cell a b s t c (cd_op_diamond_diagonal a b s t c).
   Proof.
     refine (apD_homotopic (n2_beta a b c) (jglue s t) @ _).
     nrefine ((1 @@ _) @@ 1).
@@ -910,7 +926,8 @@ Section Normalization.
     (ap (transport _ (jglue s t)) (eta_last_beta a b c d (joinl s))
       @ ap01D11 (eta_paste a b c d) (jglue s t)
         (ap01D11 (eta_paste12 a b c d) (jglue s t)
-          (en1_cell a b s t c d) (n2_cell a b s t c))
+          (en1_cell a b s t c d)
+          (n2_cell a b s t c (cd_op_diamond_diagonal a b s t c)))
         (en3_cell a b s t c d))
       @ (eta_last_beta a b c d (joinr t))^.
 
@@ -1098,12 +1115,17 @@ Section Normalization.
   Defined.
 
   (** The whole last-associator cube is now a pasting of two geometric naturality cubes and the original diagonal-equivariance cube. *)
-  Definition last_associator_cell (a b s t c : C) :=
+  Definition last_associator_cell_from_diagonal (a b s t c : C)
+    (delta : diagonal_input a b s t c) :=
     (ap (transport _ (jglue s t)) (last_beta a b c (joinl s))
       @ ap01D11 (last_paste a b c) (jglue s t)
         (ap01D11 (last_paste12 a b c) (jglue s t)
-          (n1_cell a b s t c) (n2_cell a b s t c)) (n3_cell a b s t c))
+          (n1_cell a b s t c) (n2_cell a b s t c delta)) (n3_cell a b s t c))
       @ (last_beta a b c (joinr t))^.
+
+  Definition last_associator_cell (a b s t c : C)
+    := last_associator_cell_from_diagonal a b s t c
+      (cd_op_diamond_diagonal a b s t c).
 
   Definition last_associator_cell_beta (a b s t c : C)
     : apD (last_middle a b c) (jglue s t) = last_associator_cell a b s t c.
@@ -1135,12 +1157,18 @@ Section Normalization.
     := (ap (fun r => xf a b y (joinl c) @ r) q)^ @ n.
 
   (** This pasting uses the computed last-associator cube and the two overlap eliminators' specified glue proofs, including their first-associator beta adjustments. *)
-  Definition last_face_cell (a b s t c : C)
+  Definition last_face_cell_from_diagonal (a b s t c : C)
+    (delta : diagonal_input a b s t c)
     : transport (fun y => Gamma a b y (joinl c)) (jglue s t)
         (face_z a b (joinl s) c) = face_z a b (joinr t) c
     := ap01D11 (last_close a b c) (jglue s t) (or_cell b s t c)
       (ap01D11 (last_prefix a b c) (jglue s t)
-        (last_associator_cell a b s t c) (ol_cell a s t c)).
+        (last_associator_cell_from_diagonal a b s t c delta)
+        (ol_cell a s t c)).
+
+  Definition last_face_cell (a b s t c : C)
+    := last_face_cell_from_diagonal a b s t c
+      (cd_op_diamond_diagonal a b s t c).
 
   Definition last_face_cell_beta (a b s t c : C)
     : apD (fun y => face_z a b y c) (jglue s t) = last_face_cell a b s t c.
@@ -1157,22 +1185,82 @@ Section Normalization.
       + exact (Join_ind_beta_jglue _ _ _ _ s t).
   Defined.
 
-  Let computed_cap a b s t c :=
-    ((last_face_cell a b s t c)^
+  Let computed_cap a b s t c (delta : diagonal_input a b s t c) :=
+    ((last_face_cell_from_diagonal a b s t c delta)^
       @ ap (transport (fun y => Gamma a b y (joinl c)) (jglue s t))
         (face_overlap a b s c))
     @ face_transport_compute a b s t (joinl c).
   Let cap_expansion a b s t c
     : cap a b s t c @ face_transport_compute a b s t (joinl c)
-      = computed_cap a b s t c
+      = computed_cap a b s t c (cd_op_diamond_diagonal a b s t c)
     := (inverse2 (last_face_cell_beta a b s t c) @@ 1) @@ 1.
 
   (** All four specified associator cubes, both overlap cubes, and the geometric naturality cubes now occur explicitly in the pasting. The remaining obligation is compatibility of these actual diamond pastings. *)
-  Definition computed_pasting (a b s t c d : C)
+  Definition computed_pasting_from_diagonal (a b s t c d : C)
+    (delta : diagonal_input a b s t c)
     : transport (Gamma a b (joinr t)) (jglue c d)
         (face_z a b (joinr t) c) = transported_face a b s t (joinr d)
     := ap (transport (Gamma a b (joinr t)) (jglue c d))
-        (computed_cap a b s t c) @ transported_face_cell a b s t c d.
+        (computed_cap a b s t c delta) @ transported_face_cell a b s t c d.
+
+  Definition computed_pasting (a b s t c d : C)
+    := computed_pasting_from_diagonal a b s t c d
+      (cd_op_diamond_diagonal a b s t c).
+
+  (** Attach the balanced--diagonal square to the actual last-left cap inside [computed_pasting]. The two [AL] overlap eliminators, the middle overlap, and the transport-interchange expansion are retained by [computed_pasting_from_diagonal]. *)
+  Section BalancedCap.
+    Local Open Scope mc_mult_scope.
+    Local Existing Instance S7LeftScalar.circle_distropp.
+    Context (s a b c d r : C).
+    Let rt := fun z : C => z * r.
+    Let Q := fun v : (C * C) * (C * C) =>
+      zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+        = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+    Let data (v : C * C) : sig Q :=
+      (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+        cd_op_diamond@{Set} (X:=psphere 1) a b (fst v) (snd v)).
+    Let source := data ((s * c) * r, (conj s * d) * r).
+    Let target := functor_join_filler_data rt rt (data (s * c, conj s * d)).
+    Let reassociation := ap data (path_prod'
+      (simple_associativity (f:=sgop_s1) s c r)
+      (simple_associativity (f:=sgop_s1) (conj s) d r)).
+    Let alternate : source = target :=
+      (S7MiddleScalar.diamond_path@{u} cd_diamond_susp s a b (c * r) (d * r)
+        @ reassociation)^
+      @ (S7MiddleScalar.diagonal_path cd_diamond_susp (a * s) (s * b) c d r
+        @ ap (functor_join_filler_data rt rt)
+          (S7MiddleScalar.diamond_path@{u} cd_diamond_susp s a b c d)).
+    Let route : alternate
+      = S7MiddleScalar.diagonal_path cd_diamond_susp a b (s * c) (conj s * d) r.
+    Proof.
+      unfold alternate.
+      lhs napply (1 @@ S7MiddleScalar.diamond_translate_square_postcompose@{u}
+        cd_diamond_susp s a b c d r).
+      apply concat_V_pp.
+    Defined.
+    Let pl := path_prod'
+      (cd_diamond_translate_l_neg_unit (X:=psphere 1) a (s * c) r)
+      (cd_diamond_translate_l_parameter North b North (conj s * d) r).
+    Let pr := path_prod'
+      (cd_diamond_translate_r_parameter (X:=psphere 1) a North North (conj s * d) r)
+      (cd_diamond_translate_r_unit b (s * c) r).
+    Let beta := transport_path_prod' Q pl pr source.2.
+
+    Definition computed_pasting_balanced_diagonal (e : C)
+      (kappa : pr1_path alternate = path_prod' pl pr)
+      : computed_pasting_from_diagonal a b (s * c) (conj s * d) r e
+          (beta^ @ transport
+            (fun p : source.1 = target.1 => transport Q p source.2 = target.2)
+            kappa (pr2_path alternate))
+        = computed_pasting a b (s * c) (conj s * d) r e.
+    Proof.
+      napply (ap (computed_pasting_from_diagonal a b (s * c) (conj s * d) r e)).
+      lhs tapply (1 @@ path_sigma_fiber_square Q kappa (pr2_path alternate)
+        (beta @ cd_op_diamond_diagonal (X:=psphere 1) a b (s * c) (conj s * d) r)
+        (eta_path_sigma alternate @ route)).
+      apply concat_V_pp.
+    Defined.
+  End BalancedCap.
 
   Definition pasting_expansion (a b s t c d : C)
     : pasting a b s t c d @ face_transport_compute a b s t (joinr d)
