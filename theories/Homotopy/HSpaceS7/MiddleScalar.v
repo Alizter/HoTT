@@ -1,5 +1,5 @@
 From HoTT Require Import Basics.
-Require Import Types.Paths Types.Prod Types.Universe.
+Require Import Types.Paths Types.Prod Types.Sigma Types.Universe.
 Require Import Classes.interfaces.abstract_algebra.
 Require Import Pointed.Core Spaces.Spheres Truncations.Connectedness.
 Require Import Homotopy.HSpace.Core Homotopy.HSpaceS1.
@@ -36,6 +36,46 @@ Definition map_r `{Univalence} (s b c : C)
     == cd_diamond_map_r b (s * c)
   := fun t => ap (fun b => cd_diamond_map_r b c t) (comm s b)
     @ cd_diamond_map_r_balanced s b c t.
+
+(** Balancing and diagonal translation commute on the scalar parameter, including the reassociations of both last-input labels. These compare the chosen paths, rather than just their endpoints. *)
+Definition parameter_translate_coherence `{Univalence} (s a b c d r : C)
+  : cd_diamond_parameter_translate (X:=psphere 1) (a * s) (s * b) c d r
+      @ parameter s a b c d
+    = (parameter s a b (c * r) (d * r)
+        @ ap011 (cd_diamond_parameter a b)
+          (assoc s c r) (assoc (conj s) d r))
+      @ cd_diamond_parameter_translate a b (s * c) (conj s * d) r.
+Proof.
+  revert s a b c d r.
+  do 6 srapply (conn_point_elim (-1) (A:=psphere 1)).
+  reflexivity.
+Defined.
+
+Definition map_l_translate_coherence `{Univalence} (s a c r z : C)
+  : cd_diamond_map_l_translate (X:=psphere 1) (a * s) c r z
+      @ ap (.* r) (cd_diamond_map_l_balanced s a c z)
+    = (cd_diamond_map_l_balanced s a (c * r) z
+        @ ap (fun c => cd_diamond_map_l a c z) (assoc s c r))
+      @ cd_diamond_map_l_translate a (s * c) r z.
+Proof.
+  revert s a c r z.
+  do 5 srapply (conn_point_elim (-1) (A:=psphere 1)).
+  lhs napply concat_p1.
+  rhs napply concat_1p.
+  reflexivity.
+Defined.
+
+Definition map_r_translate_coherence `{Univalence} (s b c r z : C)
+  : cd_diamond_map_r_translate (X:=psphere 1) (s * b) c r z
+      @ ap (.* r) (map_r s b c z)
+    = (map_r s b (c * r) z
+        @ ap (fun c => cd_diamond_map_r b c z) (assoc s c r))
+      @ cd_diamond_map_r_translate b (s * c) r z.
+Proof.
+  revert s b c r z.
+  do 5 srapply (conn_point_elim (-1) (A:=psphere 1)).
+  reflexivity.
+Defined.
 
 Local Definition p00 `{Univalence} (s a c : C) := (assoc a s c)^.
 Local Definition p01 `{Univalence} (s a d : C)
@@ -143,6 +183,286 @@ Proof.
     (parameter s a b c d) _ _ _ _ _ _ _ _).
 Defined.
 
+(** The standard scalar boundary adjustments of the balanced comparison do not change its path of complete filler data. *)
+Section BalancedPath.
+  Universe u.
+  Context `{Univalence}
+    (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C).
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let pl := path_prod' (p00 s a c) (p11 s b d).
+  Let pr := path_prod' (p01 s a d) (p10 s b c).
+
+  Definition diamond_path := path_sigma' Q (path_prod' pl pr)
+    (transport_path_prod' Q pl pr (D D0 (a * s) (s * b) c d)
+      @ diamond@{u} D0 s a b c d).
+
+  Local Transparent cd_op_diamond.
+  Definition diamond_path_change
+    : diamond_path = join_zigzag_filler_change_path
+      (fun z => (@cd_diamond@{Set} (psphere 1) _ D0 z)^)
+      (cd_diamond_map_l_balanced (X:=psphere 1) s a c) (map_r s b c)
+      (parameter s a b c d)
+      (cd_diamond_map_l_neg_unit (a * s) c)
+      (cd_diamond_map_l_parameter (a * s) (s * b) c d)
+      (cd_diamond_map_r_parameter (a * s) (s * b) c d)
+      (cd_diamond_map_r_unit (s * b) c)
+      (cd_diamond_map_l_neg_unit a (s * c))
+      (cd_diamond_map_l_parameter a b (s * c) (conj s * d))
+      (cd_diamond_map_r_parameter a b (s * c) (conj s * d))
+      (cd_diamond_map_r_unit b (s * c)).
+  Proof.
+    exact (path_sigma_transport011_change
+      (fun x : C * C => fun y : C * C =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (ap011 path_prod' (standard_00@{u} s a c) (standard_11@{u} s a b c d))
+      (ap011 path_prod' (standard_01@{u} s a b c d) (standard_10@{u} s b c))
+      (join_zigzag_filler_change
+        (fun z => (@cd_diamond@{Set} (psphere 1) _ D0 z)^)
+        (cd_diamond_map_l_balanced s a c) (map_r s b c)
+        (parameter s a b c d) _ _ _ _ _ _ _ _)).
+  Defined.
+End BalancedPath.
+
+(** The diagonal comparison includes the actual postcomposition beta path. Its normalization to the selected parameter-independent corners also preserves the complete filler-data path. *)
+Section DiagonalPath.
+  Context `{Univalence}
+    (D0 : CayleyDicksonDiamond (psphere 1) (-)) (a b c d r : C).
+  Let rt := fun z : C => z * r.
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let pl := path_prod' (cd_diamond_translate_l_neg_unit (X:=psphere 1) a c r)
+    (cd_diamond_translate_l_parameter a b c d r).
+  Let pr := path_prod' (cd_diamond_translate_r_parameter (X:=psphere 1) a b c d r)
+    (cd_diamond_translate_r_unit b c r).
+  Let pl' := path_prod' (cd_diamond_translate_l_neg_unit (X:=psphere 1) a c r)
+    (cd_diamond_translate_l_parameter North b North d r).
+  Let pr' := path_prod' (cd_diamond_translate_r_parameter (X:=psphere 1) a North North d r)
+    (cd_diamond_translate_r_unit b c r).
+
+  Definition translate_path := path_sigma' Q (path_prod' pl pr)
+    (transport_path_prod' Q pl pr (D D0 a b (c * r) (d * r))
+      @ cd_op_diamond_translate (X:=psphere 1) a b c d r).
+
+  Definition diagonal_path := path_sigma' Q (path_prod' pl' pr')
+    (transport_path_prod' Q pl' pr' (D D0 a b (c * r) (d * r))
+      @ cd_op_diamond_diagonal (X:=psphere 1) a b c d r).
+
+  Definition diagonal_path_translate : diagonal_path = translate_path.
+  Proof.
+    exact (path_sigma_transport011_change
+      (fun x : C * C => fun y : C * C =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (ap (path_prod' (cd_diamond_translate_l_neg_unit (X:=psphere 1) a c r))
+        (cd_diamond_translate_l_parameter_independent a b c d r))
+      (ap (fun p => path_prod' p (cd_diamond_translate_r_unit (X:=psphere 1) b c r))
+        (cd_diamond_translate_r_parameter_independent a b c d r))
+      (cd_op_diamond_translate (X:=psphere 1) a b c d r)).
+  Defined.
+
+  Local Transparent cd_op_diamond.
+  Let composition := join_zigzag_filler_compose
+    (cd_diamond_map_l (X:=psphere 1) a c) (cd_diamond_map_r b c) rt rt
+    (cd_diamond_map_l_neg_unit a c) (cd_diamond_map_l_parameter a b c d)
+    (cd_diamond_map_r_parameter a b c d) (cd_diamond_map_r_unit b c)
+    (@cd_diamond@{Set} (psphere 1) _ D0 (cd_diamond_parameter a b c d))^.
+
+  Definition translate_path_change
+    : translate_path @ ap (exist Q
+        (((a * c) * r, ((-d) * conj b) * r), ((conj a * d) * r, (c * b) * r)))
+        composition
+      = join_zigzag_filler_change_path
+        (fun z => (@cd_diamond@{Set} (psphere 1) _ D0 z)^)
+        (cd_diamond_map_l_translate a c r) (cd_diamond_map_r_translate b c r)
+        (cd_diamond_parameter_translate a b c d r)
+        (cd_diamond_map_l_neg_unit a (c * r))
+        (cd_diamond_map_l_parameter a b (c * r) (d * r))
+        (cd_diamond_map_r_parameter a b (c * r) (d * r))
+        (cd_diamond_map_r_unit b (c * r))
+        (ap rt (cd_diamond_map_l_neg_unit a c))
+        (ap rt (cd_diamond_map_l_parameter a b c d))
+        (ap rt (cd_diamond_map_r_parameter a b c d))
+        (ap rt (cd_diamond_map_r_unit b c)).
+  Proof.
+    unfold translate_path, cd_op_diamond_translate.
+    lhs napply (ap (path_sigma' Q (path_prod' pl pr))
+      (concat_p_pp _ _ _) @@ 1).
+    napply (path_sigma_cancel_suffix Q (path_prod' pl pr) _ composition).
+  Defined.
+End DiagonalPath.
+
+Local Opaque cd_op_diamond.
+
+(** The square of elementary balanced and diagonal changes retains the whole chosen diamond and all four boundary witnesses at each corner. Reassociation is included in the lower diagonal change. Postcomposition beta paths and the subsequent standard-boundary adjustments remain separate from this square. *)
+Section BalancedDiagonal.
+  Universe u.
+  Context `{Univalence}
+    (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d r : C).
+  Let h (z : C) := (@cd_diamond@{Set} (psphere 1) _ D0 z)^.
+  Let rt := fun z : C => z * r.
+  Let f0 : C -> C := cd_diamond_map_l (a * s) (c * r).
+  Let f1 : C -> C := fun z => cd_diamond_map_l (a * s) c z * r.
+  Let f2 : C -> C := cd_diamond_map_l a (s * (c * r)).
+  Let f3 : C -> C := fun z => cd_diamond_map_l a (s * c) z * r.
+  Let g0 : C -> C := cd_diamond_map_r (s * b) (c * r).
+  Let g1 : C -> C := fun z => cd_diamond_map_r (s * b) c z * r.
+  Let g2 : C -> C := cd_diamond_map_r b (s * (c * r)).
+  Let g3 : C -> C := fun z => cd_diamond_map_r b (s * c) z * r.
+  Let pf01 := cd_diamond_map_l_translate (X:=psphere 1) (a * s) c r.
+  Let pf13 := fun z => ap rt (cd_diamond_map_l_balanced s a c z).
+  Let pf02 := cd_diamond_map_l_balanced (X:=psphere 1) s a (c * r).
+  Let pf23 := fun z =>
+    ap (fun c => cd_diamond_map_l a c z) (assoc s c r)
+      @ cd_diamond_map_l_translate a (s * c) r z.
+  Let pg01 := cd_diamond_map_r_translate (X:=psphere 1) (s * b) c r.
+  Let pg13 := fun z => ap rt (map_r s b c z).
+  Let pg02 := map_r s b (c * r).
+  Let pg23 := fun z =>
+    ap (fun c => cd_diamond_map_r b c z) (assoc s c r)
+      @ cd_diamond_map_r_translate b (s * c) r z.
+  Let pt01 := cd_diamond_parameter_translate (X:=psphere 1)
+    (a * s) (s * b) c d r.
+  Let pt13 := parameter s a b c d.
+  Let pt02 := parameter s a b (c * r) (d * r).
+  Let pt23 := ap011 (cd_diamond_parameter (X:=psphere 1) a b)
+      (assoc s c r) (assoc (conj s) d r)
+    @ cd_diamond_parameter_translate a b (s * c) (conj s * d) r.
+
+  Let p0 := cd_diamond_map_l_neg_unit (X:=psphere 1) (a * s) (c * r).
+  Let q0 := cd_diamond_map_l_parameter (X:=psphere 1)
+    (a * s) (s * b) (c * r) (d * r).
+  Let r0 := cd_diamond_map_r_parameter (X:=psphere 1)
+    (a * s) (s * b) (c * r) (d * r).
+  Let s0 := cd_diamond_map_r_unit (X:=psphere 1) (s * b) (c * r).
+  Let p1 := ap rt (cd_diamond_map_l_neg_unit (X:=psphere 1) (a * s) c).
+  Let q1 := ap rt (cd_diamond_map_l_parameter (X:=psphere 1)
+    (a * s) (s * b) c d).
+  Let r1 := ap rt (cd_diamond_map_r_parameter (X:=psphere 1)
+    (a * s) (s * b) c d).
+  Let s1 := ap rt (cd_diamond_map_r_unit (X:=psphere 1) (s * b) c).
+  Let p2 := cd_diamond_map_l_neg_unit (X:=psphere 1) a (s * (c * r)).
+  Let q2 := cd_diamond_map_l_parameter (X:=psphere 1)
+    a b (s * (c * r)) (conj s * (d * r)).
+  Let r2 := cd_diamond_map_r_parameter (X:=psphere 1)
+    a b (s * (c * r)) (conj s * (d * r)).
+  Let s2 := cd_diamond_map_r_unit (X:=psphere 1) b (s * (c * r)).
+  Let p3 := ap rt (cd_diamond_map_l_neg_unit (X:=psphere 1) a (s * c)).
+  Let q3 := ap rt (cd_diamond_map_l_parameter (X:=psphere 1)
+    a b (s * c) (conj s * d)).
+  Let r3 := ap rt (cd_diamond_map_r_parameter (X:=psphere 1)
+    a b (s * c) (conj s * d)).
+  Let s3 := ap rt (cd_diamond_map_r_unit (X:=psphere 1) b (s * c)).
+
+  Definition diamond_translate_square
+    : join_zigzag_filler_change_path h pf01 pg01 pt01
+        p0 q0 r0 s0 p1 q1 r1 s1
+        @ join_zigzag_filler_change_path h pf13 pg13 pt13
+          p1 q1 r1 s1 p3 q3 r3 s3
+      = join_zigzag_filler_change_path h pf02 pg02 pt02
+        p0 q0 r0 s0 p2 q2 r2 s2
+        @ join_zigzag_filler_change_path h pf23 pg23 pt23
+          p2 q2 r2 s2 p3 q3 r3 s3.
+  Proof.
+    nrefine (join_zigzag_filler_change_square h f0 f1 f2 f3 g0 g1 g2 g3
+      pf01 pf13 pf02 pf23 pg01 pg13 pg02 pg23 _ _
+      pt01 pt13 pt02 pt23 _
+      p0 q0 r0 s0 p1 q1 r1 s1 p2 q2 r2 s2 p3 q3 r3 s3).
+    - intro z.
+      exact (map_l_translate_coherence@{u} s a c r z @ concat_pp_p _ _ _).
+    - intro z.
+      exact (map_r_translate_coherence@{u} s b c r z @ concat_pp_p _ _ _).
+    - exact (parameter_translate_coherence@{u} s a b c d r @ concat_pp_p _ _ _).
+  Defined.
+
+  Local Transparent cd_op_diamond.
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let composition_data (a0 b0 c0 d0 : C) := ap
+    (exist Q (((a0 * c0) * r, ((-d0) * conj b0) * r),
+      ((conj a0 * d0) * r, (c0 * b0) * r)))
+    (join_zigzag_filler_compose
+      (cd_diamond_map_l (X:=psphere 1) a0 c0) (cd_diamond_map_r b0 c0) rt rt
+      (cd_diamond_map_l_neg_unit a0 c0) (cd_diamond_map_l_parameter a0 b0 c0 d0)
+      (cd_diamond_map_r_parameter a0 b0 c0 d0) (cd_diamond_map_r_unit b0 c0)
+      (h (cd_diamond_parameter a0 b0 c0 d0))).
+  Let pc := assoc s c r.
+  Let pd := assoc (conj s) d r.
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      D D0 a b (fst v) (snd v)).
+  Let reassociation := ap data (path_prod' pc pd).
+
+  Let reassociation_change
+    : (reassociation @ translate_path D0 a b (s * c) (conj s * d) r)
+        @ composition_data a b (s * c) (conj s * d)
+      = join_zigzag_filler_change_path h pf23 pg23 pt23
+        p2 q2 r2 s2 p3 q3 r3 s3.
+  Proof.
+    lhs napply concat_pp_p.
+    lhs napply (1 @@ translate_path_change D0 a b (s * c) (conj s * d) r).
+    lhs tapply (join_zigzag_filler_change_path_reindex
+      (X:=C) (C:=C) (D:=C) (n:=South) (e:=North) h
+      (fun v : C * C => cd_diamond_map_l (X:=psphere 1) a (fst v))
+      (fun v : C * C => cd_diamond_map_r (X:=psphere 1) b (fst v))
+      (fun v : C * C => cd_diamond_parameter (X:=psphere 1) a b (fst v) (snd v))
+      (fun v => a * fst v) (fun v => (-snd v) * conj b)
+      (fun v => conj a * snd v) (fun v => fst v * b)
+      (fun v => cd_diamond_map_l_neg_unit (X:=psphere 1) a (fst v))
+      (fun v => cd_diamond_map_l_parameter (X:=psphere 1) a b (fst v) (snd v))
+      (fun v => cd_diamond_map_r_parameter (X:=psphere 1) a b (fst v) (snd v))
+      (fun v => cd_diamond_map_r_unit (X:=psphere 1) b (fst v))
+      (path_prod' pc pd)
+      (cd_diamond_map_l_translate (X:=psphere 1) a (s * c) r)
+      (cd_diamond_map_r_translate (X:=psphere 1) b (s * c) r)
+      (cd_diamond_parameter_translate (X:=psphere 1) a b (s * c) (conj s * d) r)
+      p3 q3 r3 s3).
+    pose (lf := fun z : C =>
+      ap (fun v : C * C => cd_diamond_map_l a (fst v) z) (path_prod' pc pd)
+        @ cd_diamond_map_l_translate a (s * c) r z).
+    pose (rg := fun z : C =>
+      ap (fun v : C * C => cd_diamond_map_r b (fst v) z) (path_prod' pc pd)
+        @ cd_diamond_map_r_translate b (s * c) r z).
+    lhs napply (ap (fun p => join_zigzag_filler_change_path h lf rg p
+      p2 q2 r2 s2 p3 q3 r3 s3)
+      (ap_path_prod (cd_diamond_parameter (X:=psphere 1) a b)
+        (z:=(s * (c * r), conj s * (d * r)))
+        (z':=((s * c) * r, (conj s * d) * r)) pc pd @@ 1)).
+    napply (ap011 (fun pf pg => join_zigzag_filler_change_path h pf pg pt23
+      p2 q2 r2 s2 p3 q3 r3 s3)).
+    - apply path_forall; intro z.
+      exact ((ap_compose fst (fun c => cd_diamond_map_l a c z) (path_prod' pc pd)
+        @ ap (ap (fun c => cd_diamond_map_l a c z))
+          (ap_fst_path_prod' pc pd)) @@ 1).
+    - apply path_forall; intro z.
+      exact ((ap_compose fst (fun c => cd_diamond_map_r b c z) (path_prod' pc pd)
+        @ ap (ap (fun c => cd_diamond_map_r b c z))
+          (ap_fst_path_prod' pc pd)) @@ 1).
+  Defined.
+
+  (** Three edges now use the existing diagonal and balanced comparisons, not their elementary replacements. The postcomposition beta paths at the two translated vertices remain explicit. The remaining middle edge is the balanced scalar change after postcomposition. *)
+  Definition diamond_translate_square_normalized
+    : (diagonal_path D0 (a * s) (s * b) c d r
+        @ composition_data (a * s) (s * b) c d)
+      @ join_zigzag_filler_change_path h pf13 pg13 pt13
+        p1 q1 r1 s1 p3 q3 r3 s3
+      = diamond_path@{u} D0 s a b (c * r) (d * r)
+        @ ((reassociation @ diagonal_path D0 a b (s * c) (conj s * d) r)
+          @ composition_data a b (s * c) (conj s * d)).
+  Proof.
+    lhs napply ((diagonal_path_translate D0 (a * s) (s * b) c d r @@ 1) @@ 1).
+    lhs napply (translate_path_change D0 (a * s) (s * b) c d r @@ 1).
+    rhs napply (diamond_path_change@{u} D0 s a b (c * r) (d * r) @@ 1).
+    rhs napply (1 @@ ((1 @@ diagonal_path_translate D0 a b (s * c) (conj s * d) r) @@ 1)).
+    rhs napply (1 @@ reassociation_change).
+    exact diamond_translate_square.
+  Defined.
+End BalancedDiagonal.
+
+Local Opaque cd_op_diamond.
+
 Local Opaque associative_sgop_s1 commutative_sgop_s1 cds_factorneg_l.
 
 (** The two vertical faces retain the old scalar associativity paths. *)
@@ -184,9 +504,17 @@ Proof.
   exact (inverse_natural _ _ (join_natsq (p11 s b d) (p01 s a d))).
 Defined.
 
-(** The mixed comparison is the balanced diamond, converted using the specified computations of all four sides. *)
-Definition middle_l_glue_glue `{Univalence}
+(** Convert a given balanced filler comparison using the specified computations of all four sides. Keeping the geometric input explicit lets higher comparisons act on that input without unfolding or changing the recursor witnesses. *)
+Definition middle_l_glue_glue_from_diamond `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)
+  (balanced : transport011
+      (fun x : C * C => fun y : C * C =>
+        zigzag (fst x) (snd x) (fst y)
+          = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (p00 s a c) (p11 s b d))
+      (path_prod' (p01 s a d) (p10 s b c))
+      (D D0 (a * s) (s * b) c d)
+    = D D0 a b (s * c) (conj s * d))
   : transport
       (fun z => ap (fun x => mu D0 (mu D0 x (joinl s)) z) (jglue a b)
           @ first_rl D0 b s z
@@ -280,8 +608,13 @@ Proof.
     bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
     _ _ eh0 eh1 ev0 ev1 BF BG EH0 EH1).
   exact (join_zigzag_filler_cube (p00 s a c) (p11 s b d)
-    (p01 s a d) (p10 s b c) _ _ (diamond D0 s a b c d)).
+    (p01 s a d) (p10 s b c) _ _ balanced).
 Defined.
+
+(** The original mixed cell uses the original balanced diamond. Its four side computations and its geometric witness are unchanged. *)
+Definition middle_l_glue_glue `{Univalence}
+  `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)
+  := middle_l_glue_glue_from_diamond D0 s a b c d (diamond D0 s a b c d).
 
 Definition middle_l_glue `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b : C)

@@ -1,7 +1,7 @@
 (** * Theorems about Sigma-types (dependent sums) *)
 
 Require Import HoTT.Basics.
-Require Import Types.Arrow Types.Paths.
+Require Import Types.Arrow Types.Paths Types.Prod.
 Local Open Scope path_scope.
 
 Generalizable Variables X A B C f g n.
@@ -230,6 +230,34 @@ Definition path_sigma_p1_1p' {A : Type} (P : A -> Type)
 Proof.
   destruct p, q.
   reflexivity.
+Defined.
+
+(** A specified change of target fiber cancels from a total-space path. *)
+Definition path_sigma_cancel_suffix {A : Type} (P : A -> Type)
+  {x y : A} {u : P x} {v w : P y}
+  (p : x = y) (q : transport P p u = w) (r : v = w)
+  : path_sigma' P p (q @ r^) @ ap (exist P y) r = path_sigma' P p q.
+Proof.
+  destruct r.
+  lhs napply (ap (path_sigma' P p) (concat_p1 q) @@ 1).
+  apply concat_p1.
+Defined.
+
+(** Replacing the two base paths and correcting the fiber comparison does not replace the path in the total space. The given corrections are retained explicitly. *)
+Definition path_sigma_transport011_change {A B : Type} (P : A -> B -> Type)
+  {x x' : A} {y y' : B} {u : P x y} {v : P x' y'}
+  {p p' : x = x'} {q q' : y = y'} (ep : p = p') (eq_ : q = q')
+  (h : transport011 P p q u = v)
+  : let Q := fun z : A * B => P (fst z) (snd z) in
+    path_sigma' Q (path_prod' p' q')
+      (transport_path_prod' Q p' q' u
+        @ ((ap011 (fun p q => transport011 P p q u) ep eq_)^ @ h))
+      = path_sigma' Q (path_prod' p q)
+        (transport_path_prod' Q p q u @ h).
+Proof.
+  destruct ep, eq_.
+  exact (ap (path_sigma' (fun z : A * B => P (fst z) (snd z))
+    (path_prod' p q)) (1 @@ concat_1p h)).
 Defined.
 
 (** [pr1_path] also commutes with the groupoid structure. *)

@@ -1,6 +1,8 @@
-From HoTT Require Import Basics Types.Paths Types.Universe.
+From HoTT Require Import Basics Types.Paths Types.Prod Types.Sigma Types.Universe.
 From HoTT Require Import Pointed.Core Spaces.Spheres.
 From HoTT Require Import Homotopy.CayleyDickson Homotopy.Suspension.
+From HoTT Require Import Homotopy.HSpaceS3.
+From HoTT Require Import Homotopy.HSpaceS7.Direct.RightRightMiddle.
 From HoTT Require Import Homotopy.Join.Core.
 From HoTT Require Import Homotopy.HSpaceS7.LeftScalar.
 From HoTT Require Import Homotopy.HSpaceS7.MiddleScalar.
@@ -97,3 +99,89 @@ Section ChosenMiddleChecks.
       (moveL_Vp _ _ _ (D.eta_edge_comparison_of_section@{u}
         a b c d (K a b) (specified_middle_boundary a b) s t))^.
 End ChosenMiddleChecks.
+
+(** The whole right-middle comparison retains the constructor witnesses and the chosen mixed cube. These checks use the existing shared proof universe. *)
+Section WholeMiddleChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
+    S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Local Notation J := (Join@{Set Set Set} C C).
+  Local Notation mu := (cd_op@{Set} (X:=psphere 1)).
+  Local Notation MR := (S7RightRightMiddle.middle_r@{u}).
+
+  Example eta_mr_joinl (t a c d : C)
+    : D.eta_overlap_mr@{u} t c d (joinl a)
+      = D.eta_overlap_l@{u} a c d (joinr t)
+    := idpath.
+
+  Example eta_mr_joinr (t b c d : C)
+    : D.eta_overlap_mr@{u} t c d (joinr b)
+      = D.eta_overlap_r@{u} b c d (joinr t)
+    := idpath.
+
+  Let right_beta (a b t : C) (z : J)
+    : concat_Ap (fun x => MR t x z) (jglue a b)
+      = S7RightRightMiddle.middle_r_glue@{u} t a b z
+    := Join_ind_FlFr_beta_jglue
+      (fun x => mu (mu x (joinr t)) z)
+      (fun x => mu x (mu (joinr t) z))
+      (fun a => MR t (joinl a) z) (fun b => MR t (joinr b) z)
+      (fun a b => S7RightRightMiddle.middle_r_glue@{u} t a b z) a b.
+
+  Example right_face_retained_cell (a b t c d : C)
+    : apD (fun z => concat_Ap (fun x => MR t x z) (jglue a b)) (jglue c d)
+      = (ap (transport (D.Gamma@{u} a b (joinr t)) (jglue c d))
+          (right_beta a b t (joinl c))
+        @ S7RightRightMiddle.middle_r_glue_glue@{u} t a b c d)
+      @ (right_beta a b t (joinr d))^
+    := D.right_face_glue@{u} a b t c d.
+
+  Example balanced_cell_retains_diamond
+    (D0 : CayleyDicksonDiamond (psphere 1)
+      (@cds_negate (psphere 1) S7LeftScalar.circle_spheroid)) (s a b c d : C)
+    : S7MiddleScalar.middle_l_glue_glue@{u} D0 s a b c d
+      = S7MiddleScalar.middle_l_glue_glue_from_diamond D0 s a b c d
+        (S7MiddleScalar.diamond@{u} D0 s a b c d)
+    := idpath.
+
+  Context (a b s t c d : C).
+  Let E := D.equiv_mixed_middle_pasting@{u} a b s t c d.
+
+  Example middle_pasting_roundtrip
+    (q : (D.middle_pasting@{u} a b s t c d)^
+          @ D.middle_pasting@{u} a b s t North d
+        = (D.middle_pasting@{u} a b North t c d)^
+          @ D.middle_pasting@{u} a b North t North d)
+    : E^-1 (E q) = q
+    := eissect E q.
+
+  Example original_mixed_roundtrip (m : D.Mixed@{u} a b s t c d)
+    : E (E^-1 m) = m
+    := eisretr E m.
+End WholeMiddleChecks.
+
+(** Packaging a filler change retains its specified boundary paths, not only its endpoint vertices. *)
+Section FillerBoundaryCheck.
+  Context {X C E : Type} {n e : X}
+    (h : forall t, zigzag n t t = zigzag n t e)
+    {f f' : X -> C} {g g' : X -> E}
+    (pf : f == f') (pg : g == g') {t t' : X} (p_t : t = t')
+    {c c' k k' : C} {d d' l l' : E}
+    (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+    (p' : f' n = k) (q' : f' t' = k')
+    (r' : g' t' = l) (s' : g' e = l').
+
+  Example filler_change_keeps_boundaries
+    : ap pr1 (join_zigzag_filler_change_path h pf pg p_t
+        p q r s p' q' r' s')
+      = path_prod'
+        (path_prod' (p^ @ pf n @ p') (q^ @ (pf t @ ap f' p_t) @ q'))
+        (path_prod' (r^ @ (pg t @ ap g' p_t) @ r') (s^ @ pg e @ s')).
+  Proof.
+    apply ap_pr1_path_sigma.
+  Defined.
+End FillerBoundaryCheck.

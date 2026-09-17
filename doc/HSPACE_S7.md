@@ -571,6 +571,45 @@ M(s,c)^ @ M(s,North) = M(North,c)^ @ M(North,North).
 `M(s,c) = M(s,North)` nor uniqueness of the join-valued cells is assumed.
 All these comparisons retain the shared proof universe `u`.
 
+The proof of the existing `equiv_mixed_middle_pasting` now cancels both
+common right factors before doing any further geometry. With
+
+```text
+P_s(c) = transport(cap_s(c)) @ left_cell_s(c)
+R(c)   = transport(right_overlap(c)) @ right_cell(c),
+```
+
+`middle_pasting_compute` gives `M(s,c) = P_s(c)^ @ R(c)`. The proof keeps
+`right_cell` and `right_overlap` opaque, cancels the common `R(c)^` and
+`R(North)`, and uses the existing `pasting_expansion` to return to the
+original `computed_pasting`. There is no new public `Mixed` interface.
+The right-middle rotation is therefore not expanded again.
+
+The surviving left-middle cell now exposes its geometric input through
+`S7MiddleScalar.middle_l_glue_glue_from_diamond`; the original
+`middle_l_glue_glue` still supplies exactly `S7MiddleScalar.diamond`, with
+unchanged side computations.
+
+New scalar coherence lemmas compare balancing followed by diagonal
+translation with the reverse order, including the required reassociations.
+`join_zigzag_filler_change_square` lifts these commuting scalar squares to
+the **complete** filler data: a dependent sum of the four vertices and the
+chosen filler. It does not truncate the join or eliminate its fixed filler.
+This gives `S7MiddleScalar.diamond_translate_square` for any supplied circle
+diamond.
+
+The boundary and postcomposition attachments are now partly checked:
+`diamond_path_change` retains the original standard balanced boundaries;
+`diagonal_path_translate` retains the parameter-independent diagonal
+boundaries; and `translate_path_change` retains the actual postcomposition
+beta path. `diamond_translate_square_normalized` uses these original
+balanced and diagonal comparisons on three edges, with reassociation of
+the input data and both postcomposition beta paths explicit. Its remaining
+edge is still the elementary balanced change of the postcomposed scalar
+maps. Identifying that edge with the mapped balanced comparison, and
+attaching the selected `AL` overlaps in the surviving pasting, remain to
+be proved. This square is not a proof of `Mixed`.
+
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`
 would induce `K` using `adjusted_naturality_comparison`. It must come with

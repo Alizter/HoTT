@@ -145,7 +145,9 @@ Section Comparison.
     @ ap (transport (fun y => Gamma a b y (joinr d)) (jglue s t))
       ((ap (transport (Gamma a b (joinl s)) (jglue c d))
           (left_beta a b s (joinl c))
-        @ S7MiddleScalar.middle_l_glue_glue@{u} cd_diamond_susp s a b c d)
+        @ S7MiddleScalar.middle_l_glue_glue_from_diamond
+          cd_diamond_susp s a b c d
+          (S7MiddleScalar.diamond@{u} cd_diamond_susp s a b c d))
       @ (left_beta a b s (joinr d))^).
 
   (** Both side cubes occur with their original beta corrections. In particular, the right cube contains the checked rotation of the multiplication diamond. *)
@@ -178,31 +180,52 @@ Section Comparison.
     exact (1 @@ right_face_glue a b t c d).
   Defined.
 
-  Let middle_pasting_ratio (a b s t c d : C)
-    : (middle_pasting a b s t c d)^ @ middle_pasting a b s t North d
-      = ((eta_right a b t c d)^
-          @ ((eta_edge a b s t c d)^ @ eta_edge a b s t North d))
-        @ eta_right a b t North d.
-  Proof.
-    lhs napply (inverse2 (middle_pasting_eta a b s t c d)
-      @@ middle_pasting_eta a b s t North d).
-    lhs napply (inv_pp _ _ @@ 1).
-    lhs napply concat_p_pp.
-    exact (concat_pp_p _ _ _ @@ 1).
-  Defined.
+  Local Opaque right_cell right_overlap.
 
-  (** This is equivalent to the original [Mixed], not a replacement boundary condition. The common right-face comparisons are cancelled, rather than assumed coherent or discarded. *)
+  (** This is equivalent to the original [Mixed], not a replacement boundary condition. Both common right factors cancel before the existing transport-interchange expansion is used. No right-middle cube or overlap is unfolded. *)
   Definition equiv_mixed_middle_pasting (a b s t c d : C)
     : ((middle_pasting a b s t c d)^ @ middle_pasting a b s t North d
         = (middle_pasting a b North t c d)^
           @ middle_pasting a b North t North d)
       <~> Mixed@{u} a b s t c d.
   Proof.
-    refine (equiv_mixed_eta@{u} a b s t c d oE _).
-    refine ((equiv_ap (concat_lr (eta_right a b t c d)^
-      (eta_right a b t North d)) _ _)^-1 oE _).
-    exact (equiv_concat_lr (middle_pasting_ratio a b s t c d)^
-      (middle_pasting_ratio a b North t c d)).
+    pose (P := fun s c =>
+      ap (transport (Gamma a b (joinr t)) (jglue c d)) (cap a b s t c)
+        @ left_cell a b s t c d).
+    pose (R := fun c =>
+      ap (transport (Gamma a b (joinr t)) (jglue c d))
+        (right_overlap a b t c) @ right_cell a b t c d).
+    assert (factor : forall s c,
+      middle_pasting a b s t c d = (P s c)^ @ R c).
+    { intros s0 c0.
+      lhs napply (middle_pasting_compute a b s0 t c0 d).
+      lhs napply ((1 @@ ap_pp _ _ _) @@ 1).
+      lhs napply ((1 @@ (ap_V _ _ @@ 1)) @@ 1).
+      lhs napply (concat_p_pp _ _ _ @@ 1).
+      rhs napply (inv_pp _ _ @@ 1).
+      apply concat_pp_p. }
+    assert (cancel_right : forall s,
+      (middle_pasting a b s t c d)^ @ middle_pasting a b s t North d
+        = (R c)^ @ (P s c @ (P s North)^) @ R North).
+    { intro s0.
+      lhs napply (inverse2 (factor s0 c) @@ factor s0 North).
+      lhs napply (inv_pp _ _ @@ 1).
+      lhs napply ((1 @@ inv_V _) @@ 1).
+      lhs napply concat_p_pp.
+      exact (concat_pp_p _ _ _ @@ 1). }
+    assert (expand : forall s,
+      P s c @ (P s North)^
+        = computed_pasting@{u} a b s t c d
+          @ (computed_pasting@{u} a b s t North d)^).
+    { intro s0.
+      lhs_V napply (concat_pV_pp (P s0 c) (P s0 North)
+        (face_transport_compute@{u} a b s0 t (joinr d))).
+      exact (pasting_expansion@{u} a b s0 t c d
+        @@ inverse2 (pasting_expansion@{u} a b s0 t North d)). }
+    refine (equiv_mixed_expansion@{u} a b s t c d oE _).
+    refine (equiv_concat_lr (expand s)^ (expand North) oE _).
+    refine ((equiv_ap (concat_lr (R c)^ (R North)) _ _)^-1 oE _).
+    exact (equiv_concat_lr (cancel_right s)^ (cancel_right North)).
   Defined.
 End Comparison.
 End S7DirectMiddle.

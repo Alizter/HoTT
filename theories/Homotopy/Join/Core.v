@@ -1059,6 +1059,132 @@ Proof.
     + exact (concat_p1 _ @ concat_1p _).
 Defined.
 
+(** Retain the four moving vertices together with the actual filler comparison. This packages [join_zigzag_filler_change] without forgetting any of its boundary paths. *)
+Definition join_zigzag_filler_change_path
+  {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  {f f' : X -> C} {g g' : X -> D}
+  (pf : f == f') (pg : g == g') {t t' : X} (p_t : t = t')
+  {c c' k k' : C} {d d' l l' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  (p' : f' n = k) (q' : f' t' = k')
+  (r' : g' t' = l) (s' : g' e = l')
+  : (((c,c'),(d,d')); join_zigzag_filler f g p q r s (h t))
+    = (((k,k'),(l,l')); join_zigzag_filler f' g' p' q' r' s' (h t'))
+    :> { v : (C * C) * (D * D) &
+      zigzag (fst (fst v)) (snd (fst v)) (fst (snd v))
+        = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)) }.
+Proof.
+  pose (Q := fun v : (C * C) * (D * D) =>
+    zigzag (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v))).
+  pose (pl := path_prod' (p^ @ pf n @ p')
+    (q^ @ (pf t @ ap f' p_t) @ q')).
+  pose (pr := path_prod' (r^ @ (pg t @ ap g' p_t) @ r')
+    (s^ @ pg e @ s')).
+  exact (path_sigma' Q (path_prod' pl pr)
+    (transport_path_prod' Q pl pr _
+      @ join_zigzag_filler_change h pf pg p_t p q r s p' q' r' s')).
+Defined.
+
+(** Reindexing the entire source data before a chosen change agrees with composing its scalar paths. The ordinary application on the left includes variation of the four original boundary witnesses as well as the filler. *)
+Definition join_zigzag_filler_change_path_reindex `{Funext}
+  {I : Type} {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  (f : I -> X -> C) (g : I -> X -> D) (t : I -> X)
+  (c c' : I -> C) (d d' : I -> D)
+  (bp : forall i, f i n = c i) (bq : forall i, f i (t i) = c' i)
+  (br : forall i, g i (t i) = d i) (bs : forall i, g i e = d' i)
+  {i0 i1 : I} (p : i0 = i1) {f' : X -> C} {g' : X -> D}
+  (pf : f i1 == f') (pg : g i1 == g') {t' : X} (p_t : t i1 = t')
+  {k k' : C} {l l' : D}
+  (bp' : f' n = k) (bq' : f' t' = k')
+  (br' : g' t' = l) (bs' : g' e = l')
+  : ap (fun i => (((c i,c' i),(d i,d' i));
+      join_zigzag_filler (f i) (g i) (bp i) (bq i) (br i) (bs i) (h (t i)))) p
+      @ join_zigzag_filler_change_path h pf pg p_t
+        (bp i1) (bq i1) (br i1) (bs i1) bp' bq' br' bs'
+    = join_zigzag_filler_change_path h
+      (fun z => ap (fun i => f i z) p @ pf z)
+      (fun z => ap (fun i => g i z) p @ pg z) (ap t p @ p_t)
+      (bp i0) (bq i0) (br i0) (bs i0) bp' bq' br' bs'.
+Proof.
+  destruct p.
+  lhs napply concat_1p.
+  rhs napply (ap (fun q => join_zigzag_filler_change_path h
+    (fun z => 1 @ pf z) (fun z => 1 @ pg z) q
+    (bp i0) (bq i0) (br i0) (bs i0) bp' bq' br' bs') (concat_1p p_t)).
+  rhs napply (ap011 (fun pf pg => join_zigzag_filler_change_path h pf pg p_t
+    (bp i0) (bq i0) (br i0) (bs i0) bp' bq' br' bs')
+    (path_forall _ _ (fun z => concat_1p (pf z)))
+    (path_forall _ _ (fun z => concat_1p (pg z)))).
+  reflexivity.
+Defined.
+
+(** Two routes of two chosen filler changes agree when their scalar map and parameter paths form commuting squares. The filler itself is arbitrary and is never eliminated; only free scalar paths and map homotopies vary in this proof. *)
+Definition join_zigzag_filler_change_square `{Funext}
+  {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  (f0 f1 f2 f3 : X -> C) (g0 g1 g2 g3 : X -> D)
+  (pf01 : f0 == f1) (pf13 : f1 == f3)
+  (pf02 : f0 == f2) (pf23 : f2 == f3)
+  (pg01 : g0 == g1) (pg13 : g1 == g3)
+  (pg02 : g0 == g2) (pg23 : g2 == g3)
+  (cf : forall x, pf01 x @ pf13 x = pf02 x @ pf23 x)
+  (cg : forall x, pg01 x @ pg13 x = pg02 x @ pg23 x)
+  {t0 t1 t2 t3 : X}
+  (pt01 : t0 = t1) (pt13 : t1 = t3)
+  (pt02 : t0 = t2) (pt23 : t2 = t3)
+  (ct : pt01 @ pt13 = pt02 @ pt23)
+  {c0 c0' c1 c1' c2 c2' c3 c3' : C}
+  {d0 d0' d1 d1' d2 d2' d3 d3' : D}
+  (p0 : f0 n = c0) (q0 : f0 t0 = c0')
+  (r0 : g0 t0 = d0) (s0 : g0 e = d0')
+  (p1 : f1 n = c1) (q1 : f1 t1 = c1')
+  (r1 : g1 t1 = d1) (s1 : g1 e = d1')
+  (p2 : f2 n = c2) (q2 : f2 t2 = c2')
+  (r2 : g2 t2 = d2) (s2 : g2 e = d2')
+  (p3 : f3 n = c3) (q3 : f3 t3 = c3')
+  (r3 : g3 t3 = d3) (s3 : g3 e = d3')
+  : join_zigzag_filler_change_path h pf01 pg01 pt01
+      p0 q0 r0 s0 p1 q1 r1 s1
+      @ join_zigzag_filler_change_path h pf13 pg13 pt13
+        p1 q1 r1 s1 p3 q3 r3 s3
+    = join_zigzag_filler_change_path h pf02 pg02 pt02
+      p0 q0 r0 s0 p2 q2 r2 s2
+      @ join_zigzag_filler_change_path h pf23 pg23 pt23
+        p2 q2 r2 s2 p3 q3 r3 s3.
+Proof.
+  revert p0 q0 r0 s0 p1 q1 r1 s1 p2 q2 r2 s2 p3 q3 r3 s3.
+  revert c0 c0' c1 c1' c2 c2' c3 c3' d0 d0' d1 d1' d2 d2' d3 d3'.
+  revert f1 pf01 f2 pf02 f3 pf13 pf23 cf.
+  snapply (equiv_path_ind (fun f1 => equiv_ap10 f0 f1)); cbn [ap10].
+  snapply (equiv_path_ind (fun f2 => equiv_ap10 f0 f2)); cbn [ap10].
+  snapply (equiv_path_ind (fun f3 => equiv_ap10 f0 f3)); cbn [ap10].
+  intros pf23 cf.
+  assert (ef : pf23 = fun x => 1).
+  { apply path_forall; intro x.
+    exact ((concat_1p (pf23 x))^ @ (cf x)^). }
+  clear cf; revert pf23 ef; snapply paths_ind_r.
+  revert g1 pg01 g2 pg02 g3 pg13 pg23 cg.
+  snapply (equiv_path_ind (fun g1 => equiv_ap10 g0 g1)); cbn [ap10].
+  snapply (equiv_path_ind (fun g2 => equiv_ap10 g0 g2)); cbn [ap10].
+  snapply (equiv_path_ind (fun g3 => equiv_ap10 g0 g3)); cbn [ap10].
+  intros pg23 cg.
+  assert (eg : pg23 = fun x => 1).
+  { apply path_forall; intro x.
+    exact ((concat_1p (pg23 x))^ @ (cg x)^). }
+  clear cg; revert pg23 eg; snapply paths_ind_r.
+  destruct pt01, pt13, pt02.
+  assert (et : pt23 = 1).
+  { exact ((concat_1p pt23)^ @ ct^). }
+  clear ct; revert pt23 et; snapply paths_ind_r.
+  intros c0 c0' c1 c1' c2 c2' c3 c3' d0 d0' d1 d1' d2 d2' d3 d3'
+    p0 q0 r0 s0 p1 q1 r1 s1 p2 q2 r2 s2 p3 q3 r3 s3.
+  destruct p0, q0, r0, s0, p1, q1, r1, s1, p2, q2, r2, s2, p3, q3, r3, s3.
+  reflexivity.
+Defined.
+
 (** A transported filler comparison supplies a cube whose four side faces are exactly the naturalities of the four scalar vertex paths. Only those free scalar paths are eliminated; the given join-valued filler is preserved. *)
 Definition join_zigzag_filler_cube {A B : Type}
   {a a' c c' : A} {b b' d d' : B}
