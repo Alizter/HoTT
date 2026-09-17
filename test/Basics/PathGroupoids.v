@@ -151,3 +151,32 @@ Section PointwiseTransport.
   Example pointwise_transport_refl (x : A) (f : forall y, P x y) (y : B)
     : apD_transport P (idpath x) f (idpath y) = 1 := idpath.
 End PointwiseTransport.
+
+(** The zigzag-square computation permits arbitrary fibers, independent universes, and independently chosen endpoint adjustments. *)
+Section AdjustedDependentSquare.
+  Universes i j.
+  Context {A : Type@{i}} {P : A -> Type@{j}} (f : forall x, P x).
+  Context {x y z w : A}
+    (p : x = z) (q : y = z) (r : x = w) (s : y = w)
+    (h : p @ q^ = r @ s^) {u : P x} {v : P y}
+    (cu : u = f x) (cv : v = f y)
+    {fp : transport P p u = f z} {fq : transport P q v = f z}
+    {fr : transport P r u = f w} {fs : transport P s v = f w}
+    (bp : ap (transport P p) cu @ apD f p = fp)
+    (bq : ap (transport P q) cv @ apD f q = fq)
+    (br : ap (transport P r) cu @ apD f r = fr)
+    (bs : ap (transport P s) cv @ apD f s = fs).
+
+  Example specified_endpoint_square
+    : (transport_pp P p q^ u @ ap (transport P q^) (fp @ fq^))
+        @ transport_Vp P q v
+      = transport2 P h u
+        @ ((transport_pp P r s^ u @ ap (transport P s^) (fr @ fs^))
+          @ transport_Vp P s v)
+    := apD02_pV_beta@{i j} f p q r s h cu cv bp bq br bs.
+
+  Example specified_endpoint_square_refl (a : A)
+    : apD02_pV_beta f (idpath a) 1 1 1 1
+        (idpath (f a)) (idpath (f a)) 1 1 1 1 = 1
+    := idpath.
+End AdjustedDependentSquare.

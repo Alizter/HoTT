@@ -1275,6 +1275,58 @@ Section Normalization.
       (cap_expansion a b s t c) @@ 1).
   Defined.
 
+  (** The actual inner multiplication diamond changes the arbitrary final right label to the balanced--diagonal label. This comparison acts on the original complete pasting ratios: the cap adjustments and all five computed side cells are retained. The additional left vertex and the transport along the specified diamond remain explicit. *)
+  Section InnerDiamondPasting.
+    Local Open Scope mc_mult_scope.
+
+    Let pasting_span (a b s t c c' d : C) :=
+      (transport_pp (Gamma a b (joinr t)) (jglue c d) (jglue c' d)^
+          (face_z a b (joinr t) c)
+        @ ap (transport (Gamma a b (joinr t)) (jglue c' d)^)
+          (computed_pasting a b s t c d @ (computed_pasting a b s t c' d)^))
+      @ transport_Vp (Gamma a b (joinr t)) (jglue c' d)
+        (face_z a b (joinr t) c').
+
+    Definition computed_pasting_inner_diamond (a b v s t c d : C)
+      : pasting_span a b v t c (conj s * ((-d) * conj t)) d
+        = transport2 (Gamma a b (joinr t))
+            (cd_op_diamond_pullback@{Set} (X:=psphere 1) s t c d)
+            (face_z a b (joinr t) c)
+          @ pasting_span a b v t c (conj s * ((-d) * conj t)) ((s * t) * c).
+    Proof.
+      napply (apD02_pV_beta (transported_face a b v t)
+        (jglue c d) (jglue (conj s * ((-d) * conj t)) d)
+        (jglue c ((s * t) * c))
+        (jglue (conj s * ((-d) * conj t)) ((s * t) * c))
+        (cd_op_diamond_pullback@{Set} (X:=psphere 1) s t c d)
+        (computed_cap a b v t c
+          (cd_op_diamond_diagonal (X:=psphere 1) a b v t c))
+        (computed_cap a b v t (conj s * ((-d) * conj t))
+          (cd_op_diamond_diagonal (X:=psphere 1) a b v t
+            (conj s * ((-d) * conj t))))).
+      - exact (1 @@ transported_face_cell_beta a b v t c d).
+      - exact (1 @@ transported_face_cell_beta a b v t
+          (conj s * ((-d) * conj t)) d).
+      - exact (1 @@ transported_face_cell_beta a b v t c ((s * t) * c)).
+      - exact (1 @@ transported_face_cell_beta a b v t
+          (conj s * ((-d) * conj t)) ((s * t) * c)).
+    Defined.
+
+    (** The correction is independent of the chosen row, so it cancels when comparing two complete pasting ratios. This transports their difference; it does not assert that the difference vanishes. *)
+    Definition computed_pasting_inner_diamond_difference (a b v w s t c d : C)
+      : (pasting_span a b v t c (conj s * ((-d) * conj t)) d)^
+          @ pasting_span a b w t c (conj s * ((-d) * conj t)) d
+        = (pasting_span a b v t c (conj s * ((-d) * conj t)) ((s * t) * c))^
+          @ pasting_span a b w t c (conj s * ((-d) * conj t)) ((s * t) * c).
+    Proof.
+      lhs napply (inverse2 (computed_pasting_inner_diamond a b v s t c d)
+        @@ computed_pasting_inner_diamond a b w s t c d).
+      lhs napply (inv_pp _ _ @@ 1).
+      lhs napply concat_pp_p.
+      exact (1 @@ concat_V_pp _ _).
+    Defined.
+  End InnerDiamondPasting.
+
   Definition eta_computed_edge (a b s t c d : C)
     : transported_face a b s t (joinr d)
       = eta_face a b c d (joinr t)

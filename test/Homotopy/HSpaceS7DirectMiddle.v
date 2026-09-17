@@ -273,3 +273,37 @@ Section FillerBoundaryCheck.
     apply ap_pr1_path_sigma.
   Defined.
 End FillerBoundaryCheck.
+
+(** The actual inner diamond acts on the complete pasting ratios. Its geometric parameter and the selected middle-face row are independent, so the same square applies to the given row and the unit row. *)
+Section InnerDiamondChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp
+    S7LeftScalar.circle_connected S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Context (a b s t c d : C).
+  Let c' := conj s * ((-d) * conj t).
+  Let e := (s * t) * c.
+  Let P := D.Gamma@{u} a b (joinr t).
+  Let bottom := D.face_z@{u} a b (joinr t).
+  Let span (v z : C) :=
+    (transport_pp P (jglue c z) (jglue c' z)^ (bottom c)
+      @ ap (transport P (jglue c' z)^)
+        (D.computed_pasting@{u} a b v t c z
+          @ (D.computed_pasting@{u} a b v t c' z)^))
+    @ transport_Vp P (jglue c' z) (bottom c').
+
+  Example changed_final_label (v : C)
+    : span v d
+      = transport2 P (cd_op_diamond_pullback@{Set} (X:=psphere 1) s t c d)
+          (bottom c) @ span v e
+    := D.computed_pasting_inner_diamond@{u} a b v s t c d.
+
+  Example original_and_unit_row_difference
+    : (span s d)^ @ span North d = (span s e)^ @ span North e
+    := D.computed_pasting_inner_diamond_difference@{u}
+      a b s North s t c d.
+End InnerDiamondChecks.

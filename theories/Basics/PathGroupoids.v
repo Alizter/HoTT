@@ -2052,6 +2052,43 @@ Definition apD02 {A : Type} {B : A -> Type} {x y : A} {p q : x = y}
   : apD f p = transport2 B r (f x) @ apD f q
   := match r with idpath => (concat_1p _)^ end.
 
+(** Dependent naturality on a zigzag square, with specified endpoint adjustments and computations on all four edges. The source square is retained; no uniqueness of its filler or of the dependent paths is used. *)
+Definition apD02_pV_beta {A : Type} {P : A -> Type}
+  (f : forall x, P x) {x y z w : A}
+  (p : x = z) (q : y = z) (r : x = w) (s : y = w)
+  (h : p @ q^ = r @ s^) {u : P x} {v : P y}
+  (cu : u = f x) (cv : v = f y)
+  {fp : transport P p u = f z} {fq : transport P q v = f z}
+  {fr : transport P r u = f w} {fs : transport P s v = f w}
+  (bp : ap (transport P p) cu @ apD f p = fp)
+  (bq : ap (transport P q) cv @ apD f q = fq)
+  (br : ap (transport P r) cu @ apD f r = fr)
+  (bs : ap (transport P s) cv @ apD f s = fs)
+  : (transport_pp P p q^ u @ ap (transport P q^) (fp @ fq^))
+      @ transport_Vp P q v
+    = transport2 P h u
+      @ ((transport_pp P r s^ u @ ap (transport P s^) (fr @ fs^))
+        @ transport_Vp P s v).
+Proof.
+  revert fp fq fr fs bp bq br bs.
+  revert u cu; snapply paths_ind_r.
+  revert v cv; snapply paths_ind_r.
+  intros fp fq fr fs bp bq br bs.
+  assert (beta : forall (x y z : A) (p : x = z) (q : y = z)
+    (fp : transport P p (f x) = f z) (fq : transport P q (f y) = f z),
+    apD f p = fp -> apD f q = fq ->
+    apD f (p @ q^)
+      = (transport_pp P p q^ (f x) @ ap (transport P q^) (fp @ fq^))
+        @ transport_Vp P q (f y)).
+  { intros x0 y0 z0 p0 q0 fp0 fq0 bp0 bq0.
+    destruct bp0, bq0, q0, p0; reflexivity. }
+  lhs_V napply (beta x y z p q fp fq
+    ((concat_1p _)^ @ bp) ((concat_1p _)^ @ bq)).
+  lhs napply (apD02 f h).
+  exact (1 @@ beta x y w r s fr fs
+    ((concat_1p _)^ @ br) ((concat_1p _)^ @ bs)).
+Defined.
+
 Definition apD02_const {A B : Type} (f : A -> B) {x y : A} {p q : x = y} (r : p = q)
   : apD02 f r = (apD_const f p)
                   @ (transport2_const r (f x) @@ ap02 f r)

@@ -671,11 +671,61 @@ it through the entire cap construction to obtain an equality with the
 **original `computed_pasting`**, for any final right label. This is a checked
 attachment to that cap, not merely an equality of its geometric endpoints.
 
-The full surviving pasting-ratio equality is still open. In particular,
-the balanced cells appearing in this cap route still need to be matched
-with the middle-left cells in the other part of each expanded pasting,
-with their input-label changes and beta comparisons retained. The cap
-identity alone does not establish `Mixed` or unconditional S7.
+The arbitrary final-right label now has a checked geometric comparison.
+For fixed `s,t,c,d`, put
+
+```text
+c' := conj s * ((-d) * conj t)
+e  := (s*t)*c.
+```
+
+`cd_op_diamond_pullback` applies the inverse left-scalar action to the
+**original inner multiplication diamond** and retains its scalar boundary
+corrections. It gives the actual filler
+
+```text
+H : zigzag c c' d = zigzag c c' e.
+```
+
+This holds for any associative commutative spheroid with a supplied
+diamond; it needs no truncation, function extensionality, or new diamond
+symmetry. In particular, it does not invent a scalar path `d = e`.
+
+`computed_pasting_inner_diamond` applies dependent naturality to this
+square, using the existing `transported_face_cell_beta` on all four edges.
+For any selected middle row `v`, let `S_v(z)` be the ratio
+
+```text
+computed_pasting a b v t c z @ (computed_pasting a b v t c' z)^
+```
+
+transported back along `(jglue c' z)^`, with its specified `transport_pp`
+and `transport_Vp` corrections. The theorem proves
+
+```text
+S_v(d) = transport2 (Gamma a b (joinr t)) H (face_z a b (joinr t) c)
+           @ S_v(e).
+```
+
+The cap adjustments, all five computed side cells, and the original
+transport-interchange computation remain present. The underlying generic
+`apD02_pV_beta` permits arbitrary dependent fibers and both specified
+endpoint adjustments. It retains the supplied source square rather than
+identifying fillers by truncation.
+
+Since the correction is independent of `v`,
+`computed_pasting_inner_diamond_difference` cancels it and proves
+
+```text
+S_s(d)^ @ S_North(d) = S_s(e)^ @ S_North(e).
+```
+
+The full surviving pasting-ratio equality is still open. The remaining
+difference at the aligned right label `e` has not been shown to vanish,
+and the additional left vertex `c'` has not been replaced by the original
+unit anchor. Those comparisons must still retain the selected balanced
+cells, cap witnesses, and beta paths. Neither the cap identity nor this
+transfer identity alone establishes `Mixed` or unconditional S7.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`

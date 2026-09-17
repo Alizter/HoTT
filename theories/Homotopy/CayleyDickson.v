@@ -971,6 +971,20 @@ Section SpheroidHSpace.
 
   Local Transparent cd_diamond cd_op_diamond.
 
+  (** Pull the actual inner multiplication diamond back through the inverse left-scalar action. Its right vertices are the arbitrary final label [d] and the label [(s * t) * c] occurring in a balanced--diagonal pasting. The second left vertex is retained, rather than identifying those two right labels by a scalar path. *)
+  Definition cd_op_diamond_pullback (s t c d : X)
+    : zigzag c (conj s * ((-d) * conj t)) d
+      = zigzag c (conj s * ((-d) * conj t)) ((s * t) * c).
+  Proof.
+    napply (join_zigzag_filler (conj s *.) (s *.) _ 1 _ _
+      (cd_op_diamond s t c d)).
+    - exact ((assoc (conj s) s c @ ap (.* c) (cds_conjug_left_inv s))
+        @ left_identity c).
+    - exact ((assoc s (conj s) d @ ap (.* d) (cds_conjug_right_inv _ s))
+        @ left_identity d).
+    - exact (ap (s *.) (comm c t) @ assoc s t c).
+  Defined.
+
   (** ** Diagonal-translation normal form *)
 
   (** The parameter is unchanged by replacing [(c,d)] with [(1,conj c * d)]. This uses commutativity of the scalar multiplication, but no property of the chosen diamond. *)

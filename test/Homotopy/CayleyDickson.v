@@ -210,6 +210,18 @@ Section Spheroid.
 
   Context `{!Commutative (@hspace_op X _)} (a b c d : X).
 
+  (** The label-changing rectangle retains the actual supplied multiplication filler and all three scalar boundary corrections. *)
+  Example pullback_uses_chosen_filler
+    : @cd_op_diamond_pullback@{u} X _ _ D _ a b c d
+      = join_zigzag_filler (conj a *.) (a *.)
+        ((simple_associativity (conj a) a c
+          @ ap (.* c) (cds_conjug_left_inv a)) @ left_identity c) 1
+        ((simple_associativity a (conj a) d
+          @ ap (.* d) (cds_conjug_right_inv _ a)) @ left_identity d)
+        (ap (a *.) (commutativity c b) @ simple_associativity a b c)
+        (@cd_op_diamond@{u} X _ _ D a b c d)
+    := idpath.
+
   (** Exposing the scalar witnesses preserves the old associators definitionally, for any supplied diamond and in the original universe. *)
   Check (@cd_assoc_ll_scalar_r@{u} X _ _ _).
   Check (@cd_assoc_lr_scalar_r@{u} X _ _ _).
