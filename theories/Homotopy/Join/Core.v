@@ -1401,6 +1401,33 @@ Proof.
   exact (concat_pV_cube_unit _ _ _ _ h).
 Defined.
 
+(** The actual filler-to-cube conversion is reversible. After induction on the free scalar boundary paths, its endpoint-dependent action is an equivalence by whiskering and concatenation, preceded by its original unit cube. The fixed filler [h] is never eliminated. *)
+#[local] Instance isequiv_join_zigzag_filler_cube {A B : Type}
+  {a a' c c' : A} {b b' d d' : B}
+  (p : a = c) (q : a' = c') (r : b = d) (s : b' = d')
+  (h : zigzag a a' b = zigzag a a' b')
+  (h' : zigzag c c' d = zigzag c c' d')
+  : IsEquiv (join_zigzag_filler_cube p q r s h h').
+Proof.
+  destruct p, q, r, s.
+  pose (R := fun t : zigzag a a' b = zigzag a a' b' =>
+    (1 @@ inverse_natural (idpath (joinl a')) (idpath (joinr b))
+      (join_natsq (idpath a') (idpath b)))
+    @ concat_natural (jglue a b) (jglue a b) (jglue a' b')^
+        1 1 (jglue a b') (jglue a' b)^
+        (join_natsq (idpath a) (idpath b))^ t).
+  assert (IsEquiv R).
+  { unfold R.
+    napply (isequiv_compose _ (concat_l _)).
+    - napply isequiv_concat_natural.
+    - exact _. }
+  rapply (isequiv_homotopic
+    (equiv_concat_l (join_zigzag_filler_cube 1 1 1 1 h h 1) _
+      oE equiv_ap R h h')).
+  intro v; destruct v.
+  exact (concat_p1 _).
+Defined.
+
 (** Reverse a filler comparison and its boundary identifications. Inverting the filler exchanges its two right labels. *)
 Definition join_zigzag_filler_transport_inverse {A B : Type}
   {a a' c c' : A} {b b' d d' : B}

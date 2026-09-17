@@ -671,6 +671,72 @@ Section NaturalityLoopImage.
   Defined.
 End NaturalityLoopImage.
 
+(** Changing a face across two specified boundary squares is reversible. The forward map is exactly cancellation after right whiskering and concatenation with the two squares. *)
+Definition equiv_change_face {T : Type} {x0 x1 y0 y1 : T}
+  (p : x0 = y0) (r : x1 = y1)
+  (u v : x0 = x1) (u' v' : y0 = y1)
+  (L : p @ u' = u @ r) (R : p @ v' = v @ r)
+  : (u = v) <~> (u' = v')
+  := equiv_cancelL p u' v'
+    oE equiv_concat_lr L R^
+    oE equiv_whiskerR u v r.
+
+(** Keep the conversion instances local: their many dependent arguments make unrestricted search on underconstrained [IsEquiv] goals expensive. Their evidence remains available explicitly, and bundled equivalences carry it to clients. *)
+(** The second face of a composite naturality square can be recovered while retaining the first face and all reassociations. *)
+#[local] Instance isequiv_concat_natural {T : Type} {x x' y y' z z' : T}
+  (p : x = x') (q : y = y') (r : z = z')
+  (h : x = y) (h' : x' = y') (k : y = z) (k' : y' = z')
+  (a : p @ h' = h @ q)
+  : IsEquiv (concat_natural p q r h h' k k' a).
+Proof.
+  unfold concat_natural.
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose (whiskerL h) (concat_r _)); exact _.
+Defined.
+
+(** The edge-computation adjustments in [naturality_cube_change] are reversible, including the two specified mixed computations. Only free edge and mixed-computation data are generalized below. *)
+#[local] Instance isequiv_naturality_cube_change {T : Type}
+  {f00 f01 f10 f11 g00 g01 g10 g11 : T}
+  {fh0 FH0 : f00 = f01} {fh1 FH1 : f10 = f11}
+  {fv0 FV0 : f00 = f10} {fv1 FV1 : f01 = f11}
+  {gh0 GH0 : g00 = g01} {gh1 GH1 : g10 = g11}
+  {gv0 GV0 : g00 = g10} {gv1 GV1 : g01 = g11}
+  (p00 : f00 = g00) (p01 : f01 = g01)
+  (p10 : f10 = g10) (p11 : f11 = g11)
+  (bfh0 : fh0 = FH0) (bfh1 : fh1 = FH1)
+  (bfv0 : fv0 = FV0) (bfv1 : fv1 = FV1)
+  (bgh0 : gh0 = GH0) (bgh1 : gh1 = GH1)
+  (bgv0 : gv0 = GV0) (bgv1 : gv1 = GV1)
+  (cf : fh0 @ fv1 = fv0 @ fh1) (cg : gh0 @ gv1 = gv0 @ gh1)
+  (CF : FH0 @ FV1 = FV0 @ FH1) (CG : GH0 @ GV1 = GV0 @ GH1)
+  (eh0 : FH0 @ p01 = p00 @ GH0) (eh1 : FH1 @ p11 = p10 @ GH1)
+  (ev0 : FV0 @ p10 = p00 @ GV0) (ev1 : FV1 @ p11 = p01 @ GV1)
+  (bcf : cf @ (bfv0 @@ 1)
+    = (1 @@ bfv1) @ naturality_change bfh0 bfh1 CF)
+  (bcg : cg @ (bgv0 @@ 1)
+    = (1 @@ bgv1) @ naturality_change bgh0 bgh1 CG)
+  : IsEquiv (naturality_cube_change p00 p01 p10 p11
+      bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+      cf cg CF CG eh0 eh1 ev0 ev1 bcf bcg).
+Proof.
+  destruct bfh0, bfh1, bfv0, bfv1, bgh0, bgh1, bgv0, bgv1.
+  unfold naturality_cube_change; cbn.
+  (** Generalize the two computed comparisons of the mixed faces before eliminating their free endpoints. *)
+  match goal with
+  | |- context[match ?e with idpath => _ end] => generalize e
+  end.
+  intro ecf; destruct ecf; cbn.
+  match goal with
+  | |- context[match ?e with idpath => _ end] => generalize e
+  end.
+  intro ecg; destruct ecg; cbn.
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose (concat_r _) (concat_r _)); exact _.
+Defined.
+
 (** A cube of naturality squares is the dependent transport equation for a square of homotopies. The four homotopies and the two selected endpoint squares are arbitrary. *)
 Definition transport_naturality_square {A B : Type}
   {f0 f1 g0 g1 : A -> B}
@@ -693,6 +759,22 @@ Proof.
   exact c.
 Defined.
 
+(** The original cube-to-transport conversion is a composite of path-space equivalences; its forward function is not replaced. *)
+#[local] Instance isequiv_transport_naturality_square {A B : Type}
+  {f0 f1 g0 g1 : A -> B}
+  (u : f0 == f1) (v : g0 == g1)
+  (h : f0 == g0) (k : f1 == g1)
+  {x y : A} (p : x = y)
+  (q : u x @ k x = h x @ v x)
+  (r : u y @ k y = h y @ v y)
+  : IsEquiv (transport_naturality_square u v h k p q r).
+Proof.
+  unfold transport_naturality_square.
+  napply (isequiv_compose _ (equiv_naturality_transport2 _ _ p q r));
+    [ | exact _ ].
+  napply (isequiv_compose (concat_r _) (concat_l _)); exact _.
+Defined.
+
 (** Fill the remaining face of a cube by pasting the five specified faces. All edges are inferred from the face types; no equality of parallel fillers is used. *)
 Definition naturality_square_filler {T : Type}
   {x0 x1 x2 x3 y0 y1 y2 y3 : T}
@@ -705,6 +787,28 @@ Definition naturality_square_filler {T : Type}
   := cancelL p0 _ _
     ((concat_natural p0 p1 p3 u0 u1 k0 k1 nu nk @ (s @@ 1))
       @ (concat_natural p0 p2 p3 h0 h1 v0 v1 nh nv)^).
+
+#[local] Instance isequiv_naturality_square_filler {T : Type}
+  {x0 x1 x2 x3 y0 y1 y2 y3 : T}
+  {p0 : x0 = y0} {p1 : x1 = y1} {p2 : x2 = y2} {p3 : x3 = y3}
+  {u0 : x0 = x1} {u1 : y0 = y1} {v0 : x2 = x3} {v1 : y2 = y3}
+  {h0 : x0 = x2} {h1 : y0 = y2} {k0 : x1 = x3} {k1 : y1 = y3}
+  (nu : p0 @ u1 = u0 @ p1) (nv : p2 @ v1 = v0 @ p3)
+  (nh : p0 @ h1 = h0 @ p2) (nk : p1 @ k1 = k0 @ p3)
+  : IsEquiv (naturality_square_filler nu nv nh nk)
+  := equiv_isequiv (equiv_change_face p0 p3 _ _ _ _
+    (concat_natural p0 p1 p3 u0 u1 k0 k1 nu nk)
+    (concat_natural p0 p2 p3 h0 h1 v0 v1 nh nv)).
+
+Definition equiv_naturality_square_filler {T : Type}
+  {x0 x1 x2 x3 y0 y1 y2 y3 : T}
+  {p0 : x0 = y0} {p1 : x1 = y1} {p2 : x2 = y2} {p3 : x3 = y3}
+  {u0 : x0 = x1} {u1 : y0 = y1} {v0 : x2 = x3} {v1 : y2 = y3}
+  {h0 : x0 = x2} {h1 : y0 = y2} {k0 : x1 = x3} {k1 : y1 = y3}
+  (nu : p0 @ u1 = u0 @ p1) (nv : p2 @ v1 = v0 @ p3)
+  (nh : p0 @ h1 = h0 @ p2) (nk : p1 @ k1 = k0 @ p3)
+  : (u0 @ k0 = h0 @ v0) <~> (u1 @ k1 = h1 @ v1)
+  := Build_Equiv _ _ (naturality_square_filler nu nv nh nk) _.
 
 (** Transport of a square is this explicit five-face pasting. In particular, its four side faces are the actual naturality comparisons of the four homotopies. *)
 Definition transport_naturality_square_compute {A T : Type}
@@ -1057,6 +1161,44 @@ Proof.
   exact (naturality_cube_change (h x) (h y) (k x) (k y)
     bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
     _ _ cf cg eh0 eh1 ev0 ev1 bf bg c).
+Defined.
+
+(** The same conversion with all eight edge computations, both mixed computations, and both homotopy computations fixed. Its inverse therefore retains these witnesses rather than choosing a new cube. *)
+#[local] Instance isequiv_transport_naturality_square_beta {A B : Type}
+  {f0 f1 g0 g1 : A -> B}
+  (u : f0 == f1) (v : g0 == g1)
+  (h : f0 == g0) (k : f1 == g1)
+  {x y : A} (p : x = y)
+  {fh0 : f0 x = f0 y} {fh1 : f1 x = f1 y}
+  {fv0 : f0 x = f1 x} {fv1 : f0 y = f1 y}
+  {gh0 : g0 x = g0 y} {gh1 : g1 x = g1 y}
+  {gv0 : g0 x = g1 x} {gv1 : g0 y = g1 y}
+  (bfh0 : ap f0 p = fh0) (bfh1 : ap f1 p = fh1)
+  (bfv0 : u x = fv0) (bfv1 : u y = fv1)
+  (bgh0 : ap g0 p = gh0) (bgh1 : ap g1 p = gh1)
+  (bgv0 : v x = gv0) (bgv1 : v y = gv1)
+  (cf : fh0 @ fv1 = fv0 @ fh1)
+  (cg : gh0 @ gv1 = gv0 @ gh1)
+  (eh0 : fh0 @ h y = h x @ gh0)
+  (eh1 : fh1 @ k y = k x @ gh1)
+  (ev0 : fv0 @ k x = h x @ gv0)
+  (ev1 : fv1 @ k y = h y @ gv1)
+  (bf : concat_Ap u p @ (bfv0 @@ 1)
+    = (1 @@ bfv1) @ naturality_change bfh0 bfh1 cf)
+  (bg : concat_Ap v p @ (bgv0 @@ 1)
+    = (1 @@ bgv1) @ naturality_change bgh0 bgh1 cg)
+  (bh : concat_Ap h p = naturality_change bfh0 bgh0 eh0)
+  (bk : concat_Ap k p = naturality_change bfh1 bgh1 eh1)
+  : IsEquiv (transport_naturality_square_beta u v h k p
+      bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+      cf cg eh0 eh1 ev0 ev1 bf bg bh bk).
+Proof.
+  unfold transport_naturality_square_beta.
+  napply (isequiv_compose _ (transport_naturality_square u v h k p _ _));
+    [ | exact _ ].
+  napply (isequiv_compose _ (concat_l _)); [ | exact _ ].
+  napply (isequiv_compose _ (concat_r _)); [ | exact _ ].
+  exact _.
 Defined.
 
 (** A unit-based comparison transports to the comparison obtained from the two specified endpoint translations. The homotopies [Ny] and [Nv] retain the chosen unit path and translations. This only concerns a path starting at the distinguished unit parameter [e]. *)

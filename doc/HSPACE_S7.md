@@ -978,6 +978,53 @@ The right row additionally uses `inverse_mixed_beta`,
 `concat_pV_cube_unit_inverse`, and `join_zigzag_filler_cube_inverse` to keep
 the reversed direction and double-inverse computations explicit.
 
+These forward conversions are now **proved reversible**, without replacing
+their implementations. `equiv_change_face` composes right whiskering,
+concatenation with the two boundary squares, and left cancellation.
+Its specialization `equiv_naturality_square_filler` has exactly the old
+`naturality_square_filler` as forward map. The independent composite and
+forward-map `idpath` checks, together with face and path-space round trips,
+are in
+[`test/Types/CubeFaceEquivalence.v`](../test/Types/CubeFaceEquivalence.v).
+
+The `IsEquiv` proofs for `naturality_cube_change`,
+`transport_naturality_square`, `transport_naturality_square_beta`, and
+`join_zigzag_filler_cube` retain every supplied edge and mixed-beta witness.
+For the join conversion, only free boundary paths and a comparison with a
+free endpoint are eliminated; the arbitrary starting filler is retained.
+The generic results require neither truncation nor function extensionality.
+The high-arity conversion instances are local to their defining files, so
+unrelated underconstrained typeclass searches do not try them. Their named
+evidence can be applied explicitly; the public bundled equivalences carry
+that evidence without requiring additional instance registration.
+
+In particular,
+`S7MiddleScalar.equiv_middle_l_glue_glue_from_diamond D0 s a b c d`
+bundles the **unchanged** middle constructor with an inverse obtained from
+those conversion inverses and the two outer endpoint corrections. For
+arbitrary supplied `D0` and arbitrary balanced input `beta`, the checked
+round trip is
+
+```text
+E := equiv_middle_l_glue_glue_from_diamond D0 s a b c d
+E^-1 (middle_l_glue_glue_from_diamond D0 s a b c d beta) = beta.
+```
+
+The proof is `eissect E beta`, using the constructed equivalence, not an
+assumed decoder. `decode_middle_roundtrip` in
+[`test/Homotopy/HSpaceS7DirectMiddle.v`](../test/Homotopy/HSpaceS7DirectMiddle.v)
+checks this with the domain of the original constructor. Its forward
+computation is `idpath`; the reverse round trip, selected original input,
+and both path-space round trips are checked too. The decoder adds no proof
+universe; specializing to the selected balanced witness retains its single
+existing universe `u`.
+
+This establishes checkpoint (A) for the middle occurrence. Decoding the
+whole local cap--middle comparison, including the cap's boundary
+adjustments, has **not** been done. No cancellation of the two occurrences,
+contraction of the four-pasting loop, or proof of `Mixed` follows merely
+from reversibility.
+
 ### Comparing composites of join maps
 
 `JoinMapCoherence.translated_composite_comparison` compares a translated

@@ -745,6 +745,35 @@ Proof.
     (p01 s a d) (p10 s b c) _ _ balanced).
 Defined.
 
+(** Decode the original middle cube by reversing its actual filler conversion, its beta-adjusted cube-to-transport conversion, and its two outer endpoint corrections. *)
+#[local] Instance isequiv_middle_l_glue_glue_from_diamond `{Univalence}
+  (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)
+  : IsEquiv (middle_l_glue_glue_from_diamond D0 s a b c d).
+Proof.
+  unfold middle_l_glue_glue_from_diamond.
+  napply (isequiv_compose _ (concat_lr _ _)); [ | exact _ ].
+  napply (isequiv_compose (join_zigzag_filler_cube _ _ _ _ _ _) _).
+  - napply isequiv_join_zigzag_filler_cube.
+  - (** Reuse the exact arguments, including the selected mixed-beta proofs, rather than asking unification to reconstruct them. *)
+    lazymatch goal with
+    | |- IsEquiv (@transport_naturality_square_beta
+        ?A ?B ?f0 ?f1 ?g0 ?g1 ?U ?V ?h ?k ?x ?y ?p
+        ?fh0 ?fh1 ?fv0 ?fv1 ?gh0 ?gh1 ?gv0 ?gv1
+        ?bfh0 ?bfh1 ?bfv0 ?bfv1 ?bgh0 ?bgh1 ?bgv0 ?bgv1
+        ?cf ?cg ?eh0 ?eh1 ?ev0 ?ev1 ?bf ?bg ?bh ?bk) =>
+      exact (@isequiv_transport_naturality_square_beta
+        A B f0 f1 g0 g1 U V h k x y p
+        fh0 fh1 fv0 fv1 gh0 gh1 gv0 gv1
+        bfh0 bfh1 bfv0 bfv1 bgh0 bgh1 bgv0 bgv1
+        cf cg eh0 eh1 ev0 ev1 bf bg bh bk)
+    end.
+Defined.
+
+Definition equiv_middle_l_glue_glue_from_diamond `{Univalence}
+  (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)
+  := Build_Equiv _ _ (middle_l_glue_glue_from_diamond D0 s a b c d)
+    (isequiv_middle_l_glue_glue_from_diamond D0 s a b c d).
+
 (** The original mixed cell uses the original balanced diamond. Its four side computations and its geometric witness are unchanged. *)
 Definition middle_l_glue_glue `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)

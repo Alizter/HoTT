@@ -51,6 +51,31 @@ Section ParameterUnitUniverses.
     := join_zigzag_filler_parameter_unit@{i k l j m} h he f g p_t p q r s.
 End ParameterUnitUniverses.
 
+(** Reversing the actual cube conversion recovers arbitrary supplied fillers and comparisons. The join and its two input types retain independent universes. *)
+Section FillerCubeEquivalence.
+  Universes i j k.
+  Context {A : Type@{i}} {B : Type@{j}}
+    {a a' c c' : A} {b b' d d' : B}
+    (p : a = c) (q : a' = c') (r : b = d) (s : b' = d')
+    (h : zigzag@{i j k} a a' b = zigzag a a' b')
+    (h' : zigzag@{i j k} c c' d = zigzag c c' d').
+  Let Input := transport011
+    (fun x : A * A => fun y : B * B =>
+      zigzag@{i j k} (fst x) (snd x) (fst y)
+        = zigzag (fst x) (snd x) (snd y))
+    (path_prod' p q) (path_prod' r s) h = h'.
+  Let convert := join_zigzag_filler_cube@{i j k} p q r s h h'.
+  Let E := Build_Equiv _ _ convert
+    (isequiv_join_zigzag_filler_cube@{i j k} p q r s h h').
+
+  Example filler_cube_forward (v : Input) : E v = convert v := idpath.
+  Example filler_cube_roundtrip (v : Input)
+    : E^-1 (convert v) = v := eissect E v.
+  Example filler_cube_comparison_roundtrip {v w : Input} (q : v = w)
+    : (equiv_ap E v w)^-1 (ap convert q) = q
+    := eissect (equiv_ap E v w) q.
+End FillerCubeEquivalence.
+
 (** The proof before exposing its recursor homotopy and zigzag computation. *)
 Definition legacy_filler_homotopic {A B C D : Type}
   {f f' : A -> C} {g g' : B -> D} (pf : f == f') (pg : g == g')

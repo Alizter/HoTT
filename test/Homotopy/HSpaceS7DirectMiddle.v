@@ -177,6 +177,52 @@ Section WholeMiddleChecks.
     := eisretr E m.
 End WholeMiddleChecks.
 
+(** Checkpoint (A): decoding the unchanged middle constructor recovers an arbitrary balanced comparison, not just the selected diamond. The decoder is the inverse built from the actual conversion equivalences. *)
+Section MiddleCubeDecoding.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Open Scope path_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp.
+  Local Notation C := (Sphere 1).
+  Context (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C).
+  Let convert := S7MiddleScalar.middle_l_glue_glue_from_diamond D0 s a b c d.
+  (** Read the small domain and codomain of the unchanged constructor without depending on its private scalar-boundary names. *)
+  Let Input : Type0 := ltac:(let T := type of convert in
+    lazymatch T with ?I -> _ => exact I end).
+  Let Output : Type0 := ltac:(let T := type of convert in
+    lazymatch T with _ -> ?O => exact O end).
+  Let E := S7MiddleScalar.equiv_middle_l_glue_glue_from_diamond D0 s a b c d.
+  Let decode_middle := E^-1.
+
+  Example middle_equivalence_forward (beta : Input)
+    : E beta = S7MiddleScalar.middle_l_glue_glue_from_diamond D0 s a b c d beta
+    := idpath.
+
+  Example decode_middle_roundtrip (beta : Input)
+    : decode_middle
+        (S7MiddleScalar.middle_l_glue_glue_from_diamond D0 s a b c d beta)
+      = beta
+    := eissect E beta.
+
+  Example decode_selected_middle
+    : decode_middle (S7MiddleScalar.middle_l_glue_glue@{u} D0 s a b c d)
+      = S7MiddleScalar.diamond@{u} D0 s a b c d
+    := eissect E (S7MiddleScalar.diamond@{u} D0 s a b c d).
+
+  Example encode_middle_roundtrip (cube : Output)
+    : convert (decode_middle cube) = cube := eisretr E cube.
+
+  Example decode_middle_comparison {beta gamma : Input} (q : beta = gamma)
+    : (equiv_ap E beta gamma)^-1 (ap convert q) = q
+    := eissect (equiv_ap E beta gamma) q.
+
+  Example encode_middle_comparison {beta gamma : Input} (q : E beta = E gamma)
+    : ap convert ((equiv_ap E beta gamma)^-1 q) = q
+    := eisretr (equiv_ap E beta gamma) q.
+End MiddleCubeDecoding.
+
 (** The completed scalar square has no elementary surrogate edge or leftover composition adjustment, and uses the existing proof universe. *)
 Section CompletedDiamondChecks.
   Universe u.
