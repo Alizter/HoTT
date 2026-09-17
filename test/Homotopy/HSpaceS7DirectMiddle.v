@@ -307,3 +307,68 @@ Section InnerDiamondChecks.
     := D.computed_pasting_inner_diamond_difference@{u}
       a b s North s t c d.
 End InnerDiamondChecks.
+
+(** The aligned computation keeps the scalar boundary, the original multiplication square, and the chosen mixed recursor beta. *)
+Section AlignedInnerChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Open Scope path_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
+    S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Local Notation J := (Join@{Set Set Set} C C).
+  Local Notation mu := (cd_op@{Set} (X:=psphere 1)).
+  Local Notation assoc := (simple_associativity (f:=sgop_s1)).
+  Local Notation comm := (commutativity (f:=sgop_s1)).
+  Let W (s t : C) (z : J) := ap (fun y => mu y z) (jglue s t).
+  Let bh0 (s c d : C) : ap (mu (joinl s)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let bh1 (t c d : C) : ap (mu (joinr t)) (jglue c d) = _
+    := Join_rec_beta_jglue _ _ _ c d.
+  Let bv0 (s t c : C) : W s t (joinl c) = _
+    := Join_rec_beta_jglue _ _ _ s t.
+  Let bv1 (s t d : C) : W s t (joinr d) = _
+    := Join_rec_beta_jglue _ _ _ s t.
+  Let square (s t c d : C)
+    (delta : zigzag (s * c) ((-d) * conj t) (conj s * d)
+      = zigzag (s * c) ((-d) * conj t) (c * t)) :=
+    ((1 @@ bv1 s t d) @ ((bh0 s c d @@ 1)
+      @ (delta @ (1 @@ bh1 t c d)^))) @ (bv0 s t c @@ 1)^.
+  Let square_beta (s t c d : C)
+    : concat_Ap (W s t) (jglue c d)
+      = square s t c d (cd_op_diamond@{Set} (X:=psphere 1) s t c d).
+  Proof.
+    napply moveL_pV.
+    exact (Join_rec2_beta_jglue_jglue J _ _ _ _ _ _ _ _
+      (cd_op_diamond@{Set} (X:=psphere 1)) s t c d).
+  Defined.
+
+  Example right_product_keeps_original_square (a b s t c d : C)
+    : D.right_product_cell@{u} a b s t c d
+      = D.right_product_cell_from_square@{u} a b s t c d
+        (square s t c d (cd_op_diamond@{Set} (X:=psphere 1) s t c d))
+        (square_beta s t c d)
+    := idpath.
+
+  Context (a b s t c : C).
+  Let e := (s * t) * c.
+  Let boundary := ap (conj s *.) ((assoc s t c)^ @ ap (s *.) (comm t c))
+    @ ((assoc (conj s) s (c * t)
+      @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
+
+  Example actual_aligned_diamond
+    : cd_op_diamond@{Set} (X:=psphere 1) s t c e
+      = diamond_v (s * c) ((-e) * conj t) boundary
+    := S7MiddleScalar.inner_diamond_aligned@{u} s t c.
+
+  Example actual_aligned_right_product
+    : D.right_product_cell@{u} a b s t c e
+      = D.right_product_cell_from_square@{u} a b s t c e
+        (square s t c e (diamond_v (s * c) ((-e) * conj t) boundary))
+        (square_beta s t c e @ ap (square s t c e)
+          (S7MiddleScalar.inner_diamond_aligned@{u} s t c))
+    := D.right_product_cell_aligned@{u} a b s t c.
+End AlignedInnerChecks.

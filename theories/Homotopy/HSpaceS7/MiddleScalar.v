@@ -24,6 +24,33 @@ Local Notation J := (Join@{Set Set Set} C C).
 Local Notation assoc := (simple_associativity (f:=sgop_s1)).
 Local Notation comm := (commutativity (f:=sgop_s1)).
 
+(** At the aligned last-right label the actual inner multiplication diamond is vertically degenerate. Keep its right-boundary reassociation; the two right vertices need not be judgmentally equal. *)
+Section AlignedInnerDiamond.
+  Context `{Univalence} (s t c : C).
+  Let label := (assoc s t c)^ @ ap (s *.) (comm t c).
+  Let parameter_unit := ap (cd_diamond_parameter (X:=psphere 1) s t c) label
+    @ cd_diamond_parameter_product s t c.
+  Let right_boundary := ap (conj s *.) label
+    @ ((assoc (conj s) s (c * t)
+      @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
+
+  Definition inner_diamond_aligned
+    : cd_op_diamond@{Set} (X:=psphere 1) s t c ((s * t) * c)
+      = diamond_v (s * c) ((-((s * t) * c)) * conj t) right_boundary.
+  Proof.
+    lhs napply (join_zigzag_filler_parameter_unit
+      (fun z => (@cd_diamond@{Set} (psphere 1) _ cd_diamond_susp z)^) 1
+      (cd_diamond_map_l (X:=psphere 1) s c)
+      (cd_diamond_map_r (X:=psphere 1) t c) parameter_unit).
+    napply (ap (diamond_v (s * c) ((-((s * t) * c)) * conj t))).
+    unfold parameter_unit, right_boundary, label.
+    clear parameter_unit right_boundary label.
+    revert s t c.
+    do 3 srapply (conn_point_elim (-1) (A:=psphere 1)).
+    reflexivity.
+  Defined.
+End AlignedInnerDiamond.
+
 (** Use the unmodified right translation, whose right label is [s * b], rather than replacing it by [b * s]. *)
 Definition parameter `{Univalence} (s a b c d : C)
   : cd_diamond_parameter (X:=psphere 1) (a * s) (s * b) c d

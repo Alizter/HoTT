@@ -269,6 +269,21 @@ Section SpheroidHSpace.
 
   Local Notation assoc := (simple_associativity (f:=hspace_op)).
 
+  (** The product-labelled inner rectangle has unit parameter. No commutativity or diamond hypothesis is needed for this scalar cancellation. *)
+  Definition cd_diamond_parameter_product (a b c : X)
+    : cd_diamond_parameter a b c (a * (c * b)) = mon_unit.
+  Proof.
+    exact (ap (.* conj b)
+      ((assoc (conj c) (conj a) (a * (c * b)))^
+        @ ap (conj c *.)
+          ((assoc (conj a) a (c * b)
+            @ ap (.* (c * b)) (cds_conjug_left_inv a))
+            @ left_identity (c * b))
+        @ ((assoc (conj c) c b @ ap (.* b) (cds_conjug_left_inv c))
+          @ left_identity b))
+      @ cds_conjug_right_inv _ b).
+  Defined.
+
   (** The four scalar boundary identifications for [cd_diamond_map]. *)
   Lemma cd_diamond_map_l_neg_unit (a c : X)
     : cd_diamond_map_l a c (- mon_unit) = a * c.

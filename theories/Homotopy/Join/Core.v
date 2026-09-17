@@ -861,6 +861,26 @@ Proof.
   exact (cancelL_1_natural _).
 Defined.
 
+(** At a parameter where the supplied family is the vertical degenerate diamond, its mapped filler is the specified right-boundary path. The parameter path and all four corner identifications are retained. *)
+Definition join_zigzag_filler_parameter_unit
+  {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  (he : h e = 1) (f : X -> C) (g : X -> D)
+  {t : X} (p_t : t = e) {c c' : C} {d d' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  : join_zigzag_filler f g p q r s (h t)
+    = diamond_v c c' (r^ @ ap g p_t @ s).
+Proof.
+  revert q r; revert t p_t.
+  snapply paths_ind_r.
+  intros q r; destruct p, q, r, s.
+  lhs napply (ap (join_zigzag_filler f g 1 1 1 1) he).
+  lhs napply join_zigzag_filler_refl.
+  cbn [ap].
+  lhs napply (1 @@ concat_1p _).
+  apply concat_Vp.
+Defined.
+
 (** Inversion exchanges the two right boundary computations of a mapped filler. *)
 Definition join_zigzag_filler_V {A B C D : Type}
   (f : A -> C) (g : B -> D)

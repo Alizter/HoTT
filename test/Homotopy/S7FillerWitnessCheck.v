@@ -36,6 +36,21 @@ Example identity_complete_change {X C D : Type} {n e : X}
       (fun x => idpath (g x)) 1 p q r s p q r s = 1
   := join_zigzag_filler_change_path_refl h f g t p q r s.
 
+(** The parameter computation retains arbitrary corners and an explicitly supplied pole computation; neither the fibers nor their path spaces are assumed truncated. *)
+Section ParameterUnitUniverses.
+  Universes i j k l m.
+  Context {X : Type@{i}} {C : Type@{k}} {D : Type@{l}} {n e : X}.
+
+  Example parameter_unit_keeps_boundaries
+    (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+    (he : h e = 1) (f : X -> C) (g : X -> D)
+    {t : X} (p_t : t = e) {c c' : C} {d d' : D}
+    (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+    : join_zigzag_filler@{i i k l m j} f g p q r s (h t)
+      = diamond_v@{k l m} c c' (r^ @ ap g p_t @ s)
+    := join_zigzag_filler_parameter_unit@{i k l j m} h he f g p_t p q r s.
+End ParameterUnitUniverses.
+
 (** The proof before exposing its recursor homotopy and zigzag computation. *)
 Definition legacy_filler_homotopic {A B C D : Type}
   {f f' : A -> C} {g g' : B -> D} (pf : f == f') (pg : g == g')

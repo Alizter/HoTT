@@ -720,6 +720,22 @@ Since the correction is independent of `v`,
 S_s(d)^ @ S_North(d) = S_s(e)^ @ S_North(e).
 ```
 
+The original inner multiplication diamond now has a checked computation
+at the aligned label `e`. `S7MiddleScalar.inner_diamond_aligned` identifies
+`cd_op_diamond s t c ((s*t)*c)` with a vertical diamond, retaining the
+explicit scalar path `conj s*((s*t)*c) = c*t`. This uses the canonical
+north-pole computation and the original four boundary witnesses, not
+uniqueness of join-valued fillers. The generic scalar parameter cancellation
+`cd_diamond_parameter_product` does not require commutativity or a diamond.
+
+`right_product_cell_aligned` carries this computation through the actual
+right-product cube. Its replacement source square is vertically degenerate,
+but its mixed recursor beta is **not discarded**: it is the old beta followed
+by the image of `inner_diamond_aligned`. The existing right-product cell
+retains exactly its original square and beta, checked by `idpath`.
+This does not make the whole pasting ratio degenerate: the unit row and
+the additional left vertex still give other multiplication diamonds.
+
 The full surviving pasting-ratio equality is still open. The remaining
 difference at the aligned right label `e` has not been shown to vanish,
 and the additional left vertex `c'` has not been replaced by the original

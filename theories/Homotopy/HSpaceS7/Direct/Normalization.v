@@ -20,6 +20,8 @@ Include S7DirectCore.
 Section Normalization.
   Universe u.
   Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Open Scope path_scope.
   Local Existing Instances S7LeftScalar.circle_imaginaroid
     S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
     S7LeftScalar.circle_commutative S7LeftScalar.circle_connected
@@ -228,10 +230,14 @@ Section Normalization.
     := Join_rec_beta_jglue _ _ _ a b.
   Let mbv1 (a b d : C) : W a b (joinr d) = _
     := Join_rec_beta_jglue _ _ _ a b.
-  Let multiplication_square (a b c d : C) :=
+  Let multiplication_square_from_diamond (a b c d : C)
+    (delta : zigzag (a * c) ((-d) * conj b) (conj a * d)
+      = zigzag (a * c) ((-d) * conj b) (c * b)) :=
     ((1 @@ mbv1 a b d) @ ((mbh0 a c d @@ 1)
-      @ (cd_op_diamond@{Set} (X:=psphere 1) a b c d
-        @ (1 @@ mbh1 b c d)^))) @ (mbv0 a b c @@ 1)^.
+      @ (delta @ (1 @@ mbh1 b c d)^))) @ (mbv0 a b c @@ 1)^.
+  Let multiplication_square (a b c d : C) :=
+    multiplication_square_from_diamond a b c d
+      (cd_op_diamond@{Set} (X:=psphere 1) a b c d).
   Let multiplication_square_beta (a b c d : C)
     : concat_Ap (W a b) (jglue c d) = multiplication_square a b c d.
   Proof.
@@ -334,10 +340,19 @@ Section Normalization.
       (multiplication_square_beta s t c d)).
   Defined.
 
-  Definition right_product_cell (a b s t c d : C) :=
+  Definition right_product_cell_from_square (a b s t c d : C)
+    (m : ap (mu (joinl s)) (jglue c d) @ W s t (joinr d)
+      = W s t (joinl c) @ ap (mu (joinr t)) (jglue c d))
+    (beta : concat_Ap (W s t) (jglue c d) = m) :=
     (ap (transport _ (jglue c d)) (nv_beta a b s t (joinl c))
       @ ap01D1 (nv_change a b s t) (jglue c d)
-        (nv_inner_cell a b s t c d)) @ (nv_beta a b s t (joinr d))^.
+        ((equiv_concat_Ap_cube (W a b) (W s t) (jglue c d) beta)^-1
+          (sq_ap_nat (mu (joinl a)) (mu (joinr b)) (W a b)
+            (sq_path m)))) @ (nv_beta a b s t (joinr d))^.
+
+  Definition right_product_cell (a b s t c d : C) :=
+    right_product_cell_from_square a b s t c d
+      (multiplication_square s t c d) (multiplication_square_beta s t c d).
 
   Definition right_product_cell_beta (a b s t c d : C)
     : apD (nv a b s t) (jglue c d) = right_product_cell a b s t c d.
@@ -349,6 +364,37 @@ Section Normalization.
     exact (ap (ap01D1 (nv_change a b s t) (jglue c d))
       (nv_inner_cell_beta a b s t c d)).
   Defined.
+
+  (** The aligned source square has the actual vertical diamond from the unit-parameter computation. Its recursor comparison includes that computation, rather than discarding it when the geometric square degenerates. *)
+  Section AlignedRightProduct.
+    Context (a b s t c : C).
+    Let e := (s * t) * c.
+    Let boundary := ap (conj s *.)
+        ((simple_associativity (f:=sgop_s1) s t c)^
+          @ ap (s *.) (commutativity (f:=sgop_s1) t c))
+      @ ((simple_associativity (f:=sgop_s1) (conj s) s (c * t)
+        @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
+    Let square := multiplication_square_from_diamond s t c e
+      (diamond_v (s * c) ((-e) * conj t) boundary).
+    Let beta := multiplication_square_beta s t c e
+      @ ap (multiplication_square_from_diamond s t c e)
+        (S7MiddleScalar.inner_diamond_aligned@{u} s t c).
+
+    Definition right_product_cell_aligned
+      : right_product_cell a b s t c e
+        = right_product_cell_from_square a b s t c e square beta.
+    Proof.
+      lhs_V napply (right_product_cell_beta a b s t c e).
+      lhs napply (apD_homotopic (nv_beta a b s t) (jglue c e)).
+      napply (ap (fun q => (_ @ q) @ _)).
+      lhs napply (apD_composeD (nv_change a b s t)
+        (fun z => nv_inner a b s t z (W s t z)) (jglue c e)).
+      napply (ap (ap01D1 (nv_change a b s t) (jglue c e))).
+      napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b) (W s t)
+        (jglue c e) beta)).
+      exact (equiv_concat_Ap_cube_beta (W a b) (W s t) (jglue c e) beta).
+    Defined.
+  End AlignedRightProduct.
 
   Local Transparent cd_op cd_op_diamond.
 

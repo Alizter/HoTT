@@ -53,6 +53,10 @@ Section ScalarBoundaryPaths.
   Example boundary_product (a b c d : X)
     : c * ((conj c * conj a * d * conj b) * b) = conj a * d
     := cd_diamond_map_r_parameter a b c d.
+  Example product_parameter_without_commutativity (a b c : X)
+    : cd_diamond_parameter a b c (a * (c * b)) = mon_unit
+    := cd_diamond_parameter_product@{u} a b c.
+
   (** Normalizing the parameter still needs no diamond. *)
   Context `{!Commutative (@hspace_op X _)}.
 
