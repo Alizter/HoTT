@@ -520,6 +520,157 @@ Proof.
   exact (equiv_concat_r (concat_p1 (1 @@ v) @ whiskerL_1p_1 v) 1).
 Defined.
 
+(** The naturality square obtained from specified contractions of its two loop edges. Its identity case is the chosen unit square. *)
+Definition naturality_loop {A : Type} {x y : A} {u : x = x} {v : y = y}
+  (du : u = 1) (dv : v = 1) (p : x = y) : u @ p = p @ v.
+Proof.
+  revert u du v dv.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  exact (concat_1p_p1 p).
+Defined.
+
+Definition naturality_loop_pV {A : Type} {x y z : A}
+  {u : x = x} {v : y = y} {w : z = z}
+  (du : u = 1) (dv : v = 1) (dw : w = 1) (p : x = z) (q : y = z)
+  : concat_pV_natural u v w (naturality_loop du dw p)^ (naturality_loop dv dw q)^
+    = (naturality_loop du dv (p @ q^))^.
+Proof.
+  revert u du v dv w dw.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  apply concat_pV_natural_units.
+Defined.
+
+Local Definition naturality_loop_change_unit {A : Type} {x y : A}
+  {p q : x = y} (b : p = q)
+  : naturality_change b b (naturality_loop 1 1 q)^
+    = concat_p1 p @ (concat_1p p)^.
+Proof.
+  destruct b, p; reflexivity.
+Defined.
+
+Local Definition equiv_naturality_loop_square {A : Type} {x y : A}
+  {u : x = x} {v : y = y} (du : u = 1) (dv : v = 1)
+  {p q : x = y} (b : p = q) (n : p @ v = u @ p)
+  (m : p @ 1 = 1 @ p) (bm : m = concat_p1 p @ (concat_1p p)^)
+  : (n = naturality_change b b (naturality_loop du dv q)^)
+    <~> (n @ (du @@ 1) = (1 @@ dv) @ m).
+Proof.
+  revert n; revert u du v dv.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  intro n.
+  exact (equiv_concat_lr (concat_p1 n)
+    ((naturality_loop_change_unit b @ bm^) @ (concat_1p m)^)).
+Defined.
+
+(** A nullhomotopy of the loop-valued homotopy determines its edge computation over any supplied edge beta path. This equivalence keeps that computation, rather than merely asserting that a naturality square exists. *)
+Definition equiv_naturality_loop {A B : Type} (f : A -> B)
+  (k : forall x, f x = f x) {x y : A} (p : x = y)
+  (dx : k x = 1) (dy : k y = 1) {q : f x = f y} (b : ap f p = q)
+  : (concat_Ap k p = naturality_change b b (naturality_loop dx dy q)^)
+    <~> (transport (fun z => k z = 1) p dx = dy)
+  := equiv_naturality_transport2 k (fun z => idpath (f z)) p dx dy
+    oE equiv_naturality_loop_square dx dy b (concat_Ap k p)
+      (concat_Ap (fun z => idpath (f z)) p) (concat_Ap_refl f p).
+
+(** Naturality on the source path space compares two images of an arbitrary filler, with the two edge computations retained. *)
+Definition naturality_path_image {A B : Type} (f g : A -> B) (k : f == g)
+  {x y : A} {p q : x = y} {P Q : f x = f y} {P' Q' : g x = g y}
+  (bp : ap f p = P) (bq : ap f q = Q)
+  (bp' : ap g p = P') (bq' : ap g q = Q')
+  (np : k x @ P' = P @ k y) (nq : k x @ Q' = Q @ k y)
+  (hp : concat_Ap k p = naturality_change bp bp' np^)
+  (hq : concat_Ap k q = naturality_change bq bq' nq^) (h : p = q)
+  : cancelL (k x) P' Q'
+      ((np @ ((bp^ @ (ap (ap f) h @ bq)) @@ 1)) @ nq^)
+    = bp'^ @ (ap (ap g) h @ bq').
+Proof.
+  assert (betaN : forall (r : x = y) (R : f x = f y) (R' : g x = g y)
+    (br : ap f r = R) (br' : ap g r = R')
+    (nr : k x @ R' = R @ k y)
+    (hr : concat_Ap k r = naturality_change br br' nr^),
+    ((concat_Ap k r)^ @ ap (fun t => t @ k y) br) @ nr^
+      = ap (fun t => k x @ t) br').
+  { intros r R R' br br' nr hr.
+    lhs napply concat_pp_p.
+    apply moveR_Vp, moveL_pM.
+    exact hr^. }
+  rhs_V napply (whiskerL_VpL (k x) (bp'^ @ (ap (ap g) h @ bq'))).
+  napply (ap (cancelL (k x) _ _)).
+  lhs napply concat_pp_p.
+  lhs_V napply (inv_V np @@ 1).
+  rhs napply (ap_path_image (fun r : x = y => ap g r)
+    (fun t => k x @ t) bp' bq' h).
+  exact (ap_path_image_natural
+    (fun r : x = y => ap f r) (fun t => t @ k y)
+    (fun r : x = y => k x @ ap g r) (fun r => (concat_Ap k r)^)
+    bp bq np^ nq^ (ap (fun t => k x @ t) bp') (ap (fun t => k x @ t) bq')
+    (betaN p P P' bp bp' np hp) (betaN q Q Q' bq bq' nq hq) h).
+Defined.
+
+(** The corresponding image comparison when both vertex loops are contracted. Only the two free contraction witnesses are eliminated. *)
+Definition naturality_path_image_loop_unit {A : Type} {x y : A}
+  {u : x = x} {v : y = y} (du : u = 1) (dv : v = 1)
+  {p q : x = y} (h : p = q)
+  : cancelL u p q
+      ((naturality_loop du dv p @ (h @@ 1)) @ (naturality_loop du dv q)^) = h.
+Proof.
+  revert u du v dv.
+  snapply paths_ind_r.
+  snapply paths_ind_r.
+  exact (cancelL_1_natural h).
+Defined.
+
+Section NaturalityLoopImage.
+  Context {A B : Type} (f : A -> B)
+    (k : forall x, f x = f x) (d : forall x, k x = 1).
+
+  Let edge {x y : A} (p : x = y) {P : f x = f y} (bp : ap f p = P)
+    := (equiv_naturality_loop f k p (d x) (d y) bp)^-1 (apD d p).
+
+  Let zig {x y z : A} (p : x = z) (q : y = z)
+    {P : f x = f z} {Q : f y = f z} (bp : ap f p = P) (bq : ap f q = Q)
+    := concat_Ap_pV_beta k p q bp bq bp bq
+      (naturality_loop (d x) (d z) P)^ (naturality_loop (d y) (d z) Q)^
+      (edge p bp) (edge q bq) (naturality_loop (d x) (d y) (P @ Q^))^
+      (naturality_loop_pV (d x) (d y) (d z) P Q).
+
+  (** The full zigzag image computation of a nullhomotopic loop homotopy is the specified unit comparison. The source rectangle, its filler, and all four edge beta paths are generalized together before path induction. *)
+  Definition naturality_path_image_loop_compute
+    {x y z w : A} (p : x = z) (q : y = z) (r : x = w) (s : y = w)
+    {P : f x = f z} {Q : f y = f z} {R : f x = f w} {S : f y = f w}
+    (bp : ap f p = P) (bq : ap f q = Q)
+    (br : ap f r = R) (bs : ap f s = S) (h : p @ q^ = r @ s^)
+    : naturality_path_image f f k
+        (ap_pV f p q @ (bp @@ inverse2 bq))
+        (ap_pV f r s @ (br @@ inverse2 bs))
+        (ap_pV f p q @ (bp @@ inverse2 bq))
+        (ap_pV f r s @ (br @@ inverse2 bs))
+        (naturality_loop (d x) (d y) (P @ Q^))
+        (naturality_loop (d x) (d y) (R @ S^))
+        (zig p q bp bq) (zig r s br bs) h
+      = naturality_path_image_loop_unit (d x) (d y)
+        ((ap_pV f p q @ (bp @@ inverse2 bq))^
+          @ (ap (ap f) h @ (ap_pV f r s @ (br @@ inverse2 bs)))).
+  Proof.
+    revert P Q R S bp bq br bs.
+    destruct q, s, p.
+    revert r h.
+    snapply (equiv_path_ind (fun r => equiv_concat_r (concat_p1 r)^ 1)).
+    intros P Q R S bp bq br bs.
+    destruct bp, bq, br, bs.
+    unfold zig, edge, concat_Ap_pV_beta, naturality_path_image.
+    cbn.
+    generalize (d x).
+    generalize (k x).
+    intros u e; revert u e; snapply paths_ind_r.
+    reflexivity.
+  Defined.
+End NaturalityLoopImage.
+
 (** A cube of naturality squares is the dependent transport equation for a square of homotopies. The four homotopies and the two selected endpoint squares are arbitrary. *)
 Definition transport_naturality_square {A B : Type}
   {f0 f1 g0 g1 : A -> B}

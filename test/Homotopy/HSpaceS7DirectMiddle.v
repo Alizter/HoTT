@@ -1,7 +1,8 @@
 From HoTT Require Import Basics Types.Paths Types.Prod Types.Sigma Types.Universe.
 From HoTT Require Import Pointed.Core Spaces.Spheres.
 From HoTT Require Import Homotopy.CayleyDickson Homotopy.Suspension.
-From HoTT Require Import Homotopy.HSpaceS3.
+From HoTT Require Import Homotopy.HSpaceS1 Homotopy.HSpaceS3.
+From HoTT Require Import Classes.interfaces.canonical_names.
 From HoTT Require Import Homotopy.HSpaceS7.Direct.RightRightMiddle.
 From HoTT Require Import Homotopy.Join.Core.
 From HoTT Require Import Homotopy.HSpaceS7.LeftScalar.
@@ -163,6 +164,36 @@ Section WholeMiddleChecks.
     : E (E^-1 m) = m
     := eisretr E m.
 End WholeMiddleChecks.
+
+(** The completed scalar square has no elementary surrogate edge or leftover composition adjustment, and uses the existing proof universe. *)
+Section CompletedDiamondChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp
+    S7LeftScalar.circle_connected S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Local Notation assoc := (simple_associativity (f:=sgop_s1)).
+  Context (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d r : C).
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      @cd_op_diamond@{Set} (psphere 1) S7LeftScalar.circle_spheroid
+        S7LeftScalar.circle_associative D0 a b (fst v) (snd v)).
+
+  Example original_balanced_diagonal_square
+    : S7MiddleScalar.diagonal_path D0 (a * s) (s * b) c d r
+        @ ap (functor_join_filler_data (fun z : C => z * r) (fun z : C => z * r))
+          (S7MiddleScalar.diamond_path@{u} D0 s a b c d)
+      = (S7MiddleScalar.diamond_path@{u} D0 s a b (c * r) (d * r)
+          @ ap data (path_prod' (assoc s c r) (assoc (conj s) d r)))
+        @ S7MiddleScalar.diagonal_path D0 a b (s * c) (conj s * d) r
+    := S7MiddleScalar.diamond_translate_square_postcompose@{u} D0 s a b c d r.
+End CompletedDiamondChecks.
 
 (** Packaging a filler change retains its specified boundary paths, not only its endpoint vertices. *)
 Section FillerBoundaryCheck.

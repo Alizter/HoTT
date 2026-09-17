@@ -19,6 +19,23 @@ Example fiber_square_constant {T : Type} {u v : T} (r s : u = v)
   : r = s
   := path_sigma_fiber_square (fun _ : Unit => T) (idpath (idpath tt)) r s w.
 
+(** The identity computation holds for the entire chosen filler comparison, not just its underlying pointwise join homotopy. *)
+Example identity_filler_comparison {A B C D : Type}
+  (f : A -> C) (g : B -> D) {a a' : A} {b b' : B}
+  (h : zigzag a a' b = zigzag a a' b')
+  : join_zigzag_filler_homotopic (fun a => idpath (f a))
+      (fun b => idpath (g b)) h = 1
+  := join_zigzag_filler_homotopic_refl f g h.
+
+Example identity_complete_change {X C D : Type} {n e : X}
+  (h : forall t, zigzag n t t = zigzag n t e)
+  (f : X -> C) (g : X -> D) (t : X)
+  {c c' : C} {d d' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  : join_zigzag_filler_change_path h (fun x => idpath (f x))
+      (fun x => idpath (g x)) 1 p q r s p q r s = 1
+  := join_zigzag_filler_change_path_refl h f g t p q r s.
+
 (** The proof before exposing its recursor homotopy and zigzag computation. *)
 Definition legacy_filler_homotopic {A B C D : Type}
   {f f' : A -> C} {g g' : B -> D} (pf : f == f') (pg : g == g')

@@ -978,13 +978,15 @@ Definition join_zigzag_filler_homotopy_beta_zigzag {A B C D : Type}
         @ (zigzag_natsq (pf a) (pf a') (pg b))^)
       @ (1 @@ functor_join_beta_zigzag f' g' a a' b)^.
 Proof.
-  lhs napply concat_Ap_pV.
-  lhs napply ((1 @@ ap011 (concat_pV_natural _ _ _)
+  exact (concat_Ap_pV_beta (join_zigzag_filler_homotopy pf pg)
+    (jglue a b) (jglue a' b)
+    (functor_join_beta_jglue f g a b) (functor_join_beta_jglue f g a' b)
+    (functor_join_beta_jglue f' g' a b) (functor_join_beta_jglue f' g' a' b)
+    (join_natsq (pf a) (pg b))^ (join_natsq (pf a') (pg b))^
     (Join_ind_FlFr_beta_jglue _ _ _ _ _ a b)
-    (Join_ind_FlFr_beta_jglue _ _ _ _ _ a' b)) @@ 1).
-  lhs napply ((1 @@ concat_pV_natural_change _ _ _ _ _ _ _ _ _) @@ 1).
-  lhs napply naturality_change_compose.
-  exact ((1 @@ zigzag_natsq_pV (pf a) (pf a') (pg b)) @@ 1).
+    (Join_ind_FlFr_beta_jglue _ _ _ _ _ a' b)
+    (zigzag_natsq (pf a) (pf a') (pg b))^
+    (zigzag_natsq_pV (pf a) (pf a') (pg b))).
 Defined.
 
 (** This unit comparison is a second join induction, not an identification of arbitrary join-valued fillers. Its point clauses are reflexivity. *)
@@ -996,18 +998,26 @@ Proof.
   snapply Join_ind.
   1,2: reflexivity.
   intros a b.
-  nrefine (equiv_naturality_transport2
+  nrefine (equiv_naturality_loop (functor_join f g)
     (join_zigzag_filler_homotopy (fun a => idpath (f a)) (fun b => idpath (g b)))
-    (fun z => idpath (functor_join f g z)) (jglue a b) 1 1 _).
-  lhs napply concat_p1.
-  rhs napply concat_1p.
-  lhs napply (Join_ind_FlFr_beta_jglue _ _ _ _ _ a b).
-  rhs napply concat_Ap_refl.
-  assert (unit_change : forall (x y : Join C D) (p q : x = y) (b : p = q),
-    naturality_change b b (concat_1p_p1 q)^
-      = concat_p1 p @ (concat_1p p)^).
-  { intros x y p q e; destruct e, p; reflexivity. }
-  exact (unit_change _ _ _ _ (functor_join_beta_jglue f g a b)).
+    (jglue a b) 1 1 (functor_join_beta_jglue f g a b) _).
+  exact (Join_ind_FlFr_beta_jglue _ _ _ _ _ a b).
+Defined.
+
+(** The nullhomotopy retains the original edge beta witness, not just its endpoints. *)
+Definition join_zigzag_filler_homotopy_refl_beta_jglue {A B C D : Type}
+  (f : A -> C) (g : B -> D) (a : A) (b : B)
+  : (equiv_naturality_loop (functor_join f g)
+      (join_zigzag_filler_homotopy (fun a => idpath (f a)) (fun b => idpath (g b)))
+      (jglue a b) 1 1 (functor_join_beta_jglue f g a b))^-1
+      (apD (join_zigzag_filler_homotopy_refl f g) (jglue a b))
+    = Join_ind_FlFr_beta_jglue (functor_join f g) (functor_join f g)
+      (fun _ => 1) (fun _ => 1)
+      (fun a b => naturality_change (functor_join_beta_jglue f g a b)
+        (functor_join_beta_jglue f g a b) (join_natsq 1 1)^) a b.
+Proof.
+  lhs napply (ap _ (Join_ind_beta_jglue _ _ _ _ a b)).
+  apply eissect.
 Defined.
 
 (** On paths of scalar maps, this chosen homotopy agrees with application of the join map family. The proof varies the endpoint maps, not a fixed join path. *)
@@ -1038,38 +1048,59 @@ Proof.
   pose (zG := functor_join_beta_zigzag f' g').
   pose (K := join_zigzag_filler_homotopy pf pg).
   pose (betaK := join_zigzag_filler_homotopy_beta_zigzag pf pg a a').
-  assert (betaN : forall v,
-    ((concat_Ap K (zigzag a a' v))^
-      @ ap (fun q => q @ K (joinl a')) (zF a a' v))
-      @ (zigzag_natsq (pf a) (pf a') (pg v))^
-    = ap (fun q => K (joinl a) @ q) (zG a a' v)).
-  { intro v.
-    lhs napply concat_pp_p.
-    apply moveR_Vp, moveL_pM.
-    exact (betaK v)^. }
   (** Remove the target boundary transport and compare the two images of [h] by naturality on the source path space. *)
   lhs napply (ap (transport011 _ (path_prod' (pf a) (pf a'))
     (path_prod' (pg b) (pg b'))) (join_zigzag_filler_refl f g h)).
   rhs napply (join_zigzag_filler_refl f' g' h).
   lhs napply (transport_zigzag_filler (pf a) (pf a') (pg b) (pg b')).
-  rhs_V napply (whiskerL_VpL (K (joinl a))
-    ((zG a a' b)^ @ (ap (ap G) h @ zG a a' b'))).
-  napply (ap (cancelL (K (joinl a)) _ _)).
-  lhs napply concat_pp_p.
-  lhs_V napply (inv_V (zigzag_natsq (pf a) (pf a') (pg b)) @@ 1).
-  rhs napply (ap_path_image (fun p : joinl a = joinl a' => ap G p)
-    (fun q => K (joinl a) @ q) (zG a a' b) (zG a a' b') h).
-  exact (ap_path_image_natural
-    (fun p : joinl a = joinl a' => ap F p)
-    (fun q => q @ K (joinl a'))
-    (fun p : joinl a = joinl a' => K (joinl a) @ ap G p)
-    (fun p => (concat_Ap K p)^)
-    (zF a a' b) (zF a a' b')
-    (zigzag_natsq (pf a) (pf a') (pg b))^
-    (zigzag_natsq (pf a) (pf a') (pg b'))^
-    (ap (fun q => K (joinl a) @ q) (zG a a' b))
-    (ap (fun q => K (joinl a) @ q) (zG a a' b'))
-    (betaN b) (betaN b') h).
+  exact (naturality_path_image F G K
+    (zF a a' b) (zF a a' b') (zG a a' b) (zG a a' b')
+    (zigzag_natsq (pf a) (pf a') (pg b))
+    (zigzag_natsq (pf a) (pf a') (pg b')) (betaK b) (betaK b') h).
+Defined.
+
+(** The identity scalar homotopies induce the identity comparison of the supplied filler. The higher edge computations are retained using the beta rule for the nullhomotopy. *)
+Definition join_zigzag_filler_homotopic_refl {A B C D : Type}
+  (f : A -> C) (g : B -> D) {a a' : A} {b b' : B}
+  (h : zigzag a a' b = zigzag a a' b')
+  : join_zigzag_filler_homotopic (fun a => idpath (f a))
+      (fun b => idpath (g b)) h = 1.
+Proof.
+  pose (F := functor_join f g).
+  pose (K := join_zigzag_filler_homotopy (fun a => idpath (f a)) (fun b => idpath (g b))).
+  pose (d := join_zigzag_filler_homotopy_refl f g).
+  pose (z := functor_join_beta_zigzag f g a a').
+  pose (bh := join_zigzag_filler_homotopy_beta_zigzag
+    (fun a => idpath (f a)) (fun b => idpath (g b)) a a').
+  assert (inner : naturality_path_image F F K (z b) (z b') (z b) (z b')
+    (zigzag_natsq 1 1 1) (zigzag_natsq 1 1 1) (bh b) (bh b') h
+    = cancelL_1_natural ((z b)^ @ (ap (ap F) h @ z b'))).
+  { nrefine (_ @ naturality_path_image_loop_compute F K d
+      (jglue a b) (jglue a' b) (jglue a b') (jglue a' b')
+      (functor_join_beta_jglue f g a b) (functor_join_beta_jglue f g a' b)
+      (functor_join_beta_jglue f g a b') (functor_join_beta_jglue f g a' b') h).
+    napply (ap011 (fun p q => naturality_path_image F F K
+      (z b) (z b') (z b) (z b') (zigzag_natsq 1 1 1) (zigzag_natsq 1 1 1) p q h)).
+    - napply (ap011 (fun p q => concat_Ap_pV_beta K (jglue a b) (jglue a' b)
+        (functor_join_beta_jglue f g a b) (functor_join_beta_jglue f g a' b)
+        (functor_join_beta_jglue f g a b) (functor_join_beta_jglue f g a' b)
+        (join_natsq 1 1)^ (join_natsq 1 1)^ p q (zigzag_natsq 1 1 1)^
+        (zigzag_natsq_pV 1 1 1))).
+      + exact (join_zigzag_filler_homotopy_refl_beta_jglue f g a b)^.
+      + exact (join_zigzag_filler_homotopy_refl_beta_jglue f g a' b)^.
+    - napply (ap011 (fun p q => concat_Ap_pV_beta K (jglue a b') (jglue a' b')
+        (functor_join_beta_jglue f g a b') (functor_join_beta_jglue f g a' b')
+        (functor_join_beta_jglue f g a b') (functor_join_beta_jglue f g a' b')
+        (join_natsq 1 1)^ (join_natsq 1 1)^ p q (zigzag_natsq 1 1 1)^
+        (zigzag_natsq_pV 1 1 1))).
+      + exact (join_zigzag_filler_homotopy_refl_beta_jglue f g a b')^.
+      + exact (join_zigzag_filler_homotopy_refl_beta_jglue f g a' b')^. }
+  unfold join_zigzag_filler_homotopic.
+  lhs napply (ap_idmap (join_zigzag_filler_refl f g h) @@ 1).
+  lhs napply (1 @@ ((1 @@ inner) @@ 1)).
+  lhs napply (1 @@ (concat_Vp (join_zigzag_filler_refl f g h) @@ 1)).
+  lhs napply (1 @@ concat_1p _).
+  apply concat_pV.
 Defined.
 
 (** Changing the maps by pointwise homotopies and changing the diamond parameter transports the complete filler along the induced boundary paths. Both sets of boundary witnesses occur explicitly. *)
@@ -1132,6 +1163,46 @@ Proof.
       @ join_zigzag_filler_change h pf pg p_t p q r s p' q' r' s')).
 Defined.
 
+(** The identity change is the identity path of the complete filler data, including arbitrary chosen corner identifications. *)
+Definition join_zigzag_filler_change_path_refl
+  {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  (f : X -> C) (g : X -> D) (t : X)
+  {c c' : C} {d d' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  : join_zigzag_filler_change_path h (fun x => idpath (f x))
+      (fun x => idpath (g x)) 1 p q r s p q r s = 1.
+Proof.
+  destruct p, q, r, s.
+  unfold join_zigzag_filler_change_path, join_zigzag_filler_change.
+  lhs napply (ap (path_sigma'
+    (fun v : (C * C) * (D * D) =>
+      zigzag (fst (fst v)) (snd (fst v)) (fst (snd v))
+        = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)))
+    (idpath ((f n,f t),(g t,g e))))
+    (ap (fun p => 1 @ (1 @ p)) (join_zigzag_filler_homotopic_refl f g (h t)))).
+  reflexivity.
+Defined.
+
+(** Application to the complete indexed input data computes to the chosen filler change. In particular, the four boundary witnesses vary along with the maps, parameter, and vertices. *)
+Definition join_zigzag_filler_change_path_ap
+  {I : Type} {X : Type@{i}} {C D : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  (f : I -> X -> C) (g : I -> X -> D) (t : I -> X)
+  (c c' : I -> C) (d d' : I -> D)
+  (bp : forall i, f i n = c i) (bq : forall i, f i (t i) = c' i)
+  (br : forall i, g i (t i) = d i) (bs : forall i, g i e = d' i)
+  {i0 i1 : I} (p : i0 = i1)
+  : join_zigzag_filler_change_path h
+      (fun z => ap (fun i => f i z) p) (fun z => ap (fun i => g i z) p) (ap t p)
+      (bp i0) (bq i0) (br i0) (bs i0) (bp i1) (bq i1) (br i1) (bs i1)
+    = ap (fun i => (((c i,c' i),(d i,d' i));
+      join_zigzag_filler (f i) (g i) (bp i) (bq i) (br i) (bs i) (h (t i)))) p.
+Proof.
+  destruct p.
+  apply join_zigzag_filler_change_path_refl.
+Defined.
+
 (** Reindexing the entire source data before a chosen change agrees with composing its scalar paths. The ordinary application on the left includes variation of the four original boundary witnesses as well as the filler. *)
 Definition join_zigzag_filler_change_path_reindex `{Funext}
   {I : Type} {X : Type@{i}} {C D : Type} {n e : X}
@@ -1165,6 +1236,63 @@ Proof.
     (path_forall _ _ (fun z => concat_1p (pg z)))).
   reflexivity.
 Defined.
+
+(** Map the complete filler data, not just its four vertices. *)
+Definition functor_join_filler_data {A B C D : Type} (f : A -> C) (g : B -> D)
+  (v : { v : (A * A) * (B * B) &
+    zigzag (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)) })
+  : { w : (C * C) * (D * D) &
+    zigzag (fst (fst w)) (snd (fst w)) (fst (snd w))
+      = zigzag (fst (fst w)) (snd (fst w)) (snd (snd w)) }
+  := (((f (fst (fst v.1)),f (snd (fst v.1))),
+       (g (fst (snd v.1)),g (snd (snd v.1))));
+    join_zigzag_filler f g 1 1 1 1 v.2).
+
+Local Opaque join_zigzag_filler_compose.
+
+(** Naturality of the actual composition comparison in all of its input data. The free map homotopies, parameter path, and all eight boundary paths vary together. The composition witness and the chosen diamond family are not unfolded or replaced. *)
+Definition join_zigzag_filler_change_path_compose `{Funext}
+  {X : Type@{i}} {C D E F : Type} {n e : X}
+  (h : forall t, zigzag@{i i j} n t t = zigzag n t e)
+  {f f' : X -> C} {g g' : X -> D} (k : C -> E) (l : D -> F)
+  (pf : f == f') (pg : g == g') {t t' : X} (p_t : t = t')
+  {c c' u u' : C} {d d' v v' : D}
+  (p : f n = c) (q : f t = c') (r : g t = d) (s : g e = d')
+  (p' : f' n = u) (q' : f' t' = u') (r' : g' t' = v) (s' : g' e = v')
+  : let Q := fun w : (E * E) * (F * F) =>
+      zigzag (fst (fst w)) (snd (fst w)) (fst (snd w))
+        = zigzag (fst (fst w)) (snd (fst w)) (snd (snd w)) in
+    ap (exist Q ((k c,k c'),(l d,l d')))
+      (join_zigzag_filler_compose f g k l p q r s (h t))
+      @ join_zigzag_filler_change_path h (fun z => ap k (pf z))
+        (fun z => ap l (pg z)) p_t
+        (ap k p) (ap k q) (ap l r) (ap l s)
+        (ap k p') (ap k q') (ap l r') (ap l s')
+    = ap (functor_join_filler_data k l)
+        (join_zigzag_filler_change_path h pf pg p_t p q r s p' q' r' s')
+      @ ap (exist Q ((k u,k u'),(l v,l v')))
+        (join_zigzag_filler_compose f' g' k l p' q' r' s' (h t')).
+Proof.
+  cbn zeta.
+  revert p q r s p' q' r' s'.
+  revert c c' u u' d d' v v'.
+  revert f' pf.
+  snapply (equiv_path_ind (fun f' => equiv_ap10 f f')); cbn [ap10].
+  revert g' pg.
+  snapply (equiv_path_ind (fun g' => equiv_ap10 g g')); cbn [ap10].
+  destruct p_t.
+  intros c c' u u' d d' v v' p q r s p' q' r' s'.
+  destruct p, q, r, s, p', q', r', s'.
+  lhs napply (1 @@ join_zigzag_filler_change_path_refl h (k o f) (l o g) t 1 1 1 1).
+  rhs napply (ap (ap (functor_join_filler_data k l))
+    (join_zigzag_filler_change_path_refl h f g t 1 1 1 1) @@ 1).
+  lhs napply concat_p1.
+  rhs napply concat_1p.
+  reflexivity.
+Defined.
+
+Local Transparent join_zigzag_filler_compose.
 
 (** Two routes of two chosen filler changes agree when their scalar map and parameter paths form commuting squares. The filler itself is arbitrary and is never eliminated; only free scalar paths and map homotopies vary in this proof. *)
 Definition join_zigzag_filler_change_square `{Funext}

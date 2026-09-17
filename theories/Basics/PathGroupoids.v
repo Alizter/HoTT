@@ -1712,6 +1712,29 @@ Proof.
   reflexivity.
 Defined.
 
+(** A specified computation of naturality on each edge induces the corresponding zigzag computation, retaining the chosen comparison of the two target edge squares. *)
+Definition concat_Ap_pV_beta {A B : Type} {f g : A -> B} (h : f == g)
+  {x y z : A} (p : x = z) (q : y = z)
+  {P : f x = f z} {Q : f y = f z}
+  {P' : g x = g z} {Q' : g y = g z}
+  (bp : ap f p = P) (bq : ap f q = Q)
+  (bp' : ap g p = P') (bq' : ap g q = Q')
+  (np : P @ h z = h x @ P') (nq : Q @ h z = h y @ Q')
+  (hp : concat_Ap h p = naturality_change bp bp' np)
+  (hq : concat_Ap h q = naturality_change bq bq' nq)
+  (n : (P @ Q^) @ h y = h x @ (P' @ Q'^))
+  (hn : concat_pV_natural (h x) (h y) (h z) np nq = n)
+  : concat_Ap h (p @ q^)
+    = naturality_change (ap_pV f p q @ (bp @@ inverse2 bq))
+      (ap_pV g p q @ (bp' @@ inverse2 bq')) n.
+Proof.
+  lhs napply concat_Ap_pV.
+  lhs napply ((1 @@ ap011 (concat_pV_natural _ _ _) hp hq) @@ 1).
+  lhs napply ((1 @@ concat_pV_natural_change _ _ _ _ _ _ _ _ _) @@ 1).
+  lhs napply naturality_change_compose.
+  exact ((1 @@ hn) @@ 1).
+Defined.
+
 (** The zigzag computation for a composite map agrees with computing each map in turn, including specified computations on both edges. *)
 Definition ap_pV_compose_beta {A B C : Type}
   (f : A -> B) (g : B -> C) {x y z : A} (p : x = z) (q : y = z)

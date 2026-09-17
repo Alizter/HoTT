@@ -598,38 +598,57 @@ chosen filler. It does not truncate the join or eliminate its fixed filler.
 This gives `S7MiddleScalar.diamond_translate_square` for any supplied circle
 diamond.
 
-The boundary and postcomposition attachments are now partly checked:
+The balanced and diagonal comparisons now form a completed square.
 `diamond_path_change` retains the original standard balanced boundaries;
 `diagonal_path_translate` retains the parameter-independent diagonal
 boundaries; and `translate_path_change` retains the actual postcomposition
-beta path. `diamond_translate_square_normalized` uses these original
-balanced and diagonal comparisons on three edges, with reassociation of
-the input data and both postcomposition beta paths explicit. Its remaining
-edge is still the elementary balanced change of the postcomposed scalar
-maps. Identifying that edge with the mapped balanced comparison, and
-attaching the selected `AL` overlaps in the surviving pasting, remain to
-be proved. This square is not a proof of `Mixed`.
+beta path. The intermediate `diamond_translate_square_normalized` still
+has one elementary edge and two explicit composition adjustments.
 
-For the remaining input-data-path computation, the original recursor
-homotopy inside `join_zigzag_filler_homotopic` is now exposed as
-`join_zigzag_filler_homotopy`, together with its existing zigzag beta
-computation. Its reflexive scalar-map case is proved equal to the identity
-homotopy by a second join induction, with literal reflexive point clauses;
-`join_zigzag_filler_homotopy_ap` then compares it with application along
-paths of scalar maps. The regression `filler_witness_unchanged` checks by
-`idpath` that factoring these definitions preserves the entire original
-filler-comparison witness. The higher compatibility of the zigzag beta
-computations is still needed to obtain the complete input-data-path
-computation; the pointwise homotopy comparison alone is not that result.
+`diamond_postcompose_change` identifies that fourth edge with actual
+postcomposition of the original balanced comparison, using naturality of
+`join_zigzag_filler_compose` on complete input data. Cancelling the
+composition adjustments gives `diamond_translate_square_postcompose`:
 
-`Types.Sigma.path_sigma_fiber_square` implements extraction over a prescribed
-scalar square: from an equality between two sigma paths, it obtains the
-fiber comparison over a specified `k : p = q`, assuming only that `p = q`
-is a proposition. Thus the 1-truncation of the vertex type can identify
-the projected scalar square with its prescribed counterpart, without
-truncating the fibers or their paths. This applies once the required total
-data square has actually been proved; it does not supply the missing
-postcomposition comparison.
+```text
+diagonal_top @ ap Post_r balanced
+  = (balanced_scaled @ reassociation) @ diagonal_bottom.
+```
+
+Here `Post_r` is `functor_join_filler_data (.*r) (.*r)`, which maps both
+vertices and fillers. There is no elementary surrogate edge or leftover
+composition-beta endpoint in this equation. It holds for any supplied
+circle diamond, and needs no new diamond symmetry.
+
+The input-data computation retains the original recursor homotopy and
+its zigzag beta paths. `equiv_naturality_loop` and
+`naturality_path_image_loop_compute` give the higher compatibility of its
+nullhomotopy with those specified edge computations. Consequently,
+`join_zigzag_filler_homotopic_refl` proves the identity law for the **whole
+filler comparison**, not merely its underlying homotopy.
+`join_zigzag_filler_change_path_refl` and
+`join_zigzag_filler_change_path_ap` compute the complete-data path.
+`join_zigzag_filler_change_path_compose` proves composition naturality by
+induction on the free map homotopies, parameter, and boundary paths, while
+keeping the actual composition witness opaque. The arbitrary supplied
+diamond family is never eliminated. The regression
+`filler_witness_unchanged` still proves by `idpath` that the original
+filler-comparison witness has not been replaced.
+
+`Types.Sigma.path_sigma_fiber_square` extracts the fiber comparison over a
+prescribed scalar square, assuming only that comparisons of the two base
+paths form a proposition. `middle_l_glue_glue_diagonal` now applies this
+to the completed total-data square, cancels its diagonal/reassociation
+suffix, and lifts the resulting comparison through
+`middle_l_glue_glue_from_diamond`. Thus its target is the **original
+middle-left cube**, with all its side computations retained. Only the
+scalar squares are identified using 1-truncation; no join-valued filler
+or higher filler comparison is truncated.
+
+The remaining obligation is to match this cube comparison with the
+specified `AL` overlap/cap pastings in the surviving `Mixed` calculation.
+That attachment has not been proved, and these local squares do not by
+themselves establish `Mixed` or unconditional S7.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`

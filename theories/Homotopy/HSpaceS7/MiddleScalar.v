@@ -459,6 +459,47 @@ Section BalancedDiagonal.
     rhs napply (1 @@ reassociation_change).
     exact diamond_translate_square.
   Defined.
+
+  Let post := functor_join_filler_data rt rt.
+
+  (** Naturality of the actual composition beta paths identifies the remaining elementary edge with postcomposition of the original balanced comparison. *)
+  Definition diamond_postcompose_change
+    : composition_data (a * s) (s * b) c d
+        @ join_zigzag_filler_change_path h pf13 pg13 pt13
+          p1 q1 r1 s1 p3 q3 r3 s3
+      = ap post (diamond_path@{u} D0 s a b c d)
+        @ composition_data a b (s * c) (conj s * d).
+  Proof.
+    rhs napply (ap (ap post) (diamond_path_change@{u} D0 s a b c d) @@ 1).
+    exact (join_zigzag_filler_change_path_compose h rt rt
+      (cd_diamond_map_l_balanced (X:=psphere 1) s a c) (map_r s b c)
+      (parameter s a b c d)
+      (cd_diamond_map_l_neg_unit (a * s) c)
+      (cd_diamond_map_l_parameter (a * s) (s * b) c d)
+      (cd_diamond_map_r_parameter (a * s) (s * b) c d)
+      (cd_diamond_map_r_unit (s * b) c)
+      (cd_diamond_map_l_neg_unit a (s * c))
+      (cd_diamond_map_l_parameter a b (s * c) (conj s * d))
+      (cd_diamond_map_r_parameter a b (s * c) (conj s * d))
+      (cd_diamond_map_r_unit b (s * c))).
+  Defined.
+
+  (** The completed balancing--translation square uses the original balanced and diagonal comparisons and actual postcomposition. Both composition beta adjustments have cancelled. *)
+  Definition diamond_translate_square_postcompose
+    : diagonal_path D0 (a * s) (s * b) c d r
+        @ ap post (diamond_path@{u} D0 s a b c d)
+      = (diamond_path@{u} D0 s a b (c * r) (d * r) @ reassociation)
+        @ diagonal_path D0 a b (s * c) (conj s * d) r.
+  Proof.
+    napply (cancelR _ _ (composition_data a b (s * c) (conj s * d))).
+    lhs napply concat_pp_p.
+    lhs_V napply (1 @@ diamond_postcompose_change).
+    lhs napply concat_p_pp.
+    lhs napply diamond_translate_square_normalized.
+    rhs napply (concat_pp_p _ _ _ @@ 1).
+    rhs napply concat_pp_p.
+    reflexivity.
+  Defined.
 End BalancedDiagonal.
 
 Local Opaque cd_op_diamond.
@@ -615,6 +656,59 @@ Defined.
 Definition middle_l_glue_glue `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d : C)
   := middle_l_glue_glue_from_diamond D0 s a b c d (diamond D0 s a b c d).
+
+(** Lift the completed total-data square through the existing middle-left cube constructor. The prescribed scalar square can differ from the projection of the total square: only those scalar squares are identified by 1-truncation. *)
+Section DiagonalMiddleCell.
+  Universe u.
+  Context `{Univalence}
+    (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b c d r : C).
+  Let rt := fun z : C => z * r.
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let source : sig Q :=
+    ((((a * s) * (c * r), (-(d * r)) * conj (s * b)),
+      (conj (a * s) * (d * r), (c * r) * (s * b)));
+      D D0 (a * s) (s * b) (c * r) (d * r)).
+  Let target : sig Q :=
+    (((a * (s * (c * r)), (-(conj s * (d * r))) * conj b),
+      (conj a * (conj s * (d * r)), (s * (c * r)) * b));
+      D D0 a b (s * (c * r)) (conj s * (d * r))).
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      D D0 a b (fst v) (snd v)).
+  Let reassociation := ap data (path_prod' (assoc s c r) (assoc (conj s) d r)).
+  Let ending := reassociation @ diagonal_path D0 a b (s * c) (conj s * d) r.
+  Let alternate : source = target :=
+    (diagonal_path D0 (a * s) (s * b) c d r
+      @ ap (functor_join_filler_data rt rt) (diamond_path@{u} D0 s a b c d))
+      @ ending^.
+  Let route : alternate = diamond_path@{u} D0 s a b (c * r) (d * r).
+  Proof.
+    unfold alternate.
+    lhs napply (diamond_translate_square_postcompose@{u} D0 s a b c d r @@ 1).
+    lhs napply (concat_pp_p _ _ _ @@ 1).
+    apply concat_pp_V.
+  Defined.
+  Let pl := path_prod' (p00 s a (c * r)) (p11 s b (d * r)).
+  Let pr := path_prod' (p01 s a (d * r)) (p10 s b (c * r)).
+  Let beta := transport_path_prod' Q pl pr source.2.
+
+  Definition middle_l_glue_glue_diagonal
+    (kappa : pr1_path alternate = path_prod' pl pr)
+    : middle_l_glue_glue_from_diamond D0 s a b (c * r) (d * r)
+        (beta^ @ transport
+          (fun p : source.1 = target.1 => transport Q p source.2 = target.2)
+          kappa (pr2_path alternate))
+      = middle_l_glue_glue@{u} D0 s a b (c * r) (d * r).
+  Proof.
+    napply (ap (middle_l_glue_glue_from_diamond D0 s a b (c * r) (d * r))).
+    lhs tapply (1 @@ path_sigma_fiber_square Q kappa (pr2_path alternate)
+      (beta @ diamond@{u} D0 s a b (c * r) (d * r))
+      (eta_path_sigma alternate @ route)).
+    apply concat_V_pp.
+  Defined.
+End DiagonalMiddleCell.
 
 Definition middle_l_glue `{Univalence}
   `(D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b : C)
