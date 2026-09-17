@@ -779,22 +779,63 @@ correction and proves
 S_v^{c,k}(z)^ @ S_w^{c,k}(z) = (V^ @ ap back R) @ V.
 ```
 
-At `z = (s*t)*c`, `computed_pasting_aligned_difference` substitutes the actual
-`right_product_cell_aligned` comparison into this **whole expression** for
-rows `s,w`. Write `C_s*(c)` for the complete pasting with that one
-right-product cube replaced, including its corrected mixed beta. The result
-has the same conjugation and transport, with
+The balancing--translation square now also matches the **original** middle
+labels at the aligned right label. `diamond_translate_square_aligned` takes
+an arbitrary chosen circle diamond and normalizes its former labels
+`(s*North, conj s*(s*t))` to `(s,t)` using the specified unit and inverse
+paths. `aligned_boundary_coherence` proves that its remaining scalar
+adjustment is exactly
+
+```text
+(1, inner_diamond_boundary s t c @ comm c t).
+```
+
+Thus the adjustment uses the same scalar boundary as the actual degenerate
+inner diamond; it is not a replacement based only on matching endpoints.
+The exposed `inner_diamond_boundary` retains its original proof term,
+checked by `idpath`.
+
+At the level of complete filler data, put
+
+```text
+B_c   := diamond_path s a b c ((s*t)*c)
+A_c   := ap data (1, inner_diamond_boundary s t c @ comm c t)
+B_0   := diamond_path s a b North (s*t)
+U     := ap data (right_identity s, conjugate cancellation at s*t)
+delta0 := diagonal_path (a*s) (s*b) North (s*t) c
+delta  := diagonal_path a b s t c.
+```
+
+The checked square gives
+
+```text
+(B_c @ A_c)^ @ (delta0 @ ap Post_c (B_0 @ U)) = delta.
+```
+
+The scalar square for fiber extraction is obtained by projecting this
+actual total-data equality. No extra `kappa` hypothesis is introduced.
+
+At `z = (s*t)*c`, `computed_pasting_aligned_difference` substitutes both this
+balanced cap input and `right_product_cell_aligned` into the **whole
+four-pasting expression** for rows `s,w`. Write `C_s*(c)` for the primary
+pasting with these two inputs replaced, retaining all outer comparisons and
+the corrected mixed recursor beta. The result has the same conjugation and
+transport, with
 
 ```text
 R* := (C_s(k) @ C_s*(c)^) @ (C_w(c) @ C_w(k)^).
 ```
 
-Its construction retains all four caps, the other three right-product cubes,
-and the sixteen other side cells. The aligned input comparison is applied
-inside the complete loop, not used to declare the cube reflexive. At this
-label the remaining vanishing question is precisely `R* = 1`: transport
-along a path and conjugation are equivalences, but neither makes an
-arbitrary loop trivial.
+Its construction retains all four cap factories, the other three original
+cap inputs and right-product cubes, and the sixteen other side cells.
+In the primary term, the cap now contains the inverse of the same balanced
+path `B_c` that supplies the middle cell. Their arguments and the connecting
+scalar boundary are matched, but their converted images pass through
+different cube/pasting constructions: cancellation of those images has
+**not** been proved. The input comparisons do not declare any cube reflexive.
+At this label the remaining vanishing question is precisely `R* = 1`:
+transport along a path and conjugation are equivalences, but neither makes
+an arbitrary loop trivial.
 
 The full surviving pasting-ratio equality is still open. One can now choose
 the unit anchor without a new diamond coherence, or choose alignment with

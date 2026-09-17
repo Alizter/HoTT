@@ -366,14 +366,10 @@ Section Normalization.
   Defined.
 
   (** The aligned source square has the actual vertical diamond from the unit-parameter computation. Its recursor comparison includes that computation, rather than discarding it when the geometric square degenerates. *)
-  Let aligned_boundary (s t c : C) := ap (conj s *.)
-      ((simple_associativity (f:=sgop_s1) s t c)^
-        @ ap (s *.) (commutativity (f:=sgop_s1) t c))
-    @ ((simple_associativity (f:=sgop_s1) (conj s) s (c * t)
-      @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
   Let aligned_square (s t c : C) :=
     multiplication_square_from_diamond s t c ((s * t) * c)
-      (diamond_v (s * c) ((-((s * t) * c)) * conj t) (aligned_boundary s t c)).
+      (diamond_v (s * c) ((-((s * t) * c)) * conj t)
+        (S7MiddleScalar.inner_diamond_boundary s t c)).
   Let aligned_square_beta (s t c : C)
     := multiplication_square_beta s t c ((s * t) * c)
       @ ap (multiplication_square_from_diamond s t c ((s * t) * c))
@@ -1423,41 +1419,106 @@ Section Normalization.
         @ (ap ((-d) *.) (cds_conjug_left_inv t) @ right_identity (-d))).
     Defined.
 
-    (** Substitute the aligned computation in the entire four-pasting difference, after cancelling its common source correction. The other three right-product squares, all four caps, and all sixteen remaining side cells are retained. The resulting conjugated loop is not asserted to be trivial. *)
+    (** Substitute the aligned computation and the balancing--translation square in the entire four-pasting difference, after cancelling its common source correction. All cap and side-cell constructions are retained; the primary cap and right-product inputs are replaced by their checked comparisons. The resulting conjugated loop is not asserted to be trivial. *)
     Section AlignedPastingDifference.
       Context (a b s w t c k : C).
       Let e := (s * t) * c.
       Let V := transport_Vp (Gamma a b (joinr t)) (jglue k e)
         (face_z a b (joinr t) k).
       Let back := transport (Gamma a b (joinr t)) (jglue k e)^.
-      Let full_pasting (v x : C)
+      Local Notation assoc := (simple_associativity (f:=sgop_s1)).
+      Let Q := fun v : (C * C) * (C * C) =>
+        zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+          = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+      Let data (v : C * C) : sig Q :=
+        (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+          cd_op_diamond@{Set} (X:=psphere 1) a b (fst v) (snd v)).
+      Let post : sig Q -> sig Q := functor_join_filler_data (.* c) (.* c).
+      Let unit_labels := path_prod' (right_identity s)
+        ((assoc (conj s) s t @ ap (.* t) (cds_conjug_left_inv s))
+          @ left_identity t).
+      Let reference := S7MiddleScalar.diamond_path@{u}
+        cd_diamond_susp s a b North (s * t) @ ap data unit_labels.
+      Let alignment := ap data (path_prod' (idpath (s * c))
+        (S7MiddleScalar.inner_diamond_boundary s t c
+          @ commutativity (f:=sgop_s1) c t)).
+      Let source := data (s * c, t * c).
+      Let target := post (data (s, t)).
+      Let alternate : source = target :=
+        (S7MiddleScalar.diamond_path@{u} cd_diamond_susp s a b c e
+          @ alignment)^
+        @ (S7MiddleScalar.diagonal_path cd_diamond_susp
+            (a * s) (s * b) North (s * t) c @ ap post reference).
+      Let route : alternate
+        = S7MiddleScalar.diagonal_path cd_diamond_susp a b s t c.
+      Proof.
+        unfold alternate.
+        lhs napply (1 @@ S7MiddleScalar.diamond_translate_square_aligned@{u}
+          cd_diamond_susp s a b t c).
+        apply concat_V_pp.
+      Defined.
+      Let pl := path_prod'
+        (cd_diamond_translate_l_neg_unit (X:=psphere 1) a s c)
+        (cd_diamond_translate_l_parameter North b North t c).
+      Let pr := path_prod'
+        (cd_diamond_translate_r_parameter (X:=psphere 1) a North North t c)
+        (cd_diamond_translate_r_unit b s c).
+      Let cap_beta := transport_path_prod' Q pl pr source.2.
+      Let scalar_square : pr1_path alternate = path_prod' pl pr :=
+        ap pr1_path route @ pr1_path_sigma (u:=source) (v:=target)
+          (path_prod' pl pr)
+          (cap_beta @ cd_op_diamond_diagonal (X:=psphere 1) a b s t c).
+      Let aligned_delta : diagonal_input a b s t c := cap_beta^
+        @ transport
+          (fun p : source.1 = target.1 => transport Q p source.2 = target.2)
+          scalar_square (pr2_path alternate).
+      Let aligned_delta_beta
+        : aligned_delta = cd_op_diamond_diagonal (X:=psphere 1) a b s t c.
+      Proof.
+        unfold aligned_delta.
+        lhs tapply (1 @@ path_sigma_fiber_square Q scalar_square
+          (pr2_path alternate)
+          (cap_beta @ cd_op_diamond_diagonal (X:=psphere 1) a b s t c)
+          (eta_path_sigma alternate @ route)).
+        apply concat_V_pp.
+      Defined.
+
+      Let full_pasting (v x : C) (delta : diagonal_input a b v t x)
         (cell : transport
           (fun z => yg (joinl a) v t z @ xg a b (joinr t) z
             = xg a b (joinl v) z @ yg (joinr b) v t z)
           (jglue x e) (nv a b v t (joinl x)) = nv a b v t (joinr e)) :=
         ap (transport (Gamma a b (joinr t)) (jglue x e))
-          (computed_cap a b v t x
-            (cd_op_diamond_diagonal (X:=psphere 1) a b v t x))
+          (computed_cap a b v t x delta)
         @ paste_cubes a b v t x e (left_product_cell a b v t x e) cell
           (left_cell a v t x e) (first_right_cell b v t x e)
           (middle_cell a b v x e).
 
+      (** The primary cap now uses the same balanced comparison that supplies the primary middle cell. The intervening scalar path is exactly the boundary of the chosen aligned inner diamond, followed by right-translation commutativity. The other three caps and right-product cubes are unchanged. *)
       Definition computed_pasting_aligned_difference
         : (pasting_span a b s t c k e)^ @ pasting_span a b w t c k e
           = (V^ @ ap back
-            ((full_pasting s k (right_product_cell a b s t k e)
-              @ (full_pasting s c (right_product_cell_from_square a b s t c e
-                (aligned_square s t c) (aligned_square_beta s t c)))^)
-            @ (full_pasting w c (right_product_cell a b w t c e)
-              @ (full_pasting w k (right_product_cell a b w t k e))^))) @ V.
+            ((full_pasting s k (cd_op_diamond_diagonal a b s t k)
+                (right_product_cell a b s t k e)
+              @ (full_pasting s c aligned_delta
+                (right_product_cell_from_square a b s t c e
+                  (aligned_square s t c) (aligned_square_beta s t c)))^)
+            @ (full_pasting w c (cd_op_diamond_diagonal a b w t c)
+                (right_product_cell a b w t c e)
+              @ (full_pasting w k (cd_op_diamond_diagonal a b w t k)
+                (right_product_cell a b w t k e))^))) @ V.
       Proof.
         lhs napply (computed_pasting_span_difference a b s w t c k e).
-        napply (ap (fun cell => (V^ @ ap back
-          ((full_pasting s k (right_product_cell a b s t k e)
-            @ (full_pasting s c cell)^)
-          @ (full_pasting w c (right_product_cell a b w t c e)
-            @ (full_pasting w k (right_product_cell a b w t k e))^))) @ V)).
-        exact (right_product_cell_aligned a b s t c).
+        tapply (ap011 (fun delta cell => (V^ @ ap back
+          ((full_pasting s k (cd_op_diamond_diagonal a b s t k)
+              (right_product_cell a b s t k e)
+            @ (full_pasting s c delta cell)^)
+          @ (full_pasting w c (cd_op_diamond_diagonal a b w t c)
+              (right_product_cell a b w t c e)
+            @ (full_pasting w k (cd_op_diamond_diagonal a b w t k)
+              (right_product_cell a b w t k e))^))) @ V)).
+        - exact (aligned_delta_beta^)%path.
+        - exact (right_product_cell_aligned a b s t c).
       Defined.
     End AlignedPastingDifference.
   End InnerDiamondPasting.

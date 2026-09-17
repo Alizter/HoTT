@@ -30,26 +30,48 @@ Section AlignedInnerDiamond.
   Let label := (assoc s t c)^ @ ap (s *.) (comm t c).
   Let parameter_unit := ap (cd_diamond_parameter (X:=psphere 1) s t c) label
     @ cd_diamond_parameter_product s t c.
-  Let right_boundary := ap (conj s *.) label
+  Definition inner_diamond_boundary := ap (conj s *.) label
     @ ((assoc (conj s) s (c * t)
       @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
 
   Definition inner_diamond_aligned
     : cd_op_diamond@{Set} (X:=psphere 1) s t c ((s * t) * c)
-      = diamond_v (s * c) ((-((s * t) * c)) * conj t) right_boundary.
+      = diamond_v (s * c) ((-((s * t) * c)) * conj t) inner_diamond_boundary.
   Proof.
     lhs napply (join_zigzag_filler_parameter_unit
       (fun z => (@cd_diamond@{Set} (psphere 1) _ cd_diamond_susp z)^) 1
       (cd_diamond_map_l (X:=psphere 1) s c)
       (cd_diamond_map_r (X:=psphere 1) t c) parameter_unit).
     napply (ap (diamond_v (s * c) ((-((s * t) * c)) * conj t))).
-    unfold parameter_unit, right_boundary, label.
-    clear parameter_unit right_boundary label.
+    unfold parameter_unit, inner_diamond_boundary, label.
+    clear parameter_unit label.
     revert s t c.
     do 3 srapply (conn_point_elim (-1) (A:=psphere 1)).
     reflexivity.
   Defined.
 End AlignedInnerDiamond.
+
+(** The scalar endpoint change needed by the balanced--diagonal square is exactly the boundary retained by the aligned inner diamond, followed by the original right-translation commutativity path. Only an equality of scalar paths is proposition-valued here. *)
+Definition aligned_boundary_coherence `{Univalence} (s t c : C)
+  : path_prod' (assoc s North c) (assoc (conj s) (s * t) c)
+      @ ap (fun v : C * C => (fst v * c, snd v * c))
+        (path_prod' (right_identity s)
+          ((assoc (conj s) s t @ ap (.* t) (cds_conjug_left_inv s))
+            @ left_identity t))
+    = path_prod' 1 (inner_diamond_boundary s t c @ comm c t).
+Proof.
+  lhs napply (1 @@ ap_functor_prod (.* c) (.* c)
+    (s * North, conj s * (s * t)) (s, t) _ _).
+  lhs_V napply (path_prod_pp _ _ _ _ _ _ _).
+  napply (ap011 path_prod').
+  - revert s c.
+    do 2 srapply (conn_point_elim (-1) (A:=psphere 1) _ _).
+    reflexivity.
+  - unfold inner_diamond_boundary.
+    revert s t c.
+    do 3 srapply (conn_point_elim (-1) (A:=psphere 1) _ _).
+    reflexivity.
+Defined.
 
 (** Use the unmodified right translation, whose right label is [s * b], rather than replacing it by [b * s]. *)
 Definition parameter `{Univalence} (s a b c d : C)
@@ -528,6 +550,50 @@ Section BalancedDiagonal.
     reflexivity.
   Defined.
 End BalancedDiagonal.
+
+(** Align both occurrences of the complete balancing--translation square with the actual middle labels [s,t]. The unit and inverse paths change the full filler data, not just its vertices. In particular, the right edge is the original diagonal comparison at [s,t], rather than the comparison at [s * North, conj s * (s * t)]. *)
+Section AlignedBalancedDiagonal.
+  Universe u.
+  Context `{Univalence}
+    (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b t c : C).
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      D D0 a b (fst v) (snd v)).
+  Let scale (v : C * C) := (fst v * c, snd v * c).
+  Let post : sig Q -> sig Q := functor_join_filler_data (.* c) (.* c).
+  Let unit_labels := path_prod' (right_identity s)
+    ((assoc (conj s) s t @ ap (.* t) (cds_conjug_left_inv s))
+      @ left_identity t).
+  Let reassociate := path_prod' (assoc s North c) (assoc (conj s) (s * t) c).
+  Let reference := diamond_path@{u} D0 s a b North (s * t)
+    @ ap data unit_labels.
+
+  Definition diamond_translate_square_aligned
+    : diagonal_path D0 (a * s) (s * b) North (s * t) c @ ap post reference
+      = (diamond_path@{u} D0 s a b c ((s * t) * c)
+          @ ap data (path_prod' 1 (inner_diamond_boundary s t c @ comm c t)))
+        @ diagonal_path D0 a b s t c.
+  Proof.
+    unfold reference.
+    lhs napply (1 @@ ap_pp post _ _).
+    lhs napply concat_p_pp.
+    lhs napply (diamond_translate_square_postcompose@{u}
+      D0 s a b North (s * t) c @@ 1).
+    lhs napply concat_pp_p.
+    lhs napply (1 @@ ((1 @@ (ap_compose data post unit_labels)^)
+      @ (concat_Ap (fun v : C * C =>
+        diagonal_path D0 a b (fst v) (snd v) c) unit_labels)^)).
+    lhs napply concat_p_pp.
+    lhs napply (concat_pp_p _ _ _ @@ 1).
+    napply (ap (fun p => (_ @ p) @ _)).
+    lhs napply (1 @@ ap_compose scale data unit_labels).
+    lhs_V napply (ap_pp data reassociate (ap scale unit_labels)).
+    exact (ap (ap data) (aligned_boundary_coherence@{u} s t c)).
+  Defined.
+End AlignedBalancedDiagonal.
 
 Local Opaque cd_op_diamond.
 

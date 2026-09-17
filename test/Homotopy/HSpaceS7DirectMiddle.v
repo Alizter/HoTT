@@ -414,6 +414,18 @@ Section AlignedInnerChecks.
     @ ((assoc (conj s) s (c * t)
       @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
 
+  Example aligned_boundary_unchanged
+    : S7MiddleScalar.inner_diamond_boundary s t c = boundary := idpath.
+
+  Example aligned_scalar_attachment
+    : path_prod' (assoc s North c) (assoc (conj s) (s * t) c)
+        @ ap (fun v : C * C => (fst v * c, snd v * c))
+          (path_prod' (right_identity s)
+            ((assoc (conj s) s t @ ap (.* t) (cds_conjug_left_inv s))
+              @ left_identity t))
+      = path_prod' 1 (boundary @ comm c t)
+    := S7MiddleScalar.aligned_boundary_coherence@{u} s t c.
+
   Example actual_aligned_diamond
     : cd_op_diamond@{Set} (X:=psphere 1) s t c e
       = diamond_v (s * c) ((-e) * conj t) boundary
@@ -427,3 +439,41 @@ Section AlignedInnerChecks.
           (S7MiddleScalar.inner_diamond_aligned@{u} s t c))
     := D.right_product_cell_aligned@{u} a b s t c.
 End AlignedInnerChecks.
+
+(** The aligned square uses the original cap labels and the original middle-cell label, with an arbitrary chosen diamond. The scalar correction is the boundary from the actual aligned inner computation, not a new identification of filler endpoints. *)
+Section AlignedBalancedChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Open Scope path_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp
+    S7LeftScalar.circle_connected S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Local Notation assoc := (simple_associativity (f:=sgop_s1)).
+  Local Notation comm := (commutativity (f:=sgop_s1)).
+  Context (D0 : CayleyDicksonDiamond (psphere 1) (-)) (s a b t c : C).
+  Let Q := fun v : (C * C) * (C * C) =>
+    zigzag@{Set Set Set} (fst (fst v)) (snd (fst v)) (fst (snd v))
+      = zigzag (fst (fst v)) (snd (fst v)) (snd (snd v)).
+  Let data (v : C * C) : sig Q :=
+    (((a * fst v, (-snd v) * conj b), (conj a * snd v, fst v * b));
+      @cd_op_diamond@{Set} (psphere 1) S7LeftScalar.circle_spheroid
+        S7LeftScalar.circle_associative D0 a b (fst v) (snd v)).
+  Let post : sig Q -> sig Q := functor_join_filler_data (.* c) (.* c).
+  Let unit_labels := path_prod' (right_identity s)
+    ((assoc (conj s) s t @ ap (.* t) (cds_conjug_left_inv s))
+      @ left_identity t).
+  Let reference := S7MiddleScalar.diamond_path@{u} D0 s a b North (s * t)
+    @ ap data unit_labels.
+
+  Example original_aligned_cap_middle_labels
+    : S7MiddleScalar.diagonal_path D0 (a * s) (s * b) North (s * t) c
+        @ ap post reference
+      = (S7MiddleScalar.diamond_path@{u} D0 s a b c ((s * t) * c)
+          @ ap data (path_prod' (idpath (s * c))
+            (S7MiddleScalar.inner_diamond_boundary s t c @ comm c t)))
+        @ S7MiddleScalar.diagonal_path D0 a b s t c
+    := S7MiddleScalar.diamond_translate_square_aligned@{u} D0 s a b t c.
+End AlignedBalancedChecks.
