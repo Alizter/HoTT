@@ -1,0 +1,91 @@
+From HoTT Require Import Basics Types.
+From HoTT Require Import Homotopy.Join.Core.
+Local Open Scope path_scope.
+
+Section HomotopyUnitChecks.
+  Context {A B C D : Type} (f : A -> C) (g : B -> D).
+
+  Example filler_homotopy_refl_left (a : A)
+    : join_zigzag_filler_homotopy_refl f g (joinl a) = 1 := idpath.
+
+  Example filler_homotopy_refl_right (b : B)
+    : join_zigzag_filler_homotopy_refl f g (joinr b) = 1 := idpath.
+End HomotopyUnitChecks.
+
+(** The extraction never assumes truncation of the fiber, even when the two base paths and their comparison are identities. *)
+Example fiber_square_constant {T : Type} {u v : T} (r s : u = v)
+  (w : path_sigma' (fun _ : Unit => T) (idpath tt) r
+    = path_sigma' (fun _ : Unit => T) (idpath tt) s)
+  : r = s
+  := path_sigma_fiber_square (fun _ : Unit => T) (idpath (idpath tt)) r s w.
+
+(** The proof before exposing its recursor homotopy and zigzag computation. *)
+Definition legacy_filler_homotopic {A B C D : Type}
+  {f f' : A -> C} {g g' : B -> D} (pf : f == f') (pg : g == g')
+  {a a' : A} {b b' : B} (h : zigzag a a' b = zigzag a a' b')
+  : transport011
+      (fun x : C * C => fun y : D * D =>
+        zigzag (fst x) (snd x) (fst y) = zigzag (fst x) (snd x) (snd y))
+      (path_prod' (pf a) (pf a')) (path_prod' (pg b) (pg b'))
+      (join_zigzag_filler f g 1 1 1 1 h)
+    = join_zigzag_filler f' g' 1 1 1 1 h.
+Proof.
+  pose (F := functor_join f g).
+  pose (G := functor_join f' g').
+  pose (bF := functor_join_beta_jglue f g).
+  pose (bG := functor_join_beta_jglue f' g').
+  pose (zF := functor_join_beta_zigzag f g).
+  pose (zG := functor_join_beta_zigzag f' g').
+  pose (hc := fun u v => ((bF u v @@ 1) @ (join_natsq (pf u) (pg v))^)
+    @ (1 @@ bG u v)^).
+  pose (K := Join_ind_FlFr F G
+    (fun u => ap joinl (pf u)) (fun v => ap joinr (pg v)) hc).
+  assert (betaK : forall v, concat_Ap K (zigzag a a' v)
+    = ((zF a a' v @@ 1) @ (zigzag_natsq (pf a) (pf a') (pg v))^)
+      @ (1 @@ zG a a' v)^).
+  { intro v.
+    lhs napply concat_Ap_pV.
+    lhs napply ((1 @@ ap011 (concat_pV_natural _ _ _)
+      (Join_ind_FlFr_beta_jglue F G _ _ hc a v)
+      (Join_ind_FlFr_beta_jglue F G _ _ hc a' v)) @@ 1).
+    lhs napply ((1 @@ concat_pV_natural_change _ _ _ _ _ _ _ _ _) @@ 1).
+    lhs napply naturality_change_compose.
+    exact ((1 @@ zigzag_natsq_pV (pf a) (pf a') (pg v)) @@ 1). }
+  assert (betaN : forall v,
+    ((concat_Ap K (zigzag a a' v))^
+      @ ap (fun q => q @ K (joinl a')) (zF a a' v))
+      @ (zigzag_natsq (pf a) (pf a') (pg v))^
+    = ap (fun q => K (joinl a) @ q) (zG a a' v)).
+  { intro v.
+    lhs napply concat_pp_p.
+    apply moveR_Vp, moveL_pM.
+    exact (betaK v)^. }
+  lhs napply (ap (transport011 _ (path_prod' (pf a) (pf a'))
+    (path_prod' (pg b) (pg b'))) (join_zigzag_filler_refl f g h)).
+  rhs napply (join_zigzag_filler_refl f' g' h).
+  lhs napply (transport_zigzag_filler (pf a) (pf a') (pg b) (pg b')).
+  rhs_V napply (whiskerL_VpL (K (joinl a))
+    ((zG a a' b)^ @ (ap (ap G) h @ zG a a' b'))).
+  napply (ap (cancelL (K (joinl a)) _ _)).
+  lhs napply concat_pp_p.
+  lhs_V napply (inv_V (zigzag_natsq (pf a) (pf a') (pg b)) @@ 1).
+  rhs napply (ap_path_image (ap G) (fun q => K (joinl a) @ q)
+    (zG a a' b) (zG a a' b') h).
+  exact (ap_path_image_natural
+    (fun p : joinl a = joinl a' => ap F p)
+    (fun q => q @ K (joinl a'))
+    (fun p : joinl a = joinl a' => K (joinl a) @ ap G p)
+    (fun p => (concat_Ap K p)^)
+    (zF a a' b) (zF a a' b')
+    (zigzag_natsq (pf a) (pf a') (pg b))^
+    (zigzag_natsq (pf a) (pf a') (pg b'))^
+    (ap (fun q => K (joinl a) @ q) (zG a a' b))
+    (ap (fun q => K (joinl a) @ q) (zG a a' b'))
+    (betaN b) (betaN b') h).
+Defined.
+
+Example filler_witness_unchanged {A B C D : Type}
+  {f f' : A -> C} {g g' : B -> D} (pf : f == f') (pg : g == g')
+  {a a' : A} {b b' : B} (h : zigzag a a' b = zigzag a a' b')
+  : join_zigzag_filler_homotopic pf pg h = legacy_filler_homotopic pf pg h
+  := idpath.

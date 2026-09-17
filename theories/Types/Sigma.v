@@ -232,6 +232,21 @@ Proof.
   reflexivity.
 Defined.
 
+(** Extract the fiber square over a prescribed comparison of base paths. Only comparisons between those base paths are assumed propositional; the fibers and their paths are unrestricted. In particular, this applies over any 1-type. *)
+Definition path_sigma_fiber_square {A : Type} (P : A -> Type)
+  {x y : A} {u : P x} {v : P y} {p q : x = y}
+  `{IsHProp (p = q)} (k : p = q)
+  (r : transport P p u = v) (s : transport P q u = v)
+  (w : path_sigma' P p r = path_sigma' P q s)
+  : transport (fun t => transport P t u = v) k r = s.
+Proof.
+  assert (d : (p;r) = (q;s)
+    :> { t : x = y & transport P t u = v }).
+  { exact (equiv_inj (equiv_path_sigma P (x;u) (y;v)) w). }
+  exact ((ap (fun e => transport (fun t => transport P t u = v) e r)
+    (path_ishprop (pr1_path d) k))^ @ pr2_path d).
+Defined.
+
 (** A specified change of target fiber cancels from a total-space path. *)
 Definition path_sigma_cancel_suffix {A : Type} (P : A -> Type)
   {x y : A} {u : P x} {v w : P y}

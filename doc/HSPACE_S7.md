@@ -610,6 +610,27 @@ maps. Identifying that edge with the mapped balanced comparison, and
 attaching the selected `AL` overlaps in the surviving pasting, remain to
 be proved. This square is not a proof of `Mixed`.
 
+For the remaining input-data-path computation, the original recursor
+homotopy inside `join_zigzag_filler_homotopic` is now exposed as
+`join_zigzag_filler_homotopy`, together with its existing zigzag beta
+computation. Its reflexive scalar-map case is proved equal to the identity
+homotopy by a second join induction, with literal reflexive point clauses;
+`join_zigzag_filler_homotopy_ap` then compares it with application along
+paths of scalar maps. The regression `filler_witness_unchanged` checks by
+`idpath` that factoring these definitions preserves the entire original
+filler-comparison witness. The higher compatibility of the zigzag beta
+computations is still needed to obtain the complete input-data-path
+computation; the pointwise homotopy comparison alone is not that result.
+
+`Types.Sigma.path_sigma_fiber_square` implements extraction over a prescribed
+scalar square: from an equality between two sigma paths, it obtains the
+fiber comparison over a specified `k : p = q`, assuming only that `p = q`
+is a proposition. Thus the 1-truncation of the vertex type can identify
+the projected scalar square with its prescribed counterpart, without
+truncating the fibers or their paths. This applies once the required total
+data square has actually been proved; it does not supply the missing
+postcomposition comparison.
+
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`
 would induce `K` using `adjusted_naturality_comparison`. It must come with
