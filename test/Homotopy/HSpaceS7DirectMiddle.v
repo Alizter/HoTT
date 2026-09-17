@@ -308,6 +308,61 @@ Section InnerDiamondChecks.
       a b s North s t c d.
 End InnerDiamondChecks.
 
+(** The geometric parameter is independent of both rows. Its scalar inverse law changes the anchor, and associativity plus the other inverse law changes the right label; the entire dependent difference is transported along both paths. *)
+Section PastingDifferenceChecks.
+  Universe u.
+  Context `{Univalence}.
+  Local Open Scope mc_mult_scope.
+  Local Open Scope path_scope.
+  Local Existing Instances S7LeftScalar.circle_imaginaroid
+    S7LeftScalar.circle_spheroid S7LeftScalar.circle_associative
+    S7LeftScalar.circle_commutative S7LeftScalar.circle_distropp
+    S7LeftScalar.circle_connected S7LeftScalar.circle_truncated.
+  Local Notation C := (Sphere 1).
+  Context (a b v w t c d : C).
+  Let P := D.Gamma@{u} a b (joinr t).
+  Let bottom := D.face_z@{u} a b (joinr t).
+  Let span (row k z : C) :=
+    (transport_pp P (jglue c z) (jglue k z)^ (bottom c)
+      @ ap (transport P (jglue k z)^)
+        (D.computed_pasting@{u} a b row t c z
+          @ (D.computed_pasting@{u} a b row t k z)^))
+    @ transport_Vp P (jglue k z) (bottom k).
+
+  Example whole_pasting_difference (k : C)
+    : (span v k d)^ @ span w k d
+      = ((transport_Vp P (jglue k d) (bottom k))^
+        @ ap (transport P (jglue k d)^)
+          ((D.computed_pasting@{u} a b v t k d
+              @ (D.computed_pasting@{u} a b v t c d)^)
+            @ (D.computed_pasting@{u} a b w t c d
+              @ (D.computed_pasting@{u} a b w t k d)^)))
+        @ transport_Vp P (jglue k d) (bottom k)
+    := D.computed_pasting_span_difference@{u} a b v w t c k d.
+
+  Example unit_anchor_difference
+    : (span v North d)^ @ span w North d
+      = (span v North ((-d) * c))^ @ span w North ((-d) * c)
+    := D.computed_pasting_unit_anchor_difference@{u} a b v w t c d.
+
+  Example unit_anchor_retains_scalar_transport
+    : D.computed_pasting_unit_anchor_difference@{u} a b v w t c d
+      = transport011
+        (fun k z : C => (span v k d)^ @ span w k d
+          = (span v k z)^ @ span w k z)
+        (cds_conjug_left_inv (X:=psphere 1) ((-d) * conj t))
+        (ap (.* c) ((simple_associativity (f:=sgop_s1) (-d) (conj t) t)^
+          @ (ap ((-d) *.) (cds_conjug_left_inv t) @ right_identity (-d))))
+        (D.computed_pasting_inner_diamond_difference@{u}
+          a b v w ((-d) * conj t) t c d)
+    := idpath.
+
+  (** This also checks that substitution in the complete aligned difference retains the shared proof universe. The explicit source is the original span difference; its target is the expanded four-pasting expression from the theorem. *)
+  Example aligned_whole_difference (k : C)
+    : (span v k ((v * t) * c))^ @ span w k ((v * t) * c) = _
+    := D.computed_pasting_aligned_difference@{u} a b v w t c k.
+End PastingDifferenceChecks.
+
 (** The aligned computation keeps the scalar boundary, the original multiplication square, and the chosen mixed recursor beta. *)
 Section AlignedInnerChecks.
   Universe u.

@@ -366,23 +366,27 @@ Section Normalization.
   Defined.
 
   (** The aligned source square has the actual vertical diamond from the unit-parameter computation. Its recursor comparison includes that computation, rather than discarding it when the geometric square degenerates. *)
+  Let aligned_boundary (s t c : C) := ap (conj s *.)
+      ((simple_associativity (f:=sgop_s1) s t c)^
+        @ ap (s *.) (commutativity (f:=sgop_s1) t c))
+    @ ((simple_associativity (f:=sgop_s1) (conj s) s (c * t)
+      @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
+  Let aligned_square (s t c : C) :=
+    multiplication_square_from_diamond s t c ((s * t) * c)
+      (diamond_v (s * c) ((-((s * t) * c)) * conj t) (aligned_boundary s t c)).
+  Let aligned_square_beta (s t c : C)
+    := multiplication_square_beta s t c ((s * t) * c)
+      @ ap (multiplication_square_from_diamond s t c ((s * t) * c))
+        (S7MiddleScalar.inner_diamond_aligned@{u} s t c).
+
   Section AlignedRightProduct.
     Context (a b s t c : C).
     Let e := (s * t) * c.
-    Let boundary := ap (conj s *.)
-        ((simple_associativity (f:=sgop_s1) s t c)^
-          @ ap (s *.) (commutativity (f:=sgop_s1) t c))
-      @ ((simple_associativity (f:=sgop_s1) (conj s) s (c * t)
-        @ ap (.* (c * t)) (cds_conjug_left_inv s)) @ left_identity (c * t)).
-    Let square := multiplication_square_from_diamond s t c e
-      (diamond_v (s * c) ((-e) * conj t) boundary).
-    Let beta := multiplication_square_beta s t c e
-      @ ap (multiplication_square_from_diamond s t c e)
-        (S7MiddleScalar.inner_diamond_aligned@{u} s t c).
 
     Definition right_product_cell_aligned
       : right_product_cell a b s t c e
-        = right_product_cell_from_square a b s t c e square beta.
+        = right_product_cell_from_square a b s t c e
+          (aligned_square s t c) (aligned_square_beta s t c).
     Proof.
       lhs_V napply (right_product_cell_beta a b s t c e).
       lhs napply (apD_homotopic (nv_beta a b s t) (jglue c e)).
@@ -391,8 +395,9 @@ Section Normalization.
         (fun z => nv_inner a b s t z (W s t z)) (jglue c e)).
       napply (ap (ap01D1 (nv_change a b s t) (jglue c e))).
       napply (moveL_equiv_V' (equiv_concat_Ap_cube (W a b) (W s t)
-        (jglue c e) beta)).
-      exact (equiv_concat_Ap_cube_beta (W a b) (W s t) (jglue c e) beta).
+        (jglue c e) (aligned_square_beta s t c))).
+      exact (equiv_concat_Ap_cube_beta (W a b) (W s t) (jglue c e)
+        (aligned_square_beta s t c)).
     Defined.
   End AlignedRightProduct.
 
@@ -1333,6 +1338,34 @@ Section Normalization.
       @ transport_Vp (Gamma a b (joinr t)) (jglue c' d)
         (face_z a b (joinr t) c').
 
+    (** Cancel the common source transport correction in the whole four-term difference. The remaining target correction is explicit conjugation of the transported four-pasting loop. No associator or product cell is discarded. *)
+    Definition computed_pasting_span_difference (a b v w t c k d : C)
+      : (pasting_span a b v t c k d)^ @ pasting_span a b w t c k d
+        = ((transport_Vp (Gamma a b (joinr t)) (jglue k d)
+              (face_z a b (joinr t) k))^
+          @ ap (transport (Gamma a b (joinr t)) (jglue k d)^)
+            ((computed_pasting a b v t k d
+                @ (computed_pasting a b v t c d)^)
+              @ (computed_pasting a b w t c d
+                @ (computed_pasting a b w t k d)^)))
+          @ transport_Vp (Gamma a b (joinr t)) (jglue k d)
+            (face_z a b (joinr t) k).
+    Proof.
+      unfold pasting_span.
+      lhs napply (inv_pp _ _ @@ 1).
+      lhs napply concat_pp_p.
+      lhs napply (1 @@ concat_p_pp _ _ _).
+      lhs napply concat_p_pp.
+      napply (ap (fun q => (_ @ q) @ _)).
+      lhs napply (inv_pp _ _ @@ 1).
+      lhs napply concat_pp_p.
+      lhs napply (1 @@ concat_V_pp _ _).
+      lhs_V napply ap_Vp.
+      napply (ap (ap (transport (Gamma a b (joinr t)) (jglue k d)^))).
+      exact (inv_pV (computed_pasting a b v t c d)
+        (computed_pasting a b v t k d) @@ 1).
+    Defined.
+
     Definition computed_pasting_inner_diamond (a b v s t c d : C)
       : pasting_span a b v t c (conj s * ((-d) * conj t)) d
         = transport2 (Gamma a b (joinr t))
@@ -1371,6 +1404,62 @@ Section Normalization.
       lhs napply concat_pp_p.
       exact (1 @@ concat_V_pp _ _).
     Defined.
+
+    (** Choose the geometric scalar independently of both rows so that the extra left vertex is the original unit anchor. Transport changes the anchor and final label together, including every occurrence in the complete pastings and their endpoints. This does not align the new label with either selected row. *)
+    Definition computed_pasting_unit_anchor_difference (a b v w t c d : C)
+      : (pasting_span a b v t c North d)^ @ pasting_span a b w t c North d
+        = (pasting_span a b v t c North ((-d) * c))^
+          @ pasting_span a b w t c North ((-d) * c).
+    Proof.
+      refine (transport011
+        (fun k z : C =>
+          (pasting_span a b v t c k d)^ @ pasting_span a b w t c k d
+          = (pasting_span a b v t c k z)^ @ pasting_span a b w t c k z)
+        (cds_conjug_left_inv (X:=psphere 1) ((-d) * conj t)) _
+        (computed_pasting_inner_diamond_difference
+          a b v w ((-d) * conj t) t c d)).
+      napply (ap (.* c)).
+      exact ((simple_associativity (f:=sgop_s1) (-d) (conj t) t)^
+        @ (ap ((-d) *.) (cds_conjug_left_inv t) @ right_identity (-d))).
+    Defined.
+
+    (** Substitute the aligned computation in the entire four-pasting difference, after cancelling its common source correction. The other three right-product squares, all four caps, and all sixteen remaining side cells are retained. The resulting conjugated loop is not asserted to be trivial. *)
+    Section AlignedPastingDifference.
+      Context (a b s w t c k : C).
+      Let e := (s * t) * c.
+      Let V := transport_Vp (Gamma a b (joinr t)) (jglue k e)
+        (face_z a b (joinr t) k).
+      Let back := transport (Gamma a b (joinr t)) (jglue k e)^.
+      Let full_pasting (v x : C)
+        (cell : transport
+          (fun z => yg (joinl a) v t z @ xg a b (joinr t) z
+            = xg a b (joinl v) z @ yg (joinr b) v t z)
+          (jglue x e) (nv a b v t (joinl x)) = nv a b v t (joinr e)) :=
+        ap (transport (Gamma a b (joinr t)) (jglue x e))
+          (computed_cap a b v t x
+            (cd_op_diamond_diagonal (X:=psphere 1) a b v t x))
+        @ paste_cubes a b v t x e (left_product_cell a b v t x e) cell
+          (left_cell a v t x e) (first_right_cell b v t x e)
+          (middle_cell a b v x e).
+
+      Definition computed_pasting_aligned_difference
+        : (pasting_span a b s t c k e)^ @ pasting_span a b w t c k e
+          = (V^ @ ap back
+            ((full_pasting s k (right_product_cell a b s t k e)
+              @ (full_pasting s c (right_product_cell_from_square a b s t c e
+                (aligned_square s t c) (aligned_square_beta s t c)))^)
+            @ (full_pasting w c (right_product_cell a b w t c e)
+              @ (full_pasting w k (right_product_cell a b w t k e))^))) @ V.
+      Proof.
+        lhs napply (computed_pasting_span_difference a b s w t c k e).
+        napply (ap (fun cell => (V^ @ ap back
+          ((full_pasting s k (right_product_cell a b s t k e)
+            @ (full_pasting s c cell)^)
+          @ (full_pasting w c (right_product_cell a b w t c e)
+            @ (full_pasting w k (right_product_cell a b w t k e))^))) @ V)).
+        exact (right_product_cell_aligned a b s t c).
+      Defined.
+    End AlignedPastingDifference.
   End InnerDiamondPasting.
 
   Definition eta_computed_edge (a b s t c d : C)

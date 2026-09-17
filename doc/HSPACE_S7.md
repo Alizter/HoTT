@@ -713,12 +713,36 @@ transport-interchange computation remain present. The underlying generic
 endpoint adjustments. It retains the supplied source square rather than
 identifying fillers by truncation.
 
-Since the correction is independent of `v`,
-`computed_pasting_inner_diamond_difference` cancels it and proves
+Since the correction is independent of the row,
+`computed_pasting_inner_diamond_difference` cancels it for arbitrary
+rows `v,w`, independently of the geometric scalar `s`:
 
 ```text
-S_s(d)^ @ S_North(d) = S_s(e)^ @ S_North(e).
+S_v(d)^ @ S_w(d) = S_v(e)^ @ S_w(e).
 ```
+
+`computed_pasting_unit_anchor_difference` now chooses that geometric scalar
+as `r := (-d)*conj t`. The left anchor and the final right label have explicit
+scalar paths
+
+```text
+conj r * ((-d)*conj t) = North
+(r*t)*c = (-d)*c.
+```
+
+The first is the left inverse law for `r`; the second uses reassociation,
+the left inverse law for `t`, and the right unit law. Applying `transport011`
+to the entire difference gives
+
+```text
+S_v^{c,North}(d)^ @ S_w^{c,North}(d)
+  = S_v^{c,North}((-d)*c)^ @ S_w^{c,North}((-d)*c).
+```
+
+The regression checks this actual dependent transport by `idpath`, including
+both scalar witnesses. Thus choosing the unit anchor is not a further
+geometric obligation. It does, however, trade away alignment with a chosen
+row: `(-d)*c` need not be `(v*t)*c` or `(w*t)*c`.
 
 The original inner multiplication diamond now has a checked computation
 at the aligned label `e`. `S7MiddleScalar.inner_diamond_aligned` identifies
@@ -736,12 +760,48 @@ retains exactly its original square and beta, checked by `idpath`.
 This does not make the whole pasting ratio degenerate: the unit row and
 the additional left vertex still give other multiplication diamonds.
 
-The full surviving pasting-ratio equality is still open. The remaining
-difference at the aligned right label `e` has not been shown to vanish,
-and the additional left vertex `c'` has not been replaced by the original
-unit anchor. Those comparisons must still retain the selected balanced
-cells, cap witnesses, and beta paths. Neither the cap identity nor this
-transfer identity alone establishes `Mixed` or unconditional S7.
+The whole four-term difference now has a checked normal form. For an
+arbitrary left anchor `k` and right label `z`, abbreviate
+
+```text
+P       := Gamma a b (joinr t)
+B(x)    := face_z a b (joinr t) x
+C_v(x)  := computed_pasting a b v t x z
+back    := transport P (jglue k z)^
+V       := transport_Vp P (jglue k z) (B(k))
+R       := (C_v(k) @ C_v(c)^) @ (C_w(c) @ C_w(k)^).
+```
+
+`computed_pasting_span_difference` cancels the common `transport_pp`
+correction and proves
+
+```text
+S_v^{c,k}(z)^ @ S_w^{c,k}(z) = (V^ @ ap back R) @ V.
+```
+
+At `z = (s*t)*c`, `computed_pasting_aligned_difference` substitutes the actual
+`right_product_cell_aligned` comparison into this **whole expression** for
+rows `s,w`. Write `C_s*(c)` for the complete pasting with that one
+right-product cube replaced, including its corrected mixed beta. The result
+has the same conjugation and transport, with
+
+```text
+R* := (C_s(k) @ C_s*(c)^) @ (C_w(c) @ C_w(k)^).
+```
+
+Its construction retains all four caps, the other three right-product cubes,
+and the sixteen other side cells. The aligned input comparison is applied
+inside the complete loop, not used to declare the cube reflexive. At this
+label the remaining vanishing question is precisely `R* = 1`: transport
+along a path and conjugation are equivalences, but neither makes an
+arbitrary loop trivial.
+
+The full surviving pasting-ratio equality is still open. One can now choose
+the unit anchor without a new diamond coherence, or choose alignment with
+the selected row; these choices do not coincide in general. The aligned
+residual loop has not been contracted. Neither the cap identity, the label
+transfer, nor this whole-pasting normalization establishes `Mixed` or
+unconditional S7.
 
 For one **stronger, sufficient strategy**, a comparison
 `Q x y : eta_associator c d x y = eta_associator North d x y`
