@@ -1,9 +1,10 @@
 From HoTT Require Import Basics.
-Require Import Types.Paths Types.Universe.
+Require Import Types.Universe.
 Require Import Classes.interfaces.abstract_algebra.
 Require Import Pointed.Core Pointed.pEquiv Pointed.pSusp.
 Require Import Spaces.Spheres.
-Require Import Homotopy.Suspension Homotopy.HSpace.Core.
+Require Import Homotopy.Suspension.
+Require Import Homotopy.HSpace.Core Homotopy.HSpace.Coherent.
 Require Import Homotopy.HSpaceS1 Homotopy.CayleyDickson.
 Require Import Homotopy.Join.Core Homotopy.Join.JoinSusp.
 
@@ -18,35 +19,11 @@ Local Open Scope path_scope.
 #[export] Instance involutive_negate_s0 : Involutive negate_s0
   := susp_neg_inv Empty.
 
-Definition conjugate_s1_beta_loop
-  : ap (conj : Sphere 1 -> Sphere 1)
-      (merid North @ (merid South)^)
-    = (merid North @ (merid South)^)^.
-Proof.
-  rhs napply inv_pV.
-  napply Susp_rec_beta_zigzag.
-Defined.
-
 #[export] Instance conjugate_s1_left_inverse
-  : LeftInverse sgop_s1 conj North.
-Proof.
-  snapply Sph1_ind.
-  - reflexivity.
-  - transport_paths' (transport_paths_Fl
-      (f:=fun x : Sphere 1 => sgop_s1 (conj x) x)).
-    symmetry.
-    lhs napply concat_p1.
-    pose (l := merid (North : Sphere 0) @ (merid South)^).
-    lhs_V napply (ap011_diag (fun x y => sgop_s1 (conj y) x) l).
-    lhs napply (ap011_is_ap (fun x y => sgop_s1 (conj y) x)).
-    lhs napply (ap_idmap l @@ 1).
-    lhs napply (1 @@ ap_compose conj (fun z => sgop_s1 z North) l).
-    lhs napply (1 @@ ap (ap (fun z => sgop_s1 z North))
-      conjugate_s1_beta_loop).
-    lhs rapply (1 @@ equiv_p1_1q^-1
-      (concat_A1p rightidentity_s1 l^)).
-    apply concat_pV.
-Defined.
+  : LeftInverse sgop_s1 conj North
+  := fun x => ap (fun z => sgop_s1 z x) (susp_neg_stable Empty x)
+      @ @hspace_susp_neg (Sphere 0) hspace_s1 iscoherent_s1 x
+      @ (merid (North : Sphere 0))^.
 
 #[export] Instance factorneg_r_s1
   : FactorNegRight (negate_susp (Sphere 0) negate_s0) sgop_s1.
