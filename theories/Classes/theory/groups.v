@@ -45,6 +45,28 @@ Section inverse_cancellation.
         @ ap (x *.) (right_inverse y)
         @ right_identity x.
 
+  (** Left inverses for an associative unital operation also give right inverses, and reverse products. No set truncation or involutivity is required. *)
+  Definition sgop_inv_op {A : Type} `{op : SgOp A}
+    {e : A} {i : A -> A}
+    `{!Associative op, !LeftIdentity op e, !RightIdentity op e,
+      !LeftInverse op i e} (x y : A)
+    : i (x * y) = i y * i x.
+  Proof.
+    transparent assert (R : (RightInverse op i e)).
+    { intro z.
+      lhs_V rapply (sgop_inv_V_gg (e:=e) (i:=i) (i z) (z * i z)).
+      lhs rapply (ap (i (i z) *.) (sgop_inv_V_gg (e:=e) (i:=i) z (i z))).
+      apply left_inverse. }
+    rhs_V rapply (sgop_inv_V_gg (e:=e) (i:=i) (x * y) (i y * i x)).
+    symmetry.
+    lhs_V rapply (ap (i (x * y) *.)
+      (simple_associativity x y (i y * i x))).
+    lhs rapply (ap (i (x * y) *.)
+      (ap (x *.) (sgop_inv_g_Vg (e:=e) (i:=i) (RightInverse0:=R) y (i x)))).
+    lhs napply (ap (i (x * y) *.) (R x)).
+    apply right_identity.
+  Defined.
+
 End inverse_cancellation.
 
 (** The properties in this section can also be proved without assuming that [G] is set-truncated, but currently typeclass inference can fail to find these results for rings if proved without the [IsGroup] hypothesis. *)
@@ -91,12 +113,7 @@ Section group_props.
 
   Lemma inverse_sg_op x y : (x * y)^ = y^ * x^.
   Proof.
-    apply (group_cancelL (x * y)).
-    lhs rapply right_inverse.
-    symmetry.
-    lhs rapply simple_associativity.
-    lhs rapply (ap (.* x^) (sgop_inv_gg_V _ _)).
-    apply right_inverse.
+    rapply sgop_inv_op.
   Defined.
 
 End group_props.

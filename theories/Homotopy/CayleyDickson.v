@@ -120,6 +120,21 @@ Class CayleyDicksonImaginaroid (A : Type) := {
   cdi_susp_conjug_distr :: DistrOpp hspace_op (conjugate_susp A cdi_negate);
 }.
 
+(** Associativity lets us derive the conjugation distribution law when constructing an imaginaroid. *)
+Definition Build_CayleyDicksonImaginaroid_assoc {A : Type}
+  `{neg : Negate A} `{neg_inv : !Involutive neg}
+  `{hs : IsHSpace (psusp A)}
+  `{factor_neg : !FactorNegRight (negate_susp A neg) (@hspace_op _ hs)}
+  `{conj_inv : !LeftInverse (@hspace_op _ hs) (conjugate_susp A neg) North}
+  `{assoc : !Associative (@hspace_op _ hs)}
+  : CayleyDicksonImaginaroid A.
+Proof.
+  snapply (Build_CayleyDicksonImaginaroid A neg neg_inv hs factor_neg conj_inv).
+  intros x y.
+  exact (@sgop_inv_op _ _ North (conjugate_susp A neg) assoc
+    (@hspace_left_identity _ hs) (@hspace_right_identity _ hs) conj_inv x y).
+Defined.
+
 Instance isunitpreserving_conjugate_susp {A} `(Negate A)
   : @IsUnitPreserving _ _ pt pt (conjugate_susp A _)
   := idpath.
