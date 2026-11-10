@@ -39,14 +39,14 @@
 # Search for "min(20" below for how to restrict this to the start of each file.
 
 # Can be used as
-#   path/to/coqcreplace.py path/tofile.v
+#   path/to/rocqreplace.py path/tofile.v
 # but in order to get the right arguments passed to Rocq, it is better to do
-#   make ROCQ=path/to/coqcreplace.py path/tofile.vo
+#   make ROCQ=path/to/rocqreplace.py path/tofile.vo
 # or
-#   export ROCQ=path/to/coqcreplace.py
+#   export ROCQ=path/to/rocqreplace.py
 #   make file.vo
 # To run on the whole library, avoiding test/ and contrib/, can do:
-#   export ROCQ=path/to/coqcreplace.py
+#   export ROCQ=path/to/rocqreplace.py
 #   make clean; make -j<fill in> theories/HoTT.vo theories/Categories.vo
 # Use "unset ROCQ" when done.
 
@@ -102,7 +102,7 @@ from rocq_wrapper import prepare_command, run_compiler
 def calc_timeout(duration): return max(duration+0.1, duration*1.05)
 
 # Return the real compiler status and elapsed time, or 1111 on timeout.
-def coqc(quiet=False, timeout=60):
+def compile_file(quiet=False, timeout=60):
     return run_compiler(command, quiet=quiet, timeout=timeout)
 
 # If set to a file name, add successfully completed files to the end of
@@ -128,7 +128,7 @@ def replace(vfile):
     excludes = file_excludes
 
     # Ensure that the file builds with no changes:
-    ret, duration1 = coqc(False)
+    ret, duration1 = compile_file(False)
 
     if save_progress:
         try:
@@ -142,7 +142,7 @@ def replace(vfile):
         return ret, changes, attempts, timeouts
 
     # Do a second run to get a more stable duration value:
-    ret2, duration2 = coqc(False)
+    ret2, duration2 = compile_file(False)
     duration = (duration1 + duration2)/2.0
 
     with open(vfile, 'r', encoding="utf-8") as f:
@@ -164,15 +164,15 @@ def replace(vfile):
 
         while True:
             # Note: When start > 0, '^' will never match;  but '$' does match endpos
-            match = coqc_search.search(lines[i], pos=start, endpos=end)
+            match = search_pattern.search(lines[i], pos=start, endpos=end)
             if not match:
                 break
-            lines[i] = replace_match(match, coqc_replace, lines[i])
+            lines[i] = replace_match(match, replacement, lines[i])
             
             attempts += 1
             with open(vfile, 'w', encoding="utf-8") as f:
                 f.write(''.join(lines))
-            ret, newduration = coqc(True, timeout=calc_timeout(duration))
+            ret, newduration = compile_file(True, timeout=calc_timeout(duration))
 
             if ret == 0:
                 start = match.end()
@@ -189,13 +189,13 @@ def replace(vfile):
         os.rename(vfile+'.bak', vfile)
         if attempts > 0:
             # Ensure we are in a consistent state:
-            ret, _ = coqc(True)
+            ret, _ = compile_file(True)
     else:
         # We only need to do an extra run if the last one failed:
         if ret != 0:
             with open(vfile, 'w', encoding="utf-8") as f:
                 f.write(''.join(lines))
-            ret, _ = coqc()
+            ret, _ = compile_file()
 
     if save_progress:
         # We should perform some kind of locking...
@@ -212,11 +212,11 @@ if __name__ == '__main__':
         os.execvp(command[0], command)
     elif len(vfiles) > 1:
         print('!!! Called with more than one vfile???', file=sys.stderr)
-        sys.exit(coqc()[0])
+        sys.exit(compile_file()[0])
 
     # These will give errors if the environment variables are not set:
-    coqc_search = re.compile(os.environ['COQC_SEARCH'])
-    coqc_replace = os.environ['COQC_REPLACE']
+    search_pattern = re.compile(os.environ['COQC_SEARCH'])
+    replacement = os.environ['COQC_REPLACE']
 
     vfile = vfiles[0]
 

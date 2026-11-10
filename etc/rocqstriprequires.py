@@ -5,14 +5,14 @@
 # See the "Limitations" section below.
 
 # Can be used as
-#   path/to/coqcstriprequires.py file.v
+#   path/to/rocqstriprequires.py file.v
 # but in order to get the right arguments passed to Rocq, it is better to do
-#   make ROCQ=path/to/coqcstriprequires.py file.vo
+#   make ROCQ=path/to/rocqstriprequires.py file.vo
 # or
-#   export ROCQ=path/to/coqcstriprequires.py
+#   export ROCQ=path/to/rocqstriprequires.py
 #   make file.vo
 # To run on the whole library, avoiding test/ and contrib/, can do:
-#   export ROCQ=path/to/coqcstriprequires.py
+#   export ROCQ=path/to/rocqstriprequires.py
 #   make clean; make -j<fill in> theories/HoTT.vo theories/Categories.vo
 # Use "unset ROCQ" when done.
 
@@ -80,7 +80,7 @@ def calc_timeout(duration): return max(duration+0.005, duration*1.03)
 #def calc_timeout(duration): return 10
 
 # Return the real compiler status and elapsed time, or 1111 on timeout.
-def coqc(quiet=False, timeout=60):
+def compile_file(quiet=False, timeout=60):
     return run_compiler(command, quiet=quiet, timeout=timeout)
 
 # Join words with spaces, ignoring None.
@@ -153,7 +153,7 @@ def striprequires(vfile):
     timeouts = 0
 
     # Ensure that the file builds with no changes:
-    ret, duration = coqc(False)
+    ret, duration = compile_file(False)
     # Exit immediately if it fails, or if the file is excluded from further treatment.
     if ret != 0 or vfile in file_excludes:
         return ret, changes, attempts, timeouts
@@ -232,7 +232,7 @@ def striprequires(vfile):
 
             with open(vfile, 'w', encoding="utf-8") as f:
                 f.write(''.join(lines))
-            ret, newduration = coqc(True, timeout=calc_timeout(duration))
+            ret, newduration = compile_file(True, timeout=calc_timeout(duration))
 
             if ret == 0:
                 changes += 1
@@ -256,13 +256,13 @@ def striprequires(vfile):
         os.rename(vfile+'.bak', vfile)
         if attempts > 0:
             # Ensure we are in a consistent state:
-            ret, _ = coqc(True)
+            ret, _ = compile_file(True)
     else:
         # We only need to do an extra run if the last one failed:
         if ret != 0:
             with open(vfile, 'w', encoding="utf-8") as f:
                 f.write(''.join(lines))
-            ret, _ = coqc()
+            ret, _ = compile_file()
 
     return ret, changes, attempts, timeouts
 
@@ -274,7 +274,7 @@ if __name__ == '__main__':
         os.execvp(command[0], command)
     elif len(vfiles) > 1:
         print('!!! Called with more than one vfile???', file=sys.stderr)
-        sys.exit(coqc()[0])
+        sys.exit(compile_file()[0])
 
     vfile = vfiles[0]
 

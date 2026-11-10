@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Wrap the Rocq driver to report compiler concurrency on standard error.
-# Use: make -jJ ROCQ=etc/coqccount.sh ...
+# Use: make -jJ ROCQ=etc/rocqcount.sh ...
 # Counts may be smaller for very short jobs or jobs starting simultaneously.
 
 ARGS=("$@")
